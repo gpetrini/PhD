@@ -1,0 +1,880 @@
+#!/usr/bin/env python2.7
+
+__version__ = '2.1.12'  # don't change; set at build-time
+
+# python
+import sys
+import os
+import csv
+import itertools
+import platform
+import logging
+import argparse
+import cPickle as pickle
+
+# qt
+from PyQt4 import QtCore
+from PyQt4 import QtGui
+from PyQt4.QtGui import QMainWindow, QItemSelectionModel,\
+                        QHBoxLayout, QStackedWidget, QWidget, QSortFilterProxyModel,\
+                        QMessageBox,  QComboBox, QSizePolicy, QDialog, QAction, QIcon
+from PyQt4.QtCore import Qt, QObject, QModelIndex, SIGNAL, \
+                         QFileInfo, PYQT_VERSION_STR, QT_VERSION_STR
+
+# acq
+from kirqlib import HistoryItem, KirqHistoryView, KirqHistoryModel, Signature,\
+                    DataSetWidget, DataSetModel, OutcomeComboWidget,\
+                    CausalCondsDelegate, NecConcovGenerator,\
+                    gttFormattedToRawData, concovFormattedToRawData, AnnotationsDialog,\
+                    GttGenerator, SufConcovGeneratorFromGtt, SufConcovGeneratorNoGtt,\
+                    KirqPreferencesDlg, KirqProgressBar, GlobalSettings, areYouSureDlg,\
+                    KirqContextMenu, LineageDialog, KirqFileDialog, CAUSAL_CONDS_STR,\
+                    FREQ_THRESH_STR, CONSIST_THRESH_STR, CONSIST_PROP_STR, \
+                    CONCOV_TYPE_STR, SIMPLIFY_STR, DS_OUTCOME_INDEX_STR, \
+                    DS_FILENAME_STR, DS_CURRENT_INDEX_STR, COV_THRESH_STR, \
+                    CAUSAL_CONDS_STR, DATASET, clearSessionDlg
+
+from acqlib import HistoryItemRole, KIRQ_APP_ICON, errorDlg, \
+                   createDocumentationDialog, deleteLayoutItems, setupLogging
+from libfsqca import QcaError, DatasetFactory
+from dataset import EmptyCellError, DuplicateValueError, DatasetError
+from kirq_ui import Ui_Kirq
+from concov import Concov
+from gtt import Gtt, GttFilterDialog
+
+
+class Kirq( QMainWindow ):
+    """
+        Primary class for the QCA Kirq Application.
+    """
+    def __init__( self, parent=None ):
+        QMainWindow.__init__( self, parent )
+        self.setWindowTitle( 'Kirq' )
+        self.ui = Ui_Kirq()
+        self.ui.setupUi( self )
+        self.setWindowIcon( QIcon(KIRQ_APP_ICON) )
+
+        self.progressBar = KirqProgressBar()
+        self.progressBar.hide()
+        self.ui.statusBar.addPermanentWidget(self.progressBar)
+
+        self.centralWidgetStack = None
+        self._historyView = None
+        self._preferencesDlg = None
+        self._fileDlg = KirqFileDialog(self)
+
+        self.ui.sufReduceToComboBox.addItem("Primitive Expressions")
+        self.ui.sufReduceToComboBox.addItem("Prime Implicants")
+        self.ui.sufReduceToComboBox.addItem("Complex Solution")
+        self.ui.sufReduceToComboBox.addItem("Parsimonious Solution")
+
+        self.setupStackedWidget()
+        self.setupHistoryModelView()
+        self.setupToolbar()
+        self.setupSignalsSlots()
+        self.openSavedState()
+
+    def create(self, datasetFile=None, session=None):
+        try:
+            if session: self.loadSessionFromFile( session )
+            if datasetFile: self.openDataSet( datasetFile );
+        except IOError as e:
+            print >> sys.stderr, sys.argv[0] + ": " + str(e)
+            return sys.exit(1)
+        except DatasetError as e:
+            print >> sys.stderr, sys.argv[0] + ": " + str(e)
+            sys.exit(1)
+        except StopIteration as e:
+            print >> sys.stderr, sys,argv[0] + ": Fatal error parsing csv file."
+            sys.exit(1)
+
+
+    def selectHistoryIndex( self, index ):
+        newIndex = self.historyProxyModel.mapFromSource(index)
+        selection = self._historyView.selectionModel()
+        selection.select( newIndex, QItemSelectionModel.ClearAndSelect )
+        self.centralWidgetStack.setCurrentIndex(
+                self.historyModel.data( index, HistoryItemRole ).widgetIndex() )
+        self._historyView.setExpanded( newIndex, True )
+
+    def setupStackedWidget( self ):
+        """ When we request a new AcqWidget, whether by reducing or loading,
+             we "push" a new widget onto our widget stack so we can always
+             reference it later from the history. """
+        if self.centralWidgetStack:
+            for i in range(self.centralWidgetStack.count()):
+                self.centralWidgetStack.removeWidget( self.centralWidgetStack.widget( i ) )
+        self.centralWidgetStack = QStackedWidget( self )
+        self.ui.centralLayout.addWidget( self.centralWidgetStack )
+
+    def setupHistoryModelView( self ):
+        """ Setup history model view.
+            -- We start with an empty root node(which is never shown).
+               This node handles an unbalanced tree structure which contains
+               all values in our history.
+        """
+        if self._historyView is None:
+            self.rootNode = HistoryItem( 'root', None, None, None )
+        else:
+            deleteLayoutItems( self.ui.historyLayout )
+
+        self._historyView = KirqHistoryView( self.centralWidgetStack, self )
+        self.ui.historyLayout.addWidget( self._historyView )
+        self.historyModel = KirqHistoryModel( self.rootNode, self )
+        self.historyProxyModel = QSortFilterProxyModel( self )
+        self.historyProxyModel.setSourceModel( self.historyModel )
+        self._historyView.setModel( self.historyProxyModel )
+        self._historyView.clicked.connect(self.slotShowItemFromHistory) 
+        self._historyView.customContextMenuRequested.connect(
+                                         self.slotShowHistoryContextMenu)
+
+    def slotHelpAbout( self ):
+        """ Contains information in the About page. """
+        QMessageBox.about( self, "About Kirq",
+                """<b>Kirq</b> v%s
+                <p>QCA Workflow Application.
+                <p>&copy; 2011&ndash;2014 Christopher Reichert and Claude Rubinson
+                <p>Python %s - Qt %s - PyQt %s on %s""" % (
+                    __version__, platform.python_version(),
+                    QT_VERSION_STR, PYQT_VERSION_STR, platform.system()))
+
+    def slotShowDocumentation( self ):
+        # from acqlib
+        createDocumentationDialog( self, 'Kirq' )
+
+    def closeEvent( self, event ):
+        """ Save settings when closing """
+        GlobalSettings.setValue( 'kirq/kirq-geometry', self.saveGeometry() )
+
+        if self.dirtySession():
+            ret = areYouSureDlg()
+            if ret == QMessageBox.Save:
+                self.slotSaveSession()
+            elif ret == QMessageBox.Discard:
+                GlobalSettings.setValue( 'kirq/last-session', '' )
+            elif ret == QMessageBox.Cancel:
+                event.ignore()
+                return
+        else:
+            GlobalSettings.setValue( 'kirq/last-session', '' )
+
+        # safely terminate any active worker threads before closing.
+        try:
+            self.thread.terminate()
+            print >> sys.stderr, "Terminating worker thread for application exit."
+        except:
+            pass
+
+    def openSavedState( self ):
+        """ Load settings when opening the dialog """
+        self.restoreGeometry(
+                GlobalSettings.value( "kirq/kirq-geometry" ).toByteArray() )
+        #ideally we will ask here if they want to load old session.
+        FILE =  GlobalSettings.value( 'kirq/last-session' ).toString()
+        if os.path.exists( FILE ) and not self.dirtySession():
+            self.loadSessionFromFile( FILE )
+        else:
+            self.setDirtySession(False)
+            self.cleanPerspective()
+
+    def dirtySession(self):
+        """ Returns True if there are unsaved changes in this session.
+            Returns false otherwise. """
+        return GlobalSettings.value( 'kirq/dirty-session' ).toBool()
+
+    def setDirtySession(self, dirty):
+        """ Set boolean describing unsaved changes in this session.
+                - True  -- unsaved changes
+                - False -- no unsaved changes """
+        GlobalSettings.setValue( 'kirq/dirty-session', dirty )
+        
+    def setupToolbar( self ):
+        self.outcomeComboBox = OutcomeComboWidget( self )
+        self.outcomeAction = self.ui.toolbar.addWidget( self.outcomeComboBox )
+        self.outcomeAction.setText( 'Outcome' )
+        self.ui.toolbar.addAction( self.ui.actionMultiSort )
+        self.ui.toolbar.addAction( self.ui.actionFilterDlg )
+
+    def setNecConsistSpinBoxValue( self, value ):
+        """ Keeps the NecConsistSpinBox slider
+            in sync with necConsistSlider. """
+        self.ui.necConsistSpinBox.setValue( value / 100.0 )
+
+    def setNecConsistSliderValue( self, value ):
+        """ Keeps the necConsistSlider slider
+            in sync with necConsistSpinBox. """
+        self.ui.necConsistSlider.setValue( int( float( value ) * 100 ))
+
+    def setNecCoverageSpinBoxValue( self, value ):
+        """ Keeps the necCoverageSpinBox slider
+            in sync with necCoverageSlider. """
+        self.ui.necCoverageSpinBox.setValue( value / 100.0 )
+
+    def setNecCoverageSliderValue( self, value ):
+        """ Keeps the necConsistSlider slider
+            in sync with necConsistSpinBox. """
+        self.ui.necCoverageSlider.setValue( int( float( value ) * 100 ))
+
+    def setSufFrequencySpinBoxValue( self, value ):
+        self.ui.sufFrequencySpinBox.setValue( value / 100.0 )
+
+    def setSufConsistencySliderValue( self, value ):
+        self.ui.sufConsistencySlider.setValue( int( float( value ) * 100 ))
+
+    def setSufConsistencySpinBoxValue( self, value ):
+        self.ui.sufConsistencySpinBox.setValue( value / 100.0 )
+
+    def setSufProportionSliderValue( self, value ):
+        self.ui.sufProportionSlider.setValue( int( float( value ) * 100 ))
+
+    def setSufProportionSpinBoxValue( self, value ):
+        self.ui.sufProportionSpinBox.setValue( value / 100.0 )
+
+    def slotMultiSortStateChanged( self, state ):
+        """ Toggle the state of multi-sort. """
+        currentWidget = self.centralWidgetStack.currentWidget()
+        currentWidget.proxyModel.slotMultiSortStateChanged( state )
+
+    def slotOnFilterDlgAction( self ):
+        """ Open the filter dialog when the filterAction is initiated. """
+        # check to make sure the filterDlg exists
+        if isinstance(self.centralWidgetStack.currentWidget(), Gtt):
+            self.centralWidgetStack.currentWidget().showFilterDlg()
+
+    def slotOpenDataSet( self ):
+        """ Open a new data set. """
+        try:
+            self.openDataSet(self._fileDlg.openDatasetDlg())
+        except IOError:
+            return
+
+    def openDataSet( self, FILE ):
+        try:
+            self.progressBar.show()
+            self.progressBar.setRange(1,100)
+            self.currentDataSetFile = FILE
+            self.currentDataSet = DatasetFactory().from_any(str(FILE))
+            self.currentDataSetWidget = DataSetWidget(
+                       self.currentDataSet, self.currentDataSetFile, self)
+            self.addWidgetToView( self.currentDataSetWidget )
+            self.dataSetPerspective()
+            self.progressBar.hide()
+
+        except ValueError as e:
+            errorDlg(str(e))
+            return
+        except QcaError as e:
+            errorDlg(str(e))
+            return
+        except csv.Error as e:
+            errorDlg('CSV Error: %s' % str(e))
+            return
+        except EmptyCellError as e:
+            errorDlg('Empty cell: %s' % str(e))
+            return
+        except DuplicateValueError as e:
+            errorDlg('%s' % str(e))
+            return
+        except DatasetError as e:
+            errorDlg('%s' % str(e))
+            return
+
+    def slotShowPreferences( self ):
+        if self._preferencesDlg is None:
+            self._preferencesDlg = KirqPreferencesDlg()
+        self._preferencesDlg.show()
+
+    def slotExportCurrentTable( self ):
+        """ Save the current table in the view to a file. """
+        self.centralWidgetStack.currentWidget().exportTable()
+
+    def slotPrintCurrentTable( self ):
+        """ Print the current table. """
+        self.centralWidgetStack.currentWidget().printTable()
+
+    def constructGtt( self ):
+        """ Prepare a new gtt creation thread and start it. """
+        self.constructAcqThread(gtt=True)
+
+    def constructSufConcov( self ):
+        """ Create a sufficiency table. First test whether
+            we are reducing it from an existing truth table
+            or data set. """
+        if isinstance( self.centralWidgetStack.currentWidget(), Gtt ):
+            self.constructAcqThread(gtt_suf=True)
+        else:
+            self.constructAcqThread()
+
+    def constructNecConcov( self ):
+        """ Prepare a new concov generation thread and start it. """
+        self.constructAcqThread(nec=True)
+
+    def constructAcqThread(self, gtt=False, gtt_suf=False, nec=False):
+        """ Create an AcqWidget thread and connect it's signals.
+        
+            The actual widget is picked up by the slot which catches
+            the thread. """
+        self.testDataSetInHistory()
+        self.lockedPerspective(True)
+        if not self.currentDataSetWidget.minimalCausalCondsLength():
+            self.dataSetPerspective()
+            return
+        # Suf Concov
+        logging.debug('Causal Conditions pre analaysis: ' + \
+                  str(list(self.currentDataSetWidget.causalConditions())))
+        if gtt_suf:
+            self.thread = SufConcovGeneratorFromGtt( self.currentDataSet,
+                    self.outcomeComboBox.currentIndex() + 1,
+                    self.currentDataSetWidget.causalConditions(),
+                    self.centralWidgetStack.currentWidget().\
+                            getModel().formattedModelData(),
+                    self.ui.sufReduceToComboBox.currentIndex())
+            self.thread.completed.connect(self.catchConcovThread )
+        # Nec Concov
+        elif nec:
+            self.thread = NecConcovGenerator( self.currentDataSet,
+                    self.outcomeComboBox.currentIndex() + 1,
+                    self.currentDataSetWidget.causalConditions(),
+                    self.ui.necConsistSpinBox.value(),
+                    self.ui.necCoverageSpinBox.value() )
+            self.thread.completed.connect(self.catchConcovThread )
+        elif gtt:
+            self.thread = GttGenerator( self.currentDataSet,
+                        self.outcomeComboBox.currentIndex() + 1,
+                        self.currentDataSetWidget.causalConditions(),
+                        self.ui.sufFrequencySpinBox.value(),
+                        self.ui.sufConsistencySpinBox.value(),
+                        self.ui.sufProportionSpinBox.value() )
+            self.thread.completed.connect(self.catchGttThread )
+        else:
+            self.thread = SufConcovGeneratorNoGtt(self.currentDataSet,
+                    self.outcomeComboBox.currentIndex() + 1,
+                    self.currentDataSetWidget.causalConditions(),
+                    self.ui.sufReduceToComboBox.currentIndex(),
+                    self.ui.sufFrequencySpinBox.value(),
+                    self.ui.sufConsistencySpinBox.value(),
+                    self.ui.sufProportionSpinBox.value() )
+            self.thread.contradictionError.connect(self.catchAcqGenerationError)
+            self.thread.completedGtt.connect(self.catchGttThread)
+            self.thread.completed.connect(self.catchConcovThread)
+        # finally
+        self.ui.statusBar.showMessage(
+           'Kirq is constructing an Acq table. This may take a moment.')
+        self.progressBar.show()
+        self.thread.finished.connect(self.progressBar.hide)
+        self.thread.finished.connect(self.lockedPerspective)
+        self.thread.error.connect(self.catchAcqGenerationError)
+        self.thread.statusBarMessage.connect(self.ui.statusBar.showMessage)
+        self.thread.begin()
+
+    def catchAcqGenerationError(self, err):
+        errorDlg( err )
+        self.ui.statusBar.showMessage('')
+
+    def catchConcovThread(self, concovData, simplify=None,
+            causalConds=None, consistThresh=None, covThresh=None,
+            consistProp=None, freqThresh=None):
+        """ Catches any concov generation threads when they have finished. """
+        concov = Concov( concovData, self )
+        self.ui.statusBar.showMessage('')
+        if simplify is None:
+            # nec concov
+            signatureDict = {
+                    DS_OUTCOME_INDEX_STR: self.outcomeComboBox.currentText(),
+                    CAUSAL_CONDS_STR: list(causalConds),
+                    CONSIST_THRESH_STR: consistThresh,
+                    COV_THRESH_STR: covThresh,
+                    CONCOV_TYPE_STR: 'nec',
+                    DATASET: self.currentDataSetWidget.getDataSet()}
+            historyString = 'concov_nec'
+            self.concovPerspective( 2, signatureDict[CONSIST_THRESH_STR],
+                                   signatureDict[COV_THRESH_STR] )
+        else:  # suf concov
+            signatureDict = {
+                    DS_OUTCOME_INDEX_STR: self.outcomeComboBox.currentText(),
+                    CAUSAL_CONDS_STR: list(causalConds),
+                    SIMPLIFY_STR: simplify,
+                    CONCOV_TYPE_STR: 'suf',
+                    DATASET: self.currentDataSetWidget.getDataSet()}
+            historyString = 'concov_suf'
+            self.concovPerspective( signatureDict[SIMPLIFY_STR] )
+        signature = Signature( signatureDict, hash(concov) )
+        self.addItemToHistory( historyString, signature,
+                              self.centralWidgetStack.count(), concov)
+
+    def catchGttThread( self, gttData, causalConds, frequencyThreshold,
+                        consistencyThreshold, consistencyProportion ):
+        """ Catch the gtt thread when it has signalled it is finished. """
+        gtt = Gtt( gttData, self )
+        gttSignatureDict = {
+                DS_OUTCOME_INDEX_STR: self.outcomeComboBox.currentText(),
+                CAUSAL_CONDS_STR:list(causalConds),
+                FREQ_THRESH_STR:frequencyThreshold,
+                CONSIST_THRESH_STR:consistencyThreshold,
+                CONSIST_PROP_STR:consistencyProportion,
+                DATASET: self.currentDataSetWidget.getDataSet()}
+        gttSignature = Signature( gttSignatureDict, hash( gtt ))
+
+        # if history allows us to add then add the widget to the view
+        self.addItemToHistory( 'gtt_suf', gttSignature,
+                                self.centralWidgetStack.count(), gtt )
+        self.gttPerspective( gtt, gttSignatureDict[FREQ_THRESH_STR],
+                             gttSignatureDict[CONSIST_THRESH_STR],
+                             gttSignatureDict[CONSIST_PROP_STR] )
+        self.ui.statusBar.showMessage('')
+
+    def testDataSetInHistory( self ):
+        fileName = QFileInfo( self.currentDataSetFile ).baseName() + '/' +\
+                              self.outcomeComboBox.currentText()
+        # create a new data set widget
+        dataSetSignatureDict = {
+                DS_OUTCOME_INDEX_STR: self.outcomeComboBox.currentText(),
+                DS_FILENAME_STR: fileName,
+                CAUSAL_CONDS_STR: self.currentDataSetWidget.causalConditions(),
+                DATASET: self.currentDataSetWidget.getDataSet()     }
+        dataSetSignature = Signature( dataSetSignatureDict, hash( fileName ) )
+
+
+        for signature in [ x.signature() for x in self.rootNode.children ]:
+            
+            if signature == dataSetSignature:
+               return
+
+        self.currentDataSetWidget = self.currentDataSetWidget.getCopy( self )
+        self.addWidgetToView( self.currentDataSetWidget )
+        self.addItemToHistory( fileName, dataSetSignature,
+                              self.centralWidgetStack.currentIndex(),
+                              self.currentDataSetWidget )
+
+    def slotShowItemFromHistory( self, index ):
+        """ Move widget at index to the top of the centralWidgetStack. """
+        historyItem = self.historyModel.data(
+                self.historyProxyModel.mapToSource( index ), HistoryItemRole )
+        widget = self.centralWidgetStack.widget( historyItem.widgetIndex() )
+        self.centralWidgetStack.setCurrentIndex( historyItem.widgetIndex() )
+        signatureData = historyItem.signature().signatureData()
+        if isinstance( widget, Concov ):
+            if signatureData[CONCOV_TYPE_STR] is 'nec':
+                # load the thresholds
+                self.concovPerspective( 2, signatureData[CONSIST_THRESH_STR],
+                                       signatureData[COV_THRESH_STR] )
+            else:
+                # if we have a suf concov just load the simplification
+                self.concovPerspective( signatureData[SIMPLIFY_STR] )
+
+        elif isinstance( widget, Gtt ):
+            self.gttPerspective( widget, signatureData[FREQ_THRESH_STR],
+                                 signatureData[CONSIST_THRESH_STR],
+                                 signatureData[CONSIST_PROP_STR] )
+        else:
+            self.currentDataSetFile = widget.dataSetFile
+            self.currentDataSetWidget = widget
+            self.currentDataSetWidget.setCausalConditions(signatureData[CAUSAL_CONDS_STR])
+            self.currentDataSet = widget.dataSet
+            self.dataSetPerspective()
+            self.outcomeComboBox.setCurrentIndex(
+               self.outcomeComboBox.findText(
+                  historyItem.signature().signatureData()[DS_OUTCOME_INDEX_STR]))
+
+    def addWidgetToView( self, viewWidget  ):
+        """ Add a new widget to the view and immediately show it.
+            -- handle setting it up in the model. """
+        self.centralWidgetStack.addWidget( viewWidget )
+        self.centralWidgetStack.setCurrentWidget( viewWidget )
+
+    def addItemToHistory( self, tablename, signature, widgetIndex, widget ):
+        newHistoryItem = HistoryItem( tablename, signature, widgetIndex )
+
+        parentWidgetIndex = self.centralWidgetStack.currentIndex()
+        fileName = QFileInfo( self.currentDataSetFile ).baseName() + '/' + \
+                              self.outcomeComboBox.currentText()
+        if isinstance(self.centralWidgetStack.currentWidget(), DataSetWidget):
+            # find parent data set.
+            for dataset in self.rootNode.children:
+                if dataset.signature() == signature:
+                    parentWidgetIndex = item.widgetIndex()
+
+        if self.historyModel.addItem(newHistoryItem, parentWidgetIndex):
+            self.setDirtySession(True)
+            self.addWidgetToView( widget )
+
+    def slotLoadSession( self ):
+        """ Load a *.kirq session file. """
+        if self.dirtySession():
+            ret = areYouSureDlg()
+            if ret == QMessageBox.Save:
+                self.slotSaveSession()
+            elif ret == QMessageBox.Cancel:
+                return
+        try:
+            self.loadSessionFromFile(self._fileDlg.openSessionDlg())
+        except IOError:
+            pass
+
+    def loadSessionFromFile( self, fileName ):
+        with open( fileName, 'r' ) as f:
+            # load the pickled tuple into the appropriate data items
+            try:
+                outcome, currentDataSetFile, rootNode, \
+                currentDataSet, centralWidgetStack = pickle.load( f )
+            except Exception, e:
+                errorDlg('Corrupt or invalid session file: %s' % str(e))
+                self.cleanPerspective()
+                return
+
+        # TODO: Creating a new central Widget stack was a workaround for losing references
+        #       to widgets that were in it when trying to delete them all.
+        #       Would it be preferrable to not creating a new stacked widget?
+        self._createNewWidgetStack( centralWidgetStack )
+        deleteLayoutItems( self.ui.centralLayout )
+        self.ui.centralLayout.addWidget( self.centralWidgetStack )
+
+        self.currentDataSetFile = currentDataSetFile
+        self.currentDataSet = currentDataSet
+        self.rootNode = rootNode
+        self.centralWidgetStack.setCurrentIndex( 0 )
+        self.currentDataSetWidget = self.centralWidgetStack.currentWidget()
+
+        self.setupHistoryModelView()
+        self.historyModel.highlightIndex.connect(self.selectHistoryIndex)
+
+        self.dataSetPerspective()
+        self.outcomeComboBox.setCurrentIndex( outcome )
+
+    def _createNewWidgetStack( self, centralWidgetStack ):
+        self.centralWidgetStack = QStackedWidget( self )
+        for widget in centralWidgetStack:
+            if widget[0] == 'DataSetWidget':
+                oldDataSetWidget = DataSetWidget( widget[1], widget[2] )
+                oldDataSetWidget.setCausalConditions(widget[3])
+
+                # get copy helps us retain causal conditions between sessions
+                newDataSetWidget = oldDataSetWidget.getCopy( None )
+                self.centralWidgetStack.addWidget( newDataSetWidget )
+            elif widget[0] == 'Gtt':
+                gtt = Gtt( widget[1] )
+                self.centralWidgetStack.addWidget( gtt )
+                self.gttPerspective( gtt )
+            elif widget[0] == 'Concov':
+                concov = Concov( widget[1] )
+                self.centralWidgetStack.addWidget( concov )
+                self.concovPerspective()
+
+    def slotSaveSession( self ):
+        FILE = self._fileDlg.saveSessionDlg()
+        try:
+            GlobalSettings.setValue( 'kirq/last-session', FILE )
+            with open( FILE,'w' ) as f:
+                pickle.dump( self.createSaveData(),f )
+        except IOError:
+            return
+        self.setDirtySession(False)
+
+    def createSaveData( self ):
+        objs = []
+        # make sure that the loaded stack widget
+        # items retain their place in history
+        objs.append( self.outcomeComboBox.currentIndex() )
+        objs.append( self.currentDataSetFile )
+        objs.append( self.rootNode )
+        objs.append( self.currentDataSet )
+        centralWidgetStack = []
+
+        for i in range( self.centralWidgetStack.count() ):
+            className = type(self.centralWidgetStack.widget( i )).__name__
+
+            # append the appropriate tuple for the appropriate class to
+            # preserve its data as well as history index.
+            if className == 'DataSetWidget':
+                centralWidgetStack.append( (className,
+                               self.centralWidgetStack.widget( i ).dataSet,
+                               self.centralWidgetStack.widget( i ).dataSetFile,
+                               self.currentDataSetWidget.causalConditions(), ))
+            elif className == 'Gtt':
+                gttData = self.centralWidgetStack.widget( i ).getModel().formattedModelData()
+                centralWidgetStack.append( (className, gttFormattedToRawData( gttData) ) )
+
+            elif className == 'Concov':
+                concov = self.centralWidgetStack.widget( i )
+                concovHeaderData = concov.getModel().formattedHeaderData()
+                concovData = concov.getModel().formattedTableData()
+                concovSolution = concov.solutionModel.formattedTableData()
+                newConcovData = concovFormattedToRawData( concovHeaderData,
+                                                          concovData,
+                                                          concovSolution )
+                centralWidgetStack.append( (className, newConcovData) )
+
+        objs.append( centralWidgetStack )
+        return objs
+
+    def slotClearSession( self ):
+        """ Make a completely clean session. """
+        if len(self.rootNode.children) > 0:
+            ret = clearSessionDlg()
+            if ret == QMessageBox.Save:
+                self.slotSaveSession()
+            elif ret == QMessageBox.Discard:
+                pass
+            elif ret == QMessageBox.Cancel:
+                event.ignore()
+                return
+
+        deleteLayoutItems( self.ui.centralLayout )
+        self.rootNode = HistoryItem( 'root', None, None, None )
+        #TODO: the the order of
+        #       -self.setupStackedWidget() &
+        #       -self.setupHitstoryModelView( self.rootNode ) 
+        # should not matter. References that are passed to other objects
+        # like the view are becoming invalidated if done the other way around.
+        self.setupStackedWidget()
+        self.setupHistoryModelView()
+        self.setDirtySession(False)
+        self.cleanPerspective()
+        self.historyModel.highlightIndex.connect(self.selectHistoryIndex)
+
+    def slotShowHistoryContextMenu( self, pos ):
+        """ Right click options to manipulate history items. """
+        if not self._historyView.locked():
+            _historyContextMenu = KirqContextMenu(self)
+            _historyContextMenu.historyDeleteAction.triggered.connect(
+                                                        self.removeHistoryItem)
+            _historyContextMenu.historyAnnotateAction.triggered.connect(
+                                                      self.annotateHistoryItem)
+            _historyContextMenu.historyLineageAction.triggered.connect(
+                                                      self.slotShowLineage)
+            _historyContextMenu.exec_(self._historyView.mapToGlobal( pos ))
+
+
+    def removeHistoryItem( self ):
+        index = self._historyView.selectedIndexes()[0]
+
+        historyItem = self.historyModel.data(
+                self.historyProxyModel.mapToSource( index ), HistoryItemRole )
+
+        # _possible_ values as opposed to real values
+        for child in historyItem.children:
+            self.centralWidgetStack.removeWidget(
+                    self.centralWidgetStack.widget( child.widgetStackIndex-1 ))
+            for child2 in child.children:
+                self.centralWidgetStack.removeWidget(
+                        self.centralWidgetStack.widget( child2.widgetStackIndex-1 ))
+        self.centralWidgetStack.removeWidget(
+                self.centralWidgetStack.widget( historyItem.widgetStackIndex ))
+
+        self.historyModel.removeHistoryItem(
+                self.historyProxyModel.mapToSource( index ), historyItem )
+
+        widget = self.centralWidgetStack.currentWidget()
+        if isinstance( widget, DataSetWidget ):
+            self.dataSetPerspective()
+        if isinstance( widget, Gtt ):
+            self.gttPerspective( widget )
+        if isinstance( widget, Concov ):
+            self.concovPerspective()
+
+    def slotShowLineage(self):
+        index = self._historyView.selectedIndexes()[0]
+        historyItem = self.historyModel.data(
+            self.historyProxyModel.mapToSource( index ), HistoryItemRole)
+        self.lineageDlg = LineageDialog(historyItem.allSignatures())
+        self.lineageDlg.setWindowTitle( historyItem.name() + ' - lineage ' )
+        self.lineageDlg.show()
+
+    def annotateHistoryItem( self ):
+        index = self._historyView.selectedIndexes()[0]
+        historyItem = self.historyModel.data(
+            self.historyProxyModel.mapToSource( index ), HistoryItemRole)
+
+        annotationDlg = AnnotationsDialog( historyItem.annotation() )
+        annotationDlg.setWindowTitle( historyItem.name() + ' - annotation ' )
+        if annotationDlg.exec_() == QDialog.Accepted:
+            historyItem.setAnnotation( annotationDlg.annotation() )
+
+    def cleanPerspective( self ):
+        """ Defines a fresh Kirq session with no widgets open. """
+        self.ui.necReduceButton.setEnabled( False )
+        self.ui.necConsistSpinBox.setEnabled( False )
+        self.ui.necConsistSlider.setEnabled( False )
+        self.ui.necCoverageSpinBox.setEnabled( False )
+        self.ui.necCoverageSlider.setEnabled( False )
+        self.ui.sufReduceButton.setEnabled( False )
+        self.ui.sufGenerateGttButton.setEnabled( False )
+        self.ui.sufFrequencySpinBox.setEnabled( False )
+        self.ui.sufConsistencySlider.setEnabled( False )
+        self.ui.sufConsistencySpinBox.setEnabled( False )
+        self.ui.sufProportionSlider.setEnabled( False )
+        self.ui.sufProportionSpinBox.setEnabled( False )
+        self.ui.sufReduceToComboBox.setEnabled( False )
+        self.ui.actionMultiSort.setEnabled( False )
+        self.ui.actionFilterDlg.setEnabled( False )
+        self.ui.necReduceButton.setEnabled( False )
+        self.ui.necConsistSpinBox.setEnabled( False )
+        self.ui.necConsistSlider.setEnabled( False )
+        self.ui.necCoverageSpinBox.setEnabled( False )
+        self.ui.necCoverageSlider.setEnabled( False )
+        self.ui.actionMultiSort.setVisible( False )
+        self.ui.actionFilterDlg.setVisible( False )
+        self.ui.actionSaveSession.setEnabled( False )
+        self.outcomeAction.setVisible( False )
+        self.ui.actionExportTable.setEnabled( False )
+        self.ui.actionPrintTable.setEnabled( False )
+        self.ui.actionClearSession.setEnabled( False )
+
+    def dataSetPerspective( self ):
+        self.ui.necReduceButton.setEnabled( True )
+        self.ui.necConsistSpinBox.setEnabled( True )
+        self.ui.necConsistSlider.setEnabled( True )
+        self.ui.necCoverageSpinBox.setEnabled( True )
+        self.ui.necCoverageSlider.setEnabled( True )
+        self.ui.sufReduceButton.setEnabled( True )
+        self.ui.sufGenerateGttButton.setEnabled( True )
+        self.ui.sufFrequencySpinBox.setEnabled( True )
+        self.ui.sufConsistencySlider.setEnabled( True )
+        self.ui.sufConsistencySpinBox.setEnabled( True )
+        self.ui.sufProportionSlider.setEnabled( True )
+        self.ui.sufProportionSpinBox.setEnabled( True )
+        self.ui.sufReduceToComboBox.setEnabled( True )
+
+        self.outcomeComboBox.setupOptions(
+                self.centralWidgetStack.currentWidget().
+                        getModel().formattedTableData()[0][1:] )
+        self.outcomeAction.setVisible( True )
+        self.ui.actionMultiSort.setVisible( False )
+        self.ui.actionFilterDlg.setVisible( False )
+        self.ui.actionExportTable.setEnabled( False )
+        self.ui.actionPrintTable.setEnabled( False )
+        self.ui.actionSaveSession.setEnabled(not self._historyView.locked())
+        self.ui.actionLoadSession.setEnabled(not self._historyView.locked())
+        self.ui.actionClearSession.setEnabled(not self._historyView.locked())
+
+
+    def gttPerspective( self, gtt, freqThresh=1.00,
+                        consistThresh=0.90, propThresh=1.00 ):
+        self.ui.sufFrequencySpinBox.setValue( freqThresh )
+        self.ui.sufFrequencySpinBox.setEnabled( False )
+        self.ui.sufConsistencySpinBox.setValue( consistThresh )
+        self.ui.sufConsistencySpinBox.setEnabled( False )
+        self.ui.sufConsistencySlider.setEnabled( False )
+        self.ui.sufProportionSpinBox.setValue( propThresh )
+        self.ui.sufProportionSpinBox.setEnabled( False )
+        self.ui.sufProportionSlider.setEnabled( False )
+        self.ui.actionMultiSort.setEnabled( True )
+        self.ui.actionFilterDlg.setEnabled( True )
+        self.ui.necReduceButton.setEnabled( False )
+        self.ui.necConsistSpinBox.setEnabled( False )
+        self.ui.necConsistSlider.setEnabled( False )
+        self.ui.necCoverageSpinBox.setEnabled( False )
+        self.ui.necCoverageSlider.setEnabled( False )
+        self.ui.sufGenerateGttButton.setEnabled( False )
+        self.ui.sufReduceButton.setEnabled( True )
+        self.ui.actionMultiSort.setChecked( gtt.proxyModel.multiSortEnabled )
+        self.ui.actionMultiSort.setVisible( True )
+        self.ui.actionFilterDlg.setVisible( True )
+        self.ui.sufReduceToComboBox.setEnabled( True )
+        self.outcomeAction.setVisible( False )
+        self.ui.actionExportTable.setEnabled( True )
+        self.ui.actionPrintTable.setEnabled( True )
+        self.ui.actionSaveSession.setEnabled(not self._historyView.locked())
+        self.ui.actionLoadSession.setEnabled(not self._historyView.locked())
+        self.ui.actionClearSession.setEnabled(not self._historyView.locked())
+
+
+    def concovPerspective( self, simplification=2,
+                           necConsistThresh=0.9, necCovThresh=0.5 ):
+        self.ui.sufReduceToComboBox.setCurrentIndex( simplification )
+        self.ui.necConsistSpinBox.setValue( necConsistThresh )
+        self.ui.necCoverageSpinBox.setValue( necCovThresh )
+
+        self.ui.actionMultiSort.setEnabled( True )
+        self.ui.actionFilterDlg.setEnabled( False )
+        self.ui.sufReduceButton.setEnabled( False )
+        self.ui.sufGenerateGttButton.setEnabled( False )
+        self.ui.sufFrequencySpinBox.setEnabled( False )
+        self.ui.sufConsistencySlider.setEnabled( False )
+        self.ui.sufConsistencySpinBox.setEnabled( False )
+        self.ui.sufProportionSlider.setEnabled( False )
+        self.ui.sufProportionSpinBox.setEnabled( False )
+        self.ui.sufReduceToComboBox.setEnabled( False )
+        self.ui.necReduceButton.setEnabled( False )
+        self.ui.necConsistSpinBox.setEnabled( False )
+        self.ui.necConsistSlider.setEnabled( False )
+        self.ui.necCoverageSpinBox.setEnabled( False )
+        self.ui.necCoverageSlider.setEnabled( False )
+        self.outcomeAction.setVisible( False )
+        self.ui.actionMultiSort.setVisible( True )
+        self.ui.actionFilterDlg.setVisible( False )
+        self.ui.actionExportTable.setEnabled( True )
+        self.ui.actionPrintTable.setEnabled( True )
+        self.ui.actionSaveSession.setEnabled(not self._historyView.locked())
+        self.ui.actionLoadSession.setEnabled(not self._historyView.locked())
+        self.ui.actionClearSession.setEnabled(not self._historyView.locked())
+
+    def lockedPerspective(self, lock=False):
+        """ Lockdown Kirq from specific state changes while executing any
+            table generation threads. """
+        self.ui.actionSaveSession.setEnabled(not lock)
+        self.ui.actionLoadSession.setEnabled(not lock)
+        self.ui.actionClearSession.setEnabled(not lock)
+        self._historyView.setLocked(lock)
+
+    def setupSignalsSlots( self ):
+
+        self.ui.necReduceButton.clicked.connect(self.constructNecConcov)
+        self.ui.sufReduceButton.clicked.connect(self.constructSufConcov)                            
+        self.ui.sufGenerateGttButton.clicked.connect(self.constructGtt)
+        self.ui.actionOpenDataSet.triggered.connect(self.slotOpenDataSet)
+        self.ui.actionPreferences.triggered.connect(self.slotShowPreferences)
+        self.ui.necConsistSpinBox.valueChanged.connect(self.setNecConsistSliderValue)
+        self.ui.necConsistSlider.valueChanged.connect(self.setNecConsistSpinBoxValue)
+        self.ui.necCoverageSpinBox.valueChanged.connect(self.setNecCoverageSliderValue)
+        self.ui.necCoverageSlider.valueChanged.connect(self.setNecCoverageSpinBoxValue)
+        self.ui.sufConsistencySlider.valueChanged.connect(self.setSufConsistencySpinBoxValue)
+        self.ui.sufConsistencySpinBox.valueChanged.connect(self.setSufConsistencySliderValue)
+        self.ui.sufProportionSlider.valueChanged.connect(self.setSufProportionSpinBoxValue)
+        self.ui.sufProportionSpinBox.valueChanged.connect(self.setSufProportionSliderValue)
+        self.ui.actionFilterDlg.triggered.connect(self.slotOnFilterDlgAction)
+        self.ui.actionMultiSort.toggled.connect(self.slotMultiSortStateChanged)
+        self.ui.historySearchComboBox.editTextChanged.connect(self.historyProxyModel.setFilterFixedString)
+        self.ui.actionExit.triggered.connect(self.close)
+        self.ui.actionAbout.triggered.connect(self.slotHelpAbout)
+        self.ui.actionDocumentation.triggered.connect(self.slotShowDocumentation)
+        self.historyModel.highlightIndex.connect(self.selectHistoryIndex)
+        self.ui.actionSaveSession.triggered.connect(self.slotSaveSession)
+        self.ui.actionLoadSession.triggered.connect(self.slotLoadSession)
+        self.ui.actionClearSession.triggered.connect(self.slotClearSession)
+        self.ui.actionExportTable.triggered.connect(self.slotExportCurrentTable)
+        self.ui.actionPrintTable.triggered.connect(self.slotPrintCurrentTable)
+                                      
+def main():
+    app = QtGui.QApplication( sys.argv )
+    app.setOrganizationName("Grundrisse")
+    app.setOrganizationDomain("grundrisse.org")
+    app.setApplicationName("Kirq")
+
+    # command line argument parser
+    parser = argparse.ArgumentParser( description='Conduct qualitative comparative analysis.' )
+    parser.add_argument('-g', '--debug', action='store_true',  dest='debug',
+                        help='Run Kirq in debug mode (Developer tool).', default=False)
+    parser.add_argument( '-y', '--input', metavar='FILE', dest='datasetFile',
+                         help='read dataset from FILE; when FILE is -, read standard input' )
+    parser.add_argument( '-s', '--session', metavar='FILE', dest='sessionFile',
+                         help='read session from FILE' )
+    args = parser.parse_args()
+   
+    datasetFile = args.datasetFile
+    sessionFile = args.sessionFile
+
+    datasetFile = args.datasetFile
+    setupLogging('KIRQ', args.debug)
+
+    datasetFile = '/dev/stdin' if datasetFile=='-' else datasetFile
+
+    kirq = Kirq()
+    kirq.show()
+    kirq.create(datasetFile, sessionFile)
+
+    sys.exit( app.exec_() )
+
+if __name__ == "__main__":
+    main()
+

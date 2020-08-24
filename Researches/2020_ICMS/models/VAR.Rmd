@@ -1,0 +1,246 @@
+---
+title: "VAR"
+author: "gpetrini"
+date: "19/05/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+    echo = TRUE,
+    message = FALSE,
+    warning = FALSE
+    )
+```
+
+# Pacotes
+
+```{r}
+library(MASS)
+library(urca)
+library(MTS)  # pacote estatístico geral
+library(vars)
+library(lmtest)
+library(xts)
+library(dplyr)
+```
+
+
+# Dados
+
+```{r}
+df <- read.csv(
+    "../data/raw_data.csv", 
+    encoding="UTF-8", 
+    row.names=1, 
+    stringsAsFactors=FALSE
+    )
+df <- df[,c( # Subset das colunas com ordenação de Choleski
+    "Exportações.FOB",
+    "Taxa.de.câmbio",
+    "Importações.FOB",
+    "Índice.da.Produção.Física.Industrial.com.ajuste.sazonal..Média.2012...100.",
+    "ICMS.Nominal.milhões.de.reais"
+    )]
+colnames(df) <- c( # Encurtando nomes
+    "Exportacoes",
+    "Cambio",
+    "Importacoes",
+    "Industrial",
+    "ICMS"
+)
+df <- xts::as.xts(df)
+df %>% head() %>% knitr::kable()
+```
+
+# Estimação
+
+## Ordem do modelo
+
+```{r ordem}
+vars::VARselect(
+    df %>% log() %>%  diff() %>% na.omit(), 
+    lag.max = 15, 
+    type = 'const'
+    )$selection -> ordem
+ordem %>% knitr::kable(col.names = "Ordem do modelo")
+```
+
+
+```{r estimacao}
+vars::VAR(
+    df %>% log() %>%  diff() %>% na.omit(),
+    type = 'const', 
+    season = 12, 
+    lag.max = 15,
+    ic = "SC"
+    ) -> modelo
+modelo %>% summary()
+```
+
+## Respolta ao Impulso
+
+```{r}
+vars::irf(modelo) %>% plot()
+```
+
+
+## FEVD
+
+```{r}
+vars::fevd(modelo) %>% plot()
+```
+
+
+# Pós-Estimação
+
+
+```{r}
+roots(modelo) %>% knitr::kable(col.names = "Raizes")
+stability(modelo, type = c("OLS-CUSUM"), h=0.15)
+```
+
+## Resíduos
+
+### Correlograma
+
+```{r}
+for (serie in colnames(df)) {
+    astsa::acf2(
+        residuals(modelo)[,serie], 
+        main = serie
+    )
+    forecast::checkresiduals(
+        residuals(modelo)[,serie], 
+        main = serie
+        )
+}
+```
+
+### Autocorrelação
+
+```{r Portmanteau}
+vars::serial.test(
+    modelo,
+    lags.pt = 15,
+    type = 'PT.asymptotic'
+    )
+```
+
+
+```{r LjungBox}
+vars::serial.test(
+    modelo,
+    lags.pt = 15,
+    type = 'PT.adjusted'
+    )
+```
+
+```{r LM}
+vars::serial.test(
+    modelo,
+    lags.pt = 15,
+    type = 'BG'
+    )
+```
+
+### Normalidade
+
+
+```{r JBMultivariado}
+vars::normality.test(
+    modelo, multivariate.only = FALSE)
+```
+
+
+# Previsão
+
+```{r}
+vars::fanchart(predict(
+    modelo,
+    n.ahead = 15, 
+    ci=0.95
+    ))
+```
+
+
+```{r}
+predict(
+    modelo, 
+    n.ahead = 15, 
+    ci=0.95
+    )$fcst$ICMS %>% plot.ts(
+        main = "Previsão ICMS", 
+        xlab = "",
+        ylab = "R$ Milhões"
+    )
+```
+
+
+# Comparação
+
+```{r comparacao}
+comparacao <- data.frame(
+    matrix(ncol = 5, nrow = 4)
+)
+colnames(comparacao) <- c(
+    "Critérios",
+    "Portmanteau_pvalue",
+    "LjungBox_pvalue",
+    "BG_pvalue",
+    "JB_pvalue"
+)
+
+comparacao$Critérios <- c(
+    "AIC(n)",
+    "HQ(n)",
+    "SC(n)",
+    "FPE(n)"
+)
+
+for (i in 1:length(ordem)) {
+    print(paste0("Estimando para VAR(p = ", ordem[i], ")"), quote = FALSE)
+    vars::VAR(
+    df %>% log() %>%  diff() %>% na.omit(),
+    type = 'const', 
+    season = 12, 
+    p = ordem[i] %>% as.numeric()
+    ) -> modelo
+    astsa::acf2(
+        residuals(modelo)[,"ICMS"], 
+        main = "ICMS"
+    )
+    forecast::checkresiduals(
+        residuals(modelo)[,"ICMS"], 
+        main = "ICMS"
+        )
+    
+    vars::serial.test(
+    modelo,
+    lags.pt = 15,
+    type = 'PT.asymptotic'
+    ) -> teste
+    comparacao$Portmanteau_pvalue[i]  <- teste$serial$p.value  %>% as.numeric()
+    
+    vars::serial.test(
+    modelo,
+    lags.pt = 15,
+    type = 'PT.adjusted'
+    ) -> teste
+    comparacao$LjungBox_pvalue[i]  <- teste$serial$p.value  %>% as.numeric()
+    
+    vars::serial.test(
+    modelo,
+    lags.pt = 15,
+    type = 'BG'
+    ) -> teste
+    comparacao$BG_pvalue[i]  <- teste$serial$p.value  %>% as.numeric()
+    
+    vars::normality.test(modelo)$jb.mul$JB$p.value -> teste
+    comparacao$JB_pvalue[i]  <- teste %>% as.numeric()
+     
+    rownames(comparacao)[i] <- c(paste0("VAR(p = ", ordem[i] %>% as.numeric(), ")" ))
+}
+comparacao %>% knitr::kable(digits = 3, align = 'c')
+```
+

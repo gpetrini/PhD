@@ -1,0 +1,40 @@
+---
+title: "Nelson e Winter (1982: cap 12): Dynamic Competition and Technical Progress"
+author: 
+  - "André Correia Bueno"
+  - "Gabriel Petrini"
+  - "João Paulo Farias Fenelon"
+  - "João Victor Machado"
+date: "28 de abril de 2020"
+output:
+  beamer_presentation:
+    theme: "Dresden"
+    colortheme: "beaver"
+preamble: >
+  \usepackage{amsmath}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Introdução
+
+# Modelo
+
+\begin{alert}{Objetivo}
+Analisar as relações entre estrutura de mercado e progresso tecnológico com desempenho industrial
+\end{alert}
+
+\begin{alert}{Destaques (\textit{Science-based})}
+Uma firma pode reduzir seus custos unitários ao descobrir técnicas mais produtivas por meio de:
+
+\begin{itemize}
+  \item Inovação
+  \item Imitação
+\end{itemize}
+
+Ambas estratégias dependem do tamanho da firma ($K_{it}$), afetam a lucratividade ($\pi_{it}$) e são incertas ($Pr$). 
+\end{alert}
+
+**Resultado:** Estrutura de mercado é **endógena**

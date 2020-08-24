@@ -1,0 +1,47 @@
+.TH "consist" "1" "" "acq manual" ""
+.SH NAME
+.PP
+consist \- report consistency scores for, respectively, necessity and
+sufficiency
+.SH SYNOPSIS
+.PP
+\f[B]consist\f[] [\-y \f[I]FILE\f[]] [\-p \f[I]PRECISION\f[]]
+\f[I]outcome\f[] \f[I]formula\f[]
+.SH DESCRIPTION
+.PP
+For each observation in \f[I]FILE\f[], compute consistency scores for
+necessity and sufficiency.
+\f[I]outcome\f[] is the name of a condition from the corresponding
+dataset.
+\f[I]formula\f[] is a algebraic equation of condition names from the
+dataset, joined by the Boolean operations of multiplication (x*y),
+addition (x+y), or negation (~x).
+.PP
+Mandatory arguments to long options are also mandatory for short
+options.
+.SH OPTIONS
+.TP
+.B \-p, \-\-precision=\f[I]PRECISION\f[]
+Number of decimals to round to (default=2)
+.RS
+.RE
+.TP
+.B \-y, \-\-input=\f[I]FILE\f[]
+If absent, or when \f[I]FILE\f[] is \-, read standard input
+.RS
+.RE
+.TP
+.B \-h, \-\-help
+Display help and exit
+.RS
+.RE
+.TP
+.B \-v, \-\-version
+Output version information and exit
+.RS
+.RE
+.SH SEE ALSO
+.PP
+bq(1), concov(1), gtt(1), nec(1), suf(1)
+.SH AUTHORS
+Claude Rubinson <cjr\@grundrisse.org>.

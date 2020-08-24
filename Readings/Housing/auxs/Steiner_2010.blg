@@ -1,0 +1,15 @@
+[0] Config.pm:304> INFO - This is Biber 2.12
+[0] Config.pm:307> INFO - Logfile is 'Steiner_2010.blg'
+[20] biber:315> INFO - === ter abr 21, 2020, 11:52:44
+[37] Biber.pm:371> INFO - Reading 'Steiner_2010.bcf'
+[92] Biber.pm:889> INFO - Found 3 citekeys in bib section 0
+[103] Biber.pm:4093> INFO - Processing section 0
+[111] Biber.pm:4254> INFO - Looking for bibtex format file 'HOUSING.bib' for section 0
+[113] bibtex.pm:1523> INFO - LaTeX decoding ...
+[144] bibtex.pm:1340> INFO - Found BibTeX data source 'HOUSING.bib'
+[168] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[168] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[168] Biber.pm:3921> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
+[168] Biber.pm:3927> INFO - No sort tailoring available for locale 'en-US'
+[174] bbl.pm:636> INFO - Writing 'Steiner_2010.bbl' with encoding 'UTF-8'
+[176] bbl.pm:739> INFO - Output to Steiner_2010.bbl

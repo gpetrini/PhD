@@ -1,0 +1,61 @@
+#+PROPERTY: header-args :tangle "Housing.bib"
+#+TITLE: Housing Writings
+#+AUTHOR: Gabriel Petrini
+#+LaTeX_HEADER: \usepackage[style=abnt,noslsn, extrayear, uniquename=init, giveninits,justify,sccite,	scbib, repeattitles, doi=false,isbn=false,url=false, maxcitenames=2, natbib=true,backend=biber]{biblatex}
+#+LATEX_HEADER: \bibliography{Housing.bib}
+
+
+
+
+* Empirical
+** \textcite{kajuthgerman2020} The German housing market cycle: Answers to FAQs
+
+   \cite{kajuthgerman2020}
+
+#+BEGIN_SRC bib :tangle yes  :exports none
+  @techreport{kajuthgerman2020,
+	title = {The {German} housing market cycle: {Answers} to {FAQs}},
+	abstract = {This paper analyses the behaviour of prices and supply on the German housing market taking into account the interaction between prices and quantities. A novel price index for residential property prices covering the whole country going back to 1993 is used in a macroeconomic model to estimate key housing market elasticities for Germany. A decomposition suggests that the land price component of house prices is relatively elastic with respect to income and interest rates, while the construction price component responds to income and the level of construction activity. The decomposition also highlights countervailing house price effects of a supply increase: A dampening effect via land prices and a stimulating effect via construction prices.},
+	language = {en},
+	number = {20},
+	institution = {Deutsche Bundesbank},
+	author = {Kajuth, Florian},
+	year = {2020},
+	pages = {33},
+	series = {Deutsche Bundesbank Discussion paper},
+	file = {Kajuth - The German housing market cycle Answers to FAQs.pdf:/home/gpetrini/Zotero/storage/T3V6XEJJ/Kajuth - The German housing market cycle Answers to FAQs.pdf:application/pdf}
+}
+#+END_SRC
+
+
+
+** \citet{Ozdemir2020} Time-Varying Housing Market Fluctuations: Evidence from the U.S. Housing Market
+
+#+BEGIN_SRC bib :tangle yes :exports none
+@Article{Ozdemir2020,
+  author       = {Ozdemir, Dicle},
+  title        = {Time-Varying Housing Market Fluctuations: Evidence from the
+                  U.S. Housing Market},
+  year         = 2020,
+  volume       = 28,
+  number       = 2,
+  month        = {Jun},
+  pages        = {89–99},
+  issn         = {2300-5289},
+  doi          = {10.1515/remav-2020-0018},
+  url          = {http://dx.doi.org/10.1515/remav-2020-0018},
+  journal      = {Real Estate Management and Valuation},
+  publisher    = {Walter de Gruyter GmbH}
+}
+#+END_SRC
+
+
+
+* References
+  :PROPERTIES:
+  :UNNUMBERED: t
+  :END:
+  #+LaTeX: \printbibliography[heading=none]
+
+
+  

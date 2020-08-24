@@ -1,0 +1,272 @@
+#!/usr/bin/env python2.7
+
+# suf - test for sufficient conditions
+
+# Copyright (c) 2010--2014 Claude Rubinson
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License along with this program.  If not, see
+# <http://www.gnu.org/licenses/>.
+
+import sys
+import getopt
+from libfsqca import *
+from pptable import *
+
+def err(msg, file_descr=sys.stderr, signal=1):
+    """General error handling routine."""
+    print >> file_descr, '%s: %s' % (progname, msg)
+    sys.exit(signal)
+
+def usage():
+    print 'Usage: %s [OPTIONS]\nIdentify sufficient conditions.' % progname
+    print """
+  -h, --help\t\tDisplay this help and exit
+  -v, --version\t\tOutput version information and exit
+
+  -y, --input=FILE\tIf absent, or when FILE is -, read standard input
+
+  -o, --outcome=COLUMN\tOutcome column (default is last column)
+  -i, --include=COLUMNS\tInclude only these causal conditions (default is all)
+  -I, --exclude=COLUMNS\tDon't include these as causal conditions
+\t\t\t(These three options can be specified by name or
+\t\t\tcolumn position.  Separate multiple columns with
+\t\t\tcommas.)
+
+  -f, --freq=VALUE\tFrequency threshold (default is 1)
+  -c, --consist=VALUE\tConsistency threshold (default is 0.9)
+  -p, --prop=VALUE\tProportion threshold (default is 1.0)
+
+  -d, --dataset\t\tPrint dataset
+  -D, --Dataset\t\tPrint dataset and exit
+  -t, --truthtable\tPrint truth table
+  -T, --Truthtable\tPrint truth table and exit
+
+  -s, --simplify=VALUE\tHow aggressively should the routine reduce the
+\t\t\ttruth table?  Accepted values are:
+\t\t\t  0 - Reduce truth table to primitive expressions
+\t\t\t  1 - Reduce truth table to prime implicants (default)
+\t\t\t  2 - Reduce prime implicants (equivalent to fs/QCA's
+\t\t\t\t"complex solution")
+\t\t\t  3 - Reduce prime implicants using remainders as
+\t\t\t\tsimplifying assumptions (equivalent to fs/QCA's
+\t\t\t\t"parsimonious solution")
+
+  -e, --readtt=FILE\tRead in truth table from external file; don't convert
+\t\t\t  dataset to truth table
+ """
+
+#
+# INITIALIZATIONS
+#
+progname = sys.argv[0]
+__version__ = '2.1.12'  # don't change; set at build-time
+
+verbose = False
+outcome_col = None
+include = []
+exclude = []
+freq_thresh = 1
+consist_thresh = 0.9
+consist_prop = 1.0
+print_dataset=0     # for both print_dataset and print_truthtable, 0
+print_truthtable=0  # signals don't print; 1, print and continue; 2,
+                    # print and exit
+simplify = 1  # reduce to prime implicants
+truth_table_file = False
+dataset_file = '/dev/stdin'
+
+#
+# PROCESS COMMAND-LINE ARGUMENTS AND OPTIONS
+#
+
+short_opts = 'hvo:i:I:f:c:p:s:e:y:dDtT'
+long_opts = ['help', 'version', 'outcome=', 'include=', 'exclude=',
+             'freq=', 'consist=', 'prop=', 'simplify=',
+             'readtt=', 'input=', 'dataset', 'Dataset', 'truthtable', 'Truthtable']
+
+try:
+    opts, args = getopt.getopt(sys.argv[1:], short_opts, long_opts)
+except getopt.GetoptError, exc:
+    # print usage information and exit
+    err(exc)
+
+# presence of 'help' or 'version' flag overrides any other options
+for opt in sys.argv[1:]:
+    if opt in ('-h', '--help'):
+        usage()
+        sys.exit()
+    elif opt in ('-v', '--version'):
+        print 'suf', __version__
+        print 'Copyright (C) 2010-2014 Claude Rubinson'
+        sys.exit()
+
+# process remaining command-line options
+for opt, arg in opts:
+    if opt in ('-f', '--freq'):
+        try:
+            freq_thresh = int(arg)
+            if freq_thresh < 0:
+                err('Negative value for frequency threshold: %s' % freq_thresh)
+        except ValueError:
+            err('Non-integer for frequency threshold: %s' % arg)
+    if opt in ('-c', '--consist'):
+        try:
+            consist_thresh = float(arg)
+            if consist_thresh < 0.5 or consist_thresh > 1.0:
+                err('Consistency threshold must be between 0.5 and 1.0: %s' % consist_thresh)
+        except ValueError:
+            err('Non-numeric value for consistency threshold: %s' % arg)
+    if opt in ('-p', '--prop'):
+        try:
+            consist_prop = float(arg)
+            if consist_prop < 0.0 or consist_prop > 1.0:
+                err('Proportion threshold must be between 0.0 and 1.0: %s' % consist_prop)
+        except ValueError:
+            err('Non-numeric value for proportion threshold: %s' % arg)
+    if opt in ('-e', '--readtt'):
+        truth_table_file = arg
+    if opt in ('-d', '--dataset'):  # order of these options means that
+        print_dataset = 1           # "print and exit" flags will override
+    if opt in ('-D', '--Dataset'):  # "print and continue"
+        print_dataset = 2
+    if opt in ('-t', '--truthtable'):
+        print_truthtable = 1
+    if opt in ('-T', '--Truthtable'):
+        print_truthtable = 2
+    if opt in ('-s', '--simplify'):
+        try:
+            simplify = int(arg)
+            if simplify < 0 or simplify > 3:
+                err('Simplify parameter must be between 0 and 3: %s' % simplify)
+        except ValueError:
+            err('Simplify parameter must be an integer: %s' % arg)
+    if opt in ('-o', '--outcome'):
+        # outcome can be specified by column number or name
+        outcome_col = arg
+    if opt in ('-i', '--include'):
+        # included causal conditions can be specified by column number
+        # or name
+        include = arg.split(',')
+    if opt in ('-I', '--exclude'):
+        # excluded causal conditions can be specified by column number
+        # or name
+        exclude = arg.split(',')
+    if opt in ('-y', '--input'):
+        dataset_file = '/dev/stdin' if arg == '-' else arg
+
+#
+# Sufficiency Analysis
+#
+
+# Step 1:  Read data in from commandline and construct QcaData object
+try:
+    try:
+        qcadata=QcaDataset(outcome_col=outcome_col, include=include, exclude=exclude, indata=dataset_file)
+    except EmptyCellError, exc:
+        err('Empty cell in dataset: %s' % exc)
+    except RaggedDatasetError:
+        err('Dataset rows are of unequal length') 
+    except FileTypeNotSupportedError, exc:
+        err("File type not supported: %s" % exc)
+    except ValueError, exc:
+        err(exc)
+    except IOError:
+        err('File not found: %s' % dataset_file)
+    if print_dataset:
+        print pp(qcadata)
+        if print_dataset == 2:
+            sys.exit()
+        else:
+            print ''  # blank line to separate stanzas
+except csv.Error:
+    err('Could not determine delimiter of dataset.')
+except DatasetError, exc:
+    err(exc)
+except QcaError, msg:
+    err(msg)
+except SystemExit:  # raised by sys.exit()
+    raise
+except:
+    if print_dataset:  # if an exception is thrown and the user has
+                       # requested that the dataset be printed, give
+                       # them back the working data before raising the
+                       # exception
+        print pp(working)
+    raise
+
+# Step 2: Construct Truth Table.  if external truth table specified,
+# use that; otherwise, try to convert dataset to truth table
+ttf = TruthTableFactory()
+if truth_table_file:
+    try:
+        tt = ttf.from_csv(truth_table_file)
+        # sanity check; causal conds from external truth table must
+        # match causal conds from data set
+        if tt.causal_conds != qcadata.causal_conds():
+            err('External truth table does not match data set')
+    except TruthTableConstructionError:
+        msg = "Wrong number of rows in external truth table"
+        err(msg)
+    except QcaError as exc:
+        err(exc)
+    except ValueError as exc:
+        # val = str(exc).split()[-1]
+        # err("Illegal value in external truth table: %s" % val)
+        err(exc)
+
+else:
+    tt = ttf.from_dataset(qcadata,
+                          freq_thresh=freq_thresh,
+                          consist_thresh=consist_thresh,
+                          consist_prop=consist_prop)
+
+try:
+    if print_truthtable:
+        print tt.__str__()
+        if print_truthtable == 2:
+            sys.exit()
+        else:
+            print '' # blank line to separate stanzas
+except SystemExit:  # raised by sys.exit()
+    raise
+
+# Step 3: Reduce truth table and, if successful, construct
+# consistency/coverage table
+try:
+    sols = tt.reduce(simplify=simplify)
+    if sols is None:
+        # if there aren't any solutions, it's usually because the
+        # consistency threshold is set too high.  Should we include a
+        # warning about this?
+        print >> sys.stderr, '%s: Warning: No solutions found. Is the consistency threshold too high?' % progname
+        sys.exit(0)
+    concov = concov_suf(qcadata, tt, sols)
+    print pp(concov, template='l,r%.2f,r%.2f,r%.2f,l,l')
+
+    # calling function must always check the truth table for any
+    # observations that have fallen onto the crossover point and, if
+    # present, warn user.
+    if tt.obs_crossover:
+        msg = '%s: Warning: Observations with 0.5 corner membership were dropped: ' % progname
+        for obs in tt.obs_crossover:
+            msg += obs + ', '
+        msg = msg.rstrip(', ')
+        print >> sys.stderr, msg
+
+except ContradictionError:
+    err('Contradiction(s) present in truth table.  Cannot reduce.')
+except NoPositiveTTRowError:
+    err('No positive rows in truth table.')
+except PrimeImplicantsNotFoundError:
+    err('No prime implicants found.  Do you need to add negative cases?')

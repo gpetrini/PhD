@@ -1,0 +1,53 @@
+.TH "gtt" "1" "" "acq manual" ""
+.SH NAME
+.PP
+gtt \- display QCA truth table
+.SH SYNOPSIS
+.PP
+\f[B]gtt\f[] [\-y \f[I]FILE\f[]]
+.SH DESCRIPTION
+.PP
+\f[B]gtt\f[] is a graphical viewer for truth tables, as produced by
+acq\[aq]s \f[B]suf\f[].
+The user is able to edit the Outcome column by **double\-clicking on the
+cell.
+All other columns are read\-only.
+.PP
+You can export your edits by clicking the "Export" button, which will
+allow you to save the truth table as plain text.
+The exported truth table can be read into \f[B]suf\f[] via the
+\f[B]\-e\f[] flag.
+.PP
+By default, \f[B]gtt\f[] allows you to sort by a single column at a time
+(as is conventional in spreadsheets and spreadsheet\-like applications).
+The "Compound Sort" option allows you to sort by multiple columns (e.g.,
+first by column A, then by column C, then by column E).
+The filter function allows you to restrict the display to a subset of
+the available rows.
+.SH OPTIONS
+.TP
+.B \-y, \-\-input=\f[I]FILE\f[]
+Read input from \f[I]FILE\f[]; when \f[I]FILE\f[] is \-, read standard
+input
+.RS
+.RE
+.TP
+.B \-g, \-\-debug
+Echo logging info to console
+.RS
+.RE
+.TP
+.B \-h, \-\-help
+Display help and exit
+.RS
+.RE
+.TP
+.B \-v, \-\-version
+Output version information and exit
+.RS
+.RE
+.SH SEE ALSO
+.PP
+bq(1), concov(1), consist(1), nec(1), suf(1)
+.SH AUTHORS
+Christopher Reichert <creichert07\@gmail.com>; Claude Rubinson <cjr\@grundrisse.org>.

@@ -1,0 +1,93 @@
+\documentclass[11pt,lineno]{../_configs}
+
+\articletype{Empirical} % article type
+
+\bibliography{HOUSING.bib}
+
+\newcommand{\autor}{\textcite{steiner_estimating_2010} }
+
+\title{
+\large{Housing}\vspace{2pt}\\
+\Huge{\autor - Estimating a Stock-Flow Model for the Swiss Housing Market}
+}
+\date{April 21th, 2020}
+
+\author[$\ast$]{Gabriel Petrini}
+
+\affil[$\ast$]{PhD Student at Unicamp.}
+
+\keywords{
+	housing demand\\
+	housing supply\\ 
+	residential investment\\ 
+	market disequilibrium\\
+	housing prices
+}
+
+\runningtitle{Sillabus} % For use in the footer 
+
+%% For the footnote.
+\runningauthor{Petrini}
+
+\begin{abstract}
+\abssection{Background} Large housing price volatility has a \textbf{destabilizing impact}. Strong house prices fluctuation is a \textbf{recent widespread phenomenon} between countries and a eventual housing crises could  spread to other sectors and end in a broad-based recession. \textbf{Switzerland} has, since the 1990s, experienced \textbf{no} alarming rise in housing prices.
+
+\abssection{Contribution} Analyze the determinants of the Swiss housing market. Differently from literature, this model explicit the \textbf{pass-through} process by estimating the size of house market imbalance.
+
+\abssection{Relevance} In general, this paper also reports the relevance of housing prices for residential investment dynamics. So, it shows the potential contribution of houses own interest rate approach. Presents \textcite{dipasquale_housing_1994} model in more details and shows other papers that use this methodology. Argues that the lower price-elasticity (compared to US) is due to institutional framework particularities (\textit{e.g.} lower down-payment constraint). Presents a data appendix for Switzerland.
+
+\abssection{Methods} stock-flow model as proposed by \textcite{dipasquale_housing_1994} for \textbf{Switzerland} (1975-2007) in a Error-Correction Framework \cite{mccarthy_monetary_2002}. The long estimation sample data is calculated with the \textbf{perpetual inventory} method. \textbf{Long-run demand for residential housing stock (all $I(1)$):} housing prices (expected negative) and demand-shifting variables (real GDP and real wage index, both expected positive). 
+\textbf{Price-adjustment:} Stock imbalance (residual, expected negative and below unity); nominal mortgage rate changes (expected negative); price lags and dummies.
+\textbf{Long-Run Level of Residential Investment:} housing prices (expected positive); real construction deflator (expected negative); real interest rate mortgage rate (expected negative)
+\textbf{Controls:} Real wages  for labor market factors which are not covered by GDP and some dummies related to 1985-9/1990-4 period. 
+
+\abssection{Results} Coefficients signals are the expected ones. \textbf{Short-run:} price adjustments clears the market. Price movements depends strongly on \textbf{stock imbalances}. Housing prices determine \textbf{residential investment}, which in turn drives the adjustment process of the residential capital stock towards its desired level. \textbf{Long-run:} desired level of residential capital stock and the existing residential capital stock revert, Long-run price elasticity of demand  lower than US ($16\% < 24\%$). None \textbf{user-costs} variables (which includes interest rates) are relevant in the long-run. Stock imbalances have a significant and large impact on prices. The sluggish adjustment process in investment dynamics is related to long period elapsing before construction can even be started.
+
+\abssection{Interesting findings} Author argues that user-costs variables are incorporated in price dynamics for Switzerland. Real mortgage interest rate has an  independent cost-shifting effect on residential investment.  Associates the long imbalance process with the small new flows/stock ratio so the stock could not adjust rapidly to shocks.
+ \end{abstract}
+
+\begin{document}
+
+\maketitle
+\articletypemark
+\marginmark
+\thispagestyle{firststyle}
+% Please add here a significance statement to explain the relevance of your work
+
+\noindent \textbf{Citation:} 	\fullcite{steiner_estimating_2010}
+
+\begin{infobox}
+	\textbf{5SS:} \autor estimates a stock-flow model for Switzerland in a Error-Correction framework and reports the relevance of stock imbalances over prices. The estimation also show that user-costs variables are negligible in the long-run since its dynamics is incorporate in housing prices development. The author also relates the lower price elasticity with institutional particularities.
+\end{infobox}
+
+\begin{infobox}
+\textbf{\Large{\textcite{dipasquale_housing_1994} model}}
+
+\textbf{Motivation:} takes several years for the US housing market to clear. So, they extend the traditional stock-flow model by allowing prices to converge to
+equilibrium over several periods.
+
+This model consists in two equations: market-clearing price; residential investment. The first one is determined by demand variables and the actual stock. In the other equation, construction is dependent on housing prices, the level of the existing stock and an array of cost shifters.
+
+\textbf{\textcite{mccarthy_monetary_2002} Extention:} Includes \textcite{dipasquale_housing_1994} in a Error-Correction framework as a hypothetical, unobserved, market clearing price while residuals of this equation are used to estimate short-run variations in housing prices.
+\end{infobox}
+
+\begin{redbox}{Questions}
+	\begin{itemize}
+		\item What does it means ``desired level of residential capital stock and the existing residential capital stock \textbf{revert}''
+		\item How to define the \textbf{desired level of residential capital stock}
+	\end{itemize}
+\end{redbox}
+
+\begin{redbox}{Further reading (Sorted by priority)}
+	\begin{itemize}
+		\item van den Noord, Paul J. (2006), ``\textbf{Are House Prices Nearing a Peak? A Probit 		Analysis for 17 OECD Countries}'', Working Paper 488, OECD Economics 	Department.
+		\item Topel, Robert, and Sherwin Rosen (1988), ``\textbf{Housing Investment in the United States}'', The Journal of Political Economy, 96 (4), pp. 718–740.
+		\item Riddel, Mary (2004), ``\textbf{Housing-Market Disequilibrium: An Examination of Housing-Market Price and Stock Dynamics 1967–1998}'', Journal of Housing Economics, 13 (2), pp. 120–135.
+		\item McCarthy, Jonathan, and Richard W. Peach (2002), ``\textbf{Monetary Policy
+		Transmission to Residential Investment}'', FRBNY Economic Policy Review, 8 (1).
+	\end{itemize}
+\end{redbox}
+
+\printbibliography
+	
+\end{document}

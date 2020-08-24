@@ -1,0 +1,107 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{kajuthgerman2020}{report}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=d29a1e662eafa3d4e587fa956afaa258}{%
+           family={Kajuth},
+           familyi={K\bibinitperiod},
+           given={Florian},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{institution}{1}{%
+        {Deutsche Bundesbank}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{d29a1e662eafa3d4e587fa956afaa258}
+      \strng{fullhash}{d29a1e662eafa3d4e587fa956afaa258}
+      \strng{bibnamehash}{d29a1e662eafa3d4e587fa956afaa258}
+      \strng{authorbibnamehash}{d29a1e662eafa3d4e587fa956afaa258}
+      \strng{authornamehash}{d29a1e662eafa3d4e587fa956afaa258}
+      \strng{authorfullhash}{d29a1e662eafa3d4e587fa956afaa258}
+      \field{sortinit}{K}
+      \field{sortinithash}{d3edc18d54b9438a72c24c925bfb38f4}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{This paper analyses the behaviour of prices and supply on the German housing market taking into account the interaction between prices and quantities. A novel price index for residential property prices covering the whole country going back to 1993 is used in a macroeconomic model to estimate key housing market elasticities for Germany. A decomposition suggests that the land price component of house prices is relatively elastic with respect to income and interest rates, while the construction price component responds to income and the level of construction activity. The decomposition also highlights countervailing house price effects of a supply increase: A dampening effect via land prices and a stimulating effect via construction prices.}
+      \field{number}{20}
+      \field{series}{Deutsche Bundesbank Discussion paper}
+      \field{title}{The {German} housing market cycle: {Answers} to {FAQs}}
+      \field{type}{techreport}
+      \field{year}{2020}
+      \field{pages}{33}
+      \range{pages}{1}
+      \verb{file}
+      \verb Kajuth - The German housing market cycle Answers to FAQs.pdf:/home/gpetrini/Zotero/storage/T3V6XEJJ/Kajuth - The German housing market cycle Answers to FAQs.pdf:application/pdf
+      \endverb
+    \endentry
+    \entry{Ozdemir2020}{article}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=179c01ac984f67b93e6d4fdf4c7743e8}{%
+           family={Ozdemir},
+           familyi={O\bibinitperiod},
+           given={Dicle},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {Walter de Gruyter GmbH}%
+      }
+      \strng{namehash}{179c01ac984f67b93e6d4fdf4c7743e8}
+      \strng{fullhash}{179c01ac984f67b93e6d4fdf4c7743e8}
+      \strng{bibnamehash}{179c01ac984f67b93e6d4fdf4c7743e8}
+      \strng{authorbibnamehash}{179c01ac984f67b93e6d4fdf4c7743e8}
+      \strng{authornamehash}{179c01ac984f67b93e6d4fdf4c7743e8}
+      \strng{authorfullhash}{179c01ac984f67b93e6d4fdf4c7743e8}
+      \field{sortinit}{O}
+      \field{sortinithash}{ff8d4eeb5101e3cf3809959b3592d942}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{2300-5289}
+      \field{journaltitle}{Real Estate Management and Valuation}
+      \field{month}{6}
+      \field{number}{2}
+      \field{title}{Time-Varying Housing Market Fluctuations: Evidence from the U.S. Housing Market}
+      \field{volume}{28}
+      \field{year}{2020}
+      \field{pages}{89\bibrangedash 99}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1515/remav-2020-0018
+      \endverb
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1515/remav-2020-0018
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1515/remav-2020-0018
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

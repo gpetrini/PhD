@@ -1,0 +1,436 @@
+QCA:runGUI()
+QCA::runGUI()
+QCA::runGUI()
+quit()
+QCA::runGUI()
+imfr::imf_ids()
+knitr::opts_chunk$set(echo = TRUE)
+imfr::imf_data(
+database_id = "GFSCOFOG2017", # Government Finance Statistics Yearbook (GFSY 2017), Expenditure by Function of Government (COFOG)
+indicator = "GFPB", # Primary net lending/borrowing
+country =  "all",
+start = 2000,
+end = 2016,
+print_url = TRUE
+) -> df
+imfr::imf_codes()
+imfr::imf_codelist()
+imfr::imf_codelist(database_id = "GFSCOFOG2017")
+imfr::imf_codelist(database_id = "GFSYCOFOG2014")
+imfr::imf_codes(codelist = "CL_COFOG_GFSYCOFOG2014")
+imfr::imf_codes(codelist = "CL_COFOG_GFSCOFOG2017")
+imfr::imf_codelist(database_id = "GFSCOFOG2017")
+imfr::imf_codes(codelist = "CL_SECTOR_GFSCOFOG2017")
+imfr::imf_codelist(database_id = "GFSCOFOG2017")
+imfr::imf_codes(codelist = "CL_UNIT_GFSCOFOG2017")
+IFS_INDICATOR_codes<-imf_codes(codelist = "CL_COFOG_GFSCOFOG2017")
+imfr::IFS_INDICATOR_codes<-imf_codes(codelist = "CL_COFOG_GFSCOFOG2017")
+IFS_INDICATOR_codes<-imfr::imf_codes(codelist = "CL_COFOG_GFSCOFOG2017")
+IFS_INDICATOR_codes
+imfr::imf_data(
+database_id = "GFSCOFOG2017", # Government Finance Statistics Yearbook (GFSY 2017), Expenditure by Function of Government (COFOG)
+indicator = c(
+"S1311B", # Budgetary central government
+"GFPB" # Primary net lending/borrowing
+),
+country =  "all",
+start = 2000,
+end = 2016,
+print_url = TRUE
+) -> df
+df
+imfr::imf_codes(codelist = "CL_UNIT_GFSCOFOG2017")
+imfr::imf_data(
+database_id = "GFSCOFOG2017", # Government Finance Statistics Yearbook (GFSY 2017), Expenditure by Function of Government (COFOG)
+indicator = c(
+"S1311B", # Budgetary central government
+"XDC_R_B1GQ", # Percent of GDP
+"GFPB" # Primary net lending/borrowing
+),
+country =  "all",
+start = 2000,
+end = 2015,
+print_url = TRUE
+) -> df
+imfr::imf_codes(codelist = "CL_AREA_GFSCOFOG2017")
+imfr::imf_codes(codelist = "CL_FREQ_GFSCOFOG2017")
+imfr::imf_codelist(database_id = "GFSCOFOG2017")
+imfr::imf_codes(codelist = "CL_FREQ")
+imfr::imf_codelist(database_id = "GFSCOFOG2017")
+imfr::imf_codes(codelist = "CL_UNIT_MULT")
+imfr::imf_codelist(database_id = "GFSCOFOG2017")
+imfr::imf_codes(codelist = "CL_COFOG_GFSCOFOG2017")
+imfr::imf_data(
+database_id = "GFSCOFOG2017", # Government Finance Statistics Yearbook (GFSY 2017), Expenditure by Function of Government (COFOG)
+indicator = c(
+"S1311B", # Budgetary central government
+"XDC_R_B1GQ", # Percent of GDP
+"GF01" # Primary net lending/borrowing
+),
+country =  "all",
+freq = "A",
+start = 2000,
+end = 2015,
+print_url = TRUE
+) -> df
+imfr::imf_codelist(database_id = "GFSCOFOG2017")
+imfr::imf_codes(codelist = "CL_TIME_FORMAT")
+imfr::imf_ids()
+imfr::imf_codelist(database_id = "GFSMAB2019")
+imfr::imf_codelist(database_id = "GFSMAB2019")
+imfr::imf_codes(codelist = "CL_INDICATOR_GFSMAB2019")
+imfr::imf_codelist(database_id = "GFSMAB2019")
+imfr::imf_codes(codelist = "CL_UNIT_GFSMAB2019")
+imfr::imf_codes(codelist = "CL_SECTOR_GFSMAB2019")
+imfr::imf_data(
+database_id = "GFSMAB2019", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+"S1311B", # Budgetary central government
+"XDC_R_B1GQ", # Percent of GDP
+"GPB__Z" # Primary net lending/borrowing
+),
+country =  "all",
+freq = "A",
+start = 2000,
+end = 2015,
+print_url = TRUE
+) -> df
+df
+imfr::imf_data(
+database_id = "GFSMAB2019", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+#    "S1311B", # Budgetary central government
+#    "XDC_R_B1GQ", # Percent of GDP
+"GPB__Z" # Primary net lending/borrowing
+),
+country =  "all",
+freq = "A",
+start = 2000,
+end = 2019,
+print_url = TRUE
+) -> df
+imfr::imf_data(
+database_id = "GFSMAB2018", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+#    "S1311B", # Budgetary central government
+#    "XDC_R_B1GQ", # Percent of GDP
+"GPB__Z" # Primary net lending/borrowing
+),
+country =  "all",
+freq = "A",
+start = 2000,
+end = 2019,
+print_url = TRUE
+) -> df
+imfr::imf_codes(codelist = "CL_SECTOR_GFSMAB2018")
+imfr::imf_codes(codelist = "CL_SECTOR_GFSMAB2017")
+imfr::imf_codes(codelist = "CL_INDICATOR_GFSMAB2017")
+imfr::imf_data(
+database_id = "GFSMAB2017", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+#    "S1311B", # Budgetary central government
+#    "XDC_R_B1GQ", # Percent of GDP
+"GPB__Z" # Primary net lending/borrowing
+),
+country =  "all",
+freq = "A",
+start = 2000,
+end = 2017,
+print_url = TRUE
+) -> df
+df
+imfr::imf_codes(codelist = "CL_INDICATOR_GFSMAB2017")
+imfr::imf_data(
+database_id = "GFSMAB2017", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+#indicator = c(
+#    "S1311B", # Budgetary central government
+#    "XDC_R_B1GQ", # Percent of GDP
+#    "GPB__Z" # Primary net lending/borrowing
+#),
+country =  "all",
+freq = "A",
+start = 2000,
+end = 2017,
+print_url = TRUE
+) -> df
+imfr::imf_data(
+database_id = "GFSMAB2017", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+"S1311B", # Budgetary central government
+#    "XDC_R_B1GQ", # Percent of GDP
+#    "GPB__Z" # Primary net lending/borrowing
+),
+country =  "all",
+freq = "A",
+start = 2000,
+end = 2017,
+print_url = TRUE
+) -> df
+imfr::imf_data(
+database_id = "GFSMAB2017", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+"S1311B" # Budgetary central government
+#    "XDC_R_B1GQ", # Percent of GDP
+#    "GPB__Z" # Primary net lending/borrowing
+),
+country =  "all",
+freq = "A",
+start = 2000,
+end = 2017,
+print_url = TRUE
+) -> df
+df
+imfr::imf_data(
+database_id = "GFSMAB2017", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+"S1311B" # Budgetary central government
+#    "XDC_R_B1GQ", # Percent of GDP
+"GPB__Z" # Primary net lending/borrowing
+imfr::imf_data(
+database_id = "GFSMAB2017", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+"S1311B", # Budgetary central government
+#    "XDC_R_B1GQ", # Percent of GDP
+"GPB__Z" # Primary net lending/borrowing
+),
+country =  "all",
+freq = "A",
+start = 2012,
+end = 2017,
+print_url = TRUE
+) -> df
+df
+imfr::imf_data(
+database_id = "GFSMAB2017", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+#    "S1311B", # Budgetary central government
+#    "XDC_R_B1GQ", # Percent of GDP
+"GPB__Z" # Primary net lending/borrowing
+),
+country =  "all",
+freq = "A",
+start = 2012,
+end = 2017,
+print_url = TRUE
+) -> df
+imfr::imf_data(
+database_id = "GFSMAB2017", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+#    "S1311B", # Budgetary central government
+#    "XDC_R_B1GQ", # Percent of GDP
+"GPB_Z" # Primary net lending/borrowing
+),
+country =  "all",
+freq = "A",
+start = 2012,
+end = 2017,
+print_url = TRUE
+) -> df
+imfr::imf_codes("CL_INDICATOR_GFSMAB2019")
+imfr::imf_data(
+database_id = "GFSMAB2017", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+#    "S1311B", # Budgetary central government
+#    "XDC_R_B1GQ", # Percent of GDP
+"GNLB__Z" # Primary net lending/borrowing
+),
+country =  "all",
+freq = "A",
+start = 2012,
+end = 2017,
+print_url = TRUE
+) -> df
+imfr::imf_data(
+database_id = "GFSMAB2017", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+#    "S1311B", # Budgetary central government
+#    "XDC_R_B1GQ", # Percent of GDP
+"GNLB_Z" # Primary net lending/borrowing
+),
+country =  "all",
+freq = "A",
+start = 2012,
+end = 2017,
+print_url = TRUE
+) -> df
+imfr::imf_data(
+database_id = "GFSMAB2017", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+#    "S1311B", # Budgetary central government
+#    "XDC_R_B1GQ", # Percent of GDP
+"GNLB__Z" # Primary net lending/borrowing
+),
+country =  "all",
+freq = "A",
+start = 2012,
+end = 2017,
+print_url = TRUE
+) -> df
+imfr::imf_codes("CL_INDICATOR_GFSMAB2019")
+imfr::imf_codes("CL_INDICATOR_GFSMAB2019")$codes
+imfr::imf_codelist(database_id = "GFSMAB2019") %>% imfr::imf_codes()
+library(dplyr)
+imfr::imf_codelist(database_id = "GFSMAB2019") %>% imfr::imf_codes()
+imfr::imf_codes(codelist = imfr::imf_codelist(database_id = "GFSMAB2019"))
+imfr::imf_codes(codelist = "CL_INDICATOR_GFSMAB2019")
+imfr::imf_data(
+database_id = "GFSMAB2017", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+"GNLB__Z", # Primary net lending/borrowing
+"XDC_R_B1GQ" # Percent of GDP
+),
+country =  "all",
+freq = "A",
+start = 2012,
+end = 2017,
+print_url = TRUE
+) -> df
+imfr::imf_data(
+database_id = "GFSMAB2019", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+"GNLB__Z", # Primary net lending/borrowing
+"XDC_R_B1GQ" # Percent of GDP
+),
+country =  "all",
+freq = "A",
+start = 2012,
+end = 2017,
+print_url = TRUE
+) -> df
+imfr::imf_data(
+database_id = "GFSMAB2019", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+"GNLB", # Primary net lending/borrowing
+"XDC_R_B1GQ" # Percent of GDP
+),
+country =  "all",
+freq = "A",
+start = 2012,
+end = 2017,
+print_url = TRUE
+) -> df
+imfr::imf_codes(codelist = "CL_SECTOR_GFSMAB2019")
+imfr::imf_data(
+database_id = "GFSMAB2019", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+"GNLB__S1311B", # Primary net lending/borrowing
+"XDC_R_B1GQ" # Percent of GDP
+),
+country =  "all",
+freq = "A",
+start = 2012,
+end = 2017,
+print_url = TRUE
+) -> df
+imfr::imf_data(
+database_id = "GFSMAB2019", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+"GNLB_S1311B", # Primary net lending/borrowing
+"XDC_R_B1GQ" # Percent of GDP
+),
+country =  "all",
+freq = "A",
+start = 2012,
+end = 2017,
+print_url = TRUE
+) -> df
+imfr::imf_data(
+database_id = "GFSMAB2019", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+"GNLB", # Primary net lending/borrowing
+"XDC_R_B1GQ" # Percent of GDP
+),
+country =  "all",
+freq = "A",
+start = 2012,
+end = 2017,
+print_url = TRUE
+) -> df
+imfr::imf_data(
+database_id = "GFSMAB2019", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+"S1311B", # Primary net lending/borrowing
+"XDC_R_B1GQ" # Percent of GDP
+),
+country =  "all",
+freq = "A",
+start = 2012,
+end = 2017,
+print_url = TRUE, return_raw = TRUE
+) -> df
+imfr::imf_data(
+database_id = "GFSMAB2019", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+"S1311B", # Primary net lending/borrowing
+"XDC_R_B1GQ" # Percent of GDP
+),
+country =  "all",
+freq = "A",
+start = 2012,
+end = 2017,
+print_url = TRUE, #return_raw = TRUE
+) -> df
+imfr::imf_data(
+database_id = "GFSMAB2019", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+"S1311B" # Primary net lending/borrowing
+#"XDC_R_B1GQ" # Percent of GDP
+),
+country =  "all",
+freq = "A",
+start = 2012,
+end = 2017,
+print_url = TRUE, return_raw = TRUE
+) -> df
+df
+imfr::imf_data(
+database_id = "GFSMAB2015", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+"S1311B",
+"XDC_R_B1GQ", # Percent of GDP
+"GNLB__Z", # Primary net lending/borrowing
+),
+country =  "all",
+freq = "A",
+start = 2012,
+end = 2015,
+print_url = TRUE
+) -> df
+imfr::imf_data(
+database_id = "GFSMAB2015", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+"S1311B",
+"XDC_R_B1GQ", # Percent of GDP
+"GNLB__Z" # Primary net lending/borrowing
+),
+country =  "all",
+freq = "A",
+start = 2012,
+end = 2015,
+print_url = TRUE
+) -> df
+df
+imfr::imf_data(
+database_id = "GFSMAB2015", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+"S1311B",
+"XDC_R_B1GQ", # Percent of GDP
+"GNLB__Z" # Primary net lending/borrowing
+),
+country =  "all",
+freq = "A",
+start = 2015, end = 2015,
+print_url = TRUE
+) -> df
+imfr::imf_data(
+database_id = "GFSMAB2015", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+indicator = c(
+"S1311B",
+"XDC_R_B1GQ", # Percent of GDP
+"GNLB__Z" # Primary net lending/borrowing
+),
+country =  "all",
+freq = "A",
+start = 2015, end = 2016,
+print_url = TRUE
+) -> df

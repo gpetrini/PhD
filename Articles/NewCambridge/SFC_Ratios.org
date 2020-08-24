@@ -1,0 +1,230 @@
+#+TITLE: Evaluating Brochier and Macedo e Silva (2019) paper
+#+AUTHOR: Gabriel Petrini, Lucas Teixeira
+
+* Appendix A
+
+** Government debt
+
+#+BEGIN_SRC ipython :session :async t :tangle ./codes/Original.py :exports none :results output
+import sympy as sp
+from sympy.abc import t
+
+# Loading parameters
+gamma, tau, sigma, sf, pi, v, un, lamda, a1, a2,  i = sp.symbols('gamma tau sigma sf pi v un lambda alpha_1 alpha_2 i')
+# Loading SFC ratios
+b, l, vh, h, g = sp.symbols('b l v_h h g')
+print_dict = {
+    b : 'b^*', l : 'l^*', vh : 'v_h^*', h: 'h^*', g: 'g^*',
+    un : 'u_N', a1: 'alpha_1',
+    }
+    
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [776]: 
+:end:
+
+#+NAME: bstar
+#+BEGIN_SRC ipython :session :async t :tangle ./codes/Original.py :exports none :results output
+bstar = ((sigma - tau*(1 - sf*pi)*(1 + g))*(un/v) - (tau*i*sf*l))/(g - i*(1-tau))
+pprint(
+   sp.latex(
+       sp.Eq(b, bstar),
+       order = 'none',
+       symbol_names = print_dict
+       
+   )
+)
+#+END_SRC
+
+#+BEGIN_equation
+#+LATEX: \label{b_sfc}
+#+LATEX: \tag{A2}
+#+CALL: bstar()
+
+#+RESULTS:
+:results:
+# Out [774]: 
+# output
+b^* = \frac{\frac{u_N \left(\sigma - \tau \left(1 + g^*\right) \left(1 - \pi s
+f\right)\right)}{v} - i l^* sf \tau}{g^* - i \left(1 - \tau\right)}
+
+:end:
+
+#+END_equation
+
+#+RESULTS: bstar
+:results:
+0 - a03ca58a-315f-42de-af0c-ca77ee8fc7c8 <output> <interrupt>
+:end:
+
+** Leverage ratio
+   
+
+#+NAME: lstar
+#+BEGIN_SRC ipython :session :async t :tangle ./codes/Original.py :exports none :results output text/latex
+lstar = ((1+g)*(h - sf*pi) - g*lamda*vh)/(g - sf*i).simplify()
+pprint(
+   sp.latex(
+       sp.Eq(l, lstar),
+       order = 'none',
+   )
+)
+#+END_SRC
+
+#+RESULTS: lstar
+:results:
+# Out [782]: 
+# output
+l = \frac{\left(1 + g\right) \left(h - \pi sf\right) - g \lambda v_{h}}{g - i 
+sf}
+
+:end:
+
+#+BEGIN_equation
+#+LATEX: \label{l_sfc}
+#+LATEX: \tag{A4}
+#+CALL: lstar()
+
+#+RESULTS:
+:results:
+# Out [783]: 
+# output
+l = \frac{\left(1 + g\right) \left(h - \pi sf\right) - g \lambda v_{h}}{g - i 
+sf}
+
+:end:
+
+#+END_equation
+
+
+** Household wealth
+
+
+#+NAME: vhstar
+#+BEGIN_SRC ipython :session :async t :tangle ./codes/Original.py :exports none :results output text/latex
+vhstar = ((1-tau)*((1-a1 + pi*(a1-sf))*(un/v)*(1+g) + i*b + sf*i*l))/(g + a2).simplify()
+pprint(
+   sp.latex(
+       sp.Eq(vh, vhstar),
+       order = 'none',
+   )
+)
+#+END_SRC
+
+#+RESULTS: vhstar
+:results:
+# Out [785]: 
+# output
+v_{h} = \frac{\left(1 - \tau\right) \left(b i + i l sf + \frac{un \left(1 + g\
+right) \left(1 - \alpha_{1} + \pi \left(\alpha_{1} - sf\right)\right)}{v}\righ
+t)}{\alpha_{2} + g}
+
+:end:
+
+#+BEGIN_equation
+#+LATEX: \label{vh_sfc}
+#+LATEX: \tag{A6}
+#+CALL: vhstar()
+
+#+RESULTS:
+:results:
+# Out [786]: 
+# output
+v_{h} = \frac{\left(1 - \tau\right) \left(b i + i l sf + \frac{un \left(1 + g\
+right) \left(1 - \alpha_{1} + \pi \left(\alpha_{1} - sf\right)\right)}{v}\righ
+t)}{\alpha_{2} + g}
+
+:end:
+
+#+END_equation
+
+
+** Marginal propensity to invest
+   
+#+NAME: hstar
+#+BEGIN_SRC ipython :session :async t :tangle ./codes/Original.py :exports none :results output text/latex
+hstar = ((1+g)*gamma*un*(1- a1*(1-tau)*(1-pi)) - sigma*gamma*un - gamma*a2*vh*v)/(gamma*un*(1+g)).simplify()
+pprint(
+   sp.latex(
+       sp.Eq(h, hstar),
+       order = 'none',
+   )
+)
+#+END_SRC
+
+#+RESULTS: hstar
+:results:
+# Out [780]: 
+# output
+h = \frac{- \gamma \sigma un + \gamma un \left(1 + g\right) \left(1 - \alpha_{
+1} \left(1 - \pi\right) \left(1 - \tau\right)\right) - \alpha_{2} \gamma v v_{
+h}}{\gamma un \left(1 + g\right)}
+
+:end:
+
+
+#+BEGIN_equation
+#+LATEX: \label{h_sfc}
+#+LATEX: \tag{A7}
+#+CALL: hstar()
+
+#+RESULTS:
+:results:
+# Out [781]: 
+# output
+h = \frac{- \gamma \sigma un + \gamma un \left(1 + g\right) \left(1 - \alpha_{
+1} \left(1 - \pi\right) \left(1 - \tau\right)\right) - \alpha_{2} \gamma v v_{
+h}}{\gamma un \left(1 + g\right)}
+
+:end:
+
+#+END_equation
+
+
+** Removing government
+
+#+NAME: h_new
+#+BEGIN_SRC ipython :session :async t :tangle ./codes/Original.py :exports none :results output text/latex
+h_new = hstar.subs(vh, vhstar).subs(l, lstar).subs(b, 0).subs(tau,0).subs(sigma,0).simplify()
+pprint(
+   sp.latex(
+       sp.Eq(h, h_new),
+       order = 'none',
+   )
+)
+#+END_SRC
+
+#+RESULTS: h_new
+:results:
+# Out [787]: 
+# output
+h = \frac{\alpha_{2} \left(-1 + \tau\right) \left(b i v \left(g - i sf\right) 
++ un \left(1 + g\right) \left(g - i sf\right) \left(1 - \alpha_{1} + \pi \left
+(\alpha_{1} - sf\right)\right) - i sf v \left(- \left(1 + g\right) \left(h - \
+pi sf\right) + g \lambda v_{h}\right)\right) - un \left(\alpha_{2} + g\right) 
+\left(g - i sf\right) \left(\sigma + \left(1 + g\right) \left(-1 + \alpha_{1} 
+\left(1 - \pi\right) \left(1 - \tau\right)\right)\right)}{un \left(1 + g\right
+) \left(\alpha_{2} + g\right) \left(g - i sf\right)}
+
+:end:
+
+#+BEGIN_equation
+#+CALL: h_new()
+
+#+RESULTS:
+:results:
+# Out [791]: 
+# output
+h = \frac{\alpha_{2} \left(i sf v \left(- \left(1 + g\right) \left(h - \pi sf\
+right) + g \lambda v_{h}\right) - un \left(1 + g\right) \left(g - i sf\right) 
+\left(1 - \alpha_{1} + \pi \left(\alpha_{1} - sf\right)\right)\right) - un \le
+ft(1 + g\right) \left(-1 - \alpha_{1} \left(-1 + \pi\right)\right) \left(\alph
+a_{2} + g\right) \left(g - i sf\right)}{un \left(1 + g\right) \left(\alpha_{2}
+ + g\right) \left(g - i sf\right)}
+
+:end:
+
+#+END_equation
+* No government version

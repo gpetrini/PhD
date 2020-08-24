@@ -1,0 +1,72 @@
+.TH "nec" "1" "" "acq manual" ""
+.SH NAME
+.PP
+nec \- test for necessary conditions
+.SH SYNOPSIS
+.PP
+\f[B]nec\f[] [\f[I]OPTIONS\f[]] [\f[I]condition\f[]
+[\f[I]condition\f[]\ ...]]
+.SH DESCRIPTION
+.PP
+\f[I]condition\f[] is a causal condition from the dataset.
+Terms must be upcased or downcased (to test negation), as appropriate.
+If no causal conditions are specified, test all combinations.
+.PP
+Complex causal conditions joined by Boolean addition (e.g., A+B+C) are
+permitted.
+Terms joined by Boolean multiplication (e.g., A*B*C) are prohibited;
+instead, test each term separately.
+If all terms are consistent with necessity, use theory to judge whether
+the terms are jointly necessary.
+.SH OPTIONS
+.TP
+.B \-c, \-\-consist=\f[I]VALUE\f[]
+Consistency threshold (default is 0.9)
+.RS
+.RE
+.TP
+.B \-r, \-\-cov=\f[I]VALUE\f[]
+Coverage threshold (default is 0.5)
+.RS
+.RE
+.TP
+.B \-o, \-\-outcome=\f[I]COLUMN\f[]
+Outcome column (default is last column)
+.RS
+.RE
+.TP
+.B \-i, \-\-include=\f[I]COLUMNS\f[]
+Include only these causal conditions (default is all)
+.RS
+.RE
+.TP
+.B \-I, \-\-exclude=\f[I]COLUMNS\f[]
+Don\[aq]t include these as causal conditions
+.RS
+.RE
+.TP
+.B \-y, \-\-input=\f[I]FILE\f[]
+If absent, or when \f[I]FILE\f[] is \-, read standard input
+.RS
+.RE
+.TP
+.B \-h, \-\-help
+Display help and exit
+.RS
+.RE
+.TP
+.B \-v, \-\-version
+Output version information and exit
+.RS
+.RE
+.PP
+\f[I]VALUE\f[] is a number ranging between 0.0 and 1.0.
+\f[I]COLUMNS\f[] may be specified by column position or name.
+Separate multiple \f[I]COLUMNS\f[] with commas.
+Mandatory arguments to long options are also mandatory for short
+options.
+.SH SEE ALSO
+.PP
+bq(1), concov(1), consist(1), gtt(1), suf(1)
+.SH AUTHORS
+Claude Rubinson <cjr\@grundrisse.org>.

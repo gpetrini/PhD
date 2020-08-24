@@ -1,0 +1,187 @@
+README for Kirq and acq
+=======================
+
+This is the README for Kirq and acq, software for Qualitative
+Comparative Analysis.  Kirq is a cross-platform GUI program.  acq is a
+suite of shell scripts for Unix.
+
+If all you want is Kirq, binary packages are available for Windows, OS
+X, and Linux.  The binary packages bundle Kirq together with all of
+its dependencies into a single installation package.  The user does
+not need to install Python or any other programs.
+
+If you want acq or you want to build Kirq from source, you will need
+to download and build the combined kirq-acq source package.  Build
+instructions are provided below.
+
+INSTALLING AND UNINSTALLING THE KIRQ BINARY PACKAGE
+
+    Windows: Unzip the zipfile and open the folder.  The executable is
+    named Kirq.exe.  To uninstall: delete the application folder.
+
+    OS X: Double-click the zipfile to unpack the application bundle
+    (recent versions of OS X browsers are configured to do this
+    automatically after download).  Double-click the bundle to run
+    Kirq.  To uninstall: delete the application bundle.
+
+    Linux: Unpack the tarball and do a "make install" as root.  You
+    can change the installation paths by editing the Makefile.  By
+    default, the Kirq binary will be symlinked to
+    /usr/local/bin/kirq.  To uninstall: Change to the installation
+    directory and do a "make uninstall" as root.
+
+BUILDING THE SOURCE PACKAGE
+
+    Unix/OS X: If the required dependencies are available (see below),
+	  all you need to do is unpack the kirq-acq tarball, cd into
+	  it, and execute (you'll probably need to be root):
+
+	    # python2.7 setup.py install
+
+    Windows: Most Windows users will want to install the binary Kirq
+	  package, available at http://grundrisse.org/qca/download/.
+
+	  If you wish to build Kirq and acq from source, first install
+	  Python 2.7 and PyQt4 for Windows (see below for details).
+	  
+	  Download the kirq-acq zipfile and unzip it.  Open a command
+	  prompt window (Start -> Accessories), navigate to the
+	  unzipped directory, and execute:
+
+	    \path\to\source> setup.py install
+
+	  By default, Kirq will be installed to C:\Python2.7\Scripts\kirq
+	  (adjust for your Python installation path).  The acq scripts
+	  will also be installed to this same directory but aren't useful
+	  outside of a Unix shell environment.
+
+UNINSTALLING THE SOURCE BUILD 
+
+Unfortunately, Python's module distribution system (distutils) doesn't
+provide an automated uninstall feature.  Therefore, to uninstall Kirq,
+acq, and their libraries, you will need to manually track down and
+delete each installed file.  During installation, distutils will echo
+where it's installing its files.  I recommend that you record this
+information in a log file.  If you did not record this information
+during installation and are now looking to uninstall, just rerun the
+installation routine, note the installation paths, and uninstall the
+individual files.
+
+DEPENDENCIES
+
+Kirq and acq depend on Python 2.7, Qt4, and PyQt4.  acq further
+assumes a working Unix shell environment.  Distribution-specific
+instructions are provided below.  If you have any corrections,
+revisions, or additions, please email them to Claude Rubinson at
+<cjr@grundrisse.org>.
+
+  - xlrd and openpyxl Python packages
+
+      xls support is provided by John Machin's xlrd module
+      (http://pypi.python.org/pypi/xlrd).  xlsx support is provided by
+      Eric Gazoni's openpyxl module
+      (http://packages.python.org/openpyxl/).  For convenience, these
+      packages are included in the kirq-acq sources.  If you wish to
+      NOT install xlrd or openpyxl (because you've installed it
+      separately), just edit the "packages=['xlrd','openpyxl',...],"
+      line in setup.py.
+
+  - Windows
+
+      1.  Download and install Python 2.7 from the Python.org
+      website at http://python.org/download/windows/
+
+      2.  Download and install PyQt4 for Windows from Riverbank
+      Computing at
+      http://www.riverbankcomputing.co.uk/software/pyqt/download/.
+      You'll probably want to install a binary package; instructions
+      for building from source are included in the source package.  Be
+      sure to download a version built against Python 2.7.
+
+  - OS X
+
+      I've been unable to successfully install the upstream versions
+      of Qt4 and PyQt4 on OS X.  Instead, I recommend using MacPorts,
+      which will automatically satisfy all dependencies, including Qt4
+      and Python2.7.  MacPorts has the added benefit that it includes
+      an uninstall routine, which is missing from OS X.
+
+      1.  To install a build environment on OS X, you'll need to
+      download and install the free Apple developer tools (Xcode),
+      available in the AppStore.  After installing Xcode, you'll need
+      to run it once to copy over the required dependencies.
+
+      2.  Install MacPorts from http://www.macports.org
+
+      3.  Open a terminal window and execute:
+
+            $ sudo port selfupdate
+	    $ sudo port install py27-pyqt4
+
+  - Debian Testing/Unstable.  Python 2.7 is the default in Testing.
+    Install the python-qt4 package and it will pull in the Qt4
+    libraries and any other dependencies.
+
+  - Debian Stable (Squeeze).  Python 2.7 isn't packaged for Squeeze,
+    so you'll need to build it from source.  You'll also need to build
+    PyQt4 from source, so as to link it against Python 2.7.  Qt4 is
+    available as a set of binary packages in the main repository and
+    will be pulled in when installing libqt4-dev.
+
+      1.  Install build dependencies:
+
+          # apt-get install g++ libxext-dev libqt4-dev
+
+      2.  Follow below instructions for building Python 2.7 and PyQt4
+          from source.
+
+  - Building Python 2.7 from source
+
+    Assuming that you have a basic build environment available,
+    building and installing Python 2.7 should be straightforward.
+    Download and unpack the sources from http://python.org/download
+    and perform the standard extract and build three-step:
+
+      $ ./configure
+      $ make
+      # make install
+
+    See the included README for complete details.
+
+  - Building PyQt4 from source
+
+    Building PyQt4 from source can be a bit complicated, as it relies
+    upon a few different dependencies.  Your distribution should
+    provide packages for Qt4 and Qt4 development (including qmake), a
+    C++ compiler (g++ is ideal), and the X11 extension module
+    (libXext).  Note that if you don't have libXext installed, the
+    PyQt build scripts won't build the QtGui module, which acq depends
+    upon.
+
+      1. Download SIP and PyQt4 from Riverbank Computing
+         (http://www.riverbankcomputing.co.uk/).
+
+      2. Extract, build, and install SIP, which is Riverbank's bindings
+         generator:
+
+         $ python configure.py
+         $ make
+         # make install
+
+      3. Extract, build, and install PyQt4:
+
+         $ python configure.py
+         $ make
+         # make install
+
+      See the included READMEs for complete details.
+
+
+CONTACTS AND SUPPORT
+
+Send questions, suggestions, bug reports, experiences, praise,
+complaints, etc to Claude Rubinson at <cjr@grundrisse.org>.
+
+The main website for Kirq and acq is:
+
+      http://grundrisse.org/qca/

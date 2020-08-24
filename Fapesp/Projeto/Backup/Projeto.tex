@@ -1,0 +1,204 @@
+% Last update/Última versão: 11/Sep/2016
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%=====================================================================
+% 							Pacotes Fundamentais
+%=====================================================================
+\documentclass[
+% -- op\c{c}\~{o}es da classe memoir --
+12pt,				% tamanho da fonte
+openright,			% cap\'{\i}tulos come\c{c}am em p\'{a}g \'{\i}mpar (insere p\'{a}gina vazia caso preciso)
+oneside,			% para impress\~{a}o em verso e anverso. Oposto a oneside
+a4paper,		% tamanho do papel.
+% -- op\c{c}\~{o}es da classe abntex2 --
+%chapter=TITLE,		% t\'{\i}tulos de cap\'{\i}tulos convertidos em letras mai\'{u}sculas
+%section=TITLE,		% t\'{\i}tulos de se\c{c}\~{o}es convertidos em letras mai\'{u}sculas
+%subsection=TITLE,	% t\'{\i}tulos de subse\c{c}\~{o}es convertidos em letras mai\'{u}sculas
+%subsubsection=TITLE,% t\'{\i}tulos de subsubse\c{c}\~{o}es convertidos em letras mai\'{u}sculas
+% -- op\c{c}\~{o}es do pacote babel --
+english,			% idioma adicional para hifeniza\c{c}\~{a}o
+%french,			% idioma adicional para hifeniza\c{c}\~{a}o
+%spanish,			% idioma adicional para hifeniza\c{c}\~{a}o
+brazil,				% o \'{u}ltimo idioma \'{e} o principal do documento
+%sumario=tradicional,
+]{article}
+\usepackage[a4paper, 
+right = 1.5cm, left = 3.5cm, top = 3cm, bottom = 2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[english,portuguese]{babel}
+%\usepackage[myheadings]{fullpage}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx, setspace}
+\usepackage{booktabs}
+\usepackage{sectsty}
+\usepackage{url}
+\usepackage{mathptmx}
+\usepackage{comment}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{enumitem}
+\usepackage{blindtext}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{calc,trees,positioning,arrows,chains,shapes.geometric,%
+	decorations.pathreplacing,decorations.pathmorphing,shapes,%
+	matrix,shapes.symbols,through}
+\usepackage[bottom]{footmisc}
+\usepackage{pdfpages}
+\usepackage{caption} % \caption*
+\usepackage{csquotes}
+\usepackage{footnote} % Permite footnote em tabelas
+
+
+%=====================================================================
+% 							Pacotes Bibliográficos
+%=====================================================================
+
+\usepackage[backend=biber,
+	style = abnt,%
+	noslsn, %
+	extrayear, %
+	uniquename=init,% 
+	giveninits, %
+	justify, %
+	sccite,% 
+	scbib, %
+	repeattitles, %
+	doi=false,isbn=false,url=false, 
+	maxcitenames=3]{biblatex}
+\addbibresource{./refs.bib}
+
+\renewenvironment{quote}
+{\small\list{}{\fontsize{10pt}{12pt}\singlespacing\rightmargin=0cm \leftmargin=4cm}%
+	\item\relax}
+{\endlist}
+
+%=====================================================================
+% 							Comandos específicos da FAPESP
+%=====================================================================
+\input{comandos}
+%=====================================================================
+% 							Outros Pacotes
+%=====================================================================
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{subfigure}
+\usepackage{setspace}
+\usepackage{lipsum}  
+\usepackage{amsmath} % Para cases
+\usepackage[cm]{fullpage}
+
+%=====================================================================
+% 							Página de título e folha de rosto
+%=====================================================================
+%-----
+% Página de título
+% Observação: As definições que aparecem a seguir comporão a
+%             página de título e a folha de rosto.
+%-----
+%% Define o nome da universidade onde o projeto foi desenvolvido.
+\universidade{Universidade Estadual de Campinas}
+%
+%% Define o nome da faculdade onde o projeto foi desenvolvido.
+\faculdade{Instituto de Economia}
+%
+%% Define o título do projeto.
+\titulo{Título}
+%
+%
+%% Define o autor do relatório.
+\autor{}
+\cidade{Campinas}
+
+
+\begin{document}
+%=====================================================================
+% 							Numeração pré-textual
+%=====================================================================
+\pagenumbering{roman}
+%=====================================================================
+% 							Folha de título
+%=====================================================================
+%\geraTitulo
+%=====================================================================
+% 							Folha de rosto
+%=====================================================================
+% Gera a folha de rosto.
+%\folhaDeRosto
+%=====================================================================
+% 							Título
+%=====================================================================
+\begin{center}
+\rule{\textwidth}{1.2pt}
+	Projeto de Tese para Doutorado em Ciência Econômica\\
+	%\textbf{Investimento residencial, instituições e crescimento: Uma análise comparativa a partir de um modelo supermultiplicador sraffiano com consistência entre fluxos e estoques}
+	\textbf{\Large{Macroeconomia imobiliária: \\\large{uma análise comparada}}}\\
+	\textbf{Gabriel Petrini da Silveira}
+\rule{\textwidth}{1.2pt}
+\end{center}
+%=====================================================================
+% 							Resumo
+%=====================================================================
+\Resumo{
+	A crise imobiliária de 2007 --- que se tornou uma crise financeira global --- demarcou mudanças importantes na teoria econômica. Dentre elas, destaca-se a guinada de parte da literatura para a compreensão das implicações macroeconômicas do investimento residencial. 
+	Apesar destes esforços recentes, muitas questões estão em aberto. 
+	Da revisão de literatura, verifica-se a necessidade de se investigar as relações entre mercado imobiliário e de bolha de ativos.
+	Adicionalmente, a literatura que conecta investimento residencial com as teorias de crescimento lideradas pela demanda é escassa e precisa ser mais explorada.
+	Partindo de 17 países da OCDE e de forma a suprir estas lacunas, a presente pesquisa irá:
+		(i) investigar quais os condicionantes institucionais que permitem uma maior participação das hipotecas no balanço patrimonial dos bancos (``hipotecarização'') por meio de uma análise qualitativa comparativa com lógica \textit{fuzzy} (fsQCA);
+		(ii) avaliar os determinantes macroeconômicos do investimento residencial no pós-década de 70 através de um modelo de dados em painel dinâmico e; 
+		(iii) desenvolver um modelo supermultiplicador sraffiano com consistência entre fluxos e estoques para integrar os condicionantes e determinantes do investimento residencial e avaliar suas implicações para a dinâmica. 
+		Ao considerar elementos qualitativos e quantitativos de forma comparada, o estudo visa
+		evidenciar mecanismos que conectam bolha de ativos e dinâmica macroeconômica e seus efeitos sobre a composição patrimonial dos diferentes setores institucionais.
+		O entendimento dos condicionantes, determinantes e implicações da hipotecarização pode auxiliar políticas econômicas mais eficazes em conciliar
+		crescimento econômico, estabilidade e regulação financeira. 
+		\\\\
+\noindent\textbf{Palavras-chave:} Investimento residencial; Supermultiplicador sraffiano; metodologia de consistência entre fluxos e estoques; Análise Qualitativa Comparativa; Lógica \textit{fuzzy}.
+}
+%=====================================================================
+% 							Abstract
+%=====================================================================
+\begin{comment}
+Habilitar caso seja necessário um abstract em outra página
+
+\Abstract{
+teste in english
+}
+\end{comment}
+%=====================================================================
+% 							Numeração textual
+%=====================================================================
+\pagenumbering{arabic}
+
+%=====================================================================
+% 							Formatação título seção
+%=====================================================================
+\sectionfont{\scshape}
+
+%=====================================================================
+% 							Corpo de texto
+%=====================================================================
+\linespread{1.5}
+\doublespacing
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+\begingroup
+\let\clearpage\relax
+\input{Introducao_Just}
+\input{Objetivos}
+\input{Metodologia.tex}
+%\input{Resultados} % Resultados esperados temporariamente desativados
+\input{Plano_Trabalho}
+\input{BEPE}
+\endgroup
+
+%=====================================================================
+% 							Bibliografia
+%=====================================================================
+%{\let\clearpage\relax \chapter{Bibliografia}}
+%-----
+
+{\let\clearpage\relax\printbibliography}
+%=====================================================================
+% 							Fim do Documento
+%=====================================================================
+\end{document}

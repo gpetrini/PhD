@@ -1,0 +1,247 @@
+#!/usr/bin/env python2.7
+
+# nec - test for necessary conditions
+
+# Copyright (c) 2010--2014 Claude Rubinson
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License along with this program.  If not, see
+# <http://www.gnu.org/licenses/>.
+
+import sys
+import getopt
+import itertools
+from libfsqca import *
+from pptable import *
+
+def err(msg, file_descr=sys.stderr, signal=1):
+    """General error handling routine."""
+    print >> file_descr, '%s: %s' % (progname, msg)
+    sys.exit(signal)
+
+def usage(device=sys.stdout):
+    print >> device, """Usage: %s [OPTIONS] [CONDITION [CONDITION ...]]
+Test for necessary conditions.""" % progname
+
+    print >> device, """
+  -h, --help\t\tDisplay this help and exit
+  -v, --version\t\tOutput version information and exit
+
+  -y, --input=FILE\tIf absent, or when FILE is -, read standard input
+
+  -o, --outcome=COLUMN\tOutcome column (default is last column)
+  -i, --include=COLUMNS\tInclude only these causal conditions (default is all)
+  -I, --exclude=COLUMNS\tDon't include these as causal conditions
+\t\t\t(These three options can be specified by name or
+\t\t\tcolumn position.  Separate multiple columns with
+\t\t\tcommas.)
+
+  -c, --consist=VALUE\tConsistency threshold (default is 0.9)
+  -r, --cov=VALUE\tCoverage threshold (default is 0.5)
+
+CONDITION is a causal condition from the dataset.  Terms must be
+upcased or downcased (to test negation), as appropriate.  If no causal
+conditions are specified, test all combinations.
+
+Complex causal conditions joined by Boolean addition (e.g., A+B+C) are
+permitted.  Terms joined by Boolean multiplication (e.g., A*B*C) are
+prohibited; instead; test each term separately.  If multiple terms are
+consistent with necessity, use theory to judge whether the terms are
+jointly necessary."""
+
+#
+# INITIALIZATIONS
+#
+progname = sys.argv[0]
+__version__ = '2.1.12'  # don't change; set at build-time
+
+outcome_col = None
+include = []
+exclude = []
+consist_thresh = 0.9
+cov_thresh = 0.5
+dataset_file = '/dev/stdin'
+
+#
+# PROCESS COMMAND-LINE ARGUMENTS AND OPTIONS
+#
+
+short_opts = 'hvo:i:I:c:r:y:'
+long_opts = ['help', 'version', 'outcome=','include=','exclude=','consist=',
+             'cov=', 'input=']
+try:
+    opts, args = getopt.getopt(sys.argv[1:], short_opts, long_opts)
+except getopt.GetoptError, value:
+    # print usage information and exit
+    sys.stderr.write('%s: %s\n' % (progname, value))
+    sys.exit()
+
+# presence of 'help' or 'version' flag overrides any other options
+for opt in sys.argv[1:]:
+    if opt in ('-h', '--help'):
+        usage()
+        sys.exit()
+    elif opt in ('-v', '--version'):
+        print 'nec', __version__
+        print 'Copyright (C) 2010-2014 Claude Rubinson'
+        sys.exit()
+
+# process remaining command-line options
+for opt, optarg in opts:
+    if opt in ('-o', '--outcome'):
+        # outcome can be specified by column number or name
+        outcome_col = optarg
+    if opt in ('-i', '--include'):
+        # included causal conditions can be specified by column number
+        # or name
+        include = optarg.split(',')
+    if opt in ('-I', '--exclude'):
+        # excluded causal conditions can be specified by column number
+        # or name
+        exclude = optarg.split(',')
+    if opt in ('-c', '--consist'):
+        try:
+            consist_thresh = float(optarg)
+            if consist_thresh < 0.0 or consist_thresh > 1.0:
+                err('Value of consistency threshold must be between 0.0 and 1.0: %s' % consist_thresh)
+        except ValueError:
+            err('non-numeric value for consistency threshold: %s' % optarg)
+    if opt in ('-r', '--cov'):
+        try:
+            cov_thresh = float(optarg)
+            if cov_thresh < 0.0 or cov_thresh > 1.0:
+                err('Value of coverage threshold must be between 0.0 and 1.0: %s' % cov_thresh)
+        except ValueError:
+            err('non-numeric value for coverage threshold: %s' % optarg)
+    if opt in ('-y', '--input'):
+        dataset_file = '/dev/stdin' if optarg=='-' else optarg
+
+# read data in from commandline and construct QcaDataset object
+try:
+    qcadata=QcaDataset(outcome_col=outcome_col, include=include, exclude=exclude, indata=dataset_file)
+except EmptyCellError, exc:
+    err('Empty cell in dataset: %s' % exc)
+except RaggedDatasetError:
+    err('Dataset rows are of unequal length') 
+except FileTypeNotSupportedError, exc:
+    err("File type not supported: %s" % exc)
+except ValueError, exc:
+    err(exc)
+except IOError:
+    err('File not found: %s' % dataset_file)
+except csv.Error:
+    err('Could not determine delimiter of dataset.')
+except DatasetError, exc:
+    err(exc)
+except QcaError, msg:
+    err(msg)
+
+# construct new dataset with negated causal conditions
+with_negated=[['Cases'] + 
+              [cc.upper() for cc in qcadata.causal_conds()] + 
+              [cc.lower() for cc in qcadata.causal_conds()] + 
+              [qcadata.outcome()]]
+for obs_name, memberships, outcome_membership in \
+        zip(qcadata.obs(),
+            [cms + fznot(cms) for cms in qcadata.causal_memberships()],
+            qcadata.outcome_memberships()):
+    with_negated.append([obs_name] + memberships + [outcome_membership])
+qcadata_wn=QcaDataset(with_negated)
+
+# construct list of conditions to test for necessity; test_conditions
+# is a ragged array representing a "product of sums" format.  For
+# example, (A+b) * (c+D) would be represented as [['A','b'], ['c','D']]
+#
+# Note that there's some redundancy in the below stanza. There are
+# three reasons for this.  (1) when testing all combinations of
+# conditions, the test_conditions variable is reset for the various
+# subset sizes via an iterator.  (2) tautologies are treated
+# differently; for the automated test, we just drop tautologies but if
+# a user specifies a tautology, we want to fail and explain why.  (3)
+# Need additional error handling to trap user errors (e.g.,
+# incorrectly specified causal conditions).  I'm not sure whether it's
+# possible to cleanly factor out this redundancy.
+nec_conds = []
+if args:
+    # extract causal conditions from commandline
+    test_conditions = []  # a ragged array
+    for condition in args:
+        test_conditions.append(condition.split('+'))
+
+    # validity check; user needs to specify conditions to test as
+    # UPPERCASE or lowercase
+    for condition in test_conditions:
+        for cc in condition:
+            if not (cc.isupper() or cc.islower()):
+                msg = 'Specify causal conditions as UPPERCASE or lowercase: %s' % '+'.join(condition)
+                err(msg)
+                
+    for condition in test_conditions:
+        for nec_cond in nec_conds:  # ignore supersets of found
+                                    # necessary conditions (e.g.,
+                                    # if 'A' is a necessary
+                                    # condition, 'A+B' is as well)
+            if set(nec_cond) < set(condition):
+                break
+        else:
+            # if user specifies a tautology, flag it and halt
+            # execution (when testing all combinations below, we
+            # simply drop tautologies)
+            condition_upper = [term.upper() for term in condition]
+            for term in condition_upper:
+                if condition_upper.count(term) > 1:
+                    formatted = '+'.join(condition)
+                    print >> sys.stderr, "%s: Tautological causal condition: %s" % (progname, formatted)
+                    sys.exit(1)
+            else:
+                # test if this condition is a necessary condition
+                try:
+                    if qcadata_wn.isnec(condition, consist_thresh):
+                        nec_conds.append(condition)
+                except ValueError:
+                    formatted = '+'.join(condition)
+                    if formatted.find('*') >= 0:
+                        print >> sys.stderr, "%s: Boolean multiplication is invalid in necessity tests (see --help): %s" % (progname, formatted)
+                    else:
+                        print >> sys.stderr, "%s: Invalid causal condition: %s" % (progname, formatted)
+                    sys.exit(1)
+
+else:
+    # if argument list is empty, test all possible combinations of conditions
+    causal_conditions = qcadata_wn.causal_conds()
+    for i in range(1, len(causal_conditions)+1):
+        test_conditions = itertools.combinations(causal_conditions, i)
+        for condition in test_conditions:
+            for nec_cond in nec_conds:  # ignore supersets of found
+                                        # necessary conditions (e.g.,
+                                        # if 'A' is a necessary
+                                        # condition, 'A+B' is as well)
+                if set(nec_cond) < set(condition):
+                    break
+            else:
+                # ignore combinations with tautologies (e.g., A and a)
+                condition_upper = [term.upper() for term in condition]
+                for term in condition_upper:
+                    if condition_upper.count(term) > 1:
+                        break
+                else:
+                    # test if this condition is a necessary condition
+                    if qcadata_wn.isnec(condition, consist_thresh):
+                        nec_conds.append(condition)
+
+# construct and format consistency/coverage table
+concov = concov_nec(qcadata, nec_conds, consist_thresh, cov_thresh)
+if concov:
+    print pp(concov, template='l,r%.2f,r%.2f,l')
+else:
+    sys.exit(0)

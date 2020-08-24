@@ -1,0 +1,50 @@
+#+PROPERTY: header-args :tangle "Supermultiplier.bib"
+#+TITLE: Sraffian Supermultiplier readings
+#+AUTHOR: Gabriel Petrini
+#+LATEX_HEADER: \bibliography{Supermultiplier.bib}
+
+
+* Simulation                                                
+** cite:fazzaridemandled2020 -     citetitle*:fazzaridemandled2020              
+
+#+BEGIN_SRC bib :tangle yes  :exports none
+@article{fazzaridemandled2020,
+	title = {Demand-led growth and accommodating supply},
+	volume = {44},
+	issn = {0309-166X, 1464-3545},
+	url = {https://academic.oup.com/cje/article/44/3/583/5714155},
+	doi = {10.1093/cje/bez055},
+	abstract = {Abstract
+            We model of demand-led growth with endogenous adjustment of labour supply and productivity, an approach that reconciles Harrod’s warranted rate of demand growth with supply. The model delivers a range of growth paths and unemployment rates rather than a single ‘natural rate’. Theoretically, the steady-state growth path may be dynamically stable or unstable, but empirical calibration favours stability. We show analytically that if demand dynamics are stable, supply will converge to the demand-determined growth path. While a minimum unemployment rate ultimately imposes a supply constraint on growth, empirical results show that a wide range of growth rates are feasible across different demand regimes. The results explain how economies can become trapped with low growth due to weak demand or fiscal austerity and suggest policy responses to stagnant demand.},
+	number = {3},
+	urldate = {2020-07-28},
+	journal = {Cambridge Journal of Economics},
+	author = {Fazzari, Steven M and Ferri, Piero and Variato, Anna Maria},
+	year = {2020}
+}
+#+END_SRC
+
+#+ATTR_LATEX: :environment longtable :align l|p{.7\textwidth}
+|--------------------------------+------------------------------------------|
+|--------------------------------+------------------------------------------|
+| <30>                           | <40>                                     |
+| *Background*                   | Heterodox growth models usually does not pay attention to supply-demand interations |
+| *Supporting Ideas*             | Some usual simplifying hypothesis may not be reasonable in developed (mature) countries. Supply side factos should be included into the analysis |
+| *Contribution*                 | Links supply side factos (/i.e./ labour supply and productivity) to demand-led growth mode. |
+| *Relevance*                    | Calibrates data that can be used for other simulations (my own for instance). Presentes some really interesting figures to show model dynamics. |
+| *Methods*                      | Simulation calibrated by real US Data    |
+| *Results*                      | Demand leads supply even when growth is near of full capacity/employment. Autonomous expenditure generates different path along with supply converges. Supply only constrains growth, but not its trajectory. |
+| *Interesting Findings*         | Model is related to "Secular Stagnation" discussion. Points out that a shift in income distribution could generates higher growth rates if it is associated with changes in capitalists consumption. Demand-side austeriy programs would decrease supply growth rate, so "output gap" seems to desapear, but is a result of slower growth rate (and lower supply response). |
+| *Critics*                      | Authors coud discuss in more details the economic meaning of supply side equations (5, 6) |
+| *Uncategorized stuff*          | Differently from others SSM models, \textcite{fazzaridemandled2020} presents the model in terms of desired capital-output ratio.   |
+|--------------------------------+------------------------------------------|
+|--------------------------------+------------------------------------------|
+
+* Theoretical                                                   :Theoretical:
+* References
+  :PROPERTIES:
+  :UNNUMBERED: t
+  :END:
+  #+LaTeX: \printbibliography[heading=none]
+
+  

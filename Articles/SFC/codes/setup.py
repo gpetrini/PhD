@@ -1,0 +1,169 @@
+base = model()
+df = SolveSFC(base, time=1000)
+shock = ShockModel(base_model=base, create_function=model(), variable='phi_0', increase=0.005, time = 1000)
+clock_plots(shock = shock, filename = 'Clock_1.png', variable='g_Z')
+plot_shock(shock = shock, filename = 'Shock_1.png', df=df)
+plot_norms(shock = shock, filename = 'Shock_1Norms.png', df=df)
+other_plots(shock, df=df)
+
+shock1 = shock.round(decimals = 5).tail(1).transpose().loc['alpha':,:]
+shock1.columns = ['$\Delta \phi_0$']
+
+summary = SummaryShock(shock)
+summary
+
+base = model()
+df = SolveSFC(base, time=1000)
+shock = ShockModel(base_model=base, create_function=model(), variable='omega', increase=-0.01, time = 1000)
+df1=shock
+clock_plots(shock = shock, filename = 'Clock_2.png', variable='omega')
+plot_shock(shock = shock, filename = 'Shock_2.png', df=df)
+plot_norms(shock = shock, filename = 'Shock_2Norms.png', df=df)
+other_plots(shock, df)
+shock2 = shock.round(decimals = 3).tail(1).transpose().loc['alpha':,:]
+shock2.columns = ['$\Delta \omega$']
+
+base = model()
+df = SolveSFC(base, time=1000)
+shock = ShockModel(base_model=base, create_function=model(), variable='rm', increase=0.01, time = 1000)
+df3=shock
+shock3 = shock.round(decimals = 3).tail(1).transpose().loc['alpha':,:]
+shock3.columns = ['$\Delta rm$']
+clock_plots(shock = shock, filename = 'Clock_3.png', variable='rmo')
+plot_shock(shock = shock, filename = 'Shock_3.png', df=df)
+plot_norms(shock = shock, filename = 'Shock_3Norms.png', df=df)
+other_plots(shock, df=df)
+
+base = model()
+df = SolveSFC(base, time=1000)
+shock = ShockModel(base_model=base, create_function=model(), variable='infla', increase=0.05, time = 1000)
+df2=shock
+clock_plots(shock = shock, filename = 'Clock_4.png', variable='infla')
+plot_shock(shock = shock, filename = 'Shock_4.png', df=df)
+plot_norms(shock = shock, filename = 'Shock_4Norms.png', df=df)
+other_plots(shock, df=df)
+
+shock4 = shock.round(decimals = 3).tail(1).transpose().loc['alpha':,:]
+shock4.columns = ['$\pi$']
+
+base = model()
+df = SolveSFC(base, time=1000)
+df = df.round(decimals = 4).tail(1).transpose().loc['alpha':,:]
+df.columns = ['Base scenario']
+
+table = pd.merge(left = df, right = shock1, left_index = True, right_index = True)
+table = pd.merge(left = table, right = shock2, left_index = True, right_index = True)
+table = pd.merge(left = table, right = shock3, left_index = True, right_index = True)
+table = pd.merge(left = table, right = shock4, left_index = True, right_index = True)
+table = table.loc[:"infla",:] ######### Warning
+table.index = [ ######### Warning
+    '$\\alpha$',
+    '$\gamma_F$',
+    '$\gamma_u$',
+    '$\omega$',
+    '$rm$',
+    '$\sigma_{l}$',
+    '$\sigma_{mo}$',
+    '$u_N$',
+    '$v$',
+    '$\phi_0$',
+    '$\phi_1$',
+    '$R$',
+    '$\pi$'
+]
+table.to_latex(
+    "./tabs/parameters.tex",
+    #column_format = 'cccccc',
+    escape=False, 
+    float_format="{:0.4f}".format,
+)
+
+base = model()
+df = SolveSFC(base, time=1000)
+df["Z/Y"] = df["Z"]/df["Y"]
+df_base = df
+
+fig, ax = plt.subplots(2,2, figsize=(2*8,2*5))
+
+df1['Y'].pct_change().plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[0,0])
+df2['Y'].pct_change().plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[0,0])
+df3['Y'].pct_change().plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[0,0])
+ax[0,0].axhline(y = df_base['g_Z'].iloc[-1], ls ='--', lw=1, color = "black", label = "Baseline")
+ax[0,0].ticklabel_format(useOffset=False)
+ax[0,0].set_title('GDP growth rate ($g$)')
+
+df1['Z/Y'].plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[0,1])
+df2['Z/Y'].plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[0,1])
+df3['Z/Y'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[0,1])
+ax[0,1].axhline(y = df_base['Z/Y'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[0,1].ticklabel_format(useOffset=False)
+ax[0,1].set_title('Autonomous Expenditure\nShare on GDP ($Z/Y$)')
+
+df1['u'].plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 3)", ax = ax[1,0])
+df2['u'].plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,0])
+df3['u'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 4)", ax = ax[1,0])
+ax[1,0].axhline(y = df_base['u'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[1,0].ticklabel_format(useOffset=False)
+ax[1,0].set_title('Capacity utilization rate ($u$)')
+
+df1['h'].plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[1,1])
+df2['h'].plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,1])
+df3['h'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,1])
+ax[1,1].axhline(y = df_base['h'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[1,1].ticklabel_format(useOffset=False)
+ax[1,1].set_title('Marginal propsenty\nto invest ($h$)')
+
+
+sns.despine()
+plt.tight_layout(rect=[0, 0.03, .85, 0.95])
+ax[1,1].legend(loc='center left', bbox_to_anchor=(1.05, 1.25))
+plt.show()
+fig.savefig("./figs/Compared_Shocks_1.png", dpi = 600)
+
+base = model()
+df = SolveSFC(base, time=1000)
+df["Z/Y"] = df["Z"]/df["Y"]
+df_base = df
+
+df1["TIME"] = [i+1 for i in range(len(df1.index))]
+df2["TIME"] = [i+1 for i in range(len(df2.index))]
+df3["TIME"] = [i+1 for i in range(len(df3.index))]
+
+
+fig, ax = plt.subplots(2,2, figsize=(2*8,2*5))
+
+sns.scatterplot(y = 'Z/Y', x='u', data=df1, size="TIME", sizes = (1,100), color = 'darkred', legend=False, ax=ax[0,0])
+sns.scatterplot(y = 'Z/Y', x='u', data=df2, size="TIME", sizes = (1,100), color = 'darkblue', legend=False, ax=ax[0,0])
+sns.scatterplot(y = 'Z/Y', x='u', data=df3, size="TIME", sizes = (1,100), color = 'darkgreen', legend=False, ax=ax[0,0])
+
+sns.lineplot(y = 'Z/Y', x='u', data=df1, sort=False, color = 'darkred', ax=ax[0,0])
+sns.lineplot(y = 'Z/Y', x='u', data=df2, sort=False, color = 'darkblue', ax=ax[0,0])
+sns.lineplot(y = 'Z/Y', x='u', data=df3, sort=False, color = 'darkgreen', ax=ax[0,0])
+ax[0,0].set_title('Share of residential investment and capacity utilization\n(Dots size grow in time)')
+
+df1['K_k'].plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[0,1])
+df2['K_k'].plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[0,1])
+df3['K_k'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[0,1])
+ax[0,1].axhline(y = df_base['K_k'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[0,1].ticklabel_format(useOffset=False)
+ax[0,1].set_title('Houses share on\nReal Assets ($K_k$)')
+
+((df1["MO"]*df1["rmo"][1:] + df1["Lk"]*df1["rl"][1:])/df1['YDk'][1:]).plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[1,0])
+((df2["MO"]*df2["rmo"][1:] + df2["Lk"]*df2["rl"][1:])/df2['YDk'][1:]).plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,0])
+((df3["MO"]*df3["rmo"][1:] + df3["Lk"]*df3["rl"][1:])/df3['YDk'][1:]).plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,0])
+ax[1,0].axhline(y = ((df_base["MO"].iloc[-2]*df_base["rmo"].iloc[-1] + df_base["Lk"].iloc[-2]*df_base["rl"].iloc[-1])/df_base['YDk'].iloc[-1]), ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[1,0].ticklabel_format(useOffset=False)
+ax[1,0].set_title('Capitalist Indebtedness\n(as % $YD_k$)')
+
+(df1['Fn']/df1['K_f']).plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[1,1])
+(df2['Fn']/df2['K_f']).plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,1])
+(df3['Fn']/df3['K_f']).plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,1])
+ax[1,1].axhline(y = (df_base['Fn']/df_base['K_f']).iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[1,1].ticklabel_format(useOffset=False)
+ax[1,1].set_title('Net profit rate')
+
+sns.despine()
+plt.tight_layout(rect=[0, 0.03, .85, 0.95])
+ax[1,1].legend(loc='center left', bbox_to_anchor=(1.05, 1.25))
+plt.show()
+fig.savefig("./figs/Compared_Shocks_2.png", dpi = 600)

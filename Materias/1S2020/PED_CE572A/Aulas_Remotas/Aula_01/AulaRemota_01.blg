@@ -1,0 +1,15 @@
+[0] Config.pm:304> INFO - This is Biber 2.12
+[0] Config.pm:307> INFO - Logfile is 'AulaRemota_01.blg'
+[75] biber:315> INFO - === Wed Jun  3, 2020, 11:58:27
+[168] Biber.pm:371> INFO - Reading 'AulaRemota_01.bcf'
+[281] Biber.pm:889> INFO - Found 5 citekeys in bib section 0
+[300] Biber.pm:4093> INFO - Processing section 0
+[319] Biber.pm:4254> INFO - Looking for bibtex format file './Bib.bib' for section 0
+[377] bibtex.pm:1523> INFO - LaTeX decoding ...
+[1016] bibtex.pm:1340> INFO - Found BibTeX data source './Bib.bib'
+[1103] UCollate.pm:68> INFO - Overriding locale 'pt-BR' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[1103] UCollate.pm:68> INFO - Overriding locale 'pt-BR' defaults 'variable = shifted' with 'variable = non-ignorable'
+[1103] Biber.pm:3921> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'pt-BR'
+[1103] Biber.pm:3927> INFO - No sort tailoring available for locale 'pt-BR'
+[1132] bbl.pm:636> INFO - Writing 'AulaRemota_01.bbl' with encoding 'UTF-8'
+[1136] bbl.pm:739> INFO - Output to AulaRemota_01.bbl

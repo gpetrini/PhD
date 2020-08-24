@@ -1,0 +1,56 @@
+# Registro (log) iniciado em 2020-05-16 17:39
+# Gravação de sessão de comandos (note que, provavelmente, este registro
+# precisará ser editado para ser usado como um script).
+open /HDD/PhD/Researches/2020_ICMS/data/raw_data.csv
+rename 1 ICMS
+setinfo ICMS --description="ICMS Nominal em milões"
+setinfo ICMS --graph-name="ICMS"
+delete ICMSacumuladonoanonominal
+delete VariaAAosobreAcumuladonominala VariaAAosobremesmomAsanoanteri
+rename 2 Industrial
+setinfo Industrial \
+  --description="Índice de Produção Física Industrial"
+setinfo Industrial --graph-name="Industrial"
+rename 3 Cambio
+setinfo Cambio --description="Taxa de Câmbio mensal compra"
+setinfo Cambio --graph-name="Câmbio"
+rename 4 Exportacoes
+setinfo Exportacoes --description="Exportações FOB"
+setinfo Exportacoes --graph-name="Exportacoes"
+rename 5 Importacoes
+setinfo Importacoes --description="Importações FOB"
+setinfo Importacoes --graph-name="Importacoes"
+diff ICMS
+diff Industrial
+diff Cambio
+diff Exportacoes
+diff Importacoes
+coint2 12 ICMS Industrial Cambio Exportacoes Importacoes --seasonals
+coint 12 ICMS Industrial Cambio Exportacoes Importacoes --seasonals
+var 24 d_ICMS d_Industrial d_Cambio d_Exportacoes d_Importacoes \
+  --seasonals --lagselect
+var 12 d_ICMS d_Industrial d_Cambio d_Exportacoes d_Importacoes \
+  --seasonals
+dataset addobs 12
+fcast 2020:04 2021:03 d_ICMS
+fcast 2020:04 2021:03 d_ICMS --static
+fcast 2020:04 2021:03 d_ICMS
+modtest 12 --autocorr
+modtest --normality
+modtest 12 --arch
+modtest --normality
+omit --seasonals --test-only
+fcast 2020:04 2021:03 d_ICMS
+modtest 12 --arch
+modtest --normality
+fcast 2020:04 2021:03 d_ICMS
+var 24 d_ICMS d_Industrial d_Cambio d_Exportacoes d_Importacoes \
+  --seasonals --lagselect
+var 2 d_ICMS d_Industrial d_Cambio d_Exportacoes d_Importacoes \
+  --seasonals --robust
+modtest 12 --autocorr
+modtest 12 --arch
+modtest --normality
+fcast 2020:04 2021:03 d_ICMS
+omit --seasonals --test-only
+modtest 12 --autocorr

@@ -1,0 +1,70 @@
+\documentclass[11pt,lineno]{../_configs}
+
+\articletype{Empirical} % article type
+
+\bibliography{HOUSING.bib}
+
+\newcommand{\autor}{\textcite{key} }
+
+\title{
+\large{Subtitle}\vspace{2pt}\\
+\Huge{\autor - Title}
+}
+\date{Date}
+
+\author[$\ast$]{Gabriel Petrini}
+
+\affil[$\ast$]{PhD Student at Unicamp.}
+
+\keywords{
+	Keyword1\\ 
+	Keyword2\\
+	Keyword3
+}
+
+\runningtitle{Sillabus} % For use in the footer 
+
+%% For the footnote.
+\runningauthor{Petrini}
+
+\begin{abstract}
+\abssection{Background} 
+
+\abssection{Supporting ideas} 
+
+\abssection{Contribution} 
+
+\abssection{Relevance} 
+
+\abssection{Methods} 
+
+\abssection{Results} 
+
+\abssection{Interesting findings} 
+
+\abssection{Critics} 
+ \end{abstract}
+
+\begin{document}
+
+\maketitle
+\articletypemark
+\marginmark
+\thispagestyle{firststyle}
+% Please add here a significance statement to explain the relevance of your work
+
+\noindent \textbf{Citation:} 	\fullcite{key}
+
+\begin{infobox}
+	\textbf{5SS:} \autor 
+\end{infobox}
+
+\begin{redbox}{Further readings}
+	\begin{itemize}
+		\item 
+	\end{itemize}
+\end{redbox}
+
+\printbibliography
+	
+\end{document}

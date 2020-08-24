@@ -1,0 +1,152 @@
+\subsection{Modelo AB-SFC}
+%TODO: Marcar. Características do modelo/agentes presente do indicativo e o que irei fazer para modelar está no futuro.
+
+No capítulo seguinte, será desenvolvido  um modelo híbrido AB-SFC com famílias heterogêneas.
+Dessa forma, mantém-se a estrutura contábil com consistência entre fluxos e estoques (SFC) e, ao mesmo tempo, permite  emergência de fenômenos macroeconômicos a partir da interação dos agentes no nível microeconômico (ABM).
+A configuração do modelo será semelhante à de \textcite{carvalho_income_2014} em que somente o setor das famílias é heterogêneo; a estrutura contábil referente ao SFC seguirá os procedimentos descritos por \textcite{dos_santos_simplified_2007} %\footnote{
+    %De acordo com \textcite{macedo_e_silva_peering_2011}, a abordagem SFC é composta de três procedimentos: (i) determinação da estrutura contábil; (ii) construção das equações comportamentais e; (iii) solução/simulação. As etapas contábeis da abordagem SFC constituem em: (i) seleção dos setores institucionais e dos ativos a serem incorporados; (ii) mapeamento das relações dos fluxos entre os mencionados setores por meio da construção da matriz de fluxos; (iii) construção da matriz dos estoques de riqueza (real e financeira) em que são contabilizadas os ativos e passivos  bem como a posição líquida de cada setor; (iv) identificação das formas que os fluxos são financiados e sua respectiva acumulação/alocação dos estoques.} 
+e; a parte a ABM seguirá as recomendações de \textcite{caiani_agent_2016}.
+%Como todo modelo macroeconômico, ao partir de um aparato analítico baseado em identidades contábeis, surgem restrições que precisam ser seguidas mas o que distingue a metodologia SFC das demais é a conexão do lado real com o financeiro de forma integrada de modo que não existam ``buracos negros'' e por isso será adotada ao longo desta pesquisa \cite{godley_money_1996}.
+Respaldando-se na ``nova narrativa'', a hipótese de trabalho é que somente as famílias com melhor avaliação de risco investem em imóveis e ampliam a demanda por crédito na medida que seu colateral com os bancos (imóveis) se valoriza \cite{albanesi_credit_2017}.
+Desse modo, a introdução de agentes heterogêneos permite incluir não-linearidades e padrões não-determinísticos na demanda por crédito associados à bolha de ativos.
+
+Esta pesquisa priorizará a parcimônia de modo que serão incluídos apenas os elementos necessários para descrever uma economia suficientemente realista seguindo \textit{benckmarks} tanto de modelos SFCs quanto  ABMs \cites{dos_santos_simplified_2007}{caiani_agent_2016}.
+Desse modo, o modelo proposto possuirá governo,  setor financeiro, famílias heterogêneas e, por simplicidade, não haverá relações externas enquanto somente a inflação de imóveis será endogenizada. 
+%Sendo este o caso, o produto determinado pelos componentes da demanda  é a soma do consumo das famílias, gastos do governo e do investimento residencial e das firmas em que apenas este último cria capacidade produtiva.
+%O produto dado pelos componentes da oferta, por sua vez,  é determinado pelo estoque de capital criador de capacidade assim como pelo trabalho homogêneo.
+%Por simplicidade, desconsidera-se retornos crescentes de escala, progresso tecnológico, inflação de bens e somente a inflação de imóveis será endogeneizada.
+%Ainda por motivos de simplificação, considera-se que os preços dos bens serão determinados por \textit{mark-up} e somente a inflação de imóveis será endogeneizada.
+%e apresentará elementos expectacionais heterogêneos tal como \textcite{dieci_simple_2009}.
+
+As famílias, no agregado, acumulam riqueza sob a forma de depósitos à vista, títulos da dívida pública e imóveis enquanto contraem empréstimos hipotecários para realizar investimento residencial e financiam parte do consumo por meio de dívida com os bancos.  
+As firmas, por sua vez, financiam o investimento em parte por lucros retidos e o restante por empréstimos e emissão de ações. 
+Os bancos criam crédito (\textit{ex nihilo}) para então recolher os depósitos, todos remunerados por taxas de juros específicas.
+Por fim, o \textit{déficit} do governo é financiado por emissão de títulos  que serão adquiridos por uma parcela das famílias. 
+%Explicitados os ativos e passivos desta economia, resta seguir para a descrição de cada setor institucional.
+
+
+Seguindo \textcite{carvalho_income_2014}, as famílias serão divididas em trabalhadoras e rentistas enquanto a distribuição funcional da renda será exógena e a pessoal será estocástica para incluir heterogeneidade intraclasse.
+A distinção entre elas será feita a partir da principal fonte de renda, ou seja, se recebem principalmente salários, são famílias trabalhadoras; se recebem majoritariamente lucros, dividendos, aluguéis  ou ganhos de capital, são famílias rentistas\footnote{Cabe notar que por se tratar do setor heterogêneo do modelo, as famílias também terão parâmetros comportamentais distintos. 
+}.
+%Ainda seguindo \textcite{carvalho_income_2014}, considera-se que cada um desses subsetores podem possui dois estados em que somente um deles tem acesso ao crédito e esta 
+%Seguindo a literatura, considera-se que a distribuição funcional da renda é exógena. 
+Dentre as últimas, somente aquelas melhor avaliadas pelos bancos terão acesso a crédito e investirão em imóveis. 
+Sendo este o caso, financiam parte ou a totalidade do consumo por meio de dívida, caso contrário o consumo é financiado pelos seus próprios recursos\footnote{Ao longo da construção do modelo, serão testadas as várias funções de consumo mapeadas por \textcite{brochier_macroeconomics_2017}.}.
+Caso não possuam imóveis, pagam aluguéis definidos como uma proporção fixa do valor das residências.
+Se este ativo se valorizar, além dos ganhos de capital terão acesso a mais  crédito dado o aumento do colateral com os bancos.
+Sendo assim, respaldando-se na ``nova narrativa'', associa-se a origem da instabilidade financeira às classes de renda mais altas uma vez que somente elas poderão especular com imóveis.
+
+%TODO: Marcar. Fiz alguns cortes. Ainda está compreensível?
+Para produzir, as firmas encomendam bens de capital e contratam trabalhadores.
+Por simplicidade, assume-se uma função de produção Leontieff com coeficientes constantes e que a oferta de trabalho é infinitamente elástica.
+Parte dos lucros é distribuído aos acionistas, outra parte é retida para o autofinanciamento do investimento. 
+Se necessário, se endividam com os bancos e emitem ações para financiar a ampliação do estoque de capital.
+Seguindo \textcite{serrano_sraffian_2017}, supõe-se que o investimento não-residencial é induzido pelo nível de demanda efetiva.
+
+O governo, por sua vez, consome bens e serviços e recolhe impostos. 
+Cabe também ao governo definir a taxa básica de juros.
+Caso incorra em \textit{déficits}, emitirá títulos da dívida remunerados à taxa básica que são comprados pelas famílias rentistas.
+%A  inclusão do governo é especialmente interessante por permitir a análise das implicações da política econômica sobre a estabilidade do modelo e assim avaliar se mudanças na política fiscal podem gerar instabilidade financeira. %TODO Marcar
+
+Os bancos comerciais concedem crédito às famílias e às firmas a taxas de juros específicas definidas a partir da taxa básica de juros.
+Diferentemente dos modelos SFC usuais, o setor bancário será ativo uma vez que podem limitar o acesso ao crédito às famílias e, assim, são incluídas não-linearidades no modelo.
+Por simplicidade, firmas não sofrerão racionamento de crédito. 
+A concessão de crédito para as famílias ocorrerá sempre que for compatível com os requisitos de liquidez tal como em \textcite{dawid_bubbles_2015} e será ampliada na medida que o colateral das famílias aumentar.
+Caso tais requerimentos não sejam satisfeitos, haverá racionamento de crédito de modo que os bancos não concedem empréstimos para as famílias com pior avaliação de risco. %TODO Marcar: Coloquei aqui que os bancos "não são obrigados" a conceder crédito para todo mundo.
+%As famílias que não possuem nenhuma forma de riqueza se tornam inadimplentes.
+Tal como em \textcite[Capítulo 11]{godley_monetary_2007}, os bancos irão reter parte dos lucros para cobrir perdas e distribuem uma parcela para as famílias, neste caso, rentistas.
+
+Por fim, resta descrever o setor imobiliário. 
+As casas serão homogêneas e  produzidas pelas firmas por simplicidade. 
+Como consequência, a economia possui dois ativos reais: estoque de capital das firmas e imóveis.
+Uma vez que o valor dos imóveis supera a renda corrente das famílias, só comprarão imóveis se possuírem acesso a crédito.
+O preço dos imóveis existentes não possui relação com o nível geral de preços, conforme \textcite{zezza_u.s._2008}.
+%O preço dos imóveis será negativamente determinado pelo estoque de casas não vendidas.
+O efeito da inflação de imóveis sobre a demanda por imóveis é dual tal como em \textcite{duesenberry_investment_1958}. 
+Por um lado, ao encarece-los, menos famílias  os demandarão.
+Por outro, ao promover ganhos de capital, outra parte das famílias demandará mais imóveis.
+Uma vez que a oferta de crédito é endógena, a inclusão do investimento residencial não compromete a disponibilidade de recursos para o financiamento dos demais gastos da economia. %TODO: Marcar Que tal agora?
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Linha do tempo. %%%%%%%%%%%%%%
+O modelo será analisado por meio de simulações numéricas e seguirá a seguinte linha do tempo (adaptada de \textcite{botta_when_2019}):
+    (1) governo implementa as suas decisões de gasto e emite títulos da dívida pública se necessário;
+    (2) firmas determinam o quanto investir a partir do princípio do estoque de capital e os preços por meio de uma regra básica de \textit{mark-up};
+    (3) caso os lucros retidos não sejam suficientes para cobrir as decisões de investimento, se endividam com os bancos e  emitem ações;
+    (4) famílias recebem renda (salários, lucros e dividendos), pagam impostos e  aluguéis; 
+    (5) as taxas de juros das hipotecas, empréstimos bancários e títulos públicos são pagas pelos respectivos agentes que possuem estoque de dívida;
+    (6) famílias decidem como gastar (consumir e investir em imóveis) e poupar e, se necessário, recorrem aos bancos;
+    (7) bancos decidem se concedem ou não empréstimos às famílias;
+    (8) se houver racionamento de crédito, as famílias revisam as decisões de gasto e vendem ativos para cumprir seus compromissos financeiros.
+    Caso não possuam nenhuma forma de riqueza, não pagam a amortização; %TODO
+    (9) famílias rentistas compram títulos da dívida e decidem se adquirem mais ações das firmas e/ou ativos das famílias inadimplentes. Recebem lucros e dividendos correspondentes ao estoque de ações que possuem;
+    (10) bancos compram todos os ativos restantes.
+Cada simulação será rodada 100 vezes, seguindo um experimento de Monte Carlo.
+Tal como propõe \textcite{fagiolo_validation_2019}, o modelo será validado a partir de: 
+    (i) calibração e estimação dos parâmetros;
+    (ii) exploração do espaço paramétrico por meio de análises de sensibilidade e;
+    (iii) comparação dos resultados com alguns fatos estilizados como os apresentados por \textcite{petrini_demanda_2019}.
+
+
+\begin{comment}
+
+A distinção entre elas será feita a partir da fonte de renda, ou seja, se recebem apenas salários, são famílias trabalhadoras; se estão desempregadas, recebem auxílio do governo;
+se os ganhos de capital são a principal fonte de renda, são famílias rentistas; se recebem lucros e dividendos de firmas e bancos, são famílias rentistas.
+Uma vez que não se pretende discutir os determinantes da distribuição funcional e pessoal da renda e riqueza, considera-se a proporção dos tipos de famílias exogenamente determinada.
+Por fim, somente as famílias com acesso a crédito investirão em imóveis que serão financiados por hipotecas. Se o preço desses ativos se valorizar, receberão ganhos de capital.
+Caso não possuam imóveis, pagam aluguéis às famílias rentistas definido como uma proporção fixa do valor das residências.
+
+
+O primeiro bloco de equações descreverá o comportamento das famílias. A distinção entre elas será feita a partir da fonte de renda, ou seja, se recebem apenas salários, são famílias trabalhadoras; se estão desempregadas, recebem auxílio do governo;
+se os ganhos de capital são a principal fonte de renda, são famílias rentistas; se recebem lucros e dividendos de firmas e bancos, são famílias rentistas.
+Uma vez que não se pretende discutir os determinantes da distribuição funcional e pessoal da renda e riqueza, considera-se a proporção dos tipos de famílias exogenamente determinada.
+Por fim, somente as famílias com acesso a crédito investirão em imóveis que serão financiados por hipotecas. Se o preço desses ativos se valorizar, receberão ganhos de capital.
+Caso não possuam imóveis, pagam aluguéis às famílias rentistas definido como uma proporção fixa do valor das residências.
+
+O segundo bloco de equações diz respeito à decisão de produção das firmas que segue o supermultiplicador sraffiano. O investimento das firmas é induzido e financiado tanto por lucros retidos, empréstimos bancários e emissão de ações. 
+Além de produzir os bens consumidos pelas famílias e bens de capital, as firmas também produzem os imóveis.
+
+Em seguida, são definidas as equações do governo que consume bens e serviços, paga auxílio desemprego (sob a forma de transferência de renda) às famílias desempregadas e recolhe impostos. 
+Cabe também ao governo definir a taxa básica de juros que é utilizada como \textit{benchmark} pelos bancos comerciais.
+Caso incorra em déficits orçamentários, emitirá títulos do tesouro remunerados à taxa básica e são comprados pelas famílias rentistas.
+
+O quarto bloco de equações diz respeito aos bancos comerciais que concedem crédito às famílias e firmas à taxas de juros específicas definidas a partir da taxa básica de juros.
+Diferentemente dos modelos SFC-padrão, o setor bancário será ativo uma vez que podem limitar o acesso ao crédito e, assim, são incluídas não-linearidades no modelo.
+A concessão de crédito ocorrerá sempre que for compatível com os requisitos de liquidez tal como em \textcite{dawid_bubbles_2015}.
+Caso tais requerimentos não sejam satisfeitos, as famílias com menor credibilidade (menor \textit{creditworthiness}) não terão acesso a crédito e, sendo este o caso, revisam suas decisões de gasto.
+As famílias que não possuem nenhuma forma de riqueza se tornam inadimplentes.
+Tal como em \textcite[Capítulo 11]{godley_monetary_2007}, os bancos retém parte dos lucros para cobrir tais perdas e distribuem uma parcela para as famílias, neste caso, rentistas.
+Por simplificação, famílias rentistas e firmas não possuem racionamento de crédito.
+
+
+Mais especificamente, uma condição é considerada suficiente quando o números de um condicionantes de um resultado supera o número de casos que apresentam este resultado. Um condição necessária é caracterizada pelo oposto, ou seja, existem mais casos que apresentam este resultado do que condições.
+
+Apesar de se optar por um modelo parcimonioso, a simulação numérica tem a vantagem de fornecer
+informações que não se restringem às soluções de equilíbrio e esta forma também será selecionada
+para resolver o modelo uma vez que permite também analisar o \textit{traverse}\footnote{Cabe aqui pontuar a realização de modelos de simulação em \textcite{da_silveira_investimento_2019} e \textcite{petrini_demanda_2019}.}. 
+
+Nas palavras de \textcite[p.~16]{rihoux_configurational_2009}:
+
+\begin{quote}
+	
+	[...] \textit{QCA does not yield new theories. What it may do, once
+		performed, is to help the researcher generate some new insights, which
+		may then be taken as a basis for a further theoretical developmentor for
+		reexamination of existing theories. Only by returning to empirical cases
+		will it be possible to evaluate whether it makes senseto highlight a particular condition.} 
+\end{quote}		
+
+
+Uma versão preliminar e ilustrativa da primeira etapa da metodologia QCA pode ser vista na tabela \ref{fuzzyfied} em que são reapresentadas as especificidades institucionais da tabela \ref{Institucional} em seu equivalente \textit{fuzzy} e associados ao grau de hipotecarização médio calculado a partir dos dados de \textcite{jorda_rate_2019} para todos os anos disponíveis.
+A transformação do grau de hipotecarização em seu equivalente \textit{fuzzy} é direta, ou seja, quanto mais próximo da unidade mais hipotecarizado. 
+O mesmo raciocínio é estendido para o financiamento pelo mercado de capitais.
+No caso do tipo de reembolso antecipado, considerou-se igual à unidade quando completamente legislado, igual à zero quando totalmente contratual e igual à meio na presença de ambos os tipos de reembolso\footnote{Antes de prosseguir, vale pontuar que o valor associado a cada característica não interfere nos resultados uma vez que são avaliadas as configurações, ou seja, características conjuntas associadas ao resultado.}.
+Em relação a possibilidade de retirada do capital próprio, codificou-se como um quando permitido, zero caso contrário  e meio quando limitado.
+No que diz respeito ao tipo de taxa de juros hipotecária, considerou-se igual à unidade quando flexível e zero caso contrário.
+Para as variáveis restantes (maturidade e execução hipotecária), utilizou-se o procedimento proposto por  \textcite{ragin_set_2006} para obtenção do equivalente \textit{fuzzy}.
+A partir desta tabela, observa-se que existe uma pluralidade de configurações institucionais associada a diferentes níveis de hipotecarização.
+A etapas seguintes e o aprimoramento desta versão preliminar serão realizadas ao longo do desenvolvimento da pesquisa conforme tabela \ref{cronograma}.
+
+\input{./tabs/fuzzyfied_fixed.tex}
+
+
+\end{comment}

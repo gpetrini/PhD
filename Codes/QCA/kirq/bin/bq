@@ -1,0 +1,129 @@
+#!/usr/bin/env python2.7
+
+# bq - boolean algebra calculator for QCA
+
+# Copyright (c) 2011--2014 Claude Rubinson
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License along with this program.  If not, see
+# <http://www.gnu.org/licenses/>.
+
+import sys
+import re
+import argparse
+from fuzzy import *
+from pptable import *
+from dataset import *
+
+def tr(text, indict):
+    """ In text, replace keys of indict with corresponding values."""
+
+    ## Ripped from Python Cookbook (2002), Recipe 3.14
+
+    # create regexp from the dictionary keys
+    regexp = re.compile("|".join(map(re.escape, indict.keys())))
+
+    # for each match, look up the corresponding value in the dictionary
+    return regexp.sub(lambda match: indict[match.group(0)], text)
+
+def err(msg, file_descr=sys.stderr, signal=1):
+    """General error handling routine."""
+    print >> file_descr, '%s: %s' % (progname, msg)
+    sys.exit(signal)
+
+#
+# INITIALIZATIONS
+#
+__version__ = '2.1.12'  # don't change; set at build-time
+progname = sys.argv[0]
+decimals = 2
+
+#
+# PROCESS COMMAND-LINE ARGUMENTS AND OPTIONS
+#
+
+parser = argparse.ArgumentParser(description='Boolean algebra calculator for QCA.')
+parser.add_argument('-v', '--version', action='version', version='%(prog)s '+str(__version__))
+conflicting_args = parser.add_mutually_exclusive_group()
+conflicting_args.add_argument('-i', '--ignore-case', action='store_true', dest='ignore_case', help='ignore case distinctions in both formulas and dataset')
+conflicting_args.add_argument('-I', '--respect-case', action='store_true', dest='respect_case', help='in formulas, negate downcased terms')
+parser.add_argument('-y', '--input', dest='dataset_file', metavar='FILE', default='/dev/stdin', help='if absent, or when FILE is -, read standard input')
+parser.add_argument('-p', '--precision', default=2, type=int, help='number of decimals to round to (default=2)')
+parser.add_argument('formula', nargs='+', help='algebraic equation of variable names from the dataset, joined by Boolean multiplication (x*y), addition (x+y), or negation (~x).  Pass the \'-I\' flag to use conventional UPPERCASE/lowercase QCA notation in formulas.')
+
+args = parser.parse_args()
+decimals = args.precision
+formulas = args.formula
+ignore_case = args.ignore_case
+respect_case = args.respect_case
+dataset_file = '/dev/stdin' if args.dataset_file=='-' else args.dataset_file
+
+# sanity check commandline arguments
+if decimals < 0:
+    parser.error('Negative value for precision: %s' % decimals)
+
+dsf = DatasetFactory()
+try:
+    indata = dsf.from_any(dataset_file)
+except EmptyCellError, exc:
+    err('Empty cell in dataset: %s' % exc)
+except RaggedDatasetError:
+    err('Dataset rows are of unequal length') 
+except FileTypeNotSupportedError, exc:
+    err("File type not supported: %s" % exc)
+except ValueError, exc:
+    err(exc)
+except IOError:
+    err('File not found: %s' % dataset_file)
+except csv.Error:
+    err('Could not determine delimiter of dataset.')
+except DatasetError, exc:
+    err(exc)
+except QcaError, msg:
+    err(msg)
+
+# evaluate equation for each observation in dataset
+header = indata[0]
+vars = {var.strip():'fz(row[%s])' % i for i, var in enumerate(header)}
+
+# permit conventional UPPERCASE/lowercase QCA notation within
+# formulas: downcased terms are negated; upcased and mixed-case terms
+# are passed through.  This function works by prefixing downcased
+# terms with '~' to negate them and then passes the modifed formula
+# along.
+if respect_case:
+    formulas = [re.sub('\\b[a-z0-9_]+\\b', '~\g<0>', formula) for formula in formulas]
+    ignore_case = True  # prevent downcased terms from raising an
+                        # error
+
+if ignore_case:
+   vars = {var.upper(): vars[var] for var in vars}
+   formulas = [formula.upper() for formula in formulas]
+
+out = []
+for row in indata[1:]:
+    results = [row[0]]
+    for formula in formulas:
+        fn = tr(formula, vars)
+        try:
+            x = eval(fn)
+        except NameError, exc:
+            err('Error in formula: %s' % exc)
+        except SyntaxError:
+            err('Error in formula: %s' % formula)
+        results.append(x)
+    out.append(results)
+
+# left align first column, right align all other columns
+fmt = ['r%.'+str(decimals)+'f'] * len(formulas)
+print pp(out, 'l,'+','.join(fmt))

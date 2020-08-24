@@ -1,0 +1,87 @@
+\documentclass[11pt,lineno]{../_configs}
+
+\articletype{Empirical} % article type
+
+\bibliography{HOUSING.bib}
+
+\newcommand{\autor}{\textcite{kajuth_german_2020} }
+
+\title{
+\large{Housing}\vspace{2pt}\\
+\Huge{\autor - The German housing market cycle: Answers to FAQs}
+}
+\date{April 20th, 2020}
+
+\author[$\ast$]{Gabriel Petrini}
+
+\affil[$\ast$]{PhD Student at Unicamp.}
+
+\keywords{
+	Residential property prices\\ 
+	residential investment\\
+	housing market cycle
+}
+
+\runningtitle{Sillabus} % For use in the footer 
+
+%% For the footnote.
+\runningauthor{Petrini}
+
+\begin{abstract}
+\abssection{Background} German housing market dynamics has been poorly evaluated due to the lack of a long series for aggregate house prices
+
+\abssection{Supporting ideas} \textbf{Price adjustment mechanism:} price level balances housing demand and supply. So, house prices adjust in response to deviations from their long-run equilibrium relationship,
+according to a standard error-correction equation.
+To do so, the author uses a non-heterodox Stock-Flow procedure as proposed by \textcite{dipasquale_housing_1994}. Thus, the feedback mechanism from residential investment to housing prices are defined and estimated. The dynamics of this model is described as follows: a demand shock has a positive level effect; housing stock also increases until the new housing stock is reached. 
+
+\abssection{Contribution} Novel property price index from 1993 onwards based on official statistical data (German Federal Statistical Office) following \textcite{davis_price_2007} procedure
+
+\abssection{Relevance} Maps standard, DSGE and SVEC housing literature and presents German housing market dynamics. Analyze recent German house price boom. Author uses mortgage interest rate deflated by general inflation rate, so houses own interest rate proposal still opened.
+
+\abssection{Methods} \textbf{Econometric model:} 2SLS (to evaluate potential reverse causality issues) time series estimation for house prices, residential investment, construction and land inflation. Variables: Income growth (current and expected),  mortgage interest rate (inflation adjusted), construction productivity growth and building land growth. 
+In addition, two specification for residential investment are tested: (i) Tobin's Q view and (ii) stock-flow view (prices changes feedback).
+\textbf{Data construction:} Decompose house prices between land and construction prices.
+
+\abssection{Results} Data do not appear to support an economically meaningful Tobin's Q relationship for German residential construction.
+House prices depends on current and expected income; interest rates. Recent boom is a result of both household income increase ($+$) and mortgage interest rate ($+$) while residential investment and construction cost have negligible effects.
+Residential investment depends strongly on expected income and mortgage interest rate while current income effects are the smallest one.
+
+\abssection{Interesting findings} Reports similar results as houses own interest rate specification: House prices has a significant impact on residential investment while the other direction does not occur; Land prices are relevant to determine house prices dynamics. Also reports that land prices is negatively affect by interest rate. Land prices contribution has increased recently while construction cost were the main driver before the Great Recession. Construction productivity effects are negligible.
+
+\abssection{Critics} Focus mainly on supply side. Residential investment is treat as an induced expenditure. Authors' own estimation shows that current income effect on residential investment is small. Mortgage interest rate is adjusted by general price index inflation
+ \end{abstract}
+
+\begin{document}
+
+\maketitle
+\articletypemark
+\marginmark
+\thispagestyle{firststyle}
+% Please add here a significance statement to explain the relevance of your work
+
+\noindent \textbf{Citation:} 	\fullcite{kajuth_german_2020}
+
+\begin{infobox}
+	\textbf{5SS:} \autor contrasts a Tobin's Q estimation against a Stock-Flow proposal for residential investment and concludes that latter is more appropriate. The estimations reports an unidirectional positive effect of prices on residential investment and increasing lands prices contribution on housing prices after Great Recession. Author also builds a novel housing price index (1993-) using official data.
+\end{infobox}
+
+\begin{redbox}{Further readings}
+	\begin{itemize}
+		\item \textcite{dipasquale_housing_1994};
+		\item \textcite{lastrapes_real_2002};
+		\item \textcite{mccarthy_are_2004};
+		\item \textcite{antipa_housing_2009};
+		\item \textcite{aspachs-bracons_drivers_2009};	
+		\item \textcite{steiner_estimating_2010};
+		\item \textcite{koetter_real_2010};
+		\item \textcite{sanchez_price_2011};			
+		\item \textcite{igan_global_2012};
+		\item \textcite{chen_renewed_2013};
+		\item \textcite{nocera_house_2018};
+		\item \textcite{geng_fundamental_2018};
+	\end{itemize}
+\end{redbox}
+
+\printbibliography
+	
+\end{document}

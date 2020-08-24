@@ -1,0 +1,81 @@
+---
+title: "First model"
+author: "gpetrini"
+date: "12/05/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Loading Packages, Data and Defining Global Variables
+
+```{r}
+library(QCA)
+
+df = read.csv('../data/merged.csv')
+Investment_Grade <- 0.70
+Speculative <- 0.55
+```
+
+
+# Inicializing fsQCA
+
+## Outcome: Higher rating
+
+### True Table
+
+```{r}
+TT <- truthTable(
+    df, 
+    outcome = "TE", 
+    conditions = "Rule_of_Law,
+  Government_Size, Regulatory_Efficiency, Open_Markets", 
+incl.cut = paste(Investment_Grade, Speculative, sep = ", "), 
+  show.cases = TRUE, 
+  dcc = TRUE, 
+  )
+TT
+```
+
+```{r}
+contradictions <- findRows(obj = TT, remainders = FALSE, type = 3)
+```
+
+
+### Minimization
+
+```{r}
+MIN <- minimize(TT, details = TRUE, min.pin = TRUE, row.dom = TRUE)
+MIN
+```
+
+## Outcome: Lower rating
+
+### True Table
+
+```{r}
+TT <- truthTable(
+    df, 
+    outcome = "~TE", 
+    conditions = "Rule_of_Law,
+  Government_Size, Regulatory_Efficiency, Open_Markets", 
+  incl.cut = paste(Investment_Grade, Speculative, sep = ", "), 
+  show.cases = TRUE, 
+  dcc = TRUE, 
+  )
+TT
+```
+
+
+```{r}
+contradictions <- findRows(obj = TT, remainders = FALSE, type = 3)
+```
+
+### Minimization
+
+```{r}
+MIN <- minimize(TT, details = TRUE, min.pin = TRUE, row.dom = TRUE)
+MIN
+```

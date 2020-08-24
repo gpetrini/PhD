@@ -1,0 +1,57 @@
+.TH "bq" "1" "" "acq manual" ""
+.SH NAME
+.PP
+bq \- Boolean algebra calculator for QCA
+.SH SYNOPSIS
+.PP
+\f[B]bq\f[] [\-y FILE] [\-p PRECISION] \f[I]formula\f[]
+[\f[I]formula\f[]\ ...]
+.SH DESCRIPTION
+.PP
+Compute \f[I]formula\f[] for each observation in \f[I]FILE\f[].
+\f[I]formula\f[] is a algebraic equation of condition names from the
+dataset, joined by the Boolean operations of multiplication (x*y),
+addition (x+y), or negation (~x).
+.PP
+Mandatory arguments to long options are also mandatory for short
+options.
+.SH OPTIONS
+.TP
+.B \-p, \-\-precision=\f[I]PRECISION\f[]
+Number of decimals to round to (default=2)
+.RS
+.RE
+.TP
+.B \-y, \-\-input=\f[I]FILE\f[]
+if absent, or when \f[I]FILE\f[] is \-, read standard input
+.RS
+.RE
+.TP
+.B \-i, \-\-ignore\-case
+ignore case distinctions in both formulas and dataset.
+Conflicts with \f[B]\-I\f[].
+.RS
+.RE
+.TP
+.B \-I, \-\-respect\-case
+in formulas, negate downcased terms.
+Permits use of conventional UPPERCASE/lowercase QCA notation in
+formulas.
+Conflicts with \f[B]\-i\f[].
+.RS
+.RE
+.TP
+.B \-h, \-\-help
+Display help and exit
+.RS
+.RE
+.TP
+.B \-v, \-\-version
+Output version information and exit
+.RS
+.RE
+.SH SEE ALSO
+.PP
+concov(1), consist(1), gtt(1), nec(1), suf(1)
+.SH AUTHORS
+Claude Rubinson <cjr\@grundrisse.org>.

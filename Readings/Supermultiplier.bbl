@@ -1,0 +1,79 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{fazzaridemandled2020}{article}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=a587298e8b761369b9864f182d61c8f8}{%
+           family={Fazzari},
+           familyi={F\bibinitperiod},
+           given={Steven\bibnamedelima M},
+           giveni={S\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=e0affee17e4e560f18d67af1600cb9cc}{%
+           family={Ferri},
+           familyi={F\bibinitperiod},
+           given={Piero},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=0f0c55b9624041b3b9e090f90aa4d3bf}{%
+           family={Variato},
+           familyi={V\bibinitperiod},
+           given={Anna\bibnamedelima Maria},
+           giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{d6dcba237a73eea7f60b3c95a3dcea66}
+      \strng{fullhash}{808104492dc900386d07c5d0993fb905}
+      \strng{bibnamehash}{808104492dc900386d07c5d0993fb905}
+      \strng{authorbibnamehash}{808104492dc900386d07c5d0993fb905}
+      \strng{authornamehash}{d6dcba237a73eea7f60b3c95a3dcea66}
+      \strng{authorfullhash}{808104492dc900386d07c5d0993fb905}
+      \field{sortinit}{F}
+      \field{sortinithash}{fb0c0faa89eb6abae8213bf60e6799ea}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Abstract We model of demand-led growth with endogenous adjustment of labour supply and productivity, an approach that reconciles Harrod’s warranted rate of demand growth with supply. The model delivers a range of growth paths and unemployment rates rather than a single ‘natural rate’. Theoretically, the steady-state growth path may be dynamically stable or unstable, but empirical calibration favours stability. We show analytically that if demand dynamics are stable, supply will converge to the demand-determined growth path. While a minimum unemployment rate ultimately imposes a supply constraint on growth, empirical results show that a wide range of growth rates are feasible across different demand regimes. The results explain how economies can become trapped with low growth due to weak demand or fiscal austerity and suggest policy responses to stagnant demand.}
+      \field{issn}{0309-166X, 1464-3545}
+      \field{journaltitle}{Cambridge Journal of Economics}
+      \field{number}{3}
+      \field{title}{Demand\-led growth and accommodating supply}
+      \field{urlday}{28}
+      \field{urlmonth}{7}
+      \field{urlyear}{2020}
+      \field{volume}{44}
+      \field{year}{2020}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.1093/cje/bez055
+      \endverb
+      \verb{urlraw}
+      \verb https://academic.oup.com/cje/article/44/3/583/5714155
+      \endverb
+      \verb{url}
+      \verb https://academic.oup.com/cje/article/44/3/583/5714155
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

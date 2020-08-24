@@ -1,0 +1,172 @@
+\documentclass{article}
+
+\usepackage[a4paper,left=2.500000cm,right=2.500000cm,top=2.500000cm,bottom=2.500000cm]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,pdfborder={0 0 0}]{hyperref}
+
+\newcommand{\lsd}[1] {\texttt{\detokenize{#1}}}
+\newcommand{\hr}[1] {\hrf{#1}{#1}}
+\newcommand{\hrf}[2] {\hyperref[#1]{\texttt{\detokenize{#2}}}}
+\setlength{\parindent}{0cm}
+
+\title{Model: \lsd{Sim1}}
+\author{Automatically generated LSD report}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Model Structure}
+
+\subsection{Object: \lsd{Root}} \label{Root}
+
+\emph{Containing:} \lsd{Economy}
+
+\emph{Contained elements:}
+
+  \lsd{N} \label{N} (parameter)\newline 
+  \lsd{pie} \label{pie} (parameter)\newline 
+  \lsd{delta} \label{delta} (parameter): Depretiation rate\newline 
+
+\subsection{Object: \lsd{Economy}} \label{Economy}
+
+\emph{Contained in:} \lsd{Root}
+
+\emph{Containing:} \lsd{Goods},  \lsd{Financial}
+
+\emph{Contained elements:}
+
+  \lsd{Un_t} \label{Un\string_t} (variable, 1 lag)\newline 
+  \lsd{inflation} \label{inflation} (variable)\newline 
+  \lsd{Theta} \label{Theta} (parameter): share of distributed profits\newline 
+  \lsd{sizeunemployed} \label{sizeunemployed} (variable)\newline 
+  \lsd{price_t} \label{price\string_t} (variable, 1 lag)\newline 
+  \lsd{numocc} \label{numocc} (variable): Number of occupied workers\newline 
+  \lsd{unemploymentRatio_t} \label{unemploymentRatio\string_t} (variable)\newline 
+  \lsd{numOfNonBorrowWorkers_t} \label{numOfNonBorrowWorkers\string_t} (variable)\newline 
+  \lsd{minsal_t} \label{minsal\string_t} (variable)\newline 
+  \lsd{EL_t} \label{EL\string_t} (variable)\newline 
+  \lsd{psi} \label{psi} (variable)\newline 
+
+\subsection{Object: \lsd{Goods}} \label{Goods}
+
+\emph{Contained in:} \lsd{Root}$\rightarrow$\lsd{Economy}
+
+\emph{Containing:} \lsd{Consumption},  \lsd{Firms},  \lsd{Government}
+
+\emph{Contained elements:}
+
+  \lsd{Savings} \label{Savings} (variable): Aggregate Savings\newline 
+  \lsd{shareOfBorrWorkers_t} \label{shareOfBorrWorkers\string_t} (variable): Share of Borrowers\newline 
+  \lsd{shareOfNonBorrWorkers_t} \label{shareOfNonBorrWorkers\string_t} (variable)\newline 
+  \lsd{numOfActiveWorkers_t} \label{numOfActiveWorkers\string_t} (variable): Number of active workers\newline 
+  \lsd{numOfBorrowWorkers_t} \label{numOfBorrowWorkers\string_t} (variable)\newline 
+  \lsd{mult} \label{mult} (variable)\newline 
+
+\subsection{Object: \lsd{Consumption}} \label{Consumption}
+
+\emph{Contained in:} \lsd{Root}$\rightarrow$\lsd{Economy}$\rightarrow$\lsd{Goods}
+
+\emph{Containing:} \lsd{Consumers}
+
+\emph{Contained elements:}
+
+  \lsd{C_t} \label{C\string_t} (variable): Total Consumption\newline 
+  \lsd{Y_t} \label{Y\string_t} (variable): Total Income\newline 
+  \lsd{wbarocc} \label{wbarocc} (variable, 1 lag): Average wage of occupied\newline 
+  \lsd{gmin} \label{gmin} (parameter)\newline 
+  \lsd{gmax} \label{gmax} (parameter)\newline 
+  \lsd{eta} \label{eta} (parameter): multiplicative for difference between median and specific wage in consumption\newline 
+  \lsd{spsi} \label{spsi} (parameter): propensity to save out of salary\newline 
+  \lsd{phi} \label{phi} (parameter): multiplicative constant for debt in the consumption function\newline 
+  \lsd{W_t} \label{W\string_t} (variable, 1 lag)\newline 
+  \lsd{mm} \label{mm} (parameter)\newline 
+  \lsd{sigma} \label{sigma} (parameter): 'sigma' appears in the equation for: auton, c\_it\newline 
+
+\subsection{Object: \lsd{Consumers}} \label{Consumers}
+
+\emph{Contained in:} \lsd{Root}$\rightarrow$\lsd{Economy}$\rightarrow$\lsd{Goods}$\rightarrow$\lsd{Consumption}
+
+\emph{Contained elements:}
+
+  \lsd{c_it} \label{c\string_it} (variable): Consumption level of the workers\newline 
+  \lsd{hru_it} \label{hru\string_it} (variable): 'hru\_it' appears in the equation for: d\_it\newline 
+  \lsd{ynet_it} \label{ynet\string_it} (variable): disposable income of employed workers\newline 
+  \lsd{w_last} \label{w\string_last} (variable): Just for code consistency. Returns de last wage\newline 
+  \lsd{wb} \label{wb} (variable, 1 lag): Average wage\newline 
+  \lsd{y_it} \label{y\string_it} (variable, 1 lag)\newline 
+  \lsd{temp} \label{temp} (variable)\newline 
+  \lsd{tru_it} \label{tru\string_it} (variable): Comment\newline 
+  \lsd{d_it} \label{d\string_it} (variable, 1 lag): Debt held by workers\newline 
+  \lsd{w_it} \label{w\string_it} (variable, 1 lag): Updates wages and evaluates if it is below the minimum one\newline 'w\_it' appears in the equation for: w\_last, y\_it, c\_it, wb, wbarocc\newline 
+  \lsd{m_it} \label{m\string_it} (variable, 1 lag)\newline 
+  \lsd{theta_it} \label{theta\string_it} (variable)\newline 
+  \lsd{state_it} \label{state\string_it} (variable)\newline 
+  \lsd{state_b_it} \label{state\string_b\string_it} (variable)\newline 
+  \lsd{g_it} \label{g\string_it} (variable)\newline 
+
+\subsection{Object: \lsd{Firms}} \label{Firms}
+
+\emph{Contained in:} \lsd{Root}$\rightarrow$\lsd{Economy}$\rightarrow$\lsd{Goods}
+
+\emph{Contained elements:}
+
+  \lsd{xi} \label{xi} (parameter): output-labour ratio  \% was 1 in the other code\newline 'xi' appears in the equation for: mult, price\_t, Q\_t, EL\_t\newline 
+  \lsd{mu} \label{mu} (parameter): mark-up of the price\newline 
+  \lsd{lambda} \label{lambda} (parameter)\newline 
+  \lsd{gamma} \label{gamma} (parameter): productivity of capital 1.4\newline 
+  \lsd{Beta} \label{Beta} (parameter): coefficient for Tobin's q in equation (2)\newline 
+  \lsd{ud} \label{ud} (parameter): desired capacity utilization\newline 
+  \lsd{u_t} \label{u\string_t} (variable, 1 lag)\newline 
+  \lsd{Q_t} \label{Q\string_t} (variable, 1 lag)\newline 
+  \lsd{W_it} \label{W\string_it} (variable, 1 lag)\newline 
+  \lsd{I0} \label{I0} (parameter): autonomous investment\newline 
+  \lsd{i0} \label{i0} (parameter)\newline 
+  \lsd{K_t} \label{K\string_t} (variable, 1 lag): Total Capital\newline 
+  \lsd{Pe_t} \label{Pe\string_t} (variable, 1 lag)\newline 
+  \lsd{I_t} \label{I\string_t} (variable, 1 lag): Firms' investment\newline 
+  \lsd{a} \label{a} (parameter)\newline 
+  \lsd{II_t} \label{II\string_t} (variable): investment function component\newline 
+  \lsd{auton} \label{auton} (variable, 1 lag)\newline 
+  \lsd{pi} \label{pi} (variable): Profit-share equation. Eq (9)\newline 'pi' appears in the equation for: mult, A\_t, Tax, V\_t, y\_it, c\_it\newline 
+  \lsd{A_t} \label{A\string_t} (variable): 'A\_t' appears in the equation for: Pe\_t, E\_t\newline 
+  \lsd{V_t} \label{V\string_t} (variable): 'V\_t' appears in the equation for: Pe\_t\newline 
+  \lsd{E_t} \label{E\string_t} (variable, 1 lag): Equities stock volume\newline 
+  \lsd{E_it} \label{E\string_it} (variable, 1 lag)\newline 
+  \lsd{Q_fc} \label{Q\string_fc} (variable): Full capacity output\newline 
+
+\subsection{Object: \lsd{Government}} \label{Government}
+
+\emph{Contained in:} \lsd{Root}$\rightarrow$\lsd{Economy}$\rightarrow$\lsd{Goods}
+
+\emph{Contained elements:}
+
+  \lsd{tau_w} \label{tau\string_w} (parameter): tax on wealth\newline 
+  \lsd{b} \label{b} (parameter)\newline 
+  \lsd{Tax} \label{Tax} (variable): Government tax revenue\newline 'Tax' appears in the equation for: B\_t\newline 
+  \lsd{B_t} \label{B\string_t} (variable)\newline 
+  \lsd{b_it} \label{b\string_it} (variable): Unemployment benefit\newline 
+  \lsd{tau_y} \label{tau\string_y} (parameter)\newline 
+
+\subsection{Object: \lsd{Financial}} \label{Financial}
+
+\emph{Contained in:} \lsd{Root}$\rightarrow$\lsd{Economy}
+
+\emph{Containing:} \lsd{Banks}
+
+\subsection{Object: \lsd{Banks}} \label{Banks}
+
+\emph{Contained in:} \lsd{Root}$\rightarrow$\lsd{Economy}$\rightarrow$\lsd{Financial}
+
+\emph{Contained elements:}
+
+  \lsd{ibar} \label{ibar} (parameter): Risk free interest rate\newline 
+  \lsd{D_t} \label{D\string_t} (variable)\newline 
+
+\section{Relevant elements to observe}
+
+(none selected) \newline 
+\section{Relevant elements to initialize}
+
+(none selected) \newline 
+\end{document}

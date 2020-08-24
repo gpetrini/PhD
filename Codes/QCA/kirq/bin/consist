@@ -1,0 +1,130 @@
+#!/usr/bin/env python2.7
+
+# consist - report consistency scores
+
+# Copyright (c) 2011--2014 Claude Rubinson
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public
+# License along with this program.  If not, see
+# <http://www.gnu.org/licenses/>.
+
+
+import sys
+import re
+import argparse
+from fuzzy import *
+from pptable import *
+from dataset import *
+
+def tr(text, indict):
+    """ In text, replace keys of indict with corresponding values."""
+
+    ## Ripped from Python Cookbook (2002), Recipe 3.14
+
+    # create regexp from the dictionary keys
+    regexp = re.compile("|".join(map(re.escape, indict.keys())))
+
+    # for each match, look up the corresponding value in the dictionary
+    return regexp.sub(lambda match: indict[match.group(0)], text)
+
+def err(msg, file_descr=sys.stderr, signal=1):
+    """General error handling routine."""
+    print >> file_descr, '%s: %s' % (progname, msg)
+    sys.exit(signal)
+
+#
+# INITIALIZATIONS
+#
+progname = sys.argv[0]
+__version__ = '2.1.12'  # don't change; set at build-time
+
+#
+# PROCESS COMMAND-LINE ARGUMENTS AND OPTIONS
+#
+
+parser = argparse.ArgumentParser(description='Report consistency scores for, respectively, necessity and sufficiency.')
+parser.add_argument('-v', '--version', action='version', version='%(prog)s '+str(__version__))
+parser.add_argument('-y', '--input', metavar='FILE', dest='dataset_file', default='/dev/stdin', help='if absent, or when FILE is -, read standard input')
+parser.add_argument('-p', '--precision', default=2, type=int, help='number of decimals to round to (default=2)')
+parser.add_argument('outcome', help='a variable from the dataset')
+parser.add_argument('formula', help='algebraic equation of variable names from the dataset, joined by Boolean multiplication (x*y), addition (x+y), or negation (~x)')
+
+args = parser.parse_args()
+decimals = args.precision
+outcome = args.outcome
+formula = args.formula
+dataset_file = '/dev/stdin' if args.dataset_file=='-' else args.dataset_file
+
+# sanity check commandline arguments
+if decimals < 0:
+    parser.error('Negative value for precision: %s' % decimals)
+if outcome == formula:
+    parser.error('Outcome and formula are the same: %s' % outcome)
+
+dsf = DatasetFactory()
+try:
+    indata = dsf.from_any(dataset_file)
+except EmptyCellError, exc:
+    err('Empty cell in dataset: %s' % exc)
+except RaggedDatasetError:
+    err('Dataset rows are of unequal length') 
+except FileTypeNotSupportedError, exc:
+    err("File type not supported: %s" % exc)
+except ValueError, exc:
+    err(exc)
+except IOError:
+    err('File not found: %s' % dataset_file)
+except csv.Error:
+    err('Could not determine delimiter of dataset.')
+except DatasetError, exc:
+    err(exc)
+except QcaError, msg:
+    err(msg)
+
+# compute consistency scores for each observation in dataset.
+header = indata[0]
+vars = {var.strip():'fz(row[%s])' % i for i, var in enumerate(header)}
+
+out = []
+for row in indata[1:]:
+    # Y
+    try:
+        y = eval(tr(outcome, vars))
+    except (NameError, SyntaxError):
+        err('Outcome condition not in dataset: %s' % outcome)
+
+    # compute X from formula
+    fn = tr(formula, vars)
+    try:
+        x = eval(fn)
+    except NameError, exc:
+        err('Error in formula: %s' % exc)
+    except SyntaxError:
+        err('Error in formula: %s' % formula)
+
+    # consistency calculation for necessity
+    try:
+        nec_con = min(float(x),float(y))/float(y)
+    except ZeroDivisionError:
+        nec_con = 'NaN'
+
+    # consistency calculation for sufficiency
+    try:
+        suf_con = min(float(x),float(y))/float(x)
+    except ZeroDivisionError:
+        suf_con = 'NaN'
+
+    # output
+    out.append((row[0], nec_con, suf_con))
+
+print pp(out,'l,r%.'+str(decimals)+'f,r%.'+str(decimals)+'f')

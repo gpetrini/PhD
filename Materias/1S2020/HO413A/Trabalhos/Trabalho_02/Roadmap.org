@@ -1,0 +1,147 @@
+* Sugestões de mudança 
+
+- Cortar ações
+- Cortar administradores
+- Reformular investimento (com crédito)
+- Rever consistência
+
+| Número equação | Original                                                                                      | Modifcaido                                                  |
+| (1)            | $\frac{I_t}{p\cdot K_{t-1}} = \alpha (u_{t-1} - u^d) + \beta r_{t-1} \epsilon h_{t-1}$        | $\frac{I_t}{p\cdot K_{t-1}} = \beta_0  + \beta_1 (u_{t-1})$ |
+| (2)            | h_t                                                                                           | -                                                           |
+| (3)            | $r_t$                                                                                         | $r_t$                                                       |
+| (4)            | $Q_{fc}$                                                                                      | $Q_{fc}$                                                    |
+| (5)            | $Q_{fc}$                                                                                      | $Q_{fc}$                                                    |
+| (6)            | $u_t$                                                                                         | $u_t$                                                       |
+| (7)            | $I_t = \frac{I_t}{p\cdot K_{t-1}}\cdot p K_{t-1}$                                             | -                                                           |
+| (8)            |                                                                                               |                                                             |
+| (9)            |                                                                                               |                                                             |
+| (10)           |                                                                                               |                                                             |
+| (11)           |                                                                                               |                                                             |
+| (12)           | $A_t = (1-\Theta) (\Pi p Q_t - i B_{f_{t-1}})$                                                | $A_t = \Pi p Q_t - B_{f_{t-1}}$                             |
+| (13)           | $\Delta B = \varpi (I - A_t)$                                                                 | $\Delta B_t = I - A_t$                                      |
+| (14)           | $\Delta E_t$                                                                                  | -                                                           |
+| (15)  - (20)   | Managers                                                                                      | -                                                           |
+| (21) - (33)    | cte                                                                                           | cte                                                         |
+| (34)           | denominador: $p (1 - (1-s_\psi - \eta)\psi - (1-s_\Theta\Pi) - \frac{\eta \overline w}{\xi})$ | $\Theta =0$                                                 |
+| (35)           | $P_e^*$                                                                                       | -                                                           |
+
+
+*** Valores iniciais
+
+| Parâmetros         | Baseline | Modificado |
+|--------------------+----------+------------|
+| $i$                |    0.035 | -          |
+| $price_t$          |      3.0 | -          |
+| $\gamma$           |      1.0 | -          |
+| $\delta$           |    0.025 | -          |
+| $\mu$              |      0.1 | -          |
+| $\xi$              |      1.0 | -          |
+| $\overline \omega$ |      0.2 | -          |
+| $s_\psi$           |      0.6 | -          |
+| $\sigma_\psi$      |      0.1 | -          |
+| $\lambda$          |      0.2 | 0          |
+| $N$                |     5000 | -          |
+| $minsal$           |      0.1 | -          |
+| $gmin$             |    -0.25 | -0.025     |
+| $gmax$             |     0.25 | 0.025      |
+| $g_{basic}$        |      0.0 | 0.0005     |
+| $\alpha$           |    0.005 | -          |
+| $i_0$              |     0.02 | -          |
+| $u_d$              |      0.8 | -          |
+| $\gamma_u$         |    0.002 | -          |
+| $\eta$             |      0.3 | -          |
+
+
+| Valores defasados | Baseline | Modificado |
+|-------------------+----------+------------|
+| $A_t$             |      0.0 | 0.0        |
+| $I_t$             |     20.0 | -          |
+| $u_t$             |      0.7 | -          |
+| $K_t$             |    10000 | -          |
+| $h_{t-1}$         |          |            |
+| $Cw_t$            |      0.1 | -          |
+| $D_t$             |      0.0 | -          |
+| state_b_it        |     rand | rand       |
+| $w_i$             |     rand | rand       |
+| $Ww_i$            |      0.0 | 0.0        |
+| $B$               |      0.0 | -          |
+| $D_totam$         |     soma | -          |
+| basic             |        - | 50         |
+
+
+| Variável | Valor | Derivados  |
+|----------+-------+------------|
+| $EL$     |  4000 | -          |
+| $N$      |  5000 | -          |
+| $K$      | 10000 | -          |
+| $Q$      |  3800 | -          |
+| $I_t$    |  1800 | -          |
+| $\gamma$ |   1.0 | -          |
+| $\xi$    |   1.0 | -          |
+|----------+-------+------------|
+| Unrate   |     - | 0.8        |
+| $u$      |     - | 0.76       |
+| $Cw_T$   |     - | 2000       |
+| $h$      |     - | 0.47368421 |
+| $Q_fc$   |     - | 5000.      |
+#+TBLFM: @9$3=(@2$2/@ 3$2)::@11$3=(@5$2-@6$2)::@12$3=(@6$2/@5$2)::@13$3=(vmin(@4$2*@7$2, @3$2*@8$2))::@10$3=(@5$2/@13$3)
+
+* Próximos passos
+
+** DONE Fim versão mais simples [4/4] [100%]
+   CLOSED: [2020-07-01 qua 09:21] DEADLINE: <2020-06-30 ter>
+   - [X] Definir o outro gasto autônomo (diferente da renda básica) e estrutura (Jordão)
+   - [X] Se gasto do governo, definir arrecadação (Gabriel)
+   - [X] Atribuir parâmetros para cada agente (tornar mais ABM)
+     - OBS: Parâmetro $\sigma_\psi$ com elevado desvio-padrão torna o modelo instável.
+   - [X] Escrever apresentação dos slides (João Paulo)
+
+** DONE Aprimoramento 01 [2/3] [66%]
+   CLOSED: [2020-07-03 sex 10:17] DEADLINE: <2020-07-03 sex>
+   - [ ] Poupança dos trabalhadores -> Acúmulo de riqueza gerando renda (depósito bancário)
+     - Atenção: Modelo instável com juros maior que zero
+     - Sugestão: Fazer que a remuneração dos depósitos seja nula
+   - [X] Distribuição dos salários a partir de uma distribuição de Pareto
+     - Implementado. Resta resolver problemas de calibragem
+   - [X] Salário em função do salário mínimo (substituindo choques)
+     - Criada variável leque
+ 
+** TODO Aprimoramento 02 [3/4] [75%]
+   DEADLINE: <2020-07-07 ter>
+   - [X] Restrição de crédito
+     - Com $\eta > 0$, consumidores passaram a ter acesso a crédito
+   - [X] Reintrodução dos administradores
+     - Temporariamente não vamos seguir por questões teóricas
+       - Problemas
+         - Hipótese implícita de que todos os administradores estão empregados
+           - Sugestão: Tratar como capitalistas (proprietários e não empregados)
+         - Dificuldade em agentizar: copiar objetos? Mesmos parâmetros para todos?
+         - Dificuldade teórica de justicar a renda mínima para eles
+         - Dificuldade do cálculo do gini com os administradores
+         - Como deve ficar o salário médio dos empregados? Deve incluir os administradores?
+   - [X] Reintrodução das ações
+     - Sugestão: Inclusão de ações requer uma função Tobiniquiana de alocação de ativos.
+       - Gabriel: Melhor não ir por aí. Podemos terminar o trabalho sem ações.
+   - [X] Reintrodução de inflação
+     - Preço se tornou igual a unidade. 
+       - Razão: Valores nominais e reais são iguais.
+       - Decisão: Não incluir inflação.
+
+** DONE Aprimoramento 03  [0%]
+   CLOSED: [2020-07-08 qua 10:21] DEADLINE: <2020-07-07 ter>
+   - [ ] Mudar função investimento para função Kaleckiana
+* Análise
+
+#+TBLNAME: Parâmetros comportamentais
+| Cenário  | $\sigma_{\sigma_\psi}$ | $\sigma_{s_\psi}$ | $\eta$ | Inflação | $g$ | $u$ | Num of Borrowers | Gini | wbarocc |
+|----------+------------------------+-------------------+--------+----------+-----+-----+------------------+------+---------|
+| Baseline |                        |                   |        |          |     |     |                  |      |         |
+| Sim_1    |                        |                   |        |          |     |     |                  |      |         |
+
+
+#+TBLNAME: Variáveis de política econômica
+| Cenário  | min_sal | p_minsal | c | $i$ | Inflação | $g$ | $u$ | Num of Borrowers | Gini | wbarocc |
+|----------+---------+----------+---+-----+----------+-----+-----+------------------+------+---------|
+| Baseline |         |          |   |     |          |     |     |                  |      |         |
+| Sim_1    |         |          |   |     |          |     |     |                  |      |         |
+ 

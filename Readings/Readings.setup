@@ -1,0 +1,21 @@
+# -*- mode: org; -*-
+#+STARTUP: content
+
+* COMMENT Paper Setup
+
+The paper setup controls the export of content for publication. Using a dedicated paper setup makes it simpler to include the content later in a thesis, simply by swapping or ignoring the setup of the individual file and using and overarching =thesis.setup=.
+Additionally, for publication we can remove any setup at all to get a clean export using whatever class provided by the publisher. If NeuroImage is the target, for example, then we should use the elsarticle class. Support for multiple classes for publication, within Emacs Org-Mode, can be found [[https://github.com/jkitchin/scimax/blob/master/ox-manuscript/ox-manuscript.el][in the scimax starters package]].
+To make the main file inclusion simpler, only use the first 5 lines of the paper file for extra configuration. All the rest should go in the setup file.
+
+Remember that #+OPTIONS are parsed even from =:noexport:= headings.
+
+
+* LaTeX headers :noexport:
+
+#+latex_header: \usepackage[T1]{fontenc}
+#+latex_header: \usepackage[utf8]{inputenc}
+#+latex_header: \usepackage{booktabs}
+#+latex_header: \usepackage{graphicx}
+#+latex_header: \usepackage{float}
+#+latex_header: \usepackage{amsmath}
+#+latex_header: \usepackage[right=2cm, bottom=2cm, top=3cm, left=3cm]{geometry}

@@ -1,0 +1,179 @@
+---
+title: "SARIMA"
+author: "gpetrini"
+date: "19/05/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+    echo = TRUE,
+    message = FALSE,
+    warning = FALSE
+    )
+```
+
+# Pacotes
+
+```{r}
+library(tidyverse)
+```
+
+
+# Dados
+
+```{r}
+df <- read.csv(
+    "../data/raw_data.csv", 
+    encoding="UTF-8", 
+    stringsAsFactors=FALSE
+    )
+df <- df[,c( # Subset das colunas
+    "ICMS.Nominal.milhões.de.reais"
+    )]
+df <- ts(
+    data = df, 
+    start = c(2002,01), 
+    frequency = 12
+    )
+df %>% astsa::tsplot(
+    main = "ICMS", 
+    ylab = "R$ Milhões",
+    xlab = ""
+        )
+```
+
+# Inspeção gráfica
+
+```{r}
+astsa::acf2(
+    series = df, 
+    main = "ACF e PACF para ICMS"
+    )
+```
+
+# Estimação
+
+## Auto ARIMA
+
+```{r}
+forecast::auto.arima(df)
+```
+
+```{r}
+forecast::Arima(
+    y = df,
+    order = c(0,1,2), 
+    seasonal = list(order=c(0,0,2),period=12),
+    lambda = 0
+) -> model
+model %>% summary()
+```
+
+Raízes características
+
+```{r}
+forecast::autoplot(model)
+```
+
+
+# Pós-Estimação
+
+## Resíduos
+
+```{r}
+forecast::checkresiduals(model)
+```
+
+**Observação:** Últimas observações são tão distoantes que são tratados como *outliers*.
+
+```{r}
+for (outlier in forecast::tsoutliers(df)$index) {
+    print(paste0("Outlier em ", zoo::index(df)[outlier]))
+}
+```
+
+### Box-Pierce
+
+```{r}
+Box.test(
+    x = df,
+    lag = 15,
+    type = "Box-Pierce"
+)
+```
+
+### Ljung-Box
+
+
+```{r}
+Box.test(
+    x = df,
+    lag = 15,
+    type = "Ljung-Box"
+)
+```
+
+
+
+
+# Previsão
+
+```{r}
+forecast::autoplot(
+    forecast::forecast(model), 
+    ylab="R$ Milhões",
+    xlab=""
+    )
+```
+
+## Acurácia
+
+```{r}
+forecast::accuracy(model) %>% knitr::kable()
+```
+
+
+# Comparação entre modelos
+
+```{r comparacao}
+candidatos <- list( # Mantendo a ordem sazonal
+    c(0,1,1),
+    #c(0,1,2), # Default
+    c(1,1,1),
+    c(1,1,2),
+    c(2,1,2)
+)
+
+comparacao <- forecast::accuracy(model)
+rownames(comparacao) <- c("Modelo Base")
+
+
+for (ordem in candidatos) {
+    texto <- paste0(
+        "SARIMA(",
+        ordem[1],",",
+        ordem[2],",",
+        ordem[3],
+        ")(0,0,2)[12]")
+    fit <- forecast::Arima(
+    y = df,
+    order = ordem, 
+    seasonal = list(order=c(0,0,2),period=12),
+    lambda = 0)
+    forecast::checkresiduals(
+        fit,
+        main =texto)
+    forecast::forecast(fit) %>% 
+       plot(ylab="R$ Milhões", xlab="")
+    duracao <- forecast::forecast(fit)[4]$mean %>% length()
+    previsto <- forecast::forecast(fit)[4] %>% as.data.frame() %>% sum()
+    mtext(paste0("ICMS Acumulado previsto (", duracao, "meses) R$", (previsto/1000) %>% round(digits = 2), " bi"), side=3)
+    comparacao <- rbind(comparacao,forecast::accuracy(fit))
+    rownames(comparacao)[dim(comparacao)[1]] <- texto
+        
+}
+comparacao %>% knitr::kable()
+```
+
+

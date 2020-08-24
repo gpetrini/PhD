@@ -1,0 +1,519 @@
+\documentclass[10pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usetheme{Berlin}
+\usepackage[style=abnt]{biblatex}
+\addbibresource{./Bib.bib}
+
+\author{Gabriel Petrini}
+\title{Modelos de crescimento: Da instabilidade de Harrod às suas soluções}
+\subtitle{Acelerador e (Super)multiplicador}
+
+\date{Junho de 2020}
+%\subject{}
+%\setbeamercovered{transparent}
+%\setbeamertemplate{navigation symbols}{}
+\begin{document}
+	
+\begin{frame}[plain]
+	\maketitle
+\end{frame}
+
+\section{Introdução}
+	
+\begin{frame}
+\frametitle{Objetivo}
+Apresentar um modelo geral de modo a explicitar a taxa instabilidade fundamental de Harrod para então comparar as soluções dentro da ortodoxia (Solow) e da heterodoxia (Supermultiplicador sraffiano). Um objetivo específico é compatibilizar as notações e conceitos para facilitar a leitura dos textos (especialmente Jones com Serrano).
+\end{frame}
+
+
+
+\section{Roteiro}
+\begin{frame}{Roteiro}
+\tableofcontents
+\end{frame}
+
+\section{Da estática para a dinâmica}
+
+\begin{frame}{Estática na Teoria Geral}
+\textcite{harrod_essay_1939} estende o Princípio da Demanda Efetiva (PDE) da Teoria Geral (Estática) de \textcite{keynes_general_1936}  para uma economia em crescimento.
+
+\begin{alertblock}{Estática na TG}
+	Estoque de capital ($K$), População ($N$), etc são considerados como dados na TG (ver cap. 18) enquanto a renda ($Y$) é determinada pelo investimento autônomo ($I$) e pelo multiplicador ($1/1-c$)
+	
+	$$
+	Y = \frac{I}{1-c}
+	$$
+\end{alertblock}
+\end{frame}
+
+\begin{frame}{Introduzindo a dinâmica}
+Se existe investimento líquido, o estoque de capital não pode ser considerado constante, logo, é preciso estudar a economia \textbf{dinamicamente}
+
+$$
+I > 0 \Rightarrow \Delta K \neq 0
+$$
+
+\textcite{harrod_essay_1939} propõe a conjugação do multiplicador (já estudado) com o princípio do acelerador (adiante) para tratar do PDE em uma economia em crescimento. Antes de avançar nesses conceitos, vamos apresentar um \textit{Modelo Geral}\footnote{Esta estrutura ``Geral'' está ausente tanto no artigo de \textcite{harrod_essay_1939} quanto no de \textcite{solow_contribution_1956} e é semelhante ao apresentado por \textcite{serrano_trouble_2019}.}.
+\end{frame}
+
+\section{Modelo Geral}
+
+\begin{frame}{Modelo Geral}
+Vamos iniciar pelas variáveis em nível e no curto prazo:
+
+$$
+Y = C + I + Z
+$$
+em que:
+\begin{itemize}
+	\item[$C$] Consumo ($C = c\cdot Y$, $c$ é a propensão marginal à consumir);
+	\item[$I$] Investimento (das firmas)
+	\item[$Z$] Gastos autônomos não criadores de capacidade produtiva ao setor privado 
+\end{itemize}
+Podemos rescrever a equação anterior da seguinte forma:
+
+$$
+Y = \frac{I + Z}{1-c}
+$$
+
+\end{frame}
+
+\section{Taxa efetiva de crescimento}
+
+\begin{frame}{Taxa \textbf{efetiva} de crescimento}
+
+A taxa de crescimento do produto ($g$) é dada por:
+
+$$
+g_Y = \frac{\Delta Y}{Y_{t-1}}
+$$
+
+A contribuição para a taxa de crescimento do produto é dada pela soma das taxas de crescimento de cada componente da demanda ponderada pela sua respectiva participação na renda:
+
+$$
+g_Y = \frac{C}{Y}\cdot g_C + \frac{I}{Y}\cdot g_I + \frac{Z}{Y}\cdot g_Z
+$$
+\end{frame}
+
+\begin{frame}{Contribuição para a taxa de crescimento I}
+Uma vez que o consumo é induzido pela renda, ambos crescem a uma mesma taxa:
+
+$$
+C = c\cdot Y \Rightarrow g_C = g_Y
+$$
+Qual a contribuição dos demais componentes da demanda para a taxa de crescimento do produto?
+
+O investimento é idêntico a demanda, logo, a participação de ambos na renda é igual
+
+$$
+\frac{I}{Y} \equiv \frac{S}{Y} = h
+$$	
+em que $h$ é a proporção marginal à investir. 
+
+\end{frame}
+
+
+\begin{frame}{Contribuição para a taxa de crescimento II}
+Vamos chamar a participação de $Z$ na renda de $z$
+
+$$
+g_Y = c\cdot g_Y + h\cdot g_I + z\cdot g_Z
+$$
+
+\begin{equation}
+\label{Eq_Comp}
+g_Y = \frac{h\cdot g_I + z\cdot g_Z}{1-c}
+\end{equation}
+Finalmente, para comparar os modelos, precisamos apresentar o \textbf{Princípio Acelerador}.
+\end{frame}
+
+%1. Apresentar Acelerador
+%2. Apresentar problema de Harrod ($g = g_I$)
+%3. Apresentar como chegar no Harrod, Solow e Super a partir da equação geral
+%4. Discutir instabilidade do Harrod
+%5. Discutir como super e Solow Resolvem a instabilidade
+%
+%	5.1 Falar da função de produção e distribuição
+%	5.2 Discutir Lei de Say no Solow
+%6. Comparar
+
+\section{Taxa garantida}
+
+\begin{frame}{Caráter Dual do Investimento I}
+
+\textbf{Investimento como demanda:} Taxa de crescimento do investimento ($g_I$) determina a taxa de crescimento econômico. Supondo temporariamente que $Z=0$, temos
+	
+$$
+Y = \frac{I}{1-c} \Rightarrow g_I \rightarrow g_Y
+$$
+
+\textbf{Investimento como oferta:} Investimento (líquido) aumenta a capacidade
+produtiva, logo, aumenta o estoque de capital. Firmas ajustam o estoque de capital de acordo com o princípio do acelerador, ou seja, se o produto aumenta, firmas aumentam o
+estoque de capital
+
+$$
+\Delta K = v\cdot \Delta Y
+$$
+\end{frame}
+
+\begin{frame}{Caráter Dual do Investimento II}
+Variação do investimento determina variação da renda, pelo efeito multiplicador
+
+$$
+\Delta I \Rightarrow \Delta Y
+$$
+
+Variação da renda determina o nível do investimento pelo princípio do acelerador
+
+$$
+\Delta Y \Rightarrow K \Rightarrow I
+$$
+
+Depois de algum tempo, crescimento do produto, do investimento e do estoque de capital são iguais
+
+$$
+g_Y = g_I = g_K
+$$
+
+\textbf{Memo:} Considerando $Z = 0$	
+\end{frame}
+
+
+\begin{frame}{Equilíbrio de Mercado no Longo Prazo I}
+Partindo do equilíbrio de mercado do curto prazo ($I \equiv S$) para o longo prazo e dividindo ambos os lados pelo estoque de capital
+
+\begin{equation}
+\frac{I}{K} = \frac{S}{K}
+\end{equation}
+
+Do lado \textbf{esquerdo} temos,
+\begin{itemize}
+	\item Taxa de crescimento do estoque de capital, igual a
+	\item Taxa de crescimento do investimento, igual a 
+	\item Taxa de crescimento do produto
+\end{itemize}
+
+$$
+g_K = g_I = g = \frac{S}{K}
+$$
+\end{frame}
+
+\begin{frame}{Equilíbrio de Mercado no Longo Prazo II}
+
+Multiplicando o lado direito por $(Y/Y)$ e $(Y_p/Y_p)$ em que $Y_p$ é o produto potencial ($Y_p = K/v$)
+
+$$
+g_Y = \frac{S}{K}\cdot\overbrace{\frac{Y}{Y}}^{1}\cdot\overbrace{\frac{Y_p}{Y_p}}^{1}
+$$
+rearranjando
+$$
+g_Y = \overbrace{\frac{S}{Y}}^{s}\cdot\overbrace{\frac{Y}{Y_p}}^{u}\cdot\overbrace{\frac{Y_p}{K}}^{1/v}
+$$
+$$
+g_Y = \frac{s}{v}\cdot u
+$$	
+\end{frame}
+
+\begin{frame}{Equilíbrio de Mercado no Longo Prazo III}
+
+Repetindo a última equação
+
+\begin{equation}
+\label{truismo}
+g_Y = \frac{s}{v}\cdot u
+\end{equation}
+em que
+\begin{itemize}
+	\item[$s$] propensão média a poupar
+	\item[$u$] grau de utilização da capacidade
+	\item[$v$] relação capital-produto
+\end{itemize}
+A equação \ref{truismo} é um \textbf{truísmo} e mostra uma relação positiva entre crescimento econômico ($g_Y$) e o grau de utilização ($u$)
+\end{frame}
+
+\begin{frame}{Taxa Garantida: Versão Jones I}
+	
+Alguns conceitos básicos na exposição de Jones:
+
+
+\textbf{Relação capital-produto efetiva $v_E$:} É a relação que realmente acontece
+	
+	$$
+	v_E = \frac{K}{Y}
+	$$
+	
+\textbf{Relação capital-produto requerida $v_R$:} Anteriormente denominada de relação técnica ($v$) e expressa o quanto firma a precisa de capital para produzir uma unidade de produto
+	$$
+	v_R = v = \frac{K}{Y_p}
+	$$
+\end{frame}
+
+\begin{frame}{Taxa Garantida: Versão Jones II}
+
+\textbf{Objetivo das firmas:} Tomam decisões de acumulação de capital para
+ajustar a relação capital-produto efetiva à relação capital-produto requerida
+
+$$
+v_E \to v
+$$
+
+\begin{itemize}
+\item[$v_E<v$:] As firmas têm \textit{menos} capital por unidade de produto do que gostariam
+\item[$v_E>v$:] As firmas têm \textit{mais} capital por unidade de produto do que gostariam
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Combinando Jones e Serrano}
+
+Partindo da relação capital-produto efetiva e dividindo e multiplicando o lado direito por $Y_p$, temos
+
+$$
+v_E = \frac{K}{Y}\frac{Y_p}{Y_p}
+$$
+$$
+v_E = \frac{K}{Y_p}\frac{Y}{Y_p}
+$$
+$$
+v_E = \frac{v}{u} \Rightarrow v = \frac{u}{v_E}
+$$
+
+\textbf{Importante:} Para uma dada relação técnica/requerida capital-produto ($v$), grau de utilização ($u$) e relação efetiva capital-produto ($v_E$) variam na direção contrária
+
+$$
+\uparrow v_E \Leftrightarrow \downarrow u
+$$
+\end{frame}
+
+\begin{frame}{E finalmente a taxa garantida}
+
+\textbf{Taxa garantida ($g_w$):} expressa a condição para que ocorra um crescimento equilibrado entre demanda e capacidade produtiva, ou ainda, taxa de crescimento em que as firmas estão satisfeitas com sua acumulação de capital
+
+$$
+v_E = v_R = v
+$$
+
+Substituindo na equação \ref{truismo}
+
+$$
+g_Y = \frac{s}{v_E}u 
+$$
+
+$$
+g_w = \frac{s}{\frac{v_R}{u}}u \Rightarrow g_w = \frac{s}{v_R}
+$$
+\end{frame}
+
+
+\begin{frame}{Instabilidade em Harrod}
+Vamos analisar o caso em que $g>g_w$ e o que isso implica:
+
+ $g>g_w \Leftrightarrow v_E>v_R$
+
+\textbf{Reação das firmas:} aumentar a acumulação de capital acelerando o crescimento do investimento
+
+\textbf{Problema:} Investimento possui um caráter dual, ou seja, cria demanda (multiplicador) E capacidade produtiva
+
+\textbf{Resultado:} $\uparrow g_I \rightarrow g \rightarrow v_E >> v_R \rightarrow \ldots \rightarrow g >> g_w$
+
+
+\textbf{Conclusão:} a economia não tende ao crescimento equilibrado entre oferta e demanda ($g \nrightarrow g_w$). O comportamento das firmas é correto do ponto de vista micro, mas o resultado macro é indesejado: instabilidade
+
+\end{frame}
+
+\begin{frame}{Significado econômico da taxa garantida}
+	\begin{itemize}
+		\item Caso a taxa de crescimento efetiva seja igual a garantida, firmas não alteram sua taxa de acumulação de capital
+		\item Logo, não muda o crescimento da demanda, tampouco da oferta
+		\item \textbf{Importante:} \textbf{Não} é a taxa a qual a economia realmente cresce. Essa é determinada pela taxa de crescimento do investimento
+	\end{itemize}
+	
+	\begin{alertblock}{Problema deixado por Harrod}
+		
+		Quais as condições para que demanda e capacidade produtiva cresçam dinamicamente equilibradas, ou seja, $g = g_w$? Se existem, tais condições são razoáveis ou estáveis? São essas questões que Solow, Robinson, Kaldor, Kalecki e, mais recentemente, Serrano tentam responder
+		
+	\end{alertblock}
+\end{frame}
+
+
+
+
+\section{Soluções}
+
+\begin{frame}{Solow e a Lei de Say}
+
+Só há uma forma da taxa garantida representar a taxa efetiva de crescimento, de
+modo estável: Aceitar a validade da \textbf{lei de Say}
+
+A taxa garantida representaria o caso no qual a taxa de crescimento da demanda se
+ajustaria sempre ao crescimento prévio da capacidade produtiva. O crescimento esperado seria tal que geraria automaticamente o consumo induzido e o
+investimento induzido necessários para manter a relação técnica efetiva igual à requerida
+
+\textbf{Importante:} Harrod rejeita a lei de Say, por isso formula sua instabilidade fundamental
+
+\begin{alertblock}{Solow, Lucas, Romer, $\ldots$}
+	Uma vez aceita a Lei de Say ($S \Rightarrow I$), os modelos derivados de Solow passam a dar atenção à questões da oferta (\textit{e.g.} capital humano)
+\end{alertblock}
+
+\end{frame}
+
+\begin{frame}{A Grande Família multiplicador/acelerador}
+
+\textbf{Princípio Acelerador:} investimento ajusta a capacidade produtiva da
+economia à evolução da demanda efetiva
+
+$$
+I = a(K^d - K_{t-1})
+$$
+em que $K^d$ é a capacidade produtiva desejada e depende da demanda esperada ($Y^E$)
+$$
+K^d = vY^E
+$$
+substituindo:
+$$
+I = a(vY^E - K_{t-1})
+$$
+$$
+I = a(vY^E - vY_{t-1})
+$$
+
+$a$ é um parâmetro que representa a velocidade de ajuste da capacidade
+\begin{itemize}
+	\item[$a=1$] Ajuste completo
+	\item[$a<1$] Ajuste gradual
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Do geral ao específico: Harrod}
+
+Partindo desta apresentação geral do acelerador e da equação \ref{Eq_Comp}, como retornar ao Harrod? Hipóteses
+
+\begin{itemize}
+	\item[$z=0$] Ausência de gastos autônomos
+	\item[$Y^E=Y$] Ausência de expectativas
+	\item[$a=1$] Ajuste completo
+	\item[$h=\overline{h}$] Acelerador rígido
+\end{itemize}
+
+$$
+I = a(vY^E - K_{t-1}) \Rightarrow I = v\Delta Y
+$$
+$$
+g_Y \equiv g_I
+$$
+
+\end{frame}
+
+\begin{frame}{Do geral ao específico: Serrano I}
+	
+No modelo do supermultiplicador, o investimento é considerado como totalmente induzido pela demanda
+
+$$
+I = h\cdot Y \Rightarrow g_I = g_Y
+$$
+Adicionalmente, supõe que a propensão marginal a investir ($h$) depende da taxa de crescimento da demanda efetiva
+
+$$
+I  = v\Delta Y \Rightarrow \frac{I}{Y} = v\frac{\Delta Y}{Y} \Rightarrow h = v\cdot g
+$$
+Na versão com expectativas, temos
+$$
+h = v\cdot g^e
+$$
+
+Seja com expectativas ou não, o acelerador não é rígido, o que implica
+$$
+\Delta h \neq 0
+$$
+
+\end{frame}
+
+\begin{frame}{Do geral ao específico: Serrano II}
+	
+Uma vez que $h$ varia com a demanda, a contribuição da taxa de crescimento deve se alterar
+
+$$
+g_Y = c\cdot g_C + \overbrace{h\cdot g_I + \Delta h}^{\text{Regra da cadeia}} + z\cdot g_Z
+$$
+Uma vez que o consumo e o investimento são induzidos ($g_C = g_I = g_Y$) e existem gastos autônomos ($z>0$), temos
+
+$$
+Y = \frac{Z}{1-c-h} \Leftrightarrow z = \frac{Z}{Y} = 1-c-h
+$$
+
+$$
+g_Y = \frac{z\cdot g_Z + \Delta h}{1 - c - h}
+$$
+Simplificando
+$$
+g_Y = g_Z + \frac{\Delta h}{1-c-h}
+$$
+
+	
+\end{frame}
+
+\begin{frame}{Do geral ao específico: Serrano III}
+	
+Faremos o mesmo procedimento utilizado anteriormente para apresentar o supermultiplicador. Hipóteses
+
+\begin{itemize}
+	\item[$z>0$] Presença de gastos autônomos
+	\item[$Y^E\neq Y$] Presentes
+	\item[$a<1$] Ajuste gradual
+	\item[$\Delta h \neq 0$] Acelerador flexível
+\end{itemize}
+
+$$
+I = hY \hspace{2cm} h = vg^e \Rightarrow \Delta h \neq 0
+$$	
+$$
+g_I = g_Y \to g_Z
+$$
+$$
+\Delta h = 0 \Leftrightarrow g_w = g_Y = g_Z
+$$
+
+\end{frame}
+
+\section{Comparações}
+
+\begin{frame}{Diferenças teóricas}
+	Os modelos de \textcite{harrod_essay_1939}, \textcite{solow_contribution_1956} e \textcite{serrano_long_1995} se distinguem em relação às hipóteses sobre:
+	
+	\begin{itemize}
+		\item \textbf{Lado da oferta:} Adoção de uma função de Cobb-Douglas (substituição dos fatores) ou de Leontieff (complementaridade)
+		\item \textbf{Distribuição de renda:} Se determinada economicamente ou por fatores sócio-históricos
+		\item \textbf{Existência de gastos autônomos:} Somente o investimento é autônomo (Harrod); Investimento induzido pela renda (supermultiplicador); Investimento determinado pela poupança (Solow)
+		\item \textbf{PDE} Adoção do PDE ou da Lei de Say
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Explicitando as diferenças}
+
+\begin{table}
+	\caption{Comparando os modelos}
+	\centering
+\begin{tabular}{c|c|c|c|c}
+	\hline \hline
+	& Acelerador & Gastos autônomos & PDE & Característica\\ 
+	\hline 
+	Harrod & $h = \overline{h}$ & $z=0$ & Sim & Instável\\ 
+	\hline 
+	Solow & $h = \overline{s}$ & $z=0$ & Não & Estável\\ 
+	\hline 
+	Serrano & $\Delta h \neq 0$ & $z>0$ & Sim & Estável\\ 
+	\hline \hline
+\end{tabular} 
+\end{table}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Referências}
+\printbibliography
+\end{frame}
+
+\end{document}

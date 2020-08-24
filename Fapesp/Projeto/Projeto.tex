@@ -1,0 +1,274 @@
+% Last update/Última versão: 11/Sep/2016
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%=====================================================================
+% 							Pacotes Fundamentais
+%=====================================================================
+\documentclass[
+% -- op\c{c}\~{o}es da classe memoir --
+12pt,				% tamanho da fonte
+oneside,			% para impress\~{a}o em verso e anverso. Oposto a oneside
+a4paper,		% tamanho do papel.
+% -- op\c{c}\~{o}es da classe abntex2 --
+%chapter=TITLE,		% t\'{\i}tulos de cap\'{\i}tulos convertidos em letras mai\'{u}sculas
+%section=TITLE,		% t\'{\i}tulos de se\c{c}\~{o}es convertidos em letras mai\'{u}sculas
+%subsection=TITLE,	% t\'{\i}tulos de subse\c{c}\~{o}es convertidos em letras mai\'{u}sculas
+%subsubsection=TITLE,% t\'{\i}tulos de subsubse\c{c}\~{o}es convertidos em letras mai\'{u}sculas
+% -- op\c{c}\~{o}es do pacote babel --
+english,			% idioma adicional para hifeniza\c{c}\~{a}o
+%french,			% idioma adicional para hifeniza\c{c}\~{a}o
+%spanish,			% idioma adicional para hifeniza\c{c}\~{a}o
+brazil,				% o \'{u}ltimo idioma \'{e} o principal do documento
+%sumario=tradicional,
+]{article}
+\usepackage[a4paper, 
+right = 1.5cm, left = 2cm, top = 1.5cm, bottom = 2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[english,portuguese]{babel}
+%\usepackage[myheadings]{fullpage}
+\usepackage[T1]{fontenc}
+\usepackage{indentfirst}
+\usepackage{graphicx, setspace}
+\usepackage{booktabs}
+\usepackage{sectsty}
+\usepackage{url}
+\usepackage{times}    %similar to \usepackage{mathptm}
+\usepackage{comment}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{enumitem}
+\usepackage{blindtext}
+\usepackage{float}
+\usepackage[bottom]{footmisc}
+\usepackage{pdfpages}
+\usepackage{caption} % \caption*
+\usepackage{csquotes}
+\usepackage{footnote} % Permite footnote em tabelas
+\usepackage{titlesec}
+
+
+%=====================================================================
+% 							Pacotes Bibliográficos
+%=====================================================================
+\usepackage[backend=biber,
+	style = abnt,%
+	noslsn, %
+	extrayear, %
+	uniquename=init,% 
+	giveninits, %
+	justify, %
+	sccite,% 
+	scbib, %
+	repeattitles, %
+	doi=false,isbn=false,url=false, 
+	maxcitenames=2 % Não consegui deixar et al em itálico
+	]{biblatex}
+\addbibresource{./refs.bib}
+\AtEveryBibitem{%clear month
+  \clearfield{labelmonth}
+  \clearfield{labellanguage}
+}
+
+
+\makeatletter %%%% \textcites
+\renewbibmacro*{cite:init}{%
+  \ifnumless{\value{multicitecount}}{2}%
+    {\global\boolfalse{cbx:parens}%
+     \global\undef\cbx@lasthash%
+     \global\undef\cbx@lastyear}%
+    {}}%
+\makeatother
+%%%%%%%%%%%%%%%%% https://tex.stackexchange.com/questions/142999/the-proper-way-to-cite-the-earliest-publication-date-in-brackets-followed-by
+\DeclareLabeldate{%
+  \field{date}
+  \field{year}
+  \field{eventdate}
+  \field{urldate}
+  \literal{nodate}
+}
+
+\renewbibmacro*{date+extradate}{%
+  \iffieldundef{labelyear}
+    {}
+    {\printtext[parens]{%
+       \iffieldundef{origyear}
+         {}
+         {\printtext[brackets]{\printorigdate}%
+          \setunit{\addspace}}%
+       \iflabeldateisdate
+         {\printdateextra}
+         {\printlabeldateextra}}}}
+
+\renewbibmacro*{cite:labeldate+extradate}{%
+  \iffieldundef{labelyear}
+    {}
+    {\printtext[bibhyperref]{%
+       \iffieldundef{origyear}
+         {}
+         {\printtext[brackets]{\printorigdate}%
+          \setunit{\addspace}}%
+       \printlabeldateextra}}}
+
+\renewenvironment{quote}
+{\small\list{}{\fontsize{10pt}{12pt}\singlespacing\rightmargin=0cm \leftmargin=4cm}%
+	\item\relax}
+{\endlist}
+
+%=====================================================================
+% 							Comandos específicos da FAPESP
+%=====================================================================
+\input{comandos}
+%=====================================================================
+% 							Outros Pacotes
+%=====================================================================
+\usepackage{subfigure}
+\usepackage{setspace}
+\usepackage{lipsum}  
+\usepackage{amsmath} % Para cases
+\usepackage[cm]{fullpage}
+%\usepackage[medium,compact]{titlesec}
+
+%=====================================================================
+% 							Página de título e folha de rosto
+%=====================================================================
+%-----
+% Página de título
+% Observação: As definições que aparecem a seguir comporão a
+%             página de título e a folha de rosto.
+%-----
+%% Define o nome da universidade onde o projeto foi desenvolvido.
+\universidade{Universidade Estadual de Campinas}
+%
+%% Define o nome da faculdade onde o projeto foi desenvolvido.
+\faculdade{Instituto de Economia}
+%
+%% Define o título do projeto.
+\titulo{Título}
+%
+%
+%% Define o autor do relatório.
+\autor{}
+\cidade{Campinas}
+
+
+\begin{document}
+%=====================================================================
+% 							Numeração pré-textual
+%=====================================================================
+\pagenumbering{roman}
+%=====================================================================
+% 							Folha de título
+%=====================================================================
+%\geraTitulo
+%=====================================================================
+% 							Folha de rosto
+%=====================================================================
+% Gera a folha de rosto.
+%\folhaDeRosto
+%=====================================================================
+% 							Título
+%=====================================================================
+\begin{center}
+\rule{\textwidth}{1.2pt}
+	Projeto de Tese para Doutorado em Ciência Econômica\\
+	%\textbf{Investimento residencial, instituições e crescimento: Uma análise comparativa a partir de um modelo supermultiplicador sraffiano com consistência entre fluxos e estoques}
+	\textbf{\Large{Três Ensaios em Macroeconomia Imobiliária: \\\large{instituições, inflação de ativos e instabilidade financeira}}}\\
+	\textbf{Gabriel Petrini da Silveira}
+\rule{\textwidth}{1.2pt}
+\end{center}
+%=====================================================================
+% 							Resumo
+%=====================================================================
+\Resumo{ %TODO Marcar
+    \noindent Dentre as consequências da Grande Recessão (2008-9) para o estudo da economia, destaca-se a atenção às implicações do investimento residencial e de seu financiamento para a macroeconomia contemporânea. Alguns temas, no entanto, continuam sendo tratados separadamente pela literatura: mudanças na composição patrimonial dos bancos comerciais; 
+    papel do investimento residencial e de bolhas de ativos na dinâmica macroeconômica e;
+    endividamento, crise  e fragilidade financeira das famílias.
+	A aqui denominada ``macroeconomia imobiliária'' diz respeito à conexão destes elementos e serão analisados ao longo da tese tendo em vista
+    suas dimensões teóricas, empíricas e institucionais. % ao longo da tese.
+	%A presente pesquisa parte de uma nova base de dados cujo 
+	%construída e atualizada por \textcites{jorda_great_2016}{jorda_rate_2019}
+	%que, dado o ineditismo, tem sido pouco explorada até então cujo 
+	% potencial de análise se dá tanto pela extensão temporal (1870-2016)  e espacial (17 países da OCDE) quanto pelo nível de desagregação (bancos comerciais).
+	% A partir destes dados, destaca-se o aumento sem precedentes da participação das hipotecas e dos imóveis no ativo do balanço patrimonial dos bancos. 
+	%Esse fato estilizado é chamado de ``hipotecarização'' pela literatura.
+	O objetivo desta tese é investigar o papel macroeconômico do mercado imobiliário em uma perspectiva multidimensional.
+	A presente pesquisa irá:
+		(i) investigar as configurações institucionais necessárias e suficientes para explicar o aumento sem precedentes da participação das hipotecas e dos imóveis no ativo do balanço patrimonial dos bancos por meio de uma análise qualitativa comparativa com lógica \textit{fuzzy} (fsQCA);
+		(ii) avaliar os determinantes macroeconômicos do investimento residencial por meio de um modelo de séries temporais em painel e; 
+		(iii) desenvolver um modelo \textit{Agent Based} e \textit{Stock-Flow Consistent} de simulação em que somente as famílias são heterogêneas para explicitar o papel central do financiamento dos imóveis e das bolhas de ativos e avaliar suas implicações para a dinâmica macroeconômica.
+	Ao considerar elementos institucionais, empíricos e integrar o lado real ao financeiro, o estudo visa compreender as implicações da inflação de ativos e da fragilidade financeira sobre a dinâmica macroeconômica.
+		%\\\\
+%\noindent\textbf{Palavras-chave:} Imóveis; Macroeconomia; Análise Qualitativa Comparativa; Modelo de Séries Temporais em Painel; Modelo com Consistência entre fluxos e estoques baseado em agentes.
+}
+%=====================================================================
+% 							Abstract
+%=====================================================================
+\begin{comment}
+Habilitar caso seja necessário um abstract em outra página
+
+\Abstract{
+teste in english
+}
+\end{comment}
+%=====================================================================
+% 							Numeração textual
+%=====================================================================
+\pagenumbering{arabic}
+
+%=====================================================================
+% 							Formatação título seção
+%=====================================================================
+\sectionfont{\scshape}
+
+%=====================================================================
+% 							Redução de espaço
+%=====================================================================
+%\def\baselinestretch{0.98}
+\setlength{\abovecaptionskip}{1ex}
+\setlength{\belowcaptionskip}{1ex}
+\setlength{\floatsep}{1ex}
+\setlength{\textfloatsep}{1ex}
+\titlespacing*{\section}{0pt}{*0.8}{*0.8}
+\titlespacing*{\subsection}{0pt}{*0.8}{*0.8}
+\titlespacing*{\subsubsection}{0pt}{*0.3}{*0.3}
+
+%\renewcommand*{\bibfont}{11.75pt} % Reduz tamanho da fonte das referências
+\renewcommand*{\bibfont}{\small} % Reduz tamanho da fonte das referências
+
+\titleformat{\section}
+  {\normalfont\fontsize{12}{15}\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\fontsize{12}{15}\bfseries}{\thesubsection}{1em}{}
+%=====================================================================
+% 							Corpo de texto
+%=====================================================================
+\linespread{1.5}%\linespread{1.0}
+\doublespacing
+% Controle do espaçamento entre um parágrafo e outro:
+%\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+\begingroup
+\let\clearpage\relax
+\input{Intro_Just/Intro}
+\input{Intro_Just/Ensaio1}
+\input{Intro_Just/Ensaio2}
+\input{Intro_Just/Ensaio3}
+\input{Objetivos}
+\input{Metodologia/Intro}
+\input{Metodologia/Ensaio1}
+\input{Metodologia/Ensaio2}
+\input{Metodologia/Ensaio3}
+\input{Plano_Trabalho}
+\input{BEPE}
+\endgroup
+
+%=====================================================================
+% 							Bibliografia
+%=====================================================================
+
+{
+\singlespacing\linespread{0.69}\let\clearpage\relax\printbibliography
+}
+%=====================================================================
+% 							Fim do Documento
+%=====================================================================
+\end{document}

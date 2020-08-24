@@ -1,0 +1,72 @@
+---
+title: "Carregamento estatístico"
+author: "gpetrini"
+date: "28/05/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+carregamento <- function(PIB, 
+                         rep_trimestres=3, # 3 para primeiro trimestre
+                         suposicao=0
+){
+    value <-
+        c(
+            PIB, 
+            (rep_trimestres>=1)*tail(PIB,1)*((1+suposicao)^1), # Segundo Trimestre
+            (rep_trimestres>=2)*tail(PIB,1)*((1+suposicao)^2), # Terceiro Trimestre
+            (rep_trimestres>=3)*tail(PIB,1)*((1+suposicao)^3) # Quarto Trimestre
+    )
+    PIB <- ts(
+        value,
+        start=c(1996,1),
+        freq=4
+        )
+    Anual <- (mean(tail(PIB,4))/mean(head(tail(PIB,8),4)))*100 - 100
+    #Anual <- ((PIB + lag(PIB, -1) + lag(PIB, -2) + lag(PIB, -3))/4)/((lag(PIB,-4) + lag(PIB, -5) + lag(PIB, -6) + lag(PIB, -7))/4) -1
+carregamento <- tail(Anual,1)
+print(paste0(
+ "Supondo uma taxa de crescimento de ", suposicao*100,"%, o carregamento estatístico é de ", round(carregamento,3), "%"
+))
+return(carregamento)
+                         }
+```
+
+# Carregando estatístico supondo crescimento de 0%
+
+```{r}
+tabela <- sidrar::get_sidra(
+    api = '/t/1621/n1/all/v/all/p/all/c11255/90707/d/v584%202' # Série dessazonalizada. TODO: Check
+)
+PIB <- tabela$Valor
+
+carregamento(PIB = PIB, rep_trimestres = 3, suposicao = 0.00)
+carregamento(PIB = PIB, rep_trimestres = 3, suposicao = -0.04165)
+```
+
+# Carregando estatístico considerando previsão do FMI
+
+```{r}
+# https://www.imf.org/external/pubs/ft/weo/2020/01/weodata/weorept.aspx?sy=2014&ey=2021&scsm=1&ssd=1&sort=country&ds=.&br=1&pr1.x=25&pr1.y=11&c=223&s=NGDP_RPCH&grp=0&a=
+FMI <- -0.05303 # Replace here
+taxas <- c(-500:500)/10000
+PIB <- tabela$Valor
+
+for (tx in taxas) {
+    carregamento(PIB = PIB, rep_trimestres = 3, 
+                 suposicao = tx)  -> resultado
+    if (round(resultado, 2) == round(FMI,2)) {
+        print(paste0(
+            "Taxa de carregamento é ", round(tx,3)*100, "%"
+        ))
+    }
+}
+
+```
+

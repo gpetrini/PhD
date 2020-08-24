@@ -1,0 +1,35 @@
+---
+title: "IMF Data"
+author: "gpetrini"
+date: "02/06/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+```
+
+# Loading data
+
+```{r}
+imfr::imf_data(
+    database_id = "GFSMAB2015", # Government Finance Statistics Yearbook (GFSY 2019), Main Aggregates and Balances
+    indicator = c(
+        "S1311B", 
+        "XDC_R_B1GQ", # Percent of GDP
+        "GNLB__Z" # Primary net lending/borrowing
+    ),
+    country =  "all",
+    freq = "A",
+    start = 2015, end = 2016,
+    print_url = TRUE
+) -> df
+```
+
+222             GFSMAB2019
+223           GFSCOFOG2019
+224               GFSE2019
+225           GFSFALCS2019
+226               GFSR2019
+227             GFSIBS2019

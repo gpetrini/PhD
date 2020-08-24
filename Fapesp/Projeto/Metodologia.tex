@@ -1,0 +1,103 @@
+\section{Metodologia}\label{passos}
+
+
+Para atender os objetivos, a pesquisa será dividida em três capítulos independentes.
+O primeiro deles trata das relações entre o mercado imobiliário e de crédito a luz das especificidades institucionais por meio de uma análise qualitativa comparativa.
+No capítulo seguinte, será estimado um painel macrodinâmico para analisar os determinantes do investimento residencial.
+Em seguida, CAPÍTULO SFC
+ 
+ 
+A hipótese de trabalho do primeiro capítulo é que o arranjo institucional macroeconômico é relevante para explicar o grau de hipotecarização de um país.
+Para tanto, será realizada uma  análise comparativa qualitativa (QCA)\footnote{A metodologia que pretendemos usar para dar conta desse objetivo é semelhante a utilizada em outro trabalho \cite{petrini_comparacao_2019} aplicada a outro objeto.}. 
+
+
+Desenvolvida originalmente por \textcite{ragin_comparative_1989} ---  aprimorada e ampliada por \textcite{ragin_set_2006}, \textcite{box-steffensmeier_measurement_2009} e \textcite{smithson_fuzzy_2006} ---, esta metodologia associa todas as configurações possíveis a um resultado específico por meio de álgebra booleana e teoria dos conjuntos.
+Por se tratar de uma metodologia pouco utilizada em economia, serão apresentados seus procedimentos em maiores detalhes tal como descrito por CITAR.
+Estabelecido o fenômeno (resultado) de interesse, os casos a serem analisados e quais seus possíveis determinantes, a primeira etapa  consiste na adequação dos dados à variante QCA a ser utilizada.
+Na etapa seguinte, constrói-se uma tabela verdade em que são apresentadas as configurações comuns de cada caso em relação ao resultado.
+A partir desta tabela, é possível avaliar as condições necessárias e suficientes destas configurações, bem como as contradições.
+Na ausência de contradições e determinadas as condições suficientes\footnote{COMO RESOLVER CONTRADIÇÕES}, são realizados procedimentos de minimização --- por meio do algoritmo de Quine–McCluskey \cite{ragin_comparative_1989} --- para agrupar os casos semelhantes e obter a solução parcimoniosa.
+Com a solução parcimoniosa em mãos, resta interpretar os resultados obtidos.
+
+Em resumo, a escolha desta metodologia se dá por: 
+	(i) enfatizar as singularidades de cada unidade de investigação; 
+	(ii) por tratar os casos holisticamente, ou seja, como unidades integradas por uma complexa combinação de propriedades e\footnote{Tal metodologia permite incluir elementos de complexidade uma vez que pode reportar distintas trajetórias que levam ao mesmo resultado. Em outras palavras, diferentemente dos métodos estatísticos usuais, a metodologia QCA não pressupõe uniformidade  e simetria causal CITAR.}; 
+	(iii) ser possível 
+Nas palavras de CITAR (p.~16):
+
+\begin{quote}
+	
+	[...] \textit{QCA does not yield new theories. What it may do, once
+		performed, is to help the researcher generate some new insights, which
+		may then be taken as a basis for a further theoretical developmentor for
+		reexamination of existing theories. Only by returning to empirical cases
+		will it be possible to evaluate whether it makes senseto highlight a particular condition.} 
+\end{quote}		
+Portanto, a partir desta metodologia, é possível destacar quais elementos institucionais são necessários ou suficientes para determinar o grau de hipotecarização de um país sem que para isso seja necessário desconsiderar as especificidades de cada caso analisado.
+
+No que diz respeito a essa pesquisa, o resultado a ser analisado é o grau de hipotecarização de um pais, ou seja, quanto maior a participação das hipotecas no balanço patrimonial dos bancos mais ``hipotecarizado''.
+Por se tratar de uma variável contínua, a variante \textit{fuzzy} se mostra a melhor alternativa para abordar este objetivo, portanto trata-se de um \textit{fuzzy-set} QCA (fsQCA).
+Para tanto, serão utilizados tanto o método direto (teórico) quanto
+indireto (estatístico) para a determinação da função de pertencimento \textit{fuzzy} (\textit{fuzzy membership function}).
+As variáveis serão selecionadas a partir de uma ampla revisão de literatura em que serão identificados os condicionantes institucionais da hipotecarização.
+Os casos serão os países da base de dados de \textcite{jorda_great_2014} para os anos com quebras estruturais\footnote{Vale mencionar que por serem países membros da OCDE, estes países possuem um grau maior de comparação entre si e, portanto, destaca-se melhor as especificidades institucionais mencionadas anteriormente.}.
+A análise dos resultados será baseada nos índices de consistência e abrangência propostos por \textcite{ragin_set_2006} e interpretados a luz da literatura pós-keynesiana.
+Com isso, espera-se reportar quais são as características institucionais necessárias e suficientes para explicar o grau de hipotecarização de um país.
+
+Uma versão preliminar e ilustrativa da primeira etapa da metodologia QCA pode ser vista na tabela TABELA em que são apresentadas as especificidades institucionais da tabela \ref{Institucional} em seu equivalente \textit{fuzzy} e associados ao grau de hipotecarização médio.
+A transformação do grau de hipotecarização em seu equivalente \textit{fuzzy} é automática, ou seja, quanto mais próximo de um mais hipotecarizado. 
+O mesmo raciocínio é estendido para o financiamento pelo mercado de capitais.
+No caso do tipo de reembolso antecipado, considerou-se igual a unidade quando completamente legislado, igual a zero quando totalmente contratual e igual a meio na presença de ambos os tipos\footnote{Antes de prosseguir, vale pontuar que o valor associado a cada característica não interfere nos resultados uma vez que são avaliadas as configurações, ou seja, características conjuntas associadas ao resultado.}.
+Em relação a permissividade de retirada do capital próprio, codificou-se como um quando permitido, zero caso contrário  e meio quando limitado.
+No que diz respeito ao tipo de taxa de juros hipotecária, considerou-se igual a unidade quando flexível e zero caso contrário.
+Para as variáveis restantes (maturidade e execução hipotecária), utilizou-se o procedimento proposto por CITAR RAGIN (método indireto) para obtenção do equivalente \textit{fuzzy}.
+A partir desta tabela, observa-se que existe uma pluralidade de configurações institucionais associada a diferentes níveis de hipotecarização.
+A etapas seguintes e o aprimoramento desta versão preliminar serão realizadas ao longo do desenvolvimento da pesquisa.
+
+\input{./tabs/fuzzyfied_fixed.tex}
+
+% DADOS EM PAINEL
+
+Compreendidos os fatores institucionais, a segunda parte desta pesquisa irá analisar a dimensão quantitativa da macroeconomia imobiliária.
+Em particular, serão analisados os determinantes do investimento residencial que, como visto na revisão de literatura, são fundamentais para a compreensão da dinâmica macroeconômica.
+A hipótese de trabalho é que além de não criar capacidade produtiva, o investimento residencial é autônomo.
+
+a ser testada nesse capítulo é a capacidade explicativa da já mencionada taxa própria de juros dos imóveis na determinação da taxa de crescimento do investimento residencial.
+DADOS EM PAINEL
+por meio de um modelo de dados em painel dinâmicos por permitir incorporar as defasagens de algumas variáveis e, assim, enriquecer a análise\footnote{Cabe aqui pontuar que \textcite{petrini_investimento_2019} encontrou defasagens estatisticamente significantes entre taxa real de juros dos imóveis e taxa de crescimento dos imóveis para o caso norte-americano por meio de um VEC. A realização de um modelo de dados em painel também é, portanto, uma extensão de \textcite{petrini_demanda_2019}.}.
+
+É importante ressaltar que para manter a comparatibilidade entre esses dois capítulos, serão utilizados os países presentes na base de dados desenvolvida por \textcite{jorda_great_2014}. Vale pontuar que a grande contribuição desta base de dados é reunir os subcomponentes dos empréstimos bancários desde 1870 que abre uma extensa agenda de pesquisa ainda não suficientemente explorada.
+Apesar da amplitude temporal desta base, o modelo macroeconométrico se restringirá ao pós-década de 70 para captar os efeitos da ``hipotecarização'' e contrastá-los com o modelo qualitativo desenvolvido no capítulo anterior.
+
+No capítulo seguinte, será desenvolvido um modelo SFC representando uma economia capitalista fechada e sem governo\footnote{Para tanto, será utilizado o pacote \textit{pysolve3} escrito em python 3 e desenvolvido por \textcite{petrini_pysolve3_2019}.}. 
+De acordo com \textcite{macedo_e_silva_peering_2011}, tal metodologia é composta de
+três procedimentos: (i) determinação da estrutura contábil; (ii) construção das equações comportamentais
+e; (iii) solução/simulação\footnote{
+	Vale destacar a expansão dos trabalhos que seguem esta metodologia a partir das análises de \textcite{godley_money_1999} e da sistematização de \textcite{godley_monetary_2007}.
+}.
+As etapas contábeis da abordagem SFC constituem em: (i) seleção dos setores institucionais e dos ativos a serem incorporados; (ii) mapeamento das relações dos fluxos entre os mencionados setores por meio da construção da matriz de fluxos; (iii) construção da matriz dos estoques de riqueza (real e financeira) em que são contabilizadas os ativos e passivos  bem como a posição líquida de cada setor; (iv) identificação das formas que os fluxos são financiados e sua respectiva acumulação/alocação dos estoques. 
+Como todo modelo macroeconômico, ao partir de um aparato analítico
+baseado em identidades contábeis, surgem restrições que precisam ser seguidas mas o que distingue a metodologia SFC das demais é a conexão do lado real com o financeiro de forma integrada.
+Tal procedimento garante que para que um setor acumule riqueza financeira, outro precisa necessariamente liquidá-la de modo que não existam ``buracos negros'' \cite{godley_money_1996}.
+
+As relações de causalidade, por sua vez, decorrem das equações comportamentais que, respeitando a consistência, podem ser de qualquer linhagem teórica.
+Dada a estrutura contábil e explicitadas as hipóteses e equações comportamentais, resta seguir para a resolução do modelo. Como pontuam \textcite{caverzasi_stock-flow_2013}, existem três vias: (i) simulação; (ii) analítica e; (iii) descritiva. A primeira delas permite expor as relações entre as variáveis de modelos mais complexos em que a solução analítica não é facilmente encontrada. No entanto, tal caminho fez com que o grau de complexidade dos modelos simulados fosse exponencializada de modo que a intuição econômica torna-se facilmente turva.  
+
+Esta pesquisa priorizará a parcimônia de modo que serão incluídos apenas os elementos necessários dados os objetivos desta pesquisa.
+Em outras palavras, modificações que dizem respeito às relações entre famílias, firmas e bancos seguirão os resultados dos capítulos anteriores.
+Extensões do modelo básico --- como inclusão do governo e setor externo --- ocorrerão se resultados reportados anteriormente indicarem a relevância da inclusão destes setores institucionais.
+A justificativa deste procedimento decorre da maior clareza
+da modelagem frente a um menor ``realismo''. Além disso, tal postura permite explicitar os parâmetros mais relevantes para as
+trajetórias de longo prazo\footnote{
+	Adicionalmente, será realizada uma exploração do espaço paramétrico por meio de análises de sensibilidade global como proposto por \textcite{saltelli_variance_2010}.
+}. Apesar da parcimônia do modelo, a simulação tem a vantagem de fornecer
+informações que não se restringem às soluções de equilíbrio e esta forma também será selecionada
+para resolver o modelo uma vez que permite também analisar o \textit{traverse}\footnote{Cabe aqui pontuar a realização de modelos de simulação em \textcite{da_silveira_investimento_2019} e \textcite{petrini_demanda_2019}.}. 
+A hipótese de trabalho deste capítulo é que os condicionantes institucionais --- agrupados no capítulo primeiro --- e os determinantes da taxa de crescimento do investimento residencial --- reportados no capítulo segundo ---implicam dinâmicas macroeconômicas distintas.
+Dessa forma,a partir do modelo SFC, serão reunidos os esforços da análise qualitativa, bem como os resultados do modelo empírico.
+
+
+\begin{comment}
+
+Mais especificamente, uma condição é considerada suficiente quando o números de um condicionantes de um resultado supera o número de casos que apresentam este resultado. Um condição necessária é caracterizada pelo oposto, ou seja, existem mais casos que apresentam este resultado do que condições.
+\end{comment}

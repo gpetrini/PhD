@@ -1,0 +1,342 @@
+.TH "kirq" "1" "" "kirq manual" ""
+.SH NAME
+.PP
+kirq \- conduct qualitative comparative analysis
+.SH SYNOPSIS
+.PP
+\f[B]kirq\f[] [\-\-debug] [\-y FILE] [\-s FILE]
+.SH DESCRIPTION
+.PP
+\f[B]Kirq\f[] is a crossplatform application for conducting qualitative
+comparative analysis (QCA).
+.SH OPTIONS
+.TP
+.B \-y, \-\-input=FILE
+Read dataset from FILE; when FILE is \-, read standard input
+.RS
+.RE
+.TP
+.B \-s, \-\-session=FILE
+Read session from FILE
+.RS
+.RE
+.TP
+.B \-g, \-\-debug
+Echo logging info to console
+.RS
+.RE
+.TP
+.B \-h, \-\-help
+Display help and exit
+.RS
+.RE
+.PP
+Mandatory arguments to long options are also mandatory for short
+options.
+.SH USING KIRQ
+.PP
+There are three components to a QCA analysis: data set calibration,
+necessity analysis, and sufficiency analysis.
+Kirq facilitates the second and third of these but does not provide
+calibration procedures.
+Instead, you first calibrate your data set, using your preferred choice
+of spreadsheet or statistical software, and then import your calibrated
+data into Kirq for the analysis of necessary and sufficient conditions.
+(An Excel/LibreOffice macro, fuzz, that implements the "direct" method
+of calibrating inteval\-ratio variables is available at
+<http://www.grundrisse.org/qca/download/>.)
+.PP
+Kirq\[aq]s implementation of the QCA workflow centers around the concept
+of a "session." A session can include any number of analyses, on any
+number of different data sets (limited only by RAM and disk space).
+You may save your session to a file at any time and it\[aq]s perfectly
+fine to have multiple session files.
+Any running instance of Kirq has one, and only one active session.
+However, you may start multiple instances of Kirq, with each instance
+running a separate session.
+.SS The Session Window
+.PP
+The session window is located to the right of Kirq\[aq]s main window,
+and above the parameter specification window.
+The session window records each analysis that you conduct.
+By examining your session history, you can review your previous analyses
+and compare the results of different analyses to one another.
+You may rename any session item by double\-clicking it.
+Right\-clicking (or ctrl\-clicking on OSX) brings up a context menu that
+allows you to annotate the item with comments for yourself, examine the
+item\[aq]s lineage (including the parameters responsible for generating
+the session item), or delete the session item.
+.PP
+In QCA, it is not unusual for different parameter specifications to
+generate identical results.
+When reducing a truth table, for example, a more parsimonious solution
+is not always possible; sometimes, the "complex" solution is also the
+most parsimonious.
+Similarly, consistency thresholds that are close to each other (e.g.,
+0.90 versus 0.92) will often generate the same truth table.
+In such instances, Kirq does not generate a new session item but,
+instead, jumps the session highlight bar to the existing session item.
+This prevents the session window from accumulating a bunch of redundant
+entries; each session item is unique.
+By examining a session item\[aq]s lineage, you can review each of the
+analyses (and their parameters) that generated that particular item.
+.PP
+Session items are organized in a series of tree\-like structures, based
+upon the data set and outcome being analyzed.
+To facilitate comparisons, you can drag any session item out of Kirq and
+it will open in its own window.
+.SS Types of Objects
+.PP
+Kirq creates three types of objects that you will interact with: data
+sets, truth tables, and consistency/coverage tables.
+.SS Data Sets
+.PP
+Kirq creates data sets by importing data from an external file.
+What this means is that after you import your data, Kirq doesn\[aq]t
+lock or hold open the external data file and that your session will be
+unaffected if you delete, rename, move, or change the external data
+file.
+Kirq always works on the cached, imported data.
+But this also means that if you modify the external data file in some
+way, these changes won\[aq]t be propagated to Kirq automatically.
+Instead, you will need to reimport your data and rerun your analysis.
+(But see "BUGS," below.)
+.PP
+Kirq can import Excel files and plain text files.
+Most users manage their data sets using spreadsheet software such as
+Microsoft Excel or LibreOffice Calc, but as long as you save your data
+set in Excel or CSV format, Kirq will be able to read your file.
+.PP
+Please note that the way that the software identifies file types is very
+simplistic.
+If the file has an extension of ".xls", it\[aq]s assumed to be saved in
+MS Excel 95/97/2000/XP/2003 format; if it has an extension of ".xlsx",
+it\[aq]s assumed to be in MS Excel 2007/2010 format (aka OOXML or
+OpenXML).
+Otherwise, it\[aq]s assumed to be plain text.
+When importing from an Excel file, Kirq reads only the first sheet of
+the file.
+.PP
+Data sets (whether in Excel or plain text format) must be in an
+"observations by variables" format, with the observations as rows and
+the variables as columns.
+The first column needs to be the names of of the observations and the
+first row needs to be the names of the variables.
+The observations column must have a header.
+There cannot be any blank cells.
+For example:
+.IP
+.nf
+\f[C]
+Obs,Var1,Var2,Var3
+Amy,1,0,0
+Sue,0,0.9,1
+Tim,1,1,1
+\f[]
+.fi
+.PP
+When the file is in plain text format, the software will attempt to
+guess the delimiter; you don\[aq]t need to worry about specifying the
+delimiter and most of the time, everything should just work.
+One thing to note is that the software looks at the \f[I]second row\f[]
+of the file (i.e., the first row of data) when guessing the delimiter.
+Looking at the second row helps to avoid confusion in case any of the
+column headers contain "delimiter\-like" characters.
+.PP
+It\[aq]s fine to mix calibrated and uncalibrated data in the same
+dataset.
+However, Kirq will raise an error if you try to run an analysis on
+uncalibrated data (e.g., values outside of the 0.0\-\-1.0 interval).
+.SS Truth Tables
+.PP
+Truth tables are created as part of a sufficiency analysis.
+You may edit a truth table\[aq]s outcome column by double\-clicking on
+the cell that you want to edit; all other truth table columns are
+read\-only.
+You may sort and filter truth table rows.
+By toggling the multi\-sort toolbar button, you may sort by one column,
+then a second, then a third, and so forth.
+.PP
+Truth tables may be exported to plain text (whitespace delimited) by
+opening the File menu and selecting Export Table.
+.SS Consistency/Coverage Tables
+.PP
+Consistency/Coverage tables\-\-concov tables, for short\-\-are produced
+as a result of a necessity analysis or by reducing a truth table.
+Concov tables are read\-only, but their rows can be dragged and
+rearranged to facilitate comparisions.
+You can also rearrange individual terms by double\-clicking on the
+recipe.
+.SS Conducting a Necessity Analysis
+.PP
+Kirq includes automated necessity testing.
+Specify your outcome and select the causal conditions that you wish to
+test, then set your consistency and coverage thresholds and click
+"Analyze." Kirq produces a concov table that reports all causal
+combinations that are consistent with necessity.
+.PP
+Think of these terms as "candidate" necessary conditions.
+It is ultimately incumbent upon you, as the researcher, to determine
+whether it makes theoretical and substantive sense to conclude that one
+or more of these conditions are necessary for the outcome.
+To aid this process, Kirq lists the consistency and coverage scores of
+each term (sometimes called a "recipe"), along with the observations
+covered by the recipe.
+The solution row at the bottom of the screen lists the consistency and
+coverage score for the complete solution of all candidate recipes ANDed
+together.
+.SS Necessity Analysis Parameters
+.TP
+.B Consistency Threshold
+The consistency value at or above which a combination of causal
+conditions will be considered consistent with necessity.
+.RS
+.RE
+.TP
+.B Coverage Threshold
+The generated consistency/coverage table will include only those
+combinations of causal conditions that meet or exceed the specified
+coverage threshold.
+Combinations of causal conditions with coverage scores below this
+threshold are not included in the concov table.
+.RS
+.RE
+.SS Conducting a Sufficiency Analysis
+.PP
+A sufficiency analysis consists of two steps: converting the calibrated
+dataset into a truth table and reducing the truth table.
+To conduct a sufficiency analysis, specify the simplification level for
+your analysis (i.e., whether to reduce to primitive expressions, prime
+implicants, fs/QCA\[aq]s complex solution, or fs/QCA\[aq]s parsimonious
+solution) and your frequency, consistency, and consistency proportion
+thresholds.
+.PP
+Next, click "Truth Table" to generate a truth table and then "Reduce" to
+reduce the truth table to a sufficiency concov table.
+(You can also just click "Reduce" to generate the truth table and then
+automatically attempt to reduce it.) If, for any reason, the truth table
+cannot be reduced, Kirq will raise an error explaining why it can\[aq]t
+be reduced.
+.SS Sufficiency Analysis Parameters
+.TP
+.B Frequency Threshold
+The number of observations below which a truth table row will be
+classified as a remainder.
+.RS
+.RE
+.TP
+.B Simplification Parameter
+Four simplification levels are available:
+.RS
+.IP \[bu] 2
+0 \- reduce truth table to primitive expressions
+.IP \[bu] 2
+1 \- reduce truth table to prime implicants
+.IP \[bu] 2
+2 \- (default) reduce prime implicants; this is equivalent to
+fs/QCA\[aq]s complex solution
+.IP \[bu] 2
+3 \- reduce prime implicants using remainders as simplifying
+assumptions; this is equivalent to fs/QCA\[aq]s parsimonious solution
+.PP
+Note that Kirq does not provide an equivalent to fs/QCA\[aq]s
+"intermediate" solution.
+See "Differences between Kirq and fs/QCA," below.
+.RE
+.TP
+.B Consistency Threshold
+The minimum consistency value required for a truth table row to be
+classified as consistent with sufficiency.
+.RS
+.RE
+.TP
+.B Proportion Threshold
+The proportion of consistent:inconsistent observations required for a
+truth table row to be classified as consistent (or inconsistent) with
+sufficiency.
+The proportion threshold is used to implement and identify
+contradictions, as described in Rubinson\[aq]s "Contradictions in
+fsQCA."
+.RS
+.RE
+.SS Computing and Specifying Truth Table Outcome Values
+.PP
+Kirq automatically calculates the values of the truth table\[aq]s
+outcome column, based upon the parameters specified for the sufficiency
+analysis.
+You can manually override these values by double\-clicking on the
+outcome cell.
+An outcome cell can take one of five values:
+.IP \[bu] 2
+True \- the truth table row is classified as consistent with sufficiency
+.IP \[bu] 2
+False \- the truth table row is classified as inconsistent with
+sufficiency
+.IP \[bu] 2
+Rem \- the truth table row is classified as a remainder
+.IP \[bu] 2
+Con \- the truth table row is classified as contradictory (see
+Rubinson\[aq]s "Contradictions in fsQCA").
+.IP \[bu] 2
+Imp \- the combination of causal conditions described by this row of the
+truth table is classified as impossible; this truth table row will not
+be included when generating a parsimonous solution
+.SS Differences between Kirq and fs/QCA
+.PP
+Kirq uses the same "truth table algorithm" as fs/QCA and which is
+described in \f[B]Redesigning Social Inquiry\f[] (Ragin 2008).
+However, there are a handful of important differences between Kirq and
+fs/QCA:
+.IP \[bu] 2
+Kirq supports "Impossible" conditions, combinations of causal conditions
+that cannot occur.
+If a truth table row is marked as "Impossible," that row will not be
+included as a remainder when constructing the parsimonious solution.
+.IP \[bu] 2
+Kirq also supports fuzzy\-set contradictions, as described in
+"Contradictions in fsQCA" (Rubinson, forthcoming).
+A contradiction is a truth table row in which the ratio of
+consistent:inconsistent observations falls below a given threshold
+(specified by the proportion threshold parameter).
+.IP \[bu] 2
+Kirq does not provide an equivalent to fs/QCA\[aq]s "intermediate"
+solution.
+As described in "Between Complexity and Parsimony" (Ragin and Sonnett
+2004), it is often the case that a range of intermediate solutions can
+be constructed for a given analysis.
+Our view is that it would therefore be misleading for Kirq to produce a
+single intermediate solution.
+.IP \[bu] 2
+Kirq eliminates fs/QCA\[aq]s pop\-up prime implicant chart.
+In certain instances (known as "codominance" in Quine\-McCluskey
+parlance), the QCA truth table reduction algorithm can produce more than
+one solution covering a given observation (or set of observations).
+When encountering such a situation, fs/QCA pops up a prime implicant
+chart for the user to resolve.
+This tends to confuse even experienced QCA practitioners.
+Instead, Kirq simply returns all solutions.
+The codominant solutions are easily identified because they will share
+the same set of observations and their unique coverage will be 0.0.
+It is then up to the researcher to determine which solutions to retain.
+A researcher might choose to retain only one of the codominant
+solutions, dropping the others as redundant.
+Alternatively, a researcher might choose to retain multiple solutions
+and argue that these observations are "overdetermined"\-\-that they
+possess multiple combinations of causal conditions, any one of which are
+sufficient to produce the outcome.
+.SH BUGS
+.PP
+The current version of Kirq has a bug that affects how it handles
+modified data set files; under particular conditions, Kirq will read a
+previously\-cached version of the data set, instead of the newly
+imported data set.
+This bug will be fixed in an upcoming release.
+For now, however, if you run an analysis and then modify its external
+data file in some way (e.g., by adding a column or recalibrating a
+variable), you should clear your session before reimporting your data
+and rerunning your analysis.
+(Actually, you don\[aq]t need to clear your entire session.
+Simply deleting any session items for the dataset/outcome combination
+that you wish to analyze will be enough.)
+.SH AUTHORS
+Christopher Reichert <creichert07\@gmail.com>; Claude Rubinson <cjr\@grundrisse.org>.

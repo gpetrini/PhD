@@ -1,0 +1,206 @@
+---
+title: "Inspeção"
+author: "gpetrini"
+date: "19/05/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+    echo = TRUE,
+    message = FALSE,
+    warning = FALSE
+    )
+```
+
+# Pacotes
+
+```{r}
+library(MASS)
+library(urca)
+library(MTS)  # pacote estatístico geral
+library(vars)
+library(lmtest)
+library(xts)
+library(dplyr)
+```
+
+
+# Dados
+
+```{r}
+df <- read.csv(
+    "../data/raw_data.csv", 
+    encoding="UTF-8", 
+    row.names=1, 
+    stringsAsFactors=FALSE
+    )
+df <- df[,c( # Subset das colunas com ordenação de Choleski
+    "Exportações.FOB",
+    "Taxa.de.câmbio",
+    "Importações.FOB",
+    "Índice.da.Produção.Física.Industrial.com.ajuste.sazonal..Média.2012...100.",
+    "ICMS.Nominal.milhões.de.reais"
+    )]
+colnames(df) <- c( # Encurtando nomes
+    "Exportacoes",
+    "Cambio",
+    "Importacoes",
+    "Industrial",
+    "ICMS"
+)
+df <- xts::as.xts(df)
+df %>% head() %>% knitr::kable()
+```
+
+
+# Testes de quebra estrutural
+
+## Teste de Chow
+
+$H_0:$ Não há quebra estrutural
+
+### ICMS
+
+```{r}
+df_ <- df %>% as.data.frame()
+result = strucchange::breakpoints(df_$ICMS~1)
+result$breakpoints %>% unique() %>% na.omit() %>% c() -> breaks
+
+for(i in breaks){
+  print(paste0("Testando para i = ", index(df)[i]))
+  strucchange::sctest(df_$ICMS~1, point=i, type="Chow") %>% print()
+}
+```
+
+### Industrial
+
+```{r}
+result = breakpoints(Industrial~1, data=df_)
+result$breakpoints %>% unique() %>% na.omit() %>% c() -> breaks
+
+for(i in breaks){
+  print(paste0("Testando para i = ", index(df)[i]))
+  strucchange::sctest(Industrial~1, data=df_, point=i, type="Chow") %>% print()
+}
+```
+
+### Cambio
+
+```{r}
+result = breakpoints(Cambio~1, data=df_)
+result$breakpoints %>% unique() %>% na.omit() %>% c() -> breaks
+
+for(i in breaks){
+  print(paste0("Testando para i = ", index(df)[i]))
+  strucchange::sctest(Cambio~1, data=df_, point=i, type="Chow") %>% print()
+}
+```
+
+### Exportações
+
+```{r}
+result = breakpoints(Exportacoes~1, data=df_)
+result$breakpoints %>% unique() %>% na.omit() %>% c() -> breaks
+
+for(i in breaks){
+  print(paste0("Testando para i = ", index(df)[i]))
+  strucchange::sctest(Exportacoes~1, data=df_, point=i, type="Chow") %>% print()
+}
+```
+
+### Importações
+
+```{r}
+result = breakpoints(Importacoes~1, data=df_)
+result$breakpoints %>% unique() %>% na.omit() %>% c() -> breaks
+
+for(i in breaks){
+  print(paste0("Testando para i = ", index(df)[i]))
+  strucchange::sctest(Importacoes~1, data=df_, point=i, type="Chow") %>% print()
+}
+```
+
+# Testes de raíz unitária
+
+## ADF
+
+```{r ADF}
+for (serie in colnames(df)) {
+  print(paste0("Testando para a série ", serie))
+  print("H0: Há raíz unitária")
+  urca::ur.df(
+    y = df[,serie], 
+    type = "drift", 
+    lags = 12, 
+    selectlags = "AIC"
+    ) %>% summary() %>% print()
+}
+```
+
+
+## Zivot Andrews
+
+```{r ZAtest}
+for (serie in colnames(df)) {
+  print(paste0("Testando para a série ", serie))
+  print("H0: Há raíz unitária com quebra estrutural")
+  print("H1: Série estacionária com quebra")
+  urca::ur.za(
+    y = df[,serie], 
+    lag = 12, 
+    model = "both"
+    ) %>% summary() %>% print()
+}
+```
+
+## KPSS
+
+```{r KPSS}
+for (serie in colnames(df)) {
+  print(paste0("Testando para a série ", serie))
+  print("H0: Série é estacionária em terno da tendência (trend stationary)")
+  print("H1: Raíz unitária")
+  urca::ur.kpss(
+    y = df[,serie], 
+    ) %>% summary() %>% print()
+}
+```
+
+## Phillips-Perron
+
+```{r PP}
+for (serie in colnames(df)) {
+  print(paste0("Testando para a série ", serie))
+  print("H0: Série é integrada de ordem 1")
+  urca::ur.pp(
+    x = df[,serie], 
+    ) %>% summary() %>% print()
+}
+```
+
+# Testes de cointegração
+
+## Procedimento de Johansen
+
+```{r}
+# Desativado: system is computationally singular
+urca::ca.jo( # HO: r = r* < k, vs. H1: r = k
+    x = df %>% as.ts() %>% log(),
+    ecdet = "const",
+    type = "trace",
+    K = 4,
+    season = 12 # Dummies mensais
+) %>% summary()
+```
+
+
+## Procedimento de Phillips-Ouliares
+
+```{r}
+urca::ca.po( # null hypothesis of no-cointegration (unit root in the residuals)
+    z = df %>% log(),
+    demean = "constant", 
+    type = 'Pz'
+) %>% summary()
+```

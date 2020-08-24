@@ -1,0 +1,51 @@
+% Created 2020-07-18 sáb 11:01
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[natbib=true,backend=biber]{biblatex}
+\bibliography{Housing.bib}
+\author{Gabriel Petrini}
+\date{\today}
+\title{Housing Writings}
+\hypersetup{
+ pdfauthor={Gabriel Petrini},
+ pdftitle={Housing Writings},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.3 (Org mode 9.1.9)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+
+
+
+\section{Empirical}
+\label{sec:org75ef442}
+\subsection{\cite{kajuthgerman2020} The German housing market cycle: Answers to FAQs}
+\label{sec:orgbf57f00}
+
+\cite{kajuthgerman2020}
+
+\subsection{\citet{Ozdemir2020} Time-Varying Housing Market Fluctuations: Evidence from the U.S. Housing Market}
+\label{sec:org27755e7}
+
+\section*{References}
+\label{sec:org8c0817f}
+\printbibliography[heading=none]
+\end{document}

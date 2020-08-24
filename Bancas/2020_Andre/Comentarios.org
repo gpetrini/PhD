@@ -1,0 +1,206 @@
+#+TITLE: Banca de Monografia - André Novais Gonçalves
+#+DATE: 31 de Julho de 2020
+#+AUTHOR: Gabriel Petrini da Silveira
+#+LATEX_HEADER: \usepackage[portuguese]{babel}
+#+LANG: pt
+#+LATEX_HEADER: \usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+
+* Comentários Gerais
+- *Método:* Não ficou claro o porquê desta sequência dos capítulos
+  - O teórico primeiro poderia justificar o porquê da atenção a algumas variáveis (componentes da demanda)
+- *Estilo:* Adiantar menos a discussão (anti-climax)
+  - Isso apareceu um pouco na apresentação
+- *Conteúdo:* Menciona Harrod em vários momentos mas não o discute
+- *Atenção:* Usa institucionais, estruturais e mudanças como sinônimos.
+- *Elogio de abertura:* Monografia está muito boa. Destacar que, ao menos quando fiz graduação, poucos tinham interesse em integrar o interesse teórico ao empírico 
+
+* Introdução
+
+- *Elogio:* Gostei da contextualização do investimento autônomo a la Cagnin
+- ``O período foi escolhido por conta de apresentar em um espaço relativamente curto de tempo, grandes mudanças no que diz respeito aos elementos que lideraram o crescimento da economia, influenciados diretamente por duas crises geradas por bolhas especulativas.'' (p. 2), que mudanças foram essas?
+- Taxa de investimento, gráfico da apresentação parece um pouco insensível à taxa de crescimento dos demais gastos autônomos
+    - Participação do investimento residencial nesse mesmo gráfico se reduz bastante no pré-crise de 2008 (ao longo da bolha)
+
+
+
+* Capítulo 1: Fatos Estilizados
+
+- *Objetivo:* Contextualizar o modelo econométrico
+  - Sendo este o caso, não seria interessante ele vir imediatamente antes dele?
+- *Importante:* Não ficou claro o porquê do recorte temporal
+  - Critérios econométricos? Início governo Clinton?
+  - A própria revisão da literatura indicou que eventos importantes ocorreram antes de 1993 (ex: texto do Serrano e Braga (2006)).
+- *Sugestão:* Não usar gráficos com dois eixos y (e especificar melhor o significado de cada um)
+- *Solto:* Porém, a falta de instrumentos técnicos de avaliação fundamentalista (p. 6). Detalhar
+- *Elogio:* Legal incluir as discussões a partir dos documentos do FED
+- *Elogio:* Narrativa dos fatos estilizados bem amarrada
+  - Contexto histórico está bem claro, mas a escolha das variáveis de análise ficam claras depois da revisão da literatura teórica
+    - *Sugestão:* Analisar elementos da demanda (autônomos e induzidos) e investigar a importância dos gastos autônomos após a apresentação do super
+
+* Capítulo 2: Revisão teórica
+- *Apresentação:* Confusão entre característica do equilíbrio do modelo ($\Delta h = \Delta u = 0$) e condições de estabilidade
+  - Corretamente disse que a taxa de crescimento de $Z$ é exógena
+- *Elogio:* Tabelas apresentando quais gastos são autônomos, quais são induzidos e quais criam capacidade produtiva
+- *Atenção:* Gastos autônomos não são necessariamente exógenos
+- *Conteúdo:* Não há nenhuma menção ao Harrod. Talvez fosse o caso de escrever um parágrafo ao menos.
+- *Estilo:* A seção 2.2 acaba do nada. Valeria a pena escrever o significado econômico da equação (9)
+- *Atenção:* Na seção 2.3, é apresentado o modelo SSM com elementos que são de economia fechada também. Talvez seja o caso de apenas reclassificar o que cada seção irá discutir. 2.2: Economia simplificada; 2.3: Economia mais realista
+- *Atenção:* Na revisão da literatura teórica você não apresentou uma equação para a taxa de crescimento do investimento não-residencial, mas sim para a taxa de investimento da economia.
+  - Seguindo Freitas e Serrano (2015, p. 266, Eq (9)): $g_I = g_t + \gamma\cdot (u-\mu)$
+  - Explicitar que $g_t$ depende de $g_Z$
+  - A equação (9) é basicamente a mesma coisa, com a diferença que em uma é a taxa de crescimento do estoque de capital e em outra a taxa de crescimento do investimento (que é o objeto de análise).
+- *Conteúdo:* Seria interessante explicitar algumas hipóteses do modelo SSM, como é o caso da livre mobilidade de capitais
+  - Ex: Na página 21, ``evitando assim que haja possível perda de market-share para outras empresas concorrentes.''. Isso ocorre por conta da hipótese mencionada acima.
+- *Elogio:* Pontuou a existência de um /overshooting/ do investimento das firmas.
+
+* Capítulo 3: Modelo econométrico
+- *Visual:* Colocar o valor crítico à direita e estatística do teste à esquerda
+- *Atenção:* Na revisão de literatura econométrica, houve uma certa confusão entre os testes sobre a taxa de investimento e sobre a taxa de *crescimento* do investimento (Como em Avancini, Braga e Freitas).
+- *Metodologia:* Ainda na revisão de literatura, é destacado uma trabalho que parte de 1987. Por que o recorte da monografia é diferente?
+- *Elogio:* Construção da série do Z. Algo desafiador por si só.
+- *Elogio:* Tabela que resume modelos econométricos
+- *Metodologia:* Dado que irá estimar um VAR, os testes de raiz unitária são necessários para certificar que as séries são estacionárias. Logo, trata-se de um procedimento necessário e não de uma /estratégia/.
+  - *Atenção:* $H_0$ do teste de Zivott-Andrews é: ``/unit root with structural break in the intercept/''
+  - *Atenção:* É usual realizar testes de quebra estrutural
+- *Metodologia:* Não justificou o porquê de um VAR. Por que não um ARIMA? ARDL?
+  - Se o teste é se $g_Z \Rightarrow g_I$, por que o inverso é relevante? Por conta de sua revisão da literatura teórica (espera-se que os gastos sejam autônomos)
+  - *Apresentação:* Como interpretar coeficiente negativo do investimento residencial na equação dos gastos atônomos
+  - *Destacar:* Como as séries são estacionárias, é possível ajustar um VAR
+- *Atenção:* Nas equações do VAR, as variáveis estão sendo representadas em nível, mas os texto diz que são séries em taxa de crescimento (Eq. 16 e 17)
+  - Tabela 3.4: Escrever equação 16 e 17 invés de 1 e 2
+- *Metodologia:* Escolha dos /lags/ a partir dos critérios de informação é apenas uma ``sugestão''. É comum que os lags sejam escolhidos de acordo com as características dos resíduos.
+- *Resultado:* Discutir se o sinal dos coeficientes fazem sentido
+- *Resultado:* Não te chamou atenção os coeficiente do investimento ser quase tão grande quanto do Z?
+- *Observação:* IRF e FEVD deve ser ortogonalizada ou não-ortogonalizada
+  - [[https://rpubs.com/hudsonchavs/varsvar][Dicas para ajustamento]]
+- *Medotologia:* Mencionar decomposição de Cholesky
+  - Mais exógeno primeiro e depois o mais endógeno
+  - Alguns autores podem não ter feito esse tipo de ordenamento por que não analisaram a FEVD e o IRF
+  - Isso compromete os resultados
+- *Pergunta difícil:* IRF e FEVD indicam o aumento de um desvio-padrão e um único período apenas. A partir do modelo teórico apresentado, esse efeito deve ser temporário ou persistente?
+  - MEMO: Dado que é um VAR
+  - *R:* Aumento não é persistente, logo não é para ter um impacto permanente
+- *Pergunta difícil:* A luz da literatura teórica, o que dizer sobre o coeficiente ``autônomo do investimento'' não ser estatisticamente diferente de zero? É esperado dada a revisão de literatura?
+- *FEVD:* A participação do gi no gz parece ser maior do que no inverso, não? (R: Não)
+- *Metodologia:* Deu pouca atenção aos resíduos
+  - Está no código pelo menos (apenas heterocedasticidade)
+  - *Atenção* Se os resíduos forem autocorrelacionados pode comprometer os resultados
+- *Resultado interessante:* coeficiente associado a taxa de crescimento do investimento não-residencial é nulo.
+- *Metodologia:* Por que não usou os sub-períodos do capítulo 1 como dummies?
+  - Você menciona ``outros testes'' na página 39. Que testes foram esses?
+  - Valorizar suas tentativas "fracassadas". Isso continua sendo uma informação relevante.
+- *Apresentação:* Resultado não esperado pode estar associado com decomposição de Cholesky
+  - Testar alterando a ordenação e checar se este resultado permanece
+
+** Código
+
+Uma boa prática é garantir que seu código possua os elementos (pacotes) necessários para a execução e foi feito isso:
+
+#+BEGIN_EXAMPLE R
+install.packages("lmtest") 
+install.packages('tseries') 
+install.packages('FinTS')
+install.packages("urca") 
+install.packages("TTR")
+install.packages("pillar")
+install.packages("vars")
+install.packages("lattice")
+#+END_EXAMPLE
+
+
+Quando disponibilizar o código, é de bom tom distribuir os dados ou incluir no código alguma forma de obtê-los:
+
+#+BEGIN_EXAMPLE R
+#############leitura dos dados
+####Gastos Autônomos
+gastos_usa=ts(PIB_Trimestre_Anterior[,2], start=c(1993,1), 
+freq=1 # Dúvida: Não deveria ser lag 4? (Dados trimestrais)
+)
+
+inv_usa=ts(PIB_Trimestre_Anterior[,3], start=c(1993,1), freq=1)
+
+#+END_EXAMPLE
+
+
+
+Quando cria a matriz com os dados, a ordenação é relevante. Decomposição de Cholesky: Mais exógeno primeiro e depois os mais endógenos
+
+#+BEGIN_EXAMPLE R
+#compactar dados em uma unica matriz PARA OS DADOS ORIGINAIS
+dados1 = cbind(inv_usa, gastos_usa)
+#+END_EXAMPLE
+
+
+Em alguns casos, é interessante criar funções para evitar erros:
+
+#+BEGIN_EXAMPLE R
+################################ ESTIMAÇÃO GRANGER CAUSALITY (x ~ y) -> y granger-causa x
+#Rejeitar H0 significa que y granger-causa x
+#I original / Z original
+grangertest(gastos_usa ~ inv_usa, order = 1) 
+grangertest(gastos_usa ~ inv_usa, order = 2)
+grangertest(gastos_usa ~ inv_usa, order = 3)
+grangertest(gastos_usa ~ inv_usa, order = 4)
+grangertest(gastos_usa ~ inv_usa, order = 5)
+grangertest(gastos_usa ~ inv_usa, order = 6)
+grangertest(gastos_usa ~ inv_usa, order = 7)
+grangertest(gastos_usa ~ inv_usa, order = 8)
+grangertest(gastos_usa ~ inv_usa, order = 9)
+grangertest(gastos_usa ~ inv_usa, order = 10)
+grangertest(inv_usa ~ gastos_usa, order = 1) 
+grangertest(inv_usa ~ gastos_usa, order = 2)
+grangertest(inv_usa ~ gastos_usa, order = 3)
+grangertest(inv_usa ~ gastos_usa, order = 4)
+grangertest(inv_usa ~ gastos_usa, order = 5)
+grangertest(inv_usa ~ gastos_usa, order = 6)
+grangertest(inv_usa ~ gastos_usa, order = 7)
+grangertest(inv_usa ~ gastos_usa, order = 8)
+grangertest(inv_usa ~ gastos_usa, order = 9)
+grangertest(inv_usa ~ gastos_usa, order = 10)
+#+END_EXAMPLE
+
+Este é um caso em que a ordenação de Cholesky importa:
+
+#+BEGIN_EXAMPLE R
+################################ FUNÇÃO IMPULSO-RESPOSTA
+
+plot(irf(Z_I1, impulse = 'gastos_usa', response='inv_usa', n.ahead = 10, ci = 0.95))
+plot(irf(Z_I2, impulse = 'dgastos1', response='inv_usa', n.ahead = 10, ci = 0.95))
+plot(irf(Z_I3, impulse = 'gastos_usa', response='dinv1', n.ahead = 10, ci = 0.95))
+plot(irf(Z_I4, impulse = 'dgastos1', response='dinv1', n.ahead = 10, ci = 0.95))
+
+plot(irf(Z_I1, impulse = 'inv_usa', response='gastos_usa', n.ahead = 10, ci = 0.95))
+plot(irf(Z_I2, impulse = 'inv_usa', response='dgastos1', n.ahead = 10, ci = 0.95))
+plot(irf(Z_I3, impulse = 'dinv1', response='gastos_usa', n.ahead = 10, ci = 0.95))
+plot(irf(Z_I4, impulse = 'dinv1', response='dgastos1', n.ahead = 10, ci = 0.95))
+
+plot(irf(Z_I1, impulse = 'gastos_usa', response='gastos_usa', n.ahead = 10, ci = 0.95))
+plot(irf(Z_I1, impulse = 'inv_usa', response='inv_usa', n.ahead = 10, ci = 0.95))
+
+################################ DECOMPOSIÇÃO DA VARIANCIA
+
+fevd(Z_I1, n.ahead = 20)
+fevd(Z_I2, n.ahead = 10)
+fevd(Z_I3, n.ahead = 10)
+fevd(Z_I4, n.ahead = 10)
+#+END_EXAMPLE
+
+
+Em relação à inspeção dos resíduos, corretamente foi realizado teste para heterocedasticidade condicional.
+No entanto, poderia ter realizado alguns testes de autocorrelação serial com os de Ljung-Box e Box-Pierce, entre outros. 
+A presença de autocorrelação dos resíduos pode tornar os parâmetros estimados bastante enviesado de modo que podem inviabilizar sua interpretação:
+
+#+BEGIN_EXAMPLE R
+################################ INSPEÇÃO DOS RESÍDUOS
+#Teste de Heterocedasticidade
+ArchTest(inv_usa, lag=25) # Teste ARCH - Teste p/ heteroc. condicional
+ArchTest(gastos_usa, lag=25)
+#+END_EXAMPLE
+
+
+* Conclusão
+
+
+- *Metodologia:* Mais uma vez, na conclusão é destacado o uso de um recorte temporal distinto, mas não é especificado o porquê desta escolha
+- *Dúvida:* O que quer dizer por robustez? Normalmente, usa-se robustez para indicar que determinado resultado é insensível à forma de ajustamento (vários /lags/ e métodos)

@@ -1,0 +1,197 @@
+% Created 2020-06-25 qui 15:48
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Gabriel Petrini da Silveira}
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={Gabriel Petrini da Silveira},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.3 (Org mode 9.3.7)}, 
+ pdflang={English}}
+\begin{document}
+
+\tableofcontents
+
+\section{Sugestões de mudança}
+\label{sec:org1977768}
+
+\begin{itemize}
+\item Cortar ações
+\item Cortar administradores
+\item Reformular investimento (com crédito)
+\item Rever consistência
+\end{itemize}
+
+\begin{center}
+\begin{tabular}{lll}
+Número equação & Original & Modifcaido\\
+(1) & \(\frac{I_t}{p\cdot K_{t-1}} = \alpha (u_{t-1} - u^d) + \beta r_{t-1} \epsilon h_{t-1}\) & \(\frac{I_t}{p\cdot K_{t-1}} = \beta_0  + \beta_1 (u_{t-1})\)\\
+(2) & h\textsubscript{t} & -\\
+(3) & \(r_t\) & \(r_t\)\\
+(4) & \(Q_{fc}\) & \(Q_{fc}\)\\
+(5) & \(Q_{fc}\) & \(Q_{fc}\)\\
+(6) & \(u_t\) & \(u_t\)\\
+(7) & \(I_t = \frac{I_t}{p\cdot K_{t-1}}\cdot p K_{t-1}\) & -\\
+(8) &  & \\
+(9) &  & \\
+(10) &  & \\
+(11) &  & \\
+(12) & \(A_t = (1-\Theta) (\Pi p Q_t - i B_{f_{t-1}})\) & \(A_t = \Pi p Q_t - B_{f_{t-1}}\)\\
+(13) & \(\Delta B = \varpi (I - A_t)\) & \(\Delta B_t = I - A_t\)\\
+(14) & \(\Delta E_t\) & -\\
+(15)  - (20) & Managers & -\\
+(21) - (33) & cte & cte\\
+(34) & denominador: \(p (1 - (1-s_\psi - \eta)\psi - (1-s_\Theta\Pi) - \frac{\eta \overline w}{\xi})\) & \(\Theta =0\)\\
+(35) & \(P_e^*\) & -\\
+\end{tabular}
+\end{center}
+
+
+\subsubsection{Valores iniciais}
+\label{sec:org3be1370}
+
+\begin{center}
+\begin{tabular}{lrl}
+Parâmetros & Baseline & Modificado\\
+\hline
+\(i\) & 0.035 & -\\
+\(price_t\) & 3.0 & -\\
+\(\gamma\) & 1.0 & -\\
+\(\delta\) & 0.025 & -\\
+\(\mu\) & 0.1 & -\\
+\(\xi\) & 1.0 & -\\
+\(\overline \omega\) & 0.2 & -\\
+\(s_\psi\) & 0.6 & -\\
+\(\sigma_\psi\) & 0.1 & -\\
+\(\lambda\) & 0.2 & 0\\
+\(N\) & 5000 & -\\
+\(minsal\) & 0.1 & -\\
+\(gmin\) & -0.25 & -0.025\\
+\(gmax\) & 0.25 & 0.025\\
+\(g_{basic}\) & 0.0 & 0.0005\\
+\(\alpha\) & 0.005 & -\\
+\(i_0\) & 0.02 & -\\
+\(u_d\) & 0.8 & -\\
+\(\gamma_u\) & 0.002 & -\\
+\(\eta\) & 0.3 & -\\
+\end{tabular}
+\end{center}
+
+
+\begin{center}
+\begin{tabular}{lrl}
+Valores defasados & Baseline & Modificado\\
+\hline
+\(A_t\) & 0.0 & 0.0\\
+\(I_t\) & 20.0 & -\\
+\(u_t\) & 0.7 & -\\
+\(K_t\) & 10000 & -\\
+\(h_{t-1}\) &  & \\
+\(Cw_t\) & 0.1 & -\\
+\(D_t\) & 0.0 & -\\
+state\textsubscript{b}\textsubscript{it} & rand & rand\\
+\(w_i\) & rand & rand\\
+\(Ww_i\) & 0.0 & 0.0\\
+\(B\) & 0.0 & -\\
+\(D_totam\) & soma & -\\
+basic & - & 50\\
+\end{tabular}
+\end{center}
+
+
+\begin{center}
+\begin{tabular}{lrl}
+Variável & Valor & Derivados\\
+\hline
+\(EL\) & 4000 & -\\
+\(N\) & 5000 & -\\
+\(K\) & 10000 & -\\
+\(Q\) & 3800 & -\\
+\(I_t\) & 1800 & -\\
+\(\gamma\) & 1.0 & -\\
+\(\xi\) & 1.0 & -\\
+\hline
+Unrate & - & 0.8\\
+\(u\) & - & 0.76\\
+\(Cw_T\) & - & 2000\\
+\(h\) & - & 0.47368421\\
+\(Q_fc\) & - & 5000.\\
+\end{tabular}
+\end{center}
+
+\section{Próximos passos}
+\label{sec:org4aa4552}
+
+\subsection{{\bfseries\sffamily TODO} Fim versão mais simples [0/4] [0\%]}
+\label{sec:org0e1e256}
+\begin{itemize}
+\item[{$\square$}] Definir o outro gasto autônomo (diferente da renda básica) e estrutura (Jordão)
+\item[{$\square$}] Se gasto do governo, definir arrecadação (Gabriel)
+\item[{$\square$}] Atribuir parâmetros para cada agente (tornar mais ABM)
+\item[{$\square$}] Escrever apresentação dos slides (João Paulo)
+\end{itemize}
+
+\subsection{{\bfseries\sffamily TODO} Aprimoramento 01 [0/3] [0\%]}
+\label{sec:org4823717}
+\begin{itemize}
+\item[{$\square$}] Poupança dos trabalhadores -> Acúmulo de riqueza gerando renda (depósito bancário)
+\item[{$\square$}] Distribuição dos salários a partir de uma distribuição de Pareto
+\item[{$\square$}] Salário em função do salário mínimo (substituindo choques)
+\end{itemize}
+
+\subsection{{\bfseries\sffamily TODO} Aprimoramento 02 [0/4] [0\%]}
+\label{sec:orgdf75752}
+\begin{itemize}
+\item[{$\square$}] Restrição de crédito
+\item[{$\square$}] Reintrodução dos administradores
+\item[{$\square$}] Reintrodução das ações
+\item[{$\square$}] Reintrodução de inflação
+\end{itemize}
+
+\subsection{{\bfseries\sffamily TODO} Aprimoramento 03  [0\%]}
+\label{sec:org2ae60fa}
+\begin{itemize}
+\item[{$\square$}] Mudar função investimento para função Kaleckiana
+\end{itemize}
+\section{Análise}
+\label{sec:org773bf87}
+
+\begin{table}[htbp]
+\label{tab:orgb3624bf}
+\centering
+\begin{tabular}{llllllllll}
+Cenário & \(\sigma_{\sigma_\psi}\) & \(\sigma_{s_\psi}\) & \(\eta\) & Inflação & \(g\) & \(u\) & Num of Borrowers & Gini & wbarocc\\
+\hline
+Baseline &  &  &  &  &  &  &  &  & \\
+Sim\textsubscript{1} &  &  &  &  &  &  &  &  & \\
+\end{tabular}
+\end{table}
+
+
+\begin{table}[htbp]
+\label{tab:org48bf6a1}
+\centering
+\begin{tabular}{lllllllllll}
+Cenário & min\textsubscript{sal} & p\textsubscript{minsal} & c & \(i\) & Inflação & \(g\) & \(u\) & Num of Borrowers & Gini & wbarocc\\
+\hline
+Baseline &  &  &  &  &  &  &  &  &  & \\
+Sim\textsubscript{1} &  &  &  &  &  &  &  &  &  & \\
+\end{tabular}
+\end{table}
+\end{document}

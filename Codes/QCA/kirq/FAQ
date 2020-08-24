@@ -1,0 +1,102 @@
+FAQ for libfsqca, acq, and Kirq
+Claude Rubinson <cjr@grundrisse.org>
+April 23, 2013
+
+-   What are libfsqca, acq, and Kirq?
+-   What are the differences between acq and Kirq? Which should I use?
+-   I'm having trouble importing a data set. What should I do?
+-   Can I mix fuzzy (calibrated) and non-fuzzy (uncalibrated) data in
+    the same data set?
+-   When starting Kirq, I receive an error reporting "version
+    \`GLIBC\_2.15' not found" or similar.
+-   When starting Kirq, I receive an error "Gtk-CRITICAL \*\*:
+    IA\_\_\_gtk\_widget\_style\_get: assertion \`GTK\_IS\_WIDGET
+    (widget)' failed."
+-   Kirq's main window doesn't look like it does in the screenshots.
+-   I think I found a bug, what do I do?
+-   I have another question that's not answered here.
+
+What are libfsqca, acq, and Kirq?
+=================================
+
+libfsqca is a "software library" (a collection of reusable computer
+code) of the QCA algorithms. End users don't need to worry about this,
+except to understand that any software packages that use libfsqca will
+have similar capabilities and produce the same results. The advantage of
+developing a software library is that any bugfixes or improvements that
+we make to libfsqca will automatically propagate to the software
+packages that use it. There are two software packages that use libfsqca:
+acq and Kirq.
+
+What are the differences between acq and Kirq? Which should I use?
+==================================================================
+
+If you're unsure as to which software program to download, download
+Kirq.
+
+acq is designed to be used at the Unix commandline and comprises a suite
+of small, interrelated programs. Kirq is an integrated, fully graphical
+application that runs on Windows, OS X, and Unix.
+
+Most people will want to install one of the binary packages of Kirq,
+which bundle the application together with its dependencies to provide a
+single installtion package.
+
+I'm having trouble importing a data set. What should I do?
+==========================================================
+
+For plain text files, the most common problem is that there's a stray or
+missing field somewhere in your data file. In particular, check the end
+of the file for problems.
+
+For Excel files, the most common problem is that the spreadsheet
+software has created extra, often blank, rows or columns. Check the
+spreadsheet for stray cells. Whitespace characters, such as or , can
+also create stray cells, so you should also try deleting "blank" rows
+and columns. You might also try exporting the dataset to CSV and
+importing that file.
+
+Can I mix fuzzy (calibrated) and non-fuzzy (uncalibrated) data in the same data set?
+====================================================================================
+
+Yes. But the software will throw an error if you attempt to conduct an
+analysis on non-fuzzified data.
+
+When starting Kirq, I receive an error reporting "version `GLIBC_2.15' not found" or similar.
+=============================================================================================
+
+You're running an older version of glibc. Upgrading to a new version
+will resolve the problem. On Debian-based systems, you'll want to
+install/upgrade the libc6-dev package. On RedHat-based systems, it's
+glibc-devel.
+
+When starting Kirq, I receive an error "Gtk-CRITICAL **: IA___gtk_widget_style_get: assertion `GTK_IS_WIDGET (widget)' failed."
+===============================================================================================================================
+
+We've seen this error with Ubuntu 12.04. It appears to be a collision
+between Ubuntu's Unity interface and Qt4 (the GUI toolkit that Kirq
+uses). Resolve the problem by installing qt4-qtconfig and changing the
+"GUI Style" setting to anything other than "Desktop Settings" or "GTK+".
+
+Kirq's main window doesn't look like it does in the screenshots.
+================================================================
+
+This is the "Gtk-CRITICAL" error mentioned above. Install qt4-qtconfig
+and change the "GUI Style" setting.
+
+I think I found a bug, what do I do?
+====================================
+
+We've done our best to make Kirq and acq bulletproof but no software is
+entirely bug free. If will help us to track down the bug if you can send
+us a description of the steps necessary to reproduce the problem. Please
+email Claude at <cjr@grundrisse.org>. Be sure to identify which version
+of the software you're running and on what operating system. Please
+attach your data set to the email.
+
+I have another question that's not answered here.
+=================================================
+
+Documentation is available at the libfsqca website,
+http://grundrisse.org/qca/. You may also email Claude at
+<cjr@grundrisse.org>.

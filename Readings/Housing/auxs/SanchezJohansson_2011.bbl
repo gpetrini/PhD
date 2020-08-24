@@ -1,0 +1,133 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.0 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{dipasquale_housing_1994}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=e9985519e0a7ff0ec0e55965135dbb4a}{%
+           family={DiPasquale},
+           familyi={D\bibinitperiod},
+           given={Denise},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=275e1ee61c8973e58294c5772d57b6aa}{%
+           family={Wheaton},
+           familyi={W\bibinitperiod},
+           given={William\bibnamedelima C.},
+           giveni={W\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{1141a0dca61504c05714dcecba18ec33}
+      \strng{fullhash}{1141a0dca61504c05714dcecba18ec33}
+      \strng{bibnamehash}{1141a0dca61504c05714dcecba18ec33}
+      \strng{authorbibnamehash}{1141a0dca61504c05714dcecba18ec33}
+      \strng{authornamehash}{1141a0dca61504c05714dcecba18ec33}
+      \strng{authorfullhash}{1141a0dca61504c05714dcecba18ec33}
+      \field{sortinit}{D}
+      \field{sortinithash}{2ef1bd9a78cc71eb74d7231c635177b8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{00941190}
+      \field{journaltitle}{Journal of Urban Economics}
+      \field{month}{1}
+      \field{number}{1}
+      \field{title}{Housing {Market} {Dynamics} and the {Future} of {Housing} {Prices}}
+      \field{urlday}{20}
+      \field{urlmonth}{4}
+      \field{urlyear}{2020}
+      \field{volume}{35}
+      \field{year}{1994}
+      \field{urldateera}{ce}
+      \field{pages}{1\bibrangedash 27}
+      \range{pages}{27}
+      \verb{doi}
+      \verb 10.1006/juec.1994.1001
+      \endverb
+      \verb{file}
+      \verb DiPasquale e Wheaton - 1994 - Housing Market Dynamics and the Future of Housing .pdf:/home/gpetrini/Zotero/storage/DFGWEHTP/DiPasquale e Wheaton - 1994 - Housing Market Dynamics and the Future of Housing .pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0094119084710011
+      \endverb
+      \verb{url}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0094119084710011
+      \endverb
+    \endentry
+    \entry{sanchez_price_2011}{article}{}
+      \name{author}{2}{}{%
+        {{uniquename=0,uniquepart=base,hash=1f0356045fb63e7d12284152f8e46dde}{%
+           family={Sánchez},
+           familyi={S\bibinitperiod},
+           given={Aida\bibnamedelima Caldera},
+           giveni={A\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+        {{uniquename=0,uniquepart=base,hash=233c7405f58892ecfddbbfb101d496a0}{%
+           family={Johansson},
+           familyi={J\bibinitperiod},
+           given={Åsa},
+           giveni={Å\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{f702f10ecd5a584eaa06498c02424a2a}
+      \strng{fullhash}{f702f10ecd5a584eaa06498c02424a2a}
+      \strng{bibnamehash}{f702f10ecd5a584eaa06498c02424a2a}
+      \strng{authorbibnamehash}{f702f10ecd5a584eaa06498c02424a2a}
+      \strng{authornamehash}{f702f10ecd5a584eaa06498c02424a2a}
+      \strng{authorfullhash}{f702f10ecd5a584eaa06498c02424a2a}
+      \field{sortinit}{S}
+      \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The responsiveness of housing supply to changes in prices bears important implications for the evolution of housing prices and the speed of adjustment of housing markets. This paper estimates the long-run price elasticity of new housing supply in 21 OECD countries based on a stock-flow model of the housing market estimated within an error correction framework. Estimates suggest that housing supply responsiveness to price changes varies substantially across countries. New housing supply is relatively more flexible in North America and some Nordic countries, while it is more rigid in continental European countries and in the United Kingdom. The responsiveness of housing supply depends not only on national geographical and urban characteristics but also on policies, such as land use and planning regulations. The estimates are broadly in line with the limited available evidence on the responsiveness of housing supply in OECD countries.}
+      \field{month}{5}
+      \field{note}{Publisher: OECD}
+      \field{title}{The {Price} {Responsiveness} of {Housing} {Supply} in {OECD} {Countries}}
+      \field{urlday}{20}
+      \field{urlmonth}{4}
+      \field{urlyear}{2020}
+      \field{year}{2011}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb https://doi.org/10.1787/5kgk9qhrnn33-en
+      \endverb
+      \verb{file}
+      \verb Snapshot:/home/gpetrini/Zotero/storage/SB222PJT/the-price-responsiveness-of-housing-supply-in-oecd-countries_5kgk9qhrnn33-en.html:text/html;Texto completo:/home/gpetrini/Zotero/storage/T8D2W7VF/Sánchez e Johansson - 2011 - The Price Responsiveness of Housing Supply in OECD.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.oecd-ilibrary.org/economics/the-price-responsiveness-of-housing-supply-in-oecd-countries_5kgk9qhrnn33-en
+      \endverb
+      \verb{url}
+      \verb https://www.oecd-ilibrary.org/economics/the-price-responsiveness-of-housing-supply-in-oecd-countries_5kgk9qhrnn33-en
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

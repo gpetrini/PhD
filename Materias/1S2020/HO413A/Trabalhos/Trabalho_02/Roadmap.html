@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title></title>
+<meta name="author" content="(Gabriel Petrini da Silveira)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="./reveal.js/css/reveal.css"/>
+
+<link rel="stylesheet" href="./reveal.js/css/theme/moon.css" id="theme"/>
+
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = './reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h2 class="author">Gabriel Petrini da Silveira</h2><p class="date">Created: 2020-06-25 qui 16:33</p>
+</section>
+<section id="table-of-contents"><div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#/slide-orgdeba377">1. Sugestões de mudança</a>
+<ul>
+<li>
+<ul>
+<li><a href="#/slide-org0beb900">1.0.1. Valores iniciais</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#/slide-org40d19d5">2. Próximos passos</a>
+<ul>
+<li><a href="#/slide-orgccd4a8f">2.1. <span class="todo TODO">TODO</span> Fim versão mais simples <code>[0/4]</code> <code>[0%]</code></a></li>
+<li><a href="#/slide-org524025e">2.2. <span class="todo TODO">TODO</span> Aprimoramento 01 <code>[0/3]</code> <code>[0%]</code></a></li>
+<li><a href="#/slide-org1dafd47">2.3. <span class="todo TODO">TODO</span> Aprimoramento 02 <code>[0/4]</code> <code>[0%]</code></a></li>
+<li><a href="#/slide-org255d8ca">2.4. <span class="todo TODO">TODO</span> Aprimoramento 03  <code>[0%]</code></a></li>
+</ul>
+</li>
+<li><a href="#/slide-orge27f0e8">3. Análise</a></li>
+</ul>
+</div>
+</div>
+</section>
+<section>
+<section id="slide-orgdeba377">
+<h2 id="orgdeba377"><span class="section-number-2">1</span> Sugestões de mudança</h2>
+<ul>
+<li>Cortar ações</li>
+<li>Cortar administradores</li>
+<li>Reformular investimento (com crédito)</li>
+<li>Rever consistência</li>
+
+</ul>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Número equação</td>
+<td class="org-left">Original</td>
+<td class="org-left">Modifcaido</td>
+</tr>
+
+<tr>
+<td class="org-left">(1)</td>
+<td class="org-left">\(\frac{I_t}{p\cdot K_{t-1}} = \alpha (u_{t-1} - u^d) + \beta r_{t-1} \epsilon h_{t-1}\)</td>
+<td class="org-left">\(\frac{I_t}{p\cdot K_{t-1}} = \beta_0  + \beta_1 (u_{t-1})\)</td>
+</tr>
+
+<tr>
+<td class="org-left">(2)</td>
+<td class="org-left">h<sub>t</sub></td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">(3)</td>
+<td class="org-left">\(r_t\)</td>
+<td class="org-left">\(r_t\)</td>
+</tr>
+
+<tr>
+<td class="org-left">(4)</td>
+<td class="org-left">\(Q_{fc}\)</td>
+<td class="org-left">\(Q_{fc}\)</td>
+</tr>
+
+<tr>
+<td class="org-left">(5)</td>
+<td class="org-left">\(Q_{fc}\)</td>
+<td class="org-left">\(Q_{fc}\)</td>
+</tr>
+
+<tr>
+<td class="org-left">(6)</td>
+<td class="org-left">\(u_t\)</td>
+<td class="org-left">\(u_t\)</td>
+</tr>
+
+<tr>
+<td class="org-left">(7)</td>
+<td class="org-left">\(I_t = \frac{I_t}{p\cdot K_{t-1}}\cdot p K_{t-1}\)</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">(8)</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">(9)</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">(10)</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">(11)</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">(12)</td>
+<td class="org-left">\(A_t = (1-\Theta) (\Pi p Q_t - i B_{f_{t-1}})\)</td>
+<td class="org-left">\(A_t = \Pi p Q_t - B_{f_{t-1}}\)</td>
+</tr>
+
+<tr>
+<td class="org-left">(13)</td>
+<td class="org-left">\(\Delta B = \varpi (I - A_t)\)</td>
+<td class="org-left">\(\Delta B_t = I - A_t\)</td>
+</tr>
+
+<tr>
+<td class="org-left">(14)</td>
+<td class="org-left">\(\Delta E_t\)</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">(15)  - (20)</td>
+<td class="org-left">Managers</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">(21) - (33)</td>
+<td class="org-left">cte</td>
+<td class="org-left">cte</td>
+</tr>
+
+<tr>
+<td class="org-left">(34)</td>
+<td class="org-left">denominador: \(p (1 - (1-s_\psi - \eta)\psi - (1-s_\Theta\Pi) - \frac{\eta \overline w}{\xi})\)</td>
+<td class="org-left">\(\Theta =0\)</td>
+</tr>
+
+<tr>
+<td class="org-left">(35)</td>
+<td class="org-left">\(P_e^*\)</td>
+<td class="org-left">-</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+<section id="slide-org0beb900">
+<h4 id="org0beb900"><span class="section-number-4">1.0.1</span> Valores iniciais</h4>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Parâmetros</th>
+<th scope="col" class="org-right">Baseline</th>
+<th scope="col" class="org-left">Modificado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">\(i\)</td>
+<td class="org-right">0.035</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(price_t\)</td>
+<td class="org-right">3.0</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(\gamma\)</td>
+<td class="org-right">1.0</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(\delta\)</td>
+<td class="org-right">0.025</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(\mu\)</td>
+<td class="org-right">0.1</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(\xi\)</td>
+<td class="org-right">1.0</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(\overline \omega\)</td>
+<td class="org-right">0.2</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(s_\psi\)</td>
+<td class="org-right">0.6</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(\sigma_\psi\)</td>
+<td class="org-right">0.1</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(\lambda\)</td>
+<td class="org-right">0.2</td>
+<td class="org-left">0</td>
+</tr>
+
+<tr>
+<td class="org-left">\(N\)</td>
+<td class="org-right">5000</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(minsal\)</td>
+<td class="org-right">0.1</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(gmin\)</td>
+<td class="org-right">-0.25</td>
+<td class="org-left">-0.025</td>
+</tr>
+
+<tr>
+<td class="org-left">\(gmax\)</td>
+<td class="org-right">0.25</td>
+<td class="org-left">0.025</td>
+</tr>
+
+<tr>
+<td class="org-left">\(g_{basic}\)</td>
+<td class="org-right">0.0</td>
+<td class="org-left">0.0005</td>
+</tr>
+
+<tr>
+<td class="org-left">\(\alpha\)</td>
+<td class="org-right">0.005</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(i_0\)</td>
+<td class="org-right">0.02</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(u_d\)</td>
+<td class="org-right">0.8</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(\gamma_u\)</td>
+<td class="org-right">0.002</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(\eta\)</td>
+<td class="org-right">0.3</td>
+<td class="org-left">-</td>
+</tr>
+</tbody>
+</table>
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Valores defasados</th>
+<th scope="col" class="org-right">Baseline</th>
+<th scope="col" class="org-left">Modificado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">\(A_t\)</td>
+<td class="org-right">0.0</td>
+<td class="org-left">0.0</td>
+</tr>
+
+<tr>
+<td class="org-left">\(I_t\)</td>
+<td class="org-right">20.0</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(u_t\)</td>
+<td class="org-right">0.7</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(K_t\)</td>
+<td class="org-right">10000</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(h_{t-1}\)</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">\(Cw_t\)</td>
+<td class="org-right">0.1</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(D_t\)</td>
+<td class="org-right">0.0</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">state<sub>b</sub><sub>it</sub></td>
+<td class="org-right">rand</td>
+<td class="org-left">rand</td>
+</tr>
+
+<tr>
+<td class="org-left">\(w_i\)</td>
+<td class="org-right">rand</td>
+<td class="org-left">rand</td>
+</tr>
+
+<tr>
+<td class="org-left">\(Ww_i\)</td>
+<td class="org-right">0.0</td>
+<td class="org-left">0.0</td>
+</tr>
+
+<tr>
+<td class="org-left">\(B\)</td>
+<td class="org-right">0.0</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(D_totam\)</td>
+<td class="org-right">soma</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">basic</td>
+<td class="org-right">-</td>
+<td class="org-left">50</td>
+</tr>
+</tbody>
+</table>
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Variável</th>
+<th scope="col" class="org-right">Valor</th>
+<th scope="col" class="org-left">Derivados</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">\(EL\)</td>
+<td class="org-right">4000</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(N\)</td>
+<td class="org-right">5000</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(K\)</td>
+<td class="org-right">10000</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(Q\)</td>
+<td class="org-right">3800</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(I_t\)</td>
+<td class="org-right">1800</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(\gamma\)</td>
+<td class="org-right">1.0</td>
+<td class="org-left">-</td>
+</tr>
+
+<tr>
+<td class="org-left">\(\xi\)</td>
+<td class="org-right">1.0</td>
+<td class="org-left">-</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-left">Unrate</td>
+<td class="org-right">-</td>
+<td class="org-left">0.8</td>
+</tr>
+
+<tr>
+<td class="org-left">\(u\)</td>
+<td class="org-right">-</td>
+<td class="org-left">0.76</td>
+</tr>
+
+<tr>
+<td class="org-left">\(Cw_T\)</td>
+<td class="org-right">-</td>
+<td class="org-left">2000</td>
+</tr>
+
+<tr>
+<td class="org-left">\(h\)</td>
+<td class="org-right">-</td>
+<td class="org-left">0.47368421</td>
+</tr>
+
+<tr>
+<td class="org-left">\(Q_fc\)</td>
+<td class="org-right">-</td>
+<td class="org-left">5000.</td>
+</tr>
+</tbody>
+</table>
+
+</section>
+</section>
+<section>
+<section id="slide-org40d19d5">
+<h2 id="org40d19d5"><span class="section-number-2">2</span> Próximos passos</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+</section>
+<section id="slide-orgccd4a8f">
+<h3 id="orgccd4a8f"><span class="section-number-3">2.1</span> <span class="todo TODO">TODO</span> Fim versão mais simples <code>[0/4]</code> <code>[0%]</code></h3>
+<ul>
+<li class="off"><code>[&#xa0;]</code> Definir o outro gasto autônomo (diferente da renda básica) e estrutura (Jordão)</li>
+<li class="off"><code>[&#xa0;]</code> Se gasto do governo, definir arrecadação (Gabriel)</li>
+<li class="off"><code>[&#xa0;]</code> Atribuir parâmetros para cada agente (tornar mais ABM)</li>
+<li class="off"><code>[&#xa0;]</code> Escrever apresentação dos slides (João Paulo)</li>
+
+</ul>
+
+</section>
+<section id="slide-org524025e">
+<h3 id="org524025e"><span class="section-number-3">2.2</span> <span class="todo TODO">TODO</span> Aprimoramento 01 <code>[0/3]</code> <code>[0%]</code></h3>
+<ul>
+<li class="off"><code>[&#xa0;]</code> Poupança dos trabalhadores -&gt; Acúmulo de riqueza gerando renda (depósito bancário)</li>
+<li class="off"><code>[&#xa0;]</code> Distribuição dos salários a partir de uma distribuição de Pareto</li>
+<li class="off"><code>[&#xa0;]</code> Salário em função do salário mínimo (substituindo choques)</li>
+
+</ul>
+
+</section>
+<section id="slide-org1dafd47">
+<h3 id="org1dafd47"><span class="section-number-3">2.3</span> <span class="todo TODO">TODO</span> Aprimoramento 02 <code>[0/4]</code> <code>[0%]</code></h3>
+<ul>
+<li class="off"><code>[&#xa0;]</code> Restrição de crédito</li>
+<li class="off"><code>[&#xa0;]</code> Reintrodução dos administradores</li>
+<li class="off"><code>[&#xa0;]</code> Reintrodução das ações</li>
+<li class="off"><code>[&#xa0;]</code> Reintrodução de inflação</li>
+
+</ul>
+
+</section>
+<section id="slide-org255d8ca">
+<h3 id="org255d8ca"><span class="section-number-3">2.4</span> <span class="todo TODO">TODO</span> Aprimoramento 03  <code>[0%]</code></h3>
+<ul>
+<li class="off"><code>[&#xa0;]</code> Mudar função investimento para função Kaleckiana</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-orge27f0e8">
+<h2 id="orge27f0e8"><span class="section-number-2">3</span> Análise</h2>
+<table id="orgf0d5351" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Cenário</th>
+<th scope="col" class="org-left">\(\sigma_{\sigma_\psi}\)</th>
+<th scope="col" class="org-left">\(\sigma_{s_\psi}\)</th>
+<th scope="col" class="org-left">\(\eta\)</th>
+<th scope="col" class="org-left">Inflação</th>
+<th scope="col" class="org-left">\(g\)</th>
+<th scope="col" class="org-left">\(u\)</th>
+<th scope="col" class="org-left">Num of Borrowers</th>
+<th scope="col" class="org-left">Gini</th>
+<th scope="col" class="org-left">wbarocc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Baseline</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Sim<sub>1</sub></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+
+<table id="org44c3c23" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Cenário</th>
+<th scope="col" class="org-left">min<sub>sal</sub></th>
+<th scope="col" class="org-left">p<sub>minsal</sub></th>
+<th scope="col" class="org-left">c</th>
+<th scope="col" class="org-left">\(i\)</th>
+<th scope="col" class="org-left">Inflação</th>
+<th scope="col" class="org-left">\(g\)</th>
+<th scope="col" class="org-left">\(u\)</th>
+<th scope="col" class="org-left">Num of Borrowers</th>
+<th scope="col" class="org-left">Gini</th>
+<th scope="col" class="org-left">wbarocc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Baseline</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Sim<sub>1</sub></td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</div>
+</div>
+<script src="./reveal.js/js/reveal.js"></script>
+
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+,
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: './reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: './reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: './reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: './reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: './reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>

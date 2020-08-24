@@ -1,0 +1,166 @@
+.TH "suf" "1" "" "acq manual" ""
+.SH NAME
+.PP
+suf \- Identify sufficient conditions
+.SH SYNOPSIS
+.PP
+\f[B]suf\f[] [\f[I]OPTIONS\f[]]
+.SH DESCRIPTION
+.PP
+Test for sufficient conditions.
+.SH OPTIONS
+.SS Specification of Causal and Outcome Conditions
+.TP
+.B \-o, \-\-outcome=\f[I]COLUMN\f[]
+Outcome column (default is last column)
+.RS
+.RE
+.TP
+.B \-i, \-\-include=\f[I]COLUMNS\f[]
+Include only these causal conditions (default is all)
+.RS
+.RE
+.TP
+.B \-I, \-\-exclude=\f[I]COLUMNS\f[]
+Don\[aq]t include these as causal conditions
+.RS
+.RE
+.PP
+For these three options, \f[I]COLUMNS\f[] may be specified by column
+position or name.
+Separate multiple \f[I]COLUMNS\f[] with commas.
+.SS Analysis Parameters
+.TP
+.B \-s, \-\-simplify=\f[I]PARAMETER\f[]
+How aggressively should the routine reduce the truth table?
+Accepted parameters are:
+.RS
+.IP
+.nf
+\f[C]
+0\ \-\ Reduce\ truth\ table\ to\ primitive\ expressions\ 
+1\ \-\ Reduce\ truth\ table\ to\ prime\ implicants\ (default)
+2\ \-\ Reduce\ prime\ implicants\ (equivalent\ to\ fs/QCA\[aq]s
+\ \ \ \ \ \ "complex\ solution")
+3\ \-\ Reduce\ prime\ implicants\ using\ remainders\ as\ simplifying
+\ \ \ \ \ \ assumptions\ (equivalent\ to\ fs/QCA\[aq]s\ "parsimonious
+\ \ \ \ \ \ solution")
+\f[]
+.fi
+.RE
+.TP
+.B \-f, \-\-freq=\f[I]VALUE\f[]
+Frequency threshold (default is 1)
+.RS
+.RE
+.TP
+.B \-c, \-\-consist=\f[I]VALUE\f[]
+Consistency threshold (default is 0.9)
+.RS
+.RE
+.TP
+.B \-p, \-\-prop=\f[I]VALUE\f[]
+Proportion threshold (default is 1.0)
+.RS
+.RE
+.TP
+.B \-e, \-\-readtt=\f[I]FILE\f[]
+Read in truth table from external file; don\[aq]t convert dataset to
+truth table
+.RS
+.RE
+.TP
+.B \-y, \-\-input=\f[I]FILE\f[]
+If absent, or when \f[I]FILE\f[] is \-, read standard input
+.RS
+.RE
+.PP
+\f[I]VALUE\f[] is a number ranging between 0.0 and 1.0.
+For \-e, \f[I]FILE\f[] is a plain text representation of a truth table,
+such as is produced by \f[B]suf\f[] or \f[B]gtt\f[].
+For \-y, \f[I]FILE\f[] is a dataset.
+.SS Diagnostics
+.TP
+.B \-d, \-\-dataset
+Print dataset
+.RS
+.RE
+.TP
+.B \-D, \-\-Dataset
+Print dataset and exit
+.RS
+.RE
+.TP
+.B \-t, \-\-truthtable
+Print truth table
+.RS
+.RE
+.TP
+.B \-T, \-\-Truthtable
+Print truth table and exit
+.RS
+.RE
+.SS Other Options
+.TP
+.B \-h, \-\-help
+Display help and exit
+.RS
+.RE
+.TP
+.B \-v, \-\-version
+Output version information and exit
+.RS
+.RE
+.PP
+Mandatory arguments to long options are also mandatory for short
+options.
+.SH Differences between \f[B]suf\f[] and \f[B]fs/QCA\f[]
+.PP
+\f[B]suf\f[] uses the same "truth table algorithm" as \f[B]fs/QCA\f[]
+and which is described in \f[B]Redesigning Social Inquiry\f[] (Ragin
+2008).
+However, there are a handful of important differences between
+\f[B]suf\f[] and \f[B]fs/QCA\f[]:
+.IP \[bu] 2
+\f[B]suf\f[] supports "Impossible" conditions, combinations of causal
+conditions that cannot occur.
+If a truth table row is marked as "Impossible," that row will not be
+included as a remainder when constructing the parsimonious solution.
+.IP \[bu] 2
+\f[B]suf\f[] also supports fuzzy\-set contradictions, as described in
+"Contradictions in fsQCA" (Rubinson 2011).
+A contradiction is a truth table row in which the ratio of
+consistent:inconsistent observations falls below a given threshold
+(specified by \-\-prop).
+.IP \[bu] 2
+\f[B]suf\f[] does not provide an equivalent to \f[B]fs/QCA\f[]\[aq]s
+"intermediate" solution.
+As described in "Between Complexity and Parsimony" (Ragin and Sonnett
+2004), it is often the case that a range of intermediate solutions can
+be constructed for a given analysis.
+Rubinson\[aq]s position is that it would therefore be misleading for
+\f[B]suf\f[] to produce a single intermediate solution.
+.IP \[bu] 2
+\f[B]suf\f[] eliminates \f[B]fs/QCA\f[]\[aq]s pop\-up prime implicant
+chart.
+In certain instances (known as "codominance" in Quine\-McCluskey
+parlance), the QCA truth table reduction algorithm can produce more than
+one solution covering a given observation (or set of observations).
+When encountering such a situation, \f[B]fs/QCA\f[] pops up a prime
+implicant chart for the user to resolve.
+This tends to confuse even experienced QCA practitioners.
+Instead, \f[B]suf\f[] simply returns all solutions.
+The codominant solutions are easily identified because they will share
+the same set of observations and their unique coverage will be 0.0.
+It is then up to the researcher to determine which solutions to retain.
+A researcher might choose to retain only one of the codominant
+solutions, dropping the others as redundant.
+Alternatively, a researcher might choose to retain multiple solutions
+and argue that these observations are "overdetermined"\-\-that they
+possess multiple combinations of causal conditions, any one of which are
+sufficient to produce the outcome.
+.SH SEE ALSO
+.PP
+bq(1), concov(1), consist(1), gtt(1), nec(1)
+.SH AUTHORS
+Claude Rubinson <cjr\@grundrisse.org>.

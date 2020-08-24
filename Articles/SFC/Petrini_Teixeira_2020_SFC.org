@@ -1,0 +1,3830 @@
+#+TITLE: Long-run effective demand and residential investment: a Sraffian supermultiplier based analysis
+#+AUTHOR: Gabriel Petrini, Lucas Teixeira
+#+EMAIL: gpetrinidasilveira@gmail.com, lucas.teixeira@unicamp.br
+#+OPTIONS: toc:nil
+#+LATEX_HEADER: \addbibresource{refs.bib}
+#+LATEX_HEADER: \usepackage{svg, caption, multirow}
+#+LATEX_HEADER: \usepackage[english]{babel}
+
+#+BEGIN_abstract
+In this paper, we build a fully specified parsimonious Sraffian supermultiplier stock-flow consistent model (SSM-SFC) with two non-capacity creating autonomous expenditure: residential investment and debt-financed consumption.
+Our model represents a closed and without government economy with workers and capitalist households and only the latter are not not credit constrained.
+The introduction of residential investment implies that our SSM-SFC model has two real assets: firms' productive capital and households' real estate.
+The numerical simulation experiments report the main standard Sraffian supermultiplier growth models results: 
+    (i) income distribution affects growth rate only during the traverse;
+    (ii) autonomous expenditures alone affects long-term growth rate and;
+    (iii)  utilization rate moves towards the normal one.
+As a particular result, an increase of residential investment growth rate increase implies a decrease of real estate share in total real assets.
+Therefore, this model introduces both housing and asset bubbles	on Sraffian supermultiplier agenda and extends the range of autonomous expenditures alternatives.
+	
+#+LATEX: \noindent \textbf{Keywords:} Residential Investment; Sraffian supermultiplier; Asset bubble;  Stock-Flow Consistent approach.
+#+END_abstract
+
+
+* General TODOs                                                    :noexport:
+
+** DONE [#B] Corrigir referências das seções
+   CLOSED: [2020-08-03 seg 12:07]
+ 
+   Deve-se ter um espaço depois do comando latex
+** TODO [#B] Padronizar: Housing, Residential Investiment
+   - [ ] Residential investment
+
+* Introduction TODOs                                               :noexport:
+
+** TODO Falar mais sobre o supermultiplicador no parágrafo de abertura
+
+   - [ ] Discutir atenção do investimento não residential?
+
+** TODO [#C] Incluir referência Lavoie 2014
+
+* Introduction
+#+LABEL: sec:introduction
+
+
+
+@@comment: Investimento residencial é pouco investigado pela literatura. O SSM é uma forma de incluir este gasto. comment@@
+Non-residential investment is the most scrutinized variable in demand-led growth models so that others expenditures play a secondary role cite:brochier_macroeconomics_2017.
+A decade after the Great Recession, this is still the case for residential investment which continues to receive sparse and unsystematic attention by the literature cites:caverzasi_stock-flow_2013,nikolaidi_minsky_2017.
+Despite its absence in theoretical models, there is a growing empirical literature highlighting its macrodynamic relevance cites:leamer_housing_2007,jorda_great_2014,fiebiger_semi-autonomous_2018,fiebiger_trend_2017.
+In this paper, we try to fill this gap in demand-led growth agenda.
+
+
+Sraffian supermultiplier growth model (SSM) establishes an important role to non-capacity creating (NCC) autonomous expenditures.
+textcite:serrano_long_1995 --- and also more recent papers cite:freitas_growth_2015 --- presents the SSM model in a rather parsimonious way as an alternative closure within demand-led growth model agenda cite:serrano_sraffian_2017.
+More recently, SSM has been introduced to a broader Post-Keynesian audience by textcites:allain_tackling_2015,lavoie_post-keynesian_2015,lavoie_convergence_2016.
+In summary,  SSM describes a demand-led growth pattern led by NCC autonomous expenditures such as residential investment.
+
+@@comment: Investimento residencial continua sendo pouco estudado mesmo na literatura do SMM. Taxa própria é um caminho. comment@@
+Different NCC autonomous expenditures have been included in this framework. 
+For instance, some scholars have investigated the macroeconomic implications of both debt-financed cites:pariboni_autonomous_2015,fagundes_role_2017,mandarino-2020-worker-debt and financial wealth-financed consumption cite:brochier_supermultiplier_2018.
+The same applies to government expenditures cites:allain_tackling_2015,bougrine_autonomous_2020 and exports cite:nah_long-run_2017.
+Nevertheless, residential investment --- another NCC autonomous expenditure --- has been systematically neglected. 
+One way to include residential investment with the SSM model is through houses' own interest rate proposed by textcite:teixeira_crescimento_2015.
+This particular real interest rate is the relevant one for house investors (households) and allow us to include asset bubble in a SSM-friendly framework.
+
+
+@@comment: Estrutura do artigo. comment@@
+In this paper, we include residential investment into the Sraffian supermultiplier model within a Stock-Flow Consistent framework. 
+In Section ref:sec:empirical we introduce the so-called houses own interest rate and some residential investment related stylized facts.
+Section ref:sec:Review reviews heterodox growth models with NCC autonomous expenditures and highlights the lack of residential investment as an autonomous expenditure.
+In Section ref:sec:Model we present our SSM-SFC model  with two real assets: firms' capital and household' real estate. 
+Section ref:sec:runs evaluates both short-run and fully-adjusted position equilibria in order to access the consequences of residential investment inclusion on stock-flow consistent ratios.
+Next, in Section ref:sec:Experiments, we evaluate both traverse and steady-state dynamics through numerical simulations.
+The experiments are: decrease in wage-share (Section ref:sec:Exp1); increase in real estate inflation (Section ref:sec:Exp2); and an increase in interest rate ref:sec:Exp3).
+In this same Section, we also plug houses own interest rate observed data for the U.S. (from 1992 to 2019) in order to compare our simulations' results  with recent housing bubble episode.
+Section ref:sec:Conclusion offers some concluding remarks while Appendix ref:append:Solution provides the analytical solution in order to assess stability condition and Appendix ref:append:Data presents simulation's parameters and baseline values.
+
+#+BEGIN_COMMENT
+The analytical solution is presented in Section ref:sec:Solution in order to assess stability condition since residential investment growth rate is now described by houses' own interest rate.
+#+END_COMMENT
+
+
+* Empirical TODOs and Setups                                       :noexport:
+
+** TODO [#B] Checar se gráfico da taxa própria deve ser em média móvel
+
+** Loading packages
+   
+#+BEGIN_SRC ipython :async t :results output :session empirical :exports none :tangle ./codes/Empirical_Motivation.py
+%config InlineBackend.figure_format = 'retina'
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas_datareader.data as web
+import datetime
+from datetime import datetime as dt
+
+sns.set_context('paper')
+
+start = datetime.datetime(1951, 12, 1)
+end = datetime.datetime(2019, 3, 1)
+
+def salvar_grafico(file_name, extension=".png", pasta="./figs/"):
+    fig.savefig(pasta + file_name + extension, dpi = 300, bbox_inches = 'tight',
+    pad_inches = 0.2, transparent = False,)
+#+END_SRC
+
+#+RESULTS:
+:results:
+3 - f5c68a3c-745e-41ac-966d-be8b098f17be <output> <interrupt>
+:end:
+
+** Functions
+
+#+BEGIN_SRC ipython :async t :results output :session empirical :exports none :tangle ./codes/Empirical_Motivation.py
+def crise_subprime(axes, alpha=0.4):
+    axes.axvspan(
+    xmin='2007-12-01', 
+    xmax='2009-06-01',
+    color='gray', 
+    label='Subprime Crises',
+    zorder=0,
+    alpha=alpha
+)
+
+def crises(axes, color='lightgray', alpha=0.4):
+    axes.axvspan(xmin = "1953-07", xmax='1954-04', color = color, alpha=alpha, label = 'Recession')
+    axes.axvspan(xmin = "1957-08", xmax='1958-05', color = color, alpha=alpha, label = '')
+    axes.axvspan(xmin = "1960-05", xmax='1961-02', color = color, alpha=alpha, label = '')
+    axes.axvspan(xmin = "1969-12", xmax='1970-11', color = color, alpha=alpha, label = '')
+    axes.axvspan(xmin = "1973-11", xmax='1975-03', color = color, alpha=alpha, label = '')
+    axes.axvspan(xmin = "1980-01", xmax='1980-07', color = color, alpha=alpha, label = '')
+    axes.axvspan(xmin = "1981-07", xmax='1982-01', color = color, alpha=alpha, label = '')
+    axes.axvspan(xmin = "1990-07", xmax='1991-03', color = color, alpha=alpha, label = '')
+    axes.axvspan(xmin = "2001-03", xmax='2001-11', color = color, alpha=alpha, label = '')
+#+END_SRC
+
+#+RESULTS:
+:results:
+4 - 4f784104-deef-4509-ab24-3d32272f016e <output> <interrupt>
+:end:
+
+** Getting data
+   
+#+BEGIN_SRC ipython :async t :results output :session empirical :exports results :tangle ./codes/Empirical_Motivation.py
+df = web.DataReader(
+    [
+        'GDP',
+        'PRFI',
+        'PNFI',
+        'TCU',
+        'PCDG',
+    ], 
+    'fred', 
+    start, end
+)
+df['TCU'] = df['TCU']/100
+df['H-GFI'] = df['PRFI']/df['PNFI']
+df['H-GDP'] = df['PRFI']/df['GDP']
+df['Investment share'] = df['PNFI']/df['GDP']
+df['Housing share'] = df['PRFI']/df['GDP']
+df["Durables"] = df["PCDG"]/df["GDP"]
+df['Year'] = df.index.year
+df = df.resample('Q').last()
+df.index.name = ''
+df.to_csv('./data/Cycle.csv')
+
+#+END_SRC
+
+#+RESULTS:
+:results:
+5 - f2548fd8-441f-4be6-8dba-3e52b9b8089f <output> <interrupt>
+:end:
+
+
+#+BEGIN_SRC ipython :async t :results output :session empirical :exports results :tangle ./codes/Empirical_Motivation.py
+start=dt(1987,1,1)
+end=dt(2019,10,1)
+
+df = web.DataReader(
+    [
+        "PRFI",
+        "CSUSHPISA",
+        "MORTGAGE30US",
+        "CPIAUCSL"
+    ], 
+    'fred', 
+    start, 
+    end
+)
+
+df.columns = [
+    "Residential investment", 
+    "House prices", 
+    "Mortgage interest rate",
+    "General Prices"
+]
+df.index.name = ""
+
+
+df['Mortgage interest rate'] = df['Mortgage interest rate'].divide(100)
+df = df.resample('M').last()
+
+df['House prices'] = df['House prices']/df['House prices'][0]
+df = df.resample('Q').last()
+df["Inflation"]= df["House prices"].pct_change()
+df["General inflation"] = df["General Prices"].pct_change()
+df["Own interest rate"] = ((1+df["Mortgage interest rate"])/(1+df["Inflation"])) -1
+df["Real mortgage interest rate"] = ((1+df["Mortgage interest rate"])/(1+df["General inflation"])) -1
+
+df['$g_{I_h}$'] = df["Residential investment"].pct_change()
+df.to_csv("./data/OwnInterestRate_data.csv")
+#+END_SRC
+
+#+RESULTS:
+:results:
+6 - 00ac17cf-ad5c-4a6a-9d97-b04ef0c88852 <output> <interrupt>
+:end:
+
+** Residuals
+
+#+BEGIN_SRC ipython :async t :results output drawer :session empirical :exports none :tangle ./codes/Empirical_Motivation.py
+df = pd.read_csv(
+    './data/OwnInterestRate_data.csv',
+    index_col = [0],
+    parse_dates = True
+)
+
+df = df.merge(
+    pd.read_csv(
+        './data/Cycle.csv',
+        index_col = [0],
+        parse_dates = True
+    ),
+    left_index=True, right_index=True
+)
+
+sns.set_context('talk')
+fig, ax = plt.subplots(1,2, figsize=(2*8,5),
+                       sharex=True, sharey=True
+)
+
+
+
+sns.scatterplot(y = 'Housing share', x='Own interest rate', data=df["1992-01":"2001-12"],
+                ax=ax[0], size='Year', sizes = (5,100), color = 'black', legend=False)
+sns.lineplot(y = 'Housing share', x='Own interest rate', data=df["1992-01":"2001-12"],
+             ax=ax[0], sort=False, color = 'black')
+ax[0].set_title("1992 (I) - 2001 (IV)")
+
+sns.scatterplot(y = 'Housing share', x='Own interest rate', data=df["2001-12":"2009-07"],
+                ax=ax[1], size='Year', sizes = (5,100), color = 'black', legend=False)
+sns.lineplot(y = 'Housing share', x='Own interest rate', data=df["2001-12":"2009-07"],
+             ax=ax[1], sort=False, color = 'black')
+ax[1].set_title("2001 (IV) - 2009 (II)")
+
+
+sns.despine()
+fig.tight_layout(rect=[0, 0.03, 1, 1])
+plt.show()
+
+fig.savefig("./figs/Own_Cycle.png", transparent = True, dpi = 300)
+
+#+END_SRC
+
+#+RESULTS:
+:results:
+7 - 7446ed78-c5f5-4ca8-84a9-5118887b6f3b <output> <interrupt>
+:end:
+
+
+
+#+BEGIN_SRC latex
+\begin{figure}[htb]
+    \centering
+        \caption{Share of residential investment and Houses own interest rate\\\centering Before and after housing bubble\\\centering (Dots size grow in  time)} 
+    \includegraphics[width = 0.65\textwidth]{./figs/Own_Cycle.png}
+    \label{fig:cycles}
+    \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration.}
+\end{figure}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{figure}[htb]
+    \centering
+        \caption{Share of residential investment and Houses own interest rate\\\centering Before and after housing bubble\\\centering (Dots size grow in  time)} 
+    \includegraphics[width = 0.65\textwidth]{./figs/Own_Cycle.png}
+    \label{fig:cycles}
+    \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration.}
+\end{figure}
+#+end_export
+
+
+#+BEGIN_SRC ipython :async t :results output drawer :session empirical :exports none :tangle ./codes/Empirical_Motivation.py
+fig, ax = plt.subplots()
+
+df['H-GDP'].plot(color = 'black', label = 'Residential investment/GDP', ax = ax)
+ax.axvspan(xmin = "1953-07", xmax='1954-04', color = "lightgray", label = 'Recession')
+ax.axvspan(xmin = "1957-08", xmax='1958-05', color = "lightgray", label = '')
+ax.axvspan(xmin = "1960-05", xmax='1961-02', color = "lightgray", label = '')
+ax.axvspan(xmin = "1969-12", xmax='1970-11', color = "lightgray", label = '')
+ax.axvspan(xmin = "1973-11", xmax='1975-03', color = "lightgray", label = '')
+ax.axvspan(xmin = "1980-01", xmax='1980-07', color = "lightgray", label = '')
+ax.axvspan(xmin = "1981-07", xmax='1982-01', color = "lightgray", label = '')
+ax.axvspan(xmin = "1990-07", xmax='1991-03', color = "lightgray", label = '')
+ax.axvspan(xmin = "2001-03", xmax='2001-11', color = "lightgray", label = '')
+ax.axvspan(xmin = "2007-12", xmax='2009-07', color = "lightgray", label = '')
+ax.legend()
+sns.despine()
+fig.savefig("./figs/housing_gdp.png", transparent = True, dpi = 300)
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+:results:
+8 - 9b373c3d-f21b-415b-af5e-5bf333ccee49 <output> <interrupt>
+:end:
+
+#+BEGIN_SRC latex
+\begin{figure}[htb]
+    \centering
+        \caption{Residential Investment as share of GDP\\\centering quarterly moving average}
+        \label{Investo_Resid_GDP}
+    \includegraphics[width = 0.7\textwidth]{./figs/housing_gdp.png}
+    \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration}
+\end{figure}
+
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{figure}[htb]
+    \centering
+        \caption{Residential Investment as share of GDP\\\centering quarterly moving average}
+        \label{Investo_Resid_GDP}
+    \includegraphics[width = 0.7\textwidth]{./figs/housing_gdp.png}
+    \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration}
+\end{figure}
+#+end_export
+
+Figure ref:Investo_Resid_GDP shows how the behavior of residential dynamics can help to predict recessions. Recessions are anticipated by a reduction of residential investment share of GDP, while the expansion of those expenditures precedes economic recovery. The fall of dwellings expenditures in 1966-67 are an exception because the increase of military expenditures because of Vietnam War offset an eventual economic downturn \cite[p.~20]{leamer_housing_2007}. Another exception is the dot-com bubble 2000 crisis that was not caused by residential investment. The Great Recession 2008-2009 is the one in which this pattern is the most evident. 
+
+#+BEGIN_SRC ipython :async t :results output drawer :session empirical :exports none :tangle ./codes/Empirical_Motivation.py
+df = pd.read_csv(
+    './data/OwnInterestRate_data.csv',
+    index_col = [0],
+    parse_dates = True
+)
+
+df = df.merge(
+    pd.read_csv(
+        './data/Cycle.csv',
+        index_col = [0],
+        parse_dates = True
+    ),
+    left_index=True, right_index=True
+)
+
+sns.set_context('talk')
+fig, ax = plt.subplots(1,2, figsize=(2*8,5),
+                       sharex=True, sharey=True
+)
+
+
+
+sns.scatterplot(x = 'Housing share', y='Durables', data=df["1992-01":"2001-12"],
+                ax=ax[0], size='Year', sizes = (5,100), color = 'black', legend=False)
+sns.lineplot(x = 'Housing share', y='Durables', data=df["1992-01":"2001-12"],
+             ax=ax[0], sort=False, color = 'black')
+ax[0].set_title("1992 (I) - 2001 (IV)")
+
+sns.scatterplot(x = 'Housing share', y='Durables', data=df["2001-12":"2009-07"],
+                ax=ax[1], size='Year', sizes = (5,100), color = 'black', legend=False)
+sns.lineplot(x = 'Housing share', y='Durables', data=df["2001-12":"2009-07"],
+             ax=ax[1], sort=False, color = 'black')
+ax[1].set_title("2001 (IV) - 2009 (II)")
+
+
+sns.despine()
+fig.tight_layout(rect=[0, 0.03, 1, 1])
+plt.show()
+
+fig.savefig("./figs/Durables.png", transparent = True, dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+:results:
+9 - 4275a2b4-673a-45fb-876a-277ad4f8e7b5 <output> <interrupt>
+:end:
+
+
+
+
+* Empirical Motivation 
+#+LATEX: \label{sec:empirical}
+
+
+@@comment: Parágrafo introdutório: Evidenciar trabalhos com NCC e lacuna do investimento residencial. comment@@
+A current trend among empirical research on demand-led growth is about the role of NCC autonomous expenditures.
+textcite:freitas_pattern_2013 present a growth accounting decomposition and report the relevance of those expenditures in explaining Brazilian GDP growth between 1970 and 2005. textcite:braga_investment_2018 shows evidence that economic growth and non-residential investment are explained by NCC autonomous expenditures in Brazilian economy from 1962 to 2015. For the U.S., textcite:girardi_long-run_2016 show that NCC autonomous expenditures have permanent effects on growth rate. 
+textcite:haluska_growth_2019 employ Granger-causality tests to assess the stability of the SSM for the US (1987-2017) and report a causality from NCC autonomous expenditures to the marginal propensity to invest, as expected.
+Finally, textcite:girardi_autonomous_2018 bring evidence that those expenditures determine the investment share on GDP for twenty OECD countries. 
+Nevertheless, there still is a lack of studies on the role of residential investment specifically. 
+Except for textcites:green_follow_1997,leamer_housing_2007 ---  which shows the relevance of this expenditure to US business cycle at least since the
+post-war period ---, most of those studies were published after the Great Recession (2008-2009)[fn:Leamer].
+
+[fn:Leamer] More precisely, Leamer \textcite[p.~8]{leamer_housing_2007} argues that the US business cycles can be characterized as follows: ``[f]irst homes, then cars, and last business equipment''.
+
+
+#+BEGIN_SRC ipython :async t :results output drawer :session empirical :exports none :tangle ./codes/Empirical_Motivation.py
+df = pd.read_csv(
+    './data/Cycle.csv',
+    index_col = [0],
+    parse_dates = True
+)
+
+fig, ax = plt.subplots(2,3, sharex=True, sharey=True, squeeze=False)
+
+sns.scatterplot(y = 'Housing share', x='TCU', data=df["1970-12":"1975-01"], ax=ax[0,0], size='Year', sizes = (5,100), color = 'black', legend=False)
+sns.lineplot(y = 'Housing share', x='TCU', data=df["1970-12":"1975-01"], ax=ax[0,0], sort=False, color = 'black')
+ax[0,0].set_title("1970 (IV) - 1975 (I)")
+
+sns.scatterplot(y = 'Housing share', x='TCU', data=df["1975-01":"1980-10"], ax=ax[0,1], size='Year', sizes = (5,100), color = 'black', legend=False)
+sns.lineplot(y = 'Housing share', x='TCU', data=df["1975-01":"1980-10"], ax=ax[0,1], sort=False, color = 'black')
+ax[0,1].set_title("1977 (I) - 1980 (III)")
+
+sns.scatterplot(y = 'Housing share', x='TCU', data=df["1980-10":"1982-12"], ax=ax[0,2], size='Year', sizes = (5,100), color = 'black', legend=False)
+sns.lineplot(y = 'Housing share', x='TCU', data=df["1980-10":"1982-12"], ax=ax[0,2], sort=False, color = 'black')
+ax[0,2].set_title("1980 (III) - 1982 (IV)")
+
+sns.scatterplot(y = 'Housing share', x='TCU', data=df["1982-12":"1991-01"], ax=ax[1,0], size='Year', sizes = (5,100), color = 'black', legend=False)
+sns.lineplot(y = 'Housing share', x='TCU', data=df["1982-12":"1991-01"], ax=ax[1,0], sort=False, color = 'black')
+ax[1,0].set_title("1982 (IV) - 1991 (I)")
+
+sns.scatterplot(y = 'Housing share', x='TCU', data=df["1991-01":"2001-12"], ax=ax[1,1], size='Year', sizes = (5,100), color = 'black', legend=False)
+sns.lineplot(y = 'Housing share', x='TCU', data=df["1991-01":"2001-12"], ax=ax[1,1], sort=False, color = 'black')
+ax[1,1].set_title("1991 (I) - 2001 (IV)")
+
+sns.scatterplot(y = 'Housing share', x='TCU', data=df["2001-12":"2009-07"], ax=ax[1,2], size='Year', sizes = (5,100), color = 'black', legend=False)
+sns.lineplot(y = 'Housing share', x='TCU', data=df["2001-12":"2009-07"], ax=ax[1,2], sort=False, color = 'black')
+ax[1,2].set_title("2001 (IV) - 2009 (II)")
+
+
+sns.despine()
+ax[0,0].set_ylabel(""); ax[1,0].set_xlabel('')
+ax[1,0].set_ylabel(""); ax[1,1].set_xlabel(''); ax[1,2].set_xlabel('')
+
+fig.tight_layout(rect=[0, 0.03, 1, 0.90])
+fig.text(0.5, 0.03, 'Capacity utilization ratio (Total Industry)', ha='center', fontsize =9)
+fig.text(0, 0.5, 'Residential Investment/GDP', va='center', rotation='vertical', fontsize=9)
+fig.tight_layout(rect=[0, 0.03, 1, 1])
+plt.show()
+
+fig.savefig("./figs/cycles.png", transparent = True, dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+:results:
+10 - 86e5a5b8-a690-4539-9071-c3d25eed8e20 <output> <interrupt>
+:end:
+
+#+BEGIN_SRC latex
+\begin{figure}[htb]
+    \centering
+        \caption{Share of residential investment and capacity utilization during business cycles\\\centering (Dots size grow in  time)} 
+    \includegraphics[width = 0.65\textwidth]{./figs/cycles.png}
+    \label{fig:cycles}
+    \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration.}
+\end{figure}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{figure}[htb]
+    \centering
+        \caption{Share of residential investment and capacity utilization during business cycles\\\centering (Dots size grow in  time)} 
+    \includegraphics[width = 0.65\textwidth]{./figs/cycles.png}
+    \label{fig:cycles}
+    \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration.}
+\end{figure}
+#+end_export
+
+
+
+@@comment: Apresentar Taxa própria e explicar gráfico/construção das variáveis comment@@
+
+After the Great Recession, the literature have analyzed the macroeconomic relevance of residential investment cites:leamer_housing_2015,fiebiger_semi-autonomous_2018.
+However, little progress has been made in understanding its theoretical determinants.
+textcite:teixeira_crescimento_2015 proposes the so-called houses own interest rate ($own$) in order to analyze the relation between residential investment, real estate inflation and interest rates during the U.S. housing bubble episode.
+Estimated by deflating mortgages interest rate real estate inflation, this particular real interest rate is the most relevant for households since it is the real cost in real estate from buying real estate  \cite[p.~53]{teixeira_crescimento_2015}.
+In short, this is the real interest rate that is relevant for house investors.
+Figure ref:propria_investo shows how this  procedure is more adequate than a general price index deflation --- as \textcite[p.~143--6]{fair_macroeconometric_2013} does --- to describe residential investment growth rate[fn:TxPropria].
+Based on this concept, textcite:petrini_demanda_2019 estimated an econometric model for the U.S. (1992 to 2019) and presents empirical evidence that the residential investment growth rate and houses own interest rate share a common negative long-run trend.
+Furthermore, textcite:petrini_demanda_2019 also reports a unidirectional long-run causality from houses own interest rate to residential investment growth rate.
+
+[fn:TxPropria] It is worth noting that during a housing bubble period, it is real estate inflation that governs own's interest rate dynamics.
+Therefore, the lower this rate is, the greater the capital gains (in real estate) for speculating with real estate will be. This negative relation between houses own interest rate and residential investment is shown in Figure \ref{propria_investo} in which this particular real interest rate has been gradually decreased over the real estate boom (2002-5).
+ 
+
+@@comment: Importância do investimento residencial para o ciclo econômico comment@@
+In order to depict the relation between housing and business cycle, we present Figure ref:fig:cycles in which each cycle is represented in a different panel[fn:Fiebiger_data].
+The vertical axis represents residential investment-GDP ratio and the horizontal axis represents the capacity utilization ratio  as a proxy for business cycle. Economic recovery is generally characterized by residential investment growing faster than GDP — with the 1991-2000 period being a particular case. Both residential investment share on GDP and capacity utilization increase as a consequence of this higher growth rate.
+Following the Sraffian supermultiplier growth model, we conclude that increase of non-residential investment is the result of capital stock adjustment principle[fn:Instabilidade_Demanda]. This increase implies GDP to grow faster than residential investment, therefore reducing both its share on GDP and capacity utilization ratio. Finally, as a result of economic burst, capacity utilization ratio falls and the cycle ends.
+
+
+
+[fn:Fiebiger_data] This similar reasoning can be found in textcite:fiebiger_trend_2017. Unlike them, we plot only residential investment without including otherhouseholds expenses financed by credit.
+[fn:Instabilidade_Demanda] textcites:fiebiger_semi-autonomous_2018,fiebiger_trend_2017 also report residential investment as an important determinant of business cycles. Those works associate economic instability to the behavior of (at least some) autonomous expenditures in spite of the behavior firms investment --- as it follows capital stock adjustment principle. textcites:dejuan_hidden_2017,teixeira_crescimento_2015 find similar results.
+
+
+
+#+BEGIN_SRC ipython :async t :results output drawer :session empirical :exports none :tangle ./codes/Empirical_Motivation.py
+df = pd.read_csv(
+    './data/OwnInterestRate_data.csv',
+    index_col = [0],
+    parse_dates = True
+)
+
+sns.set_context('paper')
+fig, ax = plt.subplots(figsize=(8,5))
+
+df[['Real mortgage interest rate', "Own interest rate", '$g_{I_h}$']].plot(ax=ax, lw=3)
+
+sns.despine()
+plt.show()
+salvar_grafico("Own_gI")
+#+END_SRC
+
+#+RESULTS:
+:results:
+11 - 9b954cad-9e4c-428e-9ddf-71fb1fbab412 <output> <interrupt>
+:end:
+
+#+BEGIN_SRC latex
+\begin{figure}[htb]
+	\centering
+	\caption{Residential investment growth rate vs. Houses Own interest rate}
+	\label{propria_investo}
+	\includegraphics[width=.8\textwidth]{./figs/Own_gI}
+	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' elaboration}
+\end{figure}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{figure}[htb]
+	\centering
+	\caption{Residential investment growth rate vs. Houses Own interest rate}
+	\label{propria_investo}
+	\includegraphics[width=.8\textwidth]{./figs/Own_gI}
+	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' elaboration}
+\end{figure}
+#+end_export
+
+
+
+@@comment: Importância da bolha de ativos para explicar o investimento residencial e, por conseguinte, o ciclo econômico comment@@
+There is also an indirect relation between residential investment and durables goods consumption. Real estate constitutes a significant portion of household wealth so houses serves as collateral to borrowing cite:teixeira_uma_2011. 
+As a consequence of U.S. institutional arrangement, households could increase their indebtedness as house
+prices went up (see Figure ref:fig:debt) as a way to ``make'' capital gains without selling their houses during the 2000s housing bubble cite:teixeira_crescimento_2015,hay_failure_2013. 
+The relation between households indebtedness and real estate inflation also describes the increasing gap between assets and liabilities in the course of the Great Recession[fn:Divida_Precos]. 
+
+[fn:Divida_Precos] This co-movement results from the housing prices burst (post-2005) and  the insensitivity of households’ financial commitments. In other words, real estate (assets) has a market value while debt (liabilities) has a contractual one, thus, households net worth decreases
+onset of the subprime crisis.
+
+
+
+#+BEGIN_SRC ipython :async t :results output drawer :session empirical :exports none :tangle ./codes/Empirical_Motivation.py
+start = dt(1947, 1, 1)
+end = dt(2015, 1, 1)
+
+df = web.DataReader(
+    [
+        'CMDEBT', # debt securities and loans; liability, Level 
+        'CSUSHPINSA', # S&P/Case-Shiller U.S. National Home Price Index
+    ], 
+    'fred', 
+    start, 
+    end
+)
+
+df.columns = [
+    'Household debt',
+    'House prices',
+]
+
+for i in df.columns:
+    df[i] = (df[i]/df[i]['2000-01-01'])*100
+
+df.index.name = ''
+df = df.resample("QS").mean().dropna()
+
+
+fig, ax = plt.subplots(figsize=(16, 10))
+
+df.iloc[df.index>='1970-01',:].plot(
+    ax=ax,
+    color=('darkred', 'darkblue'),
+    linewidth=2.5,
+)
+
+crise_subprime(ax)
+crises(ax)
+ax.legend()
+
+
+plt.show()
+salvar_grafico(file_name="Debt_Prices")
+#+END_SRC
+
+#+RESULTS:
+:results:
+12 - b5136efa-cab9-4332-be7b-ce97c62927c7 <output> <interrupt>
+:end:
+
+#+BEGIN_SRC latex
+\begin{figure}[htb]
+    \centering
+        \caption{Household debt and House prices\\\centering (Jan/2000 = 100)} 
+    \includegraphics[width = 0.65\textwidth]{./figs/Debt_Prices.png}
+    \label{fig:debt}
+    \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration.}
+\end{figure}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{figure}[htb]
+    \centering
+        \caption{Household debt and House prices\\\centering (Jan/2000 = 100)} 
+    \includegraphics[width = 0.65\textwidth]{./figs/Debt_Prices.png}
+    \label{fig:debt}
+    \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration.}
+\end{figure}
+#+end_export
+
+
+
+Figure ref:fig:Durables_cycles depicts the association between residential investment and durable goods consumption before, during and after the housing bubble.
+From 1992 to 2001, both durable goods consumption and residential investment share increase as long as houses own interest rate decreases.
+During the housing bubble (2001-2005), residential investment growth rate increases while houses own interest rate sharply decreases (see Figure ref:propria_investo).
+As a result, both residential investment and durable goods consumption share have a relatively constant proportion.
+On the aftermath of the housing burst (2005-2009), houses own interest rate increases and is followed by a sharp decrease in both residential investment and durable goods consumption.
+Therefore, real estate inflation and durable goods consumption are connected in the U.S. and have relevant implications for the business cycle [fn:consumption]. 
+
+[fn:consumption] textcites:zezza_u.s._2008,barba_rising_2009, for instance, also report that credit-financed consumption was one of the main drivers of economic growth before the Great Recession.
+
+
+#+BEGIN_SRC ipython :async t :results output drawer :session empirical :exports none :tangle ./codes/Empirical_Motivation.py
+from mpl_toolkits.mplot3d import Axes3D
+import numpy as np
+
+df = pd.read_csv(
+    './data/OwnInterestRate_data.csv',
+    index_col = [0],
+    parse_dates = True
+)
+
+df = df.merge(
+    pd.read_csv(
+        './data/Cycle.csv',
+        index_col = [0],
+        parse_dates = True
+    ),
+    left_index=True, right_index=True
+)
+
+sns.set_context('talk')
+plt.style.use('bmh')
+
+fig = plt.figure(
+    figsize=(2*8,2*5)
+)
+
+
+ax = fig.add_subplot(1, 1, 1, projection='3d')
+tmp_planes = ax.zaxis._PLANES 
+ax.zaxis._PLANES = ( tmp_planes[2], tmp_planes[3], 
+                     tmp_planes[0], tmp_planes[1], 
+                     tmp_planes[4], tmp_planes[5])
+view_1 = (25, -135)
+view_2 = (25, -45)
+init_view = view_1
+ax.view_init(*init_view)
+
+
+start = "1992-01"
+end = "2001-12"
+# Data for a three-dimensional line
+zline = df[start:end]["Durables"]
+xline = df[start:end]["Housing share"]
+yline = df[start:end]["Own interest rate"]
+ax.plot3D(xline, yline, zline, 'darkred', label='1992 (I) - 2001 (IV)', lw=4)
+ax.scatter3D(xline, yline, zline, c=df[start:end].index, cmap='Reds', s=[i.timestamp()/10**7 for i in df[start:end].index]);
+
+start = "2001-12"
+end = "2005-09"
+# Data for a three-dimensional line
+zline = df[start:end]["Durables"]
+xline = df[start:end]["Housing share"]
+yline = df[start:end]["Own interest rate"]
+ax.plot3D(xline, yline, zline, 'darkblue', label='2001 (IV) - 2005 (III)', lw=4)
+ax.scatter3D(xline, yline, zline, c=df[start:end].index, cmap='Blues', s=[i.timestamp()/10**7 for i in df[start:end].index]);
+
+start = "2005-09"
+end = "2009-07"
+# Data for a three-dimensional line
+zline = df[start:end]["Durables"]
+xline = df[start:end]["Housing share"]
+yline = df[start:end]["Own interest rate"]
+ax.plot3D(xline, yline, zline, 'darkgreen', label='2005 (III) - 2009 (III)',lw=4)
+ax.scatter3D(xline, yline, zline, c=df[start:end].index,  cmap='Greens', s=[i.timestamp()/10**7 for i in df[start:end].index]);
+#ax.plot(xline, yline, zs=.05, zdir='z', c='k', lw=2); ax.plot(xline, yline, zs=0.05, zdir='z', c='k', lw=2);
+#ax.scatter(xline, yline, zs=.05, zdir='z', c=df[start:end].index,  cmap='Greys');
+
+
+#ax.invert_xaxis()
+ax.set_xlabel('\nResidential investment share', linespacing=2.5)
+ax.set_ylabel('\nHouses Own interest rate', linespacing=2.5)
+ax.zaxis.set_rotate_label(False)  # disable automatic rotation
+ax.set_zlabel('Durables Consumption Share', linespacing=2.5,
+              rotation=90,
+              verticalalignment='baseline',
+              horizontalalignment='left');
+ax.legend()
+sns.despine()
+
+fig.tight_layout()
+plt.show()
+
+fig.savefig("./figs/Durables_3D.png", transparent = True, dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+:results:
+13 - 2bd39d2c-cd47-4964-a80f-02d33aea8f87 <output> <interrupt>
+:end:
+
+
+#+BEGIN_SRC latex
+\begin{figure}[htb]
+    \centering
+        \caption{Residential investment share Vs. durable goods share Vs. Houses Own interest rate\\\centering Before, during and after housing bubbles\\\centering (Dots darken in  time)} 
+    \includegraphics[width = 0.75\textwidth]{./figs/Durables_3D.png}
+    \label{fig:Durables_cycles}
+    \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration.}
+\end{figure}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{figure}[htb]
+    \centering
+        \caption{Residential investment share Vs. durable goods share Vs. Houses Own interest rate\\\centering Before, during and after housing bubbles\\\centering (Dots darken in  time)} 
+    \includegraphics[width = 0.75\textwidth]{./figs/Durables_3D.png}
+    \label{fig:Durables_cycles}
+    \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration.}
+\end{figure}
+#+end_export
+
+
+@@comment: Amarrar discussão com a proposta SFC. Justificar a inclusão de $C_k$ no modelo teórico. comment@@
+Before we move forward, it worth mentioning that the relevance of residential investment is not restricted to its growth effects nor to the U.S. 
+For example, \textcite{jorda_great_2016} report that credit and financial sector growth has been led mainly by mortgages for at least 17 OECD countries[fn:Hipotecarizacao]. 
+Other studies have shown that real estate inflation describes household indebtedness and wealth distribution movements and has implications for macroeconomic stability cites:ryoo_household_2016,stockhammer_debt-driven_2016,barnes_private_2016,johnston_global_2017,mian_household_2017,anderson_politics_2020,fuller_housing_2020. 
+With regard to the role of residential investment for the Great Recession, textcite:albanesi_credit_2017 shed some light on who were the housing bubble blowers and presented higher default rates: prime rate borrowers[fn:Old_Narrative].
+In summary, what we intended to show is that one cannot analyze the U.S. business cycle properly without considering residential investment and asset bubbles together.
+On the following section, we investigate how demand-led growth theoretical literature has dealt with this topic.
+
+[fn:Hipotecarizacao] As a consequence, banking activities were redirected towards granting credit majorly to households and not to productive investment cites:erturk_banks_2007,kohl_more_2018.
+[fn:Old_Narrative] Contrary to the ``Old Narrative'' cite:mian_consequences_2009,  textcite:albanesi_credit_2017  also report that the granting of credit and the default rate among those with the worst risk assessment remained constant throughout the housing bubble.
+
+
+
+
+
+
+* Literature Review TODOs                                          :noexport:
+
+** Residuals
+
+
+textcite:hein_autonomous_2018 argues that textcite:allain_tackling_2015 does not explores the implications for government deficits/debt dynamics.
+Thus, embeds \citeauthor*{allain_tackling_2015}'s citeyear:allain_tackling_2015 contribution in a SFC framework in which government expenditures is now financed by credit creation/high powered money, keeping up with the canonical neo-Kaleckian investment function.
+This model has one result in conflict with SSM: non-convergence of utilization rate to the normal one.
+This is a consequence of traditional neo-Kaleckian investment function, so NCC autonomous expenditures plays a leading role only temporally.
+
+
+
+textcite:teixeira_crescimento_2015 proposes a SSM alternative through the already mentioned houses own interest rate in order to include both asset bubbles and residential investment growth rate.
+
+* The absence of residential investment in demand-led growth models
+#+LATEX: \label{sec:Review}
+
+Recently, there is an effort to include SSM in Post-Keynesian strands cite:lavoie_post-keynesian_2015.
+Some authors have explored the consequences of  different NCC autonomous expenditures through modifications in the canonical Kaleckian model cites:allain_tackling_2015,lavoie_convergence_2016[fn:3].
+It worth noting that both Sraffian and non-canonical Kaleckian models presents the same results on the fully-adjusted position:
+(i) changes in income distribution has level effects while long-run growth rate remains unchanged;
+(ii) capacity utilization smoothly converges to the normal one toward adjustment on the endogenous marginal propensity to invest;
+(iii) changes in NCC autonomous expenditures growth rate has persistent effects on economy growth rate.
+In this Section, we will analyze which NCC has been included and its consequences.
+
+[fn:3] This modifications in the canonical Kaleckian growth model are related to critiques regarding its non-convergence to normal utilization rate on the long-run cites:dallery_conflicting_2011,skott_theoretical_2012,hein_harrodian_2012.
+
+
+textcite:allain_tackling_2015 considers tax-financed government consumption growing at an exogenous rate as NCC autonomous expenditure. 
+In this precursor model, tax rate adjusts endogenously so  government budget remains balanced while growth and capacity utilization rates converge to the fully adjusted postion values.
+Recently, some scholars have extended \citeauthor*{allain_tackling_2015}'s contributions related regarding other policies implications.
+On the Kaleckian side, textcite:bougrine_autonomous_2020 analyses the consequences of both fiscal and monetary expansionist policies and concludes that only the first one changes the long-run growth rate while the latter has only temporary effects.
+textcite:freitas-2020-basel-super, on the Sraffian side, investigate the relation between autonomous expenditure growth rate, interest rate, and functional income distribution according to two Classical closures and conclude that changes on interest rate have a pure financial effect on both of them  while only one presents a (inverse) relationship with wage share[fn:pivetti].
+
+[fn:pivetti] The latter Classical closure is the monetary theory of distribution proposed by textcite:pivetti_essay_1992 in which DESCREVER TEORIA MONETÁRIA DA DISTRIBUIÇÃO.
+
+
+textcites:dutt_maturity_2006,palley_inside_2010,hein_finance-dominated_2012 present a model in which debt-financed consumption under standard neo-Kaleckian assumptions.
+Thus, stability is reached only if NCC autonomous consumption grows at the same rate of capital accumulation which means that this expenditure is not really autonomous. 
+textcite:pariboni_autonomous_2015 presents an SSM alternative in which this causality is reversed so accumulation gradually converges towards debt-financed growth rate and the same results are reported by textcite:lavoie_convergence_2016.
+textcite:nah_long-run_2017 --- similar to textcite:dejuan_hidden_2017 --- introduce exports as the main driver of growth. 
+Despite reporting standard SSM results as well, their model has different accumulation regimes (profit-led or wage-led) depending on how real exchange rate reacts to changes in income distribution.
+
+textcite:brochier_supermultiplier_2018 was the first effort to introduce SSM model in a fully specified SFC framework. 
+They present a non-parsimonious model in which wealth-financed consumption plays the leading role.
+The results are at odds with the standard SSM model: income distribution affects fully-adjusted position growth rate.
+In other words, paradoxes of thrift and costs are held despite convergence of utilization rate to the normal one.
+Although causal mechanisms may not be clear --- considering the complexity of this model --- it is a  exception to what has been presented so far.
+textcite:mandarino-2020-worker-debt also build a SSM model in a SFC framework in which debt-financed-led consumption is the NCC autonomous expenditure.
+At odds with textcite:brochier_supermultiplier_2018 and according to textcites:pariboni_autonomous_2015,lavoie_convergence_2016, textcite:mandarino-2020-worker-debt report SSM standard results in which changes on income distribution affects growth rate only during the traverse.
+
+
+Even though these works emphasize the relevance of some NCC autonomous expenditures, residential investment has been systematically neglected.
+To be fair, textcites:zezza_u.s._2008,nikolaidi_securitisation_2015 include residential investment in a SFC growth model.
+However, as a result of neo-Kaleckian non-residentialinvestment function specification, residential investment does not lead the business cycle and plays a secondary role.
+From this literature review, we report an absence of residential investment-led growth models. 
+Despite shedding light on some relevant relationships, \citeauthor*{teixeira_crescimento_2015}'s \citeyear{teixeira_crescimento_2015} proposition was not presented in a numerical simulation model.
+The next section will present a fully specified parsimonious SSM-SFC residential investment-led model 
+which its growth rate is described by the already mentioned houses own interest rate.
+
+* Model TODOs                                                      :noexport:
+* A Sraffian supermultiplier SFC model with residential investment
+#+LATEX: \label{sec:Model}
+
+** General equations
+
+Our model is the most parsimonious as possible: a closed capitalist economy without government sector. Output ($Y$) is determined by  a fixed combination of a homogeneous labor ($L$) input with homogeneous fixed capacity creatin capital ($K_f$). 
+For simplicity, we put technological progress, depreciation and goods inflation aside so investment is presented in net terms and all variables --- except for houses --- are measured in real terms.
+Assuming a Leontief production function and that growth is not constrained by labor scarcity, full capacity output ($Y_{FC}$) is
+determined by firms' capacity creating capital stock:
+#+BEGIN_SRC latex
+\begin{equation}
+\label{_Leontieff}
+    Y_{FC} = \min (Y_L, Y_K)
+\end{equation}
+\begin{equation}
+\label{_YFC}
+    Y_{FC} = \frac{K_{f_{-1}}}{v}
+\end{equation}
+\begin{equation}
+\label{_u}
+    u = \frac{Y}{Y_{FC}}
+\end{equation}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{equation}
+\label{_Leontieff}
+    Y_{FC} = \min (Y_L, Y_K)
+\end{equation}
+\begin{equation}
+\label{_YFC}
+    Y_{FC} = \frac{K_{f_{-1}}}{v}
+\end{equation}
+\begin{equation}
+\label{_u}
+    u = \frac{Y}{Y_{FC}}
+\end{equation}
+#+end_export
+where $Y_L$ and $Y_K$ stands for full employment and full capacity output respectively, $v$ is exogenous capital-output ratio and $u$ is utilization rate.
+
+We further assume a ``Kaleckian'' economic structure composed by both workers (denoted by $w$) and capitalists (denoted by $k$) households.
+In accordance with textcite:albanesi_credit_2017, we consider that only the latter invest in real estate and are not credit constrained.
+Thus, demand-determined output level ($Y$)  is the sum of workers and capitalists consumption ($C_w$ and $C_k$ respectively) and both households and firms investment ($I_h$ and $I_f$ respectively) and only the latter creates capacity to the business sector of the economy:
+#+BEGIN_SRC latex
+\begin{equation}
+\label{_Ct}
+    C = C_w + C_k
+\end{equation}
+\begin{equation}
+\label{_It}
+    I_t = I_f + I_h
+\end{equation}
+\begin{equation}
+\label{_Y}
+    Y = \overbrace{[C_w + \underbrace{C_k + I_h}_{\text{Capitalists}}]}^{\text{Households}} + \overbrace{[I_f]}^{\text{Firms}}
+\end{equation}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{equation}
+\label{_Ct}
+    C = C_w + C_k
+\end{equation}
+\begin{equation}
+\label{_It}
+    I_t = I_f + I_h
+\end{equation}
+\begin{equation}
+\label{_Y}
+    Y = \overbrace{[C_w + \underbrace{C_k + I_h}_{\text{Capitalists}}]}^{\text{Households}} + \overbrace{[I_f]}^{\text{Firms}}
+\end{equation}
+#+end_export
+
+In other words, from institutional sectors perspective, household expenditures have two components (consumption and residential investment) and firms just one (non-residential investment). 
+Only non-residential investment creates productive capacity. 
+So, the novelty of this model is the inclusion of a second investment component all made by household sector and held by capitalists households for simplicity. 
+Therefore, this economy produces two types of real assets: firms productive capital ($K_f$) and households housing ($K_h$):
+#+BEGIN_SRC latex
+\begin{equation}
+    \label{_K}
+    K = K_f + K_h
+\end{equation}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{equation}
+    \label{_K}
+    K = K_f + K_h
+\end{equation}
+#+end_export
+
+Denoting the houses share in total real assets as $k$, we can rewrite equation \ref{_K} as:
+#+BEGIN_SRC latex
+\begin{equation}
+\label{_k}
+    k = \frac{K_h}{K}
+\end{equation}
+$$
+K = (1-k)\cdot K + k\cdot K
+$$
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{equation}
+\label{_k}
+    k = \frac{K_h}{K}
+\end{equation}
+$$
+K = (1-k)\cdot K + k\cdot K
+$$
+#+end_export
+
+Following both Sraffian and Kaleckian strands, we assume exogenous functional income distribution which allows us to define total wages ($W$, Eq. ref:_W) as a function of wage-share ($\omega$):
+
+#+BEGIN_SRC latex
+\begin{equation}
+\label{_W}
+    W = \omega\cdot Y
+\end{equation}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{equation}
+\label{_W}
+    W = \omega\cdot Y
+\end{equation}
+#+end_export
+
+Table \ref{Matriz_Estoques} presents the balance sheet matrix for all institutional sectors. 
+Capitalists households hold financial wealth as bank deposits ($M$) and residential investment is financed by mortgages ($MO$).
+Capitalists' total net wealth ($NW_{k}$) is the sum of their net financial wealth ($V_{k}$) and real assets (\textit{i.e.} housing, $K_h$). 
+Furthermore, capitalist consumption ($C_k$) is fully autonomous and financed by loans ($L_{k}$) while workers consumption ($C_w$) is fully induced by their wages.
+As usual, we assume that workers expend what they earn while capitalists earn what they expend, so workers financial and real wealth are both null.
+Firms finance their investment primarily by undistributed profits ($FU$) and the residual by bank loans ($L_f$) --- thus they do not hold deposits. 
+Banks create credit \textit{ex nihilo} and then collect the deposits, paying the same interest rate that they charge.
+
+#+BEGIN_SRC latex :tangle ./tabs/Stocks.tex
+\begin{table}[H]
+\centering
+\caption{Balance Sheet matrix}
+\label{Matriz_Estoques}
+\begin{tabular}{lccccc}
+\hline
+\hline
+                          & Workers & Capitalists      & Firms        & Banks  &    $\sum$ \\ \hline
+
+Deposits & & $+M$ & & $-M$ & 0\\
+Loans& &$-L_{k}$ &$-L_f$& $+L$ & 0\\
+Mortages & &$-MO$&  & $+MO$ & 0\\\hline
+$\sum$ Net Financial Wealth &--- &$V_{k}$&$V_f$&$V_b$& $0$\\\hline
+Capital & & &$+K_f$&  & $+K_f$\\
+Houses & &$+K_{hd}$& &   & $+K_h$\\\hline
+$\sum$ Net Wealth &---&$NW_{k}$&$NW_f$&$NW_b$& $+K$\\
+\hline
+\hline
+\end{tabular}%
+\caption*{\textbf{Source:} Authors' Elaboration}
+\end{table}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{table}[H]
+\centering
+\caption{Balance Sheet matrix}
+\label{Matriz_Estoques}
+\begin{tabular}{lccccc}
+\hline
+\hline
+                          & Workers & Capitalists      & Firms        & Banks  &    $\sum$ \\ \hline
+
+Deposits & & $+M$ & & $-M$ & 0\\
+Loans& &$-L_{k}$ &$-L_f$& $+L$ & 0\\
+Mortages & &$-MO$&  & $+MO$ & 0\\\hline
+$\sum$ Net Financial Wealth &--- &$V_{k}$&$V_f$&$V_b$& $0$\\\hline
+Capital & & &$+K_f$&  & $+K_f$\\
+Houses & &$+K_{hd}$& &   & $+K_h$\\\hline
+$\sum$ Net Wealth &---&$NW_{k}$&$NW_f$&$NW_b$& $+K$\\
+\hline
+\hline
+\end{tabular}%
+\caption*{\textbf{Source:} Authors' Elaboration}
+\end{table}
+#+end_export
+
+Table  \ref{Matriz_Fluxos} presents both transactions flows and the flow of funds matrix. 
+This table shows all economic relations between institutional sectors ensuring that there is no  ``black holes''
+so all financial and real transaction are explicit cite:macedo_e_silva_peering_2011.
+
+#+BEGIN_SRC latex :tangle ./tabs/Flows.tex
+\begin{table}[H]
+\centering
+\caption{Transactions flow matrix and flow of funds
+}
+\label{Matriz_Fluxos}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccccccc}
+\hline
+\hline
+& Workers
+& \multicolumn{2}{c}{Capitalists}
+& \multicolumn{2}{c}{Firms}                        
+& Banks       & Total    \\ \cline{3-4}\cline{5-6}
+& &
+Current & Capital & 
+Current & Capital     & 
+&       $\sum$ \\ 
+Consumption                       &$-Cw$&$-C_k$& & $+C$& & & 0\\
+Non-residential Investment                   & & & &$+I_f$&$-I_f$ & & 0\\
+Residential Investment       &  & &$-I_h$&$+I_h$& & & 0\\
+\textbf{{[}Output{]}}   & & & &{[}$Y${]}& & & {[}$Y${]}\\
+Wages                        &$+W$&& &$-W$& & & 0\\
+Profits                      & &$+FD$& &$-FT$&$+FU$& & 0\\
+Deposits interest rate         & &$+r_m\cdot M_{-1}$& && &$-r_m\cdot M_{-1}$& 0\\
+Loans interest rate         & &$-r_l\cdot L_{k_{-1}}$& &$-r_l\cdot L_{f_{-1}}$& &$+r_l\cdot L_{-1}$& 0\\
+
+Mortages interest rates         & &$-r_{mo}\cdot MO_{-1}$& && &$+r_{mo}\cdot MO_{-1}$& 0\\\hline
+\textbf{Subtotal}           &---&$+S_h$&$-I_h$& &$+NFW_f$&$+NFW_b$& 0\\\hline
+Change in deposits     & &$-\Delta M$& & & &$+\Delta M$& 0\\
+Change in mortgages     & & &$+ \Delta MO$& & &$-\Delta MO$& 0\\
+Change in loans     & &$+\Delta L_{k}$&&$+\Delta L_f$& &$-\Delta L$& 0\\
+\textbf{Total} & & 0 & 0 & 0  & 0  & 0  & 0\\
+\hline
+\hline
+\end{tabular}%
+}
+\caption*{\textbf{Source:} Authors' Elaboration}
+\end{table}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{table}[H]
+\centering
+\caption{Transactions flow matrix and flow of funds
+}
+\label{Matriz_Fluxos}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccccccc}
+\hline
+\hline
+& Workers
+& \multicolumn{2}{c}{Capitalists}
+& \multicolumn{2}{c}{Firms}                        
+& Banks       & Total    \\ \cline{3-4}\cline{5-6}
+& &
+Current & Capital & 
+Current & Capital     & 
+&       $\sum$ \\ 
+Consumption                       &$-Cw$&$-C_k$& & $+C$& & & 0\\
+Non-residential Investment                   & & & &$+I_f$&$-I_f$ & & 0\\
+Residential Investment       &  & &$-I_h$&$+I_h$& & & 0\\
+\textbf{{[}Output{]}}   & & & &{[}$Y${]}& & & {[}$Y${]}\\
+Wages                        &$+W$&& &$-W$& & & 0\\
+Profits                      & &$+FD$& &$-FT$&$+FU$& & 0\\
+Deposits interest rate         & &$+r_m\cdot M_{-1}$& && &$-r_m\cdot M_{-1}$& 0\\
+Loans interest rate         & &$-r_l\cdot L_{k_{-1}}$& &$-r_l\cdot L_{f_{-1}}$& &$+r_l\cdot L_{-1}$& 0\\
+
+Mortages interest rates         & &$-r_{mo}\cdot MO_{-1}$& && &$+r_{mo}\cdot MO_{-1}$& 0\\\hline
+\textbf{Subtotal}           &---&$+S_h$&$-I_h$& &$+NFW_f$&$+NFW_b$& 0\\\hline
+Change in deposits     & &$-\Delta M$& & & &$+\Delta M$& 0\\
+Change in mortgages     & & &$+ \Delta MO$& & &$-\Delta MO$& 0\\
+Change in loans     & &$+\Delta L_{k}$&&$+\Delta L_f$& &$-\Delta L$& 0\\
+\textbf{Total} & & 0 & 0 & 0  & 0  & 0  & 0\\
+\hline
+\hline
+\end{tabular}%
+}
+\caption*{\textbf{Source:} Authors' Elaboration}
+\end{table}
+#+end_export
+
+
+** Firms
+
+In order to produce, firms purchase capital goods ($-I_f$ in capital account) and hire workers, whom total remuneration is the economy wage bill. 
+Their total profits ($FT$) are a residual between sales ($Y$) and total wages ($W$). 
+Firms retain part ($\gamma_F$) of profits net of interest payments ($FU$) --- to reinvest --- and distribute the rest to capitalists ($FD$):
+
+#+BEGIN_SRC latex
+\begin{equation}
+\label{_FT}
+    FT = Y - W = FD + FU
+\end{equation}
+\begin{equation}
+    FU = \gamma_F\cdot (FT - r_l\cdot L_{f_{-1}})
+\end{equation}
+\begin{equation}
+    FD = (1-\gamma_F)\cdot (FT - r_l\cdot L_{f_{-1}})
+\end{equation}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{equation}
+\label{_FT}
+    FT = Y - W = FD + FU
+\end{equation}
+\begin{equation}
+    FU = \gamma_F\cdot (FT - r_l\cdot L_{f_{-1}})
+\end{equation}
+\begin{equation}
+    FD = (1-\gamma_F)\cdot (FT - r_l\cdot L_{f_{-1}})
+\end{equation}
+#+end_export
+
+Firms (non-residential) investment is fully induced by the level of effective demand cite:freitas_growth_2015, and its growth rate changes accordingly to the capital stock adjustment principle. 
+This implies that firms react to the discrepancies between actual and normal utilization rates ($u_N$). 
+As mentioned above, only firms investment creates productive capital stock.
+
+#+BEGIN_SRC latex
+\begin{equation}
+\label{_If}
+    I_f = h\cdot Y
+\end{equation}
+\begin{equation}
+\label{_h}
+    \Delta h = h_{t-1}\cdot \gamma_u\cdot (u - u_N)
+\end{equation}
+\begin{equation}
+    \Delta K_f = I_f
+\end{equation}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{equation}
+\label{_If}
+    I_f = h\cdot Y
+\end{equation}
+\begin{equation}
+\label{_h}
+    \Delta h = h_{t-1}\cdot \gamma_u\cdot (u - u_N)
+\end{equation}
+\begin{equation}
+    \Delta K_f = I_f
+\end{equation}
+#+end_export
+where $h$ is (endogenous) marginal propensity to invest and $\gamma_u$ must be sufficiently small in order to the adjustment be gradual[fn:4].
+
+[fn:4] The size of this parameter guards a fundamental relation to the stability of the model, as shown by textcite:freitas_growth_2015.
+
+
+Firms finance part of investment that exceeds undistributed profits by bank loans, paying an interest rate on it ($r_l$) charged by the banks. 
+We assume an elastic supply of credit for investment. 
+Moreover, tables \ref{Matriz_Estoques} and \ref{Matriz_Fluxos} show firms net wealth ($NW_f$) and net financial balance ($NFW_f$) explicitly:
+
+#+BEGIN_SRC latex
+\begin{equation}
+\label{_Lf}
+    \Delta L_f = I_f - FU
+\end{equation}
+$$
+r_g = \frac{\pi\cdot u}{v}
+$$
+$$
+r_n = r_g - r_l\cdot\frac{L_{f_{-1}}}{K_f}
+$$
+\begin{equation}
+    NFW_f = FU - I_f
+\end{equation}
+\begin{equation}
+    NW_f = K_f - L_f
+\end{equation}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{equation}
+\label{_Lf}
+    \Delta L_f = I_f - FU
+\end{equation}
+$$
+r_g = \frac{\pi\cdot u}{v}
+$$
+$$
+r_n = r_g - r_l\cdot\frac{L_{f_{-1}}}{K_f}
+$$
+\begin{equation}
+    NFW_f = FU - I_f
+\end{equation}
+\begin{equation}
+    NW_f = K_f - L_f
+\end{equation}
+#+end_export
+where $r_g$ and $r_n$ denotes gross and net profit rate respectively.
+
+
+** Banks
+
+As in most part of SFC literature, banks do not have an active role in our model.
+They create money as credit is demanded and just after they collect deposits cite:le_bourva_money_1992. 
+Firms finance part of their investment with credit ($L_f$) and capitalists households finance all their residential investment by mortgages ($MO$) and consumption by loans ($L_{k}$), as already mentioned. 
+Each operation has its own interest rate defined by a spread ($\sigma_l$ and $\sigma_{mo}$) over deposits interest rate ($r_m$) exogenously determined by banks.
+For simplicity, we assume null bank spreads so interest rate on mortgages and on loans
+are the same as on deposits.
+Banks net balances ($NFW_b$) are defined by interests received net of interests payments. 
+As those interests are the same, banks net wealth is necessarily zero (see table \ref{Matriz_Estoques}) and deposits are residuum:
+
+#+BEGIN_SRC latex
+\begin{equation}
+L = L_f + L_{k}
+\end{equation}
+\begin{equation}
+    r_l = (1+\sigma_l)\cdot r_m
+\end{equation}
+\begin{equation}
+    r_{mo} = (1+\sigma_{mo})\cdot r_m
+\end{equation}
+\begin{equation}
+    r_m = \overline r_m
+\end{equation}
+\begin{equation}
+    NFW_b = r_{mo}\cdot MO_{-1} + r_l\cdot L_{-1} - r_m\cdot M_{-1}
+\end{equation}
+$$
+NFW_b = \Delta MO + \Delta L - \Delta M
+$$
+\begin{equation}
+    NW_b = V_b \equiv 0
+\end{equation}
+\begin{equation}
+\label{_M}
+    \Delta M = \Delta L + \Delta MO
+\end{equation}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{equation}
+L = L_f + L_{k}
+\end{equation}
+\begin{equation}
+    r_l = (1+\sigma_l)\cdot r_m
+\end{equation}
+\begin{equation}
+    r_{mo} = (1+\sigma_{mo})\cdot r_m
+\end{equation}
+\begin{equation}
+    r_m = \overline r_m
+\end{equation}
+\begin{equation}
+    NFW_b = r_{mo}\cdot MO_{-1} + r_l\cdot L_{-1} - r_m\cdot M_{-1}
+\end{equation}
+$$
+NFW_b = \Delta MO + \Delta L - \Delta M
+$$
+\begin{equation}
+    NW_b = V_b \equiv 0
+\end{equation}
+\begin{equation}
+\label{_M}
+    \Delta M = \Delta L + \Delta MO
+\end{equation}
+#+end_export
+
+** Households
+
+*** Workers
+    :PROPERTIES:
+    :UNNUMBERED: t
+    :END:
+
+As mentioned before, we assume that workers expend ($C_w$) what they earn ($W$). 
+For simplicity, we consider that wages are the only source of income workers' disposable income ($YD_{w}$) and do not have access to consumption loans, so worker' saving ($S_{hw}$) are null.
+Therefore, accordingly to our hypothesis, workers' do not hold both net financial and total wealth.
+
+#+BEGIN_SRC latex
+\begin{equation}
+C_w = W
+\end{equation}
+\begin{equation}
+YD_w = W
+\end{equation}
+\begin{equation}
+S_{w} = YD_w - C_w
+\end{equation}
+$$
+S_{w} = 0
+$$
+\begin{equation}
+NFW_{w} = S_{w} = 0
+\end{equation}
+\begin{equation}
+V_{w} = 0
+\end{equation}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{equation}
+C_w = W
+\end{equation}
+\begin{equation}
+YD_w = W
+\end{equation}
+\begin{equation}
+S_{w} = YD_w - C_w
+\end{equation}
+$$
+S_{w} = 0
+$$
+\begin{equation}
+NFW_{w} = S_{w} = 0
+\end{equation}
+\begin{equation}
+V_{w} = 0
+\end{equation}
+#+end_export
+
+*** Capitalists
+    :PROPERTIES:
+    :UNNUMBERED: t
+    :END:
+
+This is the most complex institutional sector of our model. 
+We assume consumption ($C_k$) is fully-autonomous and financed by loans ($L_{k}$). 
+Disposable income ($YD_k$) is the sum of distributed profits and received interests on deposits, net of interests payments
+on both mortgages and loans.
+Capitalists savings ($S_{k}$) are disposable income net of consumption.
+At odds with SFC literature, savings are not equal to net balance ($NFW_{k}$) since we have included residential investment.
+
+#+BEGIN_SRC latex
+\begin{equation}
+\Delta L_{k} = C_k
+\end{equation}
+\begin{equation}
+    \label{EqYD}
+    YD_k = FD + \overline r_m\cdot M_{-1} - r_{mo}\cdot MO_{-1} - r_{l}\cdot L_{k_{-1}}
+\end{equation}
+\begin{equation}
+    \label{EqSh}
+    S_{k} = YD_k - C_k
+\end{equation}
+\begin{equation}
+\label{NFWh}
+    NFW_{k} = S_{k} - I_h
+\end{equation}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{equation}
+\Delta L_{k} = C_k
+\end{equation}
+\begin{equation}
+    \label{EqYD}
+    YD_k = FD + \overline r_m\cdot M_{-1} - r_{mo}\cdot MO_{-1} - r_{l}\cdot L_{k_{-1}}
+\end{equation}
+\begin{equation}
+    \label{EqSh}
+    S_{k} = YD_k - C_k
+\end{equation}
+\begin{equation}
+\label{NFWh}
+    NFW_{k} = S_{k} - I_h
+\end{equation}
+#+end_export
+
+In order to fulfill our goals, we employ \citeauthor*{freitas_baseline_2019}'s citeyear:freitas_baseline_2019 procedure in which NCC autonomous expenditure ($Z$) composition ($R$) remains unchanged so we express capitalists and total consumption as follows:
+
+#+BEGIN_SRC latex
+\begin{equation}
+    \label{EqMO}
+    \Delta MO = I_h
+\end{equation}
+\begin{equation}
+\label{_Z}
+Z = C_k + I_h
+\end{equation}
+$$
+\frac{C_k}{Z} + \frac{I_h}{Z} = R + (1-R)
+$$
+\begin{equation}
+\label{_Ck}
+    C_k = R\cdot Z
+\end{equation}
+\begin{equation}
+\label{ConsumoTotal}
+C = C_w + C_k
+\end{equation}
+$$
+C = C_w + R\cdot Z
+$$
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{equation}
+    \label{EqMO}
+    \Delta MO = I_h
+\end{equation}
+\begin{equation}
+\label{_Z}
+Z = C_k + I_h
+\end{equation}
+$$
+\frac{C_k}{Z} + \frac{I_h}{Z} = R + (1-R)
+$$
+\begin{equation}
+\label{_Ck}
+    C_k = R\cdot Z
+\end{equation}
+\begin{equation}
+\label{ConsumoTotal}
+C = C_w + C_k
+\end{equation}
+$$
+C = C_w + R\cdot Z
+$$
+#+end_export
+which allows us to rewrite both NCC and autonomous consumption in terms of residential investment (Eq. ref:Z_Ih):
+#+BEGIN_equation
+#+LATEX: \label{Z_Ih}
+Z = \frac{I_h}{(1-R)}
+#+END_equation
+
+#+BEGIN_equation
+#+LATEX: \label{C_kZ}
+C_{k} = I_h\cdot \frac{R}{(1-R)}
+#+END_equation
+
+
+As households are the only institutional sector investing in real estate, its supply ($I_{hs}$) and demand ($I_h$) are equal and the same applies to its stock.
+#+BEGIN_SRC latex
+\begin{equation}
+    I_{hs} = I_h
+\end{equation}
+\begin{equation}
+    K_{hs} = K_{hd}
+\end{equation}
+\begin{equation}
+    \Delta K_{hs} = \Delta K_{hd} = I_{hs} = I_h
+\end{equation}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{equation}
+    I_{hs} = I_h
+\end{equation}
+\begin{equation}
+    K_{hs} = K_{hd}
+\end{equation}
+\begin{equation}
+    \Delta K_{hs} = \Delta K_{hd} = I_{hs} = I_h
+\end{equation}
+#+end_export
+where $S$ and $D$ denote supply and demand respectively. 
+Accordingly to our hypothesis, nominal ($V_{k}$) and real net wealth ($V_{kr}$) are distinguished only by the inclusion of real estate price ($p_h$) and are defined as follows:
+#+BEGIN_SRC latex
+\begin{equation}
+V_{k} = K_{hd}\cdot p_h + M - L_{k} - MO
+\end{equation}
+\begin{equation}
+V_{kr} = K_{hd} + M - L_{k} - MO
+\end{equation}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{equation}
+V_{k} = K_{hd}\cdot p_h + M - L_{k} - MO
+\end{equation}
+\begin{equation}
+V_{kr} = K_{hd} + M - L_{k} - MO
+\end{equation}
+#+end_export
+
+Finally, we present residential investment growth rate ($g_{I_h}$) as determined by houses own interest rate ($own$, equation \ref{_own}) as introduced by textcite:teixeira_crescimento_2015 and discussed in section ref:sec:empirical.
+
+#+BEGIN_SRC latex
+\begin{equation}
+    I_h = (1 + g_{I_h})\cdot Ih_{-1}
+\end{equation}
+\begin{equation}
+\label{g_Z_own}
+g_{I_h} = \phi_0 - \phi_1\cdot own
+\end{equation}
+
+\begin{equation}
+\label{_own}
+own = \left(\frac{1+r_{mo}}{1+\pi}\right) -1
+\end{equation}
+$$
+\pi = \frac{\Delta p_h}{p_{h_{t-1}}}
+$$
+
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{equation}
+    I_h = (1 + g_{I_h})\cdot Ih_{-1}
+\end{equation}
+\begin{equation}
+\label{g_Z_own}
+g_{I_h} = \phi_0 - \phi_1\cdot own
+\end{equation}
+
+\begin{equation}
+\label{_own}
+own = \left(\frac{1+r_{mo}}{1+\pi}\right) -1
+\end{equation}
+$$
+\pi = \frac{\Delta p_h}{p_{h_{t-1}}}
+$$
+#+end_export
+where $\pi$ stands for real estate inflation, $\phi_0$ represents long-term determinants (/e.g./ demographic factors, housing and credit policies, etc.) while $\phi_1$ captures the demand for real estate arising from expectations of capital gains resulting from speculation with the existing dwellings stock. 
+Finally, replacing Equation ref:Z_Ih in ref:_Ck, we can describe NCC autonomous expenditure growth rate as follows:
+#+BEGIN_equation
+#+LATEX: \label{g_Z}
+g_{C_{k}} = g_{Z} = g_{I_{h}} = \phi_{0} - \phi_{1}\cdot own
+#+END_equation
+
+In this section, we presented our fully-specified parsimonious model to represent the U.S economy (1992-2019). It worth mentioning that, although simplified, our hypotheses are supported by recent empirical evidence cites:albanesi_credit_2017. Following textcites:teixeira_crescimento_2015,petrini_demanda_2019, we specify a econometrically significant residential investment growth rate function which allows us to include housing bubbles in the SMM model. On the next Section, we present the short-run and fully-adjusted position dynamics in order to show the particularities of a model with two types of capital stock in the presence of asset bubble.
+
+
+
+#+BEGIN_COMMENT
+This particular real interest rate is the most relevant for households since the holders of an asset take their price into account in the decision-making process since its variation can generate capital gains/losses \cite[p.~114]{teixeira_crescimento_2015}.
+%In other words, the mortgage interest rate (numerator) captures debt service for investors --- in this case, %households --- while the real estate inflation (denominator) incorporates changes in equity. Therefore, this own %interest rate stands for the real cost in real estate from buying real estate  %(\cite[p.~53]{teixeira_crescimento_2015}).
+%It worth noting that during a housing bubble periods, it is real estate inflation that governs own interest rate %dynamics.
+%In other words, the lower this real interest rate is, the greater the capital gains (in real estate) for %speculating with real estate will be.
+#+END_COMMENT
+
+
+
+
+* Analytical Solution setup                                        :noexport:
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results output :export none
+import sys
+sys.path.insert(0, './codes/')
+from SFC_setup import *
+#+END_SRC
+
+#+RESULTS:
+:results:
+3 - fd34b860-fe01-49f8-9c33-b27363f15b7f <output> <interrupt>
+:end:
+
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results output :export none
+base = model()
+df = SolveSFC(base, time=1000)
+base_eq = model()
+SolveSFC(base_eq, time=1, table = False)
+t = sp.Symbol('t')
+initials = {
+    key: base_eq.evaluate(key) for key in base_eq.parameters
+}
+initials.update({key: base_eq.evaluate(key) for key in base_eq.variables})
+
+for i in base_eq.variables:
+  globals()["_" + i] = sp.Function(i)
+  
+for i in base_eq.parameters:
+  globals()[i] = sp.symbols(i, positive=True)
+  globals()['infla'] = sp.symbols('infla')
+#+END_SRC
+
+#+RESULTS:
+:results:
+4 - 5ef34731-0cb0-4a5e-92fa-7417ddb64f3b <output> <interrupt>
+:end:
+
+** General Equations
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results output :export none
+Y = _C(t) + _I_t(t)
+pprint(sp.Eq(_Y(t), Y))
+C = _Cw(t) + _Ck(t)
+pprint(sp.Eq(_C(t), C))
+I = _I_f(t) + _I_h(t)
+pprint(sp.Eq(_I_t(t), I))
+Yk = _K_f(t)/v
+pprint(sp.Eq(_Yk(t), Yk))
+u = _Y(t)/_Yk(t)
+pprint(sp.Eq(_u(t), u))
+Z = _I_h(t)
+pprint(sp.Eq(_Z(t), Z))
+W = omega*_Y(t)
+pprint(sp.Eq(_W(t), W))
+K = _K_HD(t) + _K_f(t)
+pprint(sp.Eq(_K(t), K))
+Z = _Ck(t) + _I_h(t)
+pprint(sp.Eq(_Z(t), Z))
+#+END_SRC
+
+#+RESULTS:
+:results:
+5 - bf0b6c96-e425-4f85-be51-e035a4958095 <output> <interrupt>
+:end:
+
+** Workers
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results output :export none
+Cw = alpha*_W(t)
+pprint(sp.Eq(_Cw(t), Cw))
+YDw = _W(t)
+pprint(sp.Eq(_YDw(t), YDw))
+S_hw = _YDk(t) - _Cw(t)
+pprint(sp.Eq(_S_hw(t), S_hw))
+NFW_hw = _S_hw(t)
+pprint(sp.Eq(_NFW_hw(t), NFW_hw))
+#+END_SRC
+
+#+RESULTS:
+:results:
+6 - afdbf586-db80-417a-81ba-ea7bce6abd5c <output> <interrupt>
+:end:
+
+
+
+** Capitalists
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results output :export none
+Ck = R*_Z(t)
+pprint(sp.Eq(_Ck(t), Ck))
+dLk = _Ck(t)
+pprint(sp.Eq(_Lk(t) - _Lk(t-1), dLk))
+YDk = _FD(t) + rm*_M_h(t-1) - _rmo(t)*_MO(t-1) - _rl(t)*_Lk(t-1)
+pprint(sp.Eq(_YDk(t), YDk))
+S_hk = _YDk(t) - _Ck(t)
+pprint(sp.Eq(_S_hk(t), S_hk))
+dMO = _I_h(t)
+pprint(sp.Eq(_MO(t) - _MO(t-1), dMO))
+dM_h = _S_hk(t) + (_Lk(t) - _Lk(t-1))
+pprint(sp.Eq((_M_h(t) - _M_h(t-1)), _M_h(t)))
+V_h = _M_h(t) + _K_HD(t)*_ph(t) - _MO(t) - _Lk(t)
+pprint(sp.Eq(_V_h(t), V_h))
+V_hr = _M_h(t) + _K_HD(t) - _MO(t) - _Lk(t)
+pprint(sp.Eq(_V_hr(t), V_hr))
+NFW_h = _S_hk(t) - _I_h(t)
+pprint(sp.Eq(_NFW_h(t), NFW_h))
+M_h = _S_hk(t) + (_Lk(t) - _Lk(t-1))
+pprint(sp.Eq(_M_h(t), M_h))
+#+END_SRC
+
+#+RESULTS:
+:results:
+7 - f7b00aa7-326f-4503-9bf8-4cc3ba467334 <output> <interrupt>
+:end:
+
+** Firms
+
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results output :export none
+I_f = _h(t)*_Y(t)
+pprint(sp.Eq(_I_f(t), I_f))
+dK_f = _I_f(t)
+pprint(sp.Eq(_K_f(t) - _K_f(t-1), dK_f))
+Lf = _I_f(t) - _FU(t) + _Lf(t-1)
+pprint(sp.Eq(_Lf(t), Lf))
+FT = _FU(t) + _FD(t)
+pprint(sp.Eq(_FT(t), FT))
+FU = gamma_F*(_FT(t) - _rl(t)*_Lf(t-1))
+pprint(sp.Eq(_FU(t), FU))
+FD = (1 - gamma_F)*(_FT(t) - _rl(t)*_Lf(t-1))
+pprint(sp.Eq(_FD(t), FD))
+h = _h(t-1)*gamma_u*(_u(t)-un) + _h(t-1)
+pprint(sp.Eq(_h(t), h))
+NFW_f = _FU(t) - _I_f(t)
+pprint(sp.Eq(_NFW_f(t), NFW_f))
+V_f = _K_f(t) - _Lf(t)
+pprint(sp.Eq(_V_f(t), V_f))
+#+END_SRC
+
+#+RESULTS:
+:results:
+8 - e9dae8d9-77fa-463c-9f23-5717b60d34ba <output> <interrupt>
+:end:
+
+
+** Banks
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results output :export none
+L = _Lf(t) + _Lk(t)
+pprint(sp.Eq(_L(t), L))
+M = (_L(t) - _L(t-1)) + (_MO(t) - _MO(t-1)) + _M(t-1)
+pprint(sp.Eq(_M(t), M))
+rmo = (1+ spread_mo)*rm
+pprint(sp.Eq(_rmo(t), rmo))
+rl = (1+ spread_l)*rm
+pprint(sp.Eq(_rl(t), rl))
+V_b = _L(t) + _MO(t) - _M(t)
+pprint(sp.Eq(_V_b(t), V_b))
+NFW_b = _rl(t)*_L(t-1) + _rmo(t)*_MO(t-1) - rm*_M(t-1)
+pprint(sp.Eq(_NFW_b(t), NFW_b))
+#+END_SRC
+
+#+RESULTS:
+:results:
+9 - 924065e6-50cd-4eaa-b812-7ce7d8def89c <output> <interrupt>
+:end:
+
+** Residential Investment
+   
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results output :export none
+_own = sp.Function('own')
+
+K_HS = _K_HD(t)
+pprint(sp.Eq(_K_HS(t), K_HS))
+Is = _I_h(t)
+pprint(sp.Eq(_Is(t), Is))
+dK_HD = _I_h(t)
+pprint(sp.Eq(_K_HD(t) - _K_HD(t-1), dK_HD))
+I_h = (1+_g_Z(t))*_I_h(t-1)
+pprint(sp.Eq(_I_h(t), I_h))
+K_k = _K_HD(t)/(_K(t))
+pprint(sp.Eq(_K_k(t), K_k))
+ph = (1+infla)*_ph(t-1)
+pprint(sp.Eq(_ph(t), ph))
+own = ((1+_rmo(t))/(1+infla))-1
+pprint(sp.Eq(_own(t), own))
+g_Z = phi_0 - phi_1*_own(t)
+pprint(sp.Eq(_g_Z(t), g_Z))
+#+END_SRC
+
+#+RESULTS:
+:results:
+10 - 2a465e17-220d-4873-ae0e-f555ddbba4b4 <output> <interrupt>
+:end:
+
+** Short-run
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results output :export none
+g = sp.Function('g')
+gK = sp.Function('g_K')
+g_ = sp.Symbol('g^*')
+
+def replacer(express):
+    #print("\nReplacing the initial values.....")
+    df = SolveSFC(model(), time=1)
+    df = df.iloc[1, :]
+
+    express = express.subs(alpha, df['alpha']).subs(
+        omega, df['omega'])
+    express = express.subs(un, df['un']).subs(
+        gamma_u, df['gamma_u'])
+    express = express.subs(
+        infla, df['infla'])
+    express = express.subs(phi_0, df['phi_0']).subs(
+        phi_1,
+        df['phi_1']).subs(rm, df['rm']).subs(
+            spread_mo, df['spread_mo'])
+    express = express.subs(rm, df['rm']).subs(
+            spread_mo, df['spread_mo']).subs(v, df['v']).subs(R, df['R'])
+    express = express.subs(gamma_F, df["gamma_F"]).subs(rm, df['rm']).subs(g_, df['g_Z'])
+    return express
+#+END_SRC
+
+#+RESULTS:
+:results:
+11 - b40e4de3-51b0-43f2-a9ea-774811f85cf0 <output> <interrupt>
+:end:
+
+#+NAME:YNivel
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results output :export none
+k = sp.Symbol('k') 
+Zt = sp.Symbol('Z') # For aesthetical reasons only
+ht = sp.Symbol('h') # For aesthetical reasons only
+Kt = sp.Symbol('K') # For aesthetical reasons only
+
+EqY = (Y - _Y(t))
+EqY = EqY.subs(_C(t), C).subs(_Ck(t), Ck).subs(_Cw(t), Cw)
+EqY = EqY.subs(_I_t(t), I).subs(_I_f(t), I_f)
+EqY = EqY.subs(_W(t), W)
+EqY = EqY.subs(_I_h(t), (1-R)*_Z(t))
+EqY = EqY.subs(_Z(t), Zt).subs(_h(t), ht)
+EqY = sp.solve(EqY, _Y(t))[0]#.collect(alpha).collect(omega)
+solY = EqY.simplify()
+solY = ((-1)*solY.as_numer_denom()[0])/((-1)*solY.as_numer_denom()[1])
+#print(sp.latex(cse(solY, optimizations='basic')[1][0], order='none'))
+print(sp.latex(sp.Eq(sp.Symbol('Y_t'), solY),
+               symbol_names = {
+                   Zt: "Z_t",
+                   ht: "h_t",
+                   Kt: "K_t",
+                   k: "k_t"
+               },
+               order='none',
+               mul_symbol='dot'))
+
+#+END_SRC
+
+#+RESULTS: YNivel
+:results:
+12 - 234c4f91-f83f-4858-a391-3e114655f7ff <output> <interrupt>
+:end:
+
+
+
+
+#+NAME: ushort
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results
+solu = solY/Yk
+solu = solu.subs(_K_f(t), (1-k)*_K(t)).subs(_Z(t), Zt).subs(_h(t), ht).subs(_K(t), Kt)
+solu = solu.simplify()
+print(sp.latex(sp.Eq(sp.Symbol("u_t"), solu),
+               mul_symbol = 'dot',
+               symbol_names = {
+                   Zt: "Z_t",
+                   ht: "h_t",
+                   Kt: "K_t",
+                   k: "k_t"
+               },
+               order = 'none'
+))
+#+END_SRC
+
+#+RESULTS: ushort
+:results:
+13 - e0466b6f-80e5-44ab-b858-f226dd157463 <output> <interrupt>
+:end:
+
+
+** Stock-flow ratios
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results
+g_ = sp.Symbol('g^*')
+lf_ = sp.Symbol('lf^*')
+lk_ = sp.Symbol('lk^*')
+m_ = sp.Symbol('m^*')
+mo_ = sp.Symbol('mo^*')
+k_ = sp.Symbol('k^*')
+#+END_SRC
+
+#+RESULTS:
+:results:
+14 - 5d92a12e-0b70-4ce1-84ad-424a35e0d4a7 <output> <interrupt>
+:end:
+
+
+** Firms
+   
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results
+Kf_1 = _K_f(t-1)
+pprint(Kf_1)
+Lf_1 = _Lf(t-1)
+pprint(Lf_1)
+dLf = _Lf(t) - _Lf(t-1)
+LHS = '\Delta \frac{L_f}{K_f}'
+_Fn = sp.Function('Fn')
+_rg = sp.Function('rg'); _rn = sp.Function('rn');
+rg = (1-omega)*un/v
+rn = rg - _rl(t)*lf_
+
+dLf_dKf = dLf - (Lf_1/_K_f(t))*g_
+dLf_dKf = dLf_dKf.subs(dLf, (_I_f(t) - _FU(t))/_K_f(t)).expand()
+pprint(dLf_dKf)
+dLf_dKf = dLf_dKf.subs(_FU(t), FU).subs(_FT(t) - _Lf(t-1)*_rl(t), _Fn(t))
+pprint(dLf_dKf)
+dLf_dKf = dLf_dKf.subs(_Fn(t)/_K_f(t), _rn(t)).subs(_I_f(t)/_K_f(t), g_)
+pprint(dLf_dKf)
+dLf_dKf = dLf_dKf.subs(_Lf(t-1)/_K_f(t), lf_)
+pprint(dLf_dKf)
+dLf_dKf = dLf_dKf.subs(_rn(t), rn).subs(_rl(t), rl).subs(spread_l,0)
+pprint(dLf_dKf)
+dLf_dKf = dLf_dKf.collect(g_).collect(lf_)
+pprint(dLf_dKf)
+lfstar = sp.solve(dLf_dKf, lf_)[0].collect(gamma_F).simplify()
+pprint(sp.Eq(lf_,lfstar))
+print('\nNext, replace lf by lf*(1-k) in equation m')
+#+END_SRC
+
+#+RESULTS:
+:results:
+15 - bf90caf7-5040-4cca-bb85-5a4cd60b3b36 <output> <interrupt>
+:end:
+
+#+NAME: firmstar
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results :var label="test"
+latex_label = '\label{' + label + '}'
+print(
+    sp.latex(
+        sp.Eq(sp.Symbol(latex_label + '\ell^{\star}_{f}') , lfstar),
+             mul_symbol = 'dot',
+             symbol_names = {
+                 g_: "g^\star",
+                 k_: "k^\star",
+                 un : "u_{N}"
+               },
+             mode = 'equation'
+    )
+)
+#+END_SRC
+
+#+RESULTS: firmstar
+:results:
+16 - acf74502-3f32-4b92-8279-1909289b26af <output> <interrupt>
+:end:
+
+
+** Capitalists
+*** Loans ($L_k$)
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results
+Kh_1 = _K_HD(t-1)
+pprint(Kh_1)
+Lk_1 = _Lk(t-1)
+pprint(Lk_1)
+dLk = _Lk(t) - _Lk(t-1)
+LHS = '\Delta \frac{L_k}{K_H}'
+
+dLk_dKh = dLk/(_K_HD(t)) - (Lk_1/_K_HD(t))*g_
+pprint(dLk_dKh)
+dLk_dKh = dLk_dKh.subs(dLk, _Ck(t)).subs(_Ck(t), R*_Z(t))
+pprint(dLk_dKh)
+dLk_dKh = dLk_dKh.subs(_Z(t),_I_h(t)/(1-R))
+pprint(dLk_dKh)
+dLk_dKh = dLk_dKh.subs(_I_h(t)/_K_HD(t), g_).subs(Lk_1/_K_HD(t), lk_)
+pprint(dLk_dKh)
+lkstar = sp.solve(dLk_dKh, lk_)[0].simplify()
+pprint(sp.Eq(lk_,lkstar))
+print('\nNext, replace lk by lk*k in equation m')
+#+END_SRC
+
+#+RESULTS:
+:results:
+17 - 1e3d0656-a333-453b-833f-ce154fe92407 <output> <interrupt>
+:end:
+
+#+NAME: loanstar
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results :var label="test"
+latex_label = '\label{' + label + '}'
+print(
+    sp.latex(
+        sp.Eq(sp.Symbol(latex_label + '\ell^{\star}_{k}') , lkstar),
+             mul_symbol = 'dot',
+             symbol_names = {
+                 g_: "g^\star",
+                 k_: "k^\star",
+                 un : "u^\star"
+               },
+             mode = 'equation'
+    )
+)
+#+END_SRC
+
+#+RESULTS: loanstar
+:results:
+18 - 290db82d-b71f-470e-b886-f13e2e7ed1f5 <output> <interrupt>
+:end:
+
+
+*** Mortgages ($MO$)
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results
+MO_1 = _MO(t-1)
+dMO = _I_h(t)
+
+dMO_dKh = dMO/(_K_HD(t)) - (MO_1/_K_HD(t))*g_
+pprint(dMO_dKh)
+dMO_dKh = dMO_dKh.subs(MO_1/_K_HD(t), mo_).subs(_I_h(t)/_K_HD(t), g_).simplify()
+pprint(dMO_dKh)
+mostar = sp.solve(dMO_dKh, mo_)[0].simplify()
+pprint(sp.Eq(mo_,mostar))
+#+END_SRC
+
+#+RESULTS:
+:results:
+19 - 642e9cd7-a68e-4c51-a2b4-484866dda82c <output> <interrupt>
+:end:
+
+
+#+NAME: mortgagestar
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results :var label="test"
+latex_label = '\label{' + label + '}'
+print(
+    sp.latex(
+        sp.Eq(sp.Symbol(latex_label + 'mo^{\star}') , mostar),
+             mul_symbol = 'dot',
+             symbol_names = {
+                 g_: "g^\star",
+                 k_: "k^\star",
+                 un : "u^\star"
+               },
+             mode = 'equation'
+    )
+)
+#+END_SRC
+
+#+RESULTS: mortgagestar
+:results:
+20 - 94f65d4c-b354-4ceb-b5ab-d976546eda73 <output> <interrupt>
+:end:
+
+
+** Bank deposits (RHS)
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results
+K_1 = _K(t-1)
+h_ = sp.Symbol('h^*')
+
+
+m = (_MO(t) + _Lk(t) + _Lf(t))/_K(t)
+m = m.expand()
+pprint(sp.Eq(m_,m))
+m = m.subs(_MO(t)/_K(t), _MO(t)/(_K_HD(t)/k_)).subs(_Lk(t)/_K(t), _Lk(t)/(_K_HD(t)/k_)).subs(_Lf(t)/_K(t), _Lf(t)/(_K_f(t)/(1-k_)))
+pprint(sp.Eq(m_,m))
+m = m.subs(_Lk(t)/_K_HD(t), lk_).subs(_Lf(t)/_K_f(t), lf_).subs(_MO(t)/_K_HD(t), mo_)
+pprint(sp.Eq(m_,m))
+m = m.subs(lk_, lkstar).subs(lf_, lfstar).subs(mo_, mostar).simplify()
+pprint(sp.Eq(m_,m))
+m = m.collect(g_ - gamma_F*rm).collect(1-k_).collect(R).simplify()
+pprint(sp.Eq(m_,m))
+m = m.subs(k_, 1 - (h_)/(1-omega)).subs(h_,g_*un/v) ############ TODO Check latter
+pprint(sp.Eq(m_,m))
+m = m.factor().simplify().collect(R).collect(1-omega).collect(gamma_F).collect(g_).collect(rm).collect(un)
+pprint(sp.Eq(m_,m))
+#+END_SRC
+
+#+RESULTS:
+:results:
+21 - e617b6d1-3b69-4639-a9fa-6fc03b6836a6 <output> <interrupt>
+:end:
+
+#+NAME: mrhsstar
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results :var label="test"
+latex_label = '\label{' + label + '}'
+print(
+    sp.latex(
+        sp.Eq(sp.Symbol(latex_label + 'm^{\star}') , m),
+             mul_symbol = 'dot',
+             symbol_names = {
+                 g_: "g^\star",
+                 k_: "k^\star",
+                 un : "u^\star"
+               },
+             mode = 'equation',
+#        long_frac_ratio = 2.0
+    )
+)
+#+END_SRC
+
+#+RESULTS: mrhsstar
+:results:
+22 - 6c91432e-7791-4132-9308-813d4af37bf4 <output> <interrupt>
+:end:
+
+
+** Bank deposits (LHS)
+   
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results
+left_m = (_S_hk(t) - _M(t)*g_)/_K(t)
+pprint(left_m)
+left_m = left_m.subs(_S_hk(t), S_hk).expand().subs(_Ck(t), Ck).subs(_M(t)/_K(t), m_)
+pprint(left_m)
+left_m = left_m.subs(_Z(t), _I_h(t)/(1-R)).subs(_K(t), _K_HD(t)/k_)
+pprint(left_m)
+left_m = left_m.subs(_I_h(t)/_K_HD(t), g_)
+pprint(left_m)
+left_m = left_m.subs(_YDk(t), YDk)
+pprint(left_m)
+left_m = left_m.subs(_rl(t), rm).subs(_rmo(t), rm).collect(rm)
+pprint(left_m)
+left_m = left_m.subs(_M_h(t-1) - _Lk(t-1) - _MO(t-1), _Lf(t)).expand().subs(_K_HD(t), k_*_K(t))
+pprint(left_m)
+left_m = left_m.subs(_Lf(t)/_K(t), lf_*(1-k_)) # Check
+pprint(left_m)
+left_m = left_m.subs(_K(t), (1-k_)*_K_f(t)).subs(_FD(t), FD).subs(_FT(t) - _Lf(t-1)*_rl(t), _Fn(t)).subs(_Fn(t)/_K_f(t), rn).subs(_rl(t), rm)
+pprint(left_m)
+left_m = sp.solve(left_m, m_)[0].subs(k_, 1 - h_/(1-omega)).subs(h_, g_*un/v).simplify().collect(g_)
+pprint(sp.Eq(m_, left_m))
+left_m = left_m.subs(lf_, lfstar).simplify().collect(g_).collect(omega).collect(rm).collect(R)
+pprint(sp.Eq(m_, left_m))
+
+#+END_SRC
+
+#+RESULTS:
+:results:
+23 - 05768cab-62fd-4b6d-bd04-8c1b3c6138bb <output> <interrupt>
+:end:
+
+#+NAME: mlhsstar
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results :var label="test"
+latex_label = '\label{' + label + '}'
+print(
+    sp.latex(
+        sp.Eq(sp.Symbol(latex_label + 'm^{\star}') , left_m),
+             mul_symbol = 'dot',
+             symbol_names = {
+                 g_: "g^\star",
+                 k_: "k^\star",
+                 un : "u_{N}"
+               },
+             mode = 'equation'
+    )
+)
+#+END_SRC
+
+#+RESULTS: mlhsstar
+:results:
+24 - 4f356ba9-5de9-467b-bf26-b01dd1a80e58 <output> <interrupt>
+:end:
+
+#+RESULTS: mlhsgagestar
+:results:
+# Out [246]: 
+# output
+\begin{equation}\label{test}m^{\star} = \frac{R \cdot g^\star \cdot v \cdot \left(g^\star - \gamma_{F} \cdot rm\right) \cdot \left(g^\star \cdot u_{N} - v \cdot \left(1 - \omega\right)\right) \cdot \left(v \cdot \left(\omega - 1\right)^{4} + \left(1 - \omega\right)^{3} \cdot \left(g^\star \cdot u_{N} - v \cdot \left(1 - \omega\right)\right)\right) + \left(g^\star\right)^{2} \cdot rm \cdot u_{N}^{2} \cdot \left(R - 1\right) \cdot \left(\omega - 1\right)^{3} \cdot \left(g^\star \cdot v + \gamma_{F} \cdot u_{N} \cdot \left(\omega - 1\right)\right) + v^{2} \cdot \left(\omega - 1\right)^{5} \cdot \left(rm \cdot \left(R \cdot \left(- g^\star \cdot v - \gamma_{F} \cdot u_{N} \cdot \left(\omega - 1\right) + \gamma_{F} \cdot \left(g^\star \cdot v + \gamma_{F} \cdot u_{N} \cdot \left(\omega - 1\right)\right)\right) + g^\star \cdot v + \gamma_{F} \cdot u_{N} \cdot \left(\omega - 1\right) - \gamma_{F} \cdot \left(g^\star \cdot v + \gamma_{F} \cdot u_{N} \cdot \left(\omega - 1\right)\right)\right) + u_{N} \cdot \left(g^\star - \gamma_{F} \cdot rm\right) \cdot \left(R \cdot \left(1 - \gamma_{F}\right) + \gamma_{F} + \omega \cdot \left(R \cdot \left(\gamma_{F} - 1\right) - \gamma_{F} + 1\right) - 1\right)\right)}{g^\star \cdot v^{2} \cdot \left(g^\star - \gamma_{F} \cdot rm\right) \cdot \left(\omega - 1\right)^{4} \cdot \left(- R \cdot g^\star \cdot u_{N} + g^\star \cdot u_{N}\right)}\end{equation}
+
+:end:
+
+
+* Short and long-run equilibria
+#+LATEX: \label{sec:runs}
+
+In this Section, we show the implications residential investment inclusion into a SSM-SFC model. First, we present the short-run dynamics and then move to the fully-adjusted position (denoted by $\star$).
+
+** Short-run good market equilibrium
+#+LATEX: \label{short}
+
+In our no-government closed economic system, real output (equation \ref{_Y}) is the sum of household consumption (equation \ref{ConsumoTotal}) and both types of investment (equation ref:_It). 
+If we replace equations ref:_W and  ref:_If into ref:_Y and considering equation ref:_Z we get the short-run GDP level:
+
+
+
+#+BEGIN_equation
+#+LATEX: \label{AnaliticaNivel}
+#+CALL:YNivel()
+
+#+RESULTS:
+:results:
+36 - aeb49019-e5c1-4a0b-9b16-8aee5c9c5ee1 <output> <interrupt>
+:end:
+
+#+END_equation
+
+Next, dividing equation ref:AnaliticaNivel by ref:_YFC and presenting firm's capital stock in terms of $k$, we get the short-run equilibrium utilization rate (Eq ref:short_u)
+
+
+#+BEGIN_equation
+#+LATEX: \label{short_u}
+#+CALL: ushort()
+
+#+RESULTS:
+:results:
+37 - 0dfc2999-c0e7-45aa-b1fc-1c07f131e3f8 <output> <interrupt>
+:end:
+
+#+END_equation
+
+So, rearranging Equation ref:short_u in terms of houses,
+$$
+u_{t} = Y\frac{v}{K_{HD}}\cdot \frac{k_{t}}{1-k_{t}}
+$$
+
+\begin{equation}
+\label{u_houses}
+u_{t} = \frac{1}{1-R}\cdot \frac{g_Z\cdot v}{1 - \omega - h_{t}}\cdot \frac{k_{t}}{1-k_{t}}
+\end{equation}
+which allows us to present houses share on total capital stock of the economy
+\begin{equation}
+\label{k_short}
+k = 1 - \frac{v\cdot g_Z}{(1 - \omega)\cdot u_{t}}
+\end{equation}
+
+
+Finally, we present short-run growth rate following textcite:freitas_growth_2015:
+
+\begin{equation}
+\label{g_short}
+g_t = g_{Z} + \frac{\Delta h}{1 - \omega - h_{t}}
+\end{equation}
+On the following subsection, analyze the fully-adjusted positions values and steady state stock/flow ratios.
+
+
+*Nota:* Não organizei bem o texto desta seção. Não tenho certeza se essa é a melhor ordem de apresentação das equações, mas acredito que isso seja rápido de corrigir.
+
+** Fully-adjusted position
+#+LATEX: \label{long}
+
+
+As mentioned before, endogenous firms’ marginal propensity to invest reacts to discrepancies between the utilization rate and the normal one.  During the adjustment process ($u\to u_N$), GDP growth rate moves towards NCC autonomous expenditure growth rate (in this case, residential investment and capitalist consumption):
+
+$$
+u \to u^{\star}  = u_N \Leftrightarrow g \to g^{\star} = g_Z
+$$
+and (endogenous) fully-adjusted position marginal propensity to invest will be:
+
+
+\begin{equation}
+\label{h_long}
+h^{\star} = g^{\star}\cdot \frac{v}{u^{\star}}
+\end{equation}
+
+Next, we move towards the analysis of the particularities of our model:  one of the NCC autonomousexpenditures also contributes to capital stock accumulation.  
+Replacing Equation ref:h_long in ref:k_short, we obtain fully-adjusted position of the ratio between housesand total capital stock (denoted by $k^\star$). It worth noting that the second term of RHS of equation ref:k_long is equal to the so-called ``fraction'' ($f$) introduced by textcite:serrano_long_1995:
+
+\begin{equation}
+\label{k_long}
+k^{\star} = 1 - \frac{h^{\star}}{1-\omega}
+\end{equation}
+
+$$
+k^{\star} = 1 - f \hspace{3cm} f = 1 - k^{\star}
+$$
+
+
+Before moving on to the numerical simulations, we present some steady state stock/flow ratios in order to shed some light in the dynamic process of the model. Dividing Equation ref:_Lf by firms' lagged capital stock and making some algebraic manipulation, we obtain steady state loans' ratio to capital stock ($\ell^{\star}$, Equation ref:firm_ratio):
+
+$$
+\Delta \left(\frac{L_{f}}{K_{f}}\right) = \frac{I_{f} - FU}{K_{f}} - \ell^{\star}_{f}\cdot g^{\star}  = 0
+$$
+
+#+CALL:firmstar(label="firm_ratio")
+
+#+RESULTS:
+:results:
+38 - 34923489-3bde-45b4-8844-7d438c018b2b <output> <interrupt>
+:end:
+
+Next, we present capitalists' loans to houses stock ratio and  rewrite capitalists autonomous expenditure in terms of residential investment (Equation ref:C_kZ)
+
+$$
+\Delta \left(\frac{L_k}{K_{HD}}\right) = \frac{C_k}{K_{HD}} - \ell^{\star}_{k}\cdot g^{\star} = 0
+$$
+#+CALL:loanstar(label="capitalist_ratio")
+
+#+RESULTS:
+:results:
+39 - 5f5ffe43-24f8-42a4-af53-4272f7d1e6d5 <output> <interrupt>
+:end:
+
+The same procedure can be applied to find mortgage to house stock ratio ($mo^{\star}$, Equation ref:mortgage_ratio):
+$$
+\Delta \left(\frac{MO}{K_{HD}}\right) = \frac{\Delta MO}{K_{HD}} - mo^{\star}\cdot g^{\star} = 0
+$$
+#+CALL:mortgagestar(label="mortgage_ratio")
+
+#+RESULTS:
+:results:
+40 - ca9002b3-ab2d-45b1-b8fb-4c6012fb9cac <output> <interrupt>
+:end:
+
+Finaly, we can express deposits share on total capital stock ($m^{\star}$) in terms of previous stock/flow ratios:
+
+$$
+\frac{M}{K} = \frac{MO + L_k + L_f}{K}
+$$
+$$
+\frac{M}{K} = \frac{MO}{K_{HD}}\cdot \frac{K_{HD}}{K} +  \frac{L_k}{K_{HD}}\cdot \frac{K_{HD}}{K} +  \frac{L_f}{K_{f}}\cdot \frac{K_{f}}{K}
+$$
+
+#+BEGIN_equation
+#+LATEX: \label{M_long_intermediate}
+m^{\star} = mo^{\star}\cdot k^{\star} + \ell^{\star}_{k}\cdot k^{\star} + \ell^{\star}_{f}\cdot (1-k^{\star})
+#+END_equation
+Thus, replacing Equations ref:h_long, ref:k_long, ref:firm_ratio, ref:capitalist_ratio and ref:mortgage_ratio in to ref:M_long_intermediate, we obtain steady state deposits to total capital stock ratio (Equation ref:deposits_rhs[fn:lhs]):
+
+
+#+CALL:mrhsstar(label="deposits_rhs")
+
+#+RESULTS:
+:results:
+41 - f69b211b-c651-4b65-ae63-a266a5e381c9 <output> <interrupt>
+:end:
+
+[fn:lhs] Since banks deposits are a residuum, we could express Equation ref:deposits_rhs in terms of Equations ref:EqYD, ref:EqSh and --- assuming null spread on mortgage and on loans interest rate --- we can rewrite net interest rate income as follows 
+$$rm\cdot (M - L_k - MO) = rm\cdot (L_f)$$
+So, we achieve the same result of Equation ref:deposits_rhs as expected.
+
+
+Before moving on to the numerical simulations, it worth noting that --- besides its counterintuitivity --- the decrease of $k^{\star}$ as a result of the increase of residential investment growth rate (reported in equations \ref{partial_phi0} and \ref{partial_pi} in Appendix ref:append:Solution) is in line with the SSM.
+Since firms' investment grows (temporally) at a higher pace than NCC autonomous expenditures, it has only a level effect on capital stock.
+As usual, changes in income distribution affects GDP temporally.
+However, it has permanent effects over capital stock composition as a result of this level effect reported before (equation \ref{partial_omega}).
+
+
+* Simulation TODOs and setups                                      :noexport:
+
+#+BEGIN_SRC ipython :tangle ./codes/SFC_setup.py :async t :session SFC :results output :export none
+from pysolve3.model import Model
+from pysolve3.utils import SolveSFC, ShockModel, SummaryShock, SFCTable
+
+from datetime import datetime
+t1 = datetime.now()
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.patheffects as pe
+import seaborn as sns
+import networkx as nx
+import sympy as sp
+from sympy import pprint, cse
+
+def model(
+    alpha = 0.5, # Fazzarri Calibration
+    gamma_F = 0.08,
+    gamma_u = 0.09, # Fazzarri Calibration
+    g_Z = 0.025, # Fazzarri Calibration
+    omega = 0.5,
+    rm = 0.01,
+    spread_l = 0,
+    spread_mo = 0,
+    un = 0.8,
+    v = 1.2, # Fazzarri Calibration
+    phi_0 = 0.025, # Fazzarri Calibration
+    phi_1 = 0.1,
+    infla = 0.0,
+    phparam=1.0,
+    R = 0.7,
+    real = -1, # Flags (Real Data)
+    gC = 0.025 # (Real Data)
+):
+  """
+  phparam: 1.0 means no inflation
+  """
+  model = Model()
+  model.set_var_default(0) 
+  model.var('C', desc='Consumption')
+  model.var('Cw', desc='Workers Consumption', default=112)
+  model.var('Ck', desc='Capitalist Consumption', default=68)
+  model.var('FD', desc='Distributed profits')
+  model.var('Fn', desc='Net profits')
+  model.var('FT', desc='Total Profits')
+  model.var('FU', desc='Retained profits')
+  model.var('gk', desc='Capital growth rate')
+  model.var('g_Z', desc='Autonomous grouth rate')
+  model.var('h', desc='Marginal propensity to invest (non-residential)', default=0.03)
+  model.var('I_t', desc='Investment', default = 100) # 200
+  model.var('I_f', desc='Non-residential investment') # 100
+  model.var('I_h', desc='Residential investment', default = 100) # 100
+  model.var('Is', desc='Residential investment (Supply)', default = 100) # 100
+  model.var('K_HS', desc='Houses supply', default=500) # 500
+  model.var('K_HD', desc='Houses demand', default=500) # 500
+  model.var('K_f', desc='Non-residential capital', default = 1000) # 10000
+  model.var('Knom', desc='Nominal Capital', default=1500)
+  model.var('K', desc='Real Capital', default=1500)
+  model.var('K_k', desc="% of Kf in total")
+  model.var('K_kr', desc="nominal % of Kf in total")
+  model.var('L', desc='Total Loans') # 100
+  model.var('Lf', desc='Firms Loans') # 100
+  model.var('Lk', desc='Capitalist Loans') # 100
+  model.var('M', desc='Money deposits') # 300
+  model.var('M_h', desc='Households deposits')
+  model.var('MO', desc='Mortgages') # 200
+  model.var('NFW_h', desc='Households Capitalist Net Financial Wealth')
+  model.var('NFW_hw', desc='Workers Net Financial Wealth', default=0)
+  model.var('NFW_f', desc='Firms Net Financial Wealth')
+  model.var('NFW_b', desc='Banks Net Financial Wealth')
+  model.var('own', desc='Own interest rate')
+  model.var('ph', desc='House price', default = 1)
+  model.var('rl', desc='Interests rates on loans')
+  model.var('rmo', desc='Interests rates on mortgages')
+  model.var('S_hw', desc='Workers savings')
+  model.var('S_hk', desc='Capitalist savings')
+  model.var('u', desc='Capacity utilization ratio', default=0.7)
+  model.var('V_h', desc='Household net nominal wealth')
+  model.var('V_hr', desc='Household net real wealth')
+  model.var('V_f', desc='Firms net wealth')
+  model.var('V_b', desc='Banks net wealth')
+  model.var('W', desc='Wages')
+  model.var('Y', desc='GDP', default=280)
+  model.var('Yk', desc='Capacity', default=1100)
+  model.var('YDw', desc='Workers disposable income')
+  model.var('YDk', desc='Capitalists disposable income')
+  model.var('Z', desc='Autonomous expenditures')
+  
+  model.param('alpha', desc='Propensity to consume out of wages', default=alpha)
+  model.param('gamma_F', desc='% of undistributed profits', default=gamma_F)
+  model.param('gamma_u', desc='Adjustment parameter for the marginal propensity to invest', default=gamma_u) # 0.01
+  model.param('omega', desc='Wage-share', default = omega)
+  model.param('rm', desc='Interest rates on money deposits', default=rm) # 0.02
+  model.param('spread_l', desc='Spread for loans', default=spread_l)
+  model.param('spread_mo', desc='Spread for mortgages', default=spread_mo)
+  model.param('un', desc='Normal capacity utilization ratio', default=un)
+  model.param('v', desc='Capitl-Output ratio', default=v)
+  model.param('phi_0', desc='Autonomous housing investment component',default = phi_0)
+  model.param('phi_1', desc='Housing investment sensitivity to own interest rate', default = phi_1)
+  model.param('R', desc='Autonomous ratio', default=R)
+  model.param('infla', desc='infla value', default = infla)
+  model.param('gC', desc='Autonomous consumption growth rate', default = gC)
+  model.param('real', desc='Real data flag. True > 0. False < 0', default = real)  
+  
+  # General equations
+  model.add('C = Cw + Ck')
+  model.add('I_t = I_f + I_h') # Eq2
+  model.add('Yk = K_f(-1)/v') # Eq 4
+  model.add('u = Y/Yk') # Eq 5
+  model.add('W = omega*Y') # Eq 6
+  model.add('gk = h*u/v') # Eq 7
+  model.add('Knom = K_HD*ph + K_f') # Eq 8 
+  model.add('K = K_HD + K_f') # Eq 8 
+  model.add('Z = I_h + Ck') # Eq 9
+  model.add('Y = C + I_t') # Eq1
+  
+  # Workers equations
+  model.add('Cw = alpha*W') # Eq 14
+  model.add('YDw = W') # Eq 10
+  model.add('S_hw = YDw - Cw') # Eq 11
+  model.add('NFW_hw = S_hw')
+    
+  # Capitalist equations
+  model.add('YDk = FD + rm*M_h(-1) - rmo*MO(-1) - rl*Lk(-1)')
+  
+  model.add('Ck = if_true(real>0)*(1+gC)*Ck(-1) + if_true(real<0)*R*Z')
+  model.add('S_hk = YDk - Ck') # Eq 11
+  model.add('d(MO) = I_h') # Eq 12
+  model.add('d(Lk) = Ck')
+  model.add('d(M_h) = S_hk + d(Lk)')
+  model.add('V_h =  M_h  + K_HD*ph - MO - Lk') # Eq 15 
+  model.add('V_hr =  M_h  + K_HD - MO - Lk') # Eq 15 
+  model.add('NFW_h = S_hk - I_h') # Eq 16
+  
+  # Firms
+  model.add('d(Lf) = I_f - FU') # Eq 15
+  model.add('FT = (1-omega)*Y') # Eq 16
+  model.add('Fn = FT -rl*Lf(-1)')
+  model.add('FU = gamma_F*(Fn)') # Eq 17
+  model.add('FD = (1 - gamma_F)*(Fn)') # Eq 18
+  model.add('I_f = h*Y') # Eq 19
+  model.add('d(K_f) = I_f') # 20
+  model.add('h = h(-1)*gamma_u*(u-un) + h(-1)') # Eq 21 # Version without corridor
+  model.add('V_f = K_f - Lf') # Eq 22
+  model.add('NFW_f = FU - I_f') # Eq 23
+  
+  # Banks
+  model.add('rmo = (1+spread_mo)*rm') # Eq 25
+  model.add('rl = (1+spread_l)*rm') # Eq 26
+  model.add('NFW_b = rl*L(-1) + rmo*MO(-1) - rm*M(-1)') # Eq 28
+  model.add('V_b = L + MO - M') # Eq 27
+  model.add('d(L) = d(Lf) + d(Lk)')
+  model.add('d(M) = d(M_h)')
+  
+  
+  # Residential investment
+  model.add('K_HS = K_HD') # Eq 29
+  model.add('Is = I_h')
+  model.add('d(K_HD) = I_h') # Eq 30
+  model.add('I_h = (1+g_Z)*I_h(-1)') # Eq 31
+  model.add('K_k = K_HD/K') 
+  model.add('K_kr = K_k*ph') 
+  model.add('ph =(1+infla)*ph(-1)')
+  model.add('own = ((1+rmo)/(1+infla)) -1')  
+  model.add('g_Z = phi_0 - phi_1*own') 
+  
+  return model
+
+def clock_plots(shock, filename, variable):
+    shock["TIME"] = [i+1 for i in range(len(shock.index))]
+    shock["Ih/Y"] = shock["I_h"]/shock["Y"]
+    shock["I/Y"] = shock["I_t"]/shock["Y"]
+    shock["Z/Y"] = shock["Z"]/shock["Y"]
+    shock["gY"] = shock["Y"].pct_change()
+    
+    sns.set_context('talk')
+    fig, ax = plt.subplots(1,3,figsize=(24,5)
+                          )
+    
+    sns.scatterplot(y = 'Ih/Y', x='u', data=shock, size="TIME", sizes = (1,200), 
+                    color = 'black', legend=False, ax=ax[0])
+    sns.lineplot(y = 'Ih/Y', x='u', data=shock, sort=False, color = 'black', ax=ax[0])
+    ax[0].set_title("(A) Residential investment share on GDP\n VS. Capacity utilization ratio")
+    
+    sns.scatterplot(y = 'Z/Y', x='u', data=shock, size="TIME", sizes = (1,200), color = 'black', legend=False, ax=ax[1])
+    sns.lineplot(y = 'Z/Y', x='u', data=shock, sort=False, color = 'black', ax=ax[1])
+    ax[1].set_title("(B) Autonomous Expenditure share\n VS Capacity utilization")
+    
+    sns.scatterplot(y = 'I/Y', x='gY', data=shock, size="TIME", sizes = (1,200), color = 'black', legend=False, ax=ax[2])
+    sns.lineplot(y = 'I/Y', x='gY', data=shock, sort=False, color = 'black', ax=ax[2])
+    ax[2].set_title("(C) Total investment share\n VS GDP growth rate")
+    
+    
+    sns.despine()
+    
+    fig.savefig("./figs/" + filename, dpi = 600)
+
+def plot_shock(filename, shock, df):
+    """
+    This function plots some selected variables
+    
+    filename: name to save the plot (str)
+    shock: df returned by ShockModel function
+    """
+    sns.set_context('talk')
+    fig, ax = plt.subplots(2,2, figsize=(16,10))
+
+    shock[["Y"]].pct_change().plot(
+        title = "Growth rates", ax = ax[0,0], 
+        ls = ('--'), lw=3,
+    )
+    shock[["K"]].pct_change().plot(
+        title = "Growth rates", ax = ax[0,0], 
+        ls = (':'), lw=3
+    )
+    shock[["I_h"]].pct_change().plot(
+        title = "Growth rates", ax = ax[0,0], 
+        ls = ('-'), lw=3,
+    )
+    shock[["I_f"]].pct_change().plot(
+        title = "Growth rates", ax = ax[0,0], 
+        ls = ('-.'), lw=3,
+    )
+    ax[0,0].axhline(y=shock["g_Z"].iloc[-1], color = "black", ls = "--", lw=2.5)
+    #ax[0,0].set_yticklabels(['{:,.1%}'.format(x) for x in ax[0,0].get_yticks()])
+    ax[0,0].legend(loc='upper center', bbox_to_anchor=(0.5, -0.06),
+                   labels = ["$Y$", "$K$", "$I_h$", "$I_f$"],
+              fancybox=True, shadow=True, ncol=2)
+    ax[0,0].ticklabel_format(useOffset=False)
+
+    ((shock["Z"]/shock['Y'])).plot(
+        title = "Autonomous expenditures share on GDP", ax = ax[0,1], ls = ('-'), lw=3, color='darkred')
+    
+    ax[0,1].set_ylim(auto=True)
+    ax[0,1].legend(loc='upper center', bbox_to_anchor=(0.5, -0.08),
+                   labels=['$Z/Y$'],
+              fancybox=True, shadow=True, ncol=2)
+
+    shock['u'].plot(title = 'Capacity utilization ratio', ax=ax[1,0], legend = False, color = "darkred", lw = 3, )
+    ax[1,0].axhline(y = shock['un'].iloc[-1], ls ='--', color = "gray")
+    #ax[1,0].set_yticklabels(['{:,.2%}'.format(x) for x in ax[1,0].get_yticks()])
+    ax[1,0].ticklabel_format(useOffset=False)
+
+    shock['h'].plot(title = 'Marginal propensity to invest', ax=ax[1,1], legend = False, color = "darkred", lw = 3, )
+    ax[1,1].axhline(y = df['h'].iloc[-1], ls ='--', color = "gray")
+    ax[1,1].ticklabel_format(useOffset=False)
+    
+    sns.despine()
+    plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+
+
+    fig.savefig("./figs/" + filename, dpi = 600)
+
+def plot_norms(filename, shock, df):
+    """
+    This function plots some selected variables
+    
+    filename: name to save the plot (str)
+    shock: df returned by ShockModel function
+    """
+    sns.set_context('talk')
+    fig, ax = plt.subplots(2,2, figsize=(16,10))
+
+    ((shock["YDk"]/shock['V_h'])**(1)).plot(title = "Flow/Stock", ax = ax[0,0], ls = (':'), lw=3)
+    ((shock["YDk"]/shock['V_hr'])**(1)).plot(ax = ax[0,0], ls = ('-'), lw=3)
+    ((shock["FU"]/shock['V_f'])**(1)).plot(ax = ax[0,0], ls = ('-'), lw=3)
+    
+    ax[0,0].set_yticklabels(['{:,.1%}'.format(x) for x in ax[0,0].get_yticks()])
+    ax[0,0].legend(loc='upper center', bbox_to_anchor=(0.5, -0.08),
+                   labels = [
+                       "$YDk/V_{hk}$",
+                       "$YDk/V_{hkr}$",
+                       "$FU$/V_f",
+                            ],
+              fancybox=True, shadow=True, ncol=2)
+    #ax[0,0].ticklabel_format(useOffset=False)
+    
+    shock['K_k'].plot(color = "darkred", 
+                      title = "Housing share on\nTotal Capital Stock", 
+                      label = "$\k$", legend = False, ax = ax[0,1], lw = 3, )
+    ax[0,1].axhline(y = df['K_k'].iloc[-1], ls ='--', color = "gray")
+    ax[0,1].ticklabel_format(useOffset=False)
+    
+    (shock["MO"]*shock["rmo"][1:]/shock['YDk'][1:]).plot(
+        title="Debt service on\nDisposable income", ax = ax[1,0], ls = ('-'), lw=3)
+    ((shock["Lk"]*shock["rl"][1:])/shock['YDk'][1:]).plot(ax = ax[1,0], ls = ('-'), lw=3)
+    ((shock["MO"]*shock["rmo"][1:] + shock["Lk"]*shock["rl"][1:])/shock['YDk'][1:]).plot( ax = ax[1,0], ls = ('-'), lw=3)
+    ax[1,0].set_yticklabels(['{:,.1%}'.format(x) for x in ax[1,0].get_yticks()])
+    ax[1,0].legend(loc='upper center', bbox_to_anchor=(0.5, -0.1),
+                   labels = [
+                       'Mortgage',
+                       'Loans',
+                       'Total'
+                            ],
+              fancybox=True, shadow=True, ncol=2)
+    
+    (shock['FT']/shock['K_f']).plot(ax=ax[1,1], label='Gross profit rate')
+    (shock['Fn']/shock['K_f']).plot(ax=ax[1,1], label='Net profit rate')
+    ax[1,1].set_yticklabels(['{:,.1%}'.format(x) for x in ax[1,0].get_yticks()])
+    ax[1,1].legend()
+
+    
+    sns.despine()
+    plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+
+    
+    fig.savefig("./figs/" + filename, dpi = 300)
+
+def other_plots(shock, df):
+
+    (shock['MO']/(shock['M'])).plot(title="Mortgage as % of deposits")
+    sns.despine()
+    plt.show()
+    
+    fig, ax = plt.subplots()
+    (shock['FT']/shock['K_f']).plot(ax=ax, label='Gross profit rate')
+    (shock['Fn']/shock['K_f']).plot(ax=ax, label='Net profit rate')
+    ax.legend()
+    sns.despine()
+
+    
+    fig, ax = plt.subplots()
+    (shock['YDk']/shock['K_HD']).plot(ax=ax, label='Real', title="Disposible income as % of Housing")
+    (shock['YDk']/(shock['K_HD']*shock['ph'])).plot(ax=ax, label='Nominal')
+    ax.legend()
+    sns.despine()
+    plt.show()
+    
+    fig, ax = plt.subplots()
+    (shock['NFW_h']/(shock['Lk'] + shock['MO']) - (shock['rm'] - shock['g_Z'])).plot(title = 'Household debt stability',ax=ax)
+    ax.axhline(y = ((df['NFW_h']/(df['Lk'] + df['MO'])) - (df['rm'] - df['g_Z'])).iloc[-1], ls ='--', color = "gray")
+    
+    sns.despine()
+    plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+    plt.show()
+    
+    fig, ax = plt.subplots(1,1, figsize=(8,5))
+
+    shock[["MO", "L"]].apply(lambda x: x/(shock["MO"] + shock['L'])).plot(kind = "area",stacked = True ,title = "Credit (as % Passives)", ax=ax)
+    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    ax.axhline(y = 1, color = "black", ls = "--")
+    ax.axhline(y = 0, color = "black", ls = "--")
+    
+    sns.despine()
+    plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+
+
+#+END_SRC
+
+#+RESULTS:
+:results:
+42 - 8a2e0fff-e1c7-406d-8dde-3523e79fe634 <output> <interrupt>
+:end:
+
+** Increase in autonomous growth rate ($g_Z$)
+
+#+BEGIN_SRC ipython :tangle ./codes/setup.py :async t :session SFC :results output :export none
+base = model()
+df = SolveSFC(base, time=1000)
+shock = ShockModel(base_model=base, create_function=model(), variable='phi_0', increase=0.005, time = 1000)
+clock_plots(shock = shock, filename = 'Clock_1.png', variable='g_Z')
+plot_shock(shock = shock, filename = 'Shock_1.png', df=df)
+plot_norms(shock = shock, filename = 'Shock_1Norms.png', df=df)
+other_plots(shock, df=df)
+
+shock1 = shock.round(decimals = 5).tail(1).transpose().loc['alpha':,:]
+shock1.columns = ['$\Delta \phi_0$']
+
+summary = SummaryShock(shock)
+summary
+#+END_SRC
+
+#+RESULTS:
+:results:
+43 - 12222e99-957a-473b-ad91-b569ddefd7b0 <output> <interrupt>
+:end:
+
+** Wage-share decrease ($\Downarrow \omega$)
+   
+#+BEGIN_SRC ipython :tangle ./codes/setup.py :async t :session SFC :results output :export none
+base = model()
+df = SolveSFC(base, time=1000)
+shock = ShockModel(base_model=base, create_function=model(), variable='omega', increase=-0.01, time = 1000)
+df1=shock
+clock_plots(shock = shock, filename = 'Clock_2.png', variable='omega')
+plot_shock(shock = shock, filename = 'Shock_2.png', df=df)
+plot_norms(shock = shock, filename = 'Shock_2Norms.png', df=df)
+other_plots(shock, df)
+shock2 = shock.round(decimals = 3).tail(1).transpose().loc['alpha':,:]
+shock2.columns = ['$\Delta \omega$']
+#+END_SRC
+
+#+RESULTS:
+:results:
+44 - f49cef09-0e51-4ee3-9ca6-05d85391a83b <output> <interrupt>
+:end:
+
+** Increase in mortgage interest rate
+
+#+BEGIN_SRC ipython :tangle ./codes/setup.py :async t :session SFC :results output :export none
+base = model()
+df = SolveSFC(base, time=1000)
+shock = ShockModel(base_model=base, create_function=model(), variable='rm', increase=0.01, time = 1000)
+df3=shock
+shock3 = shock.round(decimals = 3).tail(1).transpose().loc['alpha':,:]
+shock3.columns = ['$\Delta rm$']
+clock_plots(shock = shock, filename = 'Clock_3.png', variable='rmo')
+plot_shock(shock = shock, filename = 'Shock_3.png', df=df)
+plot_norms(shock = shock, filename = 'Shock_3Norms.png', df=df)
+other_plots(shock, df=df)
+#+END_SRC
+
+#+RESULTS:
+:results:
+45 - e3ab6405-64b1-4e36-ac14-79966eb4f3e3 <output> <interrupt>
+:end:
+
+** Increase in house inflation
+
+#+BEGIN_SRC ipython :tangle ./codes/setup.py :async t :session SFC :results output :export none
+base = model()
+df = SolveSFC(base, time=1000)
+shock = ShockModel(base_model=base, create_function=model(), variable='infla', increase=0.05, time = 1000)
+df2=shock
+clock_plots(shock = shock, filename = 'Clock_4.png', variable='infla')
+plot_shock(shock = shock, filename = 'Shock_4.png', df=df)
+plot_norms(shock = shock, filename = 'Shock_4Norms.png', df=df)
+other_plots(shock, df=df)
+
+shock4 = shock.round(decimals = 3).tail(1).transpose().loc['alpha':,:]
+shock4.columns = ['$\pi$']
+#+END_SRC
+
+#+RESULTS:
+:results:
+46 - 4f0c43e3-1426-4728-a828-b7ecf255272a <output> <interrupt>
+:end:
+
+
+** Merging tables
+
+#+BEGIN_SRC ipython :tangle ./codes/setup.py :async t :session SFC :results text/latex :exports none  
+base = model()
+df = SolveSFC(base, time=1000)
+df = df.round(decimals = 4).tail(1).transpose().loc['alpha':,:]
+df.columns = ['Base scenario']
+
+table = pd.merge(left = df, right = shock1, left_index = True, right_index = True)
+table = pd.merge(left = table, right = shock2, left_index = True, right_index = True)
+table = pd.merge(left = table, right = shock3, left_index = True, right_index = True)
+table = pd.merge(left = table, right = shock4, left_index = True, right_index = True)
+table = table.loc[:"infla",:] ######### Warning
+table.index = [ ######### Warning
+    '$\\alpha$',
+    '$\gamma_F$',
+    '$\gamma_u$',
+    '$\omega$',
+    '$rm$',
+    '$\sigma_{l}$',
+    '$\sigma_{mo}$',
+    '$u_N$',
+    '$v$',
+    '$\phi_0$',
+    '$\phi_1$',
+    '$R$',
+    '$\pi$'
+]
+table.to_latex(
+    "./tabs/parameters.tex",
+    #column_format = 'cccccc',
+    escape=False, 
+    float_format="{:0.4f}".format,
+)
+#+END_SRC
+
+#+RESULTS:
+:results:
+47 - 57605ec9-06ad-4a01-9ad6-69b9c901380f <output> <interrupt>
+:end:
+
+* Numerical Simulations
+  #+LATEX: \label{sec:Experiments}
+
+
+In this Section, we present the results of the following experiments[fn:5]: 
+    (i) wage-share decrease;
+    (ii) real estate inflation and;
+    (iii) deposits interest rate increase.
+In order to evaluate if our model is able to reproduce some stylized facts, we introduce U.S. houses own interest rate observed data (from 1992 to 2019) into our numerical simulation.
+Before we move foward, it worth mentioning that we use \citeauthor*{fazzari-2020-deman-led}'s  citeyear:fazzari-2020-deman-led parameter values callibrated for the U.S. economy for a similar time range (from 1980 to 2016).
+Since we use a SFC framework, first experiment assess if income distribution affects fully-adjusted position growth rates temporal --- as in textcite:mandarino-2020-worker-debt --- or persistently ---  as in textcite:brochier_supermultiplier_2018.
+Real estate increase experiment is motivated by recent US experience (from 1992 to 2019) as discussed in Section ref:sec:empirical while the last one aims to evaluate indebtedness stability.
+Table \ref{tab:param} in Appendix ref:append:Data presents the parameters of simulation and Table \ref{ResumoChoques} compare each result to baseline.
+
+
+
+[fn:5] Simulation scripts are available under request. It worth noting that our experiments are simulated using /pysolve3/ package available at [[https://github.com/gpetrini/pysolve3]]. Implementation and improvement requests are welcome.
+
+#+BEGIN_COMMENT
+Finally, Appendix \ref{Appen:Sensibility} presents a primer parameters sensibility analysis.
+#+END_COMMENT
+
+
+#+RESULTS:
+:results:
+# Out [2]: 
+:end:
+
+** Wage-share decrease
+#+LATEX: \label{sec:Exp1}
+
+A wage-share decrease has a temporary negative impact both in GDP level and capacity utilization rate due to changes on the supermultiplier (see Figure ref:fig:results_1).
+As a consequence of this negative level effect, both accumulation growth rate and marginal propensity to invest decline while NCC autonomous expenditures share on GDP increases.
+Since NCC autonomous expenditure growth rate remains unchanged, this negative level effect is followed by a increase in non-residential investment growth rate because firms react to the discrepancies between actual and normal utilization rates.
+In summary, we report standards SSM model results:
+    (i) marginal propensity to invest decrease is temporally and returns to baseline level;
+    (ii) utilization rate moves towards normal one;
+    (iii) supermultiplier decreases and autonomous expenditure share increases due to GDP decline and; 
+    (iv) since autonomous expenditure growth rate does not change, distribution effects are temporally.
+
+Despite temporary effects in growth rate, wage-share decrease has a permanent effect in house share on total capital stock (see Equation ref:_k_star and Figure ref:fig:results_2).
+As a consequence of the initially lower accumulation rate, total capital stock (firms' and households') also grows at a temporarily lower rate.
+However, since residencial investment growth rate remains unchanged, its share on total capital stock increases.
+Another persistent effect is the higher capitalists' indebtedness despite the profit-share increase.
+This result stems from the negative level effect on profits as a consequence of the negative effect on GDP and subsequent decrease in capitalists' disposable income.
+In other words, we report a paradox in capitalists attempt to increase their profit share which results a negative effect both on net profits and capitalists' disposable income.
+
+Finally, we also report a persistent effect on firms' balance sheet due to wage-share decrease.
+The negative level effect on GDP implies an already mentioned temporally decrease in marginal propensity to invest.
+As a consequence of the initially lower accumulation ratio and higher profit share, firms require less external funding --- as profits distribution policy remains the same  --- so its indebtedness decreases.
+Therefore, gross and net profit rate remains persistently close to each other (see Figure ref:fig:results_2).
+
+*Nota:* Farei referência às equações stock/flow quando terminar esta seção
+
+** Real estate inflation
+#+LATEX: \label{sec:Exp2}
+
+
+Real estate inflation implies a higher residential investment growth due to houses own interest rate decrease.
+As a result, both GDP growth rate and capacity utilization rate increase as well.
+Since firms react to discrepancies between actual and normal utilization rates, non-residential investment growth rate 
+is temporally higher than GDP growth rate due to marginal propensity to invest adjustment.
+Furthermore, capitalists' disposable income also increases as a result of the already mentioned higher GDP growth rate.
+Since loans interest remains unchanged, capitalists' indebtedness ratio decreases.
+During the traverse, gross and net profit rate are temporally close to each other as a result of profits level increase, so firms' indebtedness decreases as well.
+Therefore, similar to textcite:mandarino-2020-worker-debt, we also report paradox of debt.
+
+In summary, we report SSM standard fully-adjusted position results:
+    (i) GDP growth rate converges to NCC autonomous expenditure growth rate;
+    (ii) marginal propensity to invest remains persistently higher compared to baseline and;
+    (iii) utilization rate moves gradually towards the normal one.
+As mentioned before, our model distinctiveness is the existence of two types of capital stocks since households invest as well.
+Besides the usual SSM results, we report some particularities regarding real assets composition.
+The most distinct result is real houses share decreases on total capital stock as a result of residential investment growth rate increase.
+
+Although counterintuitive, this result is in line with SSM literature.
+Firms investment follows capital stock adjustment principle, so a higher firms investment growth rate implies that
+GDP grows faster than residential investment, reducing both the latter share on GDP and
+also the utilization rate.
+In other words, both autonomous expenditures share on GDP --- higher supermultiplier --- and houses share on real assets (see Equation ref:partial_pi) decline as a result of the already described non-residential investment positive reaction.
+Finally, it worth noting that real estate increase also has permanent effects over real stock/flow ratios due to capital gains.
+
+
+#+BEGIN_COMMENT
+Figure \ref{fig:shock_4norm} in Appendix \ref{appen:Simulation} shows that capitalists' nominal net wealth grows faster than disposable income, so the ratio between both converges to zero.
+#+END_COMMENT
+** Interest rate increase
+#+LATEX: \label{sec:Exp3}
+
+A increase in benchmark interest rate  has a persistent effect on long-run growth rate since houses own interest rate increases as well[fn:Juros].
+Non-residential investment growth rate decreases as a result of residential investment growth rate permanent decline, so houses share on real assets increases.
+In summary, this shock has opposite effects on long-run growth rates, NCC autonomous expenditure share on GDP, utilization rate and marginal propensity to invest  than the previous one (see Figure ref:fig:results_1).
+
+
+[fn:Juros] Since we assume null spread on both mortgage and loans interest rate, an increase on deposits interest rate also increases the other ones. As a consequence, banks' net financial wealth remains unchanged.
+
+
+In particular, we report a stronger negative effect over both capitalists' and firms' balance sheet than wage-share decrease (see figures ref:fig:results_1 and ref:fig:results_2).
+This result stems from the temporarily stronger decline of GDP growth rate compared to NCC autonomous expenditure growth rate.
+As a consequence of lower GDP growth rate, profits level also decreases.
+Thus, capitalists' disposable income decreases more than debt-financed consumption growth rate.
+This result alone is enough to capitalists' indebtedness level to increase, however it is followed by loans interest rate increase, so the overall effect is stronger than wage-share decrease experiment (Section ref:sec:Exp1).
+Regarding firms' balance sheet, we report a temporarily negative effect on gross profit rate and a permanent one on net profit rate. 
+So, there is a permanent increase in the gap between them due to increase in external funding and to the negative level effect on profits.
+Therefore, we find a stable debt dynamics for both capitalists and firms (other parameters remaining unchanged).
+
+#+BEGIN_SRC latex :tangle ./tabs/Summary_tab.tex
+\begin{table}[H]
+	\centering
+	\caption{Shocks summary (compared to baseline)}
+	\label{ResumoChoques}
+	%\resizebox{\textwidth}{!}{%
+		\begin{tabular}{c|c|c|c||c|c|c}
+			\hline\hline
+			\multirow{2}{*}{} & \multicolumn{3}{c||}{\textbf{Medium-run ($h \neq h^*$)}} & \multicolumn{3}{c}{\textbf{Long-run ($h = h^*$)}} \\ \cline{2-7} 
+			&  \textbf{$\Uparrow \pi$} & \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow rm$} &  \textbf{$\Uparrow \pi$} & \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow rm$} \\ \hline
+			\textbf{$g$}  & + & - & - & + & 0 & - \\ \hline
+			\textbf{$g_Z$}  & + & 0 & -  & + & 0 & - \\ \hline
+			\textbf{$u$}  & + & - & -  & 0 & 0 & 0 \\ \hline
+			\textbf{$h$}  & + & - & -  & + & 0 & - \\ \hline
+			\textbf{$k$}  & - & + & +  & - & + & + \\ \hline
+			\textbf{$\frac{Z}{Y}$}  & - & + & +  & - & + & + \\ \hline
+			\textit{$\frac{(r_{mo}\cdot MO_{-1} + r_l\cdot L_{k_{-1}})}{YD_k}$}  & - & + & +  & - & + & + \\ \hline\hline
+		\end{tabular}%
+	%}
+	\caption*{\textbf{Source:} Authors' Elaboration}
+\end{table}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{table}[H]
+	\centering
+	\caption{Shocks summary (compared to baseline)}
+	\label{ResumoChoques}
+	%\resizebox{\textwidth}{!}{%
+		\begin{tabular}{c|c|c|c||c|c|c}
+			\hline\hline
+			\multirow{2}{*}{} & \multicolumn{3}{c||}{\textbf{Medium-run ($h \neq h^*$)}} & \multicolumn{3}{c}{\textbf{Long-run ($h = h^*$)}} \\ \cline{2-7} 
+			&  \textbf{$\Uparrow \pi$} & \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow rm$} &  \textbf{$\Uparrow \pi$} & \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow rm$} \\ \hline
+			\textbf{$g$}  & + & - & - & + & 0 & - \\ \hline
+			\textbf{$g_Z$}  & + & 0 & -  & + & 0 & - \\ \hline
+			\textbf{$u$}  & + & - & -  & 0 & 0 & 0 \\ \hline
+			\textbf{$h$}  & + & - & -  & + & 0 & - \\ \hline
+			\textbf{$k$}  & - & + & +  & - & + & + \\ \hline
+			\textbf{$\frac{Z}{Y}$}  & - & + & +  & - & + & + \\ \hline
+			\textit{$\frac{(r_{mo}\cdot MO_{-1} + r_l\cdot L_{k_{-1}})}{YD_k}$}  & - & + & +  & - & + & + \\ \hline\hline
+		\end{tabular}%
+	%}
+	\caption*{\textbf{Source:} Authors' Elaboration}
+\end{table}
+#+end_export
+
+
+
+#+BEGIN_SRC ipython :tangle ./codes/Simulation.py :async t :session SFC :results text/latex :exports none
+base = model()
+df = SolveSFC(base, time=1000)
+df["Z/Y"] = df["Z"]/df["Y"]
+df_base = df
+
+fig, ax = plt.subplots(2,2, figsize=(2*8,2*5))
+
+df1['Y'].pct_change().plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[0,0])
+df2['Y'].pct_change().plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[0,0])
+df3['Y'].pct_change().plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[0,0])
+ax[0,0].axhline(y = df_base['g_Z'].iloc[-1], ls ='--', lw=1, color = "black", label = "Baseline")
+ax[0,0].ticklabel_format(useOffset=False)
+ax[0,0].set_title('GDP growth rate ($g$)')
+
+df1['Z/Y'].plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[0,1])
+df2['Z/Y'].plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[0,1])
+df3['Z/Y'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[0,1])
+ax[0,1].axhline(y = df_base['Z/Y'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[0,1].ticklabel_format(useOffset=False)
+ax[0,1].set_title('Autonomous Expenditure\nShare on GDP ($Z/Y$)')
+
+df1['u'].plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 3)", ax = ax[1,0])
+df2['u'].plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,0])
+df3['u'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 4)", ax = ax[1,0])
+ax[1,0].axhline(y = df_base['u'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[1,0].ticklabel_format(useOffset=False)
+ax[1,0].set_title('Capacity utilization rate ($u$)')
+
+df1['h'].plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[1,1])
+df2['h'].plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,1])
+df3['h'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,1])
+ax[1,1].axhline(y = df_base['h'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[1,1].ticklabel_format(useOffset=False)
+ax[1,1].set_title('Marginal propsenty\nto invest ($h$)')
+
+
+sns.despine()
+plt.tight_layout(rect=[0, 0.03, .85, 0.95])
+ax[1,1].legend(loc='center left', bbox_to_anchor=(1.05, 1.25))
+plt.show()
+fig.savefig("./figs/Compared_Shocks_1.png", dpi = 600)
+#+END_SRC
+
+#+RESULTS:
+:results:
+48 - db066faa-0c53-46b1-9588-12fe447f7665 <output> <interrupt>
+:end:
+
+#+BEGIN_SRC ipython :tangle ./codes/setup.py :async t :session SFC :results text/latex :exports none
+base = model()
+df = SolveSFC(base, time=1000)
+df["Z/Y"] = df["Z"]/df["Y"]
+df_base = df
+
+df1["TIME"] = [i+1 for i in range(len(df1.index))]
+df2["TIME"] = [i+1 for i in range(len(df2.index))]
+df3["TIME"] = [i+1 for i in range(len(df3.index))]
+
+
+fig, ax = plt.subplots(2,2, figsize=(2*8,2*5))
+
+sns.scatterplot(y = 'Z/Y', x='u', data=df1, size="TIME", sizes = (1,100), color = 'darkred', legend=False, ax=ax[0,0])
+sns.scatterplot(y = 'Z/Y', x='u', data=df2, size="TIME", sizes = (1,100), color = 'darkblue', legend=False, ax=ax[0,0])
+sns.scatterplot(y = 'Z/Y', x='u', data=df3, size="TIME", sizes = (1,100), color = 'darkgreen', legend=False, ax=ax[0,0])
+
+sns.lineplot(y = 'Z/Y', x='u', data=df1, sort=False, color = 'darkred', ax=ax[0,0])
+sns.lineplot(y = 'Z/Y', x='u', data=df2, sort=False, color = 'darkblue', ax=ax[0,0])
+sns.lineplot(y = 'Z/Y', x='u', data=df3, sort=False, color = 'darkgreen', ax=ax[0,0])
+ax[0,0].set_title('Share of residential investment and capacity utilization\n(Dots size grow in time)')
+
+df1['K_k'].plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[0,1])
+df2['K_k'].plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[0,1])
+df3['K_k'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[0,1])
+ax[0,1].axhline(y = df_base['K_k'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[0,1].ticklabel_format(useOffset=False)
+ax[0,1].set_title('Houses share on\nReal Assets ($K_k$)')
+
+((df1["MO"]*df1["rmo"][1:] + df1["Lk"]*df1["rl"][1:])/df1['YDk'][1:]).plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[1,0])
+((df2["MO"]*df2["rmo"][1:] + df2["Lk"]*df2["rl"][1:])/df2['YDk'][1:]).plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,0])
+((df3["MO"]*df3["rmo"][1:] + df3["Lk"]*df3["rl"][1:])/df3['YDk'][1:]).plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,0])
+ax[1,0].axhline(y = ((df_base["MO"].iloc[-2]*df_base["rmo"].iloc[-1] + df_base["Lk"].iloc[-2]*df_base["rl"].iloc[-1])/df_base['YDk'].iloc[-1]), ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[1,0].ticklabel_format(useOffset=False)
+ax[1,0].set_title('Capitalist Indebtedness\n(as % $YD_k$)')
+
+(df1['Fn']/df1['K_f']).plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[1,1])
+(df2['Fn']/df2['K_f']).plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,1])
+(df3['Fn']/df3['K_f']).plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,1])
+ax[1,1].axhline(y = (df_base['Fn']/df_base['K_f']).iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[1,1].ticklabel_format(useOffset=False)
+ax[1,1].set_title('Net profit rate')
+
+sns.despine()
+plt.tight_layout(rect=[0, 0.03, .85, 0.95])
+ax[1,1].legend(loc='center left', bbox_to_anchor=(1.05, 1.25))
+plt.show()
+fig.savefig("./figs/Compared_Shocks_2.png", dpi = 600)
+#+END_SRC
+
+#+RESULTS:
+:results:
+49 - e3cff664-dba8-4c1c-a7ce-702fe14d26aa <output> <interrupt>
+:end:
+
+#+BEGIN_SRC latex
+\begin{figure}[htb]
+	\centering
+	\caption{Experiments simulations (I)}
+	\label{fig:results_1}
+	\includegraphics[width=.8\textwidth]{./figs/Compared_Shocks_1.png}
+	\caption*{\textbf{Source:} Authors' elaboration}
+\end{figure}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{figure}[htb]
+	\centering
+	\caption{Experiments simulations (I)}
+	\label{fig:results_1}
+	\includegraphics[width=.8\textwidth]{./figs/Compared_Shocks_1.png}
+	\caption*{\textbf{Source:} Authors' elaboration}
+\end{figure}
+#+end_export
+
+
+#+BEGIN_SRC latex
+\begin{figure}[htb]
+	\centering
+	\caption{Experiments simulations (II)}
+	\label{fig:results_2}
+	\includegraphics[width=.8\textwidth]{./figs/Compared_Shocks_2.png}
+	\caption*{\textbf{Source:} Authors' elaboration}
+\end{figure}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{figure}[htb]
+	\centering
+	\caption{Experiments simulations (II)}
+	\label{fig:results_2}
+	\includegraphics[width=.8\textwidth]{./figs/Compared_Shocks_2.png}
+	\caption*{\textbf{Source:} Authors' elaboration}
+\end{figure}
+#+end_export
+
+
+** Plugging real data
+
+
+Finally, we include houses own interest rate data into our model (see Figure ref:fig:propria_investo) proposed by cite:teixeira_crescimento_2015 and evaluated under econometric scrutinity by textcite:petrini_demanda_2019.
+To do so, each year corresponds to ten simulated periods for visualization reasons.
+Although rudimentary, this procedure allows us to investigate whether or not our model reports the following stylized facts:
+(i) positive relationship between non-residential investment share and GDP growth rate; (ii) capacity utilization towards the normal one, although quite volatile; (iii) NCC autonomous expenditure lead the business cycle and accumulation growth rate; (iv) residential investment is more volatile than others expenditures.
+Finally, all results are presented in Figure ref:fig:Realresults_1,fig:Realresults_2.
+
+Simillarly to Figure ref:fig:cycles, we report a clockwise relationship between autonomous expenditure share on GDP and capacity utilization growth rate.
+Since the analyzed period does not correspond to the fully-adjusted position, discrepancies between actual and normal capacity utilization rate are adjusted through changes in marginal propensity to invest.
+So, with due mediation, we also report a smooth gravitation of capacity utilization ratio towards the normal one.
+As expected, accumulation and GDP growth rate are discrebed by NCC autonomous expenditure, notably residential investment. 
+However, our model is not able to replicate the higher residential investment volatility compared to other expenditures.
+In order to report this stylized fact, we argue that would be necessary to include other autonomous expenditures that grow at different rates for this effect to be captured in the simulations.
+
+
+#+BEGIN_SRC ipython :tangle ./codes/Simulation.py :async t :session SFC :results text/latex :exports none
+data = pd.read_csv('./data/OwnInterestRate_data.csv')
+initial=1000
+shock_duration=10 ## Warning 10
+
+df = SolveSFC(model(real=1, gC=0.02), time=initial)
+base = model()
+SolveSFC(base, time=initial, table=False)
+
+for i in data.index:
+    lagged = [key for key in base.solutions[-1].keys()]
+    lagged = [i for i in lagged if "__" in i]
+    for j in lagged:
+        del base.solutions[-1][j]
+    base.set_values(base.solutions[-1])
+    base.set_values({
+            'own':data['Own interest rate'][i],
+            'infla':data['Inflation'][i],
+            'rm':data['Mortgage interest rate'][i], # Changed to rm instead of rmo 
+        })
+    try: 
+        SolveSFC(base, time=shock_duration, table=False)
+    except Exception as e:
+        #print(f'For time = {i}, {e}')
+        pass
+    
+shock = SFCTable(base)[initial:]
+shock["Z/Y"] = shock["Z"]/shock["Y"]
+#+END_SRC
+
+#+RESULTS:
+:results:
+50 - b04af2cc-a81f-4777-9d0a-2b314fa2c5b9 <output> <interrupt>
+:end:
+
+#+BEGIN_SRC ipython :tangle ./codes/Simulation.py :async t :session SFC :results text/latex :exports none
+base = model()
+df = SolveSFC(base, time=1000)
+df["Z/Y"] = df["Z"]/df["Y"]
+df_base = df
+
+shock["TIME"] = [i+1 for i in range(len(shock.index))]
+
+
+fig, ax = plt.subplots(2,2, figsize=(2*8,2*5))
+
+sns.scatterplot(y = 'Z/Y', x='u', data=shock, size="TIME", sizes = (1,100), color = 'darkred', legend=False, ax=ax[0,0])
+
+sns.lineplot(y = 'Z/Y', x='u', data=shock, sort=False, color = 'darkred', ax=ax[0,0])
+ax[0,0].set_title('Share of residential investment and capacity utilization\n(Dots size grow in time)')
+
+shock['K_k'].plot(ls ='-', lw=3, color = "darkred", label = "Real data", ax = ax[0,1])
+ax[0,1].axhline(y = df_base['K_k'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[0,1].ticklabel_format(useOffset=False)
+ax[0,1].set_title('Houses share on\nReal Assets ($K_k$)')
+
+((shock["MO"]*shock["rmo"][1:] + shock["Lk"]*shock["rl"][1:])/shock['YDk'][1:]).plot(ls ='-', lw=3, color = "darkred", label = "$Real data", ax = ax[1,0])
+ax[1,0].axhline(y = ((df_base["MO"].iloc[-2]*df_base["rmo"].iloc[-1] + df_base["Lk"].iloc[-2]*df_base["rl"].iloc[-1])/df_base['YDk'].iloc[-1]), ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[1,0].ticklabel_format(useOffset=False)
+ax[1,0].set_title('Capitalist Indebtedness\n(as % $YD_k$)')
+
+(shock['Fn']/shock['K_f']).plot(ls ='-', lw=3, color = "darkred", label = "Real data", ax = ax[1,1])
+ax[1,1].axhline(y = (df_base['Fn']/df_base['K_f']).iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[1,1].ticklabel_format(useOffset=False)
+ax[1,1].set_title('Net profit rate')
+
+sns.despine()
+plt.tight_layout(rect=[0, 0.03, .85, 0.95])
+ax[1,1].legend(loc='center left', bbox_to_anchor=(1.05, 1.25))
+plt.show()
+fig.savefig("./figs/Real_Shocks_2.png", dpi = 600)
+#+END_SRC
+
+#+RESULTS:
+:results:
+51 - 54dd6a64-725c-47e9-9e73-c4b63f7e7f79 <output> <interrupt>
+:end:
+
+
+#+BEGIN_SRC latex
+\begin{figure}[htb]
+	\centering
+	\caption{Real Data Experiments simulations (I)}
+	\label{fig:Realresults_1}
+	\includegraphics[width=.8\textwidth]{./figs/Real_Shocks_1.png}
+	\caption*{\textbf{Source:} Authors' elaboration}
+\end{figure}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{figure}[htb]
+	\centering
+	\caption{Real Data Experiments simulations (I)}
+	\label{fig:Realresults_1}
+	\includegraphics[width=.8\textwidth]{./figs/Real_Shocks_1.png}
+	\caption*{\textbf{Source:} Authors' elaboration}
+\end{figure}
+#+end_export
+
+
+
+* Conclusion TODOs                                                 :noexport:
+
+* Concluding Remarks
+#+LATEX: \label{sec:Conclusion}
+
+
+
+This paper contributes to demand-led growth agenda, taking in consideration recent efforts of embedding it in a SFC framework.
+Our novelty is twofold: (i) inclusion of residential investment and (ii) determination of its growth rate by houses' own interest rate.
+Residential investment was included due to recent empirical works showing its relevance for macroeconomic dynamics.
+Houses' own interest rate allowed us to include asset bubbles in a Sraffian strand.
+As far as we know, none works have described this expenditure with this particular real interest rate.
+
+Our model reports standard results of Sraffian supermultiplier:
+    (i) utilization rate converges to the normal one through changes on firms' marginal propensity to invest;
+    (ii) GDP growth rate converges to NCC autonomous expenditure growth rate and;
+    (iii) income distribution affects growth rate only during the traverse.
+A particular feature of our model is the dual composition of capital stock: firms' capacity creating and real estate.
+The most distinct result is the decrease of houses share on capital stock due to the increase of residential investment growth rate.
+Although counterintuitive, this occurs because firms react to the discrepancies between actual and desired utilization rates.
+In other words, for capacity utilization converges to the normal one,  firms' investment needs to grow temporarily faster than residential investment, changing the ratio between houses and total capital stock at the fully adjusted position.
+
+Finally, it worth noting that this is a first step of a wider research agenda on the role of residential investment for economic growth and business cycles. 
+Future research should increase the complexity of this model in order to understand some recent dynamics (such as increases of mortgages share on banks' balance sheet). 
+In regarding residential investment, some extensions are: exploring other determinants of its growth rate and  its effects on banks' net financial wealth.
+This emerging ``housing agenda'' should also moves towards institutional grounds[fn:Lucas].
+For example, future research could assess which institutional arrangements allow/inhibit the connection between asset bubble, credit granting/rationing and financial instability.
+
+
+[fn:Lucas] *OBS:* Optei por dar pistas do capítulo do QCA invés do modelo AB-SFC. Fiz isso porque acho mais fácil alguém `agentizar' nosso SFC (transformar em ABM) do que pensar no QCA. Acha que é uma boa estratégia ou acha melhor a gente demarcar que estamos com AB-SFC nos nossos planos? 
+
+
+* Acknowledgments
+  :PROPERTIES:
+  :UNNUMBERED: t
+  :END:
+
+#+LATEX: \noindent We  are  grateful  to  Lídia  Brochier,  Carolina  Baltar,  Franklin  Serrano  for  discussions,  as  well  as  comments  by  the participants of Cecon/Unicamp and UFRJ Political Economy research seminars and the participants of XII AKB meeting, 20th FMM forum, and 46th EEA Annual Conference. Any remaining errors are, of course, our own.
+
+* Disclosure statement
+  :PROPERTIES:
+  :UNNUMBERED: t
+  :END:
+No potential conflict of interest was reported by the authors.
+
+* References
+  :PROPERTIES:
+  :UNNUMBERED: t
+  :END:
+
+#+LaTeX: \printbibliography[heading=none]
+
+
+#+Latex: \appendix
+
+* Analytical TODOs                                                 :noexport:
+
+* Analytical Solution
+#+LATEX: \label{append:Solution}
+
+
+In this appendix, we present both analytical solution of our model and some relations between variables and parameters.
+To do so, some equations will be turned into their continuous time equivalent to express it in terms of partial derivatives[fn:Script_Sol].
+In our no-government closed economic system, real output growth rate is defined by:
+
+[fn:Script_Sol] Script is available under request. The experiments in Section \ref{sec:Experiments} are simulated in discrete time.
+
+
+\begin{equation}
+\label{gLP}
+    g = g\cdot \omega + \dot h + g\cdot h + g_Z\cdot \frac{Z}{Y}
+\end{equation}
+and (endogenous) fully-adjusted position marginal propensity to invest will be:
+\begin{equation}
+\label{hLP}
+h^{\star} = g_Z\frac{\overline v}{u_N}
+\end{equation}
+
+Next, replacing equation \ref{gLP} in \ref{hLP} and \ref{_u} in order to build a bi-dimensional system of equation
+
+
+\begin{cases}
+\dot u = \left(\frac{\dot h}{1 - \omega - h} + g_z - \frac{h_t u_t}{v}\right) u_t\\
+\dot h = \gamma_{u} \left(- u_N + u_t\right) h_t
+\end{cases}
+
+and assess its stability condition (evaluated at the equilibrium point):
+
+$$
+J = 
+\left[\begin{matrix}
+\frac{\partial \dot h}{\partial h} & \frac{\partial \dot h}{\partial u}\\
+\frac{\partial \dot u}{\partial h} & \frac{\partial \dot u}{\partial u}
+\end{matrix}\right]
+$$
+
+\begin{equation}
+J = 
+\label{Jacobiano}
+\left[\begin{matrix}0 & \frac{g_Z \gamma_{u} v}{u_N}\\- \frac{u_N^{2}}{v} & - g_Z\end{matrix}\right]
+\end{equation}
+
+As \textcite{gandolfo_economic_2010} demonstrates, a positive determinant and a negative trace are both necessary and sufficient stability condition for a bi-dimensional system of differential equation:
+
+$$
+Det(J) = g_Z \gamma_{u} u_N > 0
+$$
+
+$$
+Tr(J) = -g_Z < 0
+$$
+As both $\gamma_u$ and $u_N$ are strictly positive values, we just need to check positive trace condition.
+Differently from textcite:freitas_growth_2015, we do not assume this condition initially.
+Thus, our system is stable (near the fully-adjusted position) only if houses own interest rate (Equation ref:g_Z_own) meets the following inequality:
+$$
+g_{I_h} = g_Z = \phi_0 - \phi_1\cdot own > 0
+$$
+\begin{equation}
+own < \frac{\phi_0}{\phi_1}
+\end{equation}
+
+
+Next, we show that houses share on total capital stock depends positively on deposits interest rate (Eq. \ref{partial_rm}) and negatively both on autonomous component of residential investment growth rate (equation \ref{partial_phi0}), real estate inflation (equation \ref{partial_pi}) and wage-share (equation \ref{partial_omega}):
+\begin{equation}
+%TODO Checar solução analítica
+\label{partial_rm}
+\frac{\partial k}{\partial rm} = - \frac{\phi_{1} v \left(\sigma_{mo} + 1\right)}{u_N \left(\pi + 1\right) \left(\omega - 1\right)} > 0
+\end{equation}
+\begin{equation}
+\label{partial_phi0}
+\frac{\partial k}{\partial \phi_0} = \frac{v}{u_N \left(\omega - 1\right)} < 0
+\end{equation}
+\begin{equation}
+\label{partial_pi}
+\frac{\partial k}{\partial \pi} = \frac{\phi_{1} v \left(rm\cdot(1+\sigma_{mo}) + 1\right)}{u_N \left(\pi + 1\right)^{2} \left(\omega - 1\right)} < 0
+\end{equation}
+\begin{equation}
+\label{partial_omega}
+\frac{\partial k}{\partial \omega} = - \frac{v \left(\phi_{0} \left(\pi + 1\right) - \phi_{1} \left(- \pi + rm\cdot(1 + \sigma_{mo})\right)\right)}{u_N \left(\pi + 1\right) \left(\omega - 1\right)^{2}} < 0
+\end{equation}
+
+
+Since capitalists' loans and mortgage to house ratios ($\ell^{\star}_{k}$ and $mo^{\star}$, respectively) depend only on parameters not analyzed on our experiments, we repeat this  procedure to firms' loans to capacity generating capital stock ($\ell^{\star}_f$):
+
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results
+from sympy.simplify.radsimp import collect_const
+dicts = {
+g_: "g^\star",
+    k_: "k^\star",
+    un : "u^{\star}",
+    infla: '\pi'
+               }
+
+
+new_own = sp.Function('own')(rm,infla)
+
+def printer(symbol, equation, var, replace_g = True):
+
+    num = '\\frac{\partial ' + symbol + '^{\star}}'
+    
+    if replace_g == True:
+        express = equation.subs(g_, g_Z).subs(_own(t), own).subs(_rmo(t), rm)
+    else:
+        express = equation.factor().cancel()
+
+    result = sp.Derivative(express,  var).doit()    
+    result = result.cancel().expand().cancel().factor()
+    result = sp.factor(result.simplify())
+    result = collect_const(result)
+    #result = result.collect(1+rm).collect(phi_0).collect(phi_1).collect(1+infla).collect(1-omega).collect(un).collect(gamma_F).collect(R)
+    #result = result.collect(v).collect(phi_0).collect(phi_1).subs(phi_0 - phi_1*((1+rm)/(1+infla) - 1), g_)
+    #result = sp.factor(result.simplify().cancel())
+    numerical = replacer(result)
+
+    if numerical > 0:
+        numerical = '> 0'
+    elif numerical == 0:
+        numerical = '= 0'
+    else:
+        numerical = '< 0'
+    
+    print(
+            sp.latex(
+                num + '{\partial ' + f"{sp.latex(var, symbol_names = dicts)}" + '} = ' + f"{sp.latex(result, symbol_names = dicts)}"  + f" {numerical}",
+                mul_symbol = 'dot',
+                symbol_names = dicts,
+                mode = 'equation'
+            )
+        )
+#+END_SRC
+
+#+RESULTS:
+:results:
+2 - 1f19708b-7460-47b9-a5d3-9c2d83e1522a <output> <interrupt>
+:end:
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results
+printer(symbol =  '\ell_{f}', equation = lfstar, var = rm)
+printer(symbol =  '\ell_{f}', equation = lfstar, var = phi_0)
+printer(symbol =  '\ell_{f}', equation = lfstar, var = infla)
+printer(symbol =  '\ell_{f}', equation = lfstar, var = omega, replace_g = False)
+#+END_SRC
+
+#+RESULTS:
+:results:
+1 - 453c6f1d-a870-42db-be58-b238cfac88dc <output> <interrupt>
+:end:
+
+and mortgage to total capital stock ratio ($m^{\star}$):
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results
+printer(symbol =  'm', equation = m, var = rm)
+printer(symbol =  'm', equation = m, var = phi_0)
+printer(symbol =  'm', equation = m, var = infla)
+printer(symbol =  'm', equation = m, var = omega, replace_g = False)
+#+END_SRC
+
+#+RESULTS:
+:results:
+2 - e16d543e-36f7-48e9-b5d9-32a986ee534c <output> <interrupt>
+:end:
+
+
+
+
+* Numerical Appendix
+ #+LATEX: \label{append:Data}
+
+#+BEGIN_SRC latex
+\begin{table}[H]
+\caption{Parameters of variables}
+\centering
+\label{tab:param}
+\input{./tabs/parameters.tex}
+\caption*{\textbf{Source:} Authors' elaboration}
+\end{table}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{table}[H]
+\caption{Parameters of variables}
+\centering
+\label{tab:param}
+\input{./tabs/parameters.tex}
+\caption*{\textbf{Source:} Authors' elaboration}
+\end{table}
+#+end_export
+
+
+#+BEGIN_SRC ipython :tangle ./codes/Sobol.py :async t :session Sobol :results verbatim drawer :exports results
+#!pip install pysolve3
+import sys
+
+sys.path.insert(1, './codes/')
+from SFC_Setup import *
+
+base = model()
+df = SolveSFC(base, time=1000)
+
+parameters = [
+    'gamma_u',
+    'omega',
+    'gamma_F',
+    'alpha',
+    'spread_mo',
+    'phi_0',
+    'phi_1',
+    'infla',
+    'R',
+]
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [44]: 
+:end:
+
+
+#+BEGIN_SRC ipython  :tangle ./codes/Sobol.py :async t :session Sobol :results verbatim drawer :exports results
+def sensibility(
+    parameters,
+    bound = np.linspace(0,1,101),
+    time = 10,
+    skip = 10,
+    var = "u"
+):
+    bound = bound
+    df = pd.DataFrame()
+    empty_list = [i for i in range(len(bound))]  
+    report_dict = {}
+    
+    for param in parameters:
+        for i in range(len(bound)):
+            base = model()
+            base.set_values({param:bound[i]})
+            try:
+                empty_list[i] = np.log(SolveSFC(base,time=time+skip)[var][skip:].std())
+            except Exception as e:
+                empty_list[i] = np.nan
+                pass
+        df[param] = empty_list ################### Replace here
+############################### End #####################################################
+    df.index = bound
+    
+    return df
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [45]: 
+:end:
+
+
+#+BEGIN_SRC ipython  :tangle ./codes/Sobol.py :async t :session Sobol :results verbatim drawer :exports none
+df = sensibility(time=400, parameters=parameters)
+
+report = pd.DataFrame(
+    {parameter : df[parameter].dropna().index[-1] for parameter in df.columns},
+    index=[0]
+    )
+#report.columns = [sp.Symbol(i) for i in report.columns] # Turn into latex
+print(df)
+report
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [46]: 
+# output
+       gamma_u     omega   gamma_F     alpha  spread_mo     phi_0     phi_1  \
+0.00 -2.530464 -2.087674 -2.698257 -2.087646  -2.698247 -3.018613 -2.691682   
+0.01 -2.711678 -2.095959 -2.698256 -2.095936  -2.698288 -1.967421 -2.692559   
+0.02 -2.694301 -2.104348 -2.698260 -2.104328  -2.698331 -2.635810 -2.693389   
+0.03 -2.709234 -2.112844 -2.698255 -2.112824  -2.698374 -2.627593 -2.694172   
+0.04 -2.718127 -2.121447 -2.698251 -2.121426  -2.698412 -2.389913 -2.694906   
+...        ...       ...       ...       ...        ...       ...       ...   
+0.96       NaN -3.816070 -2.698230 -3.815963  -2.699445       NaN -2.470601   
+0.97       NaN -3.785307 -2.698232 -3.785165  -2.699429       NaN -2.464600   
+0.98       NaN -3.749482 -2.698234 -3.749338  -2.699412       NaN -2.458528   
+0.99       NaN -3.709475 -2.698236 -3.709410  -2.699395       NaN -2.452386   
+1.00       NaN -3.666369 -2.698235 -3.666278  -2.699377       NaN -2.446172   
+
+         infla         R  
+0.00 -2.698247 -1.092702  
+0.01 -2.691682 -1.100112  
+0.02 -2.680788 -1.107645  
+0.03 -2.666582 -1.115304  
+0.04 -2.649931 -1.123094  
+...        ...       ...  
+0.96 -1.831873       NaN  
+0.97 -1.829003       NaN  
+0.98 -1.826174       NaN  
+0.99 -1.823388       NaN  
+1.00 -1.820641       NaN  
+
+[101 rows x 9 columns]
+
+# text/plain
+:    gamma_u  omega  gamma_F  alpha  spread_mo  phi_0  phi_1  infla     R
+: 0     0.65    1.0      1.0    1.0        1.0   0.32    1.0    1.0  0.91
+
+[[file:/tmp/ob-ipython-htmlHHlPzz.html]]
+:end:
+
+#+BEGIN_SRC ipython  :tangle ./codes/Sobol.py :async t :session Sobol :results verbatim drawer :exports results
+results = report.copy()
+df_ = df.copy()
+long_string = "Value that induces instability"
+results["Value"] = [long_string]
+results.set_index("Value", inplace=True)
+results.index.name = 'Parameter'
+results = results.transpose().copy()
+results["Effect of increase on stability"] = df.diff().median() >= 0
+translate = {
+    True: "Destabilizing",
+    False: "Stabilizing"
+}
+results["Effect of increase on stability"] = results["Effect of increase on stability"].map(translate)
+
+for i in range(len(results[long_string])):
+    val = results[long_string][i]
+    if val >= 1.0:
+        results[long_string].iloc[i] = "Does not induces instability"
+
+latex = {
+    "gamma_u": "$\gamma_u$", "omega": "\omega", "gamma_F" : "$\gamma_F$",
+    "phi_0" : "$\phi_0", "phi_1" : "$\phi_1$",
+    "infla" : "$\pi$", "spread_mo" : "$\sigma_{mo}$", "alpha" : "$\\alpha$",
+    "R" : "$R$",
+}
+results["Description"] = [i for i in results.index]
+desc = {
+    "gamma_u": "Adjustment speed",
+    "omega": "wage-share",
+    "gamma_F" : "Profit distribution policy",
+    "phi_0" : "$g_{I_Z}$ autonomous component",
+    "phi_1" : "own interest rate parameter",
+    "infla" : "real estate inflation",
+    "spread_mo" : "Mortgage spread",
+    "alpha" : "Marginal propensity to consume",
+    "R" : "Autonomous consumption share on $Z$",
+}
+results["Description"] = results["Description"].map(desc)
+results["Parameter"] = results.index.map(latex)
+results.set_index("Parameter", inplace=True)
+results.index.name = ''
+results  = results[[ # Reorder columns
+    "Description",
+    long_string,
+    "Effect of increase on stability"
+]]
+print(results.to_latex(
+    caption = "Effect of individual parameters on model stability",
+    label = "tab:sensibility",
+    escape = False,
+))
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [108]: 
+# output
+\begin{table}
+\centering
+\caption{Effect of individual parameters on model stability}
+\label{tab:sensibility}
+\begin{tabular}{llll}
+\toprule
+Parameter &                          Description & Value that induces instability & Effect of increase on stability \\
+              &                                      &                                &                                 \\
+\midrule
+$\gamma_u$    &                     Adjustment speed &                           0.65 &                   Destabilizing \\
+\omega        &                           wage-share &   Does not induces instability &                     Stabilizing \\
+$\gamma_F$    &           Profit distribution policy &   Does not induces instability &                   Destabilizing \\
+$\alpha$      &       Marginal propensity to consume &   Does not induces instability &                     Stabilizing \\
+$\sigma_{mo}$ &                      Mortgage spread &   Does not induces instability &                     Stabilizing \\
+$\phi_0       &       $g_{I_Z}$ autonomous component &                           0.32 &                   Destabilizing \\
+$\phi_1$      &          own interest rate parameter &   Does not induces instability &                   Destabilizing \\
+$\pi$         &                real estate inflation &   Does not induces instability &                   Destabilizing \\
+$R$           &  Autonomous consumption share on $Z$ &                           0.91 &                     Stabilizing \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+:end:
+
+
+#+BEGIN_SRC ipython  :tangle ./codes/Sobol.py :async t :session Sobol :results verbatim drawer :exports results
+
+#+END_SRC
+
+* Particular experiments results                                   :noexport:
+#+LATEX: \label{append:Single}
+
+
+#+RESULTS:
+#+begin_export latex
+\begin{figure}[H]
+    \centering
+    \caption{Wage-share decrease}
+    \label{fig:shock_2}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_2}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Wage-share decrease}
+    \label{fig:shock_2norm}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_2Norms}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Real estate inflation increase}
+    \label{fig:shock_4}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_4}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Real estate inflation increase}
+    \label{fig:shock_4norm}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_4Norms}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Interest rate increase}
+    \label{fig:shock_3}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_3}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Interest rate increase}
+    \label{fig:shock_3norm}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_3Norms}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+#+end_export
+
+#+BEGIN_SRC latex
+\begin{figure}[H]
+    \centering
+    \caption{Wage-share decrease}
+    \label{fig:shock_2}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_2}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Wage-share decrease}
+    \label{fig:shock_2norm}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_2Norms}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Real estate inflation increase}
+    \label{fig:shock_4}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_4}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Real estate inflation increase}
+    \label{fig:shock_4norm}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_4Norms}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Interest rate increase}
+    \label{fig:shock_3}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_3}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Interest rate increase}
+    \label{fig:shock_3norm}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_3Norms}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{figure}[H]
+    \centering
+    \caption{Wage-share decrease}
+    \label{fig:shock_2}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_2}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Wage-share decrease}
+    \label{fig:shock_2norm}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_2Norms}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Real estate inflation increase}
+    \label{fig:shock_4}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_4}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Real estate inflation increase}
+    \label{fig:shock_4norm}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_4Norms}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Interest rate increase}
+    \label{fig:shock_3}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_3}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Interest rate increase}
+    \label{fig:shock_3norm}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_3Norms}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+#+end_export

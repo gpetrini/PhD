@@ -1,0 +1,42 @@
+.TH "concov" "1" "" "acq manual" ""
+.SH NAME
+.PP
+concov \- display QCA consistency and coverage table
+.SH SYNOPSIS
+.PP
+\f[B]concov\f[] [\-y \f[I]FILE\f[]]
+.SH DESCRIPTION
+.PP
+\f[B]concov\f[] is a graphical viewer for consistency/coverage tables,
+as produced by acq\[aq]s \f[B]nec\f[] and \f[B]suf\f[].
+To facilitate comparison, you can drag and drop the solutions (sometimes
+called "recipes," in QCA jargon).
+you can also rearrange the individual components of a solution by
+double\-clicking on the solution.
+.SH OPTIONS
+.TP
+.B \-y, \-\-input=\f[I]FILE\f[]
+Read input from \f[I]FILE\f[]; when \f[I]FILE\f[] is \-, read standard
+input
+.RS
+.RE
+.TP
+.B \-g, \-\-debug
+Echo logging info to console
+.RS
+.RE
+.TP
+.B \-h, \-\-help
+Display help and exit
+.RS
+.RE
+.TP
+.B \-v, \-\-version
+Output version information and exit
+.RS
+.RE
+.SH SEE ALSO
+.PP
+bq(1), consist(1), gtt(1), nec(1), suf(1)
+.SH AUTHORS
+Christopher Reichert <creichert07@gmail.com>; Claude Rubinson <cjr@grundrisse.org>.

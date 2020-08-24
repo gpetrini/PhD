@@ -1,0 +1,84 @@
+---
+title: "First attempt"
+author: "Gabriel Petrini da Silveira"
+date: "28/02/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(bibliometrix)   ### load bibliometrix package
+options(width=100)
+
+```
+
+```{r}
+url <- "https://www.bibliometrix.org/datasets/savedrecs.bib"
+D <- readFiles(url)
+M <- convert2df(D, dbsource = "isi", format = "bibtex")
+topAU <- authorProdOverTime(M, k = 10, graph = TRUE)
+```
+
+```{r}
+results <- biblioAnalysis(M, sep = ";")
+S <- summary(object = results, k = 10, pause = FALSE)
+plot(x = results, k = 10, pause = FALSE)
+DF <- dominance(results, k = 10)
+indices <- Hindex(
+  M, 
+  field = "author", 
+  elements="BORNMANN L", ### Change
+  sep = ";", 
+  years = 10)
+A <- cocMatrix(
+  M, 
+  Field = "SO", ### CHange
+  sep = ";")
+M <- metaTagExtraction( ### Check variable name
+  M, 
+  Field = "AU_CO", sep = ";")
+
+NetMatrix <- biblioNetwork(
+  M, 
+  analysis = "coupling", 
+  network = "authors", 
+  sep = ";")
+net=networkPlot(
+  NetMatrix,  
+  normalize = "salton", ### Check
+  weighted=NULL, 
+  n = 100, 
+  Title = "Authors' Coupling", 
+  type = "fruchterman", ### Check
+  size=5,
+  size.cex=T,
+  remove.multiple=TRUE,
+  labelsize=0.8,
+  label.n=10,
+  label.cex=F)
+
+# An example of a classical keyword co-occurrences network
+
+NetMatrix <- biblioNetwork(
+  M, analysis = "co-occurrences", network = "keywords", sep = ";")
+netstat <- networkStat(NetMatrix)
+```
+
+```{r}
+S
+```
+
+```{r}
+DF
+```
+
+
+```{r}
+topAU
+```
+
+
+

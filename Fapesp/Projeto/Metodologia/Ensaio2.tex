@@ -1,0 +1,23 @@
+\subsection{Modelo de séries temporais em painel}\label{metodologia2}
+
+Compreendidos os fatores institucionais, a segunda parte desta pesquisa analisará a dimensão quantitativa da macroeconomia imobiliária.
+Neste capítulo, serão estimados os determinantes do investimento residencial que, como visto na revisão de literatura, são fundamentais para a compreensão da dinâmica macroeconômica.
+A hipótese de trabalho é que o investimento residencial depende tanto da concessão de crédito quanto da bolha de ativos.
+Para tanto, será estimado um modelo de séries temporais em  painel para os países presentes na base de dados de \textcite{jorda_rate_2019}, com ênfase ao período de aumento do grau de hipotecarização (1980-2016)\footnote{Os países analisados são aqueles mencionados na nota de rodapé \ref{nota_paises}.}\footnote{Ao longo da pesquisa serão utilizados outros critérios para aprimorar o recorte temporal a ser utilizado, dentre eles, inclusão de \textit{dummies} referentes a quebra estrutural e a mudanças institucionais. Vale destacar que \textcite{petrini_demanda_2019} faz este procedimento para os EUA em que o recorte temporal do modelo econométrico considerou reformas regulatórias.}.
+Serão incluídas variáveis destacadas pela literatura (\textit{e.g.} taxa de juros das hipotecas; \textit{dummies} para mudanças regulatórias) em diferentes especificações econométricas.
+ Em particular, será testada a capacidade explicativa  da taxa própria de juros dos imóveis uma vez que \textcite{petrini_demanda_2019} encontrou que esta variável é relevante para o caso dos EUA.
+
+%TODO: Marcar. Tinha alterado em outro varsão, não sei se chegou a ver.
+Como alguns dos países analisados fazem parte de um bloco econômico (os países-membro da União Europeia), serão realizados testes de dependência \textit{cross-section}\footnote{Argumentação semelhante pode ser encontrada em \textcite{perez-montiel_autonomous_2020}.} \cites{breusch_lagrange_1980}{pesaran_bias-adjusted_2007}.
+Além de integrados, espera-se que tais países sejam heterogêneos e, portanto, serão feitos testes de homogeneidade \textit{cross-section} antes de seguir para as estimações para evitar inconsistências \cites{pesaran_testing_2008}.
+Dado que os testes de precedência temporal são baseados em séries estacionárias, serão realizados testes de raiz unitária e de cointegração específicos para dados em painel \cites{im_testing_2003}{pesaran_simple_2007}{canning_infrastructure_2008}. %{pedroni_panel_2004}
+No que diz respeito à especificação do modelo, serão feitos diferentes ajustes (LSDV-FE, IV-FE, GLS-RE, G2SLS-RE, etc) e utilizados métodos (OLS, OL2S, FMOLS, etc) nos quais será priorizada a parcimônia e ausência de autocorrelação e heterocedasticidade residual. 
+%No entanto, por se tratar de um macropainel em que extensão temporal é maior que o número de unidades (países) analisados, espera-se que que a estimação por efeitos fixos  e aleatórios sejam mais apropriadas que um sistema GMM \cite{judson_estimating_1999}\footnote{\textcite{andersen_gmm_1996}, \textcite{bowsher_testing_2002} e \textcite{roodman_note_2009} reportam que os testes de Hausman e de Sargan são comprometidos na medida que o número de instrumentos utilizados aumenta e este é o caso do modelo a ser estimado em que a dimensão temporal é significativamente grande ($T = 36 > 30$).}.
+No pós-estimação, serão feitos testes para avaliar a qualidade do ajuste \cites{hausman_specification_1978}{maasoumi_testing_1988}.
+Para avaliar a robustez dos resultados, os dados serão divididos em subperíodos (1980-2008 e 2008-2016) para isolar os efeitos da Grande Recessão e então estimar o modelo por um sistema GMM\footnote{ %TODO Karina
+    Tal procedimento é recomendado uma vez que a dimensão temporal é reduzida, diminuindo o número de instrumentos necessários \cite{judson_estimating_1999}.
+}. 
+
+
+
+%%%%%%%%%%%%%%%%%%%% AB-SFC %%%%%%%%%%%%%%%

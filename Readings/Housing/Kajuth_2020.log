@@ -1,0 +1,3083 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.5.19)  7 JUL 2020 09:23
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**Kajuth_2020.tex --shell-escape -interaction nonstopmode -output-directory %o 
+%b
+(./Kajuth_2020.tex
+LaTeX2e <2020-02-02> patch level 5
+L3 programming layer <2020-05-15> (../_CONFIGS.cls
+
+LaTeX Warning: You have requested document class `../_configs',
+               but the document class provides `configs'.
+
+Document Class: configs 2019/09/25 v0.1
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/xifthen/xifthen.sty
+Package: xifthen 2015/11/05 v1.4.0 Extended ifthen features
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count167
+\calc@Bcount=\count168
+\calc@Adimen=\dimen134
+\calc@Bdimen=\dimen135
+\calc@Askip=\skip47
+\calc@Bskip=\skip48
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count169
+\calc@Cskip=\skip49
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+
+! LaTeX Error: File `ifmtarg.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: q
+
+! LaTeX Error: File `q.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+) (/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/lipsum/lipsum.sty
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2020-05-15 L3 programming layer (loader) 
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
+File: l3backend-pdfmode.def 2020-05-05 L3 backend support: PDF mode
+\l__kernel_color_stack_int=\count170
+\l__pdf_internal_box=\box45
+)) (/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+Package: xparse 2020-05-15 L3 Experimental document command parser
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/l3packages/xparse/xparse-generic.
+tex
+\l__xparse_current_arg_int=\count171
+\g__xparse_grabber_int=\count172
+\l__xparse_m_args_int=\count173
+\l__xparse_v_nesting_int=\count174
+))
+Package: lipsum 2019/01/02 v2.2 150 paragraphs of Lorem Ipsum dummy text
+ (/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex
+File: lipsum.ltd.tex 2019/01/02 v2.2 The Lorem ipsum dummy text
+))
+
+! LaTeX Error: File `extarticle.cls' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: cls)
+
+Enter file name: 
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2018/08/11 v1.3c Input encoding file
+\inpenc@prehook=\toks15
+\inpenc@posthook=\toks16
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2020/05/13 3.44 The Babel package
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/babel/babel.def
+File: babel.def 2020/05/13 3.44 Babel common definitions
+\babel@savecnt=\count175
+\U@D=\dimen136
+\l@babelnohyphens=\language5
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/babel/txtbabel.def)
+\bbl@readstream=\read2
+)
+\bbl@dirlevel=\count176
+
+
+! Package babel Error: Unknown option `english'. Either you misspelled it
+(babel)                or the language definition file english.ldf was not foun
+d.
+
+See the babel package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1036 \ProcessOptions*
+                       
+? 
+Package babel Info: You haven't specified a language. I'll use 'nil'
+(babel)             as the main language. Reported on input line 1067.
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/babel/nil.ldf
+Language: nil 2020/05/13 3.44 Nil language
+\l@nil=\language6
+))
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2020/01/20 v2.17e AMS math features
+\@mathmargin=\skip50
+
+For additional information on amsmath, use the `?' option.
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks17
+\ex@=\dimen137
+))
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen138
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count177
+LaTeX Info: Redefining \frac on input line 227.
+\uproot@=\count178
+\leftroot@=\count179
+LaTeX Info: Redefining \overline on input line 389.
+\classnum@=\count180
+\DOTSCASE@=\count181
+LaTeX Info: Redefining \ldots on input line 486.
+LaTeX Info: Redefining \dots on input line 489.
+LaTeX Info: Redefining \cdots on input line 610.
+\Mathstrutbox@=\box46
+\strutbox@=\box47
+\big@size=\dimen139
+LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
+\macc@depth=\count182
+\c@MaxMatrixCols=\count183
+\dotsspace@=\muskip16
+\c@parentequation=\count184
+\dspbrk@lvl=\count185
+\tag@help=\toks18
+\row@=\count186
+\column@=\count187
+\maxfields@=\count188
+\andhelp@=\toks19
+\eqnshift@=\dimen140
+\alignsep@=\dimen141
+\tagshift@=\dimen142
+\tagwidth@=\dimen143
+\totwidth@=\dimen144
+\lineht@=\dimen145
+\@envbody=\toks20
+\multlinegap=\skip51
+\multlinetaggap=\skip52
+\mathdisplay@stack=\toks21
+LaTeX Info: Redefining \[ on input line 2859.
+LaTeX Info: Redefining \] on input line 2860.
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+)
+
+! LaTeX Error: File `mathpazo.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+
+! LaTeX Error: File `helvet.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+
+! LaTeX Error: Unknown option `scaled' for package `helvet'.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.34 \RequirePackage
+                    [T1]{fontenc}
+? 
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2020/02/11 v2.0o Standard LaTeX package
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip17
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+
+! LaTeX Error: File `pifont.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+
+! LaTeX Error: File `lineno.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+
+! LaTeX Error: Unknown option `switch' for package `lineno'.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.38 
+     
+? 
+
+! LaTeX Error: Unknown option `pagewise' for package `lineno'.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.38 
+     
+? 
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/tools/afterpage.sty
+Package: afterpage 2014/10/28 v1.08 After-Page Package (DPC)
+\AP@output=\toks22
+\AP@partial=\box48
+\AP@footins=\box49
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.te
+x
+\pgfutil@everybye=\toks23
+\pgfutil@tempdima=\dimen146
+\pgfutil@tempdimb=\dimen147
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-li
+sts.tex))
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box50
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/ms/everyshi.sty
+Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
+))
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/pgf.revision.tex)
+Package: pgfrcs 2020/01/08 v3.1.5b (3.1.5b)
+))
+Package: pgf 2020/01/08 v3.1.5b (3.1.5b)
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks24
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+)
+\Gin@req@height=\dimen148
+\Gin@req@width=\dimen149
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+Package: pgfsys 2020/01/08 v3.1.5b (3.1.5b)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks25
+\pgfkeys@temptoks=\toks26
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.c
+ode.tex
+\pgfkeys@tmptoks=\toks27
+))
+\pgf@x=\dimen150
+\pgf@y=\dimen151
+\pgf@xa=\dimen152
+\pgf@ya=\dimen153
+\pgf@xb=\dimen154
+\pgf@yb=\dimen155
+\pgf@xc=\dimen156
+\pgf@yc=\dimen157
+\pgf@xd=\dimen158
+\pgf@yd=\dimen159
+\w@pgf@writea=\write3
+\r@pgf@reada=\read3
+\c@pgf@counta=\count189
+\c@pgf@countb=\count190
+\c@pgf@countc=\count191
+\c@pgf@countd=\count192
+\t@pgf@toka=\toks28
+\t@pgf@tokb=\toks29
+\t@pgf@tokc=\toks30
+\pgf@sys@id@count=\count193
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
+File: pgf.cfg 2020/01/08 v3.1.5b (3.1.5b)
+)
+Driver file for pgf: pgfsys-pdftex.def
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.d
+ef
+File: pgfsys-pdftex.def 2020/01/08 v3.1.5b (3.1.5b)
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-p
+df.def
+File: pgfsys-common-pdf.def 2020/01/08 v3.1.5b (3.1.5b)
+)))
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.
+code.tex
+File: pgfsyssoftpath.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfsyssoftpath@smallbuffer@items=\count194
+\pgfsyssoftpath@bigbuffer@items=\count195
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.
+code.tex
+File: pgfsysprotocol.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+))
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+Package: pgfcore 2020/01/08 v3.1.5b (3.1.5b)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+\pgfmath@dimen=\dimen160
+\pgfmath@count=\count196
+\pgfmath@box=\box51
+\pgfmath@toks=\toks31
+\pgfmath@stack@operand=\toks32
+\pgfmath@stack@operation=\toks33
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.
+tex
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic
+.code.tex)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigo
+nometric.code.tex)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.rando
+m.code.tex)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.compa
+rison.code.tex)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.
+code.tex)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round
+.code.tex)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.
+code.tex)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integ
+erarithmetics.code.tex)))
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count197
+)) (/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.co
+de.tex
+File: pgfcorepoints.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@picminx=\dimen161
+\pgf@picmaxx=\dimen162
+\pgf@picminy=\dimen163
+\pgf@picmaxy=\dimen164
+\pgf@pathminx=\dimen165
+\pgf@pathmaxx=\dimen166
+\pgf@pathminy=\dimen167
+\pgf@pathmaxy=\dimen168
+\pgf@xx=\dimen169
+\pgf@xy=\dimen170
+\pgf@yx=\dimen171
+\pgf@yy=\dimen172
+\pgf@zx=\dimen173
+\pgf@zy=\dimen174
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconst
+ruct.code.tex
+File: pgfcorepathconstruct.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@path@lastx=\dimen175
+\pgf@path@lasty=\dimen176
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage
+.code.tex
+File: pgfcorepathusage.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@shorten@end@additional=\dimen177
+\pgf@shorten@start@additional=\dimen178
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.co
+de.tex
+File: pgfcorescopes.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfpic=\box52
+\pgf@hbox=\box53
+\pgf@layerbox@main=\box54
+\pgf@picture@serial@count=\count198
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicst
+ate.code.tex
+File: pgfcoregraphicstate.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgflinewidth=\dimen179
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransform
+ations.code.tex
+File: pgfcoretransformations.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@pt@x=\dimen180
+\pgf@pt@y=\dimen181
+\pgf@pt@temp=\dimen182
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.cod
+e.tex
+File: pgfcorequick.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.c
+ode.tex
+File: pgfcoreobjects.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathproce
+ssing.code.tex
+File: pgfcorepathprocessing.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.co
+de.tex
+File: pgfcorearrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfarrowsep=\dimen183
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.cod
+e.tex
+File: pgfcoreshade.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@max=\dimen184
+\pgf@sys@shading@range@num=\count199
+\pgf@shadingcount=\count266
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.cod
+e.tex
+File: pgfcoreimage.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.
+code.tex
+File: pgfcoreexternal.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfexternal@startupbox=\box55
+))
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.co
+de.tex
+File: pgfcorelayers.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretranspare
+ncy.code.tex
+File: pgfcoretransparency.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.
+code.tex
+File: pgfcorepatterns.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.
+tex
+File: pgfcorerdf.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)))
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.cod
+e.tex
+File: pgfmoduleshapes.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfnodeparttextbox=\box56
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.
+tex
+File: pgfmoduleplot.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-0-65.sty
+Package: pgfcomp-version-0-65 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@nodesepstart=\dimen185
+\pgf@nodesepend=\dimen186
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-1-18.sty
+Package: pgfcomp-version-1-18 2020/01/08 v3.1.5b (3.1.5b)
+))
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)
+) (/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+Package: pgffor 2020/01/08 v3.1.5b (3.1.5b)
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
+\pgffor@iter=\dimen187
+\pgffor@skip=\dimen188
+\pgffor@stack=\toks34
+\pgffor@toks=\toks35
+))
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.cod
+e.tex
+Package: tikz 2020/01/08 v3.1.5b (3.1.5b)
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothan
+dlers.code.tex
+File: pgflibraryplothandlers.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@plot@mark@count=\count267
+\pgfplotmarksize=\dimen189
+)
+\tikz@lastx=\dimen190
+\tikz@lasty=\dimen191
+\tikz@lastxsaved=\dimen192
+\tikz@lastysaved=\dimen193
+\tikz@lastmovetox=\dimen194
+\tikz@lastmovetoy=\dimen195
+\tikzleveldistance=\dimen196
+\tikzsiblingdistance=\dimen197
+\tikz@figbox=\box57
+\tikz@figbox@bg=\box58
+\tikz@tempbox=\box59
+\tikz@tempbox@bg=\box60
+\tikztreelevel=\count268
+\tikznumberofchildren=\count269
+\tikznumberofcurrentchild=\count270
+\tikz@fig@count=\count271
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.cod
+e.tex
+File: pgfmodulematrix.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfmatrixcurrentrow=\count272
+\pgfmatrixcurrentcolumn=\count273
+\pgf@matrix@numberofcolumns=\count274
+)
+\tikz@expandcount=\count275
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)))
+
+! LaTeX Error: File `mdframed.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+
+! LaTeX Error: Unknown option `framemethod=tikz' for package `mdframed'.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.44 
+     
+? 
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2019/06/20 v3.9 Customized lists
+\labelindent=\skip53
+\enit@outerparindent=\dimen198
+\enit@toks=\toks36
+\enit@inbox=\box61
+\enit@count@id=\count276
+
+! Undefined control sequence.
+<argument> \scriptsize 
+                       
+l.1084 \SetEnumitemSize{script}\scriptsize
+                                          
+? 
+! Undefined control sequence.
+<argument> \tiny 
+                 
+l.1085 \SetEnumitemSize{tiny}\tiny
+                                  
+? 
+! Undefined control sequence.
+<argument> \footnotesize 
+                         
+l.1086 \SetEnumitemSize{footnote}\footnotesize
+                                              
+? 
+! Undefined control sequence.
+<argument> \small 
+                  
+l.1087 \SetEnumitemSize{small}\small
+                                    
+? 
+
+! LaTeX Error: The font size command \normalsize is not defined:
+               there is probably something wrong with the class file.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1088 \SetEnumitemSize{normal}\normalsize
+                                          
+? 
+! Undefined control sequence.
+<argument> \large 
+                  
+l.1089 \SetEnumitemSize{large}\large
+                                    
+? 
+! Undefined control sequence.
+<argument> \Large 
+                  
+l.1090 \SetEnumitemSize{Large}\Large
+                                    
+? 
+! Undefined control sequence.
+<argument> \LARGE 
+                  
+l.1091 \SetEnumitemSize{LARGE}\LARGE
+                                    
+? 
+! Undefined control sequence.
+<argument> \huge 
+                 
+l.1092 \SetEnumitemSize{huge}\huge
+                                  
+? 
+! Undefined control sequence.
+<argument> \Huge 
+                 
+l.1093 \SetEnumitemSize{Huge}\Huge
+                                  
+? 
+\enitdp@description=\count277
+
+! LaTeX Error: Environment description undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1833 \renewenvironment{description}
+                                     [1][]
+? 
+)
+
+! LaTeX Error: File `authblk.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+! Undefined control sequence.
+<argument> \affilsep 
+                     
+l.63 \setlength{\affilsep}{0.1em}
+                                 
+? 
+! Missing number, treated as zero.
+<to be read again> 
+                   \let 
+l.64 \renewcommand
+                  \Authfont{\color{color0}\normalfont\sffamily\bfseries\font...
+
+? 
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   \let 
+l.64 \renewcommand
+                  \Authfont{\color{color0}\normalfont\sffamily\bfseries\font...
+
+? 
+
+! LaTeX Error: Command \Authfont undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.64 \renewcommand\Authfont
+                           {\color{color0}\normalfont\sffamily\bfseries\font...
+
+? 
+
+! LaTeX Error: Command \Affilfont undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.65 \renewcommand\Affilfont
+                            {\color{color0}\normalfont\sffamily\fontsize{8}{...
+
+? 
+
+! LaTeX Error: Command \AB@affilsepx undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.67 \renewcommand\AB@affilsepx
+                               {, \protect\Affilfont}
+? 
+
+! LaTeX Error: Command \Authands undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.69 \renewcommand\Authands
+                           { and }
+? 
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2019/09/21 v2.5h e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count278
+)
+
+! LaTeX Error: File `colortbl.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen199
+\lightrulewidth=\dimen256
+\cmidrulewidth=\dimen257
+\belowrulesep=\dimen258
+\belowbottomsep=\dimen259
+\aboverulesep=\dimen260
+\abovetopsep=\dimen261
+\cmidrulesep=\dimen262
+\cmidrulekern=\dimen263
+\defaultaddspace=\dimen264
+\@cmidla=\count279
+\@cmidlb=\count280
+\@aboverulesep=\dimen265
+\@belowrulesep=\dimen266
+\@thisruleclass=\count281
+\@lastruleclass=\count282
+\@thisrulewidth=\dimen267
+)
+
+! LaTeX Error: File `algorithm.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+
+! LaTeX Error: File `algpseudocode.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+
+! LaTeX Error: Unknown option `noend' for package `algpseudocode'.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.87 \RequirePackage
+                    {changepage}
+? 
+
+! LaTeX Error: File `changepage.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+))
+\Gm@cnth=\count283
+\Gm@cntv=\count284
+\c@Gm@tempcnt=\count285
+\Gm@bindingoffset=\dimen268
+\Gm@wd@mp=\dimen269
+\Gm@odd@mp=\dimen270
+\Gm@even@mp=\dimen271
+\Gm@layoutwidth=\dimen272
+\Gm@layoutheight=\dimen273
+\Gm@layouthoffset=\dimen274
+\Gm@layoutvoffset=\dimen275
+\Gm@dimlist=\toks37
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2020/05/10 v3.4j Customizing captions (AR)
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2020/05/10 v1.11 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 61.
+\captionmargin=\dimen276
+\captionmargin@=\dimen277
+\captionwidth=\dimen278
+\caption@tempdima=\dimen279
+\caption@indent=\dimen280
+\caption@parindent=\dimen281
+\caption@hangindent=\dimen282
+\abovecaptionskip=\skip54
+\belowcaptionskip=\skip55
+Package caption Info: Unknown document class (or package),
+(caption)             standard defaults will be used.
+Package caption Info: \@makecaption = undefined on input line 1053.
+)
+
+Package caption Warning: Unknown document class (or package),
+(caption)                standard defaults will be used.
+See the caption package documentation for explanation.
+
+Package caption Info: Option `figurename' requires the `newfloat' package on in
+put line 266.
+
+! LaTeX Error: File `newfloat.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+! Undefined control sequence.
+<argument> ...float}{figurename}\newfloat@setname 
+                                                  {figure}{Figure}\let \@tem...
+l.266 \caption@ProcessOptions*{caption}
+                                       
+? 
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.266 \caption@ProcessOptions*{caption}
+                                       
+? 
+! Bad space factor (0).
+<recently read> \@savsf 
+                        
+l.266 \caption@ProcessOptions*{caption}
+                                       
+? 
+\c@caption@flags=\count286
+\c@continuedfloat=\count287
+)
+Overfull \hbox (72.68158pt too wide) in paragraph at lines 266--102
+[]\T1/cmr/m/n/10 figureFigure
+ []
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex/biblatex.sty
+Package: biblatex 2019/12/01 v3.14 programmable bibliographies (PK/MW)
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2019/11/24 v0.31 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2019/12/15 v1.24 LaTeX kernel commands for general use (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2019/11/29 v3.13 Key value format for package options (HO)
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
+))
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/logreq/logreq.sty
+Package: logreq 2010/08/04 v1.0 xml request logger
+\lrq@indent=\count288
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/logreq/logreq.def
+File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
+))
+\c@tabx@nest=\count289
+\c@listtotal=\count290
+\c@listcount=\count291
+\c@liststart=\count292
+\c@liststop=\count293
+\c@citecount=\count294
+\c@citetotal=\count295
+\c@multicitecount=\count296
+\c@multicitetotal=\count297
+\c@instcount=\count298
+\c@maxnames=\count299
+\c@minnames=\count300
+\c@maxitems=\count301
+\c@minitems=\count302
+\c@citecounter=\count303
+\c@maxcitecounter=\count304
+\c@savedcitecounter=\count305
+\c@uniquelist=\count306
+\c@uniquename=\count307
+\c@refsection=\count308
+\c@refsegment=\count309
+\c@maxextratitle=\count310
+\c@maxextratitleyear=\count311
+\c@maxextraname=\count312
+\c@maxextradate=\count313
+\c@maxextraalpha=\count314
+\c@abbrvpenalty=\count315
+\c@highnamepenalty=\count316
+\c@lownamepenalty=\count317
+\c@maxparens=\count318
+\c@parenlevel=\count319
+\blx@tempcnta=\count320
+\blx@tempcntb=\count321
+\blx@tempcntc=\count322
+\blx@maxsection=\count323
+\blx@maxsegment@0=\count324
+\blx@notetype=\count325
+\blx@parenlevel@text=\count326
+\blx@parenlevel@foot=\count327
+\blx@sectionciteorder@0=\count328
+\blx@entrysetcounter=\count329
+\labelnumberwidth=\skip56
+\labelalphawidth=\skip57
+\biblabelsep=\skip58
+\bibitemsep=\skip59
+\bibnamesep=\skip60
+\bibinitsep=\skip61
+\bibparsep=\skip62
+\bibhang=\skip63
+\blx@bcfin=\read4
+\blx@bcfout=\write4
+\blx@langwohyphens=\language7
+\c@mincomprange=\count330
+\c@maxcomprange=\count331
+\c@mincompwidth=\count332
+Package biblatex Info: Trying to load biblatex default data model...
+Package biblatex Info: ... file 'blx-dm.def' found.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex/blx-dm.def
+File: blx-dm.def 2019/12/01 v3.14 biblatex localization (PK/MW)
+)
+Package biblatex Info: Trying to load biblatex style data model...
+Package biblatex Info: ... file 'abnt.dbx' not found.
+Package biblatex Info: Trying to load biblatex custom data model...
+Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
+\c@afterword=\count333
+\c@savedafterword=\count334
+\c@annotator=\count335
+\c@savedannotator=\count336
+\c@author=\count337
+\c@savedauthor=\count338
+\c@bookauthor=\count339
+\c@savedbookauthor=\count340
+\c@commentator=\count341
+\c@savedcommentator=\count342
+\c@editor=\count343
+\c@savededitor=\count344
+\c@editora=\count345
+\c@savededitora=\count346
+\c@editorb=\count347
+\c@savededitorb=\count348
+\c@editorc=\count349
+\c@savededitorc=\count350
+\c@foreword=\count351
+\c@savedforeword=\count352
+\c@holder=\count353
+\c@savedholder=\count354
+\c@introduction=\count355
+\c@savedintroduction=\count356
+\c@namea=\count357
+\c@savednamea=\count358
+\c@nameb=\count359
+\c@savednameb=\count360
+\c@namec=\count361
+\c@savednamec=\count362
+\c@translator=\count363
+\c@savedtranslator=\count364
+\c@shortauthor=\count365
+\c@savedshortauthor=\count366
+\c@shorteditor=\count367
+\c@savedshorteditor=\count368
+\c@labelname=\count369
+\c@savedlabelname=\count370
+\c@institution=\count371
+\c@savedinstitution=\count372
+\c@lista=\count373
+\c@savedlista=\count374
+\c@listb=\count375
+\c@savedlistb=\count376
+\c@listc=\count377
+\c@savedlistc=\count378
+\c@listd=\count379
+\c@savedlistd=\count380
+\c@liste=\count381
+\c@savedliste=\count382
+\c@listf=\count383
+\c@savedlistf=\count384
+\c@location=\count385
+\c@savedlocation=\count386
+\c@organization=\count387
+\c@savedorganization=\count388
+\c@origlocation=\count389
+\c@savedoriglocation=\count390
+\c@origpublisher=\count391
+\c@savedorigpublisher=\count392
+\c@publisher=\count393
+\c@savedpublisher=\count394
+\c@language=\count395
+\c@savedlanguage=\count396
+\c@origlanguage=\count397
+\c@savedoriglanguage=\count398
+\c@pageref=\count399
+\c@savedpageref=\count400
+\shorthandwidth=\skip64
+\shortjournalwidth=\skip65
+\shortserieswidth=\skip66
+\shorttitlewidth=\skip67
+\shortauthorwidth=\skip68
+\shorteditorwidth=\skip69
+\locallabelnumberwidth=\skip70
+\locallabelalphawidth=\skip71
+\localshorthandwidth=\skip72
+\localshortjournalwidth=\skip73
+\localshortserieswidth=\skip74
+\localshorttitlewidth=\skip75
+\localshortauthorwidth=\skip76
+\localshorteditorwidth=\skip77
+Package biblatex Info: Trying to load compatibility code...
+Package biblatex Info: ... file 'blx-compat.def' found.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex/blx-compat.def
+File: blx-compat.def 2019/12/01 v3.14 biblatex compatibility (PK/MW)
+)
+Package biblatex Info: Trying to load generic definitions...
+Package biblatex Info: ... file 'biblatex.def' found.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex/biblatex.def
+File: biblatex.def 2019/12/01 v3.14 biblatex compatibility (PK/MW)
+\c@textcitecount=\count401
+\c@textcitetotal=\count402
+\c@textcitemaxnames=\count403
+\c@biburlbigbreakpenalty=\count404
+\c@biburlbreakpenalty=\count405
+\c@biburlnumpenalty=\count406
+\c@biburlucpenalty=\count407
+\c@biburllcpenalty=\count408
+\biburlbigskip=\muskip18
+\biburlnumskip=\muskip19
+\biburlucskip=\muskip20
+\biburllcskip=\muskip21
+\c@smartand=\count409
+)
+Package biblatex Info: Trying to load bibliography style 'abnt'...
+Package biblatex Info: ... file 'abnt.bbx' found.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex-abnt/abnt.bbx
+File: abnt.bbx 2018-11-17 v3.4 ABNT BibLaTeX citation style
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/xpatch/xpatch.sty
+Package: xpatch 2020/03/25 v0.3a Extending etoolbox patching commands
+)
+Package biblatex Info: Trying to load bibliography style 'standard'...
+Package biblatex Info: ... file 'standard.bbx' found.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
+File: standard.bbx 2019/12/01 v3.14 biblatex bibliography style (PK/MW)
+\c@bbx:relatedcount=\count410
+\c@bbx:relatedtotal=\count411
+))
+Package biblatex Info: Trying to load citation style 'abnt'...
+Package biblatex Info: ... file 'abnt.cbx' found.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex-abnt/abnt.cbx
+File: abnt.cbx 2018-11-17 v3.4 ABNT BibLaTeX citation style
+Package biblatex Info: Trying to load citation style 'authoryear-comp'...
+Package biblatex Info: ... file 'authoryear-comp.cbx' found.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex/cbx/authoryear-comp.cbx
+File: authoryear-comp.cbx 2019/12/01 v3.14 biblatex citation style (PK/MW)
+Package biblatex Info: Redefining '\cite'.
+Package biblatex Info: Redefining '\parencite'.
+Package biblatex Info: Redefining '\footcite'.
+Package biblatex Info: Redefining '\footcitetext'.
+Package biblatex Info: Redefining '\smartcite'.
+Package biblatex Info: Redefining '\textcite'.
+Package biblatex Info: Redefining '\textcites'.
+Package biblatex Info: Redefining '\cites'.
+Package biblatex Info: Redefining '\parencites'.
+Package biblatex Info: Redefining '\footcites'.
+Package biblatex Info: Redefining '\footcitetexts'.
+Package biblatex Info: Redefining '\smartcites'.
+)
+Package biblatex Info: Redefining '\cite'.
+Package biblatex Info: Redefining '\cites'.
+Package biblatex Info: Redefining '\footcite'.
+Package biblatex Info: Redefining '\footcites'.
+Package biblatex Info: Redefining '\citetitle'.
+Package biblatex Info: Redefining '\smartcite'.
+Package biblatex Info: Redefining '\citeauthor'.
+Package biblatex Info: Redefining '\citeyear'.
+)
+Package biblatex Info: Trying to load configuration file...
+Package biblatex Info: ... file 'biblatex.cfg' found.
+ (/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex/biblatex.cfg
+File: biblatex.cfg 
+))
+! Undefined control sequence.
+l.133 \arrayrulecolor
+                     {color0} % Set the color of the horizontal rules
+? 
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.133 \arrayrulecolor{c
+                       olor0} % Set the color of the horizontal rules
+? 
+
+Overfull \hbox (38.1325pt too wide) in paragraph at lines 133--139
+[]\T1/cmr/m/n/10 color0
+ []
+
+! Undefined control sequence.
+l.149 \floatstyle
+                 {coloruled}
+? 
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.149 \floatstyle{c
+                   oloruled}
+? 
+! Undefined control sequence.
+l.150 \restylefloat
+                   {algorithm}
+? 
+
+Overfull \hbox (51.46259pt too wide) in paragraph at lines 149--151
+[]\T1/cmr/m/n/10 coloruled
+ []
+
+
+Overfull \hbox (42.23969pt too wide) in paragraph at lines 149--151
+\T1/cmr/m/n/10 algorithm 
+ []
+
+
+! LaTeX Error: File `fancyhdr.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+! Undefined control sequence.
+<recently read> \fancyhead 
+                           
+l.155 \fancyhead
+                [LO,RE,LE,RO]{} % Blank headers for non-title pages.
+? 
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.155 \fancyhead[
+                 LO,RE,LE,RO]{} % Blank headers for non-title pages.
+? 
+! Undefined control sequence.
+l.157 \lfoot
+            {}
+? 
+! Undefined control sequence.
+l.158 \cfoot
+            {}
+? 
+! Undefined control sequence.
+l.159 \rfoot
+            {}
+? 
+! Undefined control sequence.
+l.161 \fancyfoot
+                [LE]{{\footerfont \thepage\hspace{1em}|\hspace{1em}\@running...
+
+? 
+LaTeX Font Info:    Trying to load font information for T1+cmss on input line 1
+61.
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/base/t1cmss.fd
+File: t1cmss.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+)
+! Undefined control sequence.
+l.161 \fancyfoot[LE]{{\footerfont \thepage
+                                          \hspace{1em}|\hspace{1em}\@running...
+
+? 
+! Undefined control sequence.
+l.161 ...e\hspace{1em}|\hspace{1em}\@runningauthor
+                                                   \hspace{0.2em}}}
+? 
+! Undefined control sequence.
+l.162 \fancyfoot
+                [R]{\footerfont\thepage}
+? 
+! Undefined control sequence.
+l.162 \fancyfoot[R]{\footerfont\thepage
+                                       }
+? 
+
+! LaTeX Error: Command \headrulewidth undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.164 \renewcommand{\headrulewidth}
+                                   {0pt}% % No header rule
+? 
+
+! LaTeX Error: Command \footrulewidth undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.165 \renewcommand{\footrulewidth}
+                                   {0pt}% % No footer rule
+? 
+
+Overfull \hbox (81.98291pt too wide) in paragraph at lines 155--166
+[]\T1/cmr/m/n/10 [LO,RE,LE,RO]
+ []
+
+
+Overfull \hbox (18.60657pt too wide) in paragraph at lines 155--166
+\T1/cmr/m/n/10 [LE]
+ []
+
+
+Overfull \hbox (2.36053pt too wide) in paragraph at lines 155--166
+\T1/cmss/m/n/8 |
+ []
+
+
+Overfull \hbox (12.91351pt too wide) in paragraph at lines 155--166
+\T1/cmr/m/n/10 [R] 
+ []
+
+
+! LaTeX Error: File `titlesec.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+
+! LaTeX Error: Unknown option `explicit' for package `titlesec'.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.197 \renewcommand
+                   {\thesubsection}{\Alph{subsection}}
+? 
+
+! LaTeX Error: Command \thesubsection undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.197 \renewcommand{\thesubsection}
+                                   {\Alph{subsection}}
+? 
+! Undefined control sequence.
+l.199 \titleformat
+                  {\section}
+? 
+! Undefined control sequence.
+l.199 \titleformat{\section
+                           }
+? 
+! Undefined control sequence.
+l.200   {\large
+               \sffamily\bfseries\color{color4}}
+? 
+! Undefined control sequence.
+l.201   {\thesection
+                    .}
+? 
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.201   {\thesection.
+                     }
+? 
+! Illegal parameter number in definition of \reserved@a.
+<to be read again> 
+                   1
+l.203   {\MakeUppercase{#1}
+                           }
+? 
+! You can't use `macro parameter character #' in horizontal mode.
+<to be read again> ##
+                     1
+l.203   {\MakeUppercase{#1}
+                           }
+? 
+! Undefined control sequence.
+l.205 \titleformat
+                  {name=\section,numberless}
+? 
+! Undefined control sequence.
+l.205 \titleformat{name=\section
+                                ,numberless}
+? 
+! Undefined control sequence.
+l.206   {\large
+               \sffamily\bfseries\color{color4}}
+? 
+! Illegal parameter number in definition of \reserved@a.
+<to be read again> 
+                   1
+l.209   {\MakeUppercase{#1}
+                           }
+? 
+! You can't use `macro parameter character #' in horizontal mode.
+<to be read again> ##
+                     1
+l.209   {\MakeUppercase{#1}
+                           }
+? 
+! Undefined control sequence.
+l.211 \titleformat
+                  {\subsection}
+? 
+! Undefined control sequence.
+l.211 \titleformat{\subsection
+                              }
+? 
+! Missing number, treated as zero.
+<to be read again> 
+                   \c@subsection 
+l.213   {\thesubsection
+                       .}
+? 
+! You can't use `macro parameter character #' in horizontal mode.
+l.215   {#
+          1}
+? 
+! Undefined control sequence.
+l.217 \titleformat
+                  {\subsubsection}[runin]
+? 
+! Undefined control sequence.
+l.217 \titleformat{\subsubsection
+                                 }[runin]
+? 
+! Undefined control sequence.
+l.219   {\thesubsubsection
+                          .}
+? 
+! You can't use `macro parameter character #' in horizontal mode.
+l.221   {#
+          1}
+? 
+! Undefined control sequence.
+l.223 \titleformat
+                  {\paragraph}[runin]
+? 
+! Undefined control sequence.
+l.223 \titleformat{\paragraph
+                             }[runin]
+? 
+! Undefined control sequence.
+l.224   {\sffamily\small
+                        \bfseries}
+? 
+! You can't use `macro parameter character #' in horizontal mode.
+l.227   {#
+          1}
+? 
+! Undefined control sequence.
+l.228 \titlespacing
+                   *{\section}{0pc}{3ex \@plus4pt \@minus3pt}{5pt}
+? 
+! Undefined control sequence.
+l.228 \titlespacing*{\section
+                             }{0pc}{3ex \@plus4pt \@minus3pt}{5pt}
+? 
+! Undefined control sequence.
+l.229 \titlespacing
+                   *{\subsection}{0pc}{2.5ex \@plus3pt \@minus2pt}{2pt}
+? 
+! Undefined control sequence.
+l.229 \titlespacing*{\subsection
+                                }{0pc}{2.5ex \@plus3pt \@minus2pt}{2pt}
+? 
+! Undefined control sequence.
+l.230 \titlespacing
+                   *{\subsubsection}{0pc}{2ex \@plus2.5pt \@minus1.5pt}{2pt}
+? 
+! Undefined control sequence.
+l.230 \titlespacing*{\subsubsection
+                                   }{0pc}{2ex \@plus2.5pt \@minus1.5pt}{2pt}
+? 
+! Undefined control sequence.
+l.231 \titlespacing
+                   *{\paragraph}{0pc}{1.5ex \@plus2pt \@minus1pt}{12pt}
+? 
+! Undefined control sequence.
+l.231 \titlespacing*{\paragraph
+                               }{0pc}{1.5ex \@plus2pt \@minus1pt}{12pt}
+? 
+
+Overfull \hbox (14.7771pt too wide) in paragraph at lines 201--232
+[]\T1/cmr/m/n/10 .
+ []
+
+
+Overfull \hbox (25.54932pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 0.5em
+ []
+
+
+Overfull \hbox (4.99878pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 1
+ []
+
+
+Overfull \hbox (5.5542pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 []
+ []
+
+
+Overfull \hbox (82.0633pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 name=,numberless
+ []
+
+
+Overfull \hbox (17.77344pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 0em
+ []
+
+
+Overfull \hbox (4.99878pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 1
+ []
+
+
+Overfull \hbox (5.5542pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 []
+ []
+
+
+Overfull \hbox (2.7771pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 .
+ []
+
+
+Overfull \hbox (25.54932pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 0.5em
+ []
+
+
+Overfull \hbox (4.99878pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 1
+ []
+
+
+Overfull \hbox (5.5542pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 []
+ []
+
+
+Overfull \hbox (28.9096pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 [runin]
+ []
+
+
+Overfull \hbox (2.7771pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 .
+ []
+
+
+Overfull \hbox (25.54932pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 0.5em
+ []
+
+
+Overfull \hbox (4.99878pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 1
+ []
+
+
+Overfull \hbox (5.5542pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 []
+ []
+
+
+Overfull \hbox (28.9096pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 [runin]
+ []
+
+
+Overfull \hbox (17.77344pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 0em
+ []
+
+
+Overfull \hbox (4.99878pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 1
+ []
+
+
+Overfull \hbox (34.99146pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 *0pc3ex
+ []
+
+
+Overfull \hbox (32.2699pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 plus4pt
+ []
+
+
+Overfull \hbox (54.7644pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 minus3pt5pt
+ []
+
+
+Overfull \hbox (42.76733pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 *0pc2.5ex
+ []
+
+
+Overfull \hbox (32.2699pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 plus3pt
+ []
+
+
+Overfull \hbox (54.7644pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 minus2pt2pt
+ []
+
+
+Overfull \hbox (34.99146pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 *0pc2ex
+ []
+
+
+Overfull \hbox (40.04578pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 plus2.5pt
+ []
+
+
+Overfull \hbox (62.54028pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 minus1.5pt2pt
+ []
+
+
+Overfull \hbox (42.76733pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 *0pc1.5ex
+ []
+
+
+Overfull \hbox (32.2699pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 plus2pt
+ []
+
+
+Overfull \hbox (59.76318pt too wide) in paragraph at lines 201--232
+\T1/cmr/m/n/10 minus1pt12pt 
+ []
+
+
+! LaTeX Error: Command \@maketitle undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.272 \renewcommand{\@maketitle}
+                                {\bgroup\setlength{\parindent}{0pt}%
+? 
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.272 \renewcommand{\@maketitle}
+                                {\bgroup\setlength{\parindent}{0pt}%
+? 
+
+! LaTeX Error: Environment adjustwidth undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.273 	\begin{adjustwidth}
+                          {0pt}{24pt}
+? 
+
+Overfull \hbox (78.09497pt too wide) in paragraph at lines 272--274
+[]\T1/cmr/m/n/10 aketitle0pt24pt 
+ []
+
+
+Overfull \hbox (59.31093pt too wide) in paragraph at lines 277--277
+\T1/cmss/bx/n/20.74 mtitle  
+ []
+
+
+Overfull \hbox (27.21558pt too wide) in paragraph at lines 279--279
+[]\T1/cmr/m/n/10 mdate  
+ []
+
+
+Overfull \hbox (37.2409pt too wide) in paragraph at lines 281--281
+[]\T1/cmr/m/n/10 mauthor  
+ []
+
+
+! LaTeX Error: \begin{document} ended by \end{adjustwidth}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.285 	\end{adjustwidth}
+                        
+? 
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.288 		\abscontent
+                   
+? 
+! Undefined control sequence.
+\abscontent ...}} \vskip 9pt\absfont \theabstract 
+                                                  \vskip 1pt{\color {black50...
+l.288 		\abscontent
+                   
+? 
+
+Overfull \hbox (465.0pt too wide) in paragraph at lines 288--290
+[][]
+ []
+
+
+Overfull \hbox (72.0pt too wide) in paragraph at lines 288--290
+[] 
+ []
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 2020/01/15 v2.11c `tabularx' package (DPC)
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/tools/array.sty
+Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
+\col@sep=\dimen283
+\ar@mcellbox=\box62
+\extrarowheight=\dimen284
+\NC@list=\toks38
+\extratabsurround=\skip78
+\backup@length=\skip79
+\ar@cellbox=\box63
+)
+\TX@col@width=\dimen285
+\TX@old@table=\dimen286
+\TX@old@col=\dimen287
+\TX@target=\dimen288
+\TX@delta=\dimen289
+\TX@cols=\count412
+\TX@ftn=\toks39
+)
+
+! LaTeX Error: File `footmisc.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+
+! LaTeX Error: Unknown option `flushmargin' for package `footmisc'.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.303 
+      
+? 
+
+! LaTeX Error: Unknown option `ragged' for package `footmisc'.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.303 
+      
+? 
+\myFootnoteWidth=\skip80
+\myFootnoteLabel=\skip81
+
+! LaTeX Error: Command \@makefntext undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.307 \renewcommand{\@makefntext}
+                                 [1]{%
+? 
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.307 \renewcommand{\@makefntext}
+                                 [1]{%
+? 
+! You can't use `macro parameter character #' in internal vertical mode.
+<argument> \hsize \@tempdima \@parboxrestore ##
+                                               1\@@par 
+l.311   \parbox[t]{\myFootnoteWidth}{#1}
+                                        
+? 
+
+Overfull \hbox (9.99756pt too wide) in paragraph at lines 311--311
+[]\T1/cmr/m/n/10 1 
+ []
+
+
+Overfull \hbox (67.8197pt too wide) in paragraph at lines 307--313
+[]\T1/cmr/m/n/10 akefntext[1][][]
+ []
+
+
+! LaTeX Error: Command \@ already defined.
+               Or name \end... illegal, see p.192 of the manual.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.326 }
+       
+? 
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.326 }
+       
+? 
+! Missing number, treated as zero.
+<to be read again> 
+                   u
+l.326 }
+       
+? 
+! You already have nine parameters.
+\reserved@a ...\def \expandafter \@\reserved@b #10
+                                                  u{
+l.326 }
+       
+? 
+! Undefined control sequence.
+<argument> \nolinenumbers 
+                          \begingroup \setlength {\myFootnoteLabel }{0em} \r...
+l.326 }
+       
+? 
+LaTeX Font Info:    Trying to load font information for U+msa on input line 326
+.
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 326
+.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+! Undefined control sequence.
+\@footnotetext ...tins {\reset@font \footnotesize 
+                                                  \interlinepenalty \interfo...
+l.326 }
+       
+? 
+! Undefined control sequence.
+\@footnotetext ...}\color@begingroup \@makefntext 
+                                                  {\rule \z@ \footnotesep \i...
+l.326 }
+       
+? 
+! Undefined control sequence.
+<argument> \footnotelayout 
+                           \copyrightfont \textsuperscript {##1}##2
+l.326 }
+       
+? 
+! You can't use `macro parameter character #' in restricted horizontal mode.
+<argument> \fontsize \sf@size \z@ \selectfont ##
+                                                1
+l.326 }
+       
+? 
+! You can't use `macro parameter character #' in horizontal mode.
+<argument> ...pyrightfont \textsuperscript {##1}##
+                                                  2
+l.326 }
+       
+? 
+
+Overfull \hbox (7.57904pt too wide) in paragraph at lines 326--326
+[][]$[]$\T1/cmss/m/n/7 2| 
+ []
+
+
+Overfull \hbox (63.09863pt too wide) in paragraph at lines 326--327
+[]\T1/cmr/m/n/10 uthfootnote
+ []
+
+
+Overfull \hbox (0.5pt too wide) in paragraph at lines 326--327
+[] 
+ []
+
+
+! LaTeX Error: File `textpos.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: ^^[[A
+! Undefined control sequence.
+\GenericError  ...                                
+                                                    #4  \errhelp \@err@     ...
+l.356 \setlength
+                {\TPHorizModule}{1pt}
+? 
+! Undefined control sequence.
+\GenericError  ...                                
+                                                  \let \@err@               ...
+l.356 \setlength
+                {\TPHorizModule}{1pt}
+? 
+! Undefined control sequence.
+\GenericError  ...                                
+                                                  \@empty \def \MessageBreak...
+l.356 \setlength
+                {\TPHorizModule}{1pt}
+? 
+! Undefined control sequence.
+\GenericError  ...                                
+                                                     \endgroup 
+l.356 \setlength
+                {\TPHorizModule}{1pt}
+? 
+! Argument of \DeclareUnicodeCharacter has an extra }.
+<inserted text> 
+                \par 
+l.356 \setlength
+                {\TPHorizModule}{1pt}
+? 
+Runaway argument?
+! Paragraph ended before \DeclareUnicodeCharacter was complete.
+<to be read again> 
+                   \par 
+l.356 \setlength
+                {\TPHorizModule}{1pt}
+? 
+! Argument of \DeclareUnicodeCharacter has an extra }.
+<inserted text> 
+                \par 
+l.356 \setlength
+                {\TPHorizModule}{1pt}
+? 
+Runaway argument?
+! Paragraph ended before \DeclareUnicodeCharacter was complete.
+<to be read again> 
+                   \par 
+l.356 \setlength
+                {\TPHorizModule}{1pt}
+? 
+Runaway argument?
+{\protect \begingroup \immediate \write \@unused   \def \MessageBreak \ETC.
+! Paragraph ended before \set@curr@file was complete.
+<to be read again> 
+                   \par 
+l.356 \setlength
+                {\TPHorizModule}{1pt}
+? 
+! Too many }'s.
+<argument> ... definition with\MessageBreak \par  
+                                                   \errhelp \let \def \Messa...
+l.356 \setlength
+                {\TPHorizModule}{1pt}
+? 
+! Too many }'s.
+<argument> ...definition with\MessageBreak \par   
+                                                  \errhelp \let \def \Messag...
+l.356 \setlength
+                {\TPHorizModule}{1pt}
+? 
+! Missing { inserted.
+<to be read again> 
+                   \let 
+l.356 \setlength
+                {\TPHorizModule}{1pt}
+? 
+Runaway argument?
+{\protect \begingroup \immediate \write \@unused   \def \MessageBreak \ETC.
+! Paragraph ended before \@missingfileerror was complete.
+<to be read again> 
+                   \par 
+l.356 \setlength
+                {\TPHorizModule}{1pt}
+? 
+! Too many }'s.
+\reserved@a ...definition with\MessageBreak \par  
+                                                   \errhelp \let \def \Messa...
+l.356 \setlength
+                {\TPHorizModule}{1pt}
+? 
+! Too many }'s.
+\reserved@a ...efinition with\MessageBreak \par   
+                                                  \errhelp \let \def \Messag...
+l.356 \setlength
+                {\TPHorizModule}{1pt}
+? 
+! Missing { inserted.
+<to be read again> 
+                   \let 
+l.356 \setlength
+                {\TPHorizModule}{1pt}
+? 
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.356 \setlength
+                {\TPHorizModule}{1pt}
+? 
+
+! LaTeX Error: Unknown option `absolute' for package `textpos'.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.356 \setlength
+                {\TPHorizModule}{1pt}
+? 
+
+! LaTeX Error: Unknown option `overlay' for package `textpos'.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.356 \setlength
+                {\TPHorizModule}{1pt}
+? 
+! Undefined control sequence.
+<argument> \TPHorizModule 
+                          
+l.356 \setlength{\TPHorizModule}{1pt}
+                                     
+? 
+! Missing number, treated as zero.
+<to be read again> 
+                   \protect 
+l.357 \setlength
+                {\TPVertModule}{1pt}
+? 
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   \protect 
+l.357 \setlength
+                {\TPVertModule}{1pt}
+? 
+! Undefined control sequence.
+<argument> \TPVertModule 
+                         
+l.357 \setlength{\TPVertModule}{1pt}
+                                    
+? 
+! Undefined control sequence.
+l.358 \textblockorigin
+                      {0pt}{0pt} % start everything near the top-left corner
+? 
+! Missing number, treated as zero.
+<to be read again> 
+                   {
+l.358 \textblockorigin{
+                       0pt}{0pt} % start everything near the top-left corner
+? 
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   {
+l.358 \textblockorigin{
+                       0pt}{0pt} % start everything near the top-left corner
+? 
+
+Overfull \hbox (53.71204pt too wide) in paragraph at lines 356--359
+[]\T1/cmr/m/n/10 sty0pt0pt 
+ []
+
+! Undefined control sequence.
+<argument> \affilsep 
+                     
+l.363 \setlength{\affilsep}{8.5pt}
+                                   % 16.5pts between base of author line and...
+
+? 
+! Missing number, treated as zero.
+<to be read again> 
+                   \let 
+l.364 \renewcommand
+                   \Authfont{\color{color0}\normalfont\sffamily\bfseries\fon...
+
+? 
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   \let 
+l.364 \renewcommand
+                   \Authfont{\color{color0}\normalfont\sffamily\bfseries\fon...
+
+? 
+
+! LaTeX Error: Command \AB undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.367 \renewcommand\AB
+                      @affilsepx{; \protect\Affilfont}
+? 
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.367 \renewcommand\AB@a
+                        ffilsepx{; \protect\Affilfont}
+? 
+
+Overfull \hbox (49.8241pt too wide) in paragraph at lines 367--368
+[]\T1/cmr/m/n/10 affilsepx;
+ []
+
+
+! LaTeX Error: File `lastpage.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+! Undefined control sequence.
+<argument> \undefinedpagestyle 
+                               
+l.374 \pagestyle{fancy}
+                                 % Enables the custom headers/footers
+? 
+! Undefined control sequence.
+l.376 \fancypagestyle
+                     {firststyle}{
+? 
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.376 \fancypagestyle{f
+                       irststyle}{
+? 
+! Undefined control sequence.
+l.377 	\fancyfoot
+                 [R]{\footerfont IE/Unicamp\hspace{7pt}|\hspace{7pt}Reviewed...
+
+? 
+! Undefined control sequence.
+<recently read> \today 
+                       
+l.377 ...}|\hspace{7pt}Reviewed in \textbf{\today}
+                                                  \hspace{7pt}|\hspace{7pt}R...
+
+? 
+! Undefined control sequence.
+<recently read> \thepage 
+                         
+l.377 ...bf{\thepage\textendash\pageref{LastPage}}
+                                                  }
+? 
+! Undefined control sequence.
+<write> ... Reference `LastPage' on page \thepage 
+                                                  \space undefined\on@line .
+l.377 ...bf{\thepage\textendash\pageref{LastPage}}
+                                                  }
+? 
+
+LaTeX Warning: Reference `LastPage' on page  undefined on input line 377.
+
+! Undefined control sequence.
+l.378 	\fancyfoot
+                 [L]{\footerfont\@ifundefined{@doi}{}{\@doi}}
+? 
+
+Overfull \hbox (49.35199pt too wide) in paragraph at lines 376--380
+[]\T1/cmr/m/n/10 firststyle
+ []
+
+
+Overfull \hbox (55.86136pt too wide) in paragraph at lines 376--380
+\T1/cmr/m/n/10 [R]\T1/cmss/m/n/8 IE/Unicamp
+ []
+
+
+Overfull \hbox (2.36053pt too wide) in paragraph at lines 376--380
+\T1/cmss/m/n/8 |
+ []
+
+
+Overfull \hbox (32.72812pt too wide) in paragraph at lines 376--380
+\T1/cmss/m/n/8 Reviewed
+ []
+
+
+Overfull \hbox (6.4151pt too wide) in paragraph at lines 376--380
+\T1/cmss/m/n/8 in
+ []
+
+
+Overfull \hbox (2.36053pt too wide) in paragraph at lines 376--380
+\T1/cmss/m/n/8 |
+ []
+
+
+Overfull \hbox (28.40973pt too wide) in paragraph at lines 376--380
+\T1/cmss/m/n/8 Reading
+ []
+
+
+Overfull \hbox (32.63925pt too wide) in paragraph at lines 376--380
+\T1/cmss/m/n/8 Materials
+ []
+
+
+Overfull \hbox (2.36053pt too wide) in paragraph at lines 376--380
+\T1/cmss/m/n/8 |
+ []
+
+
+Overfull \hbox (13.79463pt too wide) in paragraph at lines 376--380
+\T1/cmss/bx/n/8 ^^U[]
+ []
+
+
+Overfull \hbox (90.9639pt too wide) in paragraph at lines 376--380
+\T1/cmr/m/n/10 [L]\T1/cmss/m/n/8 mifundefined@doimdoi
+ []
+
+! Undefined control sequence.
+l.382 \titleclass
+                 {\acknow@section}{straight}[\part]
+? 
+! Undefined control sequence.
+l.382 \titleclass{\acknow
+                         @section}{straight}[\part]
+? 
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.382 \titleclass{\acknow@
+                          section}{straight}[\part]
+? 
+! Undefined control sequence.
+l.382 \titleclass{\acknow@section}{straight}[\part
+                                                  ]
+? 
+\c@acknow@section=\count413
+! Undefined control sequence.
+l.386 \titleformat
+                  {\acknow@section}[runin]
+? 
+! Undefined control sequence.
+l.386 \titleformat{\acknow
+                          @section}[runin]
+? 
+
+! LaTeX Error: The font size command \normalsize is not defined:
+               there is probably something wrong with the class file.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.387 {\sffamily\normalsize
+                           \bfseries}
+? 
+! You can't use `macro parameter character #' in horizontal mode.
+l.390 {#
+        1.}
+? 
+! Undefined control sequence.
+l.392 \titlespacing
+                   {\acknow@section}
+? 
+! Undefined control sequence.
+l.392 \titlespacing{\acknow
+                           @section}
+? 
+
+Overfull \hbox (89.06451pt too wide) in paragraph at lines 382--396
+[]\T1/cmr/m/n/10 @sectionstraight[]
+ []
+
+
+Overfull \hbox (74.75952pt too wide) in paragraph at lines 382--396
+\T1/cmr/m/n/10 acknow@section0
+ []
+
+
+Overfull \hbox (66.7337pt too wide) in paragraph at lines 382--396
+\T1/cmr/m/n/10 @section[runin]
+ []
+
+
+Overfull \hbox (17.77344pt too wide) in paragraph at lines 382--396
+\T1/cmr/m/n/10 0em
+ []
+
+
+Overfull \hbox (7.77588pt too wide) in paragraph at lines 382--396
+\T1/cmr/m/n/10 1.
+ []
+
+
+Overfull \hbox (5.5542pt too wide) in paragraph at lines 382--396
+\T1/cmr/m/n/10 []
+ []
+
+
+Overfull \hbox (37.8241pt too wide) in paragraph at lines 382--396
+\T1/cmr/m/n/10 @section
+ []
+
+
+Overfull \hbox (14.44092pt too wide) in paragraph at lines 382--396
+\T1/cmr/m/n/10 0pt
+ []
+
+
+Overfull \hbox (27.49329pt too wide) in paragraph at lines 382--396
+\T1/cmr/m/n/10 3.25ex
+ []
+
+
+Overfull \hbox (17.82898pt too wide) in paragraph at lines 382--396
+\T1/cmr/m/n/10 plus
+ []
+
+
+Overfull \hbox (14.71863pt too wide) in paragraph at lines 382--396
+\T1/cmr/m/n/10 1ex
+ []
+
+
+Overfull \hbox (25.88257pt too wide) in paragraph at lines 382--396
+\T1/cmr/m/n/10 minus
+ []
+
+
+Overfull \hbox (17.49573pt too wide) in paragraph at lines 382--396
+\T1/cmr/m/n/10 .2ex
+ []
+
+
+Overfull \hbox (22.4945pt too wide) in paragraph at lines 382--396
+\T1/cmr/m/n/10 1.5ex
+ []
+
+
+Overfull \hbox (17.82898pt too wide) in paragraph at lines 382--396
+\T1/cmr/m/n/10 plus
+ []
+
+
+Overfull \hbox (17.49573pt too wide) in paragraph at lines 382--396
+\T1/cmr/m/n/10 .2ex 
+ []
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count414
+\float@exts=\toks40
+\float@box=\box64
+\@float@everytoks=\toks41
+\@floatcapt=\box65
+)
+\@float@every@readings=\toks42
+\c@readings=\count415
+
+! Undefined control sequence.
+l.411 \newmdenv
+               [linewidth=0.7pt,
+? 
+! Undefined control sequence.
+\set@color ...\@pdfcolorstack push{\current@color 
+                                                  }\aftergroup \reset@color 
+l.411 \newmdenv[
+                linewidth=0.7pt,
+? 
+
+! LaTeX Error: The font size command \normalsize is not defined:
+               there is probably something wrong with the class file.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.411 \newmdenv[
+                linewidth=0.7pt,
+? 
+! Undefined control sequence.
+\set@color ...\@pdfcolorstack push{\current@color 
+                                                  }\aftergroup \reset@color 
+l.411 \newmdenv[
+                linewidth=0.7pt,
+? 
+! Undefined control sequence.
+\set@color ...\@pdfcolorstack push{\current@color 
+                                                  }\aftergroup \reset@color 
+l.411 \newmdenv[
+                linewidth=0.7pt,
+? 
+[1{/home/gpetrini/.TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.411 \newmdenv[
+                linewidth=0.7pt,
+? 
+
+Overfull \hbox (88.09253pt too wide) in paragraph at lines 411--415
+[]\T1/cmr/m/n/10 [linewidth=0.7pt,
+ []
+
+
+Overfull \hbox (262.63031pt too wide) in paragraph at lines 411--415
+\T1/cmr/m/n/10 backgroundcolor=configsblueback,linecolor=configsbluetext,
+ []
+
+
+Overfull \hbox (305.1477pt too wide) in paragraph at lines 411--415
+\T1/cmr/m/n/10 fontcolor=configsbluetext,innertopmargin=6pt,innerrightmargin=6p
+t,
+ []
+
+
+Overfull \hbox (259.99207pt too wide) in paragraph at lines 411--415
+\T1/cmr/m/n/10 innerbottommargin=6pt,innerleftmargin=6pt,font=\T1/cmss/m/n/10 ]
+infobox 
+ []
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty
+Package: tcolorbox 2020/04/28 version 4.30 text color boxes
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/tools/verbatim.sty
+Package: verbatim 2019/11/10 v1.5r LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks43
+\verbatim@line=\toks44
+\verbatim@in@stream=\read5
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/environ/environ.sty
+Package: environ 2014/05/04 v0.3 A new way to define environments
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/trimspaces/trimspaces.sty
+Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
+))
+\tcb@titlebox=\box66
+\tcb@upperbox=\box67
+\tcb@lowerbox=\box68
+\tcb@phantombox=\box69
+\c@tcbbreakpart=\count416
+\c@tcblayer=\count417
+\c@tcolorbox@number=\count418
+\tcb@temp=\box70
+\tcb@temp=\box71
+\tcb@temp=\box72
+\tcb@temp=\box73
+\tcb@out=\write5
+\tcb@record@out=\write6
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2020-05-15 v7.00e Hypertext links for LaTeX
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+\@linkdim=\dimen290
+\Hy@linkcounter=\count419
+\Hy@pagecounter=\count420
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2020-05-15 v7.00e Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)
+\Hy@SavedSpaceFactor=\count421
+Package hyperref Info: Option `colorlinks' set `true' on input line 4338.
+Package hyperref Info: Hyper figures OFF on input line 4464.
+Package hyperref Info: Link nesting OFF on input line 4469.
+Package hyperref Info: Hyper index ON on input line 4472.
+Package hyperref Info: Plain pages OFF on input line 4479.
+Package hyperref Info: Backreferencing OFF on input line 4484.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4717.
+\c@Hy@tempcnt=\count422
+LaTeX Info: Redefining \url on input line 5076.
+\XeTeXLinkMargin=\dimen291
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count423
+\Field@Width=\dimen292
+\Fld@charsize=\dimen293
+Package hyperref Info: Hyper figures OFF on input line 6347.
+Package hyperref Info: Link nesting OFF on input line 6352.
+Package hyperref Info: Hyper index ON on input line 6355.
+Package hyperref Info: backreferencing OFF on input line 6362.
+Package hyperref Info: Link coloring ON on input line 6365.
+Package hyperref Info: Link coloring with OCG OFF on input line 6372.
+Package hyperref Info: PDF/A mode OFF on input line 6377.
+LaTeX Info: Redefining \ref on input line 6417.
+LaTeX Info: Redefining \pageref on input line 6421.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/atbegshi/atbegshi.sty
+Package: atbegshi 2019/12/05 v1.19 At begin shipout hook (HO)
+)
+
+Package hyperref Warning: Option `pdfpagelabels' is turned off
+(hyperref)                because \thepage is undefined.
+
+\c@Item=\count424
+\c@Hfootnote=\count425
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+ (/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2020-05-15 v7.00e Hyperref driver for pdfTeX
+\Fld@listcount=\count426
+\c@bookmark@seq@number=\count427
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/atveryend/atveryend.sty
+Package: atveryend 2019-12-11 v1.11 Hooks at the very end of document (HO)
+Package atveryend Info: \AP@enddocument detected (standard20110627).
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+86.
+)
+\Hy@SectionHShift=\skip82
+))
+
+! LaTeX Error: File `microtype.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+
+! LaTeX Error: Unknown option `tracking=smallcaps' for package `microtype'.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.2 
+    
+? 
+(../_STYLES/Empirical.sty
+
+LaTeX Warning: You have requested package `../_STYLES/Empirical',
+               but the package provides `styles/Emprirical'.
+
+Package: styles/Emprirical 2017/02/10 v1.1 G3 Journal Investigation style
+)
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.15 \author[$
+              \ast$]{Gabriel Petrini}
+? 
+
+Overfull \hbox (48.88112pt too wide) in paragraph at lines 15--16
+[]$\OMS/cmsy/m/n/10 ^^C$\T1/cmss/m/n/10 ]Gabriel
+ []
+
+
+Overfull \hbox (27.52106pt too wide) in paragraph at lines 15--16
+\T1/cmss/m/n/10 Petrini 
+ []
+
+! Undefined control sequence.
+l.17 \affil
+           [$\ast$]{PhD Student at Unicamp.}
+? 
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.17 \affil[
+            $\ast$]{PhD Student at Unicamp.}
+? 
+
+Overfull \hbox (41.54958pt too wide) in paragraph at lines 17--18
+[]\T1/cmss/m/n/10 [$\OMS/cmsy/m/n/10 ^^C$\T1/cmss/m/n/10 ]PhD
+ []
+
+
+Overfull \hbox (32.71423pt too wide) in paragraph at lines 17--18
+\T1/cmss/m/n/10 Student
+ []
+
+
+Overfull \hbox (8.41461pt too wide) in paragraph at lines 17--18
+\T1/cmss/m/n/10 at
+ []
+
+
+Overfull \hbox (39.55978pt too wide) in paragraph at lines 17--18
+\T1/cmss/m/n/10 Unicamp. 
+ []
+
+
+Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
+(biblatex)                Loading 'csquotes' recommended.
+
+\@quotelevel=\count428
+\@quotereset=\count429
+(./Kajuth_2020.aux
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/babel/locale/en/babel-english.t
+ex
+Package babel Info: Importing basic data for english
+(babel)             from babel-en.ini. Reported on input line 11.
+))
+\openout1 = `Kajuth_2020.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 54.
+LaTeX Font Info:    ... okay on input line 54.
+
+
+! LaTeX Error: The font size command \normalsize is not defined:
+               there is probably something wrong with the class file.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.54 \begin{document}
+                     
+? 
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+ABD: EveryShipout initializing macros
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: letterpaper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: twoside 
+* h-part:(L,W,R)=(36.0pt, 542.295pt, 36.0pt)
+* v-part:(T,H,B)=(48.0pt, 686.96999pt, 60.0pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=542.295pt
+* \textheight=686.96999pt
+* \oddsidemargin=-36.26999pt
+* \evensidemargin=-36.26999pt
+* \topmargin=-74.26999pt
+* \headheight=40.0pt
+* \headsep=10.0pt
+* \topskip=10.0pt
+* \footskip=40.0pt
+* \marginparwidth=0.0pt
+* \marginparsep=0.0pt
+* \columnsep=24.0pt
+* \skip\footins=12.0pt plus 4.0pt minus 4.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidetrue
+* \@mparswitchtrue
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: Option `RaggedRight' requires the `ragged2e' package on i
+nput line 54.
+
+! LaTeX Error: File `ragged2e.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+Package caption Info: float package is loaded.
+Package caption Info: hyperref package is loaded.
+Package caption Info: End \AtBeginDocument code.
+
+Package biblatex Warning: File 'nil-abnt.lbx' not found!
+(biblatex)                Ignoring mapping 'nil' -> 'nil-abnt'.
+
+Package biblatex Info: Trying to load language 'nil'...
+Package biblatex Info: ... file 'nil.lbx' not found.
+
+Package biblatex Warning: Language 'nil' not supported.
+(biblatex)                Using fallback language 'brazil' on input line 54.
+
+Package biblatex Info: Trying to load language 'brazil' -> 'brazil-abnt'...
+Package biblatex Info: ... file 'brazil-abnt.lbx' found.
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex-abnt/brazil-abnt.lbx
+File: brazil-abnt.lbx 2018-11-17 v3.4 ABNT BibLaTeX citation style
+
+
+Package biblatex Warning: File 'brazilian-abnt-abnt.lbx' not found!
+(biblatex)                Ignoring mapping 'brazilian-abnt' -> 'brazilian-abnt-
+abnt'.
+
+Package biblatex Info: Trying to load language 'brazilian-abnt'...
+Package biblatex Info: ... file 'brazilian-abnt.lbx' found.
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex-abnt/brazilian-abnt.lbx
+File: brazilian-abnt.lbx 2018-11-17 v3.4 ABNT BibLaTeX citation style
+Package biblatex Info: Trying to load language 'brazilian' -> 'brazilian-abnt'.
+..
+Package biblatex Info: ... file 'brazilian-abnt.lbx' found.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex-abnt/brazilian-abnt.lbx
+File: brazilian-abnt.lbx 2018-11-17 v3.4 ABNT BibLaTeX citation style
+Package biblatex Info: Trying to load language 'brazilian'...
+Package biblatex Info: ... file 'brazilian.lbx' found.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex/lbx/brazilian.lbx
+File: brazilian.lbx 2019/12/01 v3.14 biblatex localization (PK/MW)
+)))
+Package biblatex Info: Trying to load language 'brazilian-abnt'...
+Package biblatex Info: ... file 'brazilian-abnt.lbx' found.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex-abnt/brazilian-abnt.lbx
+File: brazilian-abnt.lbx 2018-11-17 v3.4 ABNT BibLaTeX citation style
+Package biblatex Info: Trying to load language 'brazilian' -> 'brazilian-abnt'.
+..
+Package biblatex Info: ... file 'brazilian-abnt.lbx' found.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex-abnt/brazilian-abnt.lbx
+File: brazilian-abnt.lbx 2018-11-17 v3.4 ABNT BibLaTeX citation style
+Package biblatex Info: Trying to load language 'brazilian'...
+Package biblatex Info: ... file 'brazilian.lbx' found.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex/lbx/brazilian.lbx
+File: brazilian.lbx 2019/12/01 v3.14 biblatex localization (PK/MW)
+)
+Package biblatex Info: Trying to load language 'brazil'...
+Package biblatex Info: ... file 'brazil.lbx' found.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex/lbx/brazil.lbx
+File: brazil.lbx 2019/12/01 v3.14 biblatex localization (PK/MW)
+Package biblatex Info: Trying to load language 'brazilian'...
+Package biblatex Info: ... file 'brazilian.lbx' found.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex/lbx/brazilian.lbx
+File: brazilian.lbx 2019/12/01 v3.14 biblatex localization (PK/MW)
+)))
+Package biblatex Info: Trying to load language 'brazil'...
+Package biblatex Info: ... file 'brazil.lbx' found.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex/lbx/brazil.lbx
+File: brazil.lbx 2019/12/01 v3.14 biblatex localization (PK/MW)
+Package biblatex Info: Trying to load language 'brazilian' -> 'brazilian-abnt'.
+..
+Package biblatex Info: ... file 'brazilian-abnt.lbx' found.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex-abnt/brazilian-abnt.lbx
+File: brazilian-abnt.lbx 2018-11-17 v3.4 ABNT BibLaTeX citation style
+Package biblatex Info: Trying to load language 'brazilian'...
+Package biblatex Info: ... file 'brazilian.lbx' found.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex/lbx/brazilian.lbx
+File: brazilian.lbx 2019/12/01 v3.14 biblatex localization (PK/MW)
+)
+Package biblatex Info: Trying to load language 'brazil'...
+Package biblatex Info: ... file 'brazil.lbx' found.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex/lbx/brazil.lbx
+File: brazil.lbx 2019/12/01 v3.14 biblatex localization (PK/MW)
+Package biblatex Info: Trying to load language 'brazilian'...
+Package biblatex Info: ... file 'brazilian.lbx' found.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/biblatex/lbx/brazilian.lbx
+File: brazilian.lbx 2019/12/01 v3.14 biblatex localization (PK/MW)
+))))))
+Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Automatic encoding selection.
+(biblatex)             Assuming data encoding 'utf8'.
+\openout4 = `Kajuth_2020.bcf'.
+
+Package biblatex Info: Trying to load bibliographic data...
+Package biblatex Info: ... file 'Kajuth_2020.bbl' found.
+
+(./Kajuth_2020.bbl)
+Package biblatex Info: Reference section=0 on input line 54.
+Package biblatex Info: Reference segment=0 on input line 54.
+\AtBeginShipoutBox=\box74
+Package hyperref Info: Link coloring ON on input line 54.
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
+
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(/home/gpetrini/.TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count430
+)
+LaTeX Info: Redefining \ref on input line 54.
+LaTeX Info: Redefining \pageref on input line 54.
+LaTeX Info: Redefining \nameref on input line 54.
+ (./Kajuth_2020.out) (./Kajuth_2020.out)
+\@outlinefile=\write7
+\openout7 = `Kajuth_2020.out'.
+
+
+! Undefined control sequence.
+\reserved@c ->\HyOrg@maketitle 
+                               \Hy@maketitle@end 
+l.57 \articletypemark
+                     
+? 
+
+! LaTeX Error: Environment textblock undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.57 \articletypemark
+                     
+? 
+! Undefined control sequence.
+\articletypemark ...erfont \color {black} \textls 
+                                                  [96]{\articletypename }} \...
+l.57 \articletypemark
+                     
+? 
+
+! LaTeX Error: \begin{document} ended by \end{textblock}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.57 \articletypemark
+                     
+? 
+
+! LaTeX Error: Environment textblock undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.58 \marginmark
+                
+? 
+
+! LaTeX Error: \begin{document} ended by \end{textblock}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.58 \marginmark
+                
+? 
+! Undefined control sequence.
+<argument> \undefinedpagestyle 
+                               
+l.59 \thispagestyle{firststyle}
+                               
+? 
+
+LaTeX Warning: Citation 'kajuth_german_2020' on page 2 undefined on input line 
+62.
+
+
+! LaTeX Error: Environment infobox undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.64 \begin{infobox}
+                    
+? 
+
+LaTeX Warning: Citation 'kajuth_german_2020' on page 2 undefined on input line 
+65.
+
+
+! LaTeX Error: \begin{document} ended by \end{infobox}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.66 \end{infobox}
+                  
+? 
+
+LaTeX Warning: Citation 'dipasquale_housing_1994' on page 2 undefined on input 
+line 70.
+
+
+LaTeX Warning: Citation 'lastrapes_real_2002' on page 2 undefined on input line
+ 71.
+
+
+LaTeX Warning: Citation 'mccarthy_are_2004' on page 2 undefined on input line 7
+2.
+
+
+LaTeX Warning: Citation 'antipa_housing_2009' on page 2 undefined on input line
+ 73.
+
+
+LaTeX Warning: Citation 'aspachs-bracons_drivers_2009' on page 2 undefined on i
+nput line 74.
+
+
+LaTeX Warning: Citation 'steiner_estimating_2010' on page 2 undefined on input 
+line 75.
+
+
+LaTeX Warning: Citation 'koetter_real_2010' on page 2 undefined on input line 7
+6.
+
+
+LaTeX Warning: Citation 'sanchez_price_2011' on page 2 undefined on input line 
+77.
+
+
+LaTeX Warning: Citation 'igan_global_2012' on page 2 undefined on input line 78
+.
+
+
+LaTeX Warning: Citation 'chen_renewed_2013' on page 2 undefined on input line 7
+9.
+
+
+LaTeX Warning: Citation 'nocera_house_2018' on page 2 undefined on input line 8
+0.
+
+
+LaTeX Warning: Citation 'geng_fundamental_2018' on page 2 undefined on input li
+ne 81.
+
+
+LaTeX Warning: Empty bibliography on input line 85.
+
+
+! LaTeX Error: The font size command \normalsize is not defined:
+               there is probably something wrong with the class file.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.87 \end{document}
+                   
+? 
+! Undefined control sequence.
+<argument> \thepage 
+                    
+l.87 \end{document}
+                   
+? 
+[2]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 87.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 87.
+ (./Kajuth_2020.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 87.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 87.
+Package rerunfilecheck Info: File `Kajuth_2020.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+
+
+LaTeX Warning: There were undefined references.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 87.
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                Kajuth_2020
+(biblatex)                and rerun LaTeX afterwards.
+
+Package logreq Info: Writing requests to 'Kajuth_2020.run.xml'.
+\openout1 = `Kajuth_2020.run.xml'.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 29199 strings out of 482399
+ 567138 string characters out of 5946697
+ 1334710 words of memory out of 5000000
+ 44451 multiletter control sequences out of 15000+600000
+ 544074 words of font info for 45 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 68i,6n,79p,1220b,4017s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/gpetrini/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1000.600p
+k> </home/gpetrini/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecss0700.600p
+k> </home/gpetrini/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecss0500.600p
+k> </home/gpetrini/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx0800.600p
+k> </home/gpetrini/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecss1000.600p
+k> </home/gpetrini/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecsx0800.600p
+k> </home/gpetrini/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecsx2074.600p
+k> </home/gpetrini/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecss0800.600p
+k> </home/gpetrini/.TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600p
+k></home/gpetrini/.TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+>
+Output written on Kajuth_2020.pdf (2 pages, 59610 bytes).
+PDF statistics:
+ 237 PDF objects out of 1000 (max. 8388607)
+ 53 compressed objects within 1 object stream
+ 2 named destinations out of 1000 (max. 500000)
+ 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+

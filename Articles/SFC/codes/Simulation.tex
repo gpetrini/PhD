@@ -1,0 +1,257 @@
+% Created 2020-08-01 sáb 16:31
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[theorems, skins]{tcolorbox}
+\usepackage[style=abnt,noslsn,extrayear,uniquename=init,giveninits,justify,sccite,
+scbib,repeattitles,doi=false,isbn=false,url=false,maxcitenames=2,
+natbib=true,backend=biber]{biblatex}
+\usepackage{url}
+\usepackage[strings]{underscore}
+\usepackage[linktocpage,pdfstartview=FitH,colorlinks,
+linkcolor=blue,anchorcolor=blue,
+citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
+\usepackage{attachfile}
+\usepackage{setspace}
+\usepackage{tikz}
+\author{Gabriel Petrini}
+\date{August, 2020}
+\title{SFC simulation report}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section{Symbolic Solution}
+\label{sec:org50c03a8}
+
+\section{Simulations}
+\label{sec:org701c32c}
+
+
+
+\subsection{Solving}
+\label{sec:org58bfd2c}
+
+\begin{verbatim}
+<Figure size 1728x360 with 3 Axes>
+\end{verbatim}
+
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{obipy-resources/833ba20b4aec1c9746a2e4fcac62a826eabb201d/edb75400eaa242706d333a5892dc23b807e4fa06.png}
+\end{center}
+
+\begin{verbatim}
+<Figure size 1152x720 with 4 Axes>
+\end{verbatim}
+
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{obipy-resources/833ba20b4aec1c9746a2e4fcac62a826eabb201d/b1ab5d28b5a916ccd61a2da68541c183d68a4e01.png}
+\end{center}
+
+\begin{verbatim}
+<Figure size 1152x720 with 4 Axes>
+\end{verbatim}
+
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{obipy-resources/833ba20b4aec1c9746a2e4fcac62a826eabb201d/8553cac7719c5823ba4bd17e31ed9e468f656cb9.png}
+\end{center}
+
+\begin{verbatim}
+<Figure size 1152x720 with 4 Axes>
+\end{verbatim}
+
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{obipy-resources/833ba20b4aec1c9746a2e4fcac62a826eabb201d/11f3f05ec76746c8aa34965d6b2ffc36e7ec603a.png}
+\end{center}
+
+\begin{verbatim}
+             100          101          102          103          104   \
+C     3765.134938  3855.863961  3948.736973  4043.803678  4141.115084   
+Cw    1264.970108  1295.695180  1327.124143  1359.272144  1392.154796   
+Ck    2500.175522  2560.179735  2621.624049  2684.543026  2748.972058   
+FD    2341.126764  2397.480047  2455.114187  2514.057576  2574.339527   
+Fn    2544.703005  2605.956573  2668.602378  2732.671278  2798.195138   
+...           ...          ...          ...          ...          ...   
+TIME     1.000000     2.000000     3.000000     4.000000     5.000000   
+Ih/Y     0.211765     0.211705     0.211652     0.211606     0.211566   
+I/Y      0.255887     0.256027     0.256150     0.256258     0.256350   
+Z/Y      0.705880     0.705681     0.705504     0.705350     0.705218   
+gY            NaN     0.024289     0.024256     0.024224     0.024191   
+
+             105          106          107          108          109   ...  \
+C     4240.723534  4342.682743  4447.047840  4553.856910  4663.204510  ...   
+Cw    1425.788200  1460.188963  1495.374209  1531.354473  1568.162016  ...   
+Ck    2814.947388  2882.506125  2951.686272  3022.520925  3095.061426  ...   
+FD    2635.990307  2699.041168  2763.524372  2829.464035  2896.912612  ...   
+Fn    2865.206856  2933.740400  3003.830839  3075.504386  3148.818057  ...   
+...           ...          ...          ...          ...          ...  ...   
+TIME     6.000000     7.000000     8.000000     9.000000    10.000000  ...   
+Ih/Y     0.211533     0.211507     0.211487     0.211474     0.211467  ...   
+I/Y      0.256427     0.256489     0.256535     0.256567     0.256585  ...   
+Z/Y      0.705108     0.705020     0.704954     0.704910     0.704885  ...   
+gY       0.024159     0.024128     0.024096     0.024062     0.024036  ...   
+
+              991           992           993           994           995   \
+C     5.641294e+12  5.776685e+12  5.915325e+12  6.057293e+12  6.202668e+12   
+Cw    1.880928e+12  1.926071e+12  1.972297e+12  2.019632e+12  2.068103e+12   
+Ck    3.760381e+12  3.850630e+12  3.943045e+12  4.037678e+12  4.134583e+12   
+FD    3.472855e+12  3.556204e+12  3.641553e+12  3.728951e+12  3.818446e+12   
+Fn    3.774843e+12  3.865439e+12  3.958210e+12  4.053207e+12  4.150484e+12   
+...            ...           ...           ...           ...           ...   
+TIME  8.920000e+02  8.930000e+02  8.940000e+02  8.950000e+02  8.960000e+02   
+Ih/Y  2.142019e-01  2.142019e-01  2.142019e-01  2.142019e-01  2.142019e-01   
+I/Y   2.502006e-01  2.502006e-01  2.502007e-01  2.502007e-01  2.502007e-01   
+Z/Y   7.140033e-01  7.140032e-01  7.140032e-01  7.140032e-01  7.140031e-01   
+gY    2.400005e-02  2.400005e-02  2.400005e-02  2.400006e-02  2.400006e-02   
+
+              996           997           998           999           1000  
+C     6.351533e+12  6.503969e+12  6.660065e+12  6.819907e+12  6.983584e+12  
+Cw    2.117738e+12  2.168563e+12  2.220609e+12  2.273904e+12  2.328478e+12  
+Ck    4.233813e+12  4.335424e+12  4.439474e+12  4.546022e+12  4.655126e+12  
+FD    3.910089e+12  4.003931e+12  4.100026e+12  4.198426e+12  4.299189e+12  
+Fn    4.250096e+12  4.352099e+12  4.456550e+12  4.563507e+12  4.673032e+12  
+...            ...           ...           ...           ...           ...  
+TIME  8.970000e+02  8.980000e+02  8.990000e+02  9.000000e+02  9.010000e+02  
+Ih/Y  2.142019e-01  2.142019e-01  2.142019e-01  2.142018e-01  2.142018e-01  
+I/Y   2.502007e-01  2.502008e-01  2.502008e-01  2.502008e-01  2.502009e-01  
+Z/Y   7.140031e-01  7.140030e-01  7.140030e-01  7.140030e-01  7.140029e-01  
+gY    2.400006e-02  2.400006e-02  2.400006e-02  2.400006e-02  2.400006e-02  
+
+[80 rows x 901 columns]
+\end{verbatim}
+
+
+\url{file:///tmp/ob-ipython-html8eVtTh.html}
+
+\begin{verbatim}
+<Figure size 1152x720 with 2 Axes>
+\end{verbatim}
+
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{obipy-resources/833ba20b4aec1c9746a2e4fcac62a826eabb201d/2c047f9da9769dec6676c8b78dbd7b58ee5d8285.png}
+\end{center}
+
+\subsection{Shocks}
+\label{sec:orgab755f9}
+
+\subsubsection{Increase in autonomous growth rate (\(g_Z\))}
+\label{sec:org926ebfa}
+
+\begin{verbatim}
+                 0         Shock             1             2             3  \
+C     2.286001e+13  2.352303e+13  2.420550e+13  2.490790e+13  2.563082e+13   
+Cw    7.622032e+12  7.843186e+12  8.070931e+12  8.305424e+12  8.546874e+12   
+Ck    1.523805e+13  1.567993e+13  1.613465e+13  1.660256e+13  1.708403e+13   
+FD    1.407295e+13  1.448104e+13  1.490128e+13  1.533397e+13  1.577948e+13   
+Fn    1.529668e+13  1.574027e+13  1.619705e+13  1.666736e+13  1.715161e+13   
+...            ...           ...           ...           ...           ...   
+TIME  5.100000e+01  5.200000e+01  5.300000e+01  5.400000e+01  5.500000e+01   
+Ih/Y  2.142014e-01  2.141981e-01  2.141904e-01  2.141791e-01  2.141643e-01   
+I/Y   2.502018e-01  2.502111e-01  2.502287e-01  2.502549e-01  2.502896e-01   
+Z/Y   7.140015e-01  7.139894e-01  7.139640e-01  7.139266e-01  7.138770e-01   
+gY    2.400000e-02  2.901608e-02  2.903698e-02  2.905401e-02  2.907140e-02   
+
+               t-1             t    difference  
+C     5.801908e+25  5.970163e+25  1.682553e+24  
+Cw    1.948123e+25  2.004619e+25  5.649557e+23  
+Ck    3.853798e+25  3.965559e+25  1.117602e+24  
+FD    3.575659e+25  3.679353e+25  1.036941e+24  
+Fn    3.886586e+25  3.999297e+25  1.127110e+24  
+...            ...           ...           ...  
+TIME  1.050000e+03  1.051000e+03  1.000000e+00  
+Ih/Y  2.119514e-01  2.119514e-01  1.094891e-10  
+I/Y   2.554511e-01  2.554511e-01 -2.554738e-10  
+Z/Y   7.065020e-01  7.065020e-01  3.649624e-10  
+gY    2.900000e-02  2.900000e-02  1.417932e-10  
+
+[80 rows x 8 columns]
+\end{verbatim}
+
+
+\url{file:///tmp/ob-ipython-htmlmOYzio.html}
+
+\begin{verbatim}
+<Figure size 1728x360 with 3 Axes>
+\end{verbatim}
+
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{obipy-resources/833ba20b4aec1c9746a2e4fcac62a826eabb201d/83659ba2b3e2ae0aad89f27149fcb260b24a02fa.png}
+\end{center}
+
+\begin{verbatim}
+<Figure size 1152x720 with 4 Axes>
+\end{verbatim}
+
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{obipy-resources/833ba20b4aec1c9746a2e4fcac62a826eabb201d/cf1301f1049a939aebb27aca3ec93a940b6bfe9b.png}
+\end{center}
+
+\begin{verbatim}
+<Figure size 1152x720 with 4 Axes>
+\end{verbatim}
+
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{obipy-resources/833ba20b4aec1c9746a2e4fcac62a826eabb201d/6381ee9168a32a9ba7c12cedc582c3b91b1c8cfd.png}
+\end{center}
+
+\begin{verbatim}
+<Figure size 432x288 with 1 Axes>
+\end{verbatim}
+
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{obipy-resources/833ba20b4aec1c9746a2e4fcac62a826eabb201d/c30d640ac744f4f7f5d4a29921d32bf8bf0edb34.png}
+\end{center}
+
+\begin{verbatim}
+<Figure size 432x288 with 1 Axes>
+\end{verbatim}
+
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{obipy-resources/833ba20b4aec1c9746a2e4fcac62a826eabb201d/c9457bec4f138b80843085fcac1c1e97533c075e.png}
+\end{center}
+
+\begin{verbatim}
+<Figure size 432x288 with 1 Axes>
+\end{verbatim}
+
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{obipy-resources/833ba20b4aec1c9746a2e4fcac62a826eabb201d/4a96f305d4603d65d8d3f9a9fb2e181ac11cd89d.png}
+\end{center}
+
+\begin{verbatim}
+<Figure size 576x360 with 1 Axes>
+\end{verbatim}
+
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{obipy-resources/833ba20b4aec1c9746a2e4fcac62a826eabb201d/eda91cc269f793debd12422a7d4cb65ca7f9aad0.png}
+\end{center}
+\end{document}
