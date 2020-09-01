@@ -1,36 +1,72 @@
-
-
 #+TITLE: Impactos econômicos da COVID-19
 #+AUTHOR: Pedro Paulo Zahluth Bastos, Luiz Celso Gomes Jr, Lorena Salces Dourado, Gabriel Petrini, Paulo Robilloti, Antonio Ibarra
-#+DATE: September 2020
-#+PROPERTY: header-args    :results output drawer :exports results :async t
+#+DATE: September 1st, 2020
+#+PROPERTY: header-args :results output drawer :exports results :async t
 
-* TODOs                                                            :noexport:
+* Initial setup                                                    :noexport:
 
-** Leading indicators
+#+BEGIN_SRC ipython :tangle ./codes/setup.py
+import pandas as pd
+import numpy as np
+from datetime import datetime as dt
+from datetime import timedelta
 
-*** TODO [#A] CLI
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+from matplotlib.ticker import FuncFormatter
 
-*** TODO [#B] JPMorgan Index
+import seaborn as sns
+import pandas_datareader.data as web
+import requests
+import json
 
-*** TODO [#B] Sondagem FGV
+import country_converter as coco
+cc = coco.CountryConverter()
 
-*OBS:* Algumas células contém a palavra ~Prévia~ e foi removida para facilitar o código. Provavelmente não será necessário alterar quando os dados de agosto forem atualizados.
+import matplotlib.image as image
 
-** Granular data
+logo = "./figs/Cecon_Logo.png"
+logo = image.imread(logo)
+corona_sp = '2020-03-24'
+corona_sp_txt = "Início isolamento social em SP"
 
-*** TODO [#A] Energy Consumption
+corona_60 = '2020-03-18'
+corona_60_txt = "Mais de 60 casos de COVID-19"
+
+base = "2014-12-01"
 
 
-** PNAD Covid
+def interpolator(df):
+    for col in df:
+        df[col] = pd.to_numeric(df[col], errors='coerce')
+        df = df.resample('D').interpolate(method='time')
 
-** GDP related
+    return df
 
-*** Credit Consumption
+def line_format(label):
+    """
+    Convert time label to the format of pandas line plot
+    """
+    month = label.month_name()[:3]
+    if month == 'Jan':
+        month += f'\n{label.year}'
+    return month
+
+def rebase(df, base=base):
+    for col in df:
+        df[col] = df[col].apply(lambda x: (100*x)/df[col][base])
+    return df
+
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [4]: 
+:end:
 
 * Dados Granulares
 
-** Energia
+** Energia                                                         
 
 #+BEGIN_SRC ipython :session Energia :tangle ./codes/Energia.py
 %config InlineBackend.figure_format = 'retina'
@@ -118,7 +154,7 @@ def ploter(df, country, days=365, units="MWh"):
 
 #+RESULTS:
 :results:
-# Out [21]: 
+# Out [7]: 
 :end:
 
 
@@ -180,7 +216,7 @@ share["Non-Residential"] = 1- share["Residential"]
 
 #+RESULTS:
 :results:
-# Out [31]: 
+# Out [8]: 
 # text/plain
 : <Figure size 2400x1500 with 1 Axes>
 
@@ -397,42 +433,102 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [23]: 
-# text/plain
-: <Figure size 2400x1500 with 2 Axes>
+# Out [9]: 
+# output
+---------------------------------------------------------------------------
+HTTPError                                 Traceback (most recent call last)
+<ipython-input-9-2d027b2231bd> in <module>
+     10 for date in datelist:
+     11     url = f"http://sdro.ons.org.br/SDRO/DIARIO/{date}/HTML/07_DadosDiariosAcumulados_Regiao.html"
+---> 12     bra = bra.append(pd.read_html(
+     13         url,
+     14         parse_dates=True,
 
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/77baa432ba2f44632060c841842355fcb8b83c23.png]]
+~/.local/lib/python3.8/site-packages/pandas/io/html.py in read_html(io, match, flavor, header, index_col, skiprows, attrs, parse_dates, thousands, encoding, decimal, converters, na_values, keep_default_na, displayed_only)
+   1083         )
+   1084     validate_header_arg(header)
+-> 1085     return _parse(
+   1086         flavor=flavor,
+   1087         io=io,
 
-# text/plain
-: <Figure size 2400x1500 with 2 Axes>
+~/.local/lib/python3.8/site-packages/pandas/io/html.py in _parse(flavor, io, match, attrs, encoding, displayed_only, **kwargs)
+    893 
+    894         try:
+--> 895             tables = p.parse_tables()
+    896         except ValueError as caught:
+    897             # if `io` is an io-like object, check if it's seekable
 
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/d4289bac917b4c3c16dd2a44f65ca09392f8c087.png]]
+~/.local/lib/python3.8/site-packages/pandas/io/html.py in parse_tables(self)
+    211         list of parsed (header, body, footer) tuples from tables.
+    212         """
+--> 213         tables = self._parse_tables(self._build_doc(), self.match, self.attrs)
+    214         return (self._parse_thead_tbody_tfoot(table) for table in tables)
+    215 
 
-# text/plain
-: <Figure size 2400x1500 with 2 Axes>
+~/.local/lib/python3.8/site-packages/pandas/io/html.py in _build_doc(self)
+    731                     pass
+    732             else:
+--> 733                 raise e
+    734         else:
+    735             if not hasattr(r, "text_content"):
 
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/bc952cb86ebe11930cccbfae0ee09821adb7b9c0.png]]
+~/.local/lib/python3.8/site-packages/pandas/io/html.py in _build_doc(self)
+    712         try:
+    713             if is_url(self.io):
+--> 714                 with urlopen(self.io) as f:
+    715                     r = parse(f, parser=parser)
+    716             else:
 
-# text/plain
-: <Figure size 2400x1500 with 2 Axes>
+~/.local/lib/python3.8/site-packages/pandas/io/common.py in urlopen(*args, **kwargs)
+    139     import urllib.request
+    140 
+--> 141     return urllib.request.urlopen(*args, **kwargs)
+    142 
+    143 
 
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/f9ca7a33a86e705f7a59435db0037a8fc525f9eb.png]]
+/usr/lib/python3.8/urllib/request.py in urlopen(url, data, timeout, cafile, capath, cadefault, context)
+    220     else:
+    221         opener = _opener
+--> 222     return opener.open(url, data, timeout)
+    223 
+    224 def install_opener(opener):
 
-# text/plain
-: <Figure size 2400x1500 with 2 Axes>
+/usr/lib/python3.8/urllib/request.py in open(self, fullurl, data, timeout)
+    529         for processor in self.process_response.get(protocol, []):
+    530             meth = getattr(processor, meth_name)
+--> 531             response = meth(req, response)
+    532 
+    533         return response
 
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/3f4b22b7fe301e9d040661b4ccbfccd82d0f77ff.png]]
+/usr/lib/python3.8/urllib/request.py in http_response(self, request, response)
+    638         # request was successfully received, understood, and accepted.
+    639         if not (200 <= code < 300):
+--> 640             response = self.parent.error(
+    641                 'http', request, response, code, msg, hdrs)
+    642 
 
-# text/plain
-: <Figure size 2400x1500 with 2 Axes>
+/usr/lib/python3.8/urllib/request.py in error(self, proto, *args)
+    567         if http_err:
+    568             args = (dict, 'default', 'http_error_default') + orig_args
+--> 569             return self._call_chain(*args)
+    570 
+    571 # XXX probably also want an abstract factory that knows when it makes
 
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/862628f923a3fda24d4e664ce8bc872a805019fe.png]]
+/usr/lib/python3.8/urllib/request.py in _call_chain(self, chain, kind, meth_name, *args)
+    500         for handler in handlers:
+    501             func = getattr(handler, meth_name)
+--> 502             result = func(*args)
+    503             if result is not None:
+    504                 return result
+
+/usr/lib/python3.8/urllib/request.py in http_error_default(self, req, fp, code, msg, hdrs)
+    647 class HTTPDefaultErrorHandler(BaseHandler):
+    648     def http_error_default(self, req, fp, code, msg, hdrs):
+--> 649         raise HTTPError(req.full_url, code, msg, hdrs, fp)
+    650 
+    651 class HTTPRedirectHandler(BaseHandler):
+
+HTTPError: HTTP Error 404: Not Found
 :end:
 
 
@@ -480,9 +576,9 @@ infos['Link'].append(url)
 
 #+RESULTS:
 :results:
-# Out [24]: 
+# Out [10]: 
 # output
-<ipython-input-21-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<ipython-input-7-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
 
 # text/plain
@@ -543,16 +639,16 @@ infos['Link'].append(url)
 
 #+RESULTS:
 :results:
-# Out [35]: 
+# Out [11]: 
 # output
-<ipython-input-21-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<ipython-input-7-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
 
 # text/plain
 : <Figure size 2400x1500 with 4 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/aa615addfd95d863842bc30c5c6c024b67813166.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/4091538b732030417f0b9eb36ccac778383dbb05.png]]
 :end:
 
 *** Austria: AUS
@@ -601,15 +697,15 @@ ploter(
 
 #+RESULTS:
 :results:
-# Out [28]: 
+# Out [12]: 
 # output
-<ipython-input-21-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<ipython-input-7-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
 
 # text/plain
 : (<Figure size 2400x1500 with 4 Axes>,
-:  array([<matplotlib.axes._subplots.AxesSubplot object at 0x7f69c9727190>,
-:         <matplotlib.axes._subplots.AxesSubplot object at 0x7f69cbec3400>],
+:  array([<matplotlib.axes._subplots.AxesSubplot object at 0x7f8f5bef9610>,
+:         <matplotlib.axes._subplots.AxesSubplot object at 0x7f8f5b6d48b0>],
 :        dtype=object))
 
 # text/plain
@@ -665,9 +761,9 @@ infos['Link'].append(np.NaN)
 
 #+RESULTS:
 :results:
-# Out [29]: 
+# Out [13]: 
 # output
-<ipython-input-21-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<ipython-input-7-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
 
 # text/plain
@@ -713,29 +809,10 @@ infos['Link'].append(np.NaN)
 
 #+RESULTS:
 :results:
-# Out [26]: 
+# Out [14]: 
 # output
-<ipython-input-21-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<ipython-input-7-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
-
-# text/plain
-:                    LUX
-:                       
-: 2019-01-01  395.145833
-: 2019-01-02  113.833333
-: 2019-01-03    0.000000
-: 2019-01-04  122.604167
-: 2019-01-05  366.916667
-: ...                ...
-: 2020-08-19  395.208333
-: 2020-08-20  476.333333
-: 2020-08-21  414.705882
-: 2020-08-22         NaN
-: 2020-08-23         NaN
-: 
-: [601 rows x 1 columns]
-
-[[file:/tmp/ob-ipython-html5ql3zW.html]]
 
 # text/plain
 : <Figure size 2400x1500 with 4 Axes>
@@ -774,7 +851,7 @@ start_year = "2019-01-01"
 
 #+RESULTS:
 :results:
-# Out [2]: 
+# Out [1]: 
 :end:
 
 #+BEGIN_SRC ipython :session ADS :tangle ./codes/ADS.py
@@ -806,12 +883,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [6]: 
+# Out [2]: 
 # text/plain
 : <Figure size 2400x1500 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/cf14fa691a64e7d5e47f44565dc9f5363854ad6e.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/62ce7f05bfc212f03c891e294656997d84c5d3d1.png]]
 :end:
 
 * Confiança, Indicadores de antecedentes e de Risco
@@ -820,30 +897,21 @@ fig.savefig(
 
 #+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
 %config InlineBackend.figure_format = 'retina'
+import sys
 
-import pandas as pd
-import numpy as np
+sys.path.insert(1, './codes/')
 
-from datetime import datetime as dt
-from datetime import timedelta
+from setup import *
 
-import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
-import matplotlib.image as image
-import seaborn as sns
-
-logo = "./figs/Cecon_Logo.png"
-logo = image.imread(logo)
+start_year = "2019-01-01"
 
 file_path = './raw/LCA/'
 image_path = './figs/Confianca/'
-corona_sp = '2020-04-01' # Começo do isolamento em SP\n(24 de março)
-start_year = "2019-01-01"
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [89]: 
+# Out [25]: 
 :end:
 
 *** Sondagem Conjuntural Mensal
@@ -861,13 +929,17 @@ df = pd.read_excel(
 df.index = pd.to_datetime(df.index, format="%Y-%m")
 df.index.name = ''
 
+# Interpolating
+df = interpolator(df)
+
+
 fig, ax = plt.subplots(figsize=(8,5))
 df.drop(['NUCI'], axis='columns').plot(
     title = file_name.replace('_', ' '),
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -885,12 +957,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [90]: 
+# Out [26]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/7b3e58a37abae00e5e3eb5c1240536addcb36229.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/8a25efae9231056627de37bc9a8ba5ccbde9d524.png]]
 :end:
 
 *** Sondagens de serviços
@@ -907,14 +979,14 @@ df = pd.read_excel(
 )[1:][start_year:]
 df.index = pd.to_datetime(df.index, format="%Y-%m")
 df.index.name = ''
-
+df = interpolator(df)
 fig, ax = plt.subplots(figsize=(8,5))
 df.drop(['Índice de Confiança de Serviços (ICS) .1', 'NUCI'], axis='columns').plot(
     title = file_name.replace('_', ' '),
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -932,12 +1004,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [91]: 
+# Out [27]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/aa0dc5316591c59e078ea9eb54ee5d1847c03529.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/b8884fa0650b2c2def8988d527bbeadc933c5cac.png]]
 :end:
 
 
@@ -962,14 +1034,15 @@ df.index = pd.date_range( # Check for NaN
     )
 df.index.name = ''
 df = df[start_year:]
-    
+df = interpolator(df)
+
 fig, ax = plt.subplots(figsize=(8,5))
 df.plot(
     title = file_name.replace('_', ' '),
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = "2020-04-01", 
+ax.axvline(x = corona_sp, 
            color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)', )
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
@@ -987,12 +1060,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [92]: 
+# Out [28]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/554f61127530cd8c56d7d2bb715c64b18b66079b.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/3ff0b698bb29513242319b177af1c0a29f2409fb.png]]
 :end:
 
 *** Sondagem da construção
@@ -1009,6 +1082,7 @@ df = pd.read_excel(
 )[1:][start_year:]
 df.index = pd.to_datetime(df.index, format="%Y-%m")
 df.index.name = ''
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df.drop(['NUCI'], axis='columns').plot(
@@ -1016,7 +1090,7 @@ df.drop(['NUCI'], axis='columns').plot(
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -1034,12 +1108,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [93]: 
+# Out [29]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/5c55149be31444f847711890239c1aa99b605e4e.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/3457739c82986a176433fecd8d1a1f246d2a7529.png]]
 :end:
 
 *** Sondagem industrial CNI
@@ -1068,7 +1142,7 @@ file_name = 'Sondagem_Industrial_CNI'
 
 #+RESULTS:
 :results:
-# Out [94]: 
+# Out [30]: 
 :end:
 
 **** Volume de produção
@@ -1077,6 +1151,7 @@ file_name = 'Sondagem_Industrial_CNI'
 sheet='Volume Produção'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df[agregadas].plot(
@@ -1084,7 +1159,7 @@ df[agregadas].plot(
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -1102,12 +1177,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [95]: 
+# Out [31]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/38f547e28e64d3a45c6d27a727a62aa301d80753.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/190c8feb1adde26683c40b65c19eda8712bdf352.png]]
 :end:
 
 **** Evolução do Emprego
@@ -1116,6 +1191,7 @@ fig.savefig(
 sheet='Evolução Empr'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df[agregadas].plot(
@@ -1123,7 +1199,7 @@ df[agregadas].plot(
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -1141,12 +1217,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [96]: 
+# Out [32]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/f37059e5663a6183f7323a2bea6f3b8ed9dba88f.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/433a12bb8c07cd8a313c63f9fd67450df4f145d1.png]]
 :end:
 
 
@@ -1181,12 +1257,23 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [97]: 
+# Out [33]: 
+# output
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-33-f5ad43e4d316> in <module>
+      9     lw = 2.5
+     10 )
+---> 11 ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
+     12 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+     13 ax2 = plt.axes([0.135,0.135,0.2,0.2])
+
+NameError: name 'corona' is not defined
 # text/plain
-: <Figure size 576x360 with 2 Axes>
+: <Figure size 576x360 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/168c9d12b41c7ac07608ad8d75414f133fd99cf6.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/4f9cc42543a2d57e44823ebbc3883c2e481fd6ce.png]]
 :end:
 
 **** NUCI Efeito-Usual
@@ -1195,6 +1282,7 @@ fig.savefig(
 sheet='NUCI Efetivo-Usual'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df[agregadas].plot(
@@ -1202,7 +1290,7 @@ df[agregadas].plot(
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -1220,12 +1308,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [98]: 
+# Out [34]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/7a0bc786fc2b366f513e486fa9da04f995e06c54.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/ab35061abeddc7db0e957552c2e5902ec47c321e.png]]
 :end:
 
 **** Evolução de estoques
@@ -1259,12 +1347,23 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [99]: 
+# Out [35]: 
+# output
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-35-bd6352613dfc> in <module>
+      9     lw = 2.5
+     10 )
+---> 11 ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
+     12 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+     13 ax2 = plt.axes([0.135,0.135,0.2,0.2])
+
+NameError: name 'corona' is not defined
 # text/plain
-: <Figure size 576x360 with 2 Axes>
+: <Figure size 576x360 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/fd32fd3f47edd7d6ff75dd215a315cbf0b037f86.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/ee2e0ef4d86c219085ca9aa8eb1df02445fc4000.png]]
 :end:
 
 **** Estoques efetivos
@@ -1273,6 +1372,8 @@ fig.savefig(
 sheet='Estoques Efetivos'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
+df = interpolator(df)
+
 
 fig, ax = plt.subplots(figsize=(8,5))
 df[agregadas].plot(
@@ -1280,7 +1381,7 @@ df[agregadas].plot(
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -1298,12 +1399,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [100]: 
+# Out [36]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/1cd65f04161dcd94829a4e8d585f9e9c2038b23e.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/5af9aa5b5d2d37338f8964e8451506dc7e1e4c53.png]]
 :end:
 
 **** Expectativa de Demanda
@@ -1312,6 +1413,7 @@ fig.savefig(
 sheet='Expec Demanda'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df[agregadas].plot(
@@ -1319,7 +1421,7 @@ df[agregadas].plot(
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -1337,12 +1439,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [101]: 
+# Out [37]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/d175d203a1e0fa24dab98a4cc430d67b312fc504.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/26cc0738ba131ee757deed5c9a90853d5ee9f94e.png]]
 :end:
 
 **** Expectativa de Exportação
@@ -1351,6 +1453,7 @@ fig.savefig(
 sheet='Expec Exportação'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df[agregadas].plot(
@@ -1358,7 +1461,7 @@ df[agregadas].plot(
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -1376,12 +1479,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [102]: 
+# Out [38]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/9b4f75ae5dfbd3b780483f3ba4e18217227ba501.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/fb4b9ac7d589651ae78f9cb61d45452a1c20cffc.png]]
 :end:
 
 **** Expectativa de compra de matéria-prima
@@ -1391,6 +1494,7 @@ fig.savefig(
 sheet='Expec Compra Mat. Prima'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df[agregadas].plot(
@@ -1398,7 +1502,7 @@ df[agregadas].plot(
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -1416,12 +1520,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [103]: 
+# Out [39]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/cc12013aec1a7595bfa8d41ae3d6896fb2a84060.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/1613740d59e200de1ed90cd00658aa98d76fccf5.png]]
 :end:
 
 **** Expectativa de emprego
@@ -1430,6 +1534,7 @@ fig.savefig(
 sheet='Expec Emprego'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df[agregadas].plot(
@@ -1437,7 +1542,7 @@ df[agregadas].plot(
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -1455,12 +1560,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [104]: 
+# Out [40]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/8c83f58d6340a55e998ad231fb16037ce6828c59.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/0a3e42b80d0eaee635069c6ee57ed7964c2109a5.png]]
 :end:
 
 **** Expectativa de investimento
@@ -1469,6 +1574,7 @@ fig.savefig(
 sheet='Expec Investimento'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df[agregadas].plot(
@@ -1476,7 +1582,7 @@ df[agregadas].plot(
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -1494,12 +1600,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [105]: 
+# Out [41]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/b0bc7180843da18ade4ca5c8b9ba738f9a5ebd32.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/30862091e2f2a14c212ea33ba93271329494e654.png]]
 :end:
 
 **** Lucro Operacional
@@ -1531,7 +1637,7 @@ def importer(sheet='Lucro Operacional', skip_rows=10, initial=1):
 
 #+RESULTS:
 :results:
-# Out [106]: 
+# Out [42]: 
 :end:
 
 
@@ -1539,6 +1645,7 @@ def importer(sheet='Lucro Operacional', skip_rows=10, initial=1):
 sheet='Lucro Operacional'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df[agregadas]["2019-01-01":].plot(
@@ -1546,7 +1653,7 @@ df[agregadas]["2019-01-01":].plot(
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -1564,12 +1671,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [107]: 
+# Out [43]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/82d95fa798d4ba22575a10087adf5c823956433e.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/e275139cf83d1eda006dc4b30dbadda64774133a.png]]
 :end:
 
 **** Situação Financeira
@@ -1578,6 +1685,7 @@ fig.savefig(
 sheet='Situação Financeira'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df[agregadas].plot(
@@ -1585,7 +1693,7 @@ df[agregadas].plot(
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -1603,12 +1711,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [108]: 
+# Out [44]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/bf403eed7affd3cdac032cea98157acdb3c29b05.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/22bcc5c077b1cb4dcefe2a59c9d0116b7de82c73.png]]
 :end:
 
 
@@ -1618,6 +1726,7 @@ fig.savefig(
 sheet='Acesso Crédito'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df[agregadas].plot(
@@ -1625,7 +1734,7 @@ df[agregadas].plot(
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -1643,12 +1752,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [109]: 
+# Out [45]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/d8b87eca93910a125a0efab8c3c2d1ff4bc1d07b.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/2ded59c6ca4da81dd78c570c38c84f405c7e65b6.png]]
 :end:
 
 ** Indicadores de antecedente
@@ -1656,21 +1765,14 @@ fig.savefig(
 *** Composite Leading index ([[https://stats.oecd.org/Index.aspx?DataSetCode=MEI_CLI][CLI]])
 
 #+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
-import pandas_datareader.data as web
-import requests
-import json
-
-import country_converter as coco
-cc = coco.CountryConverter()
-
 df = web.DataReader(
     'MEI_CLI', # https://stats.oecd.org/Index.aspx?DataSetCode=MEI_CLI
     'oecd', 
     start='2007-01-01'
 )
 type = [
-    "Original, seasonally adjusted (GDP)",
-    #"Amplitude adjusted (CLI)",
+    #"Original, seasonally adjusted (GDP)",
+    "Amplitude adjusted (CLI)",
     #"Normalised (CLI)",
     #"Normalised (GDP)",
     #"Trend restored (CLI)",
@@ -1690,18 +1792,23 @@ df.index = pd.date_range(
     end = f"{str(df.index[-1])[:6]}{int(str(df.index[-1])[6])+1}{str(df.index[-1])[7:]}",
     freq='M', 
 )
+
 df.to_csv('./raw/Dados de Confiança/CLI.csv')
 
 cases = ["USA", "ESP", "ITA", "G7", "OECD total "]
 source = f"Source: OECD\nLast query: {dt.today():%d/%m/%y}"
+df = df['2019':][cases + ["BRA"]]
+
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 
-df['2018':][cases].plot(ax=ax, lw=2)
-df['2018':][["BRA"]].plot(ax=ax, lw=3, color='darkred',)
+df['2019':][cases].plot(ax=ax, lw=2)
+df['2019':][["BRA"]].plot(ax=ax, lw=3, color='darkred',)
 ax.set_title(f"Composite Leading Indicators (MEI)\n{type[0]}", fontweight='bold')
 fig.text(0.79, .28, source, ha='left')
-ax.axvline(x='2020-03-18', label='More than 60\ncases in Brazil',
+ax.axvline(
+    x=corona_sp, label=corona_sp_txt,
            ls='--', color='black', lw=1.5, )
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
@@ -1712,7 +1819,7 @@ plt.show()
 
 #+RESULTS:
 :results:
-# Out [110]: 
+# Out [46]: 
 # output
 WARNING:root:OECD + Major Six NME not found in regex
 WARNING:root:Major Five Asia not found in regex
@@ -1728,7 +1835,7 @@ WARNING:root:OECD total  not found in regex
 : <Figure size 576x360 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/9bcf6d9f78953ccf19a8f910062819f29e1f69ea.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/4e44c8c8a59b84764b8fc9762999b8d5972932ce.png]]
 :end:
 
 
@@ -1758,6 +1865,7 @@ df.index = pd.date_range(
     end = f"{str(df.index[-1])[:6]}{int(str(df.index[-1])[6])+1}{str(df.index[-1])[7:]}",
     freq='M', 
 )
+df = interpolator(df)
 df.to_csv('./raw/Dados de Confiança/CCI.csv')
 
 
@@ -1770,7 +1878,7 @@ df['2019':][cases].plot(ax=ax, lw=2)
 df['2019':][["BRA"]].plot(ax=ax, lw=3, color='darkred',)
 ax.set_title("Índice de Confiança do Consumidor (CCI)", fontweight='bold')
 fig.text(0.79, .28, source, ha='left')
-ax.axvline(x='2020-03-24', label='Início do Isolamento em SP',
+ax.axvline(x=corona_sp, label=corona_sp_txt,
            ls='--', color='black', lw=1.5, )
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 plt.tight_layout()
@@ -1780,7 +1888,7 @@ plt.show()
 
 #+RESULTS:
 :results:
-# Out [111]: 
+# Out [47]: 
 # output
 /home/gpetrini/.local/lib/python3.8/site-packages/pandas/core/indexing.py:1762: PerformanceWarning: indexing past lexsort depth may impact performance.
   return self._getitem_tuple(key)
@@ -1798,7 +1906,7 @@ WARNING:root:OECD total  not found in regex
 : <Figure size 576x360 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/f68f8b6cb09da9311b88232927b50a8f0f94cb40.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/aad38e77e5fe7f43fff63b2c29856f549dc5dc3f.png]]
 :end:
 
 ** Risco
@@ -1826,13 +1934,16 @@ df = df[[
     "China",
     "Coréia do Sul",
 ]]
+
+df = interpolator(df)
+
 fig, ax = plt.subplots(figsize=(8,5))
 df.plot(
     title = "EMBI+ (JP Morgan)",
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -1850,12 +1961,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [112]: 
+# Out [48]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/c50dfc43d174b7c73e73e951c62430709a829874.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/8b49720c67f868a07188ddeb0242c5bb3791d599.png]]
 :end:
 
 
@@ -1863,30 +1974,21 @@ fig.savefig(
 
 #+BEGIN_SRC ipython :session Incerteza :tangle ./codes/Incerteza.py
 %config InlineBackend.figure_format = 'retina'
+import sys
 
-import pandas as pd
-import numpy as np
+sys.path.insert(1, './codes/')
 
-from datetime import datetime as dt
-from datetime import timedelta
+from setup import *
 
-import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
-import matplotlib.image as image
-import seaborn as sns
-
-logo = "./figs/Cecon_Logo.png"
-logo = image.imread(logo)
+start_year = "2019-01-01"
 
 file_path = './raw/LCA/'
 image_path = './figs/Confianca/'
-corona_sp = '2020-04-01' # Começo do isolamento em SP\n(24 de março)
-start_year = "2019-01-01"
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [2]: 
+# Out [4]: 
 :end:
 
 
@@ -1902,12 +2004,69 @@ df = pd.read_excel(
 )
 df.index.name = ''
 df = df["2019-01-01":]
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5), dpi=300)
 
 df.plot(
     ax=ax,
     title = "Indicador de Incerteza (IIE-Br)")
+
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
+ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+
+ax2 = plt.axes([.9,0.6,0.2,0.2])
+
+
+ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
+ax2.axis('off')
+
+
+sns.despine()
+plt.show()
+
+fig.savefig(
+    image_path + file +  '.svg',
+    dpi = 300, 
+    bbox_inches='tight',pad_inches=0
+    )
+
+
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [5]: 
+# text/plain
+: <Figure size 2400x1500 with 2 Axes>
+
+# image/png
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/98ebb468eb299bda8f1859499b3331c18b937130.png]]
+:end:
+
+
+*** Indicador de Confiança Empresarial
+
+#+BEGIN_SRC ipython :session Incerteza :tangle ./codes/Incerteza.py
+file = "ICE_FGV"
+df = pd.read_excel(
+    f"{file_path + file}.xlsx",
+    index_col=[0],
+    skiprows=11,
+    parse_dates=True,
+    sheet_name='Com_ajuste'
+)
+df.index.name = ''
+df = df["2019-01-01":]
+df = interpolator(df)
+fig, ax = plt.subplots(figsize=(8,5), dpi=300)
+
+df.plot(
+    ax=ax,
+    title = "Indicador de Confiança Empresaria (ICE-FGV)")
+
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
+ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
 ax2 = plt.axes([.9,0.6,0.2,0.2])
 
@@ -1935,57 +2094,7 @@ fig.savefig(
 : <Figure size 2400x1500 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/c5efa72595cc12bf613b1062622f61c3df58ecab.png]]
-:end:
-
-
-*** Indicador de Confiança Empresarial
-
-#+BEGIN_SRC ipython :session Incerteza :tangle ./codes/Incerteza.py
-file = "ICE_FGV"
-df = pd.read_excel(
-    f"{file_path + file}.xlsx",
-    index_col=[0],
-    skiprows=11,
-    parse_dates=True,
-    sheet_name='Com_ajuste'
-)
-df.index.name = ''
-df = df["2019-01-01":]
-
-fig, ax = plt.subplots(figsize=(8,5), dpi=300)
-
-df.plot(
-    ax=ax,
-    title = "Indicador de Confiança Empresaria (ICE-FGV)")
-
-ax2 = plt.axes([.9,0.6,0.2,0.2])
-
-
-ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
-ax2.axis('off')
-
-
-sns.despine()
-plt.show()
-
-fig.savefig(
-    image_path + file +  '.svg',
-    dpi = 300, 
-    bbox_inches='tight',pad_inches=0
-    )
-
-
-#+END_SRC
-
-#+RESULTS:
-:results:
-# Out [8]: 
-# text/plain
-: <Figure size 2400x1500 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/8e38298178125842685b068036bdce559fd6ab01.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/925a5b9efaef4a764499db16a51227974403bd49.png]]
 :end:
 
 * Atividade
@@ -1994,26 +2103,16 @@ fig.savefig(
 
 #+BEGIN_SRC ipython :session Credito :tangle ./codes/Credito.py
 %config InlineBackend.figure_format = 'retina'
+import sys
 
-import pandas as pd
-import numpy as np
+sys.path.insert(1, './codes/')
 
-from datetime import datetime as dt
-from datetime import timedelta
+from setup import *
 
-import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
-import matplotlib.image as image
-import seaborn as sns
-
-logo = "./figs/Cecon_Logo.png"
-logo = image.imread(logo)
+start_year = "2019-01-01"
 
 file_path = './raw/LCA/'
 image_path = './figs/Credito/'
-corona_sp = '2020-04-01' # Começo do isolamento em SP\n(24 de março)
-corona = '2020-03-18' # More than 60 cases in Brazil
-start_year = "2019-01-01"
 file_name = 'Indicadores_de_Credito_Bacen'
 def line_format(label):
     """
@@ -2028,13 +2127,13 @@ def line_format(label):
 
 #+RESULTS:
 :results:
-# Out [27]: 
+# Out [12]: 
 :end:
 
 *** Saldo
 
 **** Pessoa jurídica
-
+     
 #+BEGIN_SRC ipython :session Credito :tangle ./codes/Credito.py
 sheet = "SaldoPJ"
 titulo = "Saldo Pessoa jurídica"
@@ -2057,6 +2156,7 @@ df.index = pd.date_range( # Check for NaN
     )
 df = df[start_year:]
 df.index.name = ''
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df[start_year:].plot(
@@ -2064,7 +2164,7 @@ df[start_year:].plot(
     ax = ax,
     lw=2, 
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Mais de 60 casos de COVID19')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início isolamento\nsocial em SP')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 if porcentagem == False:
     ax.set_yticklabels(['{:,.0f}'.format(x) for x in ax.get_yticks()])
@@ -2091,12 +2191,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [28]: 
+# Out [13]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/402de444762880e51b3a602c504b7e8d63732349.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/feb0adea384d3519399baabeaaea53ffd62ea8b2.png]]
 :end:
 
 
@@ -2121,6 +2221,7 @@ df.index = pd.date_range( # Check for NaN
     #periods=(1241-12)
     )
 df.index.name = ''
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df.pct_change(12)[start_year:].plot(
@@ -2128,7 +2229,7 @@ df.pct_change(12)[start_year:].plot(
     ax = ax,
     lw=2, 
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Mais de 60 casos de COVID19')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início isolamento\nsocial em SP')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([.9,0.6,0.2,0.2])
 
@@ -2149,12 +2250,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [29]: 
+# Out [14]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/8ade2681015bf89863078900a6d91c53bd592f3b.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/814881da38842cb94f0fd6474ddd70e90bd352da.png]]
 :end:
 
 **** Pessoa física
@@ -2181,6 +2282,7 @@ df.index = pd.date_range( # Check for NaN
     )
 df = df[start_year:]
 df.index.name = ''
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df[start_year:].plot(
@@ -2188,7 +2290,7 @@ df[start_year:].plot(
     ax = ax,
     lw=2, 
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Mais de 60 casos de COVID19')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início isolamento\nsocial em SP')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 if porcentagem == False:
     ax.set_yticklabels(['{:,.0f}'.format(x) for x in ax.get_yticks()])
@@ -2215,12 +2317,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [30]: 
+# Out [15]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/c5ebb89c192628d7cec923eb13d6356df012028a.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/631784503e9693a2f771311b1a337a6f61bd3bcb.png]]
 :end:
 
 #+BEGIN_SRC ipython :session Credito :tangle ./codes/Credito.py
@@ -2245,6 +2347,7 @@ df.index = pd.date_range( # Check for NaN
     )
 df = df[start_year:]
 df.index.name = ''
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df[start_year:].plot(
@@ -2252,7 +2355,7 @@ df[start_year:].plot(
     ax = ax,
     lw=2, 
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Mais de 60 casos de COVID19')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início isolamento\nsocial em SP')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 if porcentagem == False:
     ax.set_yticklabels(['{:,.0f}'.format(x) for x in ax.get_yticks()])
@@ -2279,12 +2382,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [31]: 
+# Out [16]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/b694dfa6b6aa8de15c823bc95e21ec965d607fee.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/840ea262d5c525c19284dff3d45594fc372c02d1.png]]
 :end:
 
 **** Crédito ampliado
@@ -2320,6 +2423,7 @@ df = df.apply(lambda x: x/df["Total"]).drop(["Total"], axis='columns')
 
 df.index.name = ''
 
+
 fig, ax = plt.subplots(figsize=(8,5))
 df[start_year:].plot(
     title = titulo,
@@ -2328,7 +2432,7 @@ df[start_year:].plot(
     lw=2, 
 )
 ax.set_xticklabels(map(lambda x: line_format(x), df[start_year:].index))
-#ax.axvline(x = corona, color='black', ls='--', lw=1, label='Mais de 60 casos de COVID19')
+#ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início isolamento\nsocial em SP')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 if porcentagem == False:
     ax.set_yticklabels(['{:,.0f}'.format(x) for x in ax.get_yticks()])
@@ -2355,7 +2459,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [32]: 
+# Out [17]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -2393,6 +2497,7 @@ df = df[start_year:]
 #df = df.apply(lambda x: x/df["Total"]).drop(["Total"], axis='columns')
 
 df.index.name = ''
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df[start_year:].plot(
@@ -2402,7 +2507,7 @@ df[start_year:].plot(
     lw=2, 
 )
 ax.set_xticklabels(map(lambda x: line_format(x), df[start_year:].index))
-#ax.axvline(x = corona, color='black', ls='--', lw=1, label='Mais de 60 casos de COVID19')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início isolamento\nsocial em SP')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 if porcentagem == False:
     ax.set_yticklabels(['{:,.0f}'.format(x) for x in ax.get_yticks()])
@@ -2429,12 +2534,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [33]: 
+# Out [18]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/285a93936f0519f57c3f51e4597e9bc013c3ab1a.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/d787c0b50fa6cabeff88eb82b75849ce6f26ce84.png]]
 :end:
 
 
@@ -2504,7 +2609,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [34]: 
+# Out [19]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -2544,6 +2649,7 @@ df.index = pd.date_range( # Check for NaN
 df = df[start_year:]
 
 df.index.name = ''
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df[start_year:].plot(
@@ -2553,7 +2659,7 @@ df[start_year:].plot(
     lw=2, 
 )
 #ax.set_xticklabels(map(lambda x: line_format(x), df[start_year:].index))
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Mais de 60 casos de COVID19')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início isolamento\nsocial em SP')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 if porcentagem == False:
     ax.set_yticklabels(['{:,.2f}'.format(x) for x in ax.get_yticks()])
@@ -2580,12 +2686,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [35]: 
+# Out [20]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/8e80f62dee7a7da5353be6056c7d954dc453835e.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/ce90c1989329de9bd35e54499a49e998a229e167.png]]
 :end:
 
 #+BEGIN_SRC ipython :session Credito :tangle ./codes/Credito.py
@@ -2656,7 +2762,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [36]: 
+# Out [21]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -2697,6 +2803,8 @@ df = df[start_year:]
 
 df.index.name = ''
 
+df = interpolator(df)
+
 fig, ax = plt.subplots(figsize=(8,5))
 df[start_year:].plot(
     title = titulo,
@@ -2705,7 +2813,7 @@ df[start_year:].plot(
     lw=2, 
 )
 ax.set_xticklabels(map(lambda x: line_format(x), df[start_year:].index))
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Mais de 60 casos de COVID19')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início isolamento\nsocial em SP')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 if porcentagem == False:
     ax.set_yticklabels(['{:,.2f}'.format(x) for x in ax.get_yticks()])
@@ -2732,12 +2840,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [37]: 
+# Out [22]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/9d5911f91378331c30c8ae9b513d4af5c47cd126.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/120b087dfcc6ee8bca3227ec45868b7327bde212.png]]
 :end:
 
 
@@ -2746,25 +2854,17 @@ fig.savefig(
 
 #+BEGIN_SRC ipython  :session ibcbr :tangle ./codes/ibcbr.py
 %config InlineBackend.figure_format = 'retina'
+import sys
 
-import pandas as pd
-import numpy as np
+sys.path.insert(1, './codes/')
 
-from datetime import datetime as dt
-from datetime import timedelta
+from setup import *
 
-import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
-import matplotlib.image as image
-import seaborn as sns
-
-logo = "./figs/Cecon_Logo.png"
-logo = image.imread(logo)
+start_year = "2019-01-01"
 
 file_path = './raw/LCA/IBCBr.xlsx'
 image_path = './figs/Antecedente/'
-corona = '2020-04-01' # Começo do isolamento em SP\n(24 de março)
-start_year = "2019-01-01"
+
 #+END_SRC
 
 #+RESULTS:
@@ -2784,17 +2884,17 @@ df = pd.read_excel(
 )
 df.index.name = ''
 
-
+df = rebase(df)
 df = df[start_year:]
-
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df.plot(
-    title = "Índice de Atividade Econômica do Banco Central\nDessazonalizado",
+    title = f"Índice de Atividade Econômica do Banco Central\nDessazonalizado\n{base} = 100",
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Mais de 60 casos de COVID19')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label=corona_sp_txt)
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -2812,12 +2912,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [5]: 
+# Out [4]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/867e8a85521aa7667c388ddb9c5027a1ada952bb.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/51df5d2fc00ebe923cd476edd2384c8734922982.png]]
 :end:
 
 ** PIB (Contas Nacionais)
@@ -2843,7 +2943,7 @@ logo = image.imread(logo)
 
 #+RESULTS:
 :results:
-# Out [17]: 
+# Out [11]: 
 :end:
 
 #+BEGIN_SRC sh :dir ./raw/ContasNacionais/
@@ -2855,7 +2955,7 @@ mv *.xls Tab_Compl_CNT.xlsx
 #+RESULTS:
 :results:
 Archive:  Tab_Compl_CNT.zip
-  inflating: Tab_Compl_CNT_1T20.xls  
+  inflating: Tab_Compl_CNT.xls       
 :end:
 
 #+BEGIN_SRC ipython :session PIB :tangle ./codes/PIB.py
@@ -2927,7 +3027,7 @@ df["Importacao"] = -df["Importacao"]
 
 #+RESULTS:
 :results:
-# Out [20]: 
+# Out [12]: 
 :end:
 
 *** Trimestre Contra trimestre imediatamente anterior
@@ -2980,19 +3080,19 @@ print(df['PIB'].pct_change().tail(4))
 
 #+RESULTS:
 :results:
-# Out [22]: 
+# Out [13]: 
 # output
-2019Q2    0.005406
-2019Q3    0.004618
-2019Q4    0.003655
-2020Q1   -0.015394
+2019Q3    0.000588
+2019Q4    0.005339
+2020Q1   -0.024549
+2020Q2   -0.096930
 Freq: Q-DEC, Name: PIB, dtype: float64
 
 # text/plain
 : <Figure size 648x288 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/ae1515a7b487b55149c37fa44d319f5deb1387b7.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/9c59f5df2a1d798fc2f3361d06d39e748802980c.png]]
 :end:
 
 **** Agropecuária
@@ -3038,12 +3138,12 @@ plt.show()
 
 #+RESULTS:
 :results:
-# Out [23]: 
+# Out [14]: 
 # text/plain
 : <Figure size 648x288 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/3567d5d74a87a0022c1b5d021b8202e9643e9c6d.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/8c82528a54963f72680dc80334272720121e728d.png]]
 :end:
 
 **** Indústria
@@ -3090,27 +3190,25 @@ print(df[Industria].pct_change().tail(4))
 
 #+RESULTS:
 :results:
-# Out [24]: 
-# text/plain
-:         Industria Extrativa  Industria de Transformacao  Eletricidade e agua  \
-: 2019Q2            -0.030796                    0.015653            -0.004612   
-: 2019Q3             0.112907                   -0.008735            -0.013919   
-: 2019Q4             0.006668                    0.001203             0.002735   
-: 2020Q1            -0.032339                   -0.013738            -0.001341   
-: 
-:         Construcao  Total Industria  
-: 2019Q2    0.019130         0.006188  
-: 2019Q3    0.008864         0.007511  
-: 2019Q4   -0.023357         0.000195  
-: 2020Q1   -0.023948        -0.013793  
+# Out [15]: 
+# output
+        Industria Extrativa  Industria de Transformacao  Eletricidade e agua  \
+2019Q3             0.126922                   -0.009143            -0.012028   
+2019Q4             0.007993                    0.001056            -0.001173   
+2020Q1            -0.047379                   -0.019497            -0.003147   
+2020Q2            -0.011218                   -0.175394            -0.043949   
 
-[[file:/tmp/ob-ipython-html6Ut6v0.html]]
+        Construcao  Total Industria  
+2019Q3    0.007231         0.005460  
+2019Q4   -0.030270         0.000602  
+2020Q1   -0.033302        -0.008139  
+2020Q2   -0.056655        -0.122893  
 
 # text/plain
 : <Figure size 648x288 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/bc5997d911634acc1c7a406cdbacc62dba75ab6a.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/176ed5c24348d0be70e4afbae6f3ebcc4591a5c8.png]]
 :end:
 
 
@@ -3161,54 +3259,54 @@ print(df[Servicos].pct_change())
 
 #+RESULTS:
 :results:
-# Out [25]: 
+# Out [16]: 
 # output
         Comercio  Transporte, armazenagem e correio  Informacao e comunicacao  \
 1996Q1       NaN                                NaN                       NaN   
-1996Q2 -0.002371                          -0.028222                  0.015095   
-1996Q3  0.025455                           0.036438                  0.021967   
-1996Q4  0.015195                          -0.037310                 -0.001976   
-1997Q1  0.002414                           0.040428                  0.011012   
+1996Q2  0.013930                          -0.022250                  0.014198   
+1996Q3  0.027921                           0.032652                  0.041464   
+1996Q4  0.013399                          -0.037413                 -0.024424   
+1997Q1  0.000426                           0.046895                  0.015430   
 ...          ...                                ...                       ...   
-2019Q1  0.008961                          -0.002449                  0.011049   
-2019Q2  0.006977                          -0.000455                  0.006743   
-2019Q3  0.007517                          -0.003686                  0.010703   
-2019Q4 -0.001857                           0.014547                  0.016215   
-2020Q1 -0.007686                          -0.024192                 -0.019052   
+2019Q2  0.006191                          -0.001205                  0.014362   
+2019Q3  0.004430                          -0.001166                  0.008591   
+2019Q4 -0.002416                           0.012850                  0.010421   
+2020Q1 -0.014039                          -0.024127                 -0.019601   
+2020Q2 -0.130136                          -0.193399                 -0.029687   
 
         Atividades Financeiras  Atividades Imobiliarias  Outras atividades  \
 1996Q1                     NaN                      NaN                NaN   
-1996Q2                0.001748                 0.006362          -0.005097   
-1996Q3               -0.000033                 0.009057           0.002842   
-1996Q4               -0.087280                -0.024478          -0.003531   
-1997Q1                0.110854                 0.022929           0.014299   
+1996Q2                0.001766                 0.006362           0.003576   
+1996Q3               -0.000033                 0.009057           0.003184   
+1996Q4               -0.087247                -0.024478          -0.005366   
+1997Q1                0.110797                 0.022929           0.019185   
 ...                        ...                      ...                ...   
-2019Q1                0.008045                 0.003100           0.001185   
-2019Q2               -0.000677                 0.007525           0.003958   
-2019Q3                0.013945                 0.002887           0.000598   
-2019Q4                0.008249                 0.001962           0.008319   
-2020Q1               -0.001175                 0.003511          -0.045997   
+2019Q2               -0.007478                 0.007306           0.000918   
+2019Q3                0.016924                 0.003003          -0.000463   
+2019Q4                0.008832                 0.002152           0.008042   
+2020Q1                0.002412                 0.003421          -0.053256   
+2020Q2                0.008441                 0.004705          -0.198343   
 
         ADM, defesa, etc  Total Servicos  
 1996Q1               NaN             NaN  
-1996Q2          0.008730        0.003606  
-1996Q3          0.005202        0.016645  
-1996Q4         -0.006725       -0.023475  
-1997Q1         -0.000029        0.021750  
+1996Q2          0.019224        0.012489  
+1996Q3          0.005550        0.014601  
+1996Q4         -0.005808       -0.020523  
+1997Q1         -0.000785        0.024352  
 ...                  ...             ...  
-2019Q1          0.004140        0.003870  
-2019Q2         -0.002328        0.002439  
-2019Q3         -0.007317        0.003180  
-2019Q4          0.010108        0.006761  
-2020Q1         -0.004807       -0.016362  
+2019Q2         -0.005078       -0.000415  
+2019Q3         -0.006734        0.001378  
+2019Q4          0.010494        0.005582  
+2020Q1         -0.014418       -0.022358  
+2020Q2         -0.076251       -0.097166  
 
-[97 rows x 8 columns]
+[98 rows x 8 columns]
 
 # text/plain
 : <Figure size 648x288 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/16f20c74bddf18148bdc452e51837900c45e4ce3.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/b36716a8f621c4be345ff6778cf910c669398c18.png]]
 :end:
 
 **** Demanda
@@ -3257,25 +3355,25 @@ print(df[Demanda + ['PIB']].pct_change().tail(4))
 
 #+RESULTS:
 :results:
-# Out [26]: 
+# Out [17]: 
 # output
         Consumo das Familias  Consumo do Governo      FBCF  Exportacao  \
-2019Q2              0.004122           -0.002895  0.024859   -0.023292   
-2019Q3              0.004586           -0.003876  0.017226   -0.023973   
-2019Q4              0.004198            0.004176 -0.026872    0.022656   
-2020Q1             -0.019856            0.002393  0.030928   -0.009145   
+2019Q3              0.005088           -0.003986  0.015347   -0.022088   
+2019Q4              0.003992            0.004443 -0.034854    0.023254   
+2020Q1             -0.019217            0.002193  0.022937   -0.013177   
+2020Q2             -0.125381           -0.088450 -0.154231    0.018445   
 
         Importacao       PIB  
-2019Q2    0.014682  0.005406  
-2019Q3    0.024805  0.004618  
-2019Q4   -0.033197  0.003655  
-2020Q1    0.028102 -0.015394  
+2019Q3    0.001535  0.000588  
+2019Q4   -0.025791  0.005339  
+2020Q1    0.008115 -0.024549  
+2020Q2   -0.132437 -0.096930  
 
 # text/plain
 : <Figure size 648x288 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/4839fbbc1cd05e935c419fb2f4d96b2105e7f8e3.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/7c327ff8eb33f8d12b7d6afbac964411bee5ec80.png]]
 :end:
 
 **** Oferta
@@ -3325,19 +3423,19 @@ print(df[Oferta + ['PIB']].pct_change().tail(4))
 
 #+RESULTS:
 :results:
-# Out [27]: 
+# Out [18]: 
 # output
         Agropecuaria  Total Industria  Total Servicos       PIB
-2019Q2      0.007891         0.006188        0.002439  0.005406
-2019Q3      0.011709         0.007511        0.003180  0.004618
-2019Q4     -0.004082         0.000195        0.006761  0.003655
-2020Q1      0.005651        -0.013793       -0.016362 -0.015394
+2019Q3      0.010857         0.005460        0.001378  0.000588
+2019Q4     -0.006840         0.000602        0.005582  0.005339
+2020Q1      0.005004        -0.008139       -0.022358 -0.024549
+2020Q2      0.004292        -0.122893       -0.097166 -0.096930
 
 # text/plain
 : <Figure size 648x288 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/57372e79c1f7d0213e749718ec1996ac93157539.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/3ca4b1a3528958dfe9791cb732725b96a282c3b3.png]]
 :end:
 
 
@@ -3403,33 +3501,33 @@ print(df[Demanda].diff().apply(lambda x: x/(df["PIB"].shift())).tail(8))
 
 #+RESULTS:
 :results:
-# Out [28]: 
+# Out [19]: 
 # output
         Consumo das Familias  Consumo do Governo      FBCF  Exportacao  \
-2018Q2              0.000411            0.000829 -0.002023   -0.003944   
-2018Q3              0.003452            0.000556  0.007673    0.008579   
-2018Q4              0.001663           -0.002415 -0.000270    0.002493   
-2019Q1              0.004940            0.001095 -0.002769   -0.005361   
-2019Q2              0.002820           -0.000532  0.004298   -0.003278   
-2019Q3              0.003134           -0.000706  0.003036   -0.003278   
-2019Q4              0.002868            0.000755 -0.004795    0.003009   
-2020Q1             -0.013574            0.000433  0.005351   -0.001238   
+2018Q3              0.003670            0.000547  0.008612    0.008489   
+2018Q4              0.001643           -0.002391 -0.002606    0.002801   
+2019Q1              0.005201            0.001083 -0.001710   -0.005277   
+2019Q2              0.002270           -0.000528  0.004948   -0.003653   
+2019Q3              0.003469           -0.000725  0.002711   -0.003011   
+2019Q4              0.002734            0.000805 -0.006249    0.003098   
+2020Q1             -0.013143            0.000397  0.003948   -0.001787   
+2020Q2             -0.086221           -0.016445 -0.027837    0.002530   
 
         Importacao  
-2018Q2    0.003814  
-2018Q3   -0.012351  
-2018Q4    0.006794  
-2019Q1    0.000665  
-2019Q2   -0.002057  
-2019Q3   -0.003507  
-2019Q4    0.004788  
-2020Q1   -0.003904  
+2018Q3   -0.009075  
+2018Q4    0.005034  
+2019Q1    0.003006  
+2019Q2   -0.006682  
+2019Q3   -0.000221  
+2019Q4    0.003713  
+2020Q1   -0.001132  
+2020Q2    0.019092  
 
 # text/plain
 : <Figure size 432x288 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/b4e59aefc47c0f6b4ca741d61ebe4e966de134e8.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/e2105790570f9e49e7872b20e975495b01aa9d17.png]]
 :end:
 
 **** Oferta
@@ -3493,27 +3591,27 @@ print(df[Oferta].diff().apply(lambda x: x/(df["VA"].shift())).tail(8))
 
 #+RESULTS:
 :results:
-# Out [29]: 
+# Out [20]: 
 # output
 /home/gpetrini/.local/lib/python3.8/site-packages/pandas/plotting/_matplotlib/core.py:218: UserWarning: 'color' and 'colormap' cannot be used simultaneously. Using 'color'
   warnings.warn(
 /home/gpetrini/.local/lib/python3.8/site-packages/pandas/plotting/_matplotlib/style.py:27: UserWarning: 'color' and 'colormap' cannot be used simultaneously. Using 'color'
   warnings.warn(
         Agropecuaria  Total Industria  Total Servicos
-2018Q2      0.000223        -0.001063        0.001793
-2018Q3      0.000821         0.000241        0.003313
-2018Q4      0.000504        -0.000879        0.000476
-2019Q1     -0.000773        -0.000027        0.002749
-2019Q2      0.000624         0.001329        0.001736
-2019Q3      0.000929         0.001616        0.002259
-2019Q4     -0.000326         0.000042        0.004796
-2020Q1      0.000447        -0.002961       -0.011628
+2018Q3      0.000785         0.000917        0.003821
+2018Q4      0.000366        -0.001947       -0.001539
+2019Q1     -0.000803         0.000185        0.006582
+2019Q2      0.000890         0.001510       -0.000295
+2019Q3      0.000863         0.001174        0.000979
+2019Q4     -0.000548         0.000130        0.003963
+2020Q1      0.000396        -0.001746       -0.015865
+2020Q2      0.000349        -0.026782       -0.069045
 
 # text/plain
 : <Figure size 648x288 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/006f9c8b5a1420511cea75997fc149369a2d681b.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/e51f3a05cd7cc553d133062ba14404ab5b055f1a.png]]
 :end:
 
 *** Carregamento estatístico
@@ -3527,32 +3625,21 @@ print(df[Oferta].diff().apply(lambda x: x/(df["VA"].shift())).tail(8))
 
 #+BEGIN_SRC ipython :session BP :tangle ./codes/BP.py
 %config InlineBackend.figure_format = 'retina'
+import sys
 
-import pandas as pd
-import numpy as np
+sys.path.insert(1, './codes/')
 
-from datetime import datetime as dt
-from datetime import timedelta
+from setup import *
 
-import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
-import matplotlib.image as image
-import matplotlib.dates as mdates
-import matplotlib.ticker as ticker
-import seaborn as sns
-
-logo = "./figs/Cecon_Logo.png"
-logo = image.imread(logo)
 
 file_path = './raw/LCA/'
 image_path = './figs/SetorExterno/'
-corona = '2020-03-18' # More than 60 cases in Brazil
 start_year = "2019-01-01"
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [4]: 
+# Out [12]: 
 :end:
 
 
@@ -3568,16 +3655,10 @@ df = pd.read_excel(
     index_col=[0], 
     skiprows=10,
 )[0:]
-df.index = pd.date_range( # Check for NaN
-    start = '1999-05-01',
-    periods=df.shape[0],
-    #end='2020-05-31',
-    freq='W', 
-    #periods=(1241-12)
-    )
-df = df[start_year:]
-df.index.name = ''
 df.drop(['Semana Referência', 'Número dias úteis'], axis='columns', inplace=True)
+df.drop('Período', inplace=True)
+df.index.name = ''
+
 df.columns = [
     "Exportações",
     "Exportações Média diária",
@@ -3587,13 +3668,23 @@ df.columns = [
     "Saldo Comercial Média diária",
 ]
 
+
+df.index = pd.date_range( # Check for NaN
+    start=df.index[1][:10],
+    periods=df.shape[0],
+    end=df.index[-1][:10],
+    #periods=(1241-12)
+    )
+
+df = df[start_year:]
+
 fig, ax = plt.subplots(figsize=(8,5))
 df[['Exportações', 'Importações', 'Saldo Comercial']].plot(
     title = file_name.replace('_', ' ')+'\n' + sheet,
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Mais de 60 casos de COVID19')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início isolamento social em SP')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -3611,12 +3702,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [5]: 
+# Out [13]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/f1c4885a01e6444c6609a1d07aa340fa6875fa4f.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/1e0d8385dd451046cdb0d2ba3d5177a8c0b66b09.png]]
 :end:
 
 
@@ -3642,7 +3733,7 @@ df = df.apply(pd.to_numeric)
 df.index = pd.to_datetime(df.index, format="%Y-%m")
 df = df[start_year:]
 df.index.name = ''
-
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df.drop(['DU'], axis='columns').plot(
@@ -3650,7 +3741,7 @@ df.drop(['DU'], axis='columns').plot(
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Mais de 60 casos de COVID19')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início isolamento social em SP')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -3668,12 +3759,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [7]: 
+# Out [14]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/cc881955cf4dd79046a9ddaba863ddd499bf2f9a.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/5c8166f4bad84dd16ebefa571131cb142728daa5.png]]
 :end:
 
 
@@ -3691,7 +3782,7 @@ df = df.apply(pd.to_numeric)
 df.index = pd.to_datetime(df.index, format="%Y-%m")
 df = df[start_year:]
 df.index.name = ''
-
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df.plot(
@@ -3699,7 +3790,7 @@ df.plot(
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Mais de 60 casos de COVID19')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início isolamento social em SP')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -3717,12 +3808,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [8]: 
+# Out [15]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/650e18211ef6f97bf0f8524555fb7cea6542f458.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/0c79e964de2ddd1cb6e026cbcf8475b6f5849d98.png]]
 :end:
 
 
@@ -3749,6 +3840,8 @@ df.columns = [
     "NFE Mensal", "NFE últimos 12 meses", "Necessidade Financiamento Externo",
     "PIB últimos 12 meses"
 ]
+df = interpolator(df)
+
 fig, ax = plt.subplots(figsize=(8,5))
 df[[
     "Saldo de Transações Correntes",
@@ -3759,7 +3852,7 @@ df[[
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Mais de 60 casos de COVID19')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início isolamento social em SP')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -3777,12 +3870,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [10]: 
+# Out [16]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/f6c8f5fbe4472c0801241dc39870a218a6e8cb6d.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/1c5d34e0d8ec55b286fb4de024d0b7b11b8bcf58.png]]
 :end:
 
 *** Balança Comercial por país (mensal)
@@ -3856,7 +3949,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [11]: 
+# Out [17]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -3923,7 +4016,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [12]: 
+# Out [18]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -4002,7 +4095,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [13]: 
+# Out [19]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -4069,7 +4162,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [14]: 
+# Out [20]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -4150,7 +4243,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [15]: 
+# Out [21]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -4218,7 +4311,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [16]: 
+# Out [22]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -4230,32 +4323,21 @@ fig.savefig(
 
 #+BEGIN_SRC ipython :session China :tangle ./codes/China.py
 %config InlineBackend.figure_format = 'retina'
+import sys
 
-import pandas as pd
-import numpy as np
+sys.path.insert(1, './codes/')
 
-from datetime import datetime as dt
-from datetime import timedelta
+from setup import *
 
-import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
-import matplotlib.image as image
-import matplotlib.dates as mdates
-import matplotlib.ticker as ticker
-import seaborn as sns
-
-logo = "./figs/Cecon_Logo.png"
-logo = image.imread(logo)
 
 file_path = './raw/LCA/'
 image_path = './figs/SetorExterno/'
-corona = '2020-03-18' # More than 60 cases in Brazil
 start_year = "2019-01-01"
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [1]: 
+# Out [4]: 
 :end:
 
 
@@ -4280,6 +4362,7 @@ df.index = pd.date_range( # Check for NaN
 df = df['2019-01-01':]
 df = df.fillna(method='ffill')
 df.index.name = ''
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df.plot(
@@ -4287,7 +4370,7 @@ df.plot(
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Mais de 60 casos de COVID19')
+
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -4305,12 +4388,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [4]: 
+# Out [5]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/ce747718196bb9c2532973ff223629adeef0ec90.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/c74b91ccd85342cb8d46bc2adf505f782f53168c.png]]
 :end:
 
 #+BEGIN_SRC ipython  :session China :tangle ./codes/China.py
@@ -4334,6 +4417,7 @@ df.index = pd.date_range( # Check for NaN
 df = df['2019-01-01':]
 df = df.fillna(method='ffill')
 df.index.name = ''
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df.plot(
@@ -4341,7 +4425,7 @@ df.plot(
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Mais de 60 casos de COVID19')
+
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -4359,12 +4443,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [7]: 
+# Out [6]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/b1fdb470863796d1f9a0279fd52036b836972e32.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/c8d7570e3a7e977e5c224522a2254ee152c9b730.png]]
 :end:
 
 
@@ -4373,30 +4457,26 @@ fig.savefig(
 
 #+BEGIN_SRC ipython :session setoriais :tangle ./codes/setoriais.py
 %config InlineBackend.figure_format = 'retina'
+import sys
 
-import pandas as pd
-import numpy as np
+sys.path.insert(1, './codes/')
 
-from datetime import datetime as dt
-from datetime import timedelta
+from setup import *
 
-import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
-import matplotlib.image as image
-import seaborn as sns
-
-logo = "./figs/Cecon_Logo.png"
-logo = image.imread(logo)
 
 file_path = './raw/LCA/'
 image_path = './figs/Setoriais/'
-corona = '2020-04-01' # Começo do isolamento em SP\n(24 de março)
 start_year = "2019-01-01"
+base = "2014-12-01"
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [5]: 
+# Out [1]: 
+# output
+/home/gpetrini/.local/lib/python3.8/site-packages/pandas_datareader/compat/__init__.py:7: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
+  from pandas.util.testing import assert_frame_equal
+
 :end:
 
 
@@ -4413,17 +4493,19 @@ df = pd.read_excel(
     index_col = [0]
 )
 df.index.name = ''
-
+for col in df:
+    df[col] = df[col].apply(lambda x: (100*x)/df[col][base])
 
 df = df[start_year:]
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df.plot(
-    title = "Pesquisa Industrial Mensal (PIM)\nSeções de atividades desazonalizadas",
+    title = f"Pesquisa Industrial Mensal (PIM)\nSeções de atividades desazonalizadas\n{base} = 100",
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Mais de 60 casos de COVID19')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início isolamento social em SP')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -4441,12 +4523,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [6]: 
+# Out [2]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/5034a4e79dd10e24d95e11c9313ca58667edc74f.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/d717735925d5d1c2f0e440c2e6c066139a4df3f4.png]]
 :end:
 
 
@@ -4463,9 +4545,12 @@ df = pd.read_excel(
     index_col = [0]
 )
 df.index.name = ''
-
+for col in df:
+    df[col] = df[col].apply(lambda x: (100*x)/df[col][base])
 
 df = df[start_year:]
+df = interpolator(df)
+
 df.columns = [
     "Comércio Varejista Restrito",
     "Combustíveis e Lubiricantes",
@@ -4491,11 +4576,11 @@ UsoPessoalDomestico = [
 
 fig, ax = plt.subplots(figsize=(8,5))
 df.plot(
-    title = "Pesquisa Mensal do Comércio (PMC)\nVolume de Vendas Dessazonalizado",
+    title = f"Pesquisa Mensal do Comércio (PMC)\nVolume de Vendas Dessazonalizado\n{base} = 100",
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Mais de 60 casos de COVID19')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início isolamento em SP')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -4513,12 +4598,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [8]: 
+# Out [3]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/cde2ae2a2c6518d80eceef680eb0610d47f706c1.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/b534b097cb3117627d0996f21cbf6e828f0327f9.png]]
 :end:
 
 
@@ -4536,8 +4621,11 @@ df = pd.read_excel(
 )
 df.index.name = ''
 
+for col in df:
+    df[col] = df[col].apply(lambda x: (100*x)/df[col][base])
 
 df = df[start_year:]
+df = interpolator(df)
 df.columns = [
     "Total Geral",
     "Serviços prestados às Famílias",
@@ -4549,11 +4637,11 @@ df.columns = [
 
 fig, ax = plt.subplots(figsize=(8,5))
 df.plot(
-    title = "Pesquisa Mensal de Serviços (PMS)\nÍndice de Volume de serviços dessazonalizado",
+    title = f"Pesquisa Mensal de Serviços (PMS)\nÍndice de Volume de serviços dessazonalizado\n{base} = 100",
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Mais de 60 casos de COVID19')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início isolamento em SP')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -4571,42 +4659,37 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [9]: 
+# Out [4]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/181f90829a4ff703f104c216bbca7ddef8caedba.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/d4ec944fdf0da4f21e1332a03a296d7dcb2c7cd7.png]]
 :end:
 
 * Emprego
 
 #+BEGIN_SRC ipython  :session pnad :tangle ./codes/pnad.py
 %config InlineBackend.figure_format = 'retina'
+import sys
 
-import pandas as pd
-import numpy as np
+sys.path.insert(1, './codes/')
 
-from datetime import datetime as dt
-from datetime import timedelta
+from setup import *
 
-import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
-import matplotlib.image as image
-import seaborn as sns
-
-logo = "./figs/Cecon_Logo.png"
-logo = image.imread(logo)
 
 file_path = './raw/LCA/PNAD_Continua.xlsx'
 image_path = './figs/Emprego/'
-corona = '2020-04-01' # Começo do isolamento em SP\n(24 de março)
 start_year = "2019-01-01"
 #+END_SRC
 
 #+RESULTS:
 :results:
 # Out [1]: 
+# output
+/home/gpetrini/.local/lib/python3.8/site-packages/pandas_datareader/compat/__init__.py:7: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
+  from pandas.util.testing import assert_frame_equal
+
 :end:
 
 
@@ -4629,6 +4712,7 @@ df = df[start_year:]
 df.columns = [
     var
 ]
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df.plot(
@@ -4636,7 +4720,7 @@ df.plot(
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Mais de 60 casos de COVID19')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início isolamento em SP')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -4654,12 +4738,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [3]: 
+# Out [2]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/05b5bbdb5ce773aac14916a26efe4f5099ed256d.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/3e66e5d7c90078e7768d9ebdeb4b854b64554dc0.png]]
 :end:
 
 
@@ -4682,6 +4766,7 @@ df = df[start_year:]
 df.columns = [
     var
 ]
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df.plot(
@@ -4689,7 +4774,7 @@ df.plot(
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Mais de 60 casos de COVID19')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início isolamento social em SP')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -4707,12 +4792,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [5]: 
+# Out [3]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/7b199b092ebb99347bc392053d94a38e134f803e.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/12f387dcc997a1e058ff9556ac8d26b3954897ca.png]]
 :end:
 
 
@@ -4739,7 +4824,7 @@ df["Taxa de desalentados"] = df["Desalentados"]/df["Força de trabalho"]
 df["Taxa de Subocupados por \ninsuficiência de horas trabalhadas"] = df["Subocupados"]/df["Força de trabalho"]
 df = df[start_year:]
 df = df[["Taxa de desalentados", "Taxa de Subocupados por \ninsuficiência de horas trabalhadas"]]
-
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df.plot(
@@ -4747,7 +4832,7 @@ df.plot(
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Mais de 60 casos de COVID19')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início isolamento social em SP')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -4765,12 +4850,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [17]: 
+# Out [4]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/6de2829bdcf733dd1346f9636df833b29a286378.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/f32bc3ff2934cd6e25217103bf3cc674577be1da.png]]
 :end:
 
 ** Rendimento habitual médio por atividade
@@ -4787,7 +4872,7 @@ df = pd.read_excel(
 )
 df.index.name = ''
 df = df[start_year:]
-
+df = interpolator(df)
 
 fig, ax = plt.subplots(figsize=(8,5))
 df.plot(
@@ -4795,7 +4880,7 @@ df.plot(
     ax = ax,
     lw = 2.5
 )
-ax.axvline(x = corona, color='black', ls='--', lw=1, label='Mais de 60 casos de COVID19')
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label='Início isolamento social em SP')
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 ax2 = plt.axes([0.135,0.135,0.2,0.2])
 ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
@@ -4813,12 +4898,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [21]: 
+# Out [5]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/3d8842369ae72eae4769d15d2505555845230e71.png]]
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/7aaad0ee1869882066c6cd4e35e4b0fdd2c933bc.png]]
 :end:
 
 ** População ocupada por atividade
@@ -4835,6 +4920,7 @@ df = pd.read_excel(
 df.index.name = ''
 df = df[start_year:]
 
+
 fig, ax = plt.subplots(figsize=(8,5))
 df.plot(
     title = "População ocupada por atividade",
@@ -4845,14 +4931,7 @@ df.plot(
 )
 
 
-def line_format(label):
-    """
-    Convert time label to the format of pandas line plot
-    """
-    month = label.month_name()[:3]
-    if month == 'Jan':
-        month += f'\n{label.year}'
-    return month
+
 ax.set_xticklabels(map(lambda x: line_format(x), df[start_year:].index))
 
 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
@@ -4872,10 +4951,116 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [28]: 
+# Out [6]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
 [[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/18ae86fa0395bd8722bf758ae72aaa47ff7d9d15.png]]
+:end:
+
+
+
+** Taxa de ocupação
+
+#+BEGIN_SRC ipython  :session pnad :tangle ./codes/pnad.py
+var = "Taxa de ocupação"
+df = pd.read_excel(
+    file_path,
+    sheet_name = "Brasil Dessaz",
+    skiprows = 11,
+    usecols = "A,D,E",
+    parse_date = True,
+    index_col = [0]
+)
+
+df.index.name = ''
+df = df[start_year:]
+df.columns = ["Força de trabalho", "População ocupada"]
+
+df[var] = df["População ocupada"]/df["Força de trabalho"]
+df = df[[var]]
+df = interpolator(df)
+
+fig, ax = plt.subplots(figsize=(8,5))
+df.plot(
+    title = "Taxa de Ocupação\n(% da Força de Trabalho)",
+    ax = ax,
+    lw = 2.5
+)
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label=corona_sp_txt)
+ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+ax2 = plt.axes([0.135,0.135,0.2,0.2])
+ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
+ax2.axis('off')
+
+sns.despine()
+plt.show()
+
+fig.savefig(
+    image_path + file_path.strip("/")[-1] + var.replace(" ", "_") + "_" + "linha" +  '.svg',
+    dpi = 300, 
+    bbox_inches='tight',pad_inches=0
+    )
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [7]: 
+# text/plain
+: <Figure size 576x360 with 2 Axes>
+
+# image/png
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/e57bbb759924a9cb6416ba0e9df75b2ce0d735dd.png]]
+:end:
+
+
+#+BEGIN_SRC ipython  :session pnad :tangle ./codes/pnad.py
+df = pd.read_excel(
+    file_path,
+    sheet_name = "Brasil Mensal PO Setor",
+    skiprows = 11,
+    usecols = "A:L",
+    parse_date = True,
+    index_col = [0]
+)
+df.index.name = ''
+df = df[start_year:]
+for col in df:
+    df[col] = df[col].apply(lambda x: (100*x)/df["Total"])
+
+df.drop(["Total"], axis='columns', inplace=True)
+df = interpolator(df)
+
+fig, ax = plt.subplots(figsize=(8,5))
+df.plot(
+    title = "População ocupada por atividade\n(% Força de trabalho)",
+    ax = ax,
+    lw = 1.5,
+)
+
+ax.axvline(x = corona_sp, color='black', ls='--', lw=1, label=corona_sp_txt)
+ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+ax2 = plt.axes([0.135,0.135,0.2,0.2])
+ax2.imshow(logo, aspect='auto', zorder=0, alpha=.5)
+ax2.axis('off')
+
+sns.despine()
+plt.show()
+
+fig.savefig(
+    image_path + file_path.strip("/")[-1] + "PO_Atividade" + "_" + "linha" + '.svg',
+    dpi = 300, 
+    bbox_inches='tight',pad_inches=0
+    )
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [8]: 
+# text/plain
+: <Figure size 576x360 with 2 Axes>
+
+# image/png
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/e61012cac93df689012036ff07e2747e523e77b1.png]]
 :end:
