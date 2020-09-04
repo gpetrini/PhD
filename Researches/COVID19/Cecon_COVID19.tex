@@ -1,4 +1,4 @@
-% Created 2020-08-26 qua 20:37
+% Created 2020-09-01 ter 21:30
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -22,6 +22,7 @@
 scbib,repeattitles,doi=false,isbn=false,url=false,maxcitenames=2,
 natbib=true,backend=biber]{biblatex}
 \usepackage{url}
+\usepackage[cache=false]{minted}
 \usepackage[linktocpage,pdfstartview=FitH,colorlinks,
 linkcolor=blue,anchorcolor=blue,
 citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
@@ -29,7 +30,7 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \usepackage{setspace}
 \usepackage{tikz}
 \author{Pedro Paulo Zahluth Bastos, Luiz Celso Gomes Jr, Lorena Salces Dourado, Gabriel Petrini, Paulo Robilloti, Antonio Ibarra}
-\date{September 2020}
+\date{September 1st, 2020}
 \title{Impactos econômicos da COVID-19}
 \begin{document}
 
@@ -38,20 +39,20 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 
 
 \section{Dados Granulares}
-\label{sec:org8501ce0}
+\label{sec:org0025097}
 
 \subsection{Energia}
-\label{sec:org6aa200b}
+\label{sec:org8345e25}
 
 \emph{home/gpetrini}.local/lib/python3.8/site-packages/pandas\_datareader/compat/\_\_init\_\_.py:7: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
   from pandas.util.testing import assert\_frame\_equal
 
 
 \subsubsection{Brazil: BRA}
-\label{sec:org5a9297e}
+\label{sec:orgf6b096f}
 \begin{enumerate}
 \item Energy share
-\label{sec:org5c8cb00}
+\label{sec:org3e58764}
 
 \begin{verbatim}
 <Figure size 2400x1500 with 1 Axes>
@@ -63,7 +64,7 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \end{center}
 
 \item Consumo Diário
-\label{sec:org21c83f2}
+\label{sec:org03e532b}
 
 \begin{verbatim}
 <Figure size 2400x1500 with 2 Axes>
@@ -71,7 +72,7 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 
 
 \begin{center}
-\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/77baa432ba2f44632060c841842355fcb8b83c23.png}
+\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/7842ed75178c7e85bc72397985d10bb7c08c16b2.png}
 \end{center}
 
 \begin{verbatim}
@@ -80,7 +81,7 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 
 
 \begin{center}
-\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/d4289bac917b4c3c16dd2a44f65ca09392f8c087.png}
+\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/644bc69ef009a28fef2b58b5d83a478f7e1a78d9.png}
 \end{center}
 
 \begin{verbatim}
@@ -89,7 +90,7 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 
 
 \begin{center}
-\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/d84bd36ccade499cc39cebdae08232df8264d963.png}
+\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/074f94e05c64e283dd031070baceb58c8aabbe31.png}
 \end{center}
 
 \begin{verbatim}
@@ -98,7 +99,7 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 
 
 \begin{center}
-\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/09bb5c9f73ce423d9321f4fb6e122a99d548a06a.png}
+\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/141e7f82711e70af2d2957c58961222b23afedb2.png}
 \end{center}
 
 \begin{verbatim}
@@ -107,7 +108,7 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 
 
 \begin{center}
-\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/f4a4030785824b36576994e7bc1b4ffd9e86a18c.png}
+\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/65596f3f9ad5ba0a8bcb61d9f262ec094485ec1c.png}
 \end{center}
 
 \begin{verbatim}
@@ -116,7 +117,7 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 
 
 \begin{center}
-\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/e7009b8bad859ec29423e1077cfdc4cfe98ad01d.png}
+\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/2d14c6fbb2fc52f703f623c27e1b033856529304.png}
 \end{center}
 \end{enumerate}
 
@@ -124,9 +125,9 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 
 
 \subsubsection{France: FRA}
-\label{sec:org1261391}
+\label{sec:orga1c2540}
 
-<ipython-input-1-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight\_layout, so results might be incorrect.
+<ipython-input-2-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight\_layout, so results might be incorrect.
   plt.tight\_layout()
 
 \begin{verbatim}
@@ -139,32 +140,22 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \end{center}
 
 \subsubsection{Spain: Spain}
-\label{sec:org7a03652}
+\label{sec:orgfcc27e1}
 
 \textbf{Corrigir}
 
-<ipython-input-1-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight\_layout, so results might be incorrect.
-  plt.tight\_layout()
-
-\begin{verbatim}
-<Figure size 2400x1500 with 4 Axes>
-\end{verbatim}
-
-
-\begin{center}
-\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/129d31512aa23532fa5d893d1f62677cb467d6e2.png}
-\end{center}
+5 - 7affede1-0db6-473c-8edf-f88f497af914 <output> <interrupt>
 
 \subsubsection{Austria: AUS}
-\label{sec:orgec8e7e1}
+\label{sec:org034e0c1}
 
-<ipython-input-1-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight\_layout, so results might be incorrect.
+<ipython-input-2-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight\_layout, so results might be incorrect.
   plt.tight\_layout()
 
 \begin{verbatim}
 (<Figure size 2400x1500 with 4 Axes>,
- array([<matplotlib.axes._subplots.AxesSubplot object at 0x7f29e07126a0>,
-        <matplotlib.axes._subplots.AxesSubplot object at 0x7f29dd53ca30>],
+ array([<matplotlib.axes._subplots.AxesSubplot object at 0x7f533d4bb130>,
+        <matplotlib.axes._subplots.AxesSubplot object at 0x7f5340dc25e0>],
        dtype=object))
 \end{verbatim}
 
@@ -179,9 +170,9 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \end{center}
 
 \subsubsection{Germany: GER}
-\label{sec:org34d5574}
+\label{sec:org3fba5dc}
 
-<ipython-input-1-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight\_layout, so results might be incorrect.
+<ipython-input-2-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight\_layout, so results might be incorrect.
   plt.tight\_layout()
 
 \begin{verbatim}
@@ -194,9 +185,9 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \end{center}
 
 \subsubsection{Luxemburg: LUX}
-\label{sec:org1d0a876}
+\label{sec:orge4f75ef}
 
-<ipython-input-1-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight\_layout, so results might be incorrect.
+<ipython-input-2-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight\_layout, so results might be incorrect.
   plt.tight\_layout()
 
 \begin{verbatim}
@@ -210,7 +201,7 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 
 
 \subsection{Aruoba-Diebold-Scotti Business Conditions Index}
-\label{sec:org77ea1f3}
+\label{sec:org5d58537}
 
 \begin{verbatim}
 <Figure size 2400x1500 with 2 Axes>
@@ -218,20 +209,18 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 
 
 \begin{center}
-\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/cf14fa691a64e7d5e47f44565dc9f5363854ad6e.png}
+\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/62ce7f05bfc212f03c891e294656997d84c5d3d1.png}
 \end{center}
 
 \section{Confiança, Indicadores de antecedentes e de Risco}
-\label{sec:org77ba10f}
+\label{sec:orgd23c0ff}
 
 \subsection{Confiança}
-\label{sec:org333aecb}
+\label{sec:org4bd21a3}
 
-\emph{home/gpetrini}.local/lib/python3.8/site-packages/pandas\_datareader/compat/\_\_init\_\_.py:7: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
-  from pandas.util.testing import assert\_frame\_equal
 
 \subsubsection{Sondagem Conjuntural Mensal}
-\label{sec:org5e2f7c6}
+\label{sec:orge7ce4b1}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -243,7 +232,7 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \end{center}
 
 \subsubsection{Sondagens de serviços}
-\label{sec:org779f45b}
+\label{sec:orgd7e0ea3}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -256,7 +245,7 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 
 
 \subsubsection{Sondagem do comércio}
-\label{sec:org258e7b7}
+\label{sec:orgaeb74f8}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -268,7 +257,7 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \end{center}
 
 \subsubsection{Sondagem da construção}
-\label{sec:orgf74bcb7}
+\label{sec:org5e24c14}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -280,12 +269,12 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \end{center}
 
 \subsubsection{Sondagem industrial CNI}
-\label{sec:org8386586}
+\label{sec:org1be52cf}
 
 
 \begin{enumerate}
 \item Volume de produção
-\label{sec:org5ef87af}
+\label{sec:orgee94c47}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -297,7 +286,7 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \end{center}
 
 \item Evolução do Emprego
-\label{sec:orgaa3b896}
+\label{sec:org6f319ff}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -310,11 +299,11 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 
 
 \item NUCI
-\label{sec:org2c65816}
+\label{sec:org66a4487}
 
 \noindent\rule{\textwidth}{0.5pt}
 NameError                                 Traceback (most recent call last)
-<ipython-input-9-f5ad43e4d316> in <module>
+<ipython-input-81-f5ad43e4d316> in <module>
       9     lw = 2.5
      10 )
 ---> 11 ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
@@ -333,7 +322,7 @@ NameError: name 'corona' is not defined
 \end{center}
 
 \item NUCI Efeito-Usual
-\label{sec:org9c836b0}
+\label{sec:org2a99217}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -345,11 +334,11 @@ NameError: name 'corona' is not defined
 \end{center}
 
 \item Evolução de estoques
-\label{sec:orgdabc316}
+\label{sec:org14cc93d}
 
 \noindent\rule{\textwidth}{0.5pt}
 NameError                                 Traceback (most recent call last)
-<ipython-input-11-bd6352613dfc> in <module>
+<ipython-input-83-bd6352613dfc> in <module>
       9     lw = 2.5
      10 )
 ---> 11 ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
@@ -368,7 +357,7 @@ NameError: name 'corona' is not defined
 \end{center}
 
 \item Estoques efetivos
-\label{sec:org0ba75a3}
+\label{sec:orgcb3ca78}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -380,7 +369,7 @@ NameError: name 'corona' is not defined
 \end{center}
 
 \item Expectativa de Demanda
-\label{sec:orgc8f0683}
+\label{sec:orgd477b6c}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -392,7 +381,7 @@ NameError: name 'corona' is not defined
 \end{center}
 
 \item Expectativa de Exportação
-\label{sec:org16ae293}
+\label{sec:org57f8263}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -404,7 +393,7 @@ NameError: name 'corona' is not defined
 \end{center}
 
 \item Expectativa de compra de matéria-prima
-\label{sec:org9aebe25}
+\label{sec:orgb91b58f}
 
 
 \begin{verbatim}
@@ -417,7 +406,7 @@ NameError: name 'corona' is not defined
 \end{center}
 
 \item Expectativa de emprego
-\label{sec:org8c265f6}
+\label{sec:orgf0945fa}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -429,7 +418,7 @@ NameError: name 'corona' is not defined
 \end{center}
 
 \item Expectativa de investimento
-\label{sec:org75cdb42}
+\label{sec:org7d5de18}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -441,7 +430,7 @@ NameError: name 'corona' is not defined
 \end{center}
 
 \item Lucro Operacional
-\label{sec:orga3a2b9c}
+\label{sec:org202765e}
 
 
 \begin{verbatim}
@@ -454,7 +443,7 @@ NameError: name 'corona' is not defined
 \end{center}
 
 \item Situação Financeira
-\label{sec:org19838eb}
+\label{sec:org9acb9cb}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -467,7 +456,7 @@ NameError: name 'corona' is not defined
 
 
 \item Acesso a Crédito
-\label{sec:org2f30ff7}
+\label{sec:org6400384}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -480,10 +469,10 @@ NameError: name 'corona' is not defined
 \end{enumerate}
 
 \subsection{Indicadores de antecedente}
-\label{sec:orgd2959e3}
+\label{sec:org48c1bea}
 
 \subsubsection{Composite Leading index (\href{https://stats.oecd.org/Index.aspx?DataSetCode=MEI\_CLI}{CLI})}
-\label{sec:org73e7a77}
+\label{sec:orgf6116c8}
 
 WARNING:root:OECD + Major Six NME not found in regex
 WARNING:root:Major Five Asia not found in regex
@@ -501,12 +490,12 @@ WARNING:root:OECD total  not found in regex
 
 
 \begin{center}
-\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/4cfcc53fcf196fc11008c55606296df35b25db0f.png}
+\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/4e44c8c8a59b84764b8fc9762999b8d5972932ce.png}
 \end{center}
 
 
 \subsubsection{Consumer Confidence index (\href{https://stats.oecd.org/Index.aspx?DataSetCode=MEI\_CCI}{CCI})}
-\label{sec:org7bfb986}
+\label{sec:org6a38dc9}
 
 \emph{home/gpetrini}.local/lib/python3.8/site-packages/pandas/core/indexing.py:1762: PerformanceWarning: indexing past lexsort depth may impact performance.
   return self.\_getitem\_tuple(key)
@@ -526,14 +515,14 @@ WARNING:root:OECD total  not found in regex
 
 
 \begin{center}
-\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/e5460aa82c2c15556a69dea566dab149d25f8cf9.png}
+\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/aad38e77e5fe7f43fff63b2c29856f549dc5dc3f.png}
 \end{center}
 
 \subsection{Risco}
-\label{sec:org3c5e8d2}
+\label{sec:orgc3c953d}
 
 \subsubsection{EMBI+ (JP Morgan)}
-\label{sec:orgae054b2}
+\label{sec:org900a287}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -546,14 +535,12 @@ WARNING:root:OECD total  not found in regex
 
 
 \subsection{Incerteza}
-\label{sec:org4820402}
+\label{sec:org47df873}
 
-\emph{home/gpetrini}.local/lib/python3.8/site-packages/pandas\_datareader/compat/\_\_init\_\_.py:7: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
-  from pandas.util.testing import assert\_frame\_equal
 
 
 \subsubsection{Indicador de Incerteza (IIE-Br)}
-\label{sec:org90386f0}
+\label{sec:org5688f53}
 
 \begin{verbatim}
 <Figure size 2400x1500 with 2 Axes>
@@ -566,7 +553,7 @@ WARNING:root:OECD total  not found in regex
 
 
 \subsubsection{Indicador de Confiança Empresarial}
-\label{sec:orga29ed5c}
+\label{sec:org3ce553f}
 
 \begin{verbatim}
 <Figure size 2400x1500 with 2 Axes>
@@ -578,20 +565,18 @@ WARNING:root:OECD total  not found in regex
 \end{center}
 
 \section{Atividade}
-\label{sec:orgefc823a}
+\label{sec:org8420eae}
 
 \subsection{Crédito}
-\label{sec:org42f9407}
+\label{sec:org566d960}
 
-\emph{home/gpetrini}.local/lib/python3.8/site-packages/pandas\_datareader/compat/\_\_init\_\_.py:7: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
-  from pandas.util.testing import assert\_frame\_equal
 
 \subsubsection{Saldo}
-\label{sec:orgd6b72ed}
+\label{sec:org37fd48d}
 
 \begin{enumerate}
 \item Pessoa jurídica
-\label{sec:orgca2c631}
+\label{sec:orga7d6329}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -613,7 +598,7 @@ WARNING:root:OECD total  not found in regex
 \end{center}
 
 \item Pessoa física
-\label{sec:orgcf2c8fc}
+\label{sec:orgacb10d0}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -634,7 +619,7 @@ WARNING:root:OECD total  not found in regex
 \end{center}
 
 \item Crédito ampliado
-\label{sec:orgea5075c}
+\label{sec:orgc04387f}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -665,7 +650,7 @@ WARNING:root:OECD total  not found in regex
 \end{center}
 
 \item Crédito direcionado
-\label{sec:orgfa4d88e}
+\label{sec:org598c4e8}
 
 
 \begin{verbatim}
@@ -699,11 +684,7 @@ WARNING:root:OECD total  not found in regex
 
 
 \subsection{IBCBr}
-\label{sec:org1afa811}
-
-\emph{home/gpetrini}.local/lib/python3.8/site-packages/pandas\_datareader/compat/\_\_init\_\_.py:7: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
-  from pandas.util.testing import assert\_frame\_equal
-
+\label{sec:org095ee82}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -715,18 +696,18 @@ WARNING:root:OECD total  not found in regex
 \end{center}
 
 \subsection{PIB (Contas Nacionais)}
-\label{sec:org264744b}
+\label{sec:orgf8c8987}
 
 Archive:  Tab\_Compl\_CNT.zip
-  inflating: Tab\_Compl\_CNT\_1T20.xls  
+  inflating: Tab\_Compl\_CNT.xls       
 
 \subsubsection{Trimestre Contra trimestre imediatamente anterior}
-\label{sec:orgcfcbca0}
+\label{sec:org0ac5918}
 
-2019Q2    0.005406
-2019Q3    0.004618
-2019Q4    0.003655
-2020Q1   -0.015394
+2019Q3    0.000588
+2019Q4    0.005339
+2020Q1   -0.024549
+2020Q2   -0.096930
 Freq: Q-DEC, Name: PIB, dtype: float64
 
 \begin{verbatim}
@@ -735,12 +716,12 @@ Freq: Q-DEC, Name: PIB, dtype: float64
 
 
 \begin{center}
-\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/ccdd216b2d4ec7f442e7ee785f5dac79e8944214.png}
+\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/9c59f5df2a1d798fc2f3361d06d39e748802980c.png}
 \end{center}
 
 \begin{enumerate}
 \item Agropecuária
-\label{sec:org4a717ee}
+\label{sec:org70ee122}
 
 \begin{verbatim}
 <Figure size 648x288 with 2 Axes>
@@ -748,23 +729,23 @@ Freq: Q-DEC, Name: PIB, dtype: float64
 
 
 \begin{center}
-\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/a15942baa3e7c0f56f68b582422f779dbd39f086.png}
+\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/8c82528a54963f72680dc80334272720121e728d.png}
 \end{center}
 
 \item Indústria
-\label{sec:org3c13022}
+\label{sec:org29da86c}
 
         Industria Extrativa  Industria de Transformacao  Eletricidade e agua  $\backslash$
-2019Q2            -0.030796                    0.015653            -0.004612   
-2019Q3             0.112907                   -0.008735            -0.013919   
-2019Q4             0.006668                    0.001203             0.002735   
-2020Q1            -0.032339                   -0.013738            -0.001341   
+2019Q3             0.126922                   -0.009143            -0.012028   
+2019Q4             0.007993                    0.001056            -0.001173   
+2020Q1            -0.047379                   -0.019497            -0.003147   
+2020Q2            -0.011218                   -0.175394            -0.043949   
 
         Construcao  Total Industria  
-2019Q2    0.019130         0.006188  
-2019Q3    0.008864         0.007511  
-2019Q4   -0.023357         0.000195  
-2020Q1   -0.023948        -0.013793  
+2019Q3    0.007231         0.005460  
+2019Q4   -0.030270         0.000602  
+2020Q1   -0.033302        -0.008139  
+2020Q2   -0.056655        -0.122893  
 
 \begin{verbatim}
 <Figure size 648x288 with 2 Axes>
@@ -772,53 +753,53 @@ Freq: Q-DEC, Name: PIB, dtype: float64
 
 
 \begin{center}
-\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/f8ca18e52f397fc50e1ff1d712275d10e5e066a0.png}
+\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/176ed5c24348d0be70e4afbae6f3ebcc4591a5c8.png}
 \end{center}
 
 
 \item Serviços
-\label{sec:org7fb67ce}
+\label{sec:org478080b}
 
         Comercio  Transporte, armazenagem e correio  Informacao e comunicacao  $\backslash$
 1996Q1       NaN                                NaN                       NaN   
-1996Q2 -0.002371                          -0.028222                  0.015095   
-1996Q3  0.025455                           0.036438                  0.021967   
-1996Q4  0.015195                          -0.037310                 -0.001976   
-1997Q1  0.002414                           0.040428                  0.011012   
+1996Q2  0.013930                          -0.022250                  0.014198   
+1996Q3  0.027921                           0.032652                  0.041464   
+1996Q4  0.013399                          -0.037413                 -0.024424   
+1997Q1  0.000426                           0.046895                  0.015430   
 \ldots{}          \ldots{}                                \ldots{}                       \ldots{}   
-2019Q1  0.008961                          -0.002449                  0.011049   
-2019Q2  0.006977                          -0.000455                  0.006743   
-2019Q3  0.007517                          -0.003686                  0.010703   
-2019Q4 -0.001857                           0.014547                  0.016215   
-2020Q1 -0.007686                          -0.024192                 -0.019052   
+2019Q2  0.006191                          -0.001205                  0.014362   
+2019Q3  0.004430                          -0.001166                  0.008591   
+2019Q4 -0.002416                           0.012850                  0.010421   
+2020Q1 -0.014039                          -0.024127                 -0.019601   
+2020Q2 -0.130136                          -0.193399                 -0.029687   
 
         Atividades Financeiras  Atividades Imobiliarias  Outras atividades  $\backslash$
 1996Q1                     NaN                      NaN                NaN   
-1996Q2                0.001748                 0.006362          -0.005097   
-1996Q3               -0.000033                 0.009057           0.002842   
-1996Q4               -0.087280                -0.024478          -0.003531   
-1997Q1                0.110854                 0.022929           0.014299   
+1996Q2                0.001766                 0.006362           0.003576   
+1996Q3               -0.000033                 0.009057           0.003184   
+1996Q4               -0.087247                -0.024478          -0.005366   
+1997Q1                0.110797                 0.022929           0.019185   
 \ldots{}                        \ldots{}                      \ldots{}                \ldots{}   
-2019Q1                0.008045                 0.003100           0.001185   
-2019Q2               -0.000677                 0.007525           0.003958   
-2019Q3                0.013945                 0.002887           0.000598   
-2019Q4                0.008249                 0.001962           0.008319   
-2020Q1               -0.001175                 0.003511          -0.045997   
+2019Q2               -0.007478                 0.007306           0.000918   
+2019Q3                0.016924                 0.003003          -0.000463   
+2019Q4                0.008832                 0.002152           0.008042   
+2020Q1                0.002412                 0.003421          -0.053256   
+2020Q2                0.008441                 0.004705          -0.198343   
 
         ADM, defesa, etc  Total Servicos  
 1996Q1               NaN             NaN  
-1996Q2          0.008730        0.003606  
-1996Q3          0.005202        0.016645  
-1996Q4         -0.006725       -0.023475  
-1997Q1         -0.000029        0.021750  
+1996Q2          0.019224        0.012489  
+1996Q3          0.005550        0.014601  
+1996Q4         -0.005808       -0.020523  
+1997Q1         -0.000785        0.024352  
 \ldots{}                  \ldots{}             \ldots{}  
-2019Q1          0.004140        0.003870  
-2019Q2         -0.002328        0.002439  
-2019Q3         -0.007317        0.003180  
-2019Q4          0.010108        0.006761  
-2020Q1         -0.004807       -0.016362  
+2019Q2         -0.005078       -0.000415  
+2019Q3         -0.006734        0.001378  
+2019Q4          0.010494        0.005582  
+2020Q1         -0.014418       -0.022358  
+2020Q2         -0.076251       -0.097166  
 
-[97 rows x 8 columns]
+[98 rows x 8 columns]
 
 \begin{verbatim}
 <Figure size 648x288 with 2 Axes>
@@ -826,23 +807,23 @@ Freq: Q-DEC, Name: PIB, dtype: float64
 
 
 \begin{center}
-\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/c103d0839f7e2f5159d233a24313c78c17723e40.png}
+\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/b36716a8f621c4be345ff6778cf910c669398c18.png}
 \end{center}
 
 \item Demanda
-\label{sec:org7fdacab}
+\label{sec:orgf5a1fa1}
 
         Consumo das Familias  Consumo do Governo      FBCF  Exportacao  $\backslash$
-2019Q2              0.004122           -0.002895  0.024859   -0.023292   
-2019Q3              0.004586           -0.003876  0.017226   -0.023973   
-2019Q4              0.004198            0.004176 -0.026872    0.022656   
-2020Q1             -0.019856            0.002393  0.030928   -0.009145   
+2019Q3              0.005088           -0.003986  0.015347   -0.022088   
+2019Q4              0.003992            0.004443 -0.034854    0.023254   
+2020Q1             -0.019217            0.002193  0.022937   -0.013177   
+2020Q2             -0.125381           -0.088450 -0.154231    0.018445   
 
         Importacao       PIB  
-2019Q2    0.014682  0.005406  
-2019Q3    0.024805  0.004618  
-2019Q4   -0.033197  0.003655  
-2020Q1    0.028102 -0.015394  
+2019Q3    0.001535  0.000588  
+2019Q4   -0.025791  0.005339  
+2020Q1    0.008115 -0.024549  
+2020Q2   -0.132437 -0.096930  
 
 \begin{verbatim}
 <Figure size 648x288 with 2 Axes>
@@ -850,18 +831,18 @@ Freq: Q-DEC, Name: PIB, dtype: float64
 
 
 \begin{center}
-\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/02f06c0b594eedf9695736ccb4480c0d158223a9.png}
+\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/7c327ff8eb33f8d12b7d6afbac964411bee5ec80.png}
 \end{center}
 
 \item Oferta
-\label{sec:org559dc62}
+\label{sec:org476fd41}
 
 
         Agropecuaria  Total Industria  Total Servicos       PIB
-2019Q2      0.007891         0.006188        0.002439  0.005406
-2019Q3      0.011709         0.007511        0.003180  0.004618
-2019Q4     -0.004082         0.000195        0.006761  0.003655
-2020Q1      0.005651        -0.013793       -0.016362 -0.015394
+2019Q3      0.010857         0.005460        0.001378  0.000588
+2019Q4     -0.006840         0.000602        0.005582  0.005339
+2020Q1      0.005004        -0.008139       -0.022358 -0.024549
+2020Q2      0.004292        -0.122893       -0.097166 -0.096930
 
 \begin{verbatim}
 <Figure size 648x288 with 2 Axes>
@@ -869,37 +850,37 @@ Freq: Q-DEC, Name: PIB, dtype: float64
 
 
 \begin{center}
-\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/c8cf7a0405d1cf169bed23c97538f5064a093acc.png}
+\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/3ca4b1a3528958dfe9791cb732725b96a282c3b3.png}
 \end{center}
 \end{enumerate}
 
 
 \subsubsection{Contribuição para variação}
-\label{sec:orgc9a0958}
+\label{sec:orgdec5745}
 
 \begin{enumerate}
 \item Demanda
-\label{sec:org493814d}
+\label{sec:org5f4ab67}
 
         Consumo das Familias  Consumo do Governo      FBCF  Exportacao  $\backslash$
-2018Q2              0.000411            0.000829 -0.002023   -0.003944   
-2018Q3              0.003452            0.000556  0.007673    0.008579   
-2018Q4              0.001663           -0.002415 -0.000270    0.002493   
-2019Q1              0.004940            0.001095 -0.002769   -0.005361   
-2019Q2              0.002820           -0.000532  0.004298   -0.003278   
-2019Q3              0.003134           -0.000706  0.003036   -0.003278   
-2019Q4              0.002868            0.000755 -0.004795    0.003009   
-2020Q1             -0.013574            0.000433  0.005351   -0.001238   
+2018Q3              0.003670            0.000547  0.008612    0.008489   
+2018Q4              0.001643           -0.002391 -0.002606    0.002801   
+2019Q1              0.005201            0.001083 -0.001710   -0.005277   
+2019Q2              0.002270           -0.000528  0.004948   -0.003653   
+2019Q3              0.003469           -0.000725  0.002711   -0.003011   
+2019Q4              0.002734            0.000805 -0.006249    0.003098   
+2020Q1             -0.013143            0.000397  0.003948   -0.001787   
+2020Q2             -0.086221           -0.016445 -0.027837    0.002530   
 
         Importacao  
-2018Q2    0.003814  
-2018Q3   -0.012351  
-2018Q4    0.006794  
-2019Q1    0.000665  
-2019Q2   -0.002057  
-2019Q3   -0.003507  
-2019Q4    0.004788  
-2020Q1   -0.003904  
+2018Q3   -0.009075  
+2018Q4    0.005034  
+2019Q1    0.003006  
+2019Q2   -0.006682  
+2019Q3   -0.000221  
+2019Q4    0.003713  
+2020Q1   -0.001132  
+2020Q2    0.019092  
 
 \begin{verbatim}
 <Figure size 432x288 with 1 Axes>
@@ -907,25 +888,25 @@ Freq: Q-DEC, Name: PIB, dtype: float64
 
 
 \begin{center}
-\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/0febddaa33fb2a03ea6f366eac4aad0fc9de4e3f.png}
+\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/e2105790570f9e49e7872b20e975495b01aa9d17.png}
 \end{center}
 
 \item Oferta
-\label{sec:org0b0a149}
+\label{sec:org215666d}
 
 \emph{home/gpetrini}.local/lib/python3.8/site-packages/pandas/plotting/\_matplotlib/core.py:218: UserWarning: 'color' and 'colormap' cannot be used simultaneously. Using 'color'
   warnings.warn(
 \emph{home/gpetrini}.local/lib/python3.8/site-packages/pandas/plotting/\_matplotlib/style.py:27: UserWarning: 'color' and 'colormap' cannot be used simultaneously. Using 'color'
   warnings.warn(
         Agropecuaria  Total Industria  Total Servicos
-2018Q2      0.000223        -0.001063        0.001793
-2018Q3      0.000821         0.000241        0.003313
-2018Q4      0.000504        -0.000879        0.000476
-2019Q1     -0.000773        -0.000027        0.002749
-2019Q2      0.000624         0.001329        0.001736
-2019Q3      0.000929         0.001616        0.002259
-2019Q4     -0.000326         0.000042        0.004796
-2020Q1      0.000447        -0.002961       -0.011628
+2018Q3      0.000785         0.000917        0.003821
+2018Q4      0.000366        -0.001947       -0.001539
+2019Q1     -0.000803         0.000185        0.006582
+2019Q2      0.000890         0.001510       -0.000295
+2019Q3      0.000863         0.001174        0.000979
+2019Q4     -0.000548         0.000130        0.003963
+2020Q1      0.000396        -0.001746       -0.015865
+2020Q2      0.000349        -0.026782       -0.069045
 
 \begin{verbatim}
 <Figure size 648x288 with 2 Axes>
@@ -933,28 +914,25 @@ Freq: Q-DEC, Name: PIB, dtype: float64
 
 
 \begin{center}
-\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/7a30204ed9571e1428d4f79e14edbfb726d1b9cf.png}
+\includegraphics[width=.9\linewidth]{obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/e51f3a05cd7cc553d133062ba14404ab5b055f1a.png}
 \end{center}
 \end{enumerate}
 
 \subsubsection{Carregamento estatístico}
-\label{sec:orgfb20c0d}
-
+\label{sec:org7615b3c}
 
 
 \section{Setor Externo}
-\label{sec:org2a2e416}
+\label{sec:org52219d2}
 
 
 \subsection{Balanço de Pagamentos}
-\label{sec:orgbb60065}
+\label{sec:org06a4c16}
 
-\emph{home/gpetrini}.local/lib/python3.8/site-packages/pandas\_datareader/compat/\_\_init\_\_.py:7: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
-  from pandas.util.testing import assert\_frame\_equal
 
 
 \subsubsection{Balança comercial}
-\label{sec:org5472022}
+\label{sec:org7a8c758}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -987,7 +965,7 @@ Freq: Q-DEC, Name: PIB, dtype: float64
 
 
 \subsubsection{Conta corrente (\%PIB)}
-\label{sec:org51e8e44}
+\label{sec:orga05351c}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -999,7 +977,7 @@ Freq: Q-DEC, Name: PIB, dtype: float64
 \end{center}
 
 \subsubsection{Balança Comercial por país (mensal)}
-\label{sec:org0a67251}
+\label{sec:org29762e1}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -1022,7 +1000,7 @@ Freq: Q-DEC, Name: PIB, dtype: float64
 
 \begin{enumerate}
 \item Importações
-\label{sec:org719412b}
+\label{sec:orgfe58c11}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -1046,7 +1024,7 @@ Freq: Q-DEC, Name: PIB, dtype: float64
 
 
 \subsubsection{Saldo Comercial}
-\label{sec:org67f0ae7}
+\label{sec:org1829cc8}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -1068,11 +1046,7 @@ Freq: Q-DEC, Name: PIB, dtype: float64
 \end{center}
 
 \subsection{China}
-\label{sec:orgd808720}
-
-\emph{home/gpetrini}.local/lib/python3.8/site-packages/pandas\_datareader/compat/\_\_init\_\_.py:7: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
-  from pandas.util.testing import assert\_frame\_equal
-
+\label{sec:org88076f9}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -1093,16 +1067,13 @@ Freq: Q-DEC, Name: PIB, dtype: float64
 \end{center}
 
 
-
 \section{Índices de atividade setoriais}
-\label{sec:org5f57953}
+\label{sec:org5b2f700}
 
-\emph{home/gpetrini}.local/lib/python3.8/site-packages/pandas\_datareader/compat/\_\_init\_\_.py:7: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
-  from pandas.util.testing import assert\_frame\_equal
 
 
 \subsection{Pesquisa Industrial Mensal (PIM)}
-\label{sec:orgd24c7b9}
+\label{sec:orgedfbb85}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -1115,7 +1086,7 @@ Freq: Q-DEC, Name: PIB, dtype: float64
 
 
 \subsection{Pesquisa Mensal do Comércio (PMC)}
-\label{sec:orgddcfd29}
+\label{sec:org3a1d1b5}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -1128,7 +1099,7 @@ Freq: Q-DEC, Name: PIB, dtype: float64
 
 
 \subsection{Pesquisa Mensal de Serviços (PMS)}
-\label{sec:org3cdd0d6}
+\label{sec:org2e2eff4}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -1140,14 +1111,12 @@ Freq: Q-DEC, Name: PIB, dtype: float64
 \end{center}
 
 \section{Emprego}
-\label{sec:org09b3b2c}
+\label{sec:orgb66f8d6}
 
-\emph{home/gpetrini}.local/lib/python3.8/site-packages/pandas\_datareader/compat/\_\_init\_\_.py:7: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
-  from pandas.util.testing import assert\_frame\_equal
 
 
 \subsection{Taxa de desocupação}
-\label{sec:orge443466}
+\label{sec:org9f31817}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -1160,7 +1129,7 @@ Freq: Q-DEC, Name: PIB, dtype: float64
 
 
 \subsection{Massa de renda}
-\label{sec:org3069e89}
+\label{sec:org3fc221a}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -1173,7 +1142,7 @@ Freq: Q-DEC, Name: PIB, dtype: float64
 
 
 \subsection{Desalentados e subocupados}
-\label{sec:org4dc0dc9}
+\label{sec:org75317ac}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -1185,7 +1154,7 @@ Freq: Q-DEC, Name: PIB, dtype: float64
 \end{center}
 
 \subsection{Rendimento habitual médio por atividade}
-\label{sec:orgab0c5fd}
+\label{sec:org6737333}
 
 
 \begin{verbatim}
@@ -1198,7 +1167,7 @@ Freq: Q-DEC, Name: PIB, dtype: float64
 \end{center}
 
 \subsection{População ocupada por atividade}
-\label{sec:orgb64f5d0}
+\label{sec:org505a7b2}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>
@@ -1212,7 +1181,7 @@ Freq: Q-DEC, Name: PIB, dtype: float64
 
 
 \subsection{Taxa de ocupação}
-\label{sec:org278f013}
+\label{sec:org182e31c}
 
 \begin{verbatim}
 <Figure size 576x360 with 2 Axes>

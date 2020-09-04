@@ -61,12 +61,12 @@ def rebase(df, base=base):
 
 #+RESULTS:
 :results:
-# Out [4]: 
+# Out [8]: 
 :end:
 
 * Dados Granulares
 
-** Energia                                                         
+** Energia
 
 #+BEGIN_SRC ipython :session Energia :tangle ./codes/Energia.py
 %config InlineBackend.figure_format = 'retina'
@@ -154,7 +154,11 @@ def ploter(df, country, days=365, units="MWh"):
 
 #+RESULTS:
 :results:
-# Out [7]: 
+# Out [2]: 
+# output
+/home/gpetrini/.local/lib/python3.8/site-packages/pandas_datareader/compat/__init__.py:7: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
+  from pandas.util.testing import assert_frame_equal
+
 :end:
 
 
@@ -216,7 +220,7 @@ share["Non-Residential"] = 1- share["Residential"]
 
 #+RESULTS:
 :results:
-# Out [8]: 
+# Out [3]: 
 # text/plain
 : <Figure size 2400x1500 with 1 Axes>
 
@@ -433,102 +437,42 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [9]: 
-# output
----------------------------------------------------------------------------
-HTTPError                                 Traceback (most recent call last)
-<ipython-input-9-2d027b2231bd> in <module>
-     10 for date in datelist:
-     11     url = f"http://sdro.ons.org.br/SDRO/DIARIO/{date}/HTML/07_DadosDiariosAcumulados_Regiao.html"
----> 12     bra = bra.append(pd.read_html(
-     13         url,
-     14         parse_dates=True,
+# Out [4]: 
+# text/plain
+: <Figure size 2400x1500 with 2 Axes>
 
-~/.local/lib/python3.8/site-packages/pandas/io/html.py in read_html(io, match, flavor, header, index_col, skiprows, attrs, parse_dates, thousands, encoding, decimal, converters, na_values, keep_default_na, displayed_only)
-   1083         )
-   1084     validate_header_arg(header)
--> 1085     return _parse(
-   1086         flavor=flavor,
-   1087         io=io,
+# image/png
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/7842ed75178c7e85bc72397985d10bb7c08c16b2.png]]
 
-~/.local/lib/python3.8/site-packages/pandas/io/html.py in _parse(flavor, io, match, attrs, encoding, displayed_only, **kwargs)
-    893 
-    894         try:
---> 895             tables = p.parse_tables()
-    896         except ValueError as caught:
-    897             # if `io` is an io-like object, check if it's seekable
+# text/plain
+: <Figure size 2400x1500 with 2 Axes>
 
-~/.local/lib/python3.8/site-packages/pandas/io/html.py in parse_tables(self)
-    211         list of parsed (header, body, footer) tuples from tables.
-    212         """
---> 213         tables = self._parse_tables(self._build_doc(), self.match, self.attrs)
-    214         return (self._parse_thead_tbody_tfoot(table) for table in tables)
-    215 
+# image/png
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/644bc69ef009a28fef2b58b5d83a478f7e1a78d9.png]]
 
-~/.local/lib/python3.8/site-packages/pandas/io/html.py in _build_doc(self)
-    731                     pass
-    732             else:
---> 733                 raise e
-    734         else:
-    735             if not hasattr(r, "text_content"):
+# text/plain
+: <Figure size 2400x1500 with 2 Axes>
 
-~/.local/lib/python3.8/site-packages/pandas/io/html.py in _build_doc(self)
-    712         try:
-    713             if is_url(self.io):
---> 714                 with urlopen(self.io) as f:
-    715                     r = parse(f, parser=parser)
-    716             else:
+# image/png
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/074f94e05c64e283dd031070baceb58c8aabbe31.png]]
 
-~/.local/lib/python3.8/site-packages/pandas/io/common.py in urlopen(*args, **kwargs)
-    139     import urllib.request
-    140 
---> 141     return urllib.request.urlopen(*args, **kwargs)
-    142 
-    143 
+# text/plain
+: <Figure size 2400x1500 with 2 Axes>
 
-/usr/lib/python3.8/urllib/request.py in urlopen(url, data, timeout, cafile, capath, cadefault, context)
-    220     else:
-    221         opener = _opener
---> 222     return opener.open(url, data, timeout)
-    223 
-    224 def install_opener(opener):
+# image/png
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/141e7f82711e70af2d2957c58961222b23afedb2.png]]
 
-/usr/lib/python3.8/urllib/request.py in open(self, fullurl, data, timeout)
-    529         for processor in self.process_response.get(protocol, []):
-    530             meth = getattr(processor, meth_name)
---> 531             response = meth(req, response)
-    532 
-    533         return response
+# text/plain
+: <Figure size 2400x1500 with 2 Axes>
 
-/usr/lib/python3.8/urllib/request.py in http_response(self, request, response)
-    638         # request was successfully received, understood, and accepted.
-    639         if not (200 <= code < 300):
---> 640             response = self.parent.error(
-    641                 'http', request, response, code, msg, hdrs)
-    642 
+# image/png
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/65596f3f9ad5ba0a8bcb61d9f262ec094485ec1c.png]]
 
-/usr/lib/python3.8/urllib/request.py in error(self, proto, *args)
-    567         if http_err:
-    568             args = (dict, 'default', 'http_error_default') + orig_args
---> 569             return self._call_chain(*args)
-    570 
-    571 # XXX probably also want an abstract factory that knows when it makes
+# text/plain
+: <Figure size 2400x1500 with 2 Axes>
 
-/usr/lib/python3.8/urllib/request.py in _call_chain(self, chain, kind, meth_name, *args)
-    500         for handler in handlers:
-    501             func = getattr(handler, meth_name)
---> 502             result = func(*args)
-    503             if result is not None:
-    504                 return result
-
-/usr/lib/python3.8/urllib/request.py in http_error_default(self, req, fp, code, msg, hdrs)
-    647 class HTTPDefaultErrorHandler(BaseHandler):
-    648     def http_error_default(self, req, fp, code, msg, hdrs):
---> 649         raise HTTPError(req.full_url, code, msg, hdrs, fp)
-    650 
-    651 class HTTPRedirectHandler(BaseHandler):
-
-HTTPError: HTTP Error 404: Not Found
+# image/png
+[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/2d14c6fbb2fc52f703f623c27e1b033856529304.png]]
 :end:
 
 
@@ -576,9 +520,9 @@ infos['Link'].append(url)
 
 #+RESULTS:
 :results:
-# Out [10]: 
+# Out [5]: 
 # output
-<ipython-input-7-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<ipython-input-2-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
 
 # text/plain
@@ -592,7 +536,7 @@ infos['Link'].append(url)
 
 *Corrigir*
 
-#+BEGIN_SRC ipython :session Energia :tangle ./codes/Energia.py
+#+BEGIN_SRC ipython :eval never :session Energia :tangle ./codes/Energia.py
 datelist = pd.date_range(
     start = "01/01/2020",
     end = str((dt.today()- timedelta(days=2)).strftime("%d/%m/%Y")),
@@ -639,16 +583,7 @@ infos['Link'].append(url)
 
 #+RESULTS:
 :results:
-# Out [11]: 
-# output
-<ipython-input-7-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
-  plt.tight_layout()
-
-# text/plain
-: <Figure size 2400x1500 with 4 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/4091538b732030417f0b9eb36ccac778383dbb05.png]]
+5 - 7affede1-0db6-473c-8edf-f88f497af914 <output> <interrupt>
 :end:
 
 *** Austria: AUS
@@ -697,15 +632,15 @@ ploter(
 
 #+RESULTS:
 :results:
-# Out [12]: 
+# Out [6]: 
 # output
-<ipython-input-7-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<ipython-input-2-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
 
 # text/plain
 : (<Figure size 2400x1500 with 4 Axes>,
-:  array([<matplotlib.axes._subplots.AxesSubplot object at 0x7f8f5bef9610>,
-:         <matplotlib.axes._subplots.AxesSubplot object at 0x7f8f5b6d48b0>],
+:  array([<matplotlib.axes._subplots.AxesSubplot object at 0x7f533d4bb130>,
+:         <matplotlib.axes._subplots.AxesSubplot object at 0x7f5340dc25e0>],
 :        dtype=object))
 
 # text/plain
@@ -761,9 +696,9 @@ infos['Link'].append(np.NaN)
 
 #+RESULTS:
 :results:
-# Out [13]: 
+# Out [7]: 
 # output
-<ipython-input-7-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<ipython-input-2-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
 
 # text/plain
@@ -809,9 +744,9 @@ infos['Link'].append(np.NaN)
 
 #+RESULTS:
 :results:
-# Out [14]: 
+# Out [8]: 
 # output
-<ipython-input-7-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<ipython-input-2-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.tight_layout()
 
 # text/plain
@@ -851,7 +786,7 @@ start_year = "2019-01-01"
 
 #+RESULTS:
 :results:
-# Out [1]: 
+# Out [5]: 
 :end:
 
 #+BEGIN_SRC ipython :session ADS :tangle ./codes/ADS.py
@@ -883,7 +818,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [2]: 
+# Out [6]: 
 # text/plain
 : <Figure size 2400x1500 with 2 Axes>
 
@@ -911,7 +846,7 @@ image_path = './figs/Confianca/'
 
 #+RESULTS:
 :results:
-# Out [25]: 
+# Out [73]: 
 :end:
 
 *** Sondagem Conjuntural Mensal
@@ -957,7 +892,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [26]: 
+# Out [74]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -1004,7 +939,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [27]: 
+# Out [75]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -1060,7 +995,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [28]: 
+# Out [76]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -1108,7 +1043,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [29]: 
+# Out [77]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -1142,7 +1077,7 @@ file_name = 'Sondagem_Industrial_CNI'
 
 #+RESULTS:
 :results:
-# Out [30]: 
+# Out [78]: 
 :end:
 
 **** Volume de produção
@@ -1177,7 +1112,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [31]: 
+# Out [79]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -1217,7 +1152,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [32]: 
+# Out [80]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -1257,11 +1192,11 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [33]: 
+# Out [81]: 
 # output
 ---------------------------------------------------------------------------
 NameError                                 Traceback (most recent call last)
-<ipython-input-33-f5ad43e4d316> in <module>
+<ipython-input-81-f5ad43e4d316> in <module>
       9     lw = 2.5
      10 )
 ---> 11 ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
@@ -1308,7 +1243,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [34]: 
+# Out [82]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -1347,11 +1282,11 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [35]: 
+# Out [83]: 
 # output
 ---------------------------------------------------------------------------
 NameError                                 Traceback (most recent call last)
-<ipython-input-35-bd6352613dfc> in <module>
+<ipython-input-83-bd6352613dfc> in <module>
       9     lw = 2.5
      10 )
 ---> 11 ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
@@ -1399,7 +1334,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [36]: 
+# Out [84]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -1439,7 +1374,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [37]: 
+# Out [85]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -1479,7 +1414,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [38]: 
+# Out [86]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -1520,7 +1455,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [39]: 
+# Out [87]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -1560,7 +1495,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [40]: 
+# Out [88]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -1600,7 +1535,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [41]: 
+# Out [89]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -1637,7 +1572,7 @@ def importer(sheet='Lucro Operacional', skip_rows=10, initial=1):
 
 #+RESULTS:
 :results:
-# Out [42]: 
+# Out [90]: 
 :end:
 
 
@@ -1671,7 +1606,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [43]: 
+# Out [91]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -1711,7 +1646,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [44]: 
+# Out [92]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -1752,7 +1687,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [45]: 
+# Out [93]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -1819,7 +1754,7 @@ plt.show()
 
 #+RESULTS:
 :results:
-# Out [46]: 
+# Out [94]: 
 # output
 WARNING:root:OECD + Major Six NME not found in regex
 WARNING:root:Major Five Asia not found in regex
@@ -1888,7 +1823,7 @@ plt.show()
 
 #+RESULTS:
 :results:
-# Out [47]: 
+# Out [95]: 
 # output
 /home/gpetrini/.local/lib/python3.8/site-packages/pandas/core/indexing.py:1762: PerformanceWarning: indexing past lexsort depth may impact performance.
   return self._getitem_tuple(key)
@@ -1961,7 +1896,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [48]: 
+# Out [96]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -1988,7 +1923,7 @@ image_path = './figs/Confianca/'
 
 #+RESULTS:
 :results:
-# Out [4]: 
+# Out [10]: 
 :end:
 
 
@@ -2036,7 +1971,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [5]: 
+# Out [11]: 
 # text/plain
 : <Figure size 2400x1500 with 2 Axes>
 
@@ -2089,7 +2024,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [6]: 
+# Out [12]: 
 # text/plain
 : <Figure size 2400x1500 with 2 Axes>
 
@@ -2127,7 +2062,7 @@ def line_format(label):
 
 #+RESULTS:
 :results:
-# Out [12]: 
+# Out [34]: 
 :end:
 
 *** Saldo
@@ -2191,7 +2126,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [13]: 
+# Out [35]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -2250,7 +2185,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [14]: 
+# Out [36]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -2317,7 +2252,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [15]: 
+# Out [37]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -2382,7 +2317,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [16]: 
+# Out [38]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -2459,7 +2394,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [17]: 
+# Out [39]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -2534,7 +2469,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [18]: 
+# Out [40]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -2609,7 +2544,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [19]: 
+# Out [41]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -2686,7 +2621,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [20]: 
+# Out [42]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -2762,7 +2697,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [21]: 
+# Out [43]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -2840,7 +2775,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [22]: 
+# Out [44]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -2869,7 +2804,7 @@ image_path = './figs/Antecedente/'
 
 #+RESULTS:
 :results:
-# Out [3]: 
+# Out [7]: 
 :end:
 
 
@@ -2912,7 +2847,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [4]: 
+# Out [8]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -2943,7 +2878,7 @@ logo = image.imread(logo)
 
 #+RESULTS:
 :results:
-# Out [11]: 
+# Out [31]: 
 :end:
 
 #+BEGIN_SRC sh :dir ./raw/ContasNacionais/
@@ -3027,7 +2962,7 @@ df["Importacao"] = -df["Importacao"]
 
 #+RESULTS:
 :results:
-# Out [12]: 
+# Out [32]: 
 :end:
 
 *** Trimestre Contra trimestre imediatamente anterior
@@ -3080,7 +3015,7 @@ print(df['PIB'].pct_change().tail(4))
 
 #+RESULTS:
 :results:
-# Out [13]: 
+# Out [33]: 
 # output
 2019Q3    0.000588
 2019Q4    0.005339
@@ -3138,7 +3073,7 @@ plt.show()
 
 #+RESULTS:
 :results:
-# Out [14]: 
+# Out [34]: 
 # text/plain
 : <Figure size 648x288 with 2 Axes>
 
@@ -3190,7 +3125,7 @@ print(df[Industria].pct_change().tail(4))
 
 #+RESULTS:
 :results:
-# Out [15]: 
+# Out [35]: 
 # output
         Industria Extrativa  Industria de Transformacao  Eletricidade e agua  \
 2019Q3             0.126922                   -0.009143            -0.012028   
@@ -3259,7 +3194,7 @@ print(df[Servicos].pct_change())
 
 #+RESULTS:
 :results:
-# Out [16]: 
+# Out [36]: 
 # output
         Comercio  Transporte, armazenagem e correio  Informacao e comunicacao  \
 1996Q1       NaN                                NaN                       NaN   
@@ -3355,7 +3290,7 @@ print(df[Demanda + ['PIB']].pct_change().tail(4))
 
 #+RESULTS:
 :results:
-# Out [17]: 
+# Out [37]: 
 # output
         Consumo das Familias  Consumo do Governo      FBCF  Exportacao  \
 2019Q3              0.005088           -0.003986  0.015347   -0.022088   
@@ -3423,7 +3358,7 @@ print(df[Oferta + ['PIB']].pct_change().tail(4))
 
 #+RESULTS:
 :results:
-# Out [18]: 
+# Out [38]: 
 # output
         Agropecuaria  Total Industria  Total Servicos       PIB
 2019Q3      0.010857         0.005460        0.001378  0.000588
@@ -3442,7 +3377,7 @@ print(df[Oferta + ['PIB']].pct_change().tail(4))
 *** Contribuição para variação
 
 **** Demanda
-
+     
 #+BEGIN_SRC ipython :session PIB :tangle ./codes/PIB.py
 fig = plt.Figure()
 ax = plt.gca()
@@ -3501,7 +3436,7 @@ print(df[Demanda].diff().apply(lambda x: x/(df["PIB"].shift())).tail(8))
 
 #+RESULTS:
 :results:
-# Out [19]: 
+# Out [39]: 
 # output
         Consumo das Familias  Consumo do Governo      FBCF  Exportacao  \
 2018Q3              0.003670            0.000547  0.008612    0.008489   
@@ -3591,7 +3526,7 @@ print(df[Oferta].diff().apply(lambda x: x/(df["VA"].shift())).tail(8))
 
 #+RESULTS:
 :results:
-# Out [20]: 
+# Out [40]: 
 # output
 /home/gpetrini/.local/lib/python3.8/site-packages/pandas/plotting/_matplotlib/core.py:218: UserWarning: 'color' and 'colormap' cannot be used simultaneously. Using 'color'
   warnings.warn(
@@ -3617,7 +3552,6 @@ print(df[Oferta].diff().apply(lambda x: x/(df["VA"].shift())).tail(8))
 *** Carregamento estatístico
 
 
-
 * Setor Externo
 
 
@@ -3639,7 +3573,7 @@ start_year = "2019-01-01"
 
 #+RESULTS:
 :results:
-# Out [12]: 
+# Out [34]: 
 :end:
 
 
@@ -3702,7 +3636,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [13]: 
+# Out [35]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -3759,7 +3693,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [14]: 
+# Out [36]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -3808,7 +3742,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [15]: 
+# Out [37]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -3870,7 +3804,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [16]: 
+# Out [38]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -3949,7 +3883,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [17]: 
+# Out [39]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -4016,7 +3950,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [18]: 
+# Out [40]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -4095,7 +4029,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [19]: 
+# Out [41]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -4162,7 +4096,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [20]: 
+# Out [42]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -4243,7 +4177,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [21]: 
+# Out [43]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -4311,7 +4245,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [22]: 
+# Out [44]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -4337,7 +4271,7 @@ start_year = "2019-01-01"
 
 #+RESULTS:
 :results:
-# Out [4]: 
+# Out [10]: 
 :end:
 
 
@@ -4388,7 +4322,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [5]: 
+# Out [11]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -4443,14 +4377,13 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [6]: 
+# Out [12]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
 # image/png
 [[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/c8d7570e3a7e977e5c224522a2254ee152c9b730.png]]
 :end:
-
 
 
 * Índices de atividade setoriais
@@ -4472,11 +4405,7 @@ base = "2014-12-01"
 
 #+RESULTS:
 :results:
-# Out [1]: 
-# output
-/home/gpetrini/.local/lib/python3.8/site-packages/pandas_datareader/compat/__init__.py:7: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
-  from pandas.util.testing import assert_frame_equal
-
+# Out [5]: 
 :end:
 
 
@@ -4523,7 +4452,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [2]: 
+# Out [6]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -4598,7 +4527,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [3]: 
+# Out [7]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -4659,7 +4588,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [4]: 
+# Out [8]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -4685,11 +4614,7 @@ start_year = "2019-01-01"
 
 #+RESULTS:
 :results:
-# Out [1]: 
-# output
-/home/gpetrini/.local/lib/python3.8/site-packages/pandas_datareader/compat/__init__.py:7: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
-  from pandas.util.testing import assert_frame_equal
-
+# Out [9]: 
 :end:
 
 
@@ -4738,7 +4663,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [2]: 
+# Out [10]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -4792,7 +4717,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [3]: 
+# Out [11]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -4850,7 +4775,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [4]: 
+# Out [12]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -4898,7 +4823,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [5]: 
+# Out [13]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -4951,7 +4876,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [6]: 
+# Out [14]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -5006,7 +4931,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [7]: 
+# Out [15]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
@@ -5057,7 +4982,7 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [8]: 
+# Out [16]: 
 # text/plain
 : <Figure size 576x360 with 2 Axes>
 
