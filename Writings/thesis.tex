@@ -1,0 +1,118 @@
+% Created 2020-09-04 sex 19:14
+% Intended LaTeX compiler: pdflatex
+\documentclass[12pt,openright,oneside,a4paper,brazil,english]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[theorems, skins]{tcolorbox}
+\usepackage[style=abnt,noslsn,extrayear,uniquename=init,giveninits,justify,sccite,
+scbib,repeattitles,doi=false,isbn=false,url=false,maxcitenames=2,
+natbib=true,backend=biber]{biblatex}
+\usepackage{url}
+\usepackage[cache=false]{minted}
+\usepackage[linktocpage,pdfstartview=FitH,colorlinks,
+linkcolor=blue,anchorcolor=blue,
+citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
+\usepackage{attachfile}
+\usepackage{setspace}
+\usepackage{tikz}
+\renewcommand{\floatpagefraction}{.8}%
+\usepackage{etoolbox}
+\DeclareSIUnit\px{px}
+\usepackage[colorlinks=true, citecolor=BrickRed, linkcolor=BrickRed, urlcolor=BrickRed]{hyperref}
+\usepackage{bookmark}
+\bookmarksetup{depth=2}
+\usepackage{bbding}
+\def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip1em
+\hbox{}\nobreak\hfill #1%
+\parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
+\newsavebox\mybox
+\newenvironment{aquote}[1]
+{\savebox\mybox{#1}\begin{quote}\openautoquote\hspace*{-.7ex}}
+{\unskip\closeautoquote\vspace*{1mm}\signed{\usebox\mybox}\end{quote}}
+\usepackage{hyphenat}
+\hyphenation{deoxy-hemo-glo-bin}
+\hyphenation{Sie-mens}
+\hyphenation{multi-band multi-echo}
+\usepackage[level]{datetime}
+\usepackage[autocite=plain, backend=biber, doi=true, url=true, hyperref=true,uniquename=false, maxbibnames=99, maxcitenames=2, sortcites=true, style=authoryear-comp]{biblatex}
+\AtEveryBibitem{%
+\clearfield{urlyear}
+\clearfield{urlmonth}
+\clearfield{note}
+\clearfield{issn} % Remove issn
+\clearfield{doi} % Remove doi
+\ifentrytype{online}{}{% Remove url except for @online
+\clearfield{url}
+}
+}
+\setlength\bibitemsep{1.1\itemsep}
+\renewcommand{\th}{\textsuperscript{\textup{th}}\xspace}
+\makeatletter
+\renewcommand*{\chapterformat}{  \mbox{\chapappifchapterprefix{\nobreakspace}{\color{BrickRed}\fontsize{40}{45}\selectfont\thechapter}\autodot\enskip}}
+\renewcommand\@seccntformat[1]{\color{BrickRed} {\csname the#1\endcsname}\hspace{0.3em}}
+\makeatother
+\newenvironment*{abstract}{}{}
+\setstretch{1.25}
+\setparsizes{0em}{0.1\baselineskip plus .1\baselineskip}{1em plus 1fil}
+\setcounter{tocdepth}{1}
+\newcommand{\dropcap}[1]{#1}
+\newcommand{\matmethods}[1]{#1}
+\newcommand{\showmatmethods}[1]{}
+\newcommand{\acknow}[1]{#1}
+\newcommand{\showacknow}[1]{}
+\newcommand{\thesisnoop}[1]{}
+\usepackage{floatrow}
+\floatsetup[table]{font={footnotesize,sf},capposition=top}
+\numberwithin{equation}{chapter}
+\usepackage{listings}
+\usepackage{minted}
+\setminted{autogobble=true,fontsize=\small,baselinestretch=0.8}
+\setminted[python]{python3=true,tabsize=4}
+\usemintedstyle{trac}
+\lstset{abovecaptionskip=0}
+\numberwithin{listing}{chapter}
+\renewcommand{\listingscaption}{Code Snippet}
+\AtEndEnvironment{listing}{\vspace{-16pt}}
+\usepackage{scrhack}
+\author{Gabriel Petrini da Silveira}
+\date{\today}
+\title{}
+\begin{document}
+
+
+
+\section{Frontmatter}
+\label{sec:orgb20b6f8}
+\frontmatter
+
+
+\section{Mainmatter}
+\label{sec:orgd39957c}
+
+\tableofcontents
+\mainmatter
+
+
+\section[Paper]{A Research Chapter}
+\label{sec:org2e615e3}
+
+
+\section{Appendix}
+\label{sec:orgaf5b6df}
+
+\appendix
+\end{document}

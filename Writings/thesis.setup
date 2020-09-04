@@ -1,0 +1,196 @@
+# -*- mode: org; -*-
+# Gabriel Petrini
+#  Ph.D. Thesis Org Mode + LaTeX thesis.setup
+
+* Org Mode Export Options :noexport:
+
+** Macros
+#+MACRO: acronym #+latex_header: \newacronym[description={$1}]{$2}{$2}{$3}
+#+MACRO: glossaryentry #+latex_header: \newglossaryentry{$1}{name={$2},description={$3},sort={$4}}
+#+MACRO: newline @@latex:\hspace{0pt}\\@@ @@html:<br>@@
+#+MACRO: fourstar @@latex:\bigskip{\centering\color{BrickRed}\FourStar\par}\bigskip@@
+#+MACRO: clearpage @@latex:\clearpage@@@@odt:<text:p text:style-name="PageBreak"/>@@
+
+** Options
+#+OPTIONS: toc:nil  H:4 tags:nil
+
+* LaTeX Export Headers and Options :noexport:
+
+** Geometry
+
+# #+latex_header: \usepackage[top=3cm,bottom=3cm,right=2cm,left=2cm]{geometry}
+
+** Floating images configuration
+
+#+latex_header: \renewcommand{\floatpagefraction}{.8}%
+
+** Etoolbox package
+#+latex_header: \usepackage{etoolbox}
+** Hyperref
+
+Self-explanatory.
+#+latex_header: \usepackage[colorlinks=true, citecolor=BrickRed, linkcolor=BrickRed, urlcolor=BrickRed]{hyperref}
+
+** Bookmarks
+
+The bookmark package implements a new bookmark (outline) organisation for package hyperref. This lets us change the "tree-navigation" associated with the generated pdf and constrain the menu only to H:2.
+#+latex_header: \usepackage{bookmark}
+#+latex_header: \bookmarksetup{depth=2}
+** CS Quotes
+
+The [[https://ctan.org/pkg/csquotes][csquotes]] package offers context sensitive quotation facilities, improving the typesetting of inline quotes.
+
+Already imported by mimosis class.
+# #+latex_header: \usepackage{csquotes}
+
+To enclose quote environments with quotes from csquotes, see [[https://tex.stackexchange.com/questions/365231/enclose-a-custom-quote-environment-in-quotes-from-csquotes][the following TeX SE thread]].
+
+#+latex_header: \def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip1em
+#+latex_header:   \hbox{}\nobreak\hfill #1%
+#+latex_header:   \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
+
+#+latex_header: \newsavebox\mybox
+#+latex_header: \newenvironment{aquote}[1]
+#+latex_header: {\savebox\mybox{#1}\begin{quote}\openautoquote\hspace*{-.7ex}}
+#+latex_header:    {\unskip\closeautoquote\vspace*{1mm}\signed{\usebox\mybox}\end{quote}}
+
+And then use quotes as:
+#+begin_example
+# The options derivative adds text after the environment. We use it to add the author.
+#+ATTR_LATEX: :options {\cite{Frahm1994}}
+#+begin_aquote
+/Current (fMRI) applications often rely on "effects" or "statistically significant differences", rather than on a proper analysis of the relationship between neuronal activity, haemodynamic consequences, and MRI physics./
+#+end_aquote
+#+end_example
+
+Note that org-ref links won't work here because the attr latex will be pasted as-is in the .tex file.
+
+** Hyphenat
+
+Words that have are manually hyphenated do not hyphenate. The fix is to use the hyphenate package and use \hyp instead of -.
+#+latex_header: \usepackage{hyphenat}
+#+latex_header: \hyphenation{super-multiplier}
+
+** BibLaTeX
+
+General configuration.
+#+latex_header: \usepackage[autocite=plain, backend=biber, doi=true, url=true, hyperref=true,uniquename=false, maxbibnames=99, maxcitenames=2, sortcites=true, style=authoryear-comp]{biblatex}
+
+
+# And fix the andothers to show et al in English as well:
+# #+latex_header: \DefineBibliographyStrings{english}{andothers={\textit{et\, al\adddot}}} 
+# #+latex_header:\DefineBibliographyStrings{english}{and={\textit{and}}}} 
+
+
+Remove ISSN, DOI and URL to shorten the bibliography.
+#+latex_header: \AtEveryBibitem{%
+#+latex_header:   \clearfield{urlyear}
+#+latex_header:   \clearfield{urlmonth}
+#+latex_header:   \clearfield{note}
+#+latex_header:  \clearfield{issn} % Remove issn
+#+latex_header:  \clearfield{doi} % Remove doi
+#+latex_header: \ifentrytype{online}{}{% Remove url except for @online
+#+latex_header:   \clearfield{url}
+#+latex_header: }
+#+latex_header: }
+
+And increase the spacing between the entries, as per default they are too small.
+#+latex_header: \setlength\bibitemsep{1.1\itemsep}
+
+** Fonts
+
+
+** Fix the th for dates.
+#+latex_header: \renewcommand{\th}{\textsuperscript{\textup{th}}\xspace}
+
+** Improve chapter font colors and font size
+
+The following commands make chapter numbers BrickRed, which look like the Donders color.
+#+latex_header: \makeatletter
+#+latex_header: \renewcommand*{\chapterformat}{  \mbox{\chapappifchapterprefix{\nobreakspace}{\color{BrickRed}\fontsize{40}{45}\selectfont\thechapter}\autodot\enskip}}
+#+latex_header: \renewcommand\@seccntformat[1]{\color{BrickRed} {\csname the#1\endcsname}\hspace{0.3em}}
+#+latex_header: \makeatother
+
+** Define a new dummy abstract environment 
+
+Because some of the publications were written using the Elsevier =elsarticle= class, which provides an abstract env, we need to define a dummy one for the thesis as well so that INCLUDEs don't break. This here is an important part of getting the thesis/part multi-setup working. This would not be required for html exports, as "abstract" would end up as a div class, and that's ok if there is no CSS targetting it. For LaTeX, non-existing envrionments lead to compilation failure.
+
+#+latex_header: \newenvironment*{abstract}{}{}
+
+** Setspace for controlling line spacing
+
+Already imported when using mimosis.
+# #+latex_header: \usepackage{setspace}
+#+latex_header: \setstretch{1.25} 
+
+** Parskip
+
+Fine tuning of spacing between paragraphs. See [[https://tex.stackexchange.com/questions/161254/smaller-parskip-than-half-for-koma-script][thread here]].
+
+#+latex_header: \setparsizes{0em}{0.1\baselineskip plus .1\baselineskip}{1em plus 1fil}
+
+** Table of Contents improvements
+
+TOC only the chapters, not their content.
+#+latex_header: \setcounter{tocdepth}{1}
+
+** Thesis specific commands to monkey-patch paper commands.
+
+I added this commands because I was using them with the PNAS class. 
+#+latex_header: \newcommand{\dropcap}[1]{#1}
+#+latex_header: \newcommand{\matmethods}[1]{#1}
+#+latex_header: \newcommand{\showmatmethods}[1]{}
+#+latex_header: \newcommand{\acknow}[1]{#1}
+#+latex_header: \newcommand{\showacknow}[1]{}
+#+latex_header: \newcommand{\thesisnoop}[1]{}
+
+** Table improvements (reduce font and make sans serif)
+
+I reduce the size of tables so that longer tables can still fit into an A4.
+#+latex_header: \usepackage{floatrow}
+#+latex_header: \floatsetup[table]{font={footnotesize,sf},capposition=top}
+
+** Possible Equation improvements
+
+Make the equation numbers follow the chapter, not the whole thesis.
+#+latex_header: \numberwithin{equation}{chapter}
+
+** Minted
+
+The minted package is used for highlighting source code.
+#+latex_header: \usepackage{listings}
+#+latex_header: \usepackage{minted}
+#+latex_header: \setminted{autogobble=true,fontsize=\small,baselinestretch=0.8}
+#+latex_header: \setminted[python]{python3=true,tabsize=4}
+#+latex_header: \usemintedstyle{trac}
+#+latex_header: \lstset{abovecaptionskip=0}
+
+Also make the listing numbers follow the chapter, not the whole thesis.
+#+latex_header: \numberwithin{listing}{chapter}
+And reduce the distance between a minted listing and its caption.
+# #+latex_header: \captionsetup[listing]{skip=-10pt}
+#+latex_header: \renewcommand{\listingscaption}{Code Snippet}
+# This here is to bring the caption closer to the environment.
+#+latex_header: \AtEndEnvironment{listing}{\vspace{-16pt}}
+# #+latex_header: \captionsetup{skip=-20pt}
+
+** Scrhack
+
+This package fixes some incompatibility errors between KOMAScript and other packages (namely minted). It has to be loaded at the  end.
+#+latex_header: \usepackage{scrhack}
+
+** COMMENT Background cover page
+
+Add the cover image as background to the first page. Only do so when outputting a final version, because it significantly slows down the compilation times.
+
+# #+latex_header: \usepackage[pages=some]{background}
+# #+latex_header: \backgroundsetup{
+# #+latex_header: scale=1,
+# #+latex_header: color=black,
+# #+latex_header: opacity=0.9,
+# #+latex_header: angle=0,
+# #+latex_header: contents={%
+# #+latex_header:   \includegraphics[width=\paperwidth,height=\paperheight]{/Users/user/Desktop/TectonicPlatesXVI.png}
+# #+latex_header:   }%
+# #+latex_header: }
+
