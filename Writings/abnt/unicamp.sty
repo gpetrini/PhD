@@ -22,13 +22,13 @@
 % ---
 
 %CUSTOMIZACAO DA NUMERACAO
-%\renewcommand{\pretextual}{%
-  %\aliaspagestyle{titlingpage}{plain}%mostrar num. na capa
-  %\aliaspagestyle{chapter}{plain}% customizing chapter pagestyle
-  %\pagestyle{plain}
-  %\aliaspagestyle{cleared}{plain}% mostrar num. em pag. em branco, coloque plain, c.c. empty
-  %\aliaspagestyle{part}{empty}
-%}
+\renewcommand{\pretextual}{%
+	\aliaspagestyle{titlingpage}{plain}%mostrar num. na capa
+	\aliaspagestyle{chapter}{plain}% customizing chapter pagestyle
+   \pagestyle{plain}
+   \aliaspagestyle{cleared}{plain}% mostrar num. em pag. em branco, coloque plain, c.c. empty
+   \aliaspagestyle{part}{empty}
+ }
 
 
 
@@ -39,7 +39,7 @@
 \vspace*{1cm}
 		
 \begin{minipage}{.2\textwidth}
-\noindent \includegraphics[width=1.5cm]{unicamp.eps}
+\includegraphics[width=.94in, height=1in, keepaspectratio=true]{unicamp-eps-converted-to.pdf}
 \end{minipage}
 \hspace*{\fill}
 \begin{minipage}{.7\textwidth}
@@ -52,7 +52,7 @@
 {\ABNTEXchapterfont\large\imprimirautor}
 
 \vfill
-{\ABNTEXchapterfont\bfseries\LARGE\imprimirtitulo}
+{\ABNTEXchapterfont\bfseries\LARGE\ThesisTitle}
 \vfill
 		
 \large\imprimirlocal
@@ -71,7 +71,7 @@
 \renewcommand{\folhaderostocontent}{
 
 \begin{minipage}{.2\textwidth}
-\noindent \includegraphics[width=1.5cm]{unicamp.eps}
+\noindent \includegraphics[width=.94in, height=1in, keepaspectratio=true]{unicamp-eps-converted-to.pdf}
 \end{minipage}
 \hspace*{\fill}
 \begin{minipage}{.7\textwidth}
@@ -85,7 +85,7 @@
 
 \vspace*{\fill}\vspace*{\fill}
 
-\ABNTEXchapterfont\bfseries\Large\imprimirtitulo
+\ABNTEXchapterfont\bfseries\Large\ThesisTitle
 \end{center}
 
 \vspace*{\fill}
@@ -113,7 +113,7 @@
 \noindent
 \begin{minipage}{.4\textwidth}\SingleSpacing		
 Este exemplar corresponde \`{a} vers\~{a}o final da tese defendida pelo
-	aluno \imprimirautor , e orientada pelo \imprimirorientador \\[4mm]
+	aluno \imprimirautor , e orientada pelo Professor Doutor \imprimirorientador\xspace e pela Professora Doutora \imprimircoorientador\\[4mm]
 	\rule{\textwidth}{0.2mm} \hfill
 \end{minipage}
 

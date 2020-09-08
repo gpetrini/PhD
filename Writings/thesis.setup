@@ -1,69 +1,76 @@
-# -*- mode: org; -*-
+# -*- mode: org -*-
 # Gabriel Petrini
 #  Ph.D. Thesis Org Mode + LaTeX thesis.setup
 
 * Org Mode Export Options :noexport:
-
-** Macros
-#+MACRO: acronym #+latex_header: \newacronym[description={$1}]{$2}{$2}{$3}
-#+MACRO: glossaryentry #+latex_header: \newglossaryentry{$1}{name={$2},description={$3},sort={$4}}
-#+MACRO: newline @@latex:\hspace{0pt}\\@@ @@html:<br>@@
-#+MACRO: fourstar @@latex:\bigskip{\centering\color{BrickRed}\FourStar\par}\bigskip@@
-#+MACRO: clearpage @@latex:\clearpage@@@@odt:<text:p text:style-name="PageBreak"/>@@
-
 ** Options
 #+OPTIONS: toc:nil  H:4 tags:nil
 
 * LaTeX Export Headers and Options :noexport:
 
+** General purpose
+
+#+latex_header: \usepackage{lipsum}             % Pacote que gera texto dummy
+#+latex_header: \usepackage{blindtext}          % Pacote que gera texto dummy
+#+latex_header:\usepackage{array}
+#+latex_header: \usepackage{epstopdf}           % Pacote que converte as figuras em eps para pdf
+#+latex_header:\usepackage{venndiagram}
+#+latex_header:\usepackage{chngcntr}
+
+
+
+*** Index
+
+#+latex_header: \usepackage{makeidx}
+#+latex_header: \makeindex
+
 ** Geometry
 
-# #+latex_header: \usepackage[top=3cm,bottom=3cm,right=2cm,left=2cm]{geometry}
+#+latex_header: \usepackage[top=3cm,bottom=2cm,right=3cm,left=2cm]{geometry}
 
 ** Floating images configuration
+   
+#+latex_header:\usepackage{bmpsize}
+#+latex_header:\usepackage{pdfpages}
+#+latex_header:\usepackage{graphicx}
+#+latex_header:\usepackage{svg}
+#+latex_header:\usepackage{tikz}
+#+latex_header:\usetikzlibrary{calc,trees,positioning,arrows,chains,%
+#+latex_header:    decorations.pathreplacing,decorations.pathmorphing,%
+#+latex_header:    matrix,shapes.symbols,through}
 
-#+latex_header: \renewcommand{\floatpagefraction}{.8}%
+#+latex_header:\usetikzlibrary{fit}
+#+latex_header:\usepackage{wrapfig}
 
 ** Etoolbox package
+
+É preciso para mudar o layout do frontmatter
 #+latex_header: \usepackage{etoolbox}
+
 ** Hyperref
 
 Self-explanatory.
-#+latex_header: \usepackage[colorlinks=true, citecolor=BrickRed, linkcolor=BrickRed, urlcolor=BrickRed]{hyperref}
-
+#+latex_header:\usepackage{url}
+#+latex_header:%\usepackage{breakurl} %Pacote incompatível
+#+latex_header:\usepackage{hyperref}
 ** Bookmarks
 
-The bookmark package implements a new bookmark (outline) organisation for package hyperref. This lets us change the "tree-navigation" associated with the generated pdf and constrain the menu only to H:2.
-#+latex_header: \usepackage{bookmark}
-#+latex_header: \bookmarksetup{depth=2}
-** CS Quotes
-
-The [[https://ctan.org/pkg/csquotes][csquotes]] package offers context sensitive quotation facilities, improving the typesetting of inline quotes.
-
-Already imported by mimosis class.
-# #+latex_header: \usepackage{csquotes}
-
-To enclose quote environments with quotes from csquotes, see [[https://tex.stackexchange.com/questions/365231/enclose-a-custom-quote-environment-in-quotes-from-csquotes][the following TeX SE thread]].
-
-#+latex_header: \def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip1em
-#+latex_header:   \hbox{}\nobreak\hfill #1%
-#+latex_header:   \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
-
-#+latex_header: \newsavebox\mybox
-#+latex_header: \newenvironment{aquote}[1]
-#+latex_header: {\savebox\mybox{#1}\begin{quote}\openautoquote\hspace*{-.7ex}}
-#+latex_header:    {\unskip\closeautoquote\vspace*{1mm}\signed{\usebox\mybox}\end{quote}}
-
-And then use quotes as:
-#+begin_example
-# The options derivative adds text after the environment. We use it to add the author.
-#+ATTR_LATEX: :options {\cite{Frahm1994}}
-#+begin_aquote
-/Current (fMRI) applications often rely on "effects" or "statistically significant differences", rather than on a proper analysis of the relationship between neuronal activity, haemodynamic consequences, and MRI physics./
-#+end_aquote
-#+end_example
-
-Note that org-ref links won't work here because the attr latex will be pasted as-is in the .tex file.
+#+latex_header:\makeatletter
+#+latex_header:\hypersetup{
+#+latex_header:	%pagebackref=true,
+#+latex_header:	pdftitle={\@title},
+#+latex_header:	pdfauthor={\@author},
+#+latex_header:	pdfsubject={\imprimirpreambulo},
+#+latex_header:	pdfcreator={LaTeX with abnTeX2},
+#+latex_header:	pdfkeywords={abnt}{latex}{abntex}{abntex2}{trabalho acadêmico},
+#+latex_header:	hidelinks,					% desabilita as bordas dos links
+#+latex_header:	colorlinks=false,       	% false: boxed links; true: colored links
+#+latex_header:	linkcolor=blue,          	% color of internal links
+#+latex_header:	citecolor=blue,        		% color of links to bibliography
+#+latex_header:	filecolor=magenta,      	% color of file links
+#+latex_header:	urlcolor=blue	% set to white
+#+latex_header:}
+#+latex_header:\makeatother
 
 ** Hyphenat
 
@@ -74,12 +81,23 @@ Words that have are manually hyphenated do not hyphenate. The fix is to use the 
 ** BibLaTeX
 
 General configuration.
-#+latex_header: \usepackage[autocite=plain, backend=biber, doi=true, url=true, hyperref=true,uniquename=false, maxbibnames=99, maxcitenames=2, sortcites=true, style=authoryear-comp]{biblatex}
 
+#+latex_header:\usepackage[backend=biber,%
+#+latex_header:	style = abnt,%
+#+latex_header:	noslsn, %
+#+latex_header:	isbn = false,
+#+latex_header:	url = false,
+#+latex_header:	extrayear, %
+#+latex_header:	uniquename=init,% 
+#+latex_header:	giveninits, %
+#+latex_header:	justify, %
+#+latex_header:	sccite,% 
+#+latex_header:	scbib, %
+#+latex_header:	sorting=nyt,
+#+latex_header:%	mergedate=compact,
+#+latex_header:	repeattitles, %
+#+latex_header:	maxcitenames=3]{biblatex}
 
-# And fix the andothers to show et al in English as well:
-# #+latex_header: \DefineBibliographyStrings{english}{andothers={\textit{et\, al\adddot}}} 
-# #+latex_header:\DefineBibliographyStrings{english}{and={\textit{and}}}} 
 
 
 Remove ISSN, DOI and URL to shorten the bibliography.
@@ -94,45 +112,67 @@ Remove ISSN, DOI and URL to shorten the bibliography.
 #+latex_header: }
 #+latex_header: }
 
-And increase the spacing between the entries, as per default they are too small.
-#+latex_header: \setlength\bibitemsep{1.1\itemsep}
-
 ** Fonts
 
+#+latex_header:\usepackage{lmodern} \normalfont
+#+latex_header:\usepackage{mathrsfs}
+#+latex_header:\usepackage{cmap}
+#+latex_header:\usepackage[T1]{fontenc}
+#+latex_header:\usepackage[utf8]{inputenc}
+#+latex_header:\usepackage{indentfirst}
+#+latex_header:\usepackage{titlesec}
+#+latex_header:\usepackage{csquotes}
+
+
+#+latex_header:\setlength{\parskip}{\onelineskip}
+#+latex_header:\usepackage{mathptmx}
+#+latex_header:\renewcommand{\ABNTEXchapterfont}{\rmfamily\bfseries}
+
+** Footnote
+
+#+latex_header:\usepackage{threeparttable, tablefootnote} % Nota de rodapé em pagina
+#+latex_header:\counterwithout*{footnote}{chapter} % Impede reset das notas de rodapé
+#+latex_header:\usepackage[multiple, bottom]{footmisc} % Para nota de rodapé no fim da página
 
 ** Fix the th for dates.
 #+latex_header: \renewcommand{\th}{\textsuperscript{\textup{th}}\xspace}
 
-** Improve chapter font colors and font size
+** Chapter related
 
-The following commands make chapter numbers BrickRed, which look like the Donders color.
-#+latex_header: \makeatletter
-#+latex_header: \renewcommand*{\chapterformat}{  \mbox{\chapappifchapterprefix{\nobreakspace}{\color{BrickRed}\fontsize{40}{45}\selectfont\thechapter}\autodot\enskip}}
-#+latex_header: \renewcommand\@seccntformat[1]{\color{BrickRed} {\csname the#1\endcsname}\hspace{0.3em}}
-#+latex_header: \makeatother
+*** Numbering
 
-** Define a new dummy abstract environment 
+# #+latex_header:\numberwithin{equation}{section}
+# #+latex_header: \numberwithin{equation}{chapter}
 
-Because some of the publications were written using the Elsevier =elsarticle= class, which provides an abstract env, we need to define a dummy one for the thesis as well so that INCLUDEs don't break. This here is an important part of getting the thesis/part multi-setup working. This would not be required for html exports, as "abstract" would end up as a div class, and that's ok if there is no CSS targetting it. For LaTeX, non-existing envrionments lead to compilation failure.
+*** Annex
 
-#+latex_header: \newenvironment*{abstract}{}{}
+TODO Change here if language change
+#+latex_header:\newcommand{\annexname}{Annex} % TODO: Change here if language change
+#+latex_header:\makeatletter
+#+latex_header:\newcommand\annex{\par\setcounter{chapter}{0}%
+#+latex_header:	\setcounter{section}{0}%
+#+latex_header:	\gdef\@chapapp{\annexname}%
+#+latex_header:	\gdef\thechapter{\@Roman\c@chapter}%
+#+latex_header:}
+#+latex_header:\makeatother
 
-** Setspace for controlling line spacing
 
-Already imported when using mimosis.
-# #+latex_header: \usepackage{setspace}
-#+latex_header: \setstretch{1.25} 
 
 ** Parskip
 
 Fine tuning of spacing between paragraphs. See [[https://tex.stackexchange.com/questions/161254/smaller-parskip-than-half-for-koma-script][thread here]].
 
-#+latex_header: \setparsizes{0em}{0.1\baselineskip plus .1\baselineskip}{1em plus 1fil}
+#+latex_header: \linespread{1.3}
+#+latex_header: \setlength{\parskip}{0.2cm}
+
+Paragraph size
+#+latex_header: \setlength{\parindent}{2.0cm}
 
 ** Table of Contents improvements
 
 TOC only the chapters, not their content.
-#+latex_header: \setcounter{tocdepth}{1}
+#+latex_header:\usepackage{appendix}
+#+latex_header:\usepackage{tocloft}
 
 ** Thesis specific commands to monkey-patch paper commands.
 
@@ -144,16 +184,37 @@ I added this commands because I was using them with the PNAS class.
 #+latex_header: \newcommand{\showacknow}[1]{}
 #+latex_header: \newcommand{\thesisnoop}[1]{}
 
-** Table improvements (reduce font and make sans serif)
-
-I reduce the size of tables so that longer tables can still fit into an A4.
-#+latex_header: \usepackage{floatrow}
-#+latex_header: \floatsetup[table]{font={footnotesize,sf},capposition=top}
+** Table improvements
+#+latex_header:\usepackage{multicol}
+#+latex_header:\usepackage{multirow}
+#+latex_header:\usepackage{array}
+#+latex_header:\usepackage{booktabs}
+#+latex_header:\usepackage{caption}
+#+latex_header:\usepackage{subcaption}
+#+latex_header:\usepackage{longtable}
+#+latex_header:\usepackage{lscape}
 
 ** Possible Equation improvements
 
 Make the equation numbers follow the chapter, not the whole thesis.
-#+latex_header: \numberwithin{equation}{chapter}
+#+latex_header:\usepackage{amsmath}
+#+latex_header:\usepackage{amsfonts}
+#+latex_header:\usepackage{amssymb}
+#+latex_header:\usepackage{amsthm}
+#+latex_header:\usepackage{breqn}
+
+
+
+*** Bold in math enviroment
+
+#+latex_header:\newcommand{\mb}[1]{\mathbf{#1}}
+#+latex_header:\newcommand{\abs}[1]{\left|#1\right|}
+#+latex_header:\newcommand{\norm}[1]{\left\|#1\right\|}
+#+latex_header:\newcommand{\partialorder}{\cdot \geq}
+#+latex_header:\newcommand{\h}{\mathrm{h}}
+#+latex_header:\newcommand{\x}{\mathrm{x}}
+#+latex_header:\newcommand{\z}{\mathrm{z}}
+#+latex_header:\newcommand{\entropia}[1]{H{(#1)}}
 
 ** Minted
 
@@ -174,23 +235,42 @@ And reduce the distance between a minted listing and its caption.
 #+latex_header: \AtEndEnvironment{listing}{\vspace{-16pt}}
 # #+latex_header: \captionsetup{skip=-20pt}
 
-** Scrhack
+** Colors
+#+latex_header:\usepackage{color}				      % Controle das cores
+#+latex_header: \definecolor{blue}{RGB}{41,5,195} % Alterando o aspecto do azul
 
-This package fixes some incompatibility errors between KOMAScript and other packages (namely minted). It has to be loaded at the  end.
-#+latex_header: \usepackage{scrhack}
+** Algorithm
 
-** COMMENT Background cover page
+#+latex_header:\usepackage{algorithmic}
+#+latex_header:\usepackage[chapter]{algorithm}
+#+latex_header:\floatname{algorithm}{Algoritmo}
+#+latex_header:\renewcommand{\listalgorithmname}{Lista de Algoritmos}
 
-Add the cover image as background to the first page. Only do so when outputting a final version, because it significantly slows down the compilation times.
+** Unicamp and ABNT configs
+#+latex_header:\usepackage{./abnt/unicamp}
+#+latex_header:\usepackage{lastpage}			      % Usado pela Ficha catalogr\'{a}fica
 
-# #+latex_header: \usepackage[pages=some]{background}
-# #+latex_header: \backgroundsetup{
-# #+latex_header: scale=1,
-# #+latex_header: color=black,
-# #+latex_header: opacity=0.9,
-# #+latex_header: angle=0,
-# #+latex_header: contents={%
-# #+latex_header:   \includegraphics[width=\paperwidth,height=\paperheight]{/Users/user/Desktop/TectonicPlatesXVI.png}
-# #+latex_header:   }%
-# #+latex_header: }
 
+*** Cover and frontmatter
+
+#+latex_header:\appto\frontmatter{\pagestyle{plain}}  % Adiciona o estilo plano de página.
+
+#+latex_header:\instituicao{%
+#+latex_header:	UNIVERSIDADE ESTADUAL DE CAMPINAS
+#+latex_header:	\par
+#+latex_header:	Instituto de Economia
+#+latex_header:}
+#+latex_header:\tipotrabalho{Tese (Doutorado)}
+#+latex_header:%% O preambulo deve conter o tipo do trabalho, o objetivo, o nome da institui\c{c}\~{a}o e a \'{a}rea de concentra\c{c}\~{a}o
+#+latex_header:\preambulo{Tese apresentada ao Instituto de Economia da Universidade Estadual de Campinas como parte dos requisitos exigidos para a obtenção do título de Doutor em Ciências Econômicas.}~
+#+latex_header: \titulo{Teste}
+
+
+
+
+
+* Variaveis
+
+#+latex_header: \orientador{Lucas Azeredo da Silva Teixeira}
+#+latex_header: \coorientador{Ivette Raymunda Luna Huamani}
+#+latex_header: \newcommand{\ThesisTitle}{{Teste de Título}}

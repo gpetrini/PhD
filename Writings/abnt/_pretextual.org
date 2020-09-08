@@ -1,163 +1,6 @@
-% Created 2020-09-08 ter 19:20
-% Intended LaTeX compiler: pdflatex
-\documentclass[12pt,openright,oneside,a4paper,brazil,english]{gpsabntex}
-  \usepackage{lipsum}             % Pacote que gera texto dummy
-\usepackage{blindtext}          % Pacote que gera texto dummy
-\usepackage{array}
-\usepackage{epstopdf}           % Pacote que converte as figuras em eps para pdf
-\usepackage{venndiagram}
-\usepackage{chngcntr}
-\usepackage{makeidx}
-\makeindex
-\usepackage[top=3cm,bottom=2cm,right=3cm,left=2cm]{geometry}
-\usepackage{bmpsize}
-\usepackage{pdfpages}
-\usepackage{graphicx}
-\usepackage{svg}
-\usepackage{tikz}
-\usetikzlibrary{calc,trees,positioning,arrows,chains,%
-decorations.pathreplacing,decorations.pathmorphing,%
-matrix,shapes.symbols,through}
-\usetikzlibrary{fit}
-\usepackage{wrapfig}
-\usepackage{etoolbox}
-\usepackage{url}
-%\usepackage{breakurl} %Pacote incompatível
-\usepackage{hyperref}
-\makeatletter
-\hypersetup{
-%pagebackref=true,
-pdftitle={\@title},
-pdfauthor={\@author},
-pdfsubject={\imprimirpreambulo},
-pdfcreator={LaTeX with abnTeX2},
-pdfkeywords={abnt}{latex}{abntex}{abntex2}{trabalho acadêmico},
-hidelinks,					% desabilita as bordas dos links
-colorlinks=false,       	% false: boxed links; true: colored links
-linkcolor=blue,          	% color of internal links
-citecolor=blue,        		% color of links to bibliography
-filecolor=magenta,      	% color of file links
-urlcolor=blue	% set to white
-}
-\makeatother
-\usepackage{hyphenat}
-\hyphenation{super-multiplier}
-\usepackage[backend=biber,%
-style = abnt,%
-noslsn, %
-isbn = false,
-url = false,
-extrayear, %
-uniquename=init,%
-giveninits, %
-justify, %
-sccite,%
-scbib, %
-sorting=nyt,
-%	mergedate=compact,
-repeattitles, %
-maxcitenames=3]{biblatex}
-\AtEveryBibitem{%
-\clearfield{urlyear}
-\clearfield{urlmonth}
-\clearfield{note}
-\clearfield{issn} % Remove issn
-\clearfield{doi} % Remove doi
-\ifentrytype{online}{}{% Remove url except for @online
-\clearfield{url}
-}
-}
-\usepackage{lmodern} \normalfont
-\usepackage{mathrsfs}
-\usepackage{cmap}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{indentfirst}
-\usepackage{titlesec}
-\usepackage{csquotes}
-\setlength{\parskip}{\onelineskip}
-\usepackage{mathptmx}
-\renewcommand{\ABNTEXchapterfont}{\rmfamily\bfseries}
-\usepackage{threeparttable, tablefootnote} % Nota de rodapé em pagina
-\counterwithout*{footnote}{chapter} % Impede reset das notas de rodapé
-\usepackage[multiple, bottom]{footmisc} % Para nota de rodapé no fim da página
-\renewcommand{\th}{\textsuperscript{\textup{th}}\xspace}
-\newcommand{\annexname}{Annex} % TODO: Change here if language change
-\makeatletter
-\newcommand\annex{\par\setcounter{chapter}{0}%
-\setcounter{section}{0}%
-\gdef\@chapapp{\annexname}%
-\gdef\thechapter{\@Roman\c@chapter}%
-}
-\makeatother
-\linespread{1.3}
-\setlength{\parskip}{0.2cm}
-\setlength{\parindent}{2.0cm}
-\usepackage{appendix}
-\usepackage{tocloft}
-\newcommand{\dropcap}[1]{#1}
-\newcommand{\matmethods}[1]{#1}
-\newcommand{\showmatmethods}[1]{}
-\newcommand{\acknow}[1]{#1}
-\newcommand{\showacknow}[1]{}
-\newcommand{\thesisnoop}[1]{}
-\usepackage{multicol}
-\usepackage{multirow}
-\usepackage{array}
-\usepackage{booktabs}
-\usepackage{caption}
-\usepackage{subcaption}
-\usepackage{longtable}
-\usepackage{lscape}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{breqn}
-\newcommand{\mb}[1]{\mathbf{#1}}
-\newcommand{\abs}[1]{\left|#1\right|}
-\newcommand{\norm}[1]{\left\|#1\right\|}
-\newcommand{\partialorder}{\cdot \geq}
-\newcommand{\h}{\mathrm{h}}
-\newcommand{\x}{\mathrm{x}}
-\newcommand{\z}{\mathrm{z}}
-\newcommand{\entropia}[1]{H{(#1)}}
-\usepackage{listings}
-\usepackage{minted}
-\setminted{autogobble=true,fontsize=\small,baselinestretch=0.8}
-\setminted[python]{python3=true,tabsize=4}
-\usemintedstyle{trac}
-\lstset{abovecaptionskip=0}
-\numberwithin{listing}{chapter}
-\renewcommand{\listingscaption}{Code Snippet}
-\AtEndEnvironment{listing}{\vspace{-16pt}}
-\usepackage{color}				      % Controle das cores
-\definecolor{blue}{RGB}{41,5,195} % Alterando o aspecto do azul
-\usepackage{algorithmic}
-\usepackage[chapter]{algorithm}
-\floatname{algorithm}{Algoritmo}
-\renewcommand{\listalgorithmname}{Lista de Algoritmos}
-\usepackage{./abnt/unicamp}
-\usepackage{lastpage}			      % Usado pela Ficha catalogr\'{a}fica
-\appto\frontmatter{\pagestyle{plain}}  % Adiciona o estilo plano de página.
-\instituicao{%
-UNIVERSIDADE ESTADUAL DE CAMPINAS
-\par
-Instituto de Economia
-}
-\tipotrabalho{Tese (Doutorado)}
-%% O preambulo deve conter o tipo do trabalho, o objetivo, o nome da institui\c{c}\~{a}o e a \'{a}rea de concentra\c{c}\~{a}o
-\preambulo{Tese apresentada ao Instituto de Economia da Universidade Estadual de Campinas como parte dos requisitos exigidos para a obtenção do título de Doutor em Ciências Econômicas.}~
-\titulo{Teste}
-\orientador{Lucas Azeredo da Silva Teixeira}
-\coorientador{Ivette Raymunda Luna Huamani}
-\newcommand{\ThesisTitle}{{Teste de Título}}
-\author{Gabriel Petrini da Silveira}
-\date{2024}
-\title{}
-\begin{document}
+* Capas                                                              :ignore:
 
-
+#+BEGIN_EXPORT latex
 \pretextual
 \frenchspacing
 	
@@ -165,7 +8,10 @@ Instituto de Economia
 \pagenumbering{roman}
 \imprimircapa 
 \imprimirfolhaderosto
-
+#+END_EXPORT
+ 
+* Ficha Catalográfica                                                :ignore:
+#+BEGIN_EXPORT latex
 \begin{fichacatalografica}
 	\nopagebreak
 	\begin{center}
@@ -174,7 +20,10 @@ Instituto de Economia
 	\nopagebreak
 \end{fichacatalografica}
 	\nopagebreak
+#+END_EXPORT
 
+* Folha de aprovação                                                 :ignore:
+#+BEGIN_EXPORT latex
 	\nopagebreak
 \begin{folhadeaprovacao}
 	\nopagebreak
@@ -183,7 +32,10 @@ Instituto de Economia
 	\end{center}
 	\nopagebreak
 \end{folhadeaprovacao}
+#+END_EXPORT
 
+* Dedicatória                                                        :ignore:
+#+BEGIN_EXPORT latex
 \begin{dedicatoria}
 	\vspace*{\fill}
 	\centering
@@ -191,11 +43,18 @@ Instituto de Economia
 	\textit{Pela comunidade, para a comunidade}
 	\vspace*{\fill}
 \end{dedicatoria}
+#+END_EXPORT
 
+* Agradecimentos                                                     :ignore:
+#+BEGIN_EXPORT latex
 \begin{agradecimentos}
 Agradeço a todo mundo
 \end{agradecimentos}
+#+END_EXPORT
 
+* Resumo e Abstract                                                  :ignore:
+
+#+BEGIN_EXPORT latex
 \begin{resumo}
 \begin{otherlanguage*}{portuguese}
 
@@ -240,7 +99,11 @@ Conclui-se que a taxa própria de juros dos imóveis explica a taxa de crescimen
 	
 \end{otherlanguage*}
 \end{resumo}
+#+END_EXPORT
 
+* Epígrafe                                                           :ignore:
+
+#+BEGIN_EXPORT latex
 \begin{epigrafe}
 	\vspace*{\fill}
 	\begin{flushright}
@@ -250,7 +113,11 @@ Conclui-se que a taxa própria de juros dos imóveis explica a taxa de crescimen
 \end{epigrafe}
 
 \newpage
+#+END_EXPORT
 
+* Índice e numeração                                                 :ignore:
+
+#+BEGIN_EXPORT latex
 \pdfbookmark[0]{\listfigurename}{lof}
 \listoffigures*
 \addcontentsline{toc}{chapter}{List of Figures}
@@ -267,12 +134,14 @@ Conclui-se que a taxa própria de juros dos imóveis explica a taxa de crescimen
 
 \tableofcontents*
 \thispagestyle{empty}
+#+END_EXPORT
 
+* Mainmatter                                                         :ignore:
+#+BEGIN_EXPORT latex
 \mainmatter
 \cleardoublepage\pagenumbering{arabic}
 %\setcounter{page}{18} % Change Here 
+#+END_EXPORT
 
 
-\chapter{A Research Chapter}
-\label{sec:org04c22ed}
-\end{document}
+
