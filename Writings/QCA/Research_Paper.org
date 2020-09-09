@@ -1,0 +1,29 @@
+#+TITLE: A research chapter
+#+LATEX_CLASS: SelfArx
+#+SETUPFILE: ../manuscript.setup
+#+INCLUDE: Infos.org
+
+* Initial Setup                                              :journal:ignore:
+
+#+LATEX:\flushbottom % Makes all text pages the same height
+#+LATEX:\maketitle % Print the title and abstract box
+#+LATEX:\thispagestyle{empty} % Removes page numbering from the first page
+
+* Capítulo QCA
+
+** Introduction
+
+** Methods
+
+** Conclusion
+
+** Acknowledgements                                                 :journal:
+
+Agradecimentos
+
+
+** Bibliography                                              :ignore:journal:
+
+  #+BEGIN_EXPORT latex
+  \printbibliography
+  #+END_EXPORT

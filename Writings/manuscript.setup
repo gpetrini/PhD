@@ -1,0 +1,79 @@
+# -*- mode: org; -*-
+#+STARTUP: content
+
+* Options :noexport:
+
+The options are intended to remove default clutter that Org adds automatically to the export.
+#+OPTIONS: title:nil date:nil ^:{} toc:nil num:nil d:t author:nil tags:nil
+
+* LaTeX headers :noexport:
+
+** General Settings
+#+latex_header: \usepackage[T1]{fontenc}
+#+latex_header: \usepackage[utf8]{inputenc}
+#+latex_header: \usepackage{booktabs}
+#+latex_header: \renewcommand{\arraystretch}{1.1} % Unclear
+#+latex_header: \usepackage{graphicx}
+#+latex_header: \usepackage{float}
+#+latex_header: \usepackage{amsmath}
+#+latex_header: \usepackage{csquotes}
+#+latex_header:\setlength{\columnsep}{0.55cm} % Distance between the two columns of text
+#+latex_header:\setlength{\fboxrule}{0.75pt} % Width of the border around the abstract
+
+#+latex_header:\definecolor{color1}{RGB}{0,0,90} % Color of the article title and sections
+#+latex_header:\definecolor{color2}{RGB}{0,20,20} % Color of the boxes behind the abstract and headings
+
+
+#+latex_header:\usepackage[english]{babel} % Specify a different language here - english by default
+#+latex_header:\usepackage{lipsum} % Required to insert dummy text. To be removed otherwise
+
+*** Columns
+
+#+latex_header:\setlength{\columnsep}{0.55cm} % Distance between the two columns of text
+#+latex_header:\setlength{\fboxrule}{0.75pt} % Width of the border around the abstract
+
+
+** Bibliography
+
+#+latex_header:\usepackage[backend=biber,%
+#+latex_header:	style = abnt,%
+#+latex_header:	noslsn, %
+#+latex_header:	isbn = false,
+#+latex_header:	url = false,
+#+latex_header:	extrayear, %
+#+latex_header:	uniquename=init,% 
+#+latex_header:	giveninits, %
+#+latex_header:	justify, %
+#+latex_header:	sccite,% 
+#+latex_header:	scbib, %
+#+latex_header:	sorting=nyt,
+#+latex_header:% mergedate=compact,
+#+latex_header:% natbib=true,
+#+latex_header:	repeattitles, %
+#+latex_header:	maxcitenames=3]{biblatex}
+
+
+
+Remove ISSN, DOI and URL to shorten the bibliography.
+#+latex_header: \AtEveryBibitem{%
+#+latex_header:   \clearfield{urlyear}
+#+latex_header:   \clearfield{urlmonth}
+#+latex_header:   \clearfield{note}
+#+latex_header:  \clearfield{issn} % Remove issn
+#+latex_header:  \clearfield{doi} % Remove doi
+#+latex_header: \ifentrytype{online}{}{% Remove url except for @online
+#+latex_header:   \clearfield{url}
+#+latex_header: }
+#+latex_header: }
+
+
+
+* HTML headers :noexport:
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+
+#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
