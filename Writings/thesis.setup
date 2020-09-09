@@ -121,7 +121,8 @@ Remove ISSN, DOI and URL to shorten the bibliography.
 #+latex_header:\usepackage{indentfirst}
 #+latex_header:\usepackage{titlesec}
 #+latex_header:\usepackage{csquotes}
-#+latex_header:\usepackage{microtype} % To avoid overfull hbox
+#+latex_header:\usepackage[protrusion = true, final]{microtype}   % To avoid overfull hbox
+#+latex_header:\emergencystretch=1.5em   % To avoid overfull hbox: https://tex.stackexchange.com/questions/20585/fixing-an-overfull-box
 
 #+latex_header:\setlength{\parskip}{\onelineskip}
 #+latex_header:\usepackage{mathptmx}

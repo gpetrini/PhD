@@ -1,4 +1,4 @@
-% Created 2020-09-09 qua 11:40
+% Created 2020-09-09 qua 12:00
 % Intended LaTeX compiler: pdflatex
 \documentclass[12pt,openright,oneside,a4paper,brazil,english,sumario=tradicional]{gpsabntex}
   \usepackage{lipsum}             % Pacote que gera texto dummy
@@ -75,7 +75,8 @@ maxcitenames=3]{biblatex}
 \usepackage{indentfirst}
 \usepackage{titlesec}
 \usepackage{csquotes}
-\usepackage{microtype} % To avoid overfull hbox
+\usepackage[protrusion = true, final]{microtype}   % To avoid overfull hbox
+\emergencystretch=1.5em   % To avoid overfull hbox
 \setlength{\parskip}{\onelineskip}
 \usepackage{mathptmx}
 \renewcommand{\ABNTEXchapterfont}{\rmfamily\bfseries}
@@ -168,6 +169,7 @@ Instituto de Economia
 \nopagebreak
 
 % 2020-09-09: Criando minipage para evitar que uma página em branco seja criada antes e depois da ficha catalográfica. Deve ser incluido um \newpage após minipage para evitar sobreposição.
+% Atenção: Ficha catalográfica não aparece no Okular.
 \begin{minipage}{\textwidth}
 \begin{fichacatalografica}
 	\begin{center}
@@ -283,5 +285,5 @@ Conclui-se que a taxa própria de juros dos imóveis explica a taxa de crescimen
 
 
 \chapter[Paper]{A Research Chapter}
-\label{sec:orga02957e}
+\label{sec:org06e5796}
 \end{document}
