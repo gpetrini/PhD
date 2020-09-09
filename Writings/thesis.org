@@ -1,11 +1,13 @@
 #+LATEX_CLASS: tese
-#+LATEX_CLASS_OPTIONS: [12pt,openright,oneside,a4paper,brazil,english]
+#+LATEX_CLASS_OPTIONS: [12pt,openright,oneside,a4paper,brazil,english,sumario=tradicional]
 #+EXCLUDE_TAGS: journal noexport
 #+setupfile: thesis.setup
 #+DATE: 2024
-
 #+INCLUDE: ./abnt/_pretextual.org
 
 
 * A Research Chapter
+  :PROPERTIES:
+  :ALT_TITLE: Paper
+  :END:
 

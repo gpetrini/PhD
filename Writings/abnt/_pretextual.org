@@ -7,36 +7,42 @@
 \frontmatter
 \pagenumbering{roman}
 \imprimircapa 
+\stepcounter{page} % Adicionando a numeração em um. Motivo: folha de rosto possui numeração repetida em relação à capa. https://tex.stackexchange.com/questions/416589/how-to-increment-page-number-by-one
 \imprimirfolhaderosto
+\nopagebreak
 #+END_EXPORT
  
 * Ficha Catalográfica                                                :ignore:
 #+BEGIN_EXPORT latex
+% 2020-09-09: Criando minipage para evitar que uma página em branco seja criada antes e depois da ficha catalográfica. Deve ser incluido um \newpage após minipage para evitar sobreposição.
+% Atenção: Ficha catalográfica não aparece no Okular.
+\begin{minipage}{\textwidth}
 \begin{fichacatalografica}
-	\nopagebreak
 	\begin{center}
-		\includepdf[pagecommand={\thispagestyle{empty}},page=1]{./figs/white.pdf}
+		\includepdf[pagecommand={\thispagestyle{empty}},pages=1]{./figs/Fake_Ficha_Catalografica.pdf}
 	\end{center}
-	\nopagebreak
 \end{fichacatalografica}
-	\nopagebreak
+\end{minipage}
+\newpage
 #+END_EXPORT
 
 * Folha de aprovação                                                 :ignore:
 #+BEGIN_EXPORT latex
-	\nopagebreak
+% 2020-09-09: Criando minipage para evitar que uma página em branco seja criada antes e depois da folha de aprovação. Deve ser incluido um \newpage após minipage para evitar sobreposição.
+\begin{minipage}{\textwidth}
 \begin{folhadeaprovacao}
-	\nopagebreak
 	\begin{center}
-		\includepdf[pagecommand={\thispagestyle{empty}},page=1]{./figs/white.pdf}
+		\includepdf[pagecommand={\thispagestyle{empty}},pages=1]{./figs/Fake_Folha_Aprovacao.pdf}
 	\end{center}
-	\nopagebreak
 \end{folhadeaprovacao}
+\end{minipage}
+\newpage
 #+END_EXPORT
 
 * Dedicatória                                                        :ignore:
 #+BEGIN_EXPORT latex
 \begin{dedicatoria}
+\thispagestyle{empty} % 2020-09-09: Tal como dissertação para homologação
 	\vspace*{\fill}
 	\centering
 	\noindent
@@ -48,6 +54,7 @@
 * Agradecimentos                                                     :ignore:
 #+BEGIN_EXPORT latex
 \begin{agradecimentos}
+\thispagestyle{empty} % 2020-09-09: Tal como dissertação para homologação
 Agradeço a todo mundo
 \end{agradecimentos}
 #+END_EXPORT
@@ -56,6 +63,7 @@ Agradeço a todo mundo
 
 #+BEGIN_EXPORT latex
 \begin{resumo}
+\thispagestyle{empty} % 2020-09-09: Tal como dissertação para homologação
 \begin{otherlanguage*}{portuguese}
 
 Esta dissertação investiga a relação entre investimento residencial, inflação de ativos e dinâmica macroeconômica no médio prazo com base no caso americano no pós-desregulamentação financeira (1992-2019).
@@ -105,6 +113,7 @@ Conclui-se que a taxa própria de juros dos imóveis explica a taxa de crescimen
 
 #+BEGIN_EXPORT latex
 \begin{epigrafe}
+\thispagestyle{empty} % 2020-09-09: Tal como dissertação para homologação
 	\vspace*{\fill}
 	\begin{flushright}
 		\textit{``Não está ao meu alcance criar uma sociedade ideal. Contudo, está ao meu alcance descrever o que, na sociedade existente, não é ideal para nenhuma espécie de existência humana em sociedade.''\\
@@ -128,9 +137,10 @@ Conclui-se que a taxa própria de juros dos imóveis explica a taxa de crescimen
 \addcontentsline{toc}{chapter}{List of Tables}
 \thispagestyle{empty}
 \newpage
-\thispagestyle{empty}
 \addcontentsline{toc}{chapter}{List of Variables}
-
+\input{./abnt/list_variables.tex}
+\thispagestyle{empty}
+\newpage
 
 \tableofcontents*
 \thispagestyle{empty}
@@ -139,8 +149,9 @@ Conclui-se que a taxa própria de juros dos imóveis explica a taxa de crescimen
 * Mainmatter                                                         :ignore:
 #+BEGIN_EXPORT latex
 \mainmatter
-\cleardoublepage\pagenumbering{arabic}
-\setcounter{page}{\thepage} % Change Here 
+\cleardoublepage
+\pagestyle{plain} % restore the plain style
+\renewcommand{\thepage}{\arabic{page}}  % Setting the page output to arabic   -- not necessary, unless `book` class and `\frontmatter` is used.
 #+END_EXPORT
 
 

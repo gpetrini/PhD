@@ -1,14 +1,12 @@
-% Created 2020-09-08 ter 19:41
+% Created 2020-09-09 qua 11:40
 % Intended LaTeX compiler: pdflatex
-\documentclass[12pt,openright,oneside,a4paper,brazil,english]{gpsabntex}
+\documentclass[12pt,openright,oneside,a4paper,brazil,english,sumario=tradicional]{gpsabntex}
   \usepackage{lipsum}             % Pacote que gera texto dummy
 \usepackage{blindtext}          % Pacote que gera texto dummy
 \usepackage{array}
 \usepackage{epstopdf}           % Pacote que converte as figuras em eps para pdf
 \usepackage{venndiagram}
 \usepackage{chngcntr}
-\usepackage{xassoccnt}
-\NewTotalDocumentCounter{totalrealpage}
 \usepackage{makeidx}
 \makeindex
 \usepackage[top=3cm,bottom=2cm,right=3cm,left=2cm]{geometry}
@@ -77,6 +75,7 @@ maxcitenames=3]{biblatex}
 \usepackage{indentfirst}
 \usepackage{titlesec}
 \usepackage{csquotes}
+\usepackage{microtype} % To avoid overfull hbox
 \setlength{\parskip}{\onelineskip}
 \usepackage{mathptmx}
 \renewcommand{\ABNTEXchapterfont}{\rmfamily\bfseries}
@@ -148,7 +147,7 @@ Instituto de Economia
 }
 \tipotrabalho{Tese (Doutorado)}
 %% O preambulo deve conter o tipo do trabalho, o objetivo, o nome da institui\c{c}\~{a}o e a \'{a}rea de concentra\c{c}\~{a}o
-\preambulo{Tese apresentada ao Instituto de Economia da Universidade Estadual de Campinas como parte dos requisitos exigidos para a obtenção do título de Doutor em Ciências Econômicas.}~
+\preambulo{Tese apresentada ao Instituto de Economia da Universidade Estadual de Campinas como parte dos requisitos exigidos para a obtenção do t\'{i}tulo de Doutor em Ci\^encias Econ\^omicas.} % Acentos devem ser escritos dessa forma no preambulo
 \titulo{Teste}
 \orientador{Lucas Azeredo da Silva Teixeira}
 \coorientador{Ivette Raymunda Luna Huamani}
@@ -158,34 +157,38 @@ Instituto de Economia
 \title{}
 \begin{document}
 
-
 \pretextual
 \frenchspacing
 	
 \frontmatter
 \pagenumbering{roman}
 \imprimircapa 
+\stepcounter{page} % Adicionando a numeração em um. Motivo: folha de rosto possui numeração repetida em relação à capa. https://tex.stackexchange.com/questions/416589/how-to-increment-page-number-by-one
 \imprimirfolhaderosto
+\nopagebreak
 
+% 2020-09-09: Criando minipage para evitar que uma página em branco seja criada antes e depois da ficha catalográfica. Deve ser incluido um \newpage após minipage para evitar sobreposição.
+\begin{minipage}{\textwidth}
 \begin{fichacatalografica}
-	\nopagebreak
 	\begin{center}
-		\includepdf[pagecommand={\thispagestyle{empty}},page=1]{./figs/white.pdf}
+		\includepdf[pagecommand={\thispagestyle{empty}},pages=1]{./figs/Fake_Ficha_Catalografica.pdf}
 	\end{center}
-	\nopagebreak
 \end{fichacatalografica}
-	\nopagebreak
+\end{minipage}
+\newpage
 
-	\nopagebreak
+% 2020-09-09: Criando minipage para evitar que uma página em branco seja criada antes e depois da folha de aprovação. Deve ser incluido um \newpage após minipage para evitar sobreposição.
+\begin{minipage}{\textwidth}
 \begin{folhadeaprovacao}
-	\nopagebreak
 	\begin{center}
-		\includepdf[pagecommand={\thispagestyle{empty}},page=1]{./figs/white.pdf}
+		\includepdf[pagecommand={\thispagestyle{empty}},pages=1]{./figs/Fake_Folha_Aprovacao.pdf}
 	\end{center}
-	\nopagebreak
 \end{folhadeaprovacao}
+\end{minipage}
+\newpage
 
 \begin{dedicatoria}
+\thispagestyle{empty} % 2020-09-09: Tal como dissertação para homologação
 	\vspace*{\fill}
 	\centering
 	\noindent
@@ -194,10 +197,12 @@ Instituto de Economia
 \end{dedicatoria}
 
 \begin{agradecimentos}
+\thispagestyle{empty} % 2020-09-09: Tal como dissertação para homologação
 Agradeço a todo mundo
 \end{agradecimentos}
 
 \begin{resumo}
+\thispagestyle{empty} % 2020-09-09: Tal como dissertação para homologação
 \begin{otherlanguage*}{portuguese}
 
 Esta dissertação investiga a relação entre investimento residencial, inflação de ativos e dinâmica macroeconômica no médio prazo com base no caso americano no pós-desregulamentação financeira (1992-2019).
@@ -243,6 +248,7 @@ Conclui-se que a taxa própria de juros dos imóveis explica a taxa de crescimen
 \end{resumo}
 
 \begin{epigrafe}
+\thispagestyle{empty} % 2020-09-09: Tal como dissertação para homologação
 	\vspace*{\fill}
 	\begin{flushright}
 		\textit{``Não está ao meu alcance criar uma sociedade ideal. Contudo, está ao meu alcance descrever o que, na sociedade existente, não é ideal para nenhuma espécie de existência humana em sociedade.''\\
@@ -262,18 +268,20 @@ Conclui-se que a taxa própria de juros dos imóveis explica a taxa de crescimen
 \addcontentsline{toc}{chapter}{List of Tables}
 \thispagestyle{empty}
 \newpage
-\thispagestyle{empty}
 \addcontentsline{toc}{chapter}{List of Variables}
-
+\input{./abnt/list_variables.tex}
+\thispagestyle{empty}
+\newpage
 
 \tableofcontents*
 \thispagestyle{empty}
 
 \mainmatter
-\cleardoublepage\pagenumbering{arabic}
-\setcounter{page}{\totalrealpage} % Change Here 
+\cleardoublepage
+\pagestyle{plain} % restore the plain style
+\renewcommand{\thepage}{\arabic{page}}  % Setting the page output to arabic   -- not necessary, unless `book` class and `\frontmatter` is used.
 
 
-\chapter{A Research Chapter}
-\label{sec:org36298bf}
+\chapter[Paper]{A Research Chapter}
+\label{sec:orga02957e}
 \end{document}

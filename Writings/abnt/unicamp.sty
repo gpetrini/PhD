@@ -23,10 +23,10 @@
 
 %CUSTOMIZACAO DA NUMERACAO
 \renewcommand{\pretextual}{%
-	\aliaspagestyle{titlingpage}{plain}%mostrar num. na capa
+	\aliaspagestyle{titlingpage}{empty}%mostrar num. na capa
 	\aliaspagestyle{chapter}{plain}% customizing chapter pagestyle
    \pagestyle{plain}
-   \aliaspagestyle{cleared}{plain}% mostrar num. em pag. em branco, coloque plain, c.c. empty
+   \aliaspagestyle{cleared}{empty}% mostrar num. em pag. em branco, coloque plain, c.c. empty
    \aliaspagestyle{part}{empty}
  }
 
@@ -39,7 +39,7 @@
 \vspace*{1cm}
 		
 \begin{minipage}{.2\textwidth}
-\includegraphics[width=.94in, height=1in, keepaspectratio=true]{unicamp-eps-converted-to.pdf}
+\includegraphics[width=.94in, height=1in, keepaspectratio=true]{./figs/unicamp-eps-converted-to.pdf}
 \end{minipage}
 \hspace*{\fill}
 \begin{minipage}{.7\textwidth}
@@ -71,7 +71,7 @@
 \renewcommand{\folhaderostocontent}{
 
 \begin{minipage}{.2\textwidth}
-\noindent \includegraphics[width=.94in, height=1in, keepaspectratio=true]{unicamp-eps-converted-to.pdf}
+\noindent \includegraphics[width=.94in, height=1in, keepaspectratio=true]{./figs/unicamp-eps-converted-to.pdf}
 \end{minipage}
 \hspace*{\fill}
 \begin{minipage}{.7\textwidth}
@@ -129,6 +129,8 @@ Este exemplar corresponde \`{a} vers\~{a}o final da tese defendida pelo
 {\large\imprimirdata}
 \vspace*{1cm}
 \end{center}
+\thispagestyle{empty} % 2020-09-09: Remover numeração da página
+\nopagebreak % 2020-09-09: Remover página em branco pós folha de rosto
 }
 
 \makeatother

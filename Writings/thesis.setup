@@ -121,7 +121,7 @@ Remove ISSN, DOI and URL to shorten the bibliography.
 #+latex_header:\usepackage{indentfirst}
 #+latex_header:\usepackage{titlesec}
 #+latex_header:\usepackage{csquotes}
-
+#+latex_header:\usepackage{microtype} % To avoid overfull hbox
 
 #+latex_header:\setlength{\parskip}{\onelineskip}
 #+latex_header:\usepackage{mathptmx}
@@ -151,7 +151,6 @@ TODO Change here if language change
 #+latex_header:	\gdef\thechapter{\@Roman\c@chapter}%
 #+latex_header:}
 #+latex_header:\makeatother
-
 
 
 ** Parskip
@@ -258,8 +257,9 @@ And reduce the distance between a minted listing and its caption.
 #+latex_header:}
 #+latex_header:\tipotrabalho{Tese (Doutorado)}
 #+latex_header:%% O preambulo deve conter o tipo do trabalho, o objetivo, o nome da institui\c{c}\~{a}o e a \'{a}rea de concentra\c{c}\~{a}o
-#+latex_header:\preambulo{Tese apresentada ao Instituto de Economia da Universidade Estadual de Campinas como parte dos requisitos exigidos para a obtenção do título de Doutor em Ciências Econômicas.}~
+#+latex_header:\preambulo{Tese apresentada ao Instituto de Economia da Universidade Estadual de Campinas como parte dos requisitos exigidos para a obtenção do t\'{i}tulo de Doutor em Ci\^encias Econ\^omicas.} % Acentos devem ser escritos dessa forma no preambulo
 #+latex_header: \titulo{Teste}
+
 
 
 
