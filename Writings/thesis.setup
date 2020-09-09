@@ -20,7 +20,6 @@
 
 
 *** Index
-
 #+latex_header: \usepackage{makeidx}
 #+latex_header: \makeindex
 
@@ -133,9 +132,6 @@ Remove ISSN, DOI and URL to shorten the bibliography.
 #+latex_header:\usepackage{threeparttable, tablefootnote} % Nota de rodapé em pagina
 #+latex_header:\counterwithout*{footnote}{chapter} % Impede reset das notas de rodapé
 #+latex_header:\usepackage[multiple, bottom]{footmisc} % Para nota de rodapé no fim da página
-
-** Fix the th for dates.
-#+latex_header: \renewcommand{\th}{\textsuperscript{\textup{th}}\xspace}
 
 ** Chapter related
 

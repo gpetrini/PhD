@@ -1,26 +1,11 @@
-#  -*- mode: org; org-latex-title-command: ""; org-latex-toc-command: "" -*-
 #+LATEX_CLASS: tese
 #+LATEX_CLASS_OPTIONS: [12pt,openright,oneside,a4paper,brazil,english]
 #+EXCLUDE_TAGS: journal noexport
 #+setupfile: thesis.setup
 #+DATE: 2024
-#+TITLE: Teste de título
 
 #+INCLUDE: ./abnt/_pretextual.org
 
 
 * A Research Chapter
 
-
- Build :noexport:
-
-Bind derivatives change variable values *locally* on export.
-
-These two are because I'm defining the title and toc manually using latex, so I don't want org-latex to take care of that.
-#+BIND: org-latex-title-command ""
-#+BIND: org-latex-toc-command ""
-
-# Local Variables:
-# mode: org
-# org-export-allow-bind-keywords: t
-# End:

@@ -1,4 +1,4 @@
-% Created 2020-09-08 ter 19:20
+% Created 2020-09-08 ter 19:41
 % Intended LaTeX compiler: pdflatex
 \documentclass[12pt,openright,oneside,a4paper,brazil,english]{gpsabntex}
   \usepackage{lipsum}             % Pacote que gera texto dummy
@@ -7,6 +7,8 @@
 \usepackage{epstopdf}           % Pacote que converte as figuras em eps para pdf
 \usepackage{venndiagram}
 \usepackage{chngcntr}
+\usepackage{xassoccnt}
+\NewTotalDocumentCounter{totalrealpage}
 \usepackage{makeidx}
 \makeindex
 \usepackage[top=3cm,bottom=2cm,right=3cm,left=2cm]{geometry}
@@ -81,7 +83,6 @@ maxcitenames=3]{biblatex}
 \usepackage{threeparttable, tablefootnote} % Nota de rodapé em pagina
 \counterwithout*{footnote}{chapter} % Impede reset das notas de rodapé
 \usepackage[multiple, bottom]{footmisc} % Para nota de rodapé no fim da página
-\renewcommand{\th}{\textsuperscript{\textup{th}}\xspace}
 \newcommand{\annexname}{Annex} % TODO: Change here if language change
 \makeatletter
 \newcommand\annex{\par\setcounter{chapter}{0}%
@@ -270,9 +271,9 @@ Conclui-se que a taxa própria de juros dos imóveis explica a taxa de crescimen
 
 \mainmatter
 \cleardoublepage\pagenumbering{arabic}
-%\setcounter{page}{18} % Change Here 
+\setcounter{page}{\totalrealpage} % Change Here 
 
 
 \chapter{A Research Chapter}
-\label{sec:org04c22ed}
+\label{sec:org36298bf}
 \end{document}

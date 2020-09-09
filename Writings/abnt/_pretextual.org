@@ -140,7 +140,7 @@ Conclui-se que a taxa própria de juros dos imóveis explica a taxa de crescimen
 #+BEGIN_EXPORT latex
 \mainmatter
 \cleardoublepage\pagenumbering{arabic}
-%\setcounter{page}{18} % Change Here 
+\setcounter{page}{\thepage} % Change Here 
 #+END_EXPORT
 
 
