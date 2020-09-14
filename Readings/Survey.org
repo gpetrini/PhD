@@ -12,21 +12,66 @@
 #+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
 #+HTML_HEAD: <style> #content{max-width:1800px;}</style>
 
-* QCA      
+* QCA       
 :PROPERTIES:
-   :COLUMNS:  %6TYPE %4TODO %20ITEM %4YEAR %13DEADLINE %4DECISION %3ZOTERO %8STATUS %7RELEVANCE %7IMPACT %3CITE
-   :TYPE_ALL: Theory Method Case Manual Other
-   :DECISION_ALL: Read File Skip
+   :COLUMNS:  %6TYPE %4TODO %20ITEM %4YEAR %4DECISION %3ZOTERO %8STATUS %7RELEVANCE %7IMPACT %4CITE %TAGS
+   :TYPE_ALL: Theory Method Case Manual Other Thechnical
+   :DECISION_ALL: Read File Skip PartialRead
    :ZOTERO_ALL: Yes No
-   :STATUS_ALL: Reading Searching Abandoned Finished Skimmed 
+   :STATUS_ALL: Reading Searching Abandoned Finished Skimmed NotFound 404 Downloaded
    :RELEVANCE_ALL: High Regular Low None
    :IMPACT_ALL: High Regular Low None
-   :CITE_ALL: Yes No
+   :CITE_ALL: Yes No Wait
    :YEAR: 
    :UNNUMBERED: t
    :END:  
-           
-** TODO [[https://www.dropbox.com/sh/xkfv65sh57j2coo/AABk1FdH6BEFMUluXqUhdU4Ua/Required%20readings?dl=0&preview=Hinterleitner+Sager+Thomann+2016.pdf&subfolder_nav_tracking=1][Hinterleitner et al]]                                       :Benchmark:
+            
+** TODO [[https://doi.org/10.1177/0049124117701487][Baumgartner and Thiem - Often trusted but never (properly) tested: Evaluating Qualitative Comparative Analysis]] :Estimation:ignore:
+   :PROPERTIES:
+   :ZOTERO:   Yes
+   :YEAR:     2020
+   :TYPE:     Techinical
+   :STATUS:   Skimmed
+   :RELEVANCE: High
+   :IMPACT:   High
+   :DECISION: Read
+   :CITE:     Yes
+   :END:    
+
+** TODO [[https://stefanverweij.eu/wp-content/uploads/2018/09/2018-Edward-Elgar-Gerrits-Verweij.pdf][Gerrits and Verweij - The evaluation of complex infrastructure projects]] :ignore:BestPractices:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2018
+   :TYPE: Manual
+   :STATUS: Downloaded
+   :RELEVANCE: Regular
+   :IMPACT: High
+   :DECISION: Read
+   :CITE: Wait
+   :END:    
+** TODO [[https://www.sciencedirect.com/science/article/pii/S2444569X16300257][Roig-Tierno, Gonzalez-Cruz, and Llopis-Martinez -  An overview of qualitative comparative analysis: A bibliometric analysis]] :Bibliometric:ignore:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2017
+   :TYPE: Theory
+   :STATUS: Skimmed
+   :RELEVANCE: Regular
+   :IMPACT: Regular
+   :DECISION: Read
+   :CITE: Wait
+   :END:    
+** TODO [[http://www.socsci.uci.edu/~cragin/fsQCA/software.shtml][Ragin - User's guide to Fuzzy-set / Qualitative Comparative Analysis]] :ignore:Software:
+   :PROPERTIES:
+   :ZOTERO: No
+   :YEAR: 2017
+   :TYPE: Manual
+   :STATUS: Skimmed
+   :RELEVANCE: Regular
+   :IMPACT: Regular
+   :DECISION: Read
+   :CITE: No
+   :END:    
+** TODO [[https://www.dropbox.com/sh/xkfv65sh57j2coo/AABk1FdH6BEFMUluXqUhdU4Ua/Required%20readings?dl=0&preview=Hinterleitner+Sager+Thomann+2016.pdf&subfolder_nav_tracking=1][Hinterleitner et al]]                                :Benchmark:ignore:
    :PROPERTIES:
    :ZOTERO:   Yes
    :YEAR:     2016
@@ -36,24 +81,276 @@
    :IMPACT:   High
    :DECISION: Read
    :CITE:     Yes
-   :END:   
+   :END:    
+** DONE [[https://doi.org/10.1057/9781137366474_4][Downey and Stanyer- Using Fuzzy Set Qualitative Comparative Analysis in comparative political communication research: Applying Fuzzy Set theoretic thinking to small-N case-oriented research]] :Proposal:ignore:
+   CLOSED: [2020-09-14 seg 10:58]
+   :PROPERTIES:
+   :ZOTERO:   No
+   :YEAR:     2014
+   :TYPE:     Case
+   :STATUS:   NotFound
+   :RELEVANCE: Low
+   :IMPACT:   None
+   :DECISION: File
+   :CITE:     No
+   :END:    
+** TODO [[https://www.jstor.org/stable/23563601][Emmenegger, Kvist and Skaaning - Making the most of configurational comparative analysis: An assessment of QCA applications in comparative welfare-state research]] :Review:ignore:
+   :PROPERTIES:
+   :ZOTERO:   Yes
+   :YEAR:     2013
+   :TYPE:     Thechnical
+   :STATUS:   Skimmed
+   :RELEVANCE: High
+   :IMPACT:   High
+   :DECISION: Read
+   :CITE:     Yes
+   :END:    
+** TODO [[https://pdfs.semanticscholar.org/7624/660320e7a032012245a4bbd20dd3397e77bd.pdf][Marx, Rihoux and Ragin - The origins, development, and application of Qualitative Comparative Analysis The first 25 years]] :Survey:ignore:
+   :PROPERTIES:
+   :ZOTERO:   Yes
+   :YEAR:     2013
+   :TYPE:     Case
+   :STATUS:   Skimmed
+   :RELEVANCE: High
+   :IMPACT:   Regular
+   :DECISION: Read
+   :CITE:     Yes
+   :END:    
 
+** TODO [[https://doi.org/10.1177/1525822X11433998][Basurto and Speer - Structuring the calibration of qualitative data as sets for Qualitative Comparative Analysis (QCA)]] :BestPractices:ignore:
+   :PROPERTIES:
+   :ZOTERO:   Yes
+   :YEAR:     2012
+   :TYPE:     Manual
+   :STATUS:   Skimmed
+   :RELEVANCE: Regular
+   :IMPACT:   High
+   :DECISION: Read
+   :CITE:     Wait
+   :END:    
+** [[https://doi.org/10.1017/CBO9781139004244][Schneider and  Wagemann - Set-Theoretic Methods for the Social Sciences A Guide to Qualitative Comparative Analysis]] :ignore:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2012
+   :TYPE: Manual 
+   :STATUS: Skimmed
+   :RELEVANCE: Regular
+   :IMPACT: Regular
+   :DECISION: File
+   :CITE: Wait
+   :END:    
+** TODO [[https://journals.sagepub.com/doi/10.1177/0049124111404818][Skaaning - Assessing the robustness of crisp-set and fuzzy-set QCA results]] :Robustness:ignore:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2011
+   :TYPE: Thechnical
+   :STATUS: Skimmed
+   :RELEVANCE: High
+   :IMPACT: High
+   :DECISION: Read
+   :CITE: Yes
+   :END:    
+** DONE [[https://mlkrook.org/pdf/Krook_PS_2010.pdf][Krook - Women's representation in parliament: A Qualitative Comparative Analysis]] :Political:ignore:
+   CLOSED: [2020-09-14 seg 11:10]
+   :PROPERTIES:
+   :ZOTERO:   No
+   :YEAR:     2010
+   :TYPE:     Case
+   :STATUS:   Skimmed
+   :RELEVANCE: None
+   :IMPACT:   Low
+   :DECISION: Skip
+   :CITE:     No
+   :END:    
+** DONE [[https://doi.org/10.1177%2F0267323110384256][Downey and Stanyer - Comparative media analysis: Why some fuzzy thinking might help. Applyting fuzzy set qualitative comparative analysis to the personalization of mediated political communication]] :Proposal:ignore:
+   CLOSED: [2020-09-14 seg 10:53]
+   :PROPERTIES:
+   :ZOTERO:   No
+   :YEAR:     2010
+   :TYPE:     Case
+   :STATUS:   Skimmed
+   :RELEVANCE: Low
+   :IMPACT:   None
+   :DECISION: File
+   :CITE:     No
+   :END:    
+** TODO [[https://us.sagepub.com/sites/default/files/upm-assets/23236_book_item_23236.pdf][Berg-Schlosser, De Meur, Rihoux, and Ragin - Qualitative Comparative Analysis (QCA) as an approach]] :ignore:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2009
+   :TYPE: Manual
+   :STATUS: Reading
+   :RELEVANCE: Regular
+   :IMPACT: Reagular
+   :DECISION: Read
+   :CITE: Yes
+   :END:    
+** TODO [[https://dx.doi.org/10.4135/9781452226569.n7][De Meur Rihoux and Yamasaki - Addressing the critiques on QCA]] :Critique:noexport:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2009
+   :TYPE: Theory
+   :STATUS: NotFound
+   :RELEVANCE: High
+   :IMPACT: Regular
+   :DECISION: Read
+   :CITE: Yes
+   :END:    
 
-** Report  
+** TODO [[https://dx.doi.org/10.4135/9781452226569.n5][Ragin - Qualitative Comparative Analysis using Fuzzy Sets (fsQCA)]] :ignore:Manual:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2009
+   :TYPE: Manual
+   :STATUS: Skimmed
+   :RELEVANCE: High
+   :IMPACT: High
+   :DECISION: Read
+   :CITE: Yes
+   :END:    
+** [[https://dx.doi.org/10.4135/9781446249413.n13][Rihoux and Lobe - The case for Qualitative Comparative Analysis (QCA): Adding leverage for thick cross-case comparison]] :ignore:
+   :PROPERTIES:
+   :ZOTERO: No
+   :YEAR: 2009
+   :TYPE:
+   :STATUS: NotFound
+   :RELEVANCE:
+   :IMPACT:
+   :DECISION: File
+   :CITE: Wait
+   :END:    
+
+** [[http://www.u.arizona.edu/~cragin/fsQCA//download/Counterfactuals.pdf][Ragin and Sonnett - Between complexity and parsimony: Limited diversity, counterfactual cases, and comparative analysis]] :ignore:Counterfactuals:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2005
+   :TYPE: Theory
+   :STATUS: Downloaded
+   :RELEVANCE: Regular
+   :IMPACT: Regular
+   :DECISION: Skim
+   :CITE: Wait
+   :END:    
+** DONE [[https://doi.org/10.1007/BF02686286][Ragin - Core versus Tangential Assumptions in Comparative Research]] :ignore:
+   CLOSED: [2020-09-14 seg 14:44]
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2005
+   :TYPE: Theory
+   :STATUS: Skimmed
+   :RELEVANCE: Low
+   :IMPACT: Low
+   :DECISION: File
+   :CITE: No
+   :END:    
+** TODO [[https://doi.org/10.1177%2F1525822X03257690][Rihoux - Bridging the Gap between the Qualitative and Quantitative Worlds? A Retrospective and Prospective View on Qualitative Comparative Analysis]] :Manual:noexport:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2003
+   :TYPE: Theory
+   :STATUS: Skimmed
+   :RELEVANCE: Regular
+   :IMPACT: Regular
+   :DECISION: PartialRead
+   :CITE: Wait
+   :END:    
+
+*Section to Read:* Critiques and Answers
+
+** TODO [[https://press.uchicago.edu/ucp/books/book/chicago/F/bo3635786.html][Ragin - Fuzzy-set social science]]  :Cacnonical:Manual:ignore:noexport:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2000
+   :TYPE: Manual
+   :STATUS: Downaloaded
+   :RELEVANCE: Regular
+   :IMPACT: High
+   :DECISION: PartialRead
+   :CITE: Yes
+   :END:    
+
+*Part to Read:* Part Two and fowards
+
+** [[https://www.amazon.com.br/Comparative-Method-Qualitative-Quantitative-Strategies/dp/0520280032][Ragin - The comparative method. Moving beyond qualitative and quantitative strategies]] :Cacnonical:ignore:
+   :PROPERTIES: 
+   :ZOTERO: Yes
+   :YEAR: 1987
+   :TYPE: Manual
+   :STATUS: Downloaded
+   :RELEVANCE: Regular 
+   :IMPACT: Regular
+   :DECISION: PartialRead
+   :CITE: Yes
+   :END:    
+** TODO [[https://doi.org/10.1177%2F0049124194023001002][Amenta and Poulsen: Where to begin: A survey of five approaches to selecting independent variables for  qualitative­comparative analysis]] :BestPractices:ignore:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 1994
+   :TYPE: Manual
+   :STATUS: Skimmed
+   :RELEVANCE: Low
+   :IMPACT: High
+   :DECISION: Skim
+   :CITE: Wait
+   :END:    
+** Report                                                            :ignore:
    :PROPERTIES:
    :UNNUMBERED: t
    :END:
 
-#+BEGIN: columnview :maxlevel 5 :hlines t
-| TYPE | TODO | ITEM                | YEAR | DEADLINE | DECISION | ZOTERO | STATUS  | RELEVANCE | IMPACT | CITE |
-|------+------+---------------------+------+----------+----------+--------+---------+-----------+--------+------|
-|      |      | QCA                 |      |          |          |        |         |           |        |      |
-|------+------+---------------------+------+----------+----------+--------+---------+-----------+--------+------|
-| Case | TODO | [[https://www.dropbox.com/sh/xkfv65sh57j2coo/AABk1FdH6BEFMUluXqUhdU4Ua/Required%20readings?dl=0&preview=Hinterleitner+Sager+Thomann+2016.pdf&subfolder_nav_tracking=1][Hinterleitner et al]] | 2016 |          | Read     | Yes    | Skimmed | High      | High   | Yes  |
-|------+------+---------------------+------+----------+----------+--------+---------+-----------+--------+------|
-|      |      | Report              |      |          |          |        |         |           |        |      |
-#+END:
 
+#+BEGIN: columnview :maxlevel 5 :hlines t
+#+CAPTION: QCA Survey
+| TYPE       | TODO | ITEM                                                                                                                                                                                                 | YEAR | DECISION    | ZOTERO | STATUS      | RELEVANCE | IMPACT   | CITE | TAGS                                |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+|            |      | QCA                                                                                                                                                                                                  |      |             |        |             |           |          |      |                                     |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+| Techinical | TODO | [[https://doi.org/10.1177/0049124117701487][Baumgartner and Thiem - Often trusted but never (properly) tested: Evaluating Qualitative Comparative Analysis]]                                                                                       | 2020 | Read        | Yes    | Skimmed     | High      | High     | Yes  | :Estimation:ignore:                 |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+| Manual     | TODO | [[https://stefanverweij.eu/wp-content/uploads/2018/09/2018-Edward-Elgar-Gerrits-Verweij.pdf][Gerrits and Verweij - The evaluation of complex infrastructure projects]]                                                                                                                              | 2018 | Read        | Yes    | Downloaded  | Regular   | High     | Wait | :ignore:BestPractices:              |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+| Theory     | TODO | [[https://www.sciencedirect.com/science/article/pii/S2444569X16300257][Roig-Tierno, Gonzalez-Cruz, and Llopis-Martinez -  An overview of qualitative comparative analysis: A bibliometric analysis]]                                                                          | 2017 | Read        | Yes    | Skimmed     | Regular   | Regular  | Wait | :Bibliometric:ignore:               |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+| Manual     | TODO | [[http://www.socsci.uci.edu/~cragin/fsQCA/software.shtml][Ragin - User's guide to Fuzzy-set / Qualitative Comparative Analysis]]                                                                                                                                 | 2017 | Read        | No     | Skimmed     | Regular   | Regular  | No   | :ignore:Software:                   |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+| Case       | TODO | [[https://www.dropbox.com/sh/xkfv65sh57j2coo/AABk1FdH6BEFMUluXqUhdU4Ua/Required%20readings?dl=0&preview=Hinterleitner+Sager+Thomann+2016.pdf&subfolder_nav_tracking=1][Hinterleitner et al]]                                                                                                                                                                                  | 2016 | Read        | Yes    | Skimmed     | High      | High     | Yes  | :Benchmark:ignore:                  |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+| Case       | DONE | [[https://doi.org/10.1057/9781137366474_4][Downey and Stanyer- Using Fuzzy Set Qualitative Comparative Analysis in comparative political communication research: Applying Fuzzy Set theoretic thinking to small-N case-oriented research]]        | 2014 | File        | No     | NotFound    | Low       | None     | No   | :Proposal:ignore:                   |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+| Thechnical | TODO | [[https://www.jstor.org/stable/23563601][Emmenegger, Kvist and Skaaning - Making the most of configurational comparative analysis: An assessment of QCA applications in comparative welfare-state research]]                                    | 2013 | Read        | Yes    | Skimmed     | High      | High     | Yes  | :Review:ignore:                     |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+| Case       | TODO | [[https://pdfs.semanticscholar.org/7624/660320e7a032012245a4bbd20dd3397e77bd.pdf][Marx, Rihoux and Ragin - The origins, development, and application of Qualitative Comparative Analysis The first 25 years]]                                                                            | 2013 | Read        | Yes    | Skimmed     | High      | Regular  | Yes  | :Survey:ignore:                     |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+| Manual     | TODO | [[https://doi.org/10.1177/1525822X11433998][Basurto and Speer - Structuring the calibration of qualitative data as sets for Qualitative Comparative Analysis (QCA)]]                                                                               | 2012 | Read        | Yes    | Skimmed     | Regular   | High     | Wait | :BestPractices:ignore:              |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+| Manual     |      | [[https://doi.org/10.1017/CBO9781139004244][Schneider and  Wagemann - Set-Theoretic Methods for the Social Sciences A Guide to Qualitative Comparative Analysis]]                                                                                  | 2012 | File        | Yes    | Skimmed     | Regular   | Regular  | Wait | :ignore:                            |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+| Thechnical | TODO | [[https://journals.sagepub.com/doi/10.1177/0049124111404818][Skaaning - Assessing the robustness of crisp-set and fuzzy-set QCA results]]                                                                                                                           | 2011 | Read        | Yes    | Skimmed     | High      | High     | Yes  | :Robustness:ignore:                 |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+| Case       | DONE | [[https://mlkrook.org/pdf/Krook_PS_2010.pdf][Krook - Women's representation in parliament: A Qualitative Comparative Analysis]]                                                                                                                     | 2010 | Skip        | No     | Skimmed     | None      | Low      | No   | :Political:ignore:                  |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+| Case       | DONE | [[https://doi.org/10.1177%2F0267323110384256][Downey and Stanyer - Comparative media analysis: Why some fuzzy thinking might help. Applyting fuzzy set qualitative comparative analysis to the personalization of mediated political communication]] | 2010 | File        | No     | Skimmed     | Low       | None     | No   | :Proposal:ignore:                   |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+| Manual     | TODO | [[https://us.sagepub.com/sites/default/files/upm-assets/23236_book_item_23236.pdf][Berg-Schlosser, De Meur, Rihoux, and Ragin - Qualitative Comparative Analysis (QCA) as an approach]]                                                                                                   | 2009 | Read        | Yes    | Reading     | Regular   | Reagular | Yes  | :ignore:                            |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+| Theory     | TODO | [[https://dx.doi.org/10.4135/9781452226569.n7][De Meur Rihoux and Yamasaki - Addressing the critiques on QCA]]                                                                                                                                        | 2009 | Read        | Yes    | NotFound    | High      | Regular  | Yes  | :Critique:noexport:                 |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+| Manual     | TODO | [[https://dx.doi.org/10.4135/9781452226569.n5][Ragin - Qualitative Comparative Analysis using Fuzzy Sets (fsQCA)]]                                                                                                                                    | 2009 | Read        | Yes    | Skimmed     | High      | High     | Yes  | :ignore:Manual:                     |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+|            |      | [[https://dx.doi.org/10.4135/9781446249413.n13][Rihoux and Lobe - The case for Qualitative Comparative Analysis (QCA): Adding leverage for thick cross-case comparison]]                                                                               | 2009 | File        | No     | NotFound    |           |          | Wait | :ignore:                            |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+| Theory     |      | [[http://www.u.arizona.edu/~cragin/fsQCA//download/Counterfactuals.pdf][Ragin and Sonnett - Between complexity and parsimony: Limited diversity, counterfactual cases, and comparative analysis]]                                                                              | 2005 | Skim        | Yes    | Downloaded  | Regular   | Regular  | Wait | :ignore:Counterfactuals:            |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+| Theory     | DONE | [[https://doi.org/10.1007/BF02686286][Ragin - Core versus Tangential Assumptions in Comparative Research]]                                                                                                                                   | 2005 | File        | Yes    | Skimmed     | Low       | Low      | No   | :ignore:                            |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+| Theory     | TODO | [[https://doi.org/10.1177%2F1525822X03257690][Rihoux - Bridging the Gap between the Qualitative and Quantitative Worlds? A Retrospective and Prospective View on Qualitative Comparative Analysis]]                                                  | 2003 | PartialRead | Yes    | Skimmed     | Regular   | Regular  | Wait | :Manual:noexport:                   |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+| Manual     | TODO | [[https://press.uchicago.edu/ucp/books/book/chicago/F/bo3635786.html][Ragin - Fuzzy-set social science]]                                                                                                                                                                     | 2000 | PartialRead | Yes    | Downaloaded | Regular   | High     | Yes  | :Cacnonical:Manual:ignore:noexport: |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+| Manual     |      | [[https://www.amazon.com.br/Comparative-Method-Qualitative-Quantitative-Strategies/dp/0520280032][Ragin - The comparative method. Moving beyond qualitative and quantitative strategies]]                                                                                                                | 1987 | PartialRead | Yes    | Downloaded  | Regular   | Regular  | Yes  | :Cacnonical:ignore:                 |
+|------------+------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------+--------+-------------+-----------+----------+------+-------------------------------------|
+|            |      | Report                                                                                                                                                                                               |      |             |        |             |           |          |      | :ignore:                            |
+#+END:
 
 * Mortgaging
 
