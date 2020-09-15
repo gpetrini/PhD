@@ -1,10 +1,12 @@
-#+OPTIONS: num:nil 
- #+REVEAL_THEME: night
+#+REVEAL_THEME:beige
+#+OPTIONS: num:nil toc:1 
 #+Title: Resenha acadêmica
-#+Author: Gabriel Petrini
+#+Author: PED: Gabriel Petrini
 #+Email: gpetrinidasilveira@gmail.com
 #+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js
-#+DATE: Setembro de 2020
+#+DATE: 21 de Setembro de 2020
+#+OPTIONS: timestamp:nil
+#+LANGUAGE: pt_BR
 
 * Introdução
 
@@ -12,35 +14,176 @@
 
 Reflexão sobre um texto de outro
 
-
 - Propósito específico
+- Leitura ativa
 
-*Importante:* Resenha $\neq$ Resumo
+*Importante:* Resenha $\neq$ Resumo $\neq$ Fichamento
+
+#+BEGIN_NOTES
+*Resumo:* Condensação de um texto preservando a intenção do autor
+#+END_NOTES
+
 
 ** E uma resenha acadêmica?
 
-* Etapas
+Existem vários tipos de resenha, vamos nos ater à _resenha acadêmica_.
+
+Posicionamento crítico do objeto analisado em que são apresentadas relações entre seus elementos mais importantes:
+
+- Contextualização
+- Questões centrais
+- Como argumento é construído
+
+** Etapas para elaborar uma resenha
+
+
 
 #+BEGIN_SRC dot :file esquema.png
-digraph G{
-"Ler" -> "Refletir" -> "Resenhar";
+digraph L {
+  a  [label="LER"]
+  b  [label="REFLETIR"]
+  c  [label="ESCREVER"]
+  d  [label="SISTEMATIZAR"]
+
+subgraph cluster_2 {
+label="Resenha";
+subgraph cluster_0 {
+label="Resumo";
+	  a -> c;
+}
+subgraph cluster_1 {
+label="Leitura ativa";
+	a -> b;
+	b -> d;
+}
+
+	d -> c;
+}
+label="Um esquema óbvio, mas necessário";
 }
 #+END_SRC
 
-** Ler
+#+RESULTS:
+[[file:esquema.png]]
+
+* Como ler um texto acadêmico?
+
+A leitura ativa é a parte mais importante no processo de uma resenha. A escrita é o resultado.
+Segue uma _sugestão_ de como ler um texto acadêmico:
+
+~FISH-5SS~
+
+** O que preciso saber?
+    
+FISH!
+
+- *F* ield: Área do texto $\Rightarrow$ Com quem os autores estão dialogando?
+- *I* mportance: Relevância $\Rightarrow$ Por que este texto está sendo resenhado?
+- *S* upporting ideias/data: Embasamento teórico/Empírico $\Rightarrow$ Quais as informações prévias para a compreensão do texto?
+- *H* ypothesis: Quais são as hipóteses centrais?
 
 
-** Escrever
+#+BEGIN_NOTES
+Este é um esqueleto que eu uso em alguns casos em que acho pertinente. Um dos motivos pelo qual gosto desta forma é a flexibilidade.
+Obviamente é possível incluir outros elementos importantes como é o caso da *Metodologia* adotada
 
-*** Escrever um texto acadêmico
+Lembrando mais uma vez que é apenas uma sugestão. Existem inúmeras alternativas ao FISH:
 
-*Conhecimento acadêmico:* Capacidade de escrever um parágrafo coeso sobre algo
+- Dar títulos aos parágrafos
+- Mapas mentais/fluxosgramas
 
-* FISH-5SS
+*Importante:* Se não conseguiu detectar alguns desses elementos, pode ser o caso de uma leitura mal feita/passiva
+#+END_NOTES
 
-** FISH!
+** Como sei que sei?
 
-- *F* ield:
-- *I* mportnace:
-- *S* upporting ideias
-- *H* ypothesis
+5SS!
+
+*5 Seconds Syntesis:* Resumir a ideia ao mínimo possível
+
+- Um parágrafo que sintetiza os elementos centrais do texto a ser resenhado
+  - Capacidade de síntese é uma das mais importantes
+
+#+BEGIN_NOTES
+~Minha tese ficou longa porque não tive tempo de escrever pouco~
+
+Carlos Lessa
+#+END_NOTES
+
+* Como escrever uma resenha acadêmica?
+
+** O conhecimento e o texto acadêmico
+
+*Conhecimento acadêmico:* Saber algo é a capacidade de escrever um parágrafo coeso sobre isso
+
+
+*Quanto preciso saber para escrever?:*
+
+- Uma primeira aproximação é a partir da esquematização proposta pelo método FISH
+- Outra informação relevante é sobre o limite de páginas
+  - Isso irá /delimitar/ quantos parágrafos (ideias coesas) a resenha terá
+
+
+** Enfim, a resenha
+
+Feita a leitura _ativa_ do texto, sistematizados seus principais elementos, basta organizar as ideias de forma coesa. 
+
+#+BEGIN_NOTES
+Seguem algumas perguntas que podem guiar as resenhas desta disciplina:
+#+END_NOTES
+
+- Como o contexto se relaciona com as hipóteses adotadas? São razoáveis?
+- Em que medida estas ideias se diferenciam das anteriores? Existem elementos em comum?
+- Quais são as implicações e proposições macroeconômicas?
+- *Memo:* Resenha não é resumo. Não é necessário preservar a sequência e/ou intenção do autor
+
+#+BEGIN_NOTES
+Qual a importância da visão predominante na época em que outras ideias foram propostas?
+- Em que medida a expressividade na Síntese Neoclássica foi relevante para as escolas que a sucederam?
+#+END_NOTES
+
+* O que esperamos das resenhas?
+
+** Instruções
+
+** Elementos
+
+- Título do texto a ser resenhado
+- Quais são as questões centrais?
+- Como o argumento é construído?
+
+** Cronograma
+
+| Resenha                       | Data  |
+|-------------------------------+-------|
+| Monetaristas                  | 19/10 |
+| Novos Clássicos               | 09/11 |
+| Novos Keynesianos             | 23/11 |
+| Modelo de Metas para Inflação | 30/11 |
+|-------------------------------+-------|
+
+* Referências
+
+- [[https://posgraduando.com/fish-qtcr-5ss-leitura-artigos/][Método FISH/5SS]]
+- [[https://www.youtube.com/watch?v=vECQOychZyY][O que é um parágrafo?]]
+
+** Obrigado                                                         
+  :PROPERTIES:
+  :EXPORT_OPTIONS: toc:nil
+  :END:
+
+#+REVEAL_HTML:<iframe src='https://gfycat.com/ifr/GratefulCavernousCanine' allowfullscreen width='640' height='412'></iframe>
+
+* Como saber o que escrever? 
+
+
+*Memo:* Saber algo é a capacidade de escrever um parágrafo coeso sobre isso
+
+#+CAPTION: [[https://www.youtube.com/watch?v=vECQOychZyY][O que é um parágrafo?]]
+|-----------------------------------------------------------------------+-------------------|
+| Qual a dificuldade do leitor ao se deparar com este conhecimento?     | Tipo de parágrafo |
+|-----------------------------------------------------------------------+-------------------|
+| "Acreditar"                                                           | Auxiliador        |
+| Compreender                                                           | Dissertativo      |
+| Concordar                                                             | Argumentativo     |
+|-----------------------------------------------------------------------+-------------------|
