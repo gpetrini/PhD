@@ -1,53 +1,2097 @@
 #+PROPERTY: header-args :tangle "QCA.bibtex"
 #+TITLE: Qualitative Comparative Analysis (QCA) readings
 #+AUTHOR: Gabriel Petrini
-#+LaTeX_HEADER: \usepackage[style=abnt,noslsn, extrayear, uniquename=init, giveninits,justify,sccite,	scbib, repeattitles, doi=false,isbn=false,url=false, maxcitenames=2, natbib=true,backend=biber]{biblatex}
-#+LATEX_HEADER: \bibliography{QCA.bib}
-#+LATEX_HEADER: \usepackage[right=2cm, left=2cm, top=2cm, bottom=2cm]{geometry}
+#+ARCHIVE: %s_read::
+#+TODO: READ SKIM PARTIAL WAIT MAYBE | REF REPORT DONE ARCH
+#+PROPERTY: header-args:bibtex :tangle QCA.bib :exports none
 
-#+BEGIN_SRC sh  :exports none
-cp QCA.bibtex QCA.bib
-#+END_SRC
+* HTML headers                                              :noexport:ignore:
 
-* Case study                                                     :CaseStudy:
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
 
-** \citeauthor{lili_dynamic_2020}: \citetitle{lili_dynamic_2020} :fsQCA:China:
+#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+#+HTML_HEAD: <style> #content{max-width:1800px;}</style>
+#+CSL_STYLE: associacao-brasileira-de-normas-tecnicas-ipea.csl
 
-#+BEGIN_SRC bibtex :tangle yes  :exports none
-@article{lili_dynamic_2020,
-	title = {On {Dynamic} {Mechanism} of {Chinese} {Individual} {Champions}’ {Business} {Model} {Innovation}—{A} {Fuzzy} {Set} {Qualitative} {Comparative} {Analysis} ({fsQCA})},
-	volume = {4},
-	abstract = {The core competitive advantages of manufacturing Individual Champions are formed by the continuous business model innovation, which provides an enlightening new idea for cultivating more "specialized and innovative" Individual Champion. Based on the theoretical framework of TOE (technology - organization - environment), the paper explores the dynamic mechanism of 81 listed Individual Champions’ business model innovation by using the fuzzy-set Qualitative Comparative Analysis (fsQCA) method. The result shows that: Individual Champion’ s business model innovation can be attributed to technology-oriented, market-oriented and technology-market-oriented, and Marketoriented business model innovation covers the most enterprises. R\&D investment at the technical level and social networks at the organizational level play an important role in business model innovation. In technology-oriented business model innovation, there is a substitution relationship between technology introduction and R\&D investment. The conclusion of this paper can provide theoretical reference and practical enlightenment for manufacturing enterprises to select and cultivate the driving force of business model innovation.},
-	number = {7},
-	author = {Lili, Yang and Li, Hua and Jia, Xinlong},
-	year = {2020},
-	pages = {5},
-	file = {Li - On Dynamic Mechanism of Chinese Individual Champio.pdf:/home/gpetrini/Zotero/storage/8UPEMVA6/Li - On Dynamic Mechanism of Chinese Individual Champio.pdf:application/pdf}
+
+
+* [#A] Reviews
+:PROPERTIES:
+:COLUMNS:  %6TYPE %7TODO(Decision) %20ITEM(Title) %4YEAR %8STATUS %7RELEVANCE %7IMPACT %4CITE
+:TYPE_ALL: Theory Method Case Manual Other Thechnical Review
+:DECISION_ALL: Read File Skip PartialRead
+:ZOTERO_ALL: Yes No Partial Entry
+:STATUS_ALL: Reading Searching Abandoned Finished Skimmed NotFound 404 Downloaded Filed
+:RELEVANCE_ALL: High Regular Low None
+:IMPACT_ALL: High Regular Low None
+:CITE_ALL: Yes No Wait
+:YEAR: 
+:UNNUMBERED: t
+:END:  
+
+
+** REF [#A] [[https://doi.org/10.1016/j.jik.2016.12.002][Roig-Tierno et al - An overview of qualitative comparative analysis: A bibliometric analysis]] :Review:Bibliometric:
+   CLOSED: [2020-09-16 qua 18:57]
+   :PROPERTIES:
+   :YEAR:     2017
+   :ZOTERO:   Yes
+   :TYPE:     Review
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:    
+** REF [#A] [[https://doi.org/10.1016/j.jbusres.2015.10.010][Wagemann Buche and Siewert - QCA and business research: Work in progress or a consolidated agenda?]] :Review:
+   CLOSED: [2020-09-16 qua 11:56]
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2016
+   :TYPE: Review
+   :STATUS:   Skimmed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE: Yes
+   :END:    
+
+** REF [#B] [[https://doi.org/10.1016/j.jbusres.2020.05.003][Research methods in business: Quantitative and qualitative comparative analysis]] :Survey:Business:
+   CLOSED: [2020-09-16 qua 15:40]
+   :PROPERTIES:
+   :YEAR:     2020
+   :ZOTERO:   Entry
+   :TYPE:     Review
+   :STATUS:   Finished
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:    
+** REF [#C] [[https://doi.org/10.1007/s11365-017-0461-8][Kraus, Ribeiro-Soriano and Schüssler -  Fuzzy-set qualitative comparative analysis (fsQCA) in entrepreneurship and innovation research – the rise of a method]] :ignore:Survey:
+   CLOSED: [2020-09-16 qua 18:55]
+   :PROPERTIES:
+   :YEAR:     2018
+   :ZOTERO:   Entry
+   :TYPE:     Review
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:    
+** MAYBE [#C] [[https://doi.org/10.1177%2F0010414013519410][Mahoney and Vanderpoel - Set Diagrams and Qualitative Research]] :Visualization:ignore:
+   :PROPERTIES:
+   :YEAR:     2014
+   :ZOTERO:   Entry
+   :TYPE:     Other
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   None
+   :CITE:     No
+   :END:    
+
+** REF [#C] Review Survey
+   CLOSED: [2020-09-18 sex 16:05]
+
+#+BEGIN: columnview :maxlevel 3 :id local
+| TYPE   | Decision | Title                                                                                                                                                         | YEAR | STATUS   | RELEVANCE | IMPACT | CITE |
+|--------+----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+------+----------+-----------+--------+------|
+|        |          | Reviews                                                                                                                                                       |      |          |           |        |      |
+| Review | REF      | [[https://doi.org/10.1016/j.jbusres.2020.05.003][Research methods in business: Quantitative and qualitative comparative analysis]]                                                                               | 2020 | Finished | Low       | Low    | Yes  |
+| Review | REF      | [[https://doi.org/10.1007/s11365-017-0461-8][Kraus, Ribeiro-Soriano and Schüssler -  Fuzzy-set qualitative comparative analysis (fsQCA) in entrepreneurship and innovation research – the rise of a method]] | 2018 | Filed    | Low       | Low    | Yes  |
+| Review | REF      | [[https://doi.org/10.1016/j.jik.2016.12.002][Roig-Tierno et al - An overview of qualitative comparative analysis: A bibliometric analysis]]                                                                  | 2017 | Filed    | Low       | Low    | Yes  |
+| Review | REF      | [[https://doi.org/10.1016/j.jbusres.2015.10.010][Wagemann Buche and Siewert - QCA and business research: Work in progress or a consolidated agenda?]]                                                            | 2016 | Skimmed  | Low       | Low    | Yes  |
+| Other  | MAYBE    | [[https://doi.org/10.1177%2F0010414013519410][Mahoney and Vanderpoel - Set Diagrams and Qualitative Research]]                                                                                                | 2014 | Filed    | Low       | None   | No   |
+|        | REF      | Review Survey                                                                                                                                                 |      |          |           |        |      |
+#+END
+
+* [#A] Manuals
+:PROPERTIES:
+     :COLUMNS:  %7TODO(Decision) %20ITEM(Title) %4YEAR %SOFTWARE(Technology)  %8STATUS %7RELEVANCE %7IMPACT %4CITE
+     :TYPE_ALL: Theory Method Case Manual Other Thechnical Review
+     :DECISION_ALL: Read File Skip PartialRead
+     :ZOTERO_ALL: Yes No Partial Entry
+     :STATUS_ALL: Reading Searching Abandoned Finished Skimmed NotFound 404 Downloaded Filed
+     :RELEVANCE_ALL: High Regular Low None
+     :IMPACT_ALL: High Regular Low None
+     :CITE_ALL: Yes No Wait
+     :YEAR:
+     :UNNUMBERED: t
+     :BIBTEX_AL: Yes Partial Revise No
+     :SOFTWARE_ALL: R Python Tosmana Kirq fsQCA Other None
+:END:  
+
+
+** READ [#A] [[https://doi.org/10.1177%2F1098214016673902][Theim - Conducting Configurational Comparative Research With Qualitative Comparative Analysis: A Hands-On Tutorial for Applied Evaluation Scholars and Practitioners]] :BestPractices:BenchMark:
+   :PROPERTIES:
+   :YEAR:     2016
+   :ZOTERO:   Yes
+   :TYPE:     Manual
+   :STATUS:   Skimmed
+   :RELEVANCE: Regular
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :BIBTEX: Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Thiem_2016,
+  author       = {Thiem, Alrik},
+  title	       = {Conducting Configurational Comparative Research With
+                  Qualitative Comparative Analysis},
+  year	       = 2016,
+  volume       = 38,
+  number       = 3,
+  month	       = {Nov},
+  pages	       = {420–433},
+  issn	       = {1557-0878},
+  doi	       = {10.1177/1098214016673902},
+  url	       = {http://dx.doi.org/10.1177/1098214016673902},
+  journal      = {American Journal of Evaluation},
+  publisher    = {SAGE Publications}
 }
 #+END_SRC
 
+** READ [#B] [[https://doi.org/10.1057/s41304-017-0142-7][Radaelli and Wagemann -  What did I leave out? Omitted variables in regression and qualitative comparative analysis]] :Estimation:Ommited:Comparison:
+   :PROPERTIES:
+   :YEAR:     2019
+   :ZOTERO:   Yes
+   :TYPE:     Manual
+   :STATUS:   Downloaded
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Radaelli_2018,
+  author       = {Radaelli, Claudio M. and Wagemann, Claudius},
+  title	       = {What did I leave out? Omitted variables in
+                  regression and qualitative comparative analysis},
+  year	       = 2018,
+  volume       = 18,
+  number       = 2,
+  month	       = {Jan},
+  pages	       = {275–290},
+  issn	       = {1682-0983},
+  doi	       = {10.1057/s41304-017-0142-7},
+  url	       = {http://dx.doi.org/10.1057/s41304-017-0142-7},
+  journal      = {European Political Science},
+  publisher    = {Springer Science and Business Media LLC}
+}
+#+END_SRC
+
+** READ [#B] [[https://stefanverweij.eu/wp-content/uploads/2018/09/2018-Edward-Elgar-Gerrits-Verweij.pdf][Gerrits and Verweij - The evaluation of complex infrastructure projects]] :BestPractices:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2018
+   :TYPE: Manual
+   :STATUS:   Searching
+   :RELEVANCE: Regular
+   :IMPACT: High
+   :CITE: Wait
+   :END:    
+** READ [#B] [[https://dx.doi.org/10.4135/9781452226569.n5][Ragin - Qualitative Comparative Analysis using Fuzzy Sets (fsQCA)]] :Manual:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2009
+   :TYPE: Manual
+   :STATUS: Skimmed
+   :RELEVANCE: High
+   :IMPACT: High
+   :CITE: Yes
+   :BIBTEX: Yes
+   :END:    
+   
+#+BEGIN_SRC bibtex
+@Article{Ragin,
+  author       = {Ragin, Charles C.},
+  title	       = {Qualitative Comparative Analysis using Fuzzy Sets
+                  (fsQCA)},
+  pages	       = {87–122},
+  doi	       = {10.4135/9781452226569.n5},
+  url	       = {http://dx.doi.org/10.4135/9781452226569.n5},
+  isbn	       = 9781452226569,
+  journal      = {Configurational Comparative Methods: Qualitative
+                  Comparative Analysis (QCA) and Related Techniques},
+  publisher    = {SAGE Publications, Inc.}
+}
+
+#+END_SRC
+
+** READ [#C] [[https://us.sagepub.com/sites/default/files/upm-assets/23236_book_item_23236.pdf][Berg-Schlosser, De Meur, Rihoux, and Ragin - Qualitative Comparative Analysis (QCA) as an approach]] :Canonical:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2009
+   :TYPE: Manual
+   :STATUS: Reading
+   :RELEVANCE: Regular
+   :IMPACT: Reagular
+   :CITE: Yes
+   :END:    
+** SKIM [#B] [[https://www.researchgate.net/deref/http%3A%2F%2Fdx.doi.org%2F10.1163%2F156913210X12493538729793][Schneider and Wagemann - Standards of good practice in qualitative comparative analysis (QCA) and fuzzy-sets]] :fsQCA:BestPractices:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2010
+   :TYPE: Manual
+   :STATUS: Downloaded
+   :RELEVANCE: Regular
+   :IMPACT: Low
+   :CITE: Wait
+   :END:    
+
+** WAIT [#A] [[https://dx.doi.org/10.4135/9781452226569.n2][Berg-Schlosser and De Meur - Comparative research design: Case and variable selection]] :Selection:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2009
+   :TYPE:
+   :STATUS: NotFound
+   :RELEVANCE:
+   :IMPACT:
+   :DECISION:
+   :CITE:
+   :END:    
+
+** WAIT [#B] [[https://doi.org/10.1177%2F0049124194023001002][Amenta and Poulsen: Where to begin: A survey of five approaches to selecting independent variables for  qualitative-comparative analysis]] :BestPractices:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 1994
+   :TYPE: Manual
+   :STATUS: Skimmed
+   :RELEVANCE: Low
+   :IMPACT: High
+   :CITE: Wait
+   :END:    
+
+
+#+BEGIN_SRC bibtex
+@Article{AMENTA_1994,
+  author       = {AMENTA, EDWIN and POULSEN, JANE D.},
+  title	       = {Where to Begin},
+  year	       = 1994,
+  volume       = 23,
+  number       = 1,
+  month	       = {Aug},
+  pages	       = {22–53},
+  issn	       = {1552-8294},
+  doi	       = {10.1177/0049124194023001002},
+  url	       = {http://dx.doi.org/10.1177/0049124194023001002},
+  journal      = {Sociological Methods & Research},
+  publisher    = {SAGE Publications}
+}
+#+END_SRC
+
+** WAIT [#C] [[http://www.socsci.uci.edu/~cragin/fsQCA/software.shtml][Ragin - User's guide to Fuzzy-set / Qualitative Comparative Analysis]] :ignore:Software:
+   :PROPERTIES:
+   :ZOTERO: No
+   :YEAR: 2017
+   :TYPE: Manual
+   :STATUS: Skimmed
+   :RELEVANCE: Regular
+   :IMPACT: Regular
+   :CITE: No
+   :END:    
+
+** WAIT [#C] [[https://doi.org/10.5281/zenodo.893091][Wagemann and Schneider - Transparency standards in qualitative comparative analysis]] :BestPractices:
+   :PROPERTIES:
+   :YEAR: 2015
+   :ZOTERO:   Yes
+   :TYPE:     Manual
+   :STATUS:   Skimmed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE: Wait
+   :END:    
+** WAIT [#C] [[https://press.uchicago.edu/ucp/books/book/chicago/F/bo3635786.html][Ragin - Fuzzy-set social science]] :Cacnonical:Manual:ignore:noexport:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2000
+   :TYPE: Manual
+   :STATUS: Downaloaded
+   :RELEVANCE: Regular
+   :IMPACT: High
+   :CITE: Yes
+   :END:    
+
+*Part to Read:* Part Two and fowards
+
+** MAYBE [#A] [[https://doi.org/10.2307/2110917][Cioffi-Revilla -  Fuzzy Sets and Models of International Relations]] :Fuzzy:Mathematical:ignore:
+   :PROPERTIES:
+   :YEAR:     1981
+   :ZOTERO:   Yes
+   :TYPE:     Thechnical
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Cioffi_Revilla_1981,
+  author       = {Cioffi-Revilla, Claudio A.},
+  title	       = {Fuzzy Sets and Models of International Relations},
+  year	       = 1981,
+  volume       = 25,
+  number       = 1,
+  month	       = {Feb},
+  pages	       = 129,
+  issn	       = {0092-5853},
+  doi	       = {10.2307/2110917},
+  url	       = {http://dx.doi.org/10.2307/2110917},
+  journal      = {American Journal of Political Science},
+  publisher    = {JSTOR}
+}
+#+END_SRC
+** MAYBE [#C] [[https://www.amazon.com.br/Comparative-Method-Qualitative-Quantitative-Strategies/dp/0520280032][Ragin - The comparative method. Moving beyond qualitative and quantitative strategies]] :Canonical:ignore:
+   :PROPERTIES: 
+   :ZOTERO: Yes
+   :YEAR: 1987
+   :TYPE: Manual
+   :STATUS: Downloaded
+   :RELEVANCE: Regular 
+   :IMPACT: Regular
+   :CITE: Yes
+   :END:    
+
+** REF [#C] [[https://doi.org/10.1177/1525822X11433998][Basurto and Speer - Structuring the calibration of qualitative data as sets for Qualitative Comparative Analysis (QCA)]] :BestPractices:ignore:
+   CLOSED: [2020-09-18 sex 14:28]
+   :PROPERTIES:
+   :ZOTERO:   Yes
+   :YEAR:     2012
+   :TYPE:     Manual
+   :STATUS:   Skimmed
+   :RELEVANCE: Regular
+   :IMPACT:   High
+   :CITE:     Wait
+   :BIBTEX: Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Basurto_2012,
+  author       = {Basurto, Xavier and Speer, Johanna},
+  title	       = {Structuring the Calibration of Qualitative Data as
+                  Sets for Qualitative Comparative Analysis (QCA)},
+  year	       = 2012,
+  volume       = 24,
+  number       = 2,
+  month	       = {Apr},
+  pages	       = {155–174},
+  issn	       = {1552-3969},
+  doi	       = {10.1177/1525822x11433998},
+  url	       = {http://dx.doi.org/10.1177/1525822X11433998},
+  journal      = {Field Methods},
+  publisher    = {SAGE Publications}
+}
+#+END_SRC
+
+
+
+** REF [#C] Manual Survey
+   CLOSED: [2020-09-18 sex 14:54]
+
+#+BEGIN: columnview :maxlevel 3 :id local
+| Decision | Title                                                                                                                                                                | YEAR | Technology | STATUS      | RELEVANCE | IMPACT   | CITE |
+|----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+------------+-------------+-----------+----------+------|
+|          | Manuals                                                                                                                                                              |      |            |             |           |          |      |
+| READ     | [[https://doi.org/10.1177%2F1098214016673902][Theim - Conducting Configurational Comparative Research With Qualitative Comparative Analysis: A Hands-On Tutorial for Applied Evaluation Scholars and Practitioners]] | 2016 |            | Skimmed     | Regular   | Regular  | Yes  |
+| READ     | [[https://doi.org/10.1057/s41304-017-0142-7][Radaelli and Wagemann -  What did I leave out? Omitted variables in regression and qualitative comparative analysis]]                                                  | 2019 |            | Downloaded  | Regular   | Low      | Wait |
+| READ     | [[https://stefanverweij.eu/wp-content/uploads/2018/09/2018-Edward-Elgar-Gerrits-Verweij.pdf][Gerrits and Verweij - The evaluation of complex infrastructure projects]]                                                                                              | 2018 |            | Searching   | Regular   | High     | Wait |
+| READ     | [[https://dx.doi.org/10.4135/9781452226569.n5][Ragin - Qualitative Comparative Analysis using Fuzzy Sets (fsQCA)]]                                                                                                    | 2009 |            | Skimmed     | High      | High     | Yes  |
+| READ     | [[https://us.sagepub.com/sites/default/files/upm-assets/23236_book_item_23236.pdf][Berg-Schlosser, De Meur, Rihoux, and Ragin - Qualitative Comparative Analysis (QCA) as an approach]]                                                                   | 2009 |            | Reading     | Regular   | Reagular | Yes  |
+| SKIM     | [[https://www.researchgate.net/deref/http%3A%2F%2Fdx.doi.org%2F10.1163%2F156913210X12493538729793][Schneider and Wagemann - Standards of good practice in qualitative comparative analysis (QCA) and fuzzy-sets]]                                                         | 2010 |            | Downloaded  | Regular   | Low      | Wait |
+| WAIT     | [[https://dx.doi.org/10.4135/9781452226569.n2][Berg-Schlosser and De Meur - Comparative research design: Case and variable selection]]                                                                                | 2009 |            | NotFound    |           |          |      |
+| WAIT     | [[https://doi.org/10.1177%2F0049124194023001002][Amenta and Poulsen: Where to begin: A survey of five approaches to selecting independent variables for  qualitative-comparative analysis]]                             | 1994 |            | Skimmed     | Low       | High     | Wait |
+| WAIT     | [[http://www.socsci.uci.edu/~cragin/fsQCA/software.shtml][Ragin - User's guide to Fuzzy-set / Qualitative Comparative Analysis]]                                                                                                 | 2017 |            | Skimmed     | Regular   | Regular  | No   |
+| WAIT     | [[https://doi.org/10.5281/zenodo.893091][Wagemann and Schneider - Transparency standards in qualitative comparative analysis]]                                                                                  | 2015 |            | Skimmed     | Low       | Low      | Wait |
+| WAIT     | [[https://press.uchicago.edu/ucp/books/book/chicago/F/bo3635786.html][Ragin - Fuzzy-set social science]]                                                                                                                                     | 2000 |            | Downaloaded | Regular   | High     | Yes  |
+| MAYBE    | [[https://www.amazon.com.br/Comparative-Method-Qualitative-Quantitative-Strategies/dp/0520280032][Ragin - The comparative method. Moving beyond qualitative and quantitative strategies]]                                                                                | 1987 |            | Downloaded  | Regular   | Regular  | Yes  |
+| REF      | [[https://doi.org/10.1177/1525822X11433998][Basurto and Speer - Structuring the calibration of qualitative data as sets for Qualitative Comparative Analysis (QCA)]]                                               | 2012 |            | Skimmed     | Regular   | High     | Wait |
+| REF      | Manual Survey                                                                                                                                                        |      |            |             |           |          |      |
+#+END  
+
+
+* [#A] Theoretical                                              :Theoretical:
+:PROPERTIES:
+:COLUMNS:  %7TODO(Decision) %20ITEM(Title) %4YEAR %8STATUS %PRIORITY %7RELEVANCE %7IMPACT %4CITE %BIBTEX
+:TYPE_ALL: Theory Method Case Manual Other Thechnical Review
+:DECISION_ALL: Read File Skip PartialRead
+:ZOTERO_ALL: Yes No Partial Entry
+:STATUS_ALL: Reading Searching Abandoned Finished Skimmed NotFound 404 Downloaded Filed
+:RELEVANCE_ALL: High Regular Low None
+:IMPACT_ALL: High Regular Low None
+:CITE_ALL: Yes No Wait
+:YEAR:
+:UNNUMBERED: t
+:BIBTEX_ALL: Yes Partial Revise No
+:END:  
+
+
+** READ [#A] [[https://doi.org/10.1007/s11135-016-0338-x][Huarng and Yu -  Using qualitative approach to forecasting regime switches]] :StructBreak:Forecast:Financial:TimeSeries:
+   :PROPERTIES:
+   :YEAR:     2016
+   :ZOTERO:   Yes
+   :TYPE:     Theory
+   :STATUS:   Downloaded
+   :RELEVANCE: High
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
 #+ATTR_LATEX: :environment longtable :align l|p{.7\textwidth}
-|--------------------------------+---|
-|--------------------------------+---|
-| <30>                           |   |
-| *Background*                   |   |
-| *Supporting Ideas*             |   |
-| *Contribution*                 |   |
-| *Relevance*                    |   |
-| *Methods*                      |   |
-| *Results*                      |   |
-| *Interesting Findings*         |   |
-| *Critics*                      |   |
-| *Uncategorized stuff*          |   |
-|                                |   |
-|--------------------------------+---|
-|--------------------------------+---|
+|-----------------------------------------------+---------------------------------------------------------------------------------------------------|
+|-----------------------------------------------+---------------------------------------------------------------------------------------------------|
+| *Background*                                  |                                                                                                   |
+| *Supporting Ideas*                            |                                                                                                   |
+| *Purpose*                                     |                                                                                                   |
+| *Originality/value (Contribution)*            |                                                                                                   |
+| *Relevance*                                   | Presents an alternative to employ time series analysis (not models) with QCA for some time ranges |
+| *Design/methodology/approach*                 |                                                                                                   |
+| *Results*                                     |                                                                                                   |
+| *(Interesting) Findings*                      |                                                                                                   |
+| *Research limitations/implications (Critics)* |                                                                                                   |
+| *Uncategorized stuff*                         |                                                                                                   |
+| *5SS*                                         |                                                                                                   |
+|-----------------------------------------------+---------------------------------------------------------------------------------------------------|
+|-----------------------------------------------+---------------------------------------------------------------------------------------------------|
 
-* Theoretical                                                   :Theoretical:
-* References
-  :PROPERTIES:
-  :UNNUMBERED: t
-  :END:
-  #+LaTeX: \printbibliography[heading=none]
 
-  
+** READ [#A] [[https://waseda.pure.elsevier.com/en/publications/time-series-qca-studying-temporal-change-through-boolean-analysis][Hino -  Time-series QCA: Studying temporal change through Boolean analysis]] :TimeSeries:TQCA:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2009
+   :TYPE: Theory
+   :STATUS: Skimmed
+   :RELEVANCE: High
+   :IMPACT: Regular
+   :CITE: Yes
+   :END:    
+
+#+ATTR_LATEX: :environment longtable :align l|p{.7\textwidth}
+|-----------------------------------------------+------------------------------------------------------------|
+|-----------------------------------------------+------------------------------------------------------------|
+| *Background*                                  |                                                            |
+| *Supporting Ideas*                            |                                                            |
+| *Purpose*                                     |                                                            |
+| *Originality/value (Contribution)*            | Provides an alternative to use time series variable in QCA |
+| *Relevance*                                   |                                                            |
+| *Design/methodology/approach*                 |                                                            |
+| *Results*                                     |                                                            |
+| *(Interesting) Findings*                      |                                                            |
+| *Research limitations/implications (Critics)* |                                                            |
+| *Uncategorized stuff*                         |                                                            |
+| *5SS*                                         |                                                            |
+|-----------------------------------------------+------------------------------------------------------------|
+|-----------------------------------------------+------------------------------------------------------------|
+
+** READ [#B] [[http://www.compasss.org/wpseries/CooperGlaesserThomson2014.pdf][Schneider and Wagemann's proposed Enhanced Standard Analysis for Ragin's Qualitative Comparative Analysis: Some unresolved problems and some suggestions for addressing them]] :Estimation:Proposal:Comparison:
+   :PROPERTIES:
+   :ZOTERO: Partial
+   :YEAR: 2014
+   :TYPE: Theory
+   :STATUS: Downloaded
+   :RELEVANCE: Low
+   :IMPACT: Low
+   :CITE: Wait
+   :END:    
+
+#+ATTR_LATEX: :environment longtable :align l|p{.7\textwidth}
+|-----------------------------------------------+---|
+|-----------------------------------------------+---|
+| *Background*                                  |   |
+| *Supporting Ideas*                            |   |
+| *Purpose*                                     |   |
+| *Originality/value (Contribution)*            |   |
+| *Relevance*                                   |   |
+| *Design/methodology/approach*                 |   |
+| *Results*                                     |   |
+| *(Interesting) Findings*                      |   |
+| *Research limitations/implications (Critics)* |   |
+| *Uncategorized stuff*                         |   |
+| *5SS*                                         |   |
+|-----------------------------------------------+---|
+|-----------------------------------------------+---|
+
+
+** READ [#B] [[https://core.ac.uk/reader/45674020][Herrmann and Cronqvist -  Contradictions in qualitative comparative analysis (QCA): Ways out of the dilemma]] :Contradictions:Estimation:fsQCA:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2006
+   :TYPE: Theory
+   :STATUS: Skimmed
+   :RELEVANCE: Regular
+   :IMPACT: High
+   :CITE: Yes
+   :END:    
+
+** READ [#B] [[http://www.u.arizona.edu/~cragin/fsQCA//download/Counterfactuals.pdf][Ragin and Sonnett - Between complexity and parsimony: Limited diversity, counterfactual cases, and comparative analysis]] :LimitedDiversity:Counterfactuals:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2005
+   :TYPE: Theory
+   :STATUS: Downloaded
+   :RELEVANCE: Regular
+   :IMPACT: Regular
+   :DECISION: Skim
+   :CITE: Wait
+   :END:    
+
+#+ATTR_LATEX: :environment longtable :align l|p{.7\textwidth}
+|-----------------------------------------------+---|
+|-----------------------------------------------+---|
+| *Background*                                  |   |
+| *Supporting Ideas*                            |   |
+| *Purpose*                                     |   |
+| *Originality/value (Contribution)*            |   |
+| *Relevance*                                   |   |
+| *Design/methodology/approach*                 |   |
+| *Results*                                     |   |
+| *(Interesting) Findings*                      |   |
+| *Research limitations/implications (Critics)* |   |
+| *Uncategorized stuff*                         |   |
+| *5SS*                                         |   |
+|-----------------------------------------------+---|
+|-----------------------------------------------+---|
+
+
+** SKIM [#B] [[https://pdfs.semanticscholar.org/7624/660320e7a032012245a4bbd20dd3397e77bd.pdf][Marx, Rihoux and Ragin - The origins, development, and application of Qualitative Comparative Analysis The first 25 years]] :Survey:
+   :PROPERTIES:
+   :ZOTERO:   Yes
+   :YEAR:     2013
+   :TYPE:     Case
+   :STATUS:   Skimmed
+   :RELEVANCE: High
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :END:    
+
+*Section to Read*
+
+- Introduction  + Concluson
+- Recent developments in QCA
+
+** SKIM [#C] [[https://doi.org/10.4256%2Fmio.2010.0037][Marx and Duşa - Crisp-set qualitative comparative analysis (csQCA), contradictions and consistency benchmarks for model specification]] :Benchmark:csQCA:Contradictions:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2011
+   :TYPE: Theory
+   :STATUS: Skimmed
+   :RELEVANCE: High
+   :IMPACT: High
+   :CITE: Yes
+   :END:    
+
+*Parts to read:*
+
+- Benchmark values
+- Check comparison with fsQCA
+
+
+#+ATTR_LATEX: :environment longtable :align l|p{.7\textwidth}
+|-----------------------------------------------+---|
+|-----------------------------------------------+---|
+| *Background*                                  |   |
+| *Supporting Ideas*                            |   |
+| *Purpose*                                     |   |
+| *Originality/value (Contribution)*            |   |
+| *Relevance*                                   |   |
+| *Design/methodology/approach*                 |   |
+| *Results*                                     |   |
+| *(Interesting) Findings*                      |   |
+| *Research limitations/implications (Critics)* |   |
+| *Uncategorized stuff*                         |   |
+| *5SS*                                         |   |
+|-----------------------------------------------+---|
+|-----------------------------------------------+---|
+
+** PARTIAL [#C] [[https://www.sciencedirect.com/science/article/pii/S2444569X16300257][Roig-Tierno, Gonzalez-Cruz, and Llopis-Martinez -  An overview of qualitative comparative analysis: A bibliometric analysis]] :Bibliometric:Publication:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2017
+   :TYPE: Theory
+   :STATUS: Skimmed
+   :RELEVANCE: Regular
+   :IMPACT: Regular
+   :CITE: Wait
+   :END:    
+
+*Sections to Read:*
+
+- Bibliometrics: Skim for most relevant areas and journals
+
+#+ATTR_LATEX: :environment longtable :align l|p{.7\textwidth}
+|-----------------------------------------------+---------------------------------------------------------|
+|-----------------------------------------------+---------------------------------------------------------|
+| *Background*                                  |                                                         |
+| *Supporting Ideas*                            |                                                         |
+| *Purpose*                                     |                                                         |
+| *Originality/value (Contribution)*            |                                                         |
+| *Relevance*                                   |                                                         |
+| *Design/methodology/approach*                 |                                                         |
+| *Results*                                     |                                                         |
+| *(Interesting) Findings*                      | Shows which journls has most cited papers employing QCA |
+| *Research limitations/implications (Critics)* |                                                         |
+| *Uncategorized stuff*                         |                                                         |
+| *5SS*                                         |                                                         |
+|-----------------------------------------------+---------------------------------------------------------|
+|-----------------------------------------------+---------------------------------------------------------|
+
+
+** PARTIAL [#C] [[https://www.emerald.com/insight/content/doi/10.1108/S0733-558X(2013)0000038009/full/html][Hak, Jaspers and Dul The analysis of temporally ordered configurations: Challenges and solutions]] :TimeSeries:ignore:noexport:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2013
+   :TYPE: Theory
+   :STATUS: Skimmed
+   :RELEVANCE: Low
+   :IMPACT: High
+   :CITE: Yes
+   :END:    
+
+*Sections to Read:*
+
+- TEMPORAL QUALITATIVE COMPARATIVEANALYSIS (TQCA)
+- Skim forwards
+
+** WAIT [#B] [[https://doi.org/10.1111/j.1475-6765.2006.00635.x][Schneider and Wagemann - Reducing complexity in qualitative comparative analysis (QCA): Remote and proximate factors and the consolidation of democracy]] :Benchmark:Complexity:LimitedDiversity:Estimation:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2006
+   :TYPE: Theory
+   :STATUS: Downloaded
+   :RELEVANCE: Regular
+   :IMPACT: High
+   :DECISION: Skim
+   :CITE: Wait
+   :END:    
+
+*Reasons to Wait:* Read its critique first (a more recent paper). Check for other references in benchmarkmodels
+
+#+ATTR_LATEX: :environment longtable :align l|p{.7\textwidth}
+|-----------------------------------------------+---|
+|-----------------------------------------------+---|
+| *Background*                                  |   |
+| *Supporting Ideas*                            |   |
+| *Purpose*                                     |   |
+| *Originality/value (Contribution)*            |   |
+| *Relevance*                                   |   |
+| *Design/methodology/approach*                 |   |
+| *Results*                                     |   |
+| *(Interesting) Findings*                      |   |
+| *Research limitations/implications (Critics)* |   |
+| *Uncategorized stuff*                         |   |
+| *5SS*                                         |   |
+|-----------------------------------------------+---|
+|-----------------------------------------------+---|
+
+
+** WAIT [#C] [[https://doi.org/10.1179/rea.12.2.p663527490513071][Gerrits, and Verweij - Critical realism as a meta-framework for understanding the relationships between complexity and qualitative comparative analysis]] :Complexity:ignore:
+   :PROPERTIES:
+   :ZOTERO: Entry
+   :YEAR: 2013
+   :TYPE: Theory
+   :STATUS: Filed
+   :RELEVANCE: Low
+   :IMPACT: Regular
+   :CITE: Yes
+   :END:    
+** MAYBE [#B] [[https://doi.org/10.1007/s11135-007-9104-4][Aus - Conjunctural causation in comparative case-oriented research]] :ignore:Causality:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2009   
+   :TYPE: Theory
+   :STATUS: Skimmed
+   :RELEVANCE: Regular 
+   :IMPACT: Regular
+   :CITE: Wait
+   :END:    
+
+
+** MAYBE [#C] [[https://doi.org/10.1177%2F0002764219859641][Urlacher - Complexity, Causality, and Control in Statistical  Modeling]] :Complexity:Causality:Epistemological:ignore:
+    :PROPERTIES:
+    :YEAR:     2019
+    :ZOTERO:   Entry
+    :TYPE:     Theory
+    :STATUS:   Downloaded
+    :RELEVANCE: Low
+    :IMPACT:   Low
+    :CITE:     Wait
+    :END:    
+** REF [#C] [[https://doi.org/10.1177%2F0010414014565892][Thiem, Baumgartner and Bol - Still lost in translation! A correction of three misunderstandings between configurational comparativists and regressional analysts]] :Comparison:BooleanAlgebra:
+   CLOSED: [2020-09-18 sex 11:13]
+   :PROPERTIES:
+   :YEAR:     2016
+   :ZOTERO:   Yes
+   :TYPE:     Theory
+   :STATUS:   Skimmed
+   :RELEVANCE: Regular
+   :IMPACT:   Regular
+   :CITE: YES
+   :END:    
+
+*Reason for reference:* Explain why QCA is different from other quantitative methods such as regression
+
+#+ATTR_LATEX: :environment longtable :align l|p{.7\textwidth}
+|-----------------------------------------------+---|
+|-----------------------------------------------+---|
+| *Background*                                  |   |
+| *Supporting Ideas*                            |   |
+| *Purpose*                                     |   |
+| *Originality/value (Contribution)*            |   |
+| *Relevance*                                   |   |
+| *Design/methodology/approach*                 |   |
+| *Results*                                     |   |
+| *(Interesting) Findings*                      |   |
+| *Research limitations/implications (Critics)* |   |
+| *Uncategorized stuff*                         |   |
+| *5SS*                                         |   |
+|-----------------------------------------------+---|
+|-----------------------------------------------+---|
+
+
+
+
+
+
+** REF [#C] Survey Report
+   CLOSED: [2020-09-18 sex 11:45]
+
+#+BEGIN: columnview :maxlevel 3 :id local
+| Decision | Title                                                                                                                                                                        | YEAR | STATUS     | PRIORITY | RELEVANCE | IMPACT  | CITE | BIBTEX |
+|----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+------------+----------+-----------+---------+------+--------|
+|          | Theoretical                                                                                                                                                                  |      |            | A        |           |         |      |        |
+| READ     | [[https://doi.org/10.1007/s11135-016-0338-x][Huarng and Yu -  Using qualitative approach to forecasting regime switches]]                                                                                                   | 2016 | Downloaded | A        | High      | Low     | Wait |        |
+| READ     | [[https://waseda.pure.elsevier.com/en/publications/time-series-qca-studying-temporal-change-through-boolean-analysis][Hino -  Time-series QCA: Studying temporal change through Boolean analysis]]                                                                                                   | 2009 | Skimmed    | A        | High      | Regular | Yes  |        |
+| READ     | [[http://www.compasss.org/wpseries/CooperGlaesserThomson2014.pdf][Schneider and Wagemann's proposed Enhanced Standard Analysis for Ragin's Qualitative Comparative Analysis: Some unresolved problems and some suggestions for addressing them]] | 2014 | Downloaded | B        | Low       | Low     | Wait |        |
+| READ     | [[https://core.ac.uk/reader/45674020][Herrmann and Cronqvist -  Contradictions in qualitative comparative analysis (QCA): Ways out of the dilemma]]                                                                  | 2006 | Skimmed    | B        | Regular   | High    | Yes  |        |
+| READ     | [[http://www.u.arizona.edu/~cragin/fsQCA//download/Counterfactuals.pdf][Ragin and Sonnett - Between complexity and parsimony: Limited diversity, counterfactual cases, and comparative analysis]]                                                      | 2005 | Downloaded | B        | Regular   | Regular | Wait |        |
+| SKIM     | [[https://pdfs.semanticscholar.org/7624/660320e7a032012245a4bbd20dd3397e77bd.pdf][Marx, Rihoux and Ragin - The origins, development, and application of Qualitative Comparative Analysis The first 25 years]]                                                    | 2013 | Skimmed    | B        | High      | Regular | Yes  |        |
+| SKIM     | [[https://doi.org/10.4256%2Fmio.2010.0037][Marx and Duşa - Crisp-set qualitative comparative analysis (csQCA), contradictions and consistency benchmarks for model specification]]                                        | 2011 | Skimmed    | C        | High      | High    | Yes  |        |
+| PARTIAL  | [[https://www.sciencedirect.com/science/article/pii/S2444569X16300257][Roig-Tierno, Gonzalez-Cruz, and Llopis-Martinez -  An overview of qualitative comparative analysis: A bibliometric analysis]]                                                  | 2017 | Skimmed    | C        | Regular   | Regular | Wait |        |
+| PARTIAL  | [[https://www.emerald.com/insight/content/doi/10.1108/S0733-558X(2013)0000038009/full/html][Hak, Jaspers and Dul The analysis of temporally ordered configurations: Challenges and solutions]]                                                                             | 2013 | Skimmed    | C        | Low       | High    | Yes  |        |
+| WAIT     | [[https://doi.org/10.1111/j.1475-6765.2006.00635.x][Schneider and Wagemann - Reducing complexity in qualitative comparative analysis (QCA): Remote and proximate factors and the consolidation of democracy]]                      | 2006 | Downloaded | B        | Regular   | High    | Wait |        |
+| WAIT     | [[https://doi.org/10.1179/rea.12.2.p663527490513071][Gerrits, and Verweij - Critical realism as a meta-framework for understanding the relationships between complexity and qualitative comparative analysis]]                      | 2013 | Filed      | C        | Low       | Regular | Yes  |        |
+| MAYBE    | [[https://doi.org/10.1007/s11135-007-9104-4][Aus - Conjunctural causation in comparative case-oriented research]]                                                                                                           | 2009 | Skimmed    | B        | Regular   | Regular | Wait |        |
+| MAYBE    | [[https://doi.org/10.1177%2F0002764219859641][Urlacher - Complexity, Causality, and Control in Statistical  Modeling]]                                                                                                       | 2019 | Downloaded | C        | Low       | Low     | Wait |        |
+| REF      | [[https://doi.org/10.1177%2F0010414014565892][Thiem, Baumgartner and Bol - Still lost in translation! A correction of three misunderstandings between configurational comparativists and regressional analysts]]             | 2016 | Skimmed    | C        | Regular   | Regular | YES  |        |
+| REF      | Survey Report                                                                                                                                                                |      |            | C        |           |         |      |        |
+#+END
+
+
+* [#A] Techniques
+:PROPERTIES:
+:COLUMNS:  %7TODO(Decision) %20ITEM(Title) %4YEAR %FSQCA  %8STATUS %7RELEVANCE %7IMPACT %4CITE %BIBTEX
+:TYPE_ALL: Theory Method Case Manual Other Thechnical Review
+:DECISION_ALL: Read File Skip PartialRead
+:ZOTERO_ALL: Yes No Partial Entry
+:STATUS_ALL: Reading Searching Abandoned Finished Skimmed NotFound 404 Downloaded Filed
+:RELEVANCE_ALL: High Regular Low None
+:IMPACT_ALL: High Regular Low None
+:CITE_ALL: Yes No Wait
+:YEAR:
+:UNNUMBERED: t
+:BIBTEX_ALL: Yes Partial Revise No
+:FSQCA: Yes Maybe No
+:END:  
+
+** READ [#A] [[https://doi.org/10.1177%2F0049124105277197][Caren and Panofsky - TQCA: A technique for adding temporality to qualitative comparative analysis]] :TimeSeries:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2005
+   :TYPE: Thechnical
+   :STATUS: Skimmed
+   :RELEVANCE: High
+   :IMPACT: Regular
+   :CITE: Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Caren_2005,
+  author       = {Caren, Neal and Panofsky, Aaron},
+  title	       = {TQCA},
+  year	       = 2005,
+  volume       = 34,
+  number       = 2,
+  month	       = {Nov},
+  pages	       = {147–172},
+  issn	       = {1552-8294},
+  doi	       = {10.1177/0049124105277197},
+  url	       = {http://dx.doi.org/10.1177/0049124105277197},
+  journal      = {Sociological Methods & Research},
+  publisher    = {SAGE Publications}
+}
+#+END_SRC
+
+** READ [#A] [[https://journals.sagepub.com/doi/10.1177/0049124111404818][Skaaning - Assessing the robustness of crisp-set and fuzzy-set QCA results]] :Robustness:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2011
+   :TYPE: Thechnical
+   :STATUS: Skimmed
+   :RELEVANCE: High
+   :IMPACT: High
+   :CITE: Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Skaaning_2011,
+  author       = {Skaaning, Svend-Erik},
+  title	       = {Assessing the Robustness of Crisp-set and Fuzzy-set
+                  QCA Results},
+  year	       = 2011,
+  volume       = 40,
+  number       = 2,
+  month	       = {Apr},
+  pages	       = {391–408},
+  issn	       = {1552-8294},
+  doi	       = {10.1177/0049124111404818},
+  url	       = {http://dx.doi.org/10.1177/0049124111404818},
+  journal      = {Sociological Methods & Research},
+  publisher    = {SAGE Publications}
+}
+#+END_SRC
+
+** READ [#A] [[https://doi.org/10.1163/15691330-12341457][Veri - Coverage in Fuzzy Set Qualitative Comparative Analysis (fsQCA): A New Fuzzy Proposition for Describing Empirical Relevance]] :fsQCA:Calibration:Coverage:
+   :PROPERTIES:
+   :YEAR:     2018
+   :ZOTERO:   Yes
+   :TYPE:     Thechnical
+   :STATUS:   Skimmed
+   :RELEVANCE: Regular
+   :IMPACT:   Regular
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Veri_2018,
+  author       = {Veri, Francesco},
+  title	       = {Coverage in Fuzzy Set Qualitative Comparative
+                  Analysis (fsQCA): A New Fuzzy Proposition for
+                  Describing Empirical Relevance},
+  year	       = 2018,
+  volume       = 17,
+  number       = 2,
+  month	       = {Apr},
+  pages	       = {133–158},
+  issn	       = {1569-1330},
+  doi	       = {10.1163/15691330-12341457},
+  url	       = {http://dx.doi.org/10.1163/15691330-12341457},
+  journal      = {Comparative Sociology},
+  publisher    = {Brill}
+}
+#+END_SRC
+
+** READ [#A] [[http://faculty.marshall.usc.edu/Peer-Fiss/5_Furnari_2019_Longitudinal_QCA_AOM_PDW2019.pdf][Furnari - Three Approaches to Longitudinal QCA: Opportunities and Challenges]] :TimeSeries:
+   :PROPERTIES:
+   :ZOTERO: No
+   :YEAR: 2019
+   :TYPE: Technical
+   :STATUS: Researching
+   :RELEVANCE: High
+   :IMPACT: Low
+   :CITE: No
+   :END:    
+** READ [#B] [[http://dx.doi.org/10.1177/0049124109339371][Scott et al - Goodness-of-Fit Tests and Descriptive Measures in Fuzzy-Set Analysis]] :fsQCA:Estimation:Test:
+   :PROPERTIES:
+   :YEAR:     2009
+   :ZOTERO:   Entry
+   :TYPE:     Thechnical
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Eliason_2009,
+  author       = {Eliason, Scott R. and Stryker, Robin},
+  title	       = {Goodness-of-Fit Tests and Descriptive Measures in
+                  Fuzzy-Set Analysis},
+  year	       = 2009,
+  volume       = 38,
+  number       = 1,
+  month	       = {Aug},
+  pages	       = {102–146},
+  issn	       = {1552-8294},
+  doi	       = {10.1177/0049124109339371},
+  url	       = {http://dx.doi.org/10.1177/0049124109339371},
+  journal      = {Sociological Methods & Research},
+  publisher    = {SAGE Publications}
+}
+#+END_SRC
+
+** SKIM [#A] [[https://ssrn.com/abstract=2552940][ Krogslund and Michel -  A Larger-N, Fewer Variables Problem? The Counterintuitive Sensitivity of QCA]] :LargeN:Sensitivity:Estimation:
+   :PROPERTIES:
+   :YEAR:     2015
+   :ZOTERO:   Yes
+   :TYPE:     Thechnical
+   :STATUS:   Downloaded
+   :RELEVANCE: Regular
+   :IMPACT:   Regular
+   :CITE:     Wait
+   :END:    
+** SKIM [#A] [[https://doi.org/10.1177%2F0049124119882463][Thiem - Beyond the Facts: Limited Empirical Diversity and Causal Inference in Qualitative Comparative Analysis]] :Critique:Inference:Solution:
+   :PROPERTIES:
+   :YEAR:     2019
+   :ZOTERO:   Yes
+   :TYPE:     Thechnical
+   :STATUS:   Downloaded
+   :RELEVANCE: Low
+   :IMPACT:   Regular
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Thiem_2019,
+  author       = {Thiem, Alrik},
+  title	       = {Beyond the Facts: Limited Empirical Diversity and
+                  Causal Inference in Qualitative Comparative
+                  Analysis},
+  year	       = 2019,
+  month	       = {Nov},
+  pages	       = 004912411988246,
+  issn	       = {1552-8294},
+  doi	       = {10.1177/0049124119882463},
+  url	       = {http://dx.doi.org/10.1177/0049124119882463},
+  journal      = {Sociological Methods & Research},
+  publisher    = {SAGE Publications}
+}
+#+END_SRC
+
+** SKIM [#A] [[https://doi.org/10.1177/0049124117701487][Baumgartner and Thiem - Often trusted but never (properly) tested: Evaluating Qualitative Comparative Analysis]] :Estimation:
+   :PROPERTIES:
+   :ZOTERO:   Yes
+   :YEAR:     2020
+   :TYPE:     Techinical
+   :STATUS:   Skimmed
+   :RELEVANCE: High
+   :IMPACT:   High
+   :CITE:     Yes
+   :END:    
+#+BEGIN_SRC bibtex
+@Article{Baumgartner_2017,
+  author       = {Baumgartner, Michael and Thiem, Alrik},
+  title	       = {Often Trusted but Never (Properly) Tested:
+                  Evaluating Qualitative Comparative Analysis},
+  year	       = 2017,
+  volume       = 49,
+  number       = 2,
+  month	       = {May},
+  pages	       = {279–311},
+  issn	       = {1552-8294},
+  doi	       = {10.1177/0049124117701487},
+  url	       = {http://dx.doi.org/10.1177/0049124117701487},
+  journal      = {Sociological Methods & Research},
+  publisher    = {SAGE Publications}
+}
+#+END_SRC
+
+** SKIM [#B] [[https://doi.org/10.1016/j.jbusres.2007.01.002][Duşa - User manual for the QCA(GUI) package in R]] :Software:ignore:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2007
+   :TYPE: Techinical
+   :STATUS: Filed
+   :RELEVANCE: Regular
+   :IMPACT: Regular
+   :DECISION: Skim
+   :CITE: Yes
+   :END:    
+
+** SKIM [#B] [[https://www.researchgate.net/deref/http%3A%2F%2Fdx.doi.org%2F10.1177%2F1525822X15598974][Qualitative comparative analysis, necessary conditions, and limited diversity: Some problematic consequences of Schneider and Wagemann’s enhanced standard analysis]] :Estimation:ignore:
+   :PROPERTIES:
+   :ZOTERO: No
+   :YEAR: 2016
+   :TYPE: Technical
+   :STATUS: NotFound
+   :RELEVANCE: High
+   :IMPACT: High
+   :CITE: Yes
+   :END:    
+** SKIM [#B] [[https://doi.org/10.1177%2F0049124119882456][Dușa - Critical Tension: Sufficiency and Parsimony in QCA]] :Sufficiency:Parsimony:Critique:Algorithm:BooleanALgebra:
+   :PROPERTIES:
+   :YEAR:     2019
+   :ZOTERO:   Yes
+   :TYPE:     Thechnical
+   :STATUS:   Skimmed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+
+#+BEGIN_SRC bibtex
+@Article{Du_a_2019,
+  author       = {Dușa, Adrian},
+  title	       = {Critical Tension: Sufficiency and Parsimony in QCA},
+  year	       = 2019,
+  month	       = {Nov},
+  pages	       = 004912411988245,
+  issn	       = {1552-8294},
+  doi	       = {10.1177/0049124119882456},
+  url	       = {http://dx.doi.org/10.1177/0049124119882456},
+  journal      = {Sociological Methods & Research},
+  publisher    = {SAGE Publications}
+}
+#+END_SRC
+
+** SKIM [#C] [[https://www.jstor.org/stable/23563601][Emmenegger, Kvist and Skaaning - Making the most of configurational comparative analysis: An assessment of QCA applications in comparative welfare-state research]] :Review:ignore:
+   :PROPERTIES:
+   :ZOTERO:   Yes
+   :YEAR:     2013
+   :TYPE:     Thechnical
+   :STATUS:   Skimmed
+   :RELEVANCE: High
+   :IMPACT:   High
+   :DECISION: Read
+   :CITE:     Yes
+   :END:    
+** SKIM [#C] [[https://www.jstor.org/stable/23563605][Schneider and Wagemann -  Doing Justice to Logical Remainders in QCA: Moving beyond the standard analysis]] :ignore:LogicalRemainders:
+   :PROPERTIES:
+   :YEAR:     2013
+   :ZOTERO:   Yes
+   :TYPE:     Thechnical
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+** PARTIAL [#A] [[https://doi.org/10.5172/mra.2011.5.2.254][Thomson - The problem of limited diversity in qualitative comparative analysis: A discussion of two proposed solutions]] :LimitedDiversity:Proposal:
+   :PROPERTIES:
+   :YEAR:     2011
+   :ZOTERO:   Entry
+   :TYPE:     Thechnical
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Regular
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Thomson_2011,
+  author       = {Thomson, Stephanie Louisa},
+  title	       = {The problem of limited diversity in qualitative
+                  comparative analysis: A discussion of two proposed
+                  solutions},
+  year	       = 2011,
+  volume       = 5,
+  number       = 2,
+  month	       = {Oct},
+  pages	       = {254–268},
+  issn	       = {1834-0814},
+  doi	       = {10.5172/mra.2011.5.2.254},
+  url	       = {http://dx.doi.org/10.5172/mra.2011.5.2.254},
+  journal      = {International Journal of Multiple Research
+                  Approaches},
+  publisher    = {Dialectical Publishing}
+}
+#+END_SRC
+
+** PARTIAL [#A] [[https://doi.org/10.1080/13645579.2013.806118][Thiem - Membership function sensitivity of descriptive statistics in fuzzy-set relations]] :Fuzzy:Membership:Sensitivity:
+   :PROPERTIES:
+   :YEAR:     2014
+   :ZOTERO:   Yes
+   :TYPE:     Thechnical
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+#+BEGIN_SRC bibtex
+@Article{Thiem_2013,
+  author       = {Thiem, Alrik},
+  title	       = {Membership function sensitivity of descriptive
+                  statistics in fuzzy-set relations},
+  year	       = 2013,
+  volume       = 17,
+  number       = 6,
+  month	       = {Jun},
+  pages	       = {625–642},
+  issn	       = {1464-5300},
+  doi	       = {10.1080/13645579.2013.806118},
+  url	       = {http://dx.doi.org/10.1080/13645579.2013.806118},
+  journal      = {International Journal of Social Research
+                  Methodology},
+  publisher    = {Informa UK Limited}
+}
+#+END_SRC
+
+** PARTIAL [#A] [[https://doi.org/10.1093/pan/mpv028][Theim et al - Enhancing Sensitivity Diagnostics for Qualitative Comparative Analysis: A Combinatorial Approach]] :Calibration:Sensitivity:
+   :PROPERTIES:
+   :YEAR:    2016
+   :ZOTERO:   Yes
+   :TYPE:     Thechnical
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Thiem_Sensitivity_2016,
+  author       = {Thiem, Alrik and Spöhel, Reto and Duşa, Adrian},
+  title	       = {Enhancing Sensitivity Diagnostics for Qualitative
+                  Comparative Analysis: A Combinatorial Approach},
+  year	       = 2016,
+  volume       = 24,
+  number       = 1,
+  pages	       = {104–120},
+  issn	       = {1476-4989},
+  doi	       = {10.1093/pan/mpv028},
+  url	       = {http://dx.doi.org/10.1093/pan/mpv028},
+  journal      = {Political Analysis},
+  publisher    = {Cambridge University Press (CUP)}
+}
+#+END_SRC
+
+** PARTIAL [#B] [[https://doi.org/10.1177%2F0049124120914955][Rutten - Applying and Assessing Large-N QCA: Causality and Robustness From a Critical Realist Perspective]] :Robustness:Calibration:StandardValues:LargeN:
+   :PROPERTIES:
+   :YEAR:     2020
+   :ZOTERO:   Yes
+   :TYPE:     Thechnical
+   :STATUS:   Downloaded
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Rutten_2020,
+  author       = {Rutten, Roel},
+  title	       = {Applying and Assessing Large-N QCA: Causality and
+                  Robustness From a Critical Realist Perspective},
+  year	       = 2020,
+  month	       = {Apr},
+  pages	       = 004912412091495,
+  issn	       = {1552-8294},
+  doi	       = {10.1177/0049124120914955},
+  url	       = {http://dx.doi.org/10.1177/0049124120914955},
+  journal      = {Sociological Methods & Research},
+  publisher    = {SAGE Publications}
+}
+#+END_SRC
+
+** PARTIAL [#C] [[https://doi.org/10.1371/journal.pone.0233625][Thiem, Mkrtchyan, Haesebrouck and Sanchez - Algorithmic bias in social research: A meta-analysis]] :Critique:Software:Algorithm:MetaAnalysis:
+   :PROPERTIES:
+   :YEAR: 2020
+   :ZOTERO:   Yes
+   :TYPE:     Thechnical
+   :STATUS:   Skimmed
+   :RELEVANCE: High
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Thiem_2020,
+  author       = {Thiem, Alrik and Mkrtchyan, Lusine and Haesebrouck,
+                  Tim and Sanchez, David},
+  title	       = {Algorithmic bias in social research: A
+                  meta-analysis},
+  year	       = 2020,
+  editor       = {Meloni, SandroEditor},
+  volume       = 15,
+  number       = 6,
+  month	       = {Jun},
+  pages	       = {e0233625},
+  issn	       = {1932-6203},
+  doi	       = {10.1371/journal.pone.0233625},
+  url	       = {http://dx.doi.org/10.1371/journal.pone.0233625},
+  journal      = {PLOS ONE},
+  publisher    = {Public Library of Science (PLoS)}
+}
+#+END_SRC
+
+** WAIT [#A] [[https://adriandusa.eu/files/2013-BMSSR.pdf][Thiem and Duas - Boolean Minimizationin Social Science Research:A Review of Current Softwarefor Qualitative ComparativeAnalysis (QCA)]] :Software:Minimization:
+   :PROPERTIES:
+   :YEAR:     2013
+   :ZOTERO:   Yes
+   :TYPE:     Thechnical
+   :STATUS:   Skimmed
+   :RELEVANCE: High
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Thiem_Minimization_2013,
+  author       = {Thiem, Alrik and Duşa, Adrian},
+  title	       = {Boolean Minimization in Social Science Research},
+  year	       = 2013,
+  volume       = 31,
+  number       = 4,
+  month	       = {Mar},
+  pages	       = {505–521},
+  issn	       = {1552-8286},
+  doi	       = {10.1177/0894439313478999},
+  url	       = {http://dx.doi.org/10.1177/0894439313478999},
+  journal      = {Social Science Computer Review},
+  publisher    = {SAGE Publications}
+}
+#+END_SRC
+
+** WAIT [#A] [[https://sci-hub.tw/https://doi.org/10.1007/s11135-012-9694-3][Rubinson - Contradictions in fsQCA]] :Software:fsQCA:Contradictions:
+   :PROPERTIES:
+   :YEAR:     2013
+   :ZOTERO:   Yes
+   :TYPE:     Thechnical
+   :STATUS:   Skimmed
+   :RELEVANCE: Low
+   :IMPACT:   Regular
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Rubinson_2012,
+  author       = {Rubinson, Claude},
+  title	       = {Contradictions in fsQCA},
+  year	       = 2012,
+  volume       = 47,
+  number       = 5,
+  month	       = {Mar},
+  pages	       = {2847–2867},
+  issn	       = {1573-7845},
+  doi	       = {10.1007/s11135-012-9694-3},
+  url	       = {http://dx.doi.org/10.1007/s11135-012-9694-3},
+  journal      = {Quality & Quantity},
+  publisher    = {Springer Science and Business Media LLC}
+}
+#+END_SRC
+
+** WAIT [#A] [[https://doi.org/10.1177%2F0049124115610351][Baumgartner and Thiem - Model Ambiguities in Configurational Comparative Research]] :Sensitivity:Critique:Fuzzy:Ambiguity:
+   :PROPERTIES:
+   :YEAR:     2017
+   :ZOTERO:   Yes
+   :TYPE:     Thechnical
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Baumgartner_2015,
+  author       = {Baumgartner, Michael and Thiem, Alrik},
+  title	       = {Model Ambiguities in Configurational Comparative
+                  Research},
+  year	       = 2015,
+  volume       = 46,
+  number       = 4,
+  month	       = {Oct},
+  pages	       = {954–987},
+  issn	       = {1552-8294},
+  doi	       = {10.1177/0049124115610351},
+  url	       = {http://dx.doi.org/10.1177/0049124115610351},
+  journal      = {Sociological Methods & Research},
+  publisher    = {SAGE Publications}
+}
+#+END_SRC
+
+** WAIT [#A] [[https://doi.org/10.1016/j.ins.2018.07.050][Mendel and Korjani - A new method for calibrating the fuzzy sets used in fsQCA]] :Calibration:fsQCA:ignore:
+   :PROPERTIES:
+   :YEAR:     2018
+   :ZOTERO:   Yes
+   :TYPE:     Thechnical
+   :STATUS:   Skimmed
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Mendel_2018,
+  author       = {Mendel, Jerry M. and Korjani, Mohammad M.},
+  title	       = {A new method for calibrating the fuzzy sets used in
+                  fsQCA},
+  year	       = 2018,
+  volume       = 468,
+  month	       = {Nov},
+  pages	       = {155–171},
+  issn	       = {0020-0255},
+  doi	       = {10.1016/j.ins.2018.07.050},
+  url	       = {http://dx.doi.org/10.1016/j.ins.2018.07.050},
+  journal      = {Information Sciences},
+  publisher    = {Elsevier BV}
+}
+#+END_SRC
+
+** WAIT [#A] [[https://doi.org/10.1163/15691330-12341496][Veri - Aggregation Bias and Ambivalent Cases: A New Parameter of Consistency to Understand the Significance of Set-theoretic Sufficiency in fsQCA]] :Consistency:Aggregation:Sufficiency:fsQCA:Critique:
+   :PROPERTIES:
+   :YEAR:    2019
+   :ZOTERO:   Entry
+   :TYPE:     Thechnical
+   :STATUS:   Searching
+   :RELEVANCE: Regular
+   :IMPACT:   Regular
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Veri_2019,
+  author       = {Veri, Francesco},
+  title	       = {Aggregation Bias and Ambivalent Cases: A New
+                  Parameter of Consistency to Understand the
+                  Significance of Set-theoretic Sufficiency in fsQCA},
+  year	       = 2019,
+  volume       = 18,
+  number       = 2,
+  month	       = {Apr},
+  pages	       = {229–255},
+  issn	       = {1569-1330},
+  doi	       = {10.1163/15691330-12341496},
+  url	       = {http://dx.doi.org/10.1163/15691330-12341496},
+  journal      = {Comparative Sociology},
+  publisher    = {Brill}
+}
+#+END_SRC
+
+** WAIT [#B] [[https://doi.org/10.1142/9789814261302_0021][Zadeh - Fuzzy Sets]]                :Fuzzy:SetTheory:Mathematical:
+   :PROPERTIES:
+   :YEAR:     1996
+   :ZOTERO:   Yes
+   :TYPE:     Thechnical
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   High
+   :CITE:     Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Zadeh_1996,
+  author       = {Zadeh, Lotfi A.},
+  title	       = {FUZZY SETS},
+  year	       = 1996,
+  month	       = {May},
+  pages	       = {394–432},
+  issn	       = {2010-2771},
+  doi	       = {10.1142/9789814261302_0021},
+  url	       = {http://dx.doi.org/10.1142/9789814261302_0021},
+  isbn	       = 9789814261302,
+  journal      = {Fuzzy Sets, Fuzzy Logic, and Fuzzy Systems},
+  publisher    = {WORLD SCIENTIFIC}
+}
+#+END_SRC
+
+** WAIT [#B] [[https://doi.org/10.1093/pan/mpu016][Krogslund, Choi and Poertner - Fuzzy Sets on Shaky Ground: Parameter Sensitivity and Confirmation Bias in fsQCA]] :fsQCA:Sensitivity:Bias:ignore:
+   :PROPERTIES:
+   :YEAR:     2015
+   :ZOTERO:   Entry
+   :TYPE:     Thechnical
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Regular
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Krogslund_2015,
+  author       = {Krogslund, Chris and Choi, Donghyun Danny and
+                  Poertner, Mathias},
+  title	       = {Fuzzy Sets on Shaky Ground: Parameter Sensitivity
+                  and Confirmation Bias in fsQCA},
+  year	       = 2015,
+  volume       = 23,
+  number       = 1,
+  pages	       = {21–41},
+  issn	       = {1476-4989},
+  doi	       = {10.1093/pan/mpu016},
+  url	       = {http://dx.doi.org/10.1093/pan/mpu016},
+  journal      = {Political Analysis},
+  publisher    = {Cambridge University Press (CUP)}
+}
+#+END_SRC
+
+** WAIT [#B] [[https://doi.org/10.1177%2F0049124119882460][Arel-Bundock - The Double Bind of Qualitative Comparative Analysis]] :Simulation:
+   :PROPERTIES:
+   :YEAR:     2019
+   :ZOTERO:   Entry
+   :TYPE:     Thechnical
+   :STATUS:   Downloaded
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Arel_Bundock_2019,
+  author       = {Arel-Bundock, Vincent},
+  title	       = {The Double Bind of Qualitative Comparative Analysis},
+  year	       = 2019,
+  month	       = {Nov},
+  pages	       = 004912411988246,
+  issn	       = {1552-8294},
+  doi	       = {10.1177/0049124119882460},
+  url	       = {http://dx.doi.org/10.1177/0049124119882460},
+  journal      = {Sociological Methods & Research},
+  publisher    = {SAGE Publications}
+}
+#+END_SRC
+
+** WAIT [#C] [[https://doi.org/10.1177%2F0049124113500481][Thiem - Unifying Configurational Comparative Methods: Generalized-Set Qualitative Comparative Analysis]] :Proposal:fsQCA:ignore:
+   :PROPERTIES:
+   :YEAR:     2013
+   :ZOTERO:   Entry
+   :TYPE:     Thechnical
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+** WAIT [#C] [[https://www.researchgate.net/publication/304578652_The_analysis_of_temporally_ordered_configurations_Challenges_and_solutions][Hak, Jaspers, and Dul - The analysis of temporally ordered configurations: Challenges and solutions]] :ignore:TimeSeries:
+   :PROPERTIES:
+   :ZOTERO:
+   :YEAR: 2013
+   :TYPE: Technical
+   :STATUS: NotFound
+   :RELEVANCE:
+   :IMPACT:
+   :CITE:
+   :END:    
+
+** WAIT [#C] [[http://dro.dur.ac.uk/15218/1/15218.pdf?DDD29+ded4ss+ded0bc+d700tmt][Cooper, Glaesser and S. Thomson - Schneider and Wagemann’s proposed enhanced standard analysis for Ragin’s qualitative comparative analysis: Some unresolved problems and some suggestions for addressing them]] :LimitedDiversity:ignore:noexport:
+   :PROPERTIES:
+   :ZOTERO: Partial
+   :YEAR: 2014
+   :TYPE: Techinical
+   :STATUS: Skimmed
+   :RELEVANCE: High
+   :IMPACT: Regular
+   :CITE: Yes
+   :END:   
+*Zotero File name:* 15218.pdf
+
+** WAIT [#C] [[https://doi.org/10.1016/j.indmarman.2016.10.008][Tóth, Henneberg and Naudé - Addressing the ‘qualitative’ in fuzzy set qualitative comparative analysis: The generic membership evaluation template]] :ignore:fsQCA:Fuzzy:Calibration:
+   :PROPERTIES:
+   :YEAR:    2015
+   :ZOTERO:   Yes
+   :TYPE:     Thechnical
+   :STATUS:   Skimmed
+   :RELEVANCE: High
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{T_th_2017,
+  author       = {Tóth, Zsófia and Henneberg, Stephan C. and Naudé,
+                  Peter},
+  title	       = {Addressing the “Qualitative” in fuzzy set
+                  Qualitative Comparative Analysis: The Generic
+                  Membership Evaluation Template},
+  year	       = 2017,
+  volume       = 63,
+  month	       = {May},
+  pages	       = {192–204},
+  issn	       = {0019-8501},
+  doi	       = {10.1016/j.indmarman.2016.10.008},
+  url	       = {http://dx.doi.org/10.1016/j.indmarman.2016.10.008},
+  journal      = {Industrial Marketing Management},
+  publisher    = {Elsevier BV}
+}
+#+END_SRC
+
+** WAIT [#C] [[https://doi.org/10.1007/s11135-019-00893-7][Haesebrouck - An alternative update of the two-step QCA procedure]] :ignore:Critique:Estimation:
+   :PROPERTIES:
+   :YEAR:     2019
+   :ZOTERO:   Entry
+   :TYPE:     Thechnical
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Haesebrouck_2019,
+  author       = {Haesebrouck, Tim},
+  title	       = {An alternative update of the two-step QCA procedure},
+  year	       = 2019,
+  volume       = 53,
+  number       = 6,
+  month	       = {May},
+  pages	       = {2765–2780},
+  issn	       = {1573-7845},
+  doi	       = {10.1007/s11135-019-00893-7},
+  url	       = {http://dx.doi.org/10.1007/s11135-019-00893-7},
+  journal      = {Quality & Quantity},
+  publisher    = {Springer Science and Business Media LLC}
+}
+#+END_SRC
+
+** MAYBE [#C] [[https://doi.org/10.1108/S0733-558X(2013)0000038007][Greckhamer, Misangyiand Fiss - The Two QCAs: From a Small-N to a Large-N Set Theoretic Approach]] :LargeN:Benchmark:ignore:
+   :PROPERTIES:
+   :YEAR:     2013
+   :ZOTERO:   Yes
+   :TYPE:     Thechnical
+   :STATUS:   Skimmed
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Greckhamer_2013,
+  author       = {Greckhamer, Thomas and Misangyi, Vilmos F. and Fiss,
+                  Peer C.},
+  title	       = {The Two QCAs: From a Small-N to a Large-N
+                  Set Theoretic Approach},
+  year	       = 2013,
+  month	       = {Jan},
+  pages	       = {49–75},
+  issn	       = {0733-558X},
+  doi	       = {10.1108/s0733-558x(2013)0000038007},
+  url	       =
+                  {http://dx.doi.org/10.1108/S0733-558X(2013)0000038007},
+  isbn	       = 9781781907795,
+  journal      = {Configurational Theory and Methods in Organizational
+                  Research},
+  publisher    = {Emerald Group Publishing Limited}
+}
+#+END_SRC
+
+** REF [#C] Technical Survey
+   CLOSED: [2020-09-18 sex 15:00]
+#+BEGIN: columnview :maxlevel 3 :id local
+| Decision | Title                                                                                                                                                                                                          | YEAR | FSQCA        | STATUS      | RELEVANCE | IMPACT  | CITE | BIBTEX |
+|----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+--------------+-------------+-----------+---------+------+--------|
+|          | Techniques                                                                                                                                                                                                     |      | Yes Maybe No |             |           |         |      |        |
+| READ     | [[https://doi.org/10.1177%2F0049124105277197][Caren and Panofsky - TQCA: A technique for adding temporality to qualitative comparative analysis]]                                                                                                              | 2005 |              | Skimmed     | High      | Regular | Yes  |        |
+| READ     | [[https://journals.sagepub.com/doi/10.1177/0049124111404818][Skaaning - Assessing the robustness of crisp-set and fuzzy-set QCA results]]                                                                                                                                     | 2011 |              | Skimmed     | High      | High    | Yes  |        |
+| READ     | [[https://doi.org/10.1163/15691330-12341457][Veri - Coverage in Fuzzy Set Qualitative Comparative Analysis (fsQCA): A New Fuzzy Proposition for Describing Empirical Relevance]]                                                                              | 2018 |              | Skimmed     | Regular   | Regular | Wait |        |
+| READ     | [[http://faculty.marshall.usc.edu/Peer-Fiss/5_Furnari_2019_Longitudinal_QCA_AOM_PDW2019.pdf][Furnari - Three Approaches to Longitudinal QCA: Opportunities and Challenges]]                                                                                                                                   | 2019 |              | Researching | High      | Low     | No   |        |
+| READ     | [[http://dx.doi.org/10.1177/0049124109339371][Scott et al - Goodness-of-Fit Tests and Descriptive Measures in Fuzzy-Set Analysis]]                                                                                                                             | 2009 |              | Filed       | Low       | Low     | Wait |        |
+| SKIM     | [[https://ssrn.com/abstract=2552940][ Krogslund and Michel -  A Larger-N, Fewer Variables Problem? The Counterintuitive Sensitivity of QCA]]                                                                                                          | 2015 |              | Downloaded  | Regular   | Regular | Wait |        |
+| SKIM     | [[https://doi.org/10.1177%2F0049124119882463][Thiem - Beyond the Facts: Limited Empirical Diversity and Causal Inference in Qualitative Comparative Analysis]]                                                                                                 | 2019 |              | Downloaded  | Low       | Regular | Wait |        |
+| SKIM     | [[https://doi.org/10.1177/0049124117701487][Baumgartner and Thiem - Often trusted but never (properly) tested: Evaluating Qualitative Comparative Analysis]]                                                                                                 | 2020 |              | Skimmed     | High      | High    | Yes  |        |
+| SKIM     | [[https://doi.org/10.1016/j.jbusres.2007.01.002][Duşa - User manual for the QCA(GUI) package in R]]                                                                                                                                                               | 2007 |              | Filed       | Regular   | Regular | Yes  |        |
+| SKIM     | [[https://www.researchgate.net/deref/http%3A%2F%2Fdx.doi.org%2F10.1177%2F1525822X15598974][Qualitative comparative analysis, necessary conditions, and limited diversity: Some problematic consequences of Schneider and Wagemann’s enhanced standard analysis]]                                            | 2016 |              | NotFound    | High      | High    | Yes  |        |
+| SKIM     | [[https://doi.org/10.1177%2F0049124119882456][Dușa - Critical Tension: Sufficiency and Parsimony in QCA]]                                                                                                                                                      | 2019 |              | Skimmed     | Low       | Low     | Wait |        |
+| SKIM     | [[https://www.jstor.org/stable/23563601][Emmenegger, Kvist and Skaaning - Making the most of configurational comparative analysis: An assessment of QCA applications in comparative welfare-state research]]                                              | 2013 |              | Skimmed     | High      | High    | Yes  |        |
+| SKIM     | [[https://www.jstor.org/stable/23563605][Schneider and Wagemann -  Doing Justice to Logical Remainders in QCA: Moving beyond the standard analysis]]                                                                                                      | 2013 |              | Filed       | Regular   | Low     | Wait |        |
+| PARTIAL  | [[https://doi.org/10.5172/mra.2011.5.2.254][Thomson - The problem of limited diversity in qualitative comparative analysis: A discussion of two proposed solutions]]                                                                                         | 2011 |              | Filed       | Low       | Regular | Wait |        |
+| PARTIAL  | [[https://doi.org/10.1080/13645579.2013.806118][Thiem - Membership function sensitivity of descriptive statistics in fuzzy-set relations]]                                                                                                                       | 2014 |              | Filed       | Low       | Low     | Wait |        |
+| PARTIAL  | [[https://doi.org/10.1093/pan/mpv028][Theim et al - Enhancing Sensitivity Diagnostics for Qualitative Comparative Analysis: A Combinatorial Approach]]                                                                                                 | 2016 |              | Filed       | Low       | Low     | Wait |        |
+| PARTIAL  | [[https://doi.org/10.1177%2F0049124120914955][Rutten - Applying and Assessing Large-N QCA: Causality and Robustness From a Critical Realist Perspective]]                                                                                                      | 2020 |              | Downloaded  | Regular   | Low     | Yes  |        |
+| PARTIAL  | [[https://doi.org/10.1371/journal.pone.0233625][Thiem, Mkrtchyan, Haesebrouck and Sanchez - Algorithmic bias in social research: A meta-analysis]]                                                                                                               | 2020 |              | Skimmed     | High      | Low     | Yes  |        |
+| WAIT     | [[https://adriandusa.eu/files/2013-BMSSR.pdf][Thiem and Duas - Boolean Minimizationin Social Science Research:A Review of Current Softwarefor Qualitative ComparativeAnalysis (QCA)]]                                                                          | 2013 |              | Skimmed     | High      | Low     | Yes  |        |
+| WAIT     | [[https://sci-hub.tw/https://doi.org/10.1007/s11135-012-9694-3][Rubinson - Contradictions in fsQCA]]                                                                                                                                                                             | 2013 |              | Skimmed     | Low       | Regular | Wait |        |
+| WAIT     | [[https://doi.org/10.1177%2F0049124115610351][Baumgartner and Thiem - Model Ambiguities in Configurational Comparative Research]]                                                                                                                              | 2017 |              | Filed       | Low       | Low     | Wait |        |
+| WAIT     | [[https://doi.org/10.1016/j.ins.2018.07.050][Mendel and Korjani - A new method for calibrating the fuzzy sets used in fsQCA]]                                                                                                                                 | 2018 |              | Skimmed     | Regular   | Low     | Wait |        |
+| WAIT     | [[https://doi.org/10.1163/15691330-12341496][Veri - Aggregation Bias and Ambivalent Cases: A New Parameter of Consistency to Understand the Significance of Set-theoretic Sufficiency in fsQCA]]                                                              | 2019 |              | Searching   | Regular   | Regular | Wait |        |
+| WAIT     | [[https://doi.org/10.1142/9789814261302_0021][Zadeh - Fuzzy Sets]]                                                                                                                                                                                             | 1996 |              | Filed       | Regular   | High    | Yes  |        |
+| WAIT     | [[https://doi.org/10.1093/pan/mpu016][Krogslund, Choi and Poertner - Fuzzy Sets on Shaky Ground: Parameter Sensitivity and Confirmation Bias in fsQCA]]                                                                                                | 2015 |              | Filed       | Low       | Regular | Wait |        |
+| WAIT     | [[https://doi.org/10.1177%2F0049124119882460][Arel-Bundock - The Double Bind of Qualitative Comparative Analysis]]                                                                                                                                             | 2019 |              | Downloaded  | Low       | Low     | Wait |        |
+| WAIT     | [[https://doi.org/10.1177%2F0049124113500481][Thiem - Unifying Configurational Comparative Methods: Generalized-Set Qualitative Comparative Analysis]]                                                                                                         | 2013 |              | Filed       | Low       | Low     | Wait |        |
+| WAIT     | [[https://www.researchgate.net/publication/304578652_The_analysis_of_temporally_ordered_configurations_Challenges_and_solutions][Hak, Jaspers, and Dul - The analysis of temporally ordered configurations: Challenges and solutions]]                                                                                                            | 2013 |              | NotFound    |           |         |      |        |
+| WAIT     | [[http://dro.dur.ac.uk/15218/1/15218.pdf?DDD29+ded4ss+ded0bc+d700tmt][Cooper, Glaesser and S. Thomson - Schneider and Wagemann’s proposed enhanced standard analysis for Ragin’s qualitative comparative analysis: Some unresolved problems and some suggestions for addressing them]] | 2014 |              | Skimmed     | High      | Regular | Yes  |        |
+| WAIT     | [[https://doi.org/10.1016/j.indmarman.2016.10.008][Tóth, Henneberg and Naudé - Addressing the ‘qualitative’ in fuzzy set qualitative comparative analysis: The generic membership evaluation template]]                                                             | 2015 |              | Skimmed     | High      | Low     | Yes  |        |
+| WAIT     | [[https://doi.org/10.1007/s11135-019-00893-7][Haesebrouck - An alternative update of the two-step QCA procedure]]                                                                                                                                              | 2019 |              | Filed       | Low       | Low     | Wait |        |
+| MAYBE    | [[https://doi.org/10.1108/S0733-558X(2013)0000038007][Greckhamer, Misangyiand Fiss - The Two QCAs: From a Small-N to a Large-N Set Theoretic Approach]]                                                                                                                | 2013 |              | Skimmed     | Regular   | Low     | Wait |        |
+| REF      | Technical Survey                                                                                                                                                                                               |      |              |             |           |         |      |        |
+#+END
+
+
+
+* [#A] Critiques
+:PROPERTIES:
+:COLUMNS:  %6TYPE %7TODO(Decision) %20ITEM(Title) %4YEAR %8STATUS %PRIORITY %7RELEVANCE %7IMPACT %4CITE
+:TYPE_ALL: Theory Method Case Manual Other Thechnical Review
+:DECISION_ALL: Read File Skip PartialRead
+:ZOTERO_ALL: Yes No Partial Entry
+:STATUS_ALL: Reading Searching Abandoned Finished Skimmed NotFound 404 Downloaded Filed
+:RELEVANCE_ALL: High Regular Low None
+:IMPACT_ALL: High Regular Low None
+:CITE_ALL: Yes No Wait
+:YEAR:
+:UNNUMBERED: t
+:END:  
+
+
+** READ [[https://dx.doi.org/10.4135/9781452226569.n7][De Meur Rihoux and Yamasaki - Addressing the critiques on QCA]] :Critique:ignore:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2009
+   :TYPE: Theory
+   :STATUS: NotFound
+   :RELEVANCE: High
+   :IMPACT: Regular
+   :CITE: Yes
+   :END:    
+
+** PARTIAL [#C] [[https://doi.org/10.1177%2F1525822X03257690][Rihoux - Bridging the Gap between the Qualitative and Quantitative Worlds? A Retrospective and Prospective View on Qualitative Comparative Analysis]] :Critiques:Review:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2003
+   :TYPE: Theory
+   :STATUS: Skimmed
+   :RELEVANCE: Regular
+   :IMPACT: Regular
+   :DECISION: PartialRead
+   :CITE: Wait
+   :END:    
+
+*Sections to Read:*
+
+- Critiques and Answers
+- Whats lies ahead?
+
+#+ATTR_LATEX: :environment longtable :align l|p{.7\textwidth}
+|-----------------------------------------------+---|
+|-----------------------------------------------+---|
+| *Background*                                  |   |
+| *Supporting Ideas*                            |   |
+| *Purpose*                                     |   |
+| *Originality/value (Contribution)*            |   |
+| *Relevance*                                   |   |
+| *Design/methodology/approach*                 |   |
+| *Results*                                     |   |
+| *(Interesting) Findings*                      |   |
+| *Research limitations/implications (Critics)* |   |
+| *Uncategorized stuff*                         |   |
+| *5SS*                                         |   |
+|-----------------------------------------------+---|
+|-----------------------------------------------+---|
+
+
+
+** [#C] Critiques Survey
+#+BEGIN: columnview :maxlevel 3 :id local
+| TYPE   | Decision | Title                                                                                                                                               | YEAR | STATUS   | PRIORITY | RELEVANCE | IMPACT  | CITE |
+|--------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------------+------+----------+----------+-----------+---------+------|
+|        |          | Critiques                                                                                                                                           |      |          | A        |           |         |      |
+| Theory | READ     | [[https://dx.doi.org/10.4135/9781452226569.n7][De Meur Rihoux and Yamasaki - Addressing the critiques on QCA]]                                                                                       | 2009 | NotFound | B        | High      | Regular | Yes  |
+| Theory | PARTIAL  | [[https://doi.org/10.1177%2F1525822X03257690][Rihoux - Bridging the Gap between the Qualitative and Quantitative Worlds? A Retrospective and Prospective View on Qualitative Comparative Analysis]] | 2003 | Skimmed  | C        | Regular   | Regular | Wait |
+|        |          | Critiques Survey                                                                                                                                    |      |          | C        |           |         |      |
+#+END
+
+
+
+* [#A] Case study                                                 :CaseStudy:
+:PROPERTIES:
+:COLUMNS:  %7TODO(Decision) %20ITEM(Title) %4YEAR %ECONOMIC(Economic Related?) %COUNTRIES(Cases) %8STATUS %4CITE %BIBTEX
+:TYPE_ALL: Theory Method Case Manual Other Thechnical Review
+:DECISION_ALL: Read File Skip PartialRead
+:ZOTERO_ALL: Yes No Partial Entry
+:STATUS_ALL: Reading Searching Abandoned Finished Skimmed NotFound 404 Downloaded Filed
+:RELEVANCE_ALL: High Regular Low None
+:IMPACT_ALL: High Regular Low None
+:CITE_ALL: Yes No Wait
+:YEAR:
+:UNNUMBERED: t
+:BIBTEX_ALL: Yes Partial Revise No
+:COUNTRIES_ALL:
+:ECONOMIC_ALL: Yes Partial No
+:END:  
+
+** READ [#A] [[http://dx.doi.org/10.1111/1475-6765.12142][Hinterleitner et al]]                           :Benchmark:
+   :PROPERTIES:
+   :ZOTERO:   Yes
+   :YEAR:     2016
+   :TYPE:     Case
+   :STATUS:   Skimmed
+   :RELEVANCE: High
+   :IMPACT:   High
+   :CITE:     Yes
+   :ECONOMIC: Yes
+   :BIBTEX: No
+   :END:    
+#+ATTR_LATEX: :environment longtable :align l|p{.7\textwidth}
+|-----------------------------------------------+---|
+|-----------------------------------------------+---|
+| *Background*                                  |   |
+| *Supporting Ideas*                            |   |
+| *Purpose*                                     |   |
+| *Originality/value (Contribution)*            |   |
+| *Relevance*                                   |   |
+| *Design/methodology/approach*                 |   |
+| *Results*                                     |   |
+| *(Interesting) Findings*                      |   |
+| *Research limitations/implications (Critics)* |   |
+| *Uncategorized stuff*                         |   |
+| *5SS*                                         |   |
+|-----------------------------------------------+---|
+|-----------------------------------------------+---|
+
+** READ [#A] [[https://doi.org/10.1177%2F0143831X12452944][Park - Capital openness, monetary integration, and wage-setting coordination in developed European countries]] :Labor:Europe:Rating:Wage:Economics:
+   :PROPERTIES:
+   :YEAR:     2012
+   :ZOTERO:   Entry
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: None
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:    
+** READ [#A] [[https://www.jstor.org/stable/27752492][Schneider et all - Mapping the Institutional Capital of High-Tech Firms: A Fuzzy-Set Analysis of Capitalist Variety and Export Performance]] :Institutional:OpenMacro:fsQCA:VoC:
+   :PROPERTIES:
+   :YEAR:     2010
+   :ZOTERO:   No
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+** READ [#A] [[https://doi.org/10.1007/s11135-011-9637-4][Vis, Woldendorp and Keman Examining variation in economic performance using fuzzy-sets]] :Economics:Rating:fsQCA:OECD:Data:TimeSeries:
+   :PROPERTIES:
+   :ECONOMIC: Yes
+   :COUNTRIES: "19 OECD"
+   :BIBTEX: No
+   :YEAR:     2013
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Skimmed
+   :RELEVANCE: High
+   :IMPACT:   Low
+   :CITE:     Yes
+
+   :END:    
+** READ [#B] [[https://doi.org/10.1108/17422041311330431][Allen and Aldred - Business regulation, inward foreign direct investment, and economic growth in the new European Union member states]] :Economic:Europe:VoC:Institutions:
+   :PROPERTIES:
+   :YEAR:     2013
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Skimmed
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+** READ [#B] [[https://www.jstor.org/stable/25483292][Pajunen - Institutions and Inflows of Foreign Direct Investment: A Fuzzy-Set Analysis ]] :Economics:OpenMacro:Institutions:fsQCA:
+   :PROPERTIES:
+   :YEAR:     2008
+   :ZOTERO:   No
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+Relevant for Rating research
+
+** READ [#B] [[https://doi.org/10.1093/soceco/2.1.1][Boyer - New growth regimes, but still institutional diversity ]] :Economics:Growth:Institutional:
+   :PROPERTIES:
+   :YEAR:     2004
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Skimmed
+   :RELEVANCE: High
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:    
+** READ [#C] [[https://doi.org/10.1016/j.jbusres.2018.01.066][Kabakova and Plaksenkov - Analysis of factors affecting financial inclusion: Ecosystem view]] :Financial:Felipe:Orientações:
+   :PROPERTIES:
+   :YEAR:    2018
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Regular
+   :CITE:     Wait
+   :END:    
+** READ [#C] [[https://doi.org/10.1007/s12286-013-0152-y][Hörisch -  Fiscal Policy in Hard Times: A Fuzzy-Set QCA of Fiscal Policy Reactions to the Financial Crisis]] :FiscalPolicy:Economics:Austerirty:fsQCA:Political:Data:OECD:VoC:
+   :PROPERTIES:
+   :YEAR:     2013
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Skimmed
+   :RELEVANCE: High
+   :IMPACT:   Low
+   :CITE:     Yes
+   :COUNTRIES: OECD
+   :ECONOMIC: Yes
+   :END:    
+
+#+ATTR_LATEX: :environment longtable :align l|p{.7\textwidth}
+|-----------------------------------------------+-----------------------------------------------|
+|-----------------------------------------------+-----------------------------------------------|
+| *Background*                                  |                                               |
+| *Supporting Ideas*                            |                                               |
+| *Purpose*                                     |                                               |
+| *Originality/value (Contribution)*            |                                               |
+| *Relevance*                                   |                                               |
+| *Design/methodology/approach*                 |                                               |
+| *Results*                                     |                                               |
+| *(Interesting) Findings*                      |                                               |
+| *Research limitations/implications (Critics)* |                                               |
+| *Uncategorized stuff*                         | Related with Varieties of Capitalism approach |
+| *5SS*                                         |                                               |
+|-----------------------------------------------+-----------------------------------------------|
+|-----------------------------------------------+-----------------------------------------------|
+
+** SKIM [#A] [[https://doi.org/10.9770/jesi.2020.7.4(3)][Sanchez-Roger, Oliver-Alfonso, Sanchís-Pedregosa and Roig-Tierno -  Bail-in and interbank contagion risk: an application of FSQCA methodology]] :fsQCA:Economics:Banking:Empirical:
+   :PROPERTIES:
+   :YEAR:     2020
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Skimmed
+   :RELEVANCE: None
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+** PARTIAL [#A] [[https://doi.org/10.1016/j.jbusres.2019.11.021][Beynon and Jones - Country-level entrepreneurial attitudes and activity through the years: a panel data analysis using fsQCA]] :MixedMethod:Panel:fsQCA:Business:
+   :PROPERTIES:
+   :YEAR:     2019
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Skimmed
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+** PARTIAL [#B] [[https://doi.org/10.1108/01425451111140622][Allen and Aldred - Varieties of capitalism, governance, and high-tech export performance: A fuzzy-set analysis of the new EU member states]] :Europe:VoC:fsQCA:Economics:OpenMacro:
+   :PROPERTIES:
+   :YEAR:     2011
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Yes
+   :ECONOMIC: Yes
+   :COUNTRIES: OECD
+   :END:    
+
+*Parts to read:*
+
+- VoC Related
+
+** PARTIAL [#C] [[https://doi.org/10.1016/j.iref.2018.01.017][Graham et al - A fuzzy-set analysis of conditions influencing mutual fund performance]] :Financial:fsQCA:ignore:
+   :PROPERTIES:
+   :YEAR:    2019
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Skimmed
+   :RELEVANCE: Regular
+   :IMPACT:   Regular
+   :CITE:     Wait
+   :END:    
+** PARTIAL [#C] [[https://doi.org/10.1017/S1755773910000378][Vis -  Under which conditions does spending on active labor market policies increase? An fsQCA analysis of 53 governments between 1985 and 2003]] :Case:Labor:Empirical:fsQCA:
+   :PROPERTIES:
+   :YEAR:     2011
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Skimmed
+   :RELEVANCE: Regular
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :END:    
+
+Just write a short report
+
+#+ATTR_LATEX: :environment longtable :align l|p{.7\textwidth}
+|-----------------------------------------------+---|
+|-----------------------------------------------+---|
+| *Background*                                  |   |
+| *Supporting Ideas*                            |   |
+| *Purpose*                                     |   |
+| *Originality/value (Contribution)*            |   |
+| *Relevance*                                   |   |
+| *Design/methodology/approach*                 |   |
+| *Results*                                     |   |
+| *(Interesting) Findings*                      |   |
+| *Research limitations/implications (Critics)* |   |
+| *Uncategorized stuff*                         |   |
+| *5SS*                                         |   |
+|-----------------------------------------------+---|
+|-----------------------------------------------+---|
+
+
+** WAIT [#C] [[https://doi.org/10.1080/09585192.2017.1359793][Su, Fan and Rao-Nicholson -  Internationalization of Chinese banking and financial institutions: a fuzzy-set analysis of the leader-TMT dynamics]] :Banking:ignore:Financial:Institutions:
+   :PROPERTIES:
+   :YEAR:     2017
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Regular
+   :CITE:     Wait
+   :END:    
+** MAYBE [#B] [[https://doi.org/10.1007/978-3-030-49829-0][Mei, Chen and Wei - Multi-path Combination Analysisof Economic Development:Based on the Fuzzy Set Comparison of Multinational Data]] :EconomicDevelopment:ignore:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2020
+   :TYPE: Case
+   :STATUS: Skimmed
+   :RELEVANCE: Low
+   :IMPACT: Low
+   :CITE: Wait
+   :END:    
+** MAYBE [#C] [[https://doi.org/10.1016/j.jbusres.2016.01.005][Leischnig et al  - Net versus combinatory effects of firm and industry antecedents of sales growth]] :Comparison:ignore:Empirical:fsQCA:
+   :PROPERTIES:
+   :ZOTERO: Yes
+   :YEAR: 2016
+   :TYPE: Case
+   :STATUS: Skimmed
+   :RELEVANCE: Regular
+   :IMPACT: Low
+   :CITE: Yes
+   :ECONOMIC: Partial
+   :END:    
+** REF [#A] [[https://doi.org/10.1057/jibs.2014.13][Judge, Fainshmidt and Lee Brown III -  Which model of capitalism best delivers both wealth and equality?]] :Economics:VoC:Inequality:
+   CLOSED: [2020-09-17 qui 10:27]
+   :PROPERTIES:
+   :YEAR:     2014
+   :ZOTERO:   Entry
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: None
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:    
+
+Just write a short report
+
+#+ATTR_LATEX: :environment longtable :align l|p{.7\textwidth}
+|-----------------------------------------------+---|
+|-----------------------------------------------+---|
+| *Background*                                  |   |
+| *Supporting Ideas*                            |   |
+| *Purpose*                                     |   |
+| *Originality/value (Contribution)*            |   |
+| *Relevance*                                   |   |
+| *Design/methodology/approach*                 |   |
+| *Results*                                     |   |
+| *(Interesting) Findings*                      |   |
+| *Research limitations/implications (Critics)* |   |
+| *Uncategorized stuff*                         |   |
+| *5SS*                                         |   |
+|-----------------------------------------------+---|
+|-----------------------------------------------+---|
+
+
+** REF [#B] [[https://doi.org/10.1016/j.jbusres.2019.11.042][Barros et al - What firm’s characteristics drive the dividend policy? A mixed-method study on the Euronext stock exchange]] :Business:MixedMethods:Europe:
+   CLOSED: [2020-09-16 qua 17:00]
+   :PROPERTIES:
+   :YEAR:    2019
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Downloaded
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+Indicates to Felipe
+
+** REF [#B] [[https://doi.org/10.1080/13510347.2018.1516754][Schenoni and Mainwaring - US hegemony and regime change in Latin America]] :ignore:Orientações:Lorena:
+   CLOSED: [2020-09-16 qua 17:52]
+   :PROPERTIES:
+   :YEAR:    2018
+   :ZOTERO:   Entry
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: None
+   :IMPACT:   Low
+   :CITE:     No
+   :END:    
+
+Indicates to Lorena
+
+** REF [#B] [[https://doi.org/10.1093/ser/mwq018][Portes and Smith - Institutions and national development in Latin America: a comparative study]] :Institutions:Development:LatinAmerica:Economics:
+   CLOSED: [2020-09-18 sex 12:08]
+   :PROPERTIES:
+   :YEAR:     2010
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+Write just a short report for future reference
+
+** REF [#B] [[https://www.jstor.org/stable/2657380][Amenta and Halfmann - Wage Wars: Institutional Politics, WPA Wages, and the Struggle for U.S. Social Policy]] :Institutional:Wage:Labor:Economics:US:
+   CLOSED: [2020-09-17 qui 12:27]
+   :PROPERTIES:
+   :YEAR:     2000     
+   :ZOTERO:   Entry
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:    
+
+Suggest to Lorena
+
+** REF [#C] [[https://doi.org/10.1016/j.jbusres.2018.01.060][Jordi et al - Corporate governance and financial performance: The role of ownership and board structure]] :Orientações:Empirical:Financial:
+   CLOSED: [2020-09-16 qua 17:55]
+   :PROPERTIES:
+   :YEAR:     2018
+   :ZOTERO:   Partial
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: None
+   :IMPACT:   None
+   :CITE:     No
+   :END:    
+
+Indicates to Felipe
+
+** REF [#C] [[https://doi.org/10.1017/S004727941500029X][Shahidi -  Welfare Capitalism in Crisis: A Qualitative Comparative Analysis of Labour Market Policy Responses to the Great Recession]] :Data:Europa:VoC:ignore:
+   CLOSED: [2020-09-18 sex 12:15]
+   :PROPERTIES:
+   :YEAR:     2015
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+** REF [#C] [[https://doi.org/10.1080/09644016.2013.817759][Damonte - Policy tools for green growth in the EU15: a Qualitative Comparative Analysis]] :Economics:Ecology:ignore:
+   CLOSED: [2020-09-18 sex 11:54]
+   :PROPERTIES:
+   :YEAR:     2014
+   :ZOTERO:   Entry
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: None
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:    
+
+** REF [#C] Case Studies Survey
+   CLOSED: [2020-09-18 sex 14:07]
+
+#+BEGIN: columnview :maxlevel 3 :id local
+| Decision | Title                                                                                                                                            | YEAR | Economic Related? | Cases | STATUS     | CITE | BIBTEX |
+|----------+--------------------------------------------------------------------------------------------------------------------------------------------------+------+-------------------+-------+------------+------+--------|
+|          | Case study                                                                                                                                       |      |                   |       |            |      |        |
+| READ     | [[http://dx.doi.org/10.1111/1475-6765.12142][Hinterleitner et al]]                                                                                                                              | 2016 | Yes               |       | Skimmed    | Yes  | No     |
+| READ     | [[https://doi.org/10.1177%2F0143831X12452944][Park - Capital openness, monetary integration, and wage-setting coordination in developed European countries]]                                     | 2012 |                   |       | Filed      | Yes  |        |
+| READ     | [[https://www.jstor.org/stable/27752492][Schneider et all - Mapping the Institutional Capital of High-Tech Firms: A Fuzzy-Set Analysis of Capitalist Variety and Export Performance]]       | 2010 |                   |       | Filed      | Wait |        |
+| READ     | [[https://doi.org/10.1007/s11135-011-9637-4][Vis, Woldendorp and Keman Examining variation in economic performance using fuzzy-sets]]                                                           |      |                   |       |            |      |        |
+| READ     | [[https://doi.org/10.1108/17422041311330431][Allen and Aldred - Business regulation, inward foreign direct investment, and economic growth in the new European Union member states]]            | 2013 |                   |       | Skimmed    | Wait |        |
+| READ     | [[https://www.jstor.org/stable/25483292][Pajunen - Institutions and Inflows of Foreign Direct Investment: A Fuzzy-Set Analysis ]]                                                           | 2008 |                   |       | Filed      | Wait |        |
+| READ     | [[https://doi.org/10.1093/soceco/2.1.1][Boyer - New growth regimes, but still institutional diversity ]]                                                                                   | 2004 |                   |       | Skimmed    | Yes  |        |
+| READ     | [[https://doi.org/10.1016/j.jbusres.2018.01.066][Kabakova and Plaksenkov - Analysis of factors affecting financial inclusion: Ecosystem view]]                                                      | 2018 |                   |       | Filed      | Wait |        |
+| READ     | [[https://doi.org/10.1007/s12286-013-0152-y][Hörisch -  Fiscal Policy in Hard Times: A Fuzzy-Set QCA of Fiscal Policy Reactions to the Financial Crisis]]                                       | 2013 | Yes               | OECD  | Skimmed    | Yes  |        |
+| SKIM     | [[https://doi.org/10.9770/jesi.2020.7.4(3)][Sanchez-Roger, Oliver-Alfonso, Sanchís-Pedregosa and Roig-Tierno -  Bail-in and interbank contagion risk: an application of FSQCA methodology]]    | 2020 |                   |       | Skimmed    | Wait |        |
+| PARTIAL  | [[https://doi.org/10.1016/j.jbusres.2019.11.021][Beynon and Jones - Country-level entrepreneurial attitudes and activity through the years: a panel data analysis using fsQCA]]                     | 2019 |                   |       | Skimmed    | Wait |        |
+| PARTIAL  | [[https://doi.org/10.1108/01425451111140622][Allen and Aldred - Varieties of capitalism, governance, and high-tech export performance: A fuzzy-set analysis of the new EU member states]]       | 2011 | Yes               | OECD  | Filed      | Yes  |        |
+| PARTIAL  | [[https://doi.org/10.1016/j.iref.2018.01.017][Graham et al - A fuzzy-set analysis of conditions influencing mutual fund performance]]                                                            | 2019 |                   |       | Skimmed    | Wait |        |
+| PARTIAL  | [[https://doi.org/10.1017/S1755773910000378][Vis -  Under which conditions does spending on active labor market policies increase? An fsQCA analysis of 53 governments between 1985 and 2003]]  | 2011 |                   |       | Skimmed    | Yes  |        |
+| WAIT     | [[https://doi.org/10.1080/09585192.2017.1359793][Su, Fan and Rao-Nicholson -  Internationalization of Chinese banking and financial institutions: a fuzzy-set analysis of the leader-TMT dynamics]] | 2017 |                   |       | Filed      | Wait |        |
+| MAYBE    | [[https://doi.org/10.1007/978-3-030-49829-0][Mei, Chen and Wei - Multi-path Combination Analysisof Economic Development:Based on the Fuzzy Set Comparison of Multinational Data]]               | 2020 |                   |       | Skimmed    | Wait |        |
+| MAYBE    | [[https://doi.org/10.1016/j.jbusres.2016.01.005][Leischnig et al  - Net versus combinatory effects of firm and industry antecedents of sales growth]]                                               | 2016 | Partial           |       | Skimmed    | Yes  |        |
+| REF      | [[https://doi.org/10.1057/jibs.2014.13][Judge, Fainshmidt and Lee Brown III -  Which model of capitalism best delivers both wealth and equality?]]                                         | 2014 |                   |       | Filed      | Yes  |        |
+| REF      | [[https://doi.org/10.1016/j.jbusres.2019.11.042][Barros et al - What firm’s characteristics drive the dividend policy? A mixed-method study on the Euronext stock exchange]]                        | 2019 |                   |       | Downloaded | Wait |        |
+| REF      | [[https://doi.org/10.1080/13510347.2018.1516754][Schenoni and Mainwaring - US hegemony and regime change in Latin America]]                                                                         | 2018 |                   |       | Filed      | No   |        |
+| REF      | [[https://doi.org/10.1093/ser/mwq018][Portes and Smith - Institutions and national development in Latin America: a comparative study]]                                                   | 2010 |                   |       | Filed      | Wait |        |
+| REF      | [[https://www.jstor.org/stable/2657380][Amenta and Halfmann - Wage Wars: Institutional Politics, WPA Wages, and the Struggle for U.S. Social Policy]]                                      | 2000 |                   |       | Filed      | Yes  |        |
+| REF      | [[https://doi.org/10.1016/j.jbusres.2018.01.060][Jordi et al - Corporate governance and financial performance: The role of ownership and board structure]]                                          | 2018 |                   |       | Filed      | No   |        |
+| REF      | [[https://doi.org/10.1017/S004727941500029X][Shahidi -  Welfare Capitalism in Crisis: A Qualitative Comparative Analysis of Labour Market Policy Responses to the Great Recession]]             | 2015 |                   |       | Filed      | Wait |        |
+| REF      | [[https://doi.org/10.1080/09644016.2013.817759][Damonte - Policy tools for green growth in the EU15: a Qualitative Comparative Analysis]]                                                          | 2014 |                   |       | Filed      | Yes  |        |
+| REF      | Case Studies Survey                                                                                                                              |      |                   |       |            |      |        |
+#+END
+
+
+* References                                                         :ignore:
+
+
+bibliography:QCA.bib
+
