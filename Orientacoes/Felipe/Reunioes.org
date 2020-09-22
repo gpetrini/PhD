@@ -1,0 +1,85 @@
+#+TITLE: Reuniões de Orientação - Felipe
+#+AUTHOR: Gabriel Petrini
+#+DATE: 2020
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+
+#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+
+* Discussão do objeto da monografia
+
+*Texto Enviado pelo Aluno:*
+
+#+BEGIN_QUOTE
+Como já havíamos conversado anteriormente, eu gostaria de desenvolver a ideia de como a mudança na governança corporativa das firmas, que passou a ser voltada para gerar valor aos acionistas acaba por afetar os padrões de investimento macroeconômicos. Essa ideia tirei do texto do Karwowski “dimensions and determinants of financialisation: comparing oecd countries since 1997” que você havia me indicado.
+#+END_QUOTE
+
+
+
+** Textos indicados
+
+
+** Proposta de estrutura de capítulos
+
+#+BEGIN_SRC dot :file capitulos.png
+digraph {
+node [shape=record fontname=Arial];
+a  [label="Origens do conceito\n(Breve)"]
+b  [label="Diferentes dimensões"]
+c  [label="Geração de valor para o acionista"]
+d [label="Hipóteses sobre a função investimento"]
+d2  [label="Financeirização e o investimento"]
+e  [label="Apresentação dos dados"]
+f  [label="Financeirização na\nAmérica Latina"]
+g  [label="Geração de valor para o acionista\n(América Latina)"]
+h  [label="Implicações macroeconômicas\nEsperadas\n(Investimento das firmas)"]
+i  [label="Apresentação de resultados empíricos"]
+j  [label="Apresentação e justificativa\nda metodologia"]
+k  [label="Adequação dos dados\ne da metodologia\n(Para América Latina)"]
+l  [label="Apresentação e discussão dos resultados"]
+con [label="Mudança na\ngovernança corporativa e o\ninvestimento"]
+
+    subgraph cluster_0 {
+        label="Capítulo teórico";
+        a -> b;
+        b -> c;
+        c -> d;
+	d -> d2;
+    }
+
+    subgraph cluster_1 {
+        label="Fatos Estilizados";
+        e -> f;
+	f -> g;
+	g -> h;
+	b -> f;
+	c -> g;
+	d -> h;
+	d2 -> h;
+    }
+    subgraph cluster_2 {
+        label="Testando Hipóteses";
+	i -> j;
+	j -> k;
+	k -> l;
+	f -> k;
+	g -> l;
+	h -> l;
+	b -> i;
+    }
+    subgraph cluster_3 {
+        label="Conclusão";
+	d2 -> con;
+	h -> con;
+	l -> con;
+    }
+
+}
+#+END_SRC
+
+#+RESULTS:
+[[file:capitulos.png]]

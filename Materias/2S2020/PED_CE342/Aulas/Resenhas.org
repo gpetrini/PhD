@@ -37,8 +37,12 @@ Posicionamento crítico do objeto analisado em que são apresentadas relações 
 ** Etapas para elaborar uma resenha
 
 
+#+CAPTION: Um esquema óbvio, mas necessário
+#+NAME:   fig:esquema
+[[./esquema.png]]
 
-#+BEGIN_SRC dot :file esquema.png
+
+#+BEGIN_SRC dot :file esquema.png :eval no
 digraph L {
   a  [label="LER"]
   b  [label="REFLETIR"]
@@ -62,9 +66,6 @@ label="Leitura ativa";
 label="Um esquema óbvio, mas necessário";
 }
 #+END_SRC
-
-#+RESULTS:
-[[file:esquema.png]]
 
 * Como ler um texto acadêmico?
 
@@ -146,11 +147,26 @@ Qual a importância da visão predominante na época em que outras ideias foram 
 
 ** Instruções
 
+- Individuais
+- Forma de entrega: em discussão
+- Devem ter no máximo duas páginas
+
+Serão devolvidas aos alunos
+
 ** Elementos
 
-- Título do texto a ser resenhado
-- Quais são as questões centrais?
-- Como o argumento é construído?
+As resenhas serão avaliadas de acordo com as respostas dadas às seguintes questões
+ao longo do texto:
+
+- Qual é o tema do texto? Qual o objetivo do autor?
+- Qual é a hipótese/argumento central do autor?
+- Quais os conceitos utilizados?
+- Como ele desenvolve e organiza os argumentos?
+- Qual a conclusão do texto?
+
+
+A forma em que as ideias são apresentadas (clareza e organização do texto) também
+será avaliada.
 
 ** Cronograma
 
