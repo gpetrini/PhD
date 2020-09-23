@@ -1,10 +1,10 @@
-% Created 2020-08-21 sex 19:10
+% Created 2020-09-23 qua 18:24
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
-\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage[top=3cm, bottom=2cm, left=3cm, right=2cm]{geometry}
 \usepackage{graphicx}
 \usepackage{longtable}
 \usepackage{float}
@@ -22,6 +22,7 @@
 scbib,repeattitles,doi=false,isbn=false,url=false,maxcitenames=2,
 natbib=true,backend=biber]{biblatex}
 \usepackage{url}
+\usepackage[cache=false]{minted}
 \usepackage[linktocpage,pdfstartview=FitH,colorlinks,
 linkcolor=blue,anchorcolor=blue,
 citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
@@ -53,7 +54,8 @@ Therefore, this model introduces both housing and asset bubbles	on Sraffian supe
 
 
 \section{Introduction}
-\label{sec:orgd83f82d}
+\label{sec:orgfecad70}
+\label{sec:introduction}
 
 Non-residential investment is the most scrutinized variable in demand-led growth models so that others expenditures play a secondary role \cite{brochier_macroeconomics_2017}.
 A decade after the Great Recession, this is still the case for residential investment which continues to receive sparse and unsystematic attention by the literature \cites{caverzasi_stock-flow_2013}{nikolaidi_minsky_2017}.
@@ -87,11 +89,10 @@ In this same Section, we also plug houses own interest rate observed data for th
 Section \ref{sec:Conclusion} offers some concluding remarks while Appendix \ref{append:Solution} provides the analytical solution in order to assess stability condition and Appendix \ref{append:Data} presents simulation's parameters and baseline values.
 
 
+
 \section{Empirical Motivation}
-\label{sec:orgdc59f79}
+\label{sec:org6dbf9c6}
 \label{sec:empirical}
-
-
 
 A current trend among empirical research on demand-led growth is about the role of NCC autonomous expenditures.
 \textcite{freitas_pattern_2013} present a growth accounting decomposition and report the relevance of those expenditures in explaining Brazilian GDP growth between 1970 and 2005. \textcite{braga_investment_2018} shows evidence that economic growth and non-residential investment are explained by NCC autonomous expenditures in Brazilian economy from 1962 to 2015. For the U.S., \textcite{girardi_long-run_2016} show that NCC autonomous expenditures have permanent effects on growth rate. 
@@ -182,14 +183,9 @@ In summary, what we intended to show is that one cannot analyze the U.S. busines
 On the following section, we investigate how demand-led growth theoretical literature has dealt with this topic.
 
 
-
-
-
-
 \section{The absence of residential investment in demand-led growth models}
-\label{sec:org19ce83d}
+\label{sec:org4f04f35}
 \label{sec:Review}
-
 Recently, there is an effort to include SSM in Post-Keynesian strands \cite{lavoie_post-keynesian_2015}.
 Some authors have explored the consequences of  different NCC autonomous expenditures through modifications in the canonical Kaleckian model \cites{allain_tackling_2015}{lavoie_convergence_2016}\footnote{This modifications in the canonical Kaleckian growth model are related to critiques regarding its non-convergence to normal utilization rate on the long-run \cites{dallery_conflicting_2011}{skott_theoretical_2012}{hein_harrodian_2012}.}.
 It worth noting that both Sraffian and non-canonical Kaleckian models presents the same results on the fully-adjusted position:
@@ -227,12 +223,12 @@ Despite shedding light on some relevant relationships, \citeauthor*{teixeira_cre
 The next section will present a fully specified parsimonious SSM-SFC residential investment-led model 
 which its growth rate is described by the already mentioned houses own interest rate.
 
-\section{A Sraffian supermultiplier SFC model with residential investment}
-\label{sec:org319b589}
-\label{sec:Model}
 
+\section{A Sraffian supermultiplier SFC model with residential investment}
+\label{sec:org65226c1}
+\label{sec:Model}
 \subsection{General equations}
-\label{sec:org1807a6b}
+\label{sec:org77189c1}
 
 Our model is the most parsimonious as possible: a closed capitalist economy without government sector. Output (\(Y\)) is determined by  a fixed combination of a homogeneous labor (\(L\)) input with homogeneous fixed capacity creatin capital (\(K_f\)). 
 For simplicity, we put technological progress, depreciation and goods inflation aside so investment is presented in net terms and all variables --- except for houses --- are measured in real terms.
@@ -368,7 +364,7 @@ Change in loans     & &$+\Delta L_{k}$&&$+\Delta L_f$& &$-\Delta L$& 0\\
 
 
 \subsection{Firms}
-\label{sec:orga726a91}
+\label{sec:orgd3f387f}
 
 In order to produce, firms purchase capital goods (\(-I_f\) in capital account) and hire workers, whom total remuneration is the economy wage bill. 
 Their total profits (\(FT\)) are a residual between sales (\(Y\)) and total wages (\(W\)). 
@@ -402,6 +398,7 @@ As mentioned above, only firms investment creates productive capital stock.
 \end{equation}
 where \(h\) is (endogenous) marginal propensity to invest and \(\gamma_u\) must be sufficiently small in order to the adjustment be gradual\footnote{The size of this parameter guards a fundamental relation to the stability of the model, as shown by \textcite{freitas_growth_2015}.}.
 
+
 Firms finance part of investment that exceeds undistributed profits by bank loans, paying an interest rate on it (\(r_l\)) charged by the banks. 
 We assume an elastic supply of credit for investment. 
 Moreover, tables \ref{Matriz_Estoques} and \ref{Matriz_Fluxos} show firms net wealth (\(NW_f\)) and net financial balance (\(NFW_f\)) explicitly:
@@ -426,7 +423,7 @@ where \(r_g\) and \(r_n\) denotes gross and net profit rate respectively.
 
 
 \subsection{Banks}
-\label{sec:org05bcf77}
+\label{sec:org2225b9a}
 
 As in most part of SFC literature, banks do not have an active role in our model.
 They create money as credit is demanded and just after they collect deposits \cite{le_bourva_money_1992}. 
@@ -464,10 +461,10 @@ $$
 \end{equation}
 
 \subsection{Households}
-\label{sec:org2b4ee30}
+\label{sec:orgc205a57}
 
 \subsubsection*{Workers}
-\label{sec:org31b0a7c}
+\label{sec:org2e0371a}
 As mentioned before, we assume that workers expend (\(C_w\)) what they earn (\(W\)). 
 For simplicity, we consider that wages are the only source of income workers' disposable income (\(YD_{w}\)) and do not have access to consumption loans, so worker' saving (\(S_{hw}\)) are null.
 Therefore, accordingly to our hypothesis, workers' do not hold both net financial and total wealth.
@@ -492,7 +489,7 @@ V_{w} = 0
 \end{equation}
 
 \subsubsection*{Capitalists}
-\label{sec:orge25bccc}
+\label{sec:orgcf5d2be}
 This is the most complex institutional sector of our model. 
 We assume consumption (\(C_k\)) is fully-autonomous and financed by loans (\(L_{k}\)). 
 Disposable income (\(YD_k\)) is the sum of distributed profits and received interests on deposits, net of interests payments
@@ -599,15 +596,12 @@ In this section, we presented our fully-specified parsimonious model to represen
 
 
 
-
 \section{Short and long-run equilibria}
-\label{sec:org34bdbb7}
+\label{sec:org74057c3}
 \label{sec:runs}
-
 In this Section, we show the implications residential investment inclusion into a SSM-SFC model. First, we present the short-run dynamics and then move to the fully-adjusted position (denoted by \(\star\)).
-
 \subsection{Short-run good market equilibrium}
-\label{sec:org057dc09}
+\label{sec:orgb498722}
 \label{short}
 
 In our no-government closed economic system, real output (equation \ref{_Y}) is the sum of household consumption (equation \ref{ConsumoTotal}) and both types of investment (equation \ref{_It}). 
@@ -656,7 +650,7 @@ On the following subsection, analyze the fully-adjusted positions values and ste
 \textbf{Nota:} Não organizei bem o texto desta seção. Não tenho certeza se essa é a melhor ordem de apresentação das equações, mas acredito que isso seja rápido de corrigir.
 
 \subsection{Fully-adjusted position}
-\label{sec:orgba7ef48}
+\label{sec:orgd135636}
 \label{long}
 
 
@@ -734,7 +728,8 @@ However, it has permanent effects over capital stock composition as a result of 
 
 
 \section{Numerical Simulations}
-\label{sec:orgb315581}
+\label{sec:org5bfbfad}
+\label{sec:Experiments}
 \label{sec:Experiments}
 
 
@@ -747,9 +742,8 @@ Before we move foward, it worth mentioning that we use \citeauthor*{fazzari-2020
 Since we use a SFC framework, first experiment assess if income distribution affects fully-adjusted position growth rates temporal --- as in \textcite{mandarino-2020-worker-debt} --- or persistently ---  as in \textcite{brochier_supermultiplier_2018}.
 Real estate increase experiment is motivated by recent US experience (from 1992 to 2019) as discussed in Section \ref{sec:empirical} while the last one aims to evaluate indebtedness stability.
 Table \ref{tab:param} in Appendix \ref{append:Data} presents the parameters of simulation and Table \ref{ResumoChoques} compare each result to baseline.
-
 \subsection{Wage-share decrease}
-\label{sec:org6f1aa8d}
+\label{sec:org5096a40}
 \label{sec:Exp1}
 
 A wage-share decrease has a temporary negative impact both in GDP level and capacity utilization rate due to changes on the supermultiplier (see Figure \ref{fig:results_1}).
@@ -776,7 +770,7 @@ Therefore, gross and net profit rate remains persistently close to each other (s
 \textbf{Nota:} Farei referência às equações stock/flow quando terminar esta seção
 
 \subsection{Real estate inflation}
-\label{sec:orgf9a3799}
+\label{sec:org5cbfe81}
 \label{sec:Exp2}
 
 
@@ -804,7 +798,7 @@ also the utilization rate.
 In other words, both autonomous expenditures share on GDP --- higher supermultiplier --- and houses share on real assets (see Equation \ref{partial_pi}) decline as a result of the already described non-residential investment positive reaction.
 Finally, it worth noting that real estate increase also has permanent effects over real stock/flow ratios due to capital gains.
 \subsection{Interest rate increase}
-\label{sec:orga8299e8}
+\label{sec:orgf5ef312}
 \label{sec:Exp3}
 
 A increase in benchmark interest rate  has a persistent effect on long-run growth rate since houses own interest rate increases as well\footnote{Since we assume null spread on both mortgage and loans interest rate, an increase on deposits interest rate also increases the other ones. As a consequence, banks' net financial wealth remains unchanged.}.
@@ -863,7 +857,7 @@ Therefore, we find a stable debt dynamics for both capitalists and firms (other 
 
 
 \subsection{Plugging real data}
-\label{sec:org28587ea}
+\label{sec:orga2ce323}
 
 
 Finally, we include houses own interest rate data into our model (see Figure \ref{fig:propria_investo}) proposed by \cite{teixeira_crescimento_2015} and evaluated under econometric scrutinity by \textcite{petrini_demanda_2019}.
@@ -891,11 +885,8 @@ In order to report this stylized fact, we argue that would be necessary to inclu
 
 
 \section{Concluding Remarks}
-\label{sec:org21136af}
+\label{sec:org3a6e516}
 \label{sec:Conclusion}
-
-
-
 This paper contributes to demand-led growth agenda, taking in consideration recent efforts of embedding it in a SFC framework.
 Our novelty is twofold: (i) inclusion of residential investment and (ii) determination of its growth rate by houses' own interest rate.
 Residential investment was included due to recent empirical works showing its relevance for macroeconomic dynamics.
@@ -919,22 +910,22 @@ For example, future research could assess which institutional arrangements allow
 
 
 \section*{Acknowledgments}
-\label{sec:orgd26402a}
+\label{sec:org0583542}
 \noindent We  are  grateful  to  Lídia  Brochier,  Carolina  Baltar,  Franklin  Serrano  for  discussions,  as  well  as  comments  by  the participants of Cecon/Unicamp and UFRJ Political Economy research seminars and the participants of XII AKB meeting, 20th FMM forum, and 46th EEA Annual Conference. Any remaining errors are, of course, our own.
 
 \section*{Disclosure statement}
-\label{sec:orge0efc14}
+\label{sec:orgf9d28bb}
 No potential conflict of interest was reported by the authors.
 
 \section*{References}
-\label{sec:org44c7d59}
+\label{sec:orgca311b0}
 \printbibliography[heading=none]
 
 
 \appendix
 
 \section{Analytical Solution}
-\label{sec:org993ea4b}
+\label{sec:org73dbedb}
 \label{append:Solution}
 
 
@@ -1031,7 +1022,7 @@ and mortgage to total capital stock ratio (\(m^{\star}\)):
 
 
 \section{Numerical Appendix}
-\label{sec:org8750443}
+\label{sec:org35a4319}
 \label{append:Data}
 
 \begin{table}[H]

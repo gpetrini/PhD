@@ -1,0 +1,696 @@
+
+* Empirical TODOs and Setups                                       :noexport:
+
+** TODO [#B] Checar se gráfico da taxa própria deve ser em média móvel
+
+** Loading packages
+   
+#+BEGIN_SRC ipython :async t :results output :session empirical :exports none :tangle ./codes/Empirical_Motivation.py
+%config InlineBackend.figure_format = 'retina'
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas_datareader.data as web
+import datetime
+from datetime import datetime as dt
+
+sns.set_context('paper')
+
+start = datetime.datetime(1951, 12, 1)
+end = datetime.datetime(2019, 3, 1)
+
+def salvar_grafico(file_name, extension=".png", pasta="./figs/"):
+    fig.savefig(pasta + file_name + extension, dpi = 300, bbox_inches = 'tight',
+    pad_inches = 0.2, transparent = False,)
+#+END_SRC
+
+#+RESULTS:
+:results:
+3 - f5c68a3c-745e-41ac-966d-be8b098f17be <output> <interrupt>
+:end:
+
+** Functions
+
+#+BEGIN_SRC ipython :async t :results output :session empirical :exports none :tangle ./codes/Empirical_Motivation.py
+def crise_subprime(axes, alpha=0.4):
+    axes.axvspan(
+    xmin='2007-12-01', 
+    xmax='2009-06-01',
+    color='gray', 
+    label='Subprime Crises',
+    zorder=0,
+    alpha=alpha
+)
+
+def crises(axes, color='lightgray', alpha=0.4):
+    axes.axvspan(xmin = "1953-07", xmax='1954-04', color = color, alpha=alpha, label = 'Recession')
+    axes.axvspan(xmin = "1957-08", xmax='1958-05', color = color, alpha=alpha, label = '')
+    axes.axvspan(xmin = "1960-05", xmax='1961-02', color = color, alpha=alpha, label = '')
+    axes.axvspan(xmin = "1969-12", xmax='1970-11', color = color, alpha=alpha, label = '')
+    axes.axvspan(xmin = "1973-11", xmax='1975-03', color = color, alpha=alpha, label = '')
+    axes.axvspan(xmin = "1980-01", xmax='1980-07', color = color, alpha=alpha, label = '')
+    axes.axvspan(xmin = "1981-07", xmax='1982-01', color = color, alpha=alpha, label = '')
+    axes.axvspan(xmin = "1990-07", xmax='1991-03', color = color, alpha=alpha, label = '')
+    axes.axvspan(xmin = "2001-03", xmax='2001-11', color = color, alpha=alpha, label = '')
+#+END_SRC
+
+#+RESULTS:
+:results:
+4 - 4f784104-deef-4509-ab24-3d32272f016e <output> <interrupt>
+:end:
+
+** Getting data
+   
+#+BEGIN_SRC ipython :async t :results output :session empirical :exports results :tangle ./codes/Empirical_Motivation.py
+df = web.DataReader(
+    [
+        'GDP',
+        'PRFI',
+        'PNFI',
+        'TCU',
+        'PCDG',
+    ], 
+    'fred', 
+    start, end
+)
+df['TCU'] = df['TCU']/100
+df['H-GFI'] = df['PRFI']/df['PNFI']
+df['H-GDP'] = df['PRFI']/df['GDP']
+df['Investment share'] = df['PNFI']/df['GDP']
+df['Housing share'] = df['PRFI']/df['GDP']
+df["Durables"] = df["PCDG"]/df["GDP"]
+df['Year'] = df.index.year
+df = df.resample('Q').last()
+df.index.name = ''
+df.to_csv('./data/Cycle.csv')
+
+#+END_SRC
+
+#+RESULTS:
+:results:
+5 - f2548fd8-441f-4be6-8dba-3e52b9b8089f <output> <interrupt>
+:end:
+
+
+#+BEGIN_SRC ipython :async t :results output :session empirical :exports results :tangle ./codes/Empirical_Motivation.py
+start=dt(1987,1,1)
+end=dt(2019,10,1)
+
+df = web.DataReader(
+    [
+        "PRFI",
+        "CSUSHPISA",
+        "MORTGAGE30US",
+        "CPIAUCSL"
+    ], 
+    'fred', 
+    start, 
+    end
+)
+
+df.columns = [
+    "Residential investment", 
+    "House prices", 
+    "Mortgage interest rate",
+    "General Prices"
+]
+df.index.name = ""
+
+
+df['Mortgage interest rate'] = df['Mortgage interest rate'].divide(100)
+df = df.resample('M').last()
+
+df['House prices'] = df['House prices']/df['House prices'][0]
+df = df.resample('Q').last()
+df["Inflation"]= df["House prices"].pct_change()
+df["General inflation"] = df["General Prices"].pct_change()
+df["Own interest rate"] = ((1+df["Mortgage interest rate"])/(1+df["Inflation"])) -1
+df["Real mortgage interest rate"] = ((1+df["Mortgage interest rate"])/(1+df["General inflation"])) -1
+
+df['$g_{I_h}$'] = df["Residential investment"].pct_change()
+df.to_csv("./data/OwnInterestRate_data.csv")
+#+END_SRC
+
+#+RESULTS:
+:results:
+6 - 00ac17cf-ad5c-4a6a-9d97-b04ef0c88852 <output> <interrupt>
+:end:
+
+** Residuals
+
+#+BEGIN_SRC ipython :async t :results output drawer :session empirical :exports none :tangle ./codes/Empirical_Motivation.py
+df = pd.read_csv(
+    './data/OwnInterestRate_data.csv',
+    index_col = [0],
+    parse_dates = True
+)
+
+df = df.merge(
+    pd.read_csv(
+        './data/Cycle.csv',
+        index_col = [0],
+        parse_dates = True
+    ),
+    left_index=True, right_index=True
+)
+
+sns.set_context('talk')
+fig, ax = plt.subplots(1,2, figsize=(2*8,5),
+                       sharex=True, sharey=True
+)
+
+
+
+sns.scatterplot(y = 'Housing share', x='Own interest rate', data=df["1992-01":"2001-12"],
+                ax=ax[0], size='Year', sizes = (5,100), color = 'black', legend=False)
+sns.lineplot(y = 'Housing share', x='Own interest rate', data=df["1992-01":"2001-12"],
+             ax=ax[0], sort=False, color = 'black')
+ax[0].set_title("1992 (I) - 2001 (IV)")
+
+sns.scatterplot(y = 'Housing share', x='Own interest rate', data=df["2001-12":"2009-07"],
+                ax=ax[1], size='Year', sizes = (5,100), color = 'black', legend=False)
+sns.lineplot(y = 'Housing share', x='Own interest rate', data=df["2001-12":"2009-07"],
+             ax=ax[1], sort=False, color = 'black')
+ax[1].set_title("2001 (IV) - 2009 (II)")
+
+
+sns.despine()
+fig.tight_layout(rect=[0, 0.03, 1, 1])
+plt.show()
+
+fig.savefig("./figs/Own_Cycle.png", transparent = True, dpi = 300)
+
+#+END_SRC
+
+#+RESULTS:
+:results:
+7 - 7446ed78-c5f5-4ca8-84a9-5118887b6f3b <output> <interrupt>
+:end:
+
+
+
+#+BEGIN_SRC latex
+\begin{figure}[htb]
+    \centering
+        \caption{Share of residential investment and Houses own interest rate\\\centering Before and after housing bubble\\\centering (Dots size grow in  time)} 
+    \includegraphics[width = 0.65\textwidth]{./figs/Own_Cycle.png}
+    \label{fig:cycles}
+    \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration.}
+\end{figure}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{figure}[htb]
+    \centering
+        \caption{Share of residential investment and Houses own interest rate\\\centering Before and after housing bubble\\\centering (Dots size grow in  time)} 
+    \includegraphics[width = 0.65\textwidth]{./figs/Own_Cycle.png}
+    \label{fig:cycles}
+    \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration.}
+\end{figure}
+#+end_export
+
+
+#+BEGIN_SRC ipython :async t :results output drawer :session empirical :exports none :tangle ./codes/Empirical_Motivation.py
+fig, ax = plt.subplots()
+
+df['H-GDP'].plot(color = 'black', label = 'Residential investment/GDP', ax = ax)
+ax.axvspan(xmin = "1953-07", xmax='1954-04', color = "lightgray", label = 'Recession')
+ax.axvspan(xmin = "1957-08", xmax='1958-05', color = "lightgray", label = '')
+ax.axvspan(xmin = "1960-05", xmax='1961-02', color = "lightgray", label = '')
+ax.axvspan(xmin = "1969-12", xmax='1970-11', color = "lightgray", label = '')
+ax.axvspan(xmin = "1973-11", xmax='1975-03', color = "lightgray", label = '')
+ax.axvspan(xmin = "1980-01", xmax='1980-07', color = "lightgray", label = '')
+ax.axvspan(xmin = "1981-07", xmax='1982-01', color = "lightgray", label = '')
+ax.axvspan(xmin = "1990-07", xmax='1991-03', color = "lightgray", label = '')
+ax.axvspan(xmin = "2001-03", xmax='2001-11', color = "lightgray", label = '')
+ax.axvspan(xmin = "2007-12", xmax='2009-07', color = "lightgray", label = '')
+ax.legend()
+sns.despine()
+fig.savefig("./figs/housing_gdp.png", transparent = True, dpi = 300)
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+:results:
+8 - 9b373c3d-f21b-415b-af5e-5bf333ccee49 <output> <interrupt>
+:end:
+
+#+BEGIN_SRC latex
+\begin{figure}[htb]
+    \centering
+        \caption{Residential Investment as share of GDP\\\centering quarterly moving average}
+        \label{Investo_Resid_GDP}
+    \includegraphics[width = 0.7\textwidth]{./figs/housing_gdp.png}
+    \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration}
+\end{figure}
+
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{figure}[htb]
+    \centering
+        \caption{Residential Investment as share of GDP\\\centering quarterly moving average}
+        \label{Investo_Resid_GDP}
+    \includegraphics[width = 0.7\textwidth]{./figs/housing_gdp.png}
+    \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration}
+\end{figure}
+#+end_export
+
+Figure ref:Investo_Resid_GDP shows how the behavior of residential dynamics can help to predict recessions. Recessions are anticipated by a reduction of residential investment share of GDP, while the expansion of those expenditures precedes economic recovery. The fall of dwellings expenditures in 1966-67 are an exception because the increase of military expenditures because of Vietnam War offset an eventual economic downturn \cite[p.~20]{leamer_housing_2007}. Another exception is the dot-com bubble 2000 crisis that was not caused by residential investment. The Great Recession 2008-2009 is the one in which this pattern is the most evident. 
+
+#+BEGIN_SRC ipython :async t :results output drawer :session empirical :exports none :tangle ./codes/Empirical_Motivation.py
+df = pd.read_csv(
+    './data/OwnInterestRate_data.csv',
+    index_col = [0],
+    parse_dates = True
+)
+
+df = df.merge(
+    pd.read_csv(
+        './data/Cycle.csv',
+        index_col = [0],
+        parse_dates = True
+    ),
+    left_index=True, right_index=True
+)
+
+sns.set_context('talk')
+fig, ax = plt.subplots(1,2, figsize=(2*8,5),
+                       sharex=True, sharey=True
+)
+
+
+
+sns.scatterplot(x = 'Housing share', y='Durables', data=df["1992-01":"2001-12"],
+                ax=ax[0], size='Year', sizes = (5,100), color = 'black', legend=False)
+sns.lineplot(x = 'Housing share', y='Durables', data=df["1992-01":"2001-12"],
+             ax=ax[0], sort=False, color = 'black')
+ax[0].set_title("1992 (I) - 2001 (IV)")
+
+sns.scatterplot(x = 'Housing share', y='Durables', data=df["2001-12":"2009-07"],
+                ax=ax[1], size='Year', sizes = (5,100), color = 'black', legend=False)
+sns.lineplot(x = 'Housing share', y='Durables', data=df["2001-12":"2009-07"],
+             ax=ax[1], sort=False, color = 'black')
+ax[1].set_title("2001 (IV) - 2009 (II)")
+
+
+sns.despine()
+fig.tight_layout(rect=[0, 0.03, 1, 1])
+plt.show()
+
+fig.savefig("./figs/Durables.png", transparent = True, dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+:results:
+9 - 4275a2b4-673a-45fb-876a-277ad4f8e7b5 <output> <interrupt>
+:end:
+
+
+
+
+* Empirical Motivation                                               :ignore:
+
+
+@@comment: Parágrafo introdutório: Evidenciar trabalhos com NCC e lacuna do investimento residencial. comment@@
+A current trend among empirical research on demand-led growth is about the role of NCC autonomous expenditures.
+textcite:freitas_pattern_2013 present a growth accounting decomposition and report the relevance of those expenditures in explaining Brazilian GDP growth between 1970 and 2005. textcite:braga_investment_2018 shows evidence that economic growth and non-residential investment are explained by NCC autonomous expenditures in Brazilian economy from 1962 to 2015. For the U.S., textcite:girardi_long-run_2016 show that NCC autonomous expenditures have permanent effects on growth rate. 
+textcite:haluska_growth_2019 employ Granger-causality tests to assess the stability of the SSM for the US (1987-2017) and report a causality from NCC autonomous expenditures to the marginal propensity to invest, as expected.
+Finally, textcite:girardi_autonomous_2018 bring evidence that those expenditures determine the investment share on GDP for twenty OECD countries. 
+Nevertheless, there still is a lack of studies on the role of residential investment specifically. 
+Except for textcites:green_follow_1997,leamer_housing_2007 ---  which shows the relevance of this expenditure to US business cycle at least since the
+post-war period ---, most of those studies were published after the Great Recession (2008-2009)[fn:Leamer].
+
+[fn:Leamer] More precisely, Leamer \textcite[p.~8]{leamer_housing_2007} argues that the US business cycles can be characterized as follows: ``[f]irst homes, then cars, and last business equipment''.
+
+
+#+BEGIN_SRC ipython :async t :results output drawer :session empirical :exports none :tangle ./codes/Empirical_Motivation.py
+df = pd.read_csv(
+    './data/Cycle.csv',
+    index_col = [0],
+    parse_dates = True
+)
+
+fig, ax = plt.subplots(2,3, sharex=True, sharey=True, squeeze=False)
+
+sns.scatterplot(y = 'Housing share', x='TCU', data=df["1970-12":"1975-01"], ax=ax[0,0], size='Year', sizes = (5,100), color = 'black', legend=False)
+sns.lineplot(y = 'Housing share', x='TCU', data=df["1970-12":"1975-01"], ax=ax[0,0], sort=False, color = 'black')
+ax[0,0].set_title("1970 (IV) - 1975 (I)")
+
+sns.scatterplot(y = 'Housing share', x='TCU', data=df["1975-01":"1980-10"], ax=ax[0,1], size='Year', sizes = (5,100), color = 'black', legend=False)
+sns.lineplot(y = 'Housing share', x='TCU', data=df["1975-01":"1980-10"], ax=ax[0,1], sort=False, color = 'black')
+ax[0,1].set_title("1977 (I) - 1980 (III)")
+
+sns.scatterplot(y = 'Housing share', x='TCU', data=df["1980-10":"1982-12"], ax=ax[0,2], size='Year', sizes = (5,100), color = 'black', legend=False)
+sns.lineplot(y = 'Housing share', x='TCU', data=df["1980-10":"1982-12"], ax=ax[0,2], sort=False, color = 'black')
+ax[0,2].set_title("1980 (III) - 1982 (IV)")
+
+sns.scatterplot(y = 'Housing share', x='TCU', data=df["1982-12":"1991-01"], ax=ax[1,0], size='Year', sizes = (5,100), color = 'black', legend=False)
+sns.lineplot(y = 'Housing share', x='TCU', data=df["1982-12":"1991-01"], ax=ax[1,0], sort=False, color = 'black')
+ax[1,0].set_title("1982 (IV) - 1991 (I)")
+
+sns.scatterplot(y = 'Housing share', x='TCU', data=df["1991-01":"2001-12"], ax=ax[1,1], size='Year', sizes = (5,100), color = 'black', legend=False)
+sns.lineplot(y = 'Housing share', x='TCU', data=df["1991-01":"2001-12"], ax=ax[1,1], sort=False, color = 'black')
+ax[1,1].set_title("1991 (I) - 2001 (IV)")
+
+sns.scatterplot(y = 'Housing share', x='TCU', data=df["2001-12":"2009-07"], ax=ax[1,2], size='Year', sizes = (5,100), color = 'black', legend=False)
+sns.lineplot(y = 'Housing share', x='TCU', data=df["2001-12":"2009-07"], ax=ax[1,2], sort=False, color = 'black')
+ax[1,2].set_title("2001 (IV) - 2009 (II)")
+
+
+sns.despine()
+ax[0,0].set_ylabel(""); ax[1,0].set_xlabel('')
+ax[1,0].set_ylabel(""); ax[1,1].set_xlabel(''); ax[1,2].set_xlabel('')
+
+fig.tight_layout(rect=[0, 0.03, 1, 0.90])
+fig.text(0.5, 0.03, 'Capacity utilization ratio (Total Industry)', ha='center', fontsize =9)
+fig.text(0, 0.5, 'Residential Investment/GDP', va='center', rotation='vertical', fontsize=9)
+fig.tight_layout(rect=[0, 0.03, 1, 1])
+plt.show()
+
+fig.savefig("./figs/cycles.png", transparent = True, dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+:results:
+10 - 86e5a5b8-a690-4539-9071-c3d25eed8e20 <output> <interrupt>
+:end:
+
+#+BEGIN_SRC latex
+\begin{figure}[htb]
+    \centering
+        \caption{Share of residential investment and capacity utilization during business cycles\\\centering (Dots size grow in  time)} 
+    \includegraphics[width = 0.65\textwidth]{./figs/cycles.png}
+    \label{fig:cycles}
+    \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration.}
+\end{figure}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{figure}[htb]
+    \centering
+        \caption{Share of residential investment and capacity utilization during business cycles\\\centering (Dots size grow in  time)} 
+    \includegraphics[width = 0.65\textwidth]{./figs/cycles.png}
+    \label{fig:cycles}
+    \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration.}
+\end{figure}
+#+end_export
+
+
+
+@@comment: Apresentar Taxa própria e explicar gráfico/construção das variáveis comment@@
+
+After the Great Recession, the literature have analyzed the macroeconomic relevance of residential investment cites:leamer_housing_2015,fiebiger_semi-autonomous_2018.
+However, little progress has been made in understanding its theoretical determinants.
+textcite:teixeira_crescimento_2015 proposes the so-called houses own interest rate ($own$) in order to analyze the relation between residential investment, real estate inflation and interest rates during the U.S. housing bubble episode.
+Estimated by deflating mortgages interest rate real estate inflation, this particular real interest rate is the most relevant for households since it is the real cost in real estate from buying real estate  \cite[p.~53]{teixeira_crescimento_2015}.
+In short, this is the real interest rate that is relevant for house investors.
+Figure ref:propria_investo shows how this  procedure is more adequate than a general price index deflation --- as \textcite[p.~143--6]{fair_macroeconometric_2013} does --- to describe residential investment growth rate[fn:TxPropria].
+Based on this concept, textcite:petrini_demanda_2019 estimated an econometric model for the U.S. (1992 to 2019) and presents empirical evidence that the residential investment growth rate and houses own interest rate share a common negative long-run trend.
+Furthermore, textcite:petrini_demanda_2019 also reports a unidirectional long-run causality from houses own interest rate to residential investment growth rate.
+
+[fn:TxPropria] It is worth noting that during a housing bubble period, it is real estate inflation that governs own's interest rate dynamics.
+Therefore, the lower this rate is, the greater the capital gains (in real estate) for speculating with real estate will be. This negative relation between houses own interest rate and residential investment is shown in Figure \ref{propria_investo} in which this particular real interest rate has been gradually decreased over the real estate boom (2002-5).
+ 
+
+@@comment: Importância do investimento residencial para o ciclo econômico comment@@
+In order to depict the relation between housing and business cycle, we present Figure ref:fig:cycles in which each cycle is represented in a different panel[fn:Fiebiger_data].
+The vertical axis represents residential investment-GDP ratio and the horizontal axis represents the capacity utilization ratio  as a proxy for business cycle. Economic recovery is generally characterized by residential investment growing faster than GDP — with the 1991-2000 period being a particular case. Both residential investment share on GDP and capacity utilization increase as a consequence of this higher growth rate.
+Following the Sraffian supermultiplier growth model, we conclude that increase of non-residential investment is the result of capital stock adjustment principle[fn:Instabilidade_Demanda]. This increase implies GDP to grow faster than residential investment, therefore reducing both its share on GDP and capacity utilization ratio. Finally, as a result of economic burst, capacity utilization ratio falls and the cycle ends.
+
+
+
+[fn:Fiebiger_data] This similar reasoning can be found in textcite:fiebiger_trend_2017. Unlike them, we plot only residential investment without including otherhouseholds expenses financed by credit.
+[fn:Instabilidade_Demanda] textcites:fiebiger_semi-autonomous_2018,fiebiger_trend_2017 also report residential investment as an important determinant of business cycles. Those works associate economic instability to the behavior of (at least some) autonomous expenditures in spite of the behavior firms investment --- as it follows capital stock adjustment principle. textcites:dejuan_hidden_2017,teixeira_crescimento_2015 find similar results.
+
+
+
+#+BEGIN_SRC ipython :async t :results output drawer :session empirical :exports none :tangle ./codes/Empirical_Motivation.py
+df = pd.read_csv(
+    './data/OwnInterestRate_data.csv',
+    index_col = [0],
+    parse_dates = True
+)
+
+sns.set_context('paper')
+fig, ax = plt.subplots(figsize=(8,5))
+
+df[['Real mortgage interest rate', "Own interest rate", '$g_{I_h}$']].plot(ax=ax, lw=3)
+
+sns.despine()
+plt.show()
+salvar_grafico("Own_gI")
+#+END_SRC
+
+#+RESULTS:
+:results:
+11 - 9b954cad-9e4c-428e-9ddf-71fb1fbab412 <output> <interrupt>
+:end:
+
+#+BEGIN_SRC latex
+\begin{figure}[htb]
+	\centering
+	\caption{Residential investment growth rate vs. Houses Own interest rate}
+	\label{propria_investo}
+	\includegraphics[width=.8\textwidth]{./figs/Own_gI}
+	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' elaboration}
+\end{figure}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{figure}[htb]
+	\centering
+	\caption{Residential investment growth rate vs. Houses Own interest rate}
+	\label{propria_investo}
+	\includegraphics[width=.8\textwidth]{./figs/Own_gI}
+	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' elaboration}
+\end{figure}
+#+end_export
+
+
+
+@@comment: Importância da bolha de ativos para explicar o investimento residencial e, por conseguinte, o ciclo econômico comment@@
+There is also an indirect relation between residential investment and durables goods consumption. Real estate constitutes a significant portion of household wealth so houses serves as collateral to borrowing cite:teixeira_uma_2011. 
+As a consequence of U.S. institutional arrangement, households could increase their indebtedness as house
+prices went up (see Figure ref:fig:debt) as a way to ``make'' capital gains without selling their houses during the 2000s housing bubble cite:teixeira_crescimento_2015,hay_failure_2013. 
+The relation between households indebtedness and real estate inflation also describes the increasing gap between assets and liabilities in the course of the Great Recession[fn:Divida_Precos]. 
+
+[fn:Divida_Precos] This co-movement results from the housing prices burst (post-2005) and  the insensitivity of households’ financial commitments. In other words, real estate (assets) has a market value while debt (liabilities) has a contractual one, thus, households net worth decreases
+onset of the subprime crisis.
+
+
+
+#+BEGIN_SRC ipython :async t :results output drawer :session empirical :exports none :tangle ./codes/Empirical_Motivation.py
+start = dt(1947, 1, 1)
+end = dt(2015, 1, 1)
+
+df = web.DataReader(
+    [
+        'CMDEBT', # debt securities and loans; liability, Level 
+        'CSUSHPINSA', # S&P/Case-Shiller U.S. National Home Price Index
+    ], 
+    'fred', 
+    start, 
+    end
+)
+
+df.columns = [
+    'Household debt',
+    'House prices',
+]
+
+for i in df.columns:
+    df[i] = (df[i]/df[i]['2000-01-01'])*100
+
+df.index.name = ''
+df = df.resample("QS").mean().dropna()
+
+
+fig, ax = plt.subplots(figsize=(16, 10))
+
+df.iloc[df.index>='1970-01',:].plot(
+    ax=ax,
+    color=('darkred', 'darkblue'),
+    linewidth=2.5,
+)
+
+crise_subprime(ax)
+crises(ax)
+ax.legend()
+
+
+plt.show()
+salvar_grafico(file_name="Debt_Prices")
+#+END_SRC
+
+#+RESULTS:
+:results:
+12 - b5136efa-cab9-4332-be7b-ce97c62927c7 <output> <interrupt>
+:end:
+
+#+BEGIN_SRC latex
+\begin{figure}[htb]
+    \centering
+        \caption{Household debt and House prices\\\centering (Jan/2000 = 100)} 
+    \includegraphics[width = 0.65\textwidth]{./figs/Debt_Prices.png}
+    \label{fig:debt}
+    \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration.}
+\end{figure}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{figure}[htb]
+    \centering
+        \caption{Household debt and House prices\\\centering (Jan/2000 = 100)} 
+    \includegraphics[width = 0.65\textwidth]{./figs/Debt_Prices.png}
+    \label{fig:debt}
+    \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration.}
+\end{figure}
+#+end_export
+
+
+
+Figure ref:fig:Durables_cycles depicts the association between residential investment and durable goods consumption before, during and after the housing bubble.
+From 1992 to 2001, both durable goods consumption and residential investment share increase as long as houses own interest rate decreases.
+During the housing bubble (2001-2005), residential investment growth rate increases while houses own interest rate sharply decreases (see Figure ref:propria_investo).
+As a result, both residential investment and durable goods consumption share have a relatively constant proportion.
+On the aftermath of the housing burst (2005-2009), houses own interest rate increases and is followed by a sharp decrease in both residential investment and durable goods consumption.
+Therefore, real estate inflation and durable goods consumption are connected in the U.S. and have relevant implications for the business cycle [fn:consumption]. 
+
+[fn:consumption] textcites:zezza_u.s._2008,barba_rising_2009, for instance, also report that credit-financed consumption was one of the main drivers of economic growth before the Great Recession.
+
+
+#+BEGIN_SRC ipython :async t :results output drawer :session empirical :exports none :tangle ./codes/Empirical_Motivation.py
+from mpl_toolkits.mplot3d import Axes3D
+import numpy as np
+
+df = pd.read_csv(
+    './data/OwnInterestRate_data.csv',
+    index_col = [0],
+    parse_dates = True
+)
+
+df = df.merge(
+    pd.read_csv(
+        './data/Cycle.csv',
+        index_col = [0],
+        parse_dates = True
+    ),
+    left_index=True, right_index=True
+)
+
+sns.set_context('talk')
+plt.style.use('bmh')
+
+fig = plt.figure(
+    figsize=(2*8,2*5)
+)
+
+
+ax = fig.add_subplot(1, 1, 1, projection='3d')
+tmp_planes = ax.zaxis._PLANES 
+ax.zaxis._PLANES = ( tmp_planes[2], tmp_planes[3], 
+                     tmp_planes[0], tmp_planes[1], 
+                     tmp_planes[4], tmp_planes[5])
+view_1 = (25, -135)
+view_2 = (25, -45)
+init_view = view_1
+ax.view_init(*init_view)
+
+
+start = "1992-01"
+end = "2001-12"
+# Data for a three-dimensional line
+zline = df[start:end]["Durables"]
+xline = df[start:end]["Housing share"]
+yline = df[start:end]["Own interest rate"]
+ax.plot3D(xline, yline, zline, 'darkred', label='1992 (I) - 2001 (IV)', lw=4)
+ax.scatter3D(xline, yline, zline, c=df[start:end].index, cmap='Reds', s=[i.timestamp()/10**7 for i in df[start:end].index]);
+
+start = "2001-12"
+end = "2005-09"
+# Data for a three-dimensional line
+zline = df[start:end]["Durables"]
+xline = df[start:end]["Housing share"]
+yline = df[start:end]["Own interest rate"]
+ax.plot3D(xline, yline, zline, 'darkblue', label='2001 (IV) - 2005 (III)', lw=4)
+ax.scatter3D(xline, yline, zline, c=df[start:end].index, cmap='Blues', s=[i.timestamp()/10**7 for i in df[start:end].index]);
+
+start = "2005-09"
+end = "2009-07"
+# Data for a three-dimensional line
+zline = df[start:end]["Durables"]
+xline = df[start:end]["Housing share"]
+yline = df[start:end]["Own interest rate"]
+ax.plot3D(xline, yline, zline, 'darkgreen', label='2005 (III) - 2009 (III)',lw=4)
+ax.scatter3D(xline, yline, zline, c=df[start:end].index,  cmap='Greens', s=[i.timestamp()/10**7 for i in df[start:end].index]);
+#ax.plot(xline, yline, zs=.05, zdir='z', c='k', lw=2); ax.plot(xline, yline, zs=0.05, zdir='z', c='k', lw=2);
+#ax.scatter(xline, yline, zs=.05, zdir='z', c=df[start:end].index,  cmap='Greys');
+
+
+#ax.invert_xaxis()
+ax.set_xlabel('\nResidential investment share', linespacing=2.5)
+ax.set_ylabel('\nHouses Own interest rate', linespacing=2.5)
+ax.zaxis.set_rotate_label(False)  # disable automatic rotation
+ax.set_zlabel('Durables Consumption Share', linespacing=2.5,
+              rotation=90,
+              verticalalignment='baseline',
+              horizontalalignment='left');
+ax.legend()
+sns.despine()
+
+fig.tight_layout()
+plt.show()
+
+fig.savefig("./figs/Durables_3D.png", transparent = True, dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+:results:
+13 - 2bd39d2c-cd47-4964-a80f-02d33aea8f87 <output> <interrupt>
+:end:
+
+
+#+BEGIN_SRC latex
+\begin{figure}[htb]
+    \centering
+        \caption{Residential investment share Vs. durable goods share Vs. Houses Own interest rate\\\centering Before, during and after housing bubbles\\\centering (Dots darken in  time)} 
+    \includegraphics[width = 0.75\textwidth]{./figs/Durables_3D.png}
+    \label{fig:Durables_cycles}
+    \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration.}
+\end{figure}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{figure}[htb]
+    \centering
+        \caption{Residential investment share Vs. durable goods share Vs. Houses Own interest rate\\\centering Before, during and after housing bubbles\\\centering (Dots darken in  time)} 
+    \includegraphics[width = 0.75\textwidth]{./figs/Durables_3D.png}
+    \label{fig:Durables_cycles}
+    \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration.}
+\end{figure}
+#+end_export
+
+
+@@comment: Amarrar discussão com a proposta SFC. Justificar a inclusão de $C_k$ no modelo teórico. comment@@
+Before we move forward, it worth mentioning that the relevance of residential investment is not restricted to its growth effects nor to the U.S. 
+For example, \textcite{jorda_great_2016} report that credit and financial sector growth has been led mainly by mortgages for at least 17 OECD countries[fn:Hipotecarizacao]. 
+Other studies have shown that real estate inflation describes household indebtedness and wealth distribution movements and has implications for macroeconomic stability cites:ryoo_household_2016,stockhammer_debt-driven_2016,barnes_private_2016,johnston_global_2017,mian_household_2017,anderson_politics_2020,fuller_housing_2020. 
+With regard to the role of residential investment for the Great Recession, textcite:albanesi_credit_2017 shed some light on who were the housing bubble blowers and presented higher default rates: prime rate borrowers[fn:Old_Narrative].
+In summary, what we intended to show is that one cannot analyze the U.S. business cycle properly without considering residential investment and asset bubbles together.
+On the following section, we investigate how demand-led growth theoretical literature has dealt with this topic.
+
+[fn:Hipotecarizacao] As a consequence, banking activities were redirected towards granting credit majorly to households and not to productive investment cites:erturk_banks_2007,kohl_more_2018.
+[fn:Old_Narrative] Contrary to the ``Old Narrative'' cite:mian_consequences_2009,  textcite:albanesi_credit_2017  also report that the granting of credit and the default rate among those with the worst risk assessment remained constant throughout the housing bubble.
+
+
+
+
+

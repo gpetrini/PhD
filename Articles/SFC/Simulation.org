@@ -1,0 +1,907 @@
+
+
+* Simulation TODOs and setups                                      :noexport:
+
+#+BEGIN_SRC ipython :tangle ./codes/SFC_setup.py :async t :session SFC :results output :export none
+from pysolve3.model import Model
+from pysolve3.utils import SolveSFC, ShockModel, SummaryShock, SFCTable
+
+from datetime import datetime
+t1 = datetime.now()
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.patheffects as pe
+import seaborn as sns
+import networkx as nx
+import sympy as sp
+from sympy import pprint, cse
+
+def model(
+    alpha = 0.5, # Fazzarri Calibration
+    gamma_F = 0.08,
+    gamma_u = 0.09, # Fazzarri Calibration
+    g_Z = 0.025, # Fazzarri Calibration
+    omega = 0.5,
+    rm = 0.01,
+    spread_l = 0,
+    spread_mo = 0,
+    un = 0.8,
+    v = 1.2, # Fazzarri Calibration
+    phi_0 = 0.025, # Fazzarri Calibration
+    phi_1 = 0.1,
+    infla = 0.0,
+    phparam=1.0,
+    R = 0.7,
+    real = -1, # Flags (Real Data)
+    gC = 0.025 # (Real Data)
+):
+  """
+  phparam: 1.0 means no inflation
+  """
+  model = Model()
+  model.set_var_default(0) 
+  model.var('C', desc='Consumption')
+  model.var('Cw', desc='Workers Consumption', default=112)
+  model.var('Ck', desc='Capitalist Consumption', default=68)
+  model.var('FD', desc='Distributed profits')
+  model.var('Fn', desc='Net profits')
+  model.var('FT', desc='Total Profits')
+  model.var('FU', desc='Retained profits')
+  model.var('gk', desc='Capital growth rate')
+  model.var('g_Z', desc='Autonomous grouth rate')
+  model.var('h', desc='Marginal propensity to invest (non-residential)', default=0.03)
+  model.var('I_t', desc='Investment', default = 100) # 200
+  model.var('I_f', desc='Non-residential investment') # 100
+  model.var('I_h', desc='Residential investment', default = 100) # 100
+  model.var('Is', desc='Residential investment (Supply)', default = 100) # 100
+  model.var('K_HS', desc='Houses supply', default=500) # 500
+  model.var('K_HD', desc='Houses demand', default=500) # 500
+  model.var('K_f', desc='Non-residential capital', default = 1000) # 10000
+  model.var('Knom', desc='Nominal Capital', default=1500)
+  model.var('K', desc='Real Capital', default=1500)
+  model.var('K_k', desc="% of Kf in total")
+  model.var('K_kr', desc="nominal % of Kf in total")
+  model.var('L', desc='Total Loans') # 100
+  model.var('Lf', desc='Firms Loans') # 100
+  model.var('Lk', desc='Capitalist Loans') # 100
+  model.var('M', desc='Money deposits') # 300
+  model.var('M_h', desc='Households deposits')
+  model.var('MO', desc='Mortgages') # 200
+  model.var('NFW_h', desc='Households Capitalist Net Financial Wealth')
+  model.var('NFW_hw', desc='Workers Net Financial Wealth', default=0)
+  model.var('NFW_f', desc='Firms Net Financial Wealth')
+  model.var('NFW_b', desc='Banks Net Financial Wealth')
+  model.var('own', desc='Own interest rate')
+  model.var('ph', desc='House price', default = 1)
+  model.var('rl', desc='Interests rates on loans')
+  model.var('rmo', desc='Interests rates on mortgages')
+  model.var('S_hw', desc='Workers savings')
+  model.var('S_hk', desc='Capitalist savings')
+  model.var('u', desc='Capacity utilization ratio', default=0.7)
+  model.var('V_h', desc='Household net nominal wealth')
+  model.var('V_hr', desc='Household net real wealth')
+  model.var('V_f', desc='Firms net wealth')
+  model.var('V_b', desc='Banks net wealth')
+  model.var('W', desc='Wages')
+  model.var('Y', desc='GDP', default=280)
+  model.var('Yk', desc='Capacity', default=1100)
+  model.var('YDw', desc='Workers disposable income')
+  model.var('YDk', desc='Capitalists disposable income')
+  model.var('Z', desc='Autonomous expenditures')
+  
+  model.param('alpha', desc='Propensity to consume out of wages', default=alpha)
+  model.param('gamma_F', desc='% of undistributed profits', default=gamma_F)
+  model.param('gamma_u', desc='Adjustment parameter for the marginal propensity to invest', default=gamma_u) # 0.01
+  model.param('omega', desc='Wage-share', default = omega)
+  model.param('rm', desc='Interest rates on money deposits', default=rm) # 0.02
+  model.param('spread_l', desc='Spread for loans', default=spread_l)
+  model.param('spread_mo', desc='Spread for mortgages', default=spread_mo)
+  model.param('un', desc='Normal capacity utilization ratio', default=un)
+  model.param('v', desc='Capitl-Output ratio', default=v)
+  model.param('phi_0', desc='Autonomous housing investment component',default = phi_0)
+  model.param('phi_1', desc='Housing investment sensitivity to own interest rate', default = phi_1)
+  model.param('R', desc='Autonomous ratio', default=R)
+  model.param('infla', desc='infla value', default = infla)
+  model.param('gC', desc='Autonomous consumption growth rate', default = gC)
+  model.param('real', desc='Real data flag. True > 0. False < 0', default = real)  
+  
+  # General equations
+  model.add('C = Cw + Ck')
+  model.add('I_t = I_f + I_h') # Eq2
+  model.add('Yk = K_f(-1)/v') # Eq 4
+  model.add('u = Y/Yk') # Eq 5
+  model.add('W = omega*Y') # Eq 6
+  model.add('gk = h*u/v') # Eq 7
+  model.add('Knom = K_HD*ph + K_f') # Eq 8 
+  model.add('K = K_HD + K_f') # Eq 8 
+  model.add('Z = I_h + Ck') # Eq 9
+  model.add('Y = C + I_t') # Eq1
+  
+  # Workers equations
+  model.add('Cw = alpha*W') # Eq 14
+  model.add('YDw = W') # Eq 10
+  model.add('S_hw = YDw - Cw') # Eq 11
+  model.add('NFW_hw = S_hw')
+    
+  # Capitalist equations
+  model.add('YDk = FD + rm*M_h(-1) - rmo*MO(-1) - rl*Lk(-1)')
+  
+  model.add('Ck = if_true(real>0)*(1+gC)*Ck(-1) + if_true(real<0)*R*Z')
+  model.add('S_hk = YDk - Ck') # Eq 11
+  model.add('d(MO) = I_h') # Eq 12
+  model.add('d(Lk) = Ck')
+  model.add('d(M_h) = S_hk + d(Lk)')
+  model.add('V_h =  M_h  + K_HD*ph - MO - Lk') # Eq 15 
+  model.add('V_hr =  M_h  + K_HD - MO - Lk') # Eq 15 
+  model.add('NFW_h = S_hk - I_h') # Eq 16
+  
+  # Firms
+  model.add('d(Lf) = I_f - FU') # Eq 15
+  model.add('FT = (1-omega)*Y') # Eq 16
+  model.add('Fn = FT -rl*Lf(-1)')
+  model.add('FU = gamma_F*(Fn)') # Eq 17
+  model.add('FD = (1 - gamma_F)*(Fn)') # Eq 18
+  model.add('I_f = h*Y') # Eq 19
+  model.add('d(K_f) = I_f') # 20
+  model.add('h = h(-1)*gamma_u*(u-un) + h(-1)') # Eq 21 # Version without corridor
+  model.add('V_f = K_f - Lf') # Eq 22
+  model.add('NFW_f = FU - I_f') # Eq 23
+  
+  # Banks
+  model.add('rmo = (1+spread_mo)*rm') # Eq 25
+  model.add('rl = (1+spread_l)*rm') # Eq 26
+  model.add('NFW_b = rl*L(-1) + rmo*MO(-1) - rm*M(-1)') # Eq 28
+  model.add('V_b = L + MO - M') # Eq 27
+  model.add('d(L) = d(Lf) + d(Lk)')
+  model.add('d(M) = d(M_h)')
+  
+  
+  # Residential investment
+  model.add('K_HS = K_HD') # Eq 29
+  model.add('Is = I_h')
+  model.add('d(K_HD) = I_h') # Eq 30
+  model.add('I_h = (1+g_Z)*I_h(-1)') # Eq 31
+  model.add('K_k = K_HD/K') 
+  model.add('K_kr = K_k*ph') 
+  model.add('ph =(1+infla)*ph(-1)')
+  model.add('own = ((1+rmo)/(1+infla)) -1')  
+  model.add('g_Z = phi_0 - phi_1*own') 
+  
+  return model
+
+def clock_plots(shock, filename, variable):
+    shock["TIME"] = [i+1 for i in range(len(shock.index))]
+    shock["Ih/Y"] = shock["I_h"]/shock["Y"]
+    shock["I/Y"] = shock["I_t"]/shock["Y"]
+    shock["Z/Y"] = shock["Z"]/shock["Y"]
+    shock["gY"] = shock["Y"].pct_change()
+    
+    sns.set_context('talk')
+    fig, ax = plt.subplots(1,3,figsize=(24,5)
+                          )
+    
+    sns.scatterplot(y = 'Ih/Y', x='u', data=shock, size="TIME", sizes = (1,200), 
+                    color = 'black', legend=False, ax=ax[0])
+    sns.lineplot(y = 'Ih/Y', x='u', data=shock, sort=False, color = 'black', ax=ax[0])
+    ax[0].set_title("(A) Residential investment share on GDP\n VS. Capacity utilization ratio")
+    
+    sns.scatterplot(y = 'Z/Y', x='u', data=shock, size="TIME", sizes = (1,200), color = 'black', legend=False, ax=ax[1])
+    sns.lineplot(y = 'Z/Y', x='u', data=shock, sort=False, color = 'black', ax=ax[1])
+    ax[1].set_title("(B) Autonomous Expenditure share\n VS Capacity utilization")
+    
+    sns.scatterplot(y = 'I/Y', x='gY', data=shock, size="TIME", sizes = (1,200), color = 'black', legend=False, ax=ax[2])
+    sns.lineplot(y = 'I/Y', x='gY', data=shock, sort=False, color = 'black', ax=ax[2])
+    ax[2].set_title("(C) Total investment share\n VS GDP growth rate")
+    
+    
+    sns.despine()
+    
+    fig.savefig("./figs/" + filename, dpi = 600)
+
+def plot_shock(filename, shock, df):
+    """
+    This function plots some selected variables
+    
+    filename: name to save the plot (str)
+    shock: df returned by ShockModel function
+    """
+    sns.set_context('talk')
+    fig, ax = plt.subplots(2,2, figsize=(16,10))
+
+    shock[["Y"]].pct_change().plot(
+        title = "Growth rates", ax = ax[0,0], 
+        ls = ('--'), lw=3,
+    )
+    shock[["K"]].pct_change().plot(
+        title = "Growth rates", ax = ax[0,0], 
+        ls = (':'), lw=3
+    )
+    shock[["I_h"]].pct_change().plot(
+        title = "Growth rates", ax = ax[0,0], 
+        ls = ('-'), lw=3,
+    )
+    shock[["I_f"]].pct_change().plot(
+        title = "Growth rates", ax = ax[0,0], 
+        ls = ('-.'), lw=3,
+    )
+    ax[0,0].axhline(y=shock["g_Z"].iloc[-1], color = "black", ls = "--", lw=2.5)
+    #ax[0,0].set_yticklabels(['{:,.1%}'.format(x) for x in ax[0,0].get_yticks()])
+    ax[0,0].legend(loc='upper center', bbox_to_anchor=(0.5, -0.06),
+                   labels = ["$Y$", "$K$", "$I_h$", "$I_f$"],
+              fancybox=True, shadow=True, ncol=2)
+    ax[0,0].ticklabel_format(useOffset=False)
+
+    ((shock["Z"]/shock['Y'])).plot(
+        title = "Autonomous expenditures share on GDP", ax = ax[0,1], ls = ('-'), lw=3, color='darkred')
+    
+    ax[0,1].set_ylim(auto=True)
+    ax[0,1].legend(loc='upper center', bbox_to_anchor=(0.5, -0.08),
+                   labels=['$Z/Y$'],
+              fancybox=True, shadow=True, ncol=2)
+
+    shock['u'].plot(title = 'Capacity utilization ratio', ax=ax[1,0], legend = False, color = "darkred", lw = 3, )
+    ax[1,0].axhline(y = shock['un'].iloc[-1], ls ='--', color = "gray")
+    #ax[1,0].set_yticklabels(['{:,.2%}'.format(x) for x in ax[1,0].get_yticks()])
+    ax[1,0].ticklabel_format(useOffset=False)
+
+    shock['h'].plot(title = 'Marginal propensity to invest', ax=ax[1,1], legend = False, color = "darkred", lw = 3, )
+    ax[1,1].axhline(y = df['h'].iloc[-1], ls ='--', color = "gray")
+    ax[1,1].ticklabel_format(useOffset=False)
+    
+    sns.despine()
+    plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+
+
+    fig.savefig("./figs/" + filename, dpi = 600)
+
+def plot_norms(filename, shock, df):
+    """
+    This function plots some selected variables
+    
+    filename: name to save the plot (str)
+    shock: df returned by ShockModel function
+    """
+    sns.set_context('talk')
+    fig, ax = plt.subplots(2,2, figsize=(16,10))
+
+    ((shock["YDk"]/shock['V_h'])**(1)).plot(title = "Flow/Stock", ax = ax[0,0], ls = (':'), lw=3)
+    ((shock["YDk"]/shock['V_hr'])**(1)).plot(ax = ax[0,0], ls = ('-'), lw=3)
+    ((shock["FU"]/shock['V_f'])**(1)).plot(ax = ax[0,0], ls = ('-'), lw=3)
+    
+    ax[0,0].set_yticklabels(['{:,.1%}'.format(x) for x in ax[0,0].get_yticks()])
+    ax[0,0].legend(loc='upper center', bbox_to_anchor=(0.5, -0.08),
+                   labels = [
+                       "$YDk/V_{hk}$",
+                       "$YDk/V_{hkr}$",
+                       "$FU$/V_f",
+                            ],
+              fancybox=True, shadow=True, ncol=2)
+    #ax[0,0].ticklabel_format(useOffset=False)
+    
+    shock['K_k'].plot(color = "darkred", 
+                      title = "Housing share on\nTotal Capital Stock", 
+                      label = "$\k$", legend = False, ax = ax[0,1], lw = 3, )
+    ax[0,1].axhline(y = df['K_k'].iloc[-1], ls ='--', color = "gray")
+    ax[0,1].ticklabel_format(useOffset=False)
+    
+    (shock["MO"]*shock["rmo"][1:]/shock['YDk'][1:]).plot(
+        title="Debt service on\nDisposable income", ax = ax[1,0], ls = ('-'), lw=3)
+    ((shock["Lk"]*shock["rl"][1:])/shock['YDk'][1:]).plot(ax = ax[1,0], ls = ('-'), lw=3)
+    ((shock["MO"]*shock["rmo"][1:] + shock["Lk"]*shock["rl"][1:])/shock['YDk'][1:]).plot( ax = ax[1,0], ls = ('-'), lw=3)
+    ax[1,0].set_yticklabels(['{:,.1%}'.format(x) for x in ax[1,0].get_yticks()])
+    ax[1,0].legend(loc='upper center', bbox_to_anchor=(0.5, -0.1),
+                   labels = [
+                       'Mortgage',
+                       'Loans',
+                       'Total'
+                            ],
+              fancybox=True, shadow=True, ncol=2)
+    
+    (shock['FT']/shock['K_f']).plot(ax=ax[1,1], label='Gross profit rate')
+    (shock['Fn']/shock['K_f']).plot(ax=ax[1,1], label='Net profit rate')
+    ax[1,1].set_yticklabels(['{:,.1%}'.format(x) for x in ax[1,0].get_yticks()])
+    ax[1,1].legend()
+
+    
+    sns.despine()
+    plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+
+    
+    fig.savefig("./figs/" + filename, dpi = 300)
+
+def other_plots(shock, df):
+
+    (shock['MO']/(shock['M'])).plot(title="Mortgage as % of deposits")
+    sns.despine()
+    plt.show()
+    
+    fig, ax = plt.subplots()
+    (shock['FT']/shock['K_f']).plot(ax=ax, label='Gross profit rate')
+    (shock['Fn']/shock['K_f']).plot(ax=ax, label='Net profit rate')
+    ax.legend()
+    sns.despine()
+
+    
+    fig, ax = plt.subplots()
+    (shock['YDk']/shock['K_HD']).plot(ax=ax, label='Real', title="Disposible income as % of Housing")
+    (shock['YDk']/(shock['K_HD']*shock['ph'])).plot(ax=ax, label='Nominal')
+    ax.legend()
+    sns.despine()
+    plt.show()
+    
+    fig, ax = plt.subplots()
+    (shock['NFW_h']/(shock['Lk'] + shock['MO']) - (shock['rm'] - shock['g_Z'])).plot(title = 'Household debt stability',ax=ax)
+    ax.axhline(y = ((df['NFW_h']/(df['Lk'] + df['MO'])) - (df['rm'] - df['g_Z'])).iloc[-1], ls ='--', color = "gray")
+    
+    sns.despine()
+    plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+    plt.show()
+    
+    fig, ax = plt.subplots(1,1, figsize=(8,5))
+
+    shock[["MO", "L"]].apply(lambda x: x/(shock["MO"] + shock['L'])).plot(kind = "area",stacked = True ,title = "Credit (as % Passives)", ax=ax)
+    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    ax.axhline(y = 1, color = "black", ls = "--")
+    ax.axhline(y = 0, color = "black", ls = "--")
+    
+    sns.despine()
+    plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+
+
+#+END_SRC
+
+#+RESULTS:
+:results:
+42 - 8a2e0fff-e1c7-406d-8dde-3523e79fe634 <output> <interrupt>
+:end:
+
+** Increase in autonomous growth rate ($g_Z$)
+
+#+BEGIN_SRC ipython :tangle ./codes/setup.py :async t :session SFC :results output :export none
+base = model()
+df = SolveSFC(base, time=1000)
+shock = ShockModel(base_model=base, create_function=model(), variable='phi_0', increase=0.005, time = 1000)
+clock_plots(shock = shock, filename = 'Clock_1.png', variable='g_Z')
+plot_shock(shock = shock, filename = 'Shock_1.png', df=df)
+plot_norms(shock = shock, filename = 'Shock_1Norms.png', df=df)
+other_plots(shock, df=df)
+
+shock1 = shock.round(decimals = 5).tail(1).transpose().loc['alpha':,:]
+shock1.columns = ['$\Delta \phi_0$']
+
+summary = SummaryShock(shock)
+summary
+#+END_SRC
+
+#+RESULTS:
+:results:
+43 - 12222e99-957a-473b-ad91-b569ddefd7b0 <output> <interrupt>
+:end:
+
+** Wage-share decrease ($\Downarrow \omega$)
+   
+#+BEGIN_SRC ipython :tangle ./codes/setup.py :async t :session SFC :results output :export none
+base = model()
+df = SolveSFC(base, time=1000)
+shock = ShockModel(base_model=base, create_function=model(), variable='omega', increase=-0.01, time = 1000)
+df1=shock
+clock_plots(shock = shock, filename = 'Clock_2.png', variable='omega')
+plot_shock(shock = shock, filename = 'Shock_2.png', df=df)
+plot_norms(shock = shock, filename = 'Shock_2Norms.png', df=df)
+other_plots(shock, df)
+shock2 = shock.round(decimals = 3).tail(1).transpose().loc['alpha':,:]
+shock2.columns = ['$\Delta \omega$']
+#+END_SRC
+
+#+RESULTS:
+:results:
+44 - f49cef09-0e51-4ee3-9ca6-05d85391a83b <output> <interrupt>
+:end:
+
+** Increase in mortgage interest rate
+
+#+BEGIN_SRC ipython :tangle ./codes/setup.py :async t :session SFC :results output :export none
+base = model()
+df = SolveSFC(base, time=1000)
+shock = ShockModel(base_model=base, create_function=model(), variable='rm', increase=0.01, time = 1000)
+df3=shock
+shock3 = shock.round(decimals = 3).tail(1).transpose().loc['alpha':,:]
+shock3.columns = ['$\Delta rm$']
+clock_plots(shock = shock, filename = 'Clock_3.png', variable='rmo')
+plot_shock(shock = shock, filename = 'Shock_3.png', df=df)
+plot_norms(shock = shock, filename = 'Shock_3Norms.png', df=df)
+other_plots(shock, df=df)
+#+END_SRC
+
+#+RESULTS:
+:results:
+45 - e3ab6405-64b1-4e36-ac14-79966eb4f3e3 <output> <interrupt>
+:end:
+
+** Increase in house inflation
+
+#+BEGIN_SRC ipython :tangle ./codes/setup.py :async t :session SFC :results output :export none
+base = model()
+df = SolveSFC(base, time=1000)
+shock = ShockModel(base_model=base, create_function=model(), variable='infla', increase=0.05, time = 1000)
+df2=shock
+clock_plots(shock = shock, filename = 'Clock_4.png', variable='infla')
+plot_shock(shock = shock, filename = 'Shock_4.png', df=df)
+plot_norms(shock = shock, filename = 'Shock_4Norms.png', df=df)
+other_plots(shock, df=df)
+
+shock4 = shock.round(decimals = 3).tail(1).transpose().loc['alpha':,:]
+shock4.columns = ['$\pi$']
+#+END_SRC
+
+#+RESULTS:
+:results:
+46 - 4f0c43e3-1426-4728-a828-b7ecf255272a <output> <interrupt>
+:end:
+
+
+** Merging tables
+
+#+BEGIN_SRC ipython :tangle ./codes/setup.py :async t :session SFC :results text/latex :exports none  
+base = model()
+df = SolveSFC(base, time=1000)
+df = df.round(decimals = 4).tail(1).transpose().loc['alpha':,:]
+df.columns = ['Base scenario']
+
+table = pd.merge(left = df, right = shock1, left_index = True, right_index = True)
+table = pd.merge(left = table, right = shock2, left_index = True, right_index = True)
+table = pd.merge(left = table, right = shock3, left_index = True, right_index = True)
+table = pd.merge(left = table, right = shock4, left_index = True, right_index = True)
+table = table.loc[:"infla",:] ######### Warning
+table.index = [ ######### Warning
+    '$\\alpha$',
+    '$\gamma_F$',
+    '$\gamma_u$',
+    '$\omega$',
+    '$rm$',
+    '$\sigma_{l}$',
+    '$\sigma_{mo}$',
+    '$u_N$',
+    '$v$',
+    '$\phi_0$',
+    '$\phi_1$',
+    '$R$',
+    '$\pi$'
+]
+table.to_latex(
+    "./tabs/parameters.tex",
+    #column_format = 'cccccc',
+    escape=False, 
+    float_format="{:0.4f}".format,
+)
+#+END_SRC
+
+#+RESULTS:
+:results:
+47 - 57605ec9-06ad-4a01-9ad6-69b9c901380f <output> <interrupt>
+:end:
+
+
+* Numerical Simulations                                              :ignore:
+  #+LATEX: \label{sec:Experiments}
+
+
+In this Section, we present the results of the following experiments[fn:5]: 
+    (i) wage-share decrease;
+    (ii) real estate inflation and;
+    (iii) deposits interest rate increase.
+In order to evaluate if our model is able to reproduce some stylized facts, we introduce U.S. houses own interest rate observed data (from 1992 to 2019) into our numerical simulation.
+Before we move foward, it worth mentioning that we use \citeauthor*{fazzari-2020-deman-led}'s  citeyear:fazzari-2020-deman-led parameter values callibrated for the U.S. economy for a similar time range (from 1980 to 2016).
+Since we use a SFC framework, first experiment assess if income distribution affects fully-adjusted position growth rates temporal --- as in textcite:mandarino-2020-worker-debt --- or persistently ---  as in textcite:brochier_supermultiplier_2018.
+Real estate increase experiment is motivated by recent US experience (from 1992 to 2019) as discussed in Section ref:sec:empirical while the last one aims to evaluate indebtedness stability.
+Table \ref{tab:param} in Appendix ref:append:Data presents the parameters of simulation and Table \ref{ResumoChoques} compare each result to baseline.
+
+
+
+[fn:5] Simulation scripts are available under request. It worth noting that our experiments are simulated using /pysolve3/ package available at [[https://github.com/gpetrini/pysolve3]]. Implementation and improvement requests are welcome.
+
+#+BEGIN_COMMENT
+Finally, Appendix \ref{Appen:Sensibility} presents a primer parameters sensibility analysis.
+#+END_COMMENT
+
+
+#+RESULTS:
+:results:
+# Out [2]: 
+:end:
+
+** Wage-share decrease
+#+LATEX: \label{sec:Exp1}
+
+A wage-share decrease has a temporary negative impact both in GDP level and capacity utilization rate due to changes on the supermultiplier (see Figure ref:fig:results_1).
+As a consequence of this negative level effect, both accumulation growth rate and marginal propensity to invest decline while NCC autonomous expenditures share on GDP increases.
+Since NCC autonomous expenditure growth rate remains unchanged, this negative level effect is followed by a increase in non-residential investment growth rate because firms react to the discrepancies between actual and normal utilization rates.
+In summary, we report standards SSM model results:
+    (i) marginal propensity to invest decrease is temporally and returns to baseline level;
+    (ii) utilization rate moves towards normal one;
+    (iii) supermultiplier decreases and autonomous expenditure share increases due to GDP decline and; 
+    (iv) since autonomous expenditure growth rate does not change, distribution effects are temporally.
+
+Despite temporary effects in growth rate, wage-share decrease has a permanent effect in house share on total capital stock (see Equation ref:_k_star and Figure ref:fig:results_2).
+As a consequence of the initially lower accumulation rate, total capital stock (firms' and households') also grows at a temporarily lower rate.
+However, since residencial investment growth rate remains unchanged, its share on total capital stock increases.
+Another persistent effect is the higher capitalists' indebtedness despite the profit-share increase.
+This result stems from the negative level effect on profits as a consequence of the negative effect on GDP and subsequent decrease in capitalists' disposable income.
+In other words, we report a paradox in capitalists attempt to increase their profit share which results a negative effect both on net profits and capitalists' disposable income.
+
+Finally, we also report a persistent effect on firms' balance sheet due to wage-share decrease.
+The negative level effect on GDP implies an already mentioned temporally decrease in marginal propensity to invest.
+As a consequence of the initially lower accumulation ratio and higher profit share, firms require less external funding --- as profits distribution policy remains the same  --- so its indebtedness decreases.
+Therefore, gross and net profit rate remains persistently close to each other (see Figure ref:fig:results_2).
+
+*Nota:* Farei referência às equações stock/flow quando terminar esta seção
+
+** Real estate inflation
+#+LATEX: \label{sec:Exp2}
+
+
+Real estate inflation implies a higher residential investment growth due to houses own interest rate decrease.
+As a result, both GDP growth rate and capacity utilization rate increase as well.
+Since firms react to discrepancies between actual and normal utilization rates, non-residential investment growth rate 
+is temporally higher than GDP growth rate due to marginal propensity to invest adjustment.
+Furthermore, capitalists' disposable income also increases as a result of the already mentioned higher GDP growth rate.
+Since loans interest remains unchanged, capitalists' indebtedness ratio decreases.
+During the traverse, gross and net profit rate are temporally close to each other as a result of profits level increase, so firms' indebtedness decreases as well.
+Therefore, similar to textcite:mandarino-2020-worker-debt, we also report paradox of debt.
+
+In summary, we report SSM standard fully-adjusted position results:
+    (i) GDP growth rate converges to NCC autonomous expenditure growth rate;
+    (ii) marginal propensity to invest remains persistently higher compared to baseline and;
+    (iii) utilization rate moves gradually towards the normal one.
+As mentioned before, our model distinctiveness is the existence of two types of capital stocks since households invest as well.
+Besides the usual SSM results, we report some particularities regarding real assets composition.
+The most distinct result is real houses share decreases on total capital stock as a result of residential investment growth rate increase.
+
+Although counterintuitive, this result is in line with SSM literature.
+Firms investment follows capital stock adjustment principle, so a higher firms investment growth rate implies that
+GDP grows faster than residential investment, reducing both the latter share on GDP and
+also the utilization rate.
+In other words, both autonomous expenditures share on GDP --- higher supermultiplier --- and houses share on real assets (see Equation ref:partial_pi) decline as a result of the already described non-residential investment positive reaction.
+Finally, it worth noting that real estate increase also has permanent effects over real stock/flow ratios due to capital gains.
+
+
+#+BEGIN_COMMENT
+Figure \ref{fig:shock_4norm} in Appendix \ref{appen:Simulation} shows that capitalists' nominal net wealth grows faster than disposable income, so the ratio between both converges to zero.
+#+END_COMMENT
+** Interest rate increase
+#+LATEX: \label{sec:Exp3}
+
+A increase in benchmark interest rate  has a persistent effect on long-run growth rate since houses own interest rate increases as well[fn:Juros].
+Non-residential investment growth rate decreases as a result of residential investment growth rate permanent decline, so houses share on real assets increases.
+In summary, this shock has opposite effects on long-run growth rates, NCC autonomous expenditure share on GDP, utilization rate and marginal propensity to invest  than the previous one (see Figure ref:fig:results_1).
+
+
+[fn:Juros] Since we assume null spread on both mortgage and loans interest rate, an increase on deposits interest rate also increases the other ones. As a consequence, banks' net financial wealth remains unchanged.
+
+
+In particular, we report a stronger negative effect over both capitalists' and firms' balance sheet than wage-share decrease (see figures ref:fig:results_1 and ref:fig:results_2).
+This result stems from the temporarily stronger decline of GDP growth rate compared to NCC autonomous expenditure growth rate.
+As a consequence of lower GDP growth rate, profits level also decreases.
+Thus, capitalists' disposable income decreases more than debt-financed consumption growth rate.
+This result alone is enough to capitalists' indebtedness level to increase, however it is followed by loans interest rate increase, so the overall effect is stronger than wage-share decrease experiment (Section ref:sec:Exp1).
+Regarding firms' balance sheet, we report a temporarily negative effect on gross profit rate and a permanent one on net profit rate. 
+So, there is a permanent increase in the gap between them due to increase in external funding and to the negative level effect on profits.
+Therefore, we find a stable debt dynamics for both capitalists and firms (other parameters remaining unchanged).
+
+#+BEGIN_SRC latex :tangle ./tabs/Summary_tab.tex
+\begin{table}[H]
+	\centering
+	\caption{Shocks summary (compared to baseline)}
+	\label{ResumoChoques}
+	%\resizebox{\textwidth}{!}{%
+		\begin{tabular}{c|c|c|c||c|c|c}
+			\hline\hline
+			\multirow{2}{*}{} & \multicolumn{3}{c||}{\textbf{Medium-run ($h \neq h^*$)}} & \multicolumn{3}{c}{\textbf{Long-run ($h = h^*$)}} \\ \cline{2-7} 
+			&  \textbf{$\Uparrow \pi$} & \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow rm$} &  \textbf{$\Uparrow \pi$} & \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow rm$} \\ \hline
+			\textbf{$g$}  & + & - & - & + & 0 & - \\ \hline
+			\textbf{$g_Z$}  & + & 0 & -  & + & 0 & - \\ \hline
+			\textbf{$u$}  & + & - & -  & 0 & 0 & 0 \\ \hline
+			\textbf{$h$}  & + & - & -  & + & 0 & - \\ \hline
+			\textbf{$k$}  & - & + & +  & - & + & + \\ \hline
+			\textbf{$\frac{Z}{Y}$}  & - & + & +  & - & + & + \\ \hline
+			\textit{$\frac{(r_{mo}\cdot MO_{-1} + r_l\cdot L_{k_{-1}})}{YD_k}$}  & - & + & +  & - & + & + \\ \hline\hline
+		\end{tabular}%
+	%}
+	\caption*{\textbf{Source:} Authors' Elaboration}
+\end{table}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{table}[H]
+	\centering
+	\caption{Shocks summary (compared to baseline)}
+	\label{ResumoChoques}
+	%\resizebox{\textwidth}{!}{%
+		\begin{tabular}{c|c|c|c||c|c|c}
+			\hline\hline
+			\multirow{2}{*}{} & \multicolumn{3}{c||}{\textbf{Medium-run ($h \neq h^*$)}} & \multicolumn{3}{c}{\textbf{Long-run ($h = h^*$)}} \\ \cline{2-7} 
+			&  \textbf{$\Uparrow \pi$} & \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow rm$} &  \textbf{$\Uparrow \pi$} & \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow rm$} \\ \hline
+			\textbf{$g$}  & + & - & - & + & 0 & - \\ \hline
+			\textbf{$g_Z$}  & + & 0 & -  & + & 0 & - \\ \hline
+			\textbf{$u$}  & + & - & -  & 0 & 0 & 0 \\ \hline
+			\textbf{$h$}  & + & - & -  & + & 0 & - \\ \hline
+			\textbf{$k$}  & - & + & +  & - & + & + \\ \hline
+			\textbf{$\frac{Z}{Y}$}  & - & + & +  & - & + & + \\ \hline
+			\textit{$\frac{(r_{mo}\cdot MO_{-1} + r_l\cdot L_{k_{-1}})}{YD_k}$}  & - & + & +  & - & + & + \\ \hline\hline
+		\end{tabular}%
+	%}
+	\caption*{\textbf{Source:} Authors' Elaboration}
+\end{table}
+#+end_export
+
+
+
+#+BEGIN_SRC ipython :tangle ./codes/Simulation.py :async t :session SFC :results text/latex :exports none
+base = model()
+df = SolveSFC(base, time=1000)
+df["Z/Y"] = df["Z"]/df["Y"]
+df_base = df
+
+fig, ax = plt.subplots(2,2, figsize=(2*8,2*5))
+
+df1['Y'].pct_change().plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[0,0])
+df2['Y'].pct_change().plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[0,0])
+df3['Y'].pct_change().plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[0,0])
+ax[0,0].axhline(y = df_base['g_Z'].iloc[-1], ls ='--', lw=1, color = "black", label = "Baseline")
+ax[0,0].ticklabel_format(useOffset=False)
+ax[0,0].set_title('GDP growth rate ($g$)')
+
+df1['Z/Y'].plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[0,1])
+df2['Z/Y'].plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[0,1])
+df3['Z/Y'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[0,1])
+ax[0,1].axhline(y = df_base['Z/Y'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[0,1].ticklabel_format(useOffset=False)
+ax[0,1].set_title('Autonomous Expenditure\nShare on GDP ($Z/Y$)')
+
+df1['u'].plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 3)", ax = ax[1,0])
+df2['u'].plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,0])
+df3['u'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 4)", ax = ax[1,0])
+ax[1,0].axhline(y = df_base['u'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[1,0].ticklabel_format(useOffset=False)
+ax[1,0].set_title('Capacity utilization rate ($u$)')
+
+df1['h'].plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[1,1])
+df2['h'].plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,1])
+df3['h'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,1])
+ax[1,1].axhline(y = df_base['h'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[1,1].ticklabel_format(useOffset=False)
+ax[1,1].set_title('Marginal propsenty\nto invest ($h$)')
+
+
+sns.despine()
+plt.tight_layout(rect=[0, 0.03, .85, 0.95])
+ax[1,1].legend(loc='center left', bbox_to_anchor=(1.05, 1.25))
+plt.show()
+fig.savefig("./figs/Compared_Shocks_1.png", dpi = 600)
+#+END_SRC
+
+#+RESULTS:
+:results:
+48 - db066faa-0c53-46b1-9588-12fe447f7665 <output> <interrupt>
+:end:
+
+#+BEGIN_SRC ipython :tangle ./codes/setup.py :async t :session SFC :results text/latex :exports none
+base = model()
+df = SolveSFC(base, time=1000)
+df["Z/Y"] = df["Z"]/df["Y"]
+df_base = df
+
+df1["TIME"] = [i+1 for i in range(len(df1.index))]
+df2["TIME"] = [i+1 for i in range(len(df2.index))]
+df3["TIME"] = [i+1 for i in range(len(df3.index))]
+
+
+fig, ax = plt.subplots(2,2, figsize=(2*8,2*5))
+
+sns.scatterplot(y = 'Z/Y', x='u', data=df1, size="TIME", sizes = (1,100), color = 'darkred', legend=False, ax=ax[0,0])
+sns.scatterplot(y = 'Z/Y', x='u', data=df2, size="TIME", sizes = (1,100), color = 'darkblue', legend=False, ax=ax[0,0])
+sns.scatterplot(y = 'Z/Y', x='u', data=df3, size="TIME", sizes = (1,100), color = 'darkgreen', legend=False, ax=ax[0,0])
+
+sns.lineplot(y = 'Z/Y', x='u', data=df1, sort=False, color = 'darkred', ax=ax[0,0])
+sns.lineplot(y = 'Z/Y', x='u', data=df2, sort=False, color = 'darkblue', ax=ax[0,0])
+sns.lineplot(y = 'Z/Y', x='u', data=df3, sort=False, color = 'darkgreen', ax=ax[0,0])
+ax[0,0].set_title('Share of residential investment and capacity utilization\n(Dots size grow in time)')
+
+df1['K_k'].plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[0,1])
+df2['K_k'].plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[0,1])
+df3['K_k'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[0,1])
+ax[0,1].axhline(y = df_base['K_k'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[0,1].ticklabel_format(useOffset=False)
+ax[0,1].set_title('Houses share on\nReal Assets ($K_k$)')
+
+((df1["MO"]*df1["rmo"][1:] + df1["Lk"]*df1["rl"][1:])/df1['YDk'][1:]).plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[1,0])
+((df2["MO"]*df2["rmo"][1:] + df2["Lk"]*df2["rl"][1:])/df2['YDk'][1:]).plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,0])
+((df3["MO"]*df3["rmo"][1:] + df3["Lk"]*df3["rl"][1:])/df3['YDk'][1:]).plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,0])
+ax[1,0].axhline(y = ((df_base["MO"].iloc[-2]*df_base["rmo"].iloc[-1] + df_base["Lk"].iloc[-2]*df_base["rl"].iloc[-1])/df_base['YDk'].iloc[-1]), ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[1,0].ticklabel_format(useOffset=False)
+ax[1,0].set_title('Capitalist Indebtedness\n(as % $YD_k$)')
+
+(df1['Fn']/df1['K_f']).plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[1,1])
+(df2['Fn']/df2['K_f']).plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,1])
+(df3['Fn']/df3['K_f']).plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,1])
+ax[1,1].axhline(y = (df_base['Fn']/df_base['K_f']).iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[1,1].ticklabel_format(useOffset=False)
+ax[1,1].set_title('Net profit rate')
+
+sns.despine()
+plt.tight_layout(rect=[0, 0.03, .85, 0.95])
+ax[1,1].legend(loc='center left', bbox_to_anchor=(1.05, 1.25))
+plt.show()
+fig.savefig("./figs/Compared_Shocks_2.png", dpi = 600)
+#+END_SRC
+
+#+RESULTS:
+:results:
+49 - e3cff664-dba8-4c1c-a7ce-702fe14d26aa <output> <interrupt>
+:end:
+
+#+BEGIN_SRC latex
+\begin{figure}[htb]
+	\centering
+	\caption{Experiments simulations (I)}
+	\label{fig:results_1}
+	\includegraphics[width=.8\textwidth]{./figs/Compared_Shocks_1.png}
+	\caption*{\textbf{Source:} Authors' elaboration}
+\end{figure}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{figure}[htb]
+	\centering
+	\caption{Experiments simulations (I)}
+	\label{fig:results_1}
+	\includegraphics[width=.8\textwidth]{./figs/Compared_Shocks_1.png}
+	\caption*{\textbf{Source:} Authors' elaboration}
+\end{figure}
+#+end_export
+
+
+#+BEGIN_SRC latex
+\begin{figure}[htb]
+	\centering
+	\caption{Experiments simulations (II)}
+	\label{fig:results_2}
+	\includegraphics[width=.8\textwidth]{./figs/Compared_Shocks_2.png}
+	\caption*{\textbf{Source:} Authors' elaboration}
+\end{figure}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{figure}[htb]
+	\centering
+	\caption{Experiments simulations (II)}
+	\label{fig:results_2}
+	\includegraphics[width=.8\textwidth]{./figs/Compared_Shocks_2.png}
+	\caption*{\textbf{Source:} Authors' elaboration}
+\end{figure}
+#+end_export
+
+
+** Plugging real data
+
+
+Finally, we include houses own interest rate data into our model (see Figure ref:fig:propria_investo) proposed by cite:teixeira_crescimento_2015 and evaluated under econometric scrutinity by textcite:petrini_demanda_2019.
+To do so, each year corresponds to ten simulated periods for visualization reasons.
+Although rudimentary, this procedure allows us to investigate whether or not our model reports the following stylized facts:
+(i) positive relationship between non-residential investment share and GDP growth rate; (ii) capacity utilization towards the normal one, although quite volatile; (iii) NCC autonomous expenditure lead the business cycle and accumulation growth rate; (iv) residential investment is more volatile than others expenditures.
+Finally, all results are presented in Figure ref:fig:Realresults_1,fig:Realresults_2.
+
+Simillarly to Figure ref:fig:cycles, we report a clockwise relationship between autonomous expenditure share on GDP and capacity utilization growth rate.
+Since the analyzed period does not correspond to the fully-adjusted position, discrepancies between actual and normal capacity utilization rate are adjusted through changes in marginal propensity to invest.
+So, with due mediation, we also report a smooth gravitation of capacity utilization ratio towards the normal one.
+As expected, accumulation and GDP growth rate are discrebed by NCC autonomous expenditure, notably residential investment. 
+However, our model is not able to replicate the higher residential investment volatility compared to other expenditures.
+In order to report this stylized fact, we argue that would be necessary to include other autonomous expenditures that grow at different rates for this effect to be captured in the simulations.
+
+
+#+BEGIN_SRC ipython :tangle ./codes/Simulation.py :async t :session SFC :results text/latex :exports none
+data = pd.read_csv('./data/OwnInterestRate_data.csv')
+initial=1000
+shock_duration=10 ## Warning 10
+
+df = SolveSFC(model(real=1, gC=0.02), time=initial)
+base = model()
+SolveSFC(base, time=initial, table=False)
+
+for i in data.index:
+    lagged = [key for key in base.solutions[-1].keys()]
+    lagged = [i for i in lagged if "__" in i]
+    for j in lagged:
+        del base.solutions[-1][j]
+    base.set_values(base.solutions[-1])
+    base.set_values({
+            'own':data['Own interest rate'][i],
+            'infla':data['Inflation'][i],
+            'rm':data['Mortgage interest rate'][i], # Changed to rm instead of rmo 
+        })
+    try: 
+        SolveSFC(base, time=shock_duration, table=False)
+    except Exception as e:
+        #print(f'For time = {i}, {e}')
+        pass
+    
+shock = SFCTable(base)[initial:]
+shock["Z/Y"] = shock["Z"]/shock["Y"]
+#+END_SRC
+
+#+RESULTS:
+:results:
+50 - b04af2cc-a81f-4777-9d0a-2b314fa2c5b9 <output> <interrupt>
+:end:
+
+#+BEGIN_SRC ipython :tangle ./codes/Simulation.py :async t :session SFC :results text/latex :exports none
+base = model()
+df = SolveSFC(base, time=1000)
+df["Z/Y"] = df["Z"]/df["Y"]
+df_base = df
+
+shock["TIME"] = [i+1 for i in range(len(shock.index))]
+
+
+fig, ax = plt.subplots(2,2, figsize=(2*8,2*5))
+
+sns.scatterplot(y = 'Z/Y', x='u', data=shock, size="TIME", sizes = (1,100), color = 'darkred', legend=False, ax=ax[0,0])
+
+sns.lineplot(y = 'Z/Y', x='u', data=shock, sort=False, color = 'darkred', ax=ax[0,0])
+ax[0,0].set_title('Share of residential investment and capacity utilization\n(Dots size grow in time)')
+
+shock['K_k'].plot(ls ='-', lw=3, color = "darkred", label = "Real data", ax = ax[0,1])
+ax[0,1].axhline(y = df_base['K_k'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[0,1].ticklabel_format(useOffset=False)
+ax[0,1].set_title('Houses share on\nReal Assets ($K_k$)')
+
+((shock["MO"]*shock["rmo"][1:] + shock["Lk"]*shock["rl"][1:])/shock['YDk'][1:]).plot(ls ='-', lw=3, color = "darkred", label = "$Real data", ax = ax[1,0])
+ax[1,0].axhline(y = ((df_base["MO"].iloc[-2]*df_base["rmo"].iloc[-1] + df_base["Lk"].iloc[-2]*df_base["rl"].iloc[-1])/df_base['YDk'].iloc[-1]), ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[1,0].ticklabel_format(useOffset=False)
+ax[1,0].set_title('Capitalist Indebtedness\n(as % $YD_k$)')
+
+(shock['Fn']/shock['K_f']).plot(ls ='-', lw=3, color = "darkred", label = "Real data", ax = ax[1,1])
+ax[1,1].axhline(y = (df_base['Fn']/df_base['K_f']).iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[1,1].ticklabel_format(useOffset=False)
+ax[1,1].set_title('Net profit rate')
+
+sns.despine()
+plt.tight_layout(rect=[0, 0.03, .85, 0.95])
+ax[1,1].legend(loc='center left', bbox_to_anchor=(1.05, 1.25))
+plt.show()
+fig.savefig("./figs/Real_Shocks_2.png", dpi = 600)
+#+END_SRC
+
+#+RESULTS:
+:results:
+51 - 54dd6a64-725c-47e9-9e73-c4b63f7e7f79 <output> <interrupt>
+:end:
+
+
+#+BEGIN_SRC latex
+\begin{figure}[htb]
+	\centering
+	\caption{Real Data Experiments simulations (I)}
+	\label{fig:Realresults_1}
+	\includegraphics[width=.8\textwidth]{./figs/Real_Shocks_1.png}
+	\caption*{\textbf{Source:} Authors' elaboration}
+\end{figure}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{figure}[htb]
+	\centering
+	\caption{Real Data Experiments simulations (I)}
+	\label{fig:Realresults_1}
+	\includegraphics[width=.8\textwidth]{./figs/Real_Shocks_1.png}
+	\caption*{\textbf{Source:} Authors' elaboration}
+\end{figure}
+#+end_export
+
+

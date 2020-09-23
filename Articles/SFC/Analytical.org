@@ -1,0 +1,741 @@
+
+* Analytical Solution setup                                        :noexport:
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results output :export none
+import sys
+sys.path.insert(0, './codes/')
+from SFC_setup import *
+#+END_SRC
+
+#+RESULTS:
+:results:
+3 - fd34b860-fe01-49f8-9c33-b27363f15b7f <output> <interrupt>
+:end:
+
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results output :export none
+base = model()
+df = SolveSFC(base, time=1000)
+base_eq = model()
+SolveSFC(base_eq, time=1, table = False)
+t = sp.Symbol('t')
+initials = {
+    key: base_eq.evaluate(key) for key in base_eq.parameters
+}
+initials.update({key: base_eq.evaluate(key) for key in base_eq.variables})
+
+for i in base_eq.variables:
+  globals()["_" + i] = sp.Function(i)
+  
+for i in base_eq.parameters:
+  globals()[i] = sp.symbols(i, positive=True)
+  globals()['infla'] = sp.symbols('infla')
+#+END_SRC
+
+#+RESULTS:
+:results:
+4 - 5ef34731-0cb0-4a5e-92fa-7417ddb64f3b <output> <interrupt>
+:end:
+
+** General Equations
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results output :export none
+Y = _C(t) + _I_t(t)
+pprint(sp.Eq(_Y(t), Y))
+C = _Cw(t) + _Ck(t)
+pprint(sp.Eq(_C(t), C))
+I = _I_f(t) + _I_h(t)
+pprint(sp.Eq(_I_t(t), I))
+Yk = _K_f(t)/v
+pprint(sp.Eq(_Yk(t), Yk))
+u = _Y(t)/_Yk(t)
+pprint(sp.Eq(_u(t), u))
+Z = _I_h(t)
+pprint(sp.Eq(_Z(t), Z))
+W = omega*_Y(t)
+pprint(sp.Eq(_W(t), W))
+K = _K_HD(t) + _K_f(t)
+pprint(sp.Eq(_K(t), K))
+Z = _Ck(t) + _I_h(t)
+pprint(sp.Eq(_Z(t), Z))
+#+END_SRC
+
+#+RESULTS:
+:results:
+5 - bf0b6c96-e425-4f85-be51-e035a4958095 <output> <interrupt>
+:end:
+
+** Workers
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results output :export none
+Cw = alpha*_W(t)
+pprint(sp.Eq(_Cw(t), Cw))
+YDw = _W(t)
+pprint(sp.Eq(_YDw(t), YDw))
+S_hw = _YDk(t) - _Cw(t)
+pprint(sp.Eq(_S_hw(t), S_hw))
+NFW_hw = _S_hw(t)
+pprint(sp.Eq(_NFW_hw(t), NFW_hw))
+#+END_SRC
+
+#+RESULTS:
+:results:
+6 - afdbf586-db80-417a-81ba-ea7bce6abd5c <output> <interrupt>
+:end:
+
+
+
+** Capitalists
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results output :export none
+Ck = R*_Z(t)
+pprint(sp.Eq(_Ck(t), Ck))
+dLk = _Ck(t)
+pprint(sp.Eq(_Lk(t) - _Lk(t-1), dLk))
+YDk = _FD(t) + rm*_M_h(t-1) - _rmo(t)*_MO(t-1) - _rl(t)*_Lk(t-1)
+pprint(sp.Eq(_YDk(t), YDk))
+S_hk = _YDk(t) - _Ck(t)
+pprint(sp.Eq(_S_hk(t), S_hk))
+dMO = _I_h(t)
+pprint(sp.Eq(_MO(t) - _MO(t-1), dMO))
+dM_h = _S_hk(t) + (_Lk(t) - _Lk(t-1))
+pprint(sp.Eq((_M_h(t) - _M_h(t-1)), _M_h(t)))
+V_h = _M_h(t) + _K_HD(t)*_ph(t) - _MO(t) - _Lk(t)
+pprint(sp.Eq(_V_h(t), V_h))
+V_hr = _M_h(t) + _K_HD(t) - _MO(t) - _Lk(t)
+pprint(sp.Eq(_V_hr(t), V_hr))
+NFW_h = _S_hk(t) - _I_h(t)
+pprint(sp.Eq(_NFW_h(t), NFW_h))
+M_h = _S_hk(t) + (_Lk(t) - _Lk(t-1))
+pprint(sp.Eq(_M_h(t), M_h))
+#+END_SRC
+
+#+RESULTS:
+:results:
+7 - f7b00aa7-326f-4503-9bf8-4cc3ba467334 <output> <interrupt>
+:end:
+
+** Firms
+
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results output :export none
+I_f = _h(t)*_Y(t)
+pprint(sp.Eq(_I_f(t), I_f))
+dK_f = _I_f(t)
+pprint(sp.Eq(_K_f(t) - _K_f(t-1), dK_f))
+Lf = _I_f(t) - _FU(t) + _Lf(t-1)
+pprint(sp.Eq(_Lf(t), Lf))
+FT = _FU(t) + _FD(t)
+pprint(sp.Eq(_FT(t), FT))
+FU = gamma_F*(_FT(t) - _rl(t)*_Lf(t-1))
+pprint(sp.Eq(_FU(t), FU))
+FD = (1 - gamma_F)*(_FT(t) - _rl(t)*_Lf(t-1))
+pprint(sp.Eq(_FD(t), FD))
+h = _h(t-1)*gamma_u*(_u(t)-un) + _h(t-1)
+pprint(sp.Eq(_h(t), h))
+NFW_f = _FU(t) - _I_f(t)
+pprint(sp.Eq(_NFW_f(t), NFW_f))
+V_f = _K_f(t) - _Lf(t)
+pprint(sp.Eq(_V_f(t), V_f))
+#+END_SRC
+
+#+RESULTS:
+:results:
+8 - e9dae8d9-77fa-463c-9f23-5717b60d34ba <output> <interrupt>
+:end:
+
+
+** Banks
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results output :export none
+L = _Lf(t) + _Lk(t)
+pprint(sp.Eq(_L(t), L))
+M = (_L(t) - _L(t-1)) + (_MO(t) - _MO(t-1)) + _M(t-1)
+pprint(sp.Eq(_M(t), M))
+rmo = (1+ spread_mo)*rm
+pprint(sp.Eq(_rmo(t), rmo))
+rl = (1+ spread_l)*rm
+pprint(sp.Eq(_rl(t), rl))
+V_b = _L(t) + _MO(t) - _M(t)
+pprint(sp.Eq(_V_b(t), V_b))
+NFW_b = _rl(t)*_L(t-1) + _rmo(t)*_MO(t-1) - rm*_M(t-1)
+pprint(sp.Eq(_NFW_b(t), NFW_b))
+#+END_SRC
+
+#+RESULTS:
+:results:
+9 - 924065e6-50cd-4eaa-b812-7ce7d8def89c <output> <interrupt>
+:end:
+
+** Residential Investment
+   
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results output :export none
+_own = sp.Function('own')
+
+K_HS = _K_HD(t)
+pprint(sp.Eq(_K_HS(t), K_HS))
+Is = _I_h(t)
+pprint(sp.Eq(_Is(t), Is))
+dK_HD = _I_h(t)
+pprint(sp.Eq(_K_HD(t) - _K_HD(t-1), dK_HD))
+I_h = (1+_g_Z(t))*_I_h(t-1)
+pprint(sp.Eq(_I_h(t), I_h))
+K_k = _K_HD(t)/(_K(t))
+pprint(sp.Eq(_K_k(t), K_k))
+ph = (1+infla)*_ph(t-1)
+pprint(sp.Eq(_ph(t), ph))
+own = ((1+_rmo(t))/(1+infla))-1
+pprint(sp.Eq(_own(t), own))
+g_Z = phi_0 - phi_1*_own(t)
+pprint(sp.Eq(_g_Z(t), g_Z))
+#+END_SRC
+
+#+RESULTS:
+:results:
+10 - 2a465e17-220d-4873-ae0e-f555ddbba4b4 <output> <interrupt>
+:end:
+
+** Short-run
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results output :export none
+g = sp.Function('g')
+gK = sp.Function('g_K')
+g_ = sp.Symbol('g^*')
+
+def replacer(express):
+    #print("\nReplacing the initial values.....")
+    df = SolveSFC(model(), time=1)
+    df = df.iloc[1, :]
+
+    express = express.subs(alpha, df['alpha']).subs(
+        omega, df['omega'])
+    express = express.subs(un, df['un']).subs(
+        gamma_u, df['gamma_u'])
+    express = express.subs(
+        infla, df['infla'])
+    express = express.subs(phi_0, df['phi_0']).subs(
+        phi_1,
+        df['phi_1']).subs(rm, df['rm']).subs(
+            spread_mo, df['spread_mo'])
+    express = express.subs(rm, df['rm']).subs(
+            spread_mo, df['spread_mo']).subs(v, df['v']).subs(R, df['R'])
+    express = express.subs(gamma_F, df["gamma_F"]).subs(rm, df['rm']).subs(g_, df['g_Z'])
+    return express
+#+END_SRC
+
+#+RESULTS:
+:results:
+11 - b40e4de3-51b0-43f2-a9ea-774811f85cf0 <output> <interrupt>
+:end:
+
+#+NAME:YNivel
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results output :export none
+k = sp.Symbol('k') 
+Zt = sp.Symbol('Z') # For aesthetical reasons only
+ht = sp.Symbol('h') # For aesthetical reasons only
+Kt = sp.Symbol('K') # For aesthetical reasons only
+
+EqY = (Y - _Y(t))
+EqY = EqY.subs(_C(t), C).subs(_Ck(t), Ck).subs(_Cw(t), Cw)
+EqY = EqY.subs(_I_t(t), I).subs(_I_f(t), I_f)
+EqY = EqY.subs(_W(t), W)
+EqY = EqY.subs(_I_h(t), (1-R)*_Z(t))
+EqY = EqY.subs(_Z(t), Zt).subs(_h(t), ht)
+EqY = sp.solve(EqY, _Y(t))[0]#.collect(alpha).collect(omega)
+solY = EqY.simplify()
+solY = ((-1)*solY.as_numer_denom()[0])/((-1)*solY.as_numer_denom()[1])
+#print(sp.latex(cse(solY, optimizations='basic')[1][0], order='none'))
+print(sp.latex(sp.Eq(sp.Symbol('Y_t'), solY),
+               symbol_names = {
+                   Zt: "Z_t",
+                   ht: "h_t",
+                   Kt: "K_t",
+                   k: "k_t"
+               },
+               order='none',
+               mul_symbol='dot'))
+
+#+END_SRC
+
+#+RESULTS: YNivel
+:results:
+12 - 234c4f91-f83f-4858-a391-3e114655f7ff <output> <interrupt>
+:end:
+
+
+
+
+#+NAME: ushort
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results
+solu = solY/Yk
+solu = solu.subs(_K_f(t), (1-k)*_K(t)).subs(_Z(t), Zt).subs(_h(t), ht).subs(_K(t), Kt)
+solu = solu.simplify()
+print(sp.latex(sp.Eq(sp.Symbol("u_t"), solu),
+               mul_symbol = 'dot',
+               symbol_names = {
+                   Zt: "Z_t",
+                   ht: "h_t",
+                   Kt: "K_t",
+                   k: "k_t"
+               },
+               order = 'none'
+))
+#+END_SRC
+
+#+RESULTS: ushort
+:results:
+13 - e0466b6f-80e5-44ab-b858-f226dd157463 <output> <interrupt>
+:end:
+
+
+** Stock-flow ratios
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results
+g_ = sp.Symbol('g^*')
+lf_ = sp.Symbol('lf^*')
+lk_ = sp.Symbol('lk^*')
+m_ = sp.Symbol('m^*')
+mo_ = sp.Symbol('mo^*')
+k_ = sp.Symbol('k^*')
+#+END_SRC
+
+#+RESULTS:
+:results:
+14 - 5d92a12e-0b70-4ce1-84ad-424a35e0d4a7 <output> <interrupt>
+:end:
+
+
+** Firms
+   
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results
+Kf_1 = _K_f(t-1)
+pprint(Kf_1)
+Lf_1 = _Lf(t-1)
+pprint(Lf_1)
+dLf = _Lf(t) - _Lf(t-1)
+LHS = '\Delta \frac{L_f}{K_f}'
+_Fn = sp.Function('Fn')
+_rg = sp.Function('rg'); _rn = sp.Function('rn');
+rg = (1-omega)*un/v
+rn = rg - _rl(t)*lf_
+
+dLf_dKf = dLf - (Lf_1/_K_f(t))*g_
+dLf_dKf = dLf_dKf.subs(dLf, (_I_f(t) - _FU(t))/_K_f(t)).expand()
+pprint(dLf_dKf)
+dLf_dKf = dLf_dKf.subs(_FU(t), FU).subs(_FT(t) - _Lf(t-1)*_rl(t), _Fn(t))
+pprint(dLf_dKf)
+dLf_dKf = dLf_dKf.subs(_Fn(t)/_K_f(t), _rn(t)).subs(_I_f(t)/_K_f(t), g_)
+pprint(dLf_dKf)
+dLf_dKf = dLf_dKf.subs(_Lf(t-1)/_K_f(t), lf_)
+pprint(dLf_dKf)
+dLf_dKf = dLf_dKf.subs(_rn(t), rn).subs(_rl(t), rl).subs(spread_l,0)
+pprint(dLf_dKf)
+dLf_dKf = dLf_dKf.collect(g_).collect(lf_)
+pprint(dLf_dKf)
+lfstar = sp.solve(dLf_dKf, lf_)[0].collect(gamma_F).simplify()
+pprint(sp.Eq(lf_,lfstar))
+print('\nNext, replace lf by lf*(1-k) in equation m')
+#+END_SRC
+
+#+RESULTS:
+:results:
+15 - bf90caf7-5040-4cca-bb85-5a4cd60b3b36 <output> <interrupt>
+:end:
+
+#+NAME: firmstar
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results :var label="test"
+latex_label = '\label{' + label + '}'
+print(
+    sp.latex(
+        sp.Eq(sp.Symbol(latex_label + '\ell^{\star}_{f}') , lfstar),
+             mul_symbol = 'dot',
+             symbol_names = {
+                 g_: "g^\star",
+                 k_: "k^\star",
+                 un : "u_{N}"
+               },
+             mode = 'equation'
+    )
+)
+#+END_SRC
+
+#+RESULTS: firmstar
+:results:
+16 - acf74502-3f32-4b92-8279-1909289b26af <output> <interrupt>
+:end:
+
+
+** Capitalists
+*** Loans ($L_k$)
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results
+Kh_1 = _K_HD(t-1)
+pprint(Kh_1)
+Lk_1 = _Lk(t-1)
+pprint(Lk_1)
+dLk = _Lk(t) - _Lk(t-1)
+LHS = '\Delta \frac{L_k}{K_H}'
+
+dLk_dKh = dLk/(_K_HD(t)) - (Lk_1/_K_HD(t))*g_
+pprint(dLk_dKh)
+dLk_dKh = dLk_dKh.subs(dLk, _Ck(t)).subs(_Ck(t), R*_Z(t))
+pprint(dLk_dKh)
+dLk_dKh = dLk_dKh.subs(_Z(t),_I_h(t)/(1-R))
+pprint(dLk_dKh)
+dLk_dKh = dLk_dKh.subs(_I_h(t)/_K_HD(t), g_).subs(Lk_1/_K_HD(t), lk_)
+pprint(dLk_dKh)
+lkstar = sp.solve(dLk_dKh, lk_)[0].simplify()
+pprint(sp.Eq(lk_,lkstar))
+print('\nNext, replace lk by lk*k in equation m')
+#+END_SRC
+
+#+RESULTS:
+:results:
+17 - 1e3d0656-a333-453b-833f-ce154fe92407 <output> <interrupt>
+:end:
+
+#+NAME: loanstar
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results :var label="test"
+latex_label = '\label{' + label + '}'
+print(
+    sp.latex(
+        sp.Eq(sp.Symbol(latex_label + '\ell^{\star}_{k}') , lkstar),
+             mul_symbol = 'dot',
+             symbol_names = {
+                 g_: "g^\star",
+                 k_: "k^\star",
+                 un : "u^\star"
+               },
+             mode = 'equation'
+    )
+)
+#+END_SRC
+
+#+RESULTS: loanstar
+:results:
+18 - 290db82d-b71f-470e-b886-f13e2e7ed1f5 <output> <interrupt>
+:end:
+
+
+*** Mortgages ($MO$)
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results
+MO_1 = _MO(t-1)
+dMO = _I_h(t)
+
+dMO_dKh = dMO/(_K_HD(t)) - (MO_1/_K_HD(t))*g_
+pprint(dMO_dKh)
+dMO_dKh = dMO_dKh.subs(MO_1/_K_HD(t), mo_).subs(_I_h(t)/_K_HD(t), g_).simplify()
+pprint(dMO_dKh)
+mostar = sp.solve(dMO_dKh, mo_)[0].simplify()
+pprint(sp.Eq(mo_,mostar))
+#+END_SRC
+
+#+RESULTS:
+:results:
+19 - 642e9cd7-a68e-4c51-a2b4-484866dda82c <output> <interrupt>
+:end:
+
+
+#+NAME: mortgagestar
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results :var label="test"
+latex_label = '\label{' + label + '}'
+print(
+    sp.latex(
+        sp.Eq(sp.Symbol(latex_label + 'mo^{\star}') , mostar),
+             mul_symbol = 'dot',
+             symbol_names = {
+                 g_: "g^\star",
+                 k_: "k^\star",
+                 un : "u^\star"
+               },
+             mode = 'equation'
+    )
+)
+#+END_SRC
+
+#+RESULTS: mortgagestar
+:results:
+20 - 94f65d4c-b354-4ceb-b5ab-d976546eda73 <output> <interrupt>
+:end:
+
+
+** Bank deposits (RHS)
+
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results
+K_1 = _K(t-1)
+h_ = sp.Symbol('h^*')
+
+
+m = (_MO(t) + _Lk(t) + _Lf(t))/_K(t)
+m = m.expand()
+pprint(sp.Eq(m_,m))
+m = m.subs(_MO(t)/_K(t), _MO(t)/(_K_HD(t)/k_)).subs(_Lk(t)/_K(t), _Lk(t)/(_K_HD(t)/k_)).subs(_Lf(t)/_K(t), _Lf(t)/(_K_f(t)/(1-k_)))
+pprint(sp.Eq(m_,m))
+m = m.subs(_Lk(t)/_K_HD(t), lk_).subs(_Lf(t)/_K_f(t), lf_).subs(_MO(t)/_K_HD(t), mo_)
+pprint(sp.Eq(m_,m))
+m = m.subs(lk_, lkstar).subs(lf_, lfstar).subs(mo_, mostar).simplify()
+pprint(sp.Eq(m_,m))
+m = m.collect(g_ - gamma_F*rm).collect(1-k_).collect(R).simplify()
+pprint(sp.Eq(m_,m))
+m = m.subs(k_, 1 - (h_)/(1-omega)).subs(h_,g_*un/v) ############ TODO Check latter
+pprint(sp.Eq(m_,m))
+m = m.factor().simplify().collect(R).collect(1-omega).collect(gamma_F).collect(g_).collect(rm).collect(un)
+pprint(sp.Eq(m_,m))
+#+END_SRC
+
+#+RESULTS:
+:results:
+21 - e617b6d1-3b69-4639-a9fa-6fc03b6836a6 <output> <interrupt>
+:end:
+
+#+NAME: mrhsstar
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results :var label="test"
+latex_label = '\label{' + label + '}'
+print(
+    sp.latex(
+        sp.Eq(sp.Symbol(latex_label + 'm^{\star}') , m),
+             mul_symbol = 'dot',
+             symbol_names = {
+                 g_: "g^\star",
+                 k_: "k^\star",
+                 un : "u^\star"
+               },
+             mode = 'equation',
+#        long_frac_ratio = 2.0
+    )
+)
+#+END_SRC
+
+#+RESULTS: mrhsstar
+:results:
+22 - 6c91432e-7791-4132-9308-813d4af37bf4 <output> <interrupt>
+:end:
+
+
+** Bank deposits (LHS)
+   
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results
+left_m = (_S_hk(t) - _M(t)*g_)/_K(t)
+pprint(left_m)
+left_m = left_m.subs(_S_hk(t), S_hk).expand().subs(_Ck(t), Ck).subs(_M(t)/_K(t), m_)
+pprint(left_m)
+left_m = left_m.subs(_Z(t), _I_h(t)/(1-R)).subs(_K(t), _K_HD(t)/k_)
+pprint(left_m)
+left_m = left_m.subs(_I_h(t)/_K_HD(t), g_)
+pprint(left_m)
+left_m = left_m.subs(_YDk(t), YDk)
+pprint(left_m)
+left_m = left_m.subs(_rl(t), rm).subs(_rmo(t), rm).collect(rm)
+pprint(left_m)
+left_m = left_m.subs(_M_h(t-1) - _Lk(t-1) - _MO(t-1), _Lf(t)).expand().subs(_K_HD(t), k_*_K(t))
+pprint(left_m)
+left_m = left_m.subs(_Lf(t)/_K(t), lf_*(1-k_)) # Check
+pprint(left_m)
+left_m = left_m.subs(_K(t), (1-k_)*_K_f(t)).subs(_FD(t), FD).subs(_FT(t) - _Lf(t-1)*_rl(t), _Fn(t)).subs(_Fn(t)/_K_f(t), rn).subs(_rl(t), rm)
+pprint(left_m)
+left_m = sp.solve(left_m, m_)[0].subs(k_, 1 - h_/(1-omega)).subs(h_, g_*un/v).simplify().collect(g_)
+pprint(sp.Eq(m_, left_m))
+left_m = left_m.subs(lf_, lfstar).simplify().collect(g_).collect(omega).collect(rm).collect(R)
+pprint(sp.Eq(m_, left_m))
+
+#+END_SRC
+
+#+RESULTS:
+:results:
+23 - 05768cab-62fd-4b6d-bd04-8c1b3c6138bb <output> <interrupt>
+:end:
+
+#+NAME: mlhsstar
+#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results :var label="test"
+latex_label = '\label{' + label + '}'
+print(
+    sp.latex(
+        sp.Eq(sp.Symbol(latex_label + 'm^{\star}') , left_m),
+             mul_symbol = 'dot',
+             symbol_names = {
+                 g_: "g^\star",
+                 k_: "k^\star",
+                 un : "u_{N}"
+               },
+             mode = 'equation'
+    )
+)
+#+END_SRC
+
+#+RESULTS: mlhsstar
+:results:
+24 - 4f356ba9-5de9-467b-bf26-b01dd1a80e58 <output> <interrupt>
+:end:
+
+#+RESULTS: mlhsgagestar
+:results:
+# Out [246]: 
+# output
+\begin{equation}\label{test}m^{\star} = \frac{R \cdot g^\star \cdot v \cdot \left(g^\star - \gamma_{F} \cdot rm\right) \cdot \left(g^\star \cdot u_{N} - v \cdot \left(1 - \omega\right)\right) \cdot \left(v \cdot \left(\omega - 1\right)^{4} + \left(1 - \omega\right)^{3} \cdot \left(g^\star \cdot u_{N} - v \cdot \left(1 - \omega\right)\right)\right) + \left(g^\star\right)^{2} \cdot rm \cdot u_{N}^{2} \cdot \left(R - 1\right) \cdot \left(\omega - 1\right)^{3} \cdot \left(g^\star \cdot v + \gamma_{F} \cdot u_{N} \cdot \left(\omega - 1\right)\right) + v^{2} \cdot \left(\omega - 1\right)^{5} \cdot \left(rm \cdot \left(R \cdot \left(- g^\star \cdot v - \gamma_{F} \cdot u_{N} \cdot \left(\omega - 1\right) + \gamma_{F} \cdot \left(g^\star \cdot v + \gamma_{F} \cdot u_{N} \cdot \left(\omega - 1\right)\right)\right) + g^\star \cdot v + \gamma_{F} \cdot u_{N} \cdot \left(\omega - 1\right) - \gamma_{F} \cdot \left(g^\star \cdot v + \gamma_{F} \cdot u_{N} \cdot \left(\omega - 1\right)\right)\right) + u_{N} \cdot \left(g^\star - \gamma_{F} \cdot rm\right) \cdot \left(R \cdot \left(1 - \gamma_{F}\right) + \gamma_{F} + \omega \cdot \left(R \cdot \left(\gamma_{F} - 1\right) - \gamma_{F} + 1\right) - 1\right)\right)}{g^\star \cdot v^{2} \cdot \left(g^\star - \gamma_{F} \cdot rm\right) \cdot \left(\omega - 1\right)^{4} \cdot \left(- R \cdot g^\star \cdot u_{N} + g^\star \cdot u_{N}\right)}\end{equation}
+
+:end:
+
+
+* Short and long-run equilibria                                      :ignore:
+
+In this Section, we show the implications residential investment inclusion into a SSM-SFC model. First, we present the short-run dynamics and then move to the fully-adjusted position (denoted by $\star$).
+
+** Short-run good market equilibrium
+#+LATEX: \label{short}
+
+In our no-government closed economic system, real output (equation \ref{_Y}) is the sum of household consumption (equation \ref{ConsumoTotal}) and both types of investment (equation ref:_It). 
+If we replace equations ref:_W and  ref:_If into ref:_Y and considering equation ref:_Z we get the short-run GDP level:
+
+
+
+#+BEGIN_equation
+#+LATEX: \label{AnaliticaNivel}
+#+CALL:YNivel()
+
+#+RESULTS:
+:results:
+36 - aeb49019-e5c1-4a0b-9b16-8aee5c9c5ee1 <output> <interrupt>
+:end:
+
+#+END_equation
+
+Next, dividing equation ref:AnaliticaNivel by ref:_YFC and presenting firm's capital stock in terms of $k$, we get the short-run equilibrium utilization rate (Eq ref:short_u)
+
+
+#+BEGIN_equation
+#+LATEX: \label{short_u}
+#+CALL: ushort()
+
+#+RESULTS:
+:results:
+37 - 0dfc2999-c0e7-45aa-b1fc-1c07f131e3f8 <output> <interrupt>
+:end:
+
+#+END_equation
+
+So, rearranging Equation ref:short_u in terms of houses,
+$$
+u_{t} = Y\frac{v}{K_{HD}}\cdot \frac{k_{t}}{1-k_{t}}
+$$
+
+\begin{equation}
+\label{u_houses}
+u_{t} = \frac{1}{1-R}\cdot \frac{g_Z\cdot v}{1 - \omega - h_{t}}\cdot \frac{k_{t}}{1-k_{t}}
+\end{equation}
+which allows us to present houses share on total capital stock of the economy
+\begin{equation}
+\label{k_short}
+k = 1 - \frac{v\cdot g_Z}{(1 - \omega)\cdot u_{t}}
+\end{equation}
+
+
+Finally, we present short-run growth rate following textcite:freitas_growth_2015:
+
+\begin{equation}
+\label{g_short}
+g_t = g_{Z} + \frac{\Delta h}{1 - \omega - h_{t}}
+\end{equation}
+On the following subsection, analyze the fully-adjusted positions values and steady state stock/flow ratios.
+
+
+*Nota:* Não organizei bem o texto desta seção. Não tenho certeza se essa é a melhor ordem de apresentação das equações, mas acredito que isso seja rápido de corrigir.
+
+** Fully-adjusted position
+#+LATEX: \label{long}
+
+
+As mentioned before, endogenous firms’ marginal propensity to invest reacts to discrepancies between the utilization rate and the normal one.  During the adjustment process ($u\to u_N$), GDP growth rate moves towards NCC autonomous expenditure growth rate (in this case, residential investment and capitalist consumption):
+
+$$
+u \to u^{\star}  = u_N \Leftrightarrow g \to g^{\star} = g_Z
+$$
+and (endogenous) fully-adjusted position marginal propensity to invest will be:
+
+
+\begin{equation}
+\label{h_long}
+h^{\star} = g^{\star}\cdot \frac{v}{u^{\star}}
+\end{equation}
+
+Next, we move towards the analysis of the particularities of our model:  one of the NCC autonomousexpenditures also contributes to capital stock accumulation.  
+Replacing Equation ref:h_long in ref:k_short, we obtain fully-adjusted position of the ratio between housesand total capital stock (denoted by $k^\star$). It worth noting that the second term of RHS of equation ref:k_long is equal to the so-called ``fraction'' ($f$) introduced by textcite:serrano_long_1995:
+
+\begin{equation}
+\label{k_long}
+k^{\star} = 1 - \frac{h^{\star}}{1-\omega}
+\end{equation}
+
+$$
+k^{\star} = 1 - f \hspace{3cm} f = 1 - k^{\star}
+$$
+
+
+Before moving on to the numerical simulations, we present some steady state stock/flow ratios in order to shed some light in the dynamic process of the model. Dividing Equation ref:_Lf by firms' lagged capital stock and making some algebraic manipulation, we obtain steady state loans' ratio to capital stock ($\ell^{\star}$, Equation ref:firm_ratio):
+
+$$
+\Delta \left(\frac{L_{f}}{K_{f}}\right) = \frac{I_{f} - FU}{K_{f}} - \ell^{\star}_{f}\cdot g^{\star}  = 0
+$$
+
+#+CALL:firmstar(label="firm_ratio")
+
+#+RESULTS:
+:results:
+38 - 34923489-3bde-45b4-8844-7d438c018b2b <output> <interrupt>
+:end:
+
+Next, we present capitalists' loans to houses stock ratio and  rewrite capitalists autonomous expenditure in terms of residential investment (Equation ref:C_kZ)
+
+$$
+\Delta \left(\frac{L_k}{K_{HD}}\right) = \frac{C_k}{K_{HD}} - \ell^{\star}_{k}\cdot g^{\star} = 0
+$$
+#+CALL:loanstar(label="capitalist_ratio")
+
+#+RESULTS:
+:results:
+39 - 5f5ffe43-24f8-42a4-af53-4272f7d1e6d5 <output> <interrupt>
+:end:
+
+The same procedure can be applied to find mortgage to house stock ratio ($mo^{\star}$, Equation ref:mortgage_ratio):
+$$
+\Delta \left(\frac{MO}{K_{HD}}\right) = \frac{\Delta MO}{K_{HD}} - mo^{\star}\cdot g^{\star} = 0
+$$
+#+CALL:mortgagestar(label="mortgage_ratio")
+
+#+RESULTS:
+:results:
+40 - ca9002b3-ab2d-45b1-b8fb-4c6012fb9cac <output> <interrupt>
+:end:
+
+Finaly, we can express deposits share on total capital stock ($m^{\star}$) in terms of previous stock/flow ratios:
+
+$$
+\frac{M}{K} = \frac{MO + L_k + L_f}{K}
+$$
+$$
+\frac{M}{K} = \frac{MO}{K_{HD}}\cdot \frac{K_{HD}}{K} +  \frac{L_k}{K_{HD}}\cdot \frac{K_{HD}}{K} +  \frac{L_f}{K_{f}}\cdot \frac{K_{f}}{K}
+$$
+
+#+BEGIN_equation
+#+LATEX: \label{M_long_intermediate}
+m^{\star} = mo^{\star}\cdot k^{\star} + \ell^{\star}_{k}\cdot k^{\star} + \ell^{\star}_{f}\cdot (1-k^{\star})
+#+END_equation
+Thus, replacing Equations ref:h_long, ref:k_long, ref:firm_ratio, ref:capitalist_ratio and ref:mortgage_ratio in to ref:M_long_intermediate, we obtain steady state deposits to total capital stock ratio (Equation ref:deposits_rhs[fn:lhs]):
+
+
+#+CALL:mrhsstar(label="deposits_rhs")
+
+#+RESULTS:
+:results:
+41 - f69b211b-c651-4b65-ae63-a266a5e381c9 <output> <interrupt>
+:end:
+
+[fn:lhs] Since banks deposits are a residuum, we could express Equation ref:deposits_rhs in terms of Equations ref:EqYD, ref:EqSh and --- assuming null spread on mortgage and on loans interest rate --- we can rewrite net interest rate income as follows 
+$$rm\cdot (M - L_k - MO) = rm\cdot (L_f)$$
+So, we achieve the same result of Equation ref:deposits_rhs as expected.
+
+
+Before moving on to the numerical simulations, it worth noting that --- besides its counterintuitivity --- the decrease of $k^{\star}$ as a result of the increase of residential investment growth rate (reported in equations \ref{partial_phi0} and \ref{partial_pi} in Appendix ref:append:Solution) is in line with the SSM.
+Since firms' investment grows (temporally) at a higher pace than NCC autonomous expenditures, it has only a level effect on capital stock.
+As usual, changes in income distribution affects GDP temporally.
+However, it has permanent effects over capital stock composition as a result of this level effect reported before (equation \ref{partial_omega}).
+
