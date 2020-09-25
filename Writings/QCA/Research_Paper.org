@@ -2,6 +2,7 @@
 #+LATEX_CLASS: SelfArx
 #+SETUPFILE: ../manuscript.setup
 #+INCLUDE: Infos.org
+#+EXCLUDE_TAGS: Thesis
 
 * Initial Setup                                              :journal:ignore:
 
@@ -10,6 +11,13 @@
 #+LATEX:\thispagestyle{empty} % Removes page numbering from the first page
 
 * Capítulo QCA
+
+** Epígrafe                                                   :ignore:Thesis:
+
+#+LATEX: \epigraph{The Fed, the European Central Bank and the Bank of Japan together set monetary policy for a zone that accounts for 80 per cent of the world’s
+#+LATEX: industrialized economic activity ... Rarely, if ever, can so much power have been wielded by such a small number of institutions sitting outside the
+#+LATEX:  direct democratic process.}{Goldman Sachs, 2000}
+
 
 ** Introduction
 

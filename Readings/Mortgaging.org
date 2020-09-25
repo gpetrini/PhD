@@ -14,24 +14,10 @@
 #+PROPERTY: YEAR
 #+PROPERTY: COUNTRY
 
+
+
 - Jordà et al 2019
 - Bartscher et al - 2020
-
-
-* HTML headers                                              :noexport:ignore:
-
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
-
-#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
-#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
-#+HTML_HEAD: <style> #content{max-width:1800px;}</style>
-#+CSL_STYLE: associacao-brasileira-de-normas-tecnicas-ipea.csl
-
-
-
 
 
 * [#A] Survey 
@@ -43,17 +29,23 @@
 #+BEGIN: columnview :maxlevel 2 :id global
 | TYPE       | PRIORITY | Decision | Title                                                                                                     | YEAR | ISO3   | STATUS     | CITE |
 |------------+----------+----------+-----------------------------------------------------------------------------------------------------------+------+--------+------------+------|
-|            | B        |          | HTML headers                                                                                              |      |        |            |      |
 |            | A        |          | Survey                                                                                                    |      |        |            |      |
 |            | A        |          | Books                                                                                                     |      |        |            |      |
 | Theory     | A        | PARTIAL  | [[https://www.amazon.com.br/Manias-Panics-Crashes-History-Financial/dp/1137525754][Kindelberger - Manias, Panics, and Crashes: A History of Financial Crises]]                                 | 1978 |        | Filed      | Yes  |
 | Thechnical | C        | PARTIAL  | [[https://www.amazon.com.br/Comparative-National-Balance-Sheets-Countries/dp/0226301532][Goldsmith - Comparative National Balance Sheets: A Study of Twenty Countries, 1688-1979]]                   | 1985 |        | NotFound   | Wait |
 | Case       | C        | PARTIAL  | [[https://press.princeton.edu/books/paperback/9780691162386/the-bankers-new-clothes][The Bankers' New Clothes: What's Wrong with Banking and What to Do about It]]                               | 2013 |        | Filed      | Wait |
 | Review     | A        | PARTIAL  | [[https://www.amazon.com.br/Asset-Price-Bubbles-Implications-International/dp/0262582538][Hunter et al - Asset Price Bubbles – The Implications for Monetary, Regulatory and International Policies]] | 2003 |        | Filed      | Yes  |
+| Theory     | A        | PARTIAL  | [[https://doi.org/10.1017/CBO9780511559501][Kotz et al - Social Structures of Accumulation: The Political Economy of Growth and Crisis]]                | 1994 |        | Downloaded | Yes  |
+| Case       | C        | WAIT     | [[https://books.google.com.br/books/about/A_Business_Reborn.html?id=Sf9OAAAAIAAJ&redir_esc=y][Ewalt - A Business Reborn: The Savings and Loan Story, 1930-1960]]                                          | 1962 |        | Filed      | Wait |
+| Case       | C        | READ     | [[https://www.nber.org/books/fish12-2][Housing and Mortgage Markets in Historical Perspective]]                                                    | 2014 |        | Filed      | Wait |
+| Case       | B        | PARTIAL  | [[https://www.nber.org/books/mort56-1][Urban Mortgage Lending: Comparative Markets and Experience]]                                                | 1956 |        | Filed      | Wait |
+| Case       | C        | MAYBE    | [[https://www.amazon.com/Rise-Fall-Mortgage-Credit-Markets/dp/0470477245][The Rise and Fall of the US Mortgage and Credit Markets: A Comprehensive Analysis of the Market Meltdown]]  | 2009 |        | Filed      | Wait |
+| Case       | A        | MAYBE    | [[https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=Mortgage+securitization+in+the+United+States%3A+Twentieth+century+developments+in+historical+perspective&btnG=][Mortgage securitization in the United States: Twentieth century developments in historical perspective]]    | 1995 |        | NotFound   | Wait |
 |            | A        |          | Institutions                                                                                              |      |        |            |      |
 | Empirical  | A        | READ     | [[http://policydialogue.org/files/publications/Determinants_of_Banking_Crises.pdf][Demirgüç-Kunt and Detragiache - The Determinants of Banking Crises in Developing and Developed Countries]]  | 1998 |        | Skimmed    | Yes  |
 | Case       | A        | READ     | [[https://www.imf.org/en/Publications/WP/Issues/2016/12/30/Deposit-Protection-Arrangements-A-Survey-1875][Kyei - Deposit Protection Arrangements : A Survey]]                                                         | 1995 |        | NotFound   | Yes  |
 |            | A        |          | Mortgage Market                                                                                           |      |        |            |      |
+| Case       | B        | PARTIAL  | [[https://escholarship.org/content/qt41d5k3bd/qt41d5k3bd.pdf][Quigley - Federal Credit and Insurance Programs: Housing]]                                                  | 2006 | US     | Downloaded | Yes  |
 | Case       | A        | READ     | [[http://www.macrohistory.net/wp-content/uploads/2012/06/White-Picket-Finance-The-Remaking-of-the-U.S.-Mortgage-Market.pdf][Gärtner - White Picket Finance: The Making of the U.S. Mortgage Market, 1932–1960]]                         | 2012 |        | Filed      | Yes  |
 | Case       | A        | PARTIAL  | [[http://www.actuaries.org/CTTEES_TFRISKCRISIS/Documents/turner_review.pdf][Turner - A Regulatory Response to the Global Banking Crisis]]                                               | 2009 | UK,USA | Skimmed    | Yes  |
 |            | A        |          | Housing Bubbles                                                                                           |      |        |            |      |
@@ -61,11 +53,15 @@
 |            | A        |          | Housing cycle                                                                                             |      |        |            |      |
 | Case       | A        | PARTIAL  | [[https://www.nber.org/papers/w23694][Kaplan et al - The Housing Boom and Bust: Model Meets Evidence]]                                            | 2017 |        | Skimmed    | Yes  |
 |            | A        |          | Banking credit                                                                                            |      |        |            |      |
-| Case       | C        |          | [[https://www.aeaweb.org/articles?id=10.1257/jep.27.2.3][Greenwood and Scharfstein - The Growth of Finance]]                                                         | 2013 |        | Downloaded | Wait |
+| Empirical  | A        | READ     | [[https://academic.oup.com/restud/advance-article-abstract/doi/10.1093/restud/rdaa040/5889963?redirectedFrom=fulltext][Jordà et al - Bank Capital Redux: Solvency, Liquidity and Crisis]]                                          | 2020 |        | Filed      | Yes  |
+| Case       | C        | PARTIAL  | [[https://www.aeaweb.org/articles?id=10.1257/jep.27.2.3][Greenwood and Scharfstein - The Growth of Finance]]                                                         | 2013 |        | Downloaded | Wait |
 |            | A        |          | Household debt                                                                                            |      |        |            |      |
 | Review     | A        | PARTIAL  | [[https://doi.org/10.1146/annurev-economics-080614-115640][Zinman -  Household Debt: Facts, Puzzles, Theories, and Policies]]                                          | 2015 |        | Downloaded | Wait |
 |            | A        |          | House prices                                                                                              |      |        |            |      |
 | Thechnical | C        | PARTIAL  | [[https://www.kansascityfed.org/PUBLICAT/ECONREV/PDF/2q07rapp.pdf][Rappaport - A Guide to Aggregate House Price Measures]]                                                     | 2007 | USA    | Downloaded | Wait |
+| Empirical  | A        | READ     | [[https://www.nber.org/papers/w25653][Jordà et al - The Total Risk Premium Puzzle]]                                                               | 2019 |        | Filed      | Yes  |
+| Empirical  | A        | READ     | [[https://doi.org/10.1016/j.jinteco.2014.12.011][Jordà et al - Betting the house]]                                                                           | 2015 |        | Filed      | Yes  |
+| Empirical  | A        | READ     | [[https://www.aeaweb.org/articles?id=10.1257/aer.20150501][Knoll et al - No Price Like Home: Global House Prices, 1870-2012]]                                          | 2017 |        | Filed      | Yes  |
 |            | A        |          | Mortgage interest rate                                                                                    |      |        |            |      |
 |            | A        |          | Financial crisis                                                                                          |      |        |            |      |
 | Case       | B        | SKIM     | [[https://doi.org/10.1080/00076791.2013.800967][Blancheton et al - The French paradox: A financial crisis during the golden age of the 1960s]]              | 2014 |        | NotFound   | Wait |
@@ -73,6 +69,7 @@
 |            | B        | SKIM     | [[https://www.bis.org/statistics/totcredit.htm][Long Series on Credit to Private Non-financial Sectors]]                                                    |      |        |            |      |
 | Case       | B        | READ     | [[https://ideas.repec.org/a/jre/issued/v32n12010p23-46.html][LaCour-Little et al - Home Equity Extraction by Homeowners: 2000-2006]]                                     | 2010 | ?      | NotFound   | Wait |
 | Thechnical | A        | PARTIAL  | [[https://www.imf.org/~/media/Websites/IMF/imported-full-text-pdf/external/pubs/ft/wp/2008/_wp08224.ashx][IMF - Systemic Banking Crises: A New Database]]                                                             | 2008 |        | Downloaded | Yes  |
+|            | B        |          | HTML headers                                                                                              |      |        |            |      |
 #+END
          
 * [#A] Books
@@ -140,6 +137,62 @@
 }
 #+END_SRC
 
+** WAIT [#C] [[https://books.google.com.br/books/about/A_Business_Reborn.html?id=Sf9OAAAAIAAJ&redir_esc=y][Ewalt - A Business Reborn: The Savings and Loan Story, 1930-1960]]
+   :PROPERTIES:
+   :YEAR:     1962
+   :ZOTERO:   Entry
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+** READ [#C] [[https://www.nber.org/books/fish12-2][Housing and Mortgage Markets in Historical Perspective]]
+   :PROPERTIES:
+   :YEAR:     2014
+   :ZOTERO:   Entry
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+*** READ [#A] [[https://www.nber.org/chapters/c12793.pdf][The Interwar Housing Cycle in the Light of 2001–2012A Comparative Historical Perspective]] 
+*** READ [#A] [[https://www.nber.org/chapters/c12801.pdf][The Twentieth-Century Increase in US Home Ownership]]
+*** PARTIAL [#C] [[https://www.nber.org/chapters/c12802.pdf][Did Housing Policies Cause the Postwar Boom in Home Ownership?]]
+** PARTIAL [#B] [[https://www.nber.org/books/mort56-1][Urban Mortgage Lending: Comparative Markets and Experience]]
+   :PROPERTIES:
+   :YEAR:     1956
+   :ZOTERO:   Entry
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+*** PARTIAL [#B] [[https://www.nber.org/chapters/c2848.pdf][Structure of Urban Mortage Markets]]
+*** PARTIAL [#B] [[https://www.nber.org/chapters/c2849.pdf][Structure of the Lending Industry]] 
+*** PARTIAL [#A] [[https://www.nber.org/chapters/c13003.pdf][A Historiography of  Early NBER Housing and Mortgage Research]]
+** MAYBE [#C] [[https://www.amazon.com/Rise-Fall-Mortgage-Credit-Markets/dp/0470477245][The Rise and Fall of the US Mortgage and Credit Markets: A Comprehensive Analysis of the Market Meltdown]] 
+   :PROPERTIES:
+   :YEAR:     2009
+   :ZOTERO:   Entry
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+** MAYBE [#A] [[https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=Mortgage+securitization+in+the+United+States%3A+Twentieth+century+developments+in+historical+perspective&btnG=][Mortgage securitization in the United States: Twentieth century developments in historical perspective]]
+   :PROPERTIES:
+   :YEAR:     1995
+   :ZOTERO:   No
+   :TYPE:     Case
+   :STATUS:   NotFound
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
 * [#A] Institutions 
 ** READ [#A] [[http://policydialogue.org/files/publications/Determinants_of_Banking_Crises.pdf][Demirgüç-Kunt and Detragiache - The Determinants of Banking Crises in Developing and Developed Countries]]
    :PROPERTIES:
@@ -163,6 +216,17 @@
    :END:    
 * [#A] Mortgage Market
 
+** PARTIAL [#B] [[https://escholarship.org/content/qt41d5k3bd/qt41d5k3bd.pdf][Quigley - Federal Credit and Insurance Programs: Housing]] :USA:
+   :PROPERTIES:
+   :YEAR:     2006
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Downloaded
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Yes
+   :COUNTRY: US
+   :END:    
 ** READ [#A] [[http://www.macrohistory.net/wp-content/uploads/2012/06/White-Picket-Finance-The-Remaking-of-the-U.S.-Mortgage-Market.pdf][Gärtner - White Picket Finance: The Making of the U.S. Mortgage Market, 1932–1960]]
     :PROPERTIES:
     :YEAR: 2012
@@ -222,8 +286,33 @@
 }
 #+END_SRC
 * [#A] Banking credit
+** READ [#A] [[https://academic.oup.com/restud/advance-article-abstract/doi/10.1093/restud/rdaa040/5889963?redirectedFrom=fulltext][Jordà et al - Bank Capital Redux: Solvency, Liquidity and Crisis]]
+   :PROPERTIES:
+   :YEAR:     2020
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :END:    
 
-** [#C] [[https://www.aeaweb.org/articles?id=10.1257/jep.27.2.3][Greenwood and Scharfstein - The Growth of Finance]]     :ShadowBanking:
+#+BEGIN_SRC bibtex
+@Article{Jord_Redux_2020,
+  author       = {Jordà, Òscar and Richter, Björn and Schularick,
+                  Moritz and Taylor, Alan M},
+  title	       = {Bank Capital Redux: Solvency, Liquidity and Crisis},
+  year	       = 2020,
+  month	       = {Aug},
+  issn	       = {1467-937X},
+  doi	       = {10.1093/restud/rdaa040},
+  url	       = {http://dx.doi.org/10.1093/restud/rdaa040},
+  journal      = {The Review of Economic Studies},
+  publisher    = {Oxford University Press (OUP)}
+}
+#+END_SRC
+
+** PARTIAL [#C] [[https://www.aeaweb.org/articles?id=10.1257/jep.27.2.3][Greenwood and Scharfstein - The Growth of Finance]] :ShadowBanking:
    :PROPERTIES:
    :YEAR: 2013
    :ZOTERO:   Yes
@@ -233,8 +322,6 @@
    :IMPACT:   Low
    :CITE:     Wait
    :END:    
-
-
 #+BEGIN_SRC bibtex
 @Article{Greenwood_2013,
   author       = {Greenwood, Robin and Scharfstein, David},
@@ -296,6 +383,87 @@
    :COUNTRY: USA
    :END:    
 
+** READ [#A] [[https://www.nber.org/papers/w25653][Jordà et al - The Total Risk Premium Puzzle]]
+   :PROPERTIES:
+   :YEAR:     2019
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Jord__2019,
+  author       = {Jordà, Òscar and Schularick, Moritz and Taylor,
+                  Alan},
+  title	       = {The Total Risk Premium Puzzle},
+  year	       = 2019,
+  month	       = {Mar},
+  doi	       = {10.3386/w25653},
+  url	       = {http://dx.doi.org/10.3386/w25653},
+  publisher    = {National Bureau of Economic Research}
+}
+#+END_SRC
+
+** READ [#A] [[https://doi.org/10.1016/j.jinteco.2014.12.011][Jordà et al - Betting the house]]
+   :PROPERTIES:
+   :YEAR:     2015
+   :ZOTERO:   Entry
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   High
+   :CITE:     Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Jord_Betting_2015,
+  author       = {Jordà, Òscar and Schularick, Moritz and Taylor, Alan
+                  M.},
+  title	       = {Betting the house},
+  year	       = 2015,
+  volume       = 96,
+  month	       = {Jul},
+  pages	       = {S2–S18},
+  issn	       = {0022-1996},
+  doi	       = {10.1016/j.jinteco.2014.12.011},
+  url	       = {http://dx.doi.org/10.1016/j.jinteco.2014.12.011},
+  journal      = {Journal of International Economics},
+  publisher    = {Elsevier BV}
+}
+#+END_SRC
+
+** READ [#A] [[https://www.aeaweb.org/articles?id=10.1257/aer.20150501][Knoll et al - No Price Like Home: Global House Prices, 1870-2012]] 
+   :PROPERTIES:
+   :YEAR:     2017
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Knoll_2017,
+  author       = {Knoll, Katharina and Schularick, Moritz and Steger,
+                  Thomas},
+  title	       = {No Price Like Home: Global House Prices, 1870–2012},
+  year	       = 2017,
+  volume       = 107,
+  number       = 2,
+  month	       = {Feb},
+  pages	       = {331–353},
+  issn	       = {0002-8282},
+  doi	       = {10.1257/aer.20150501},
+  url	       = {http://dx.doi.org/10.1257/aer.20150501},
+  journal      = {American Economic Review},
+  publisher    = {American Economic Association}
+}
+#+END_SRC
+
 * [#A] Mortgage interest rate
 * [#A] Financial crisis
 ** SKIM [#B] [[https://doi.org/10.1080/00076791.2013.800967][Blancheton et al - The French paradox: A financial crisis during the golden age of the 1960s]] :France:
@@ -355,3 +523,19 @@
    :IMPACT:   High
    :CITE:     Yes
    :END:    
+* HTML headers                                              :noexport:ignore:
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+
+#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+#+HTML_HEAD: <style> #content{max-width:1800px;}</style>
+#+CSL_STYLE: associacao-brasileira-de-normas-tecnicas-ipea.csl
+
+
+
+
+

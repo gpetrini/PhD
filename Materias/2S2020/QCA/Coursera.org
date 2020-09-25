@@ -1,0 +1,343 @@
+#+TITLE: Introduction to Qualitative Comparative Analysis
+#+AUTHOR: Gabriel Petrini
+#+DATE: 2020
+#+LATEX_HEADER: \usepackage[american]{babel}
+#+LATEX_HEADER: \usepackage{minted}
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+
+#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+
+
+* Introduction, analytic foundations and the QCA research process
+  
+** QCA vs other approaches
+
+*General idea:* Comparative method for assessing causation
+- Integrates "best features" of the _case-oriented_ approach with the best features of the _variable-oriented_ approach
+
+
+#+BEGIN_SRC dot :file esquema.png
+digraph D {
+	label="General reseach process";
+	node [shape="Rectangle"];
+
+
+	"Thoeretical Knowledge" -> "Research design" -> "Case knowledge" -> "Calibration" -> "Truth Table" -> "Logical minimization" -> "Interpretation" [fillcolor="red"]; 
+	"Intimacy with cases" -> "Case knowledge" [color="grey"]; 
+	"Logical minimization" -> 	"Cross-case comparison" [color="grey"];
+	"Binary scores" -> "Logical minimization" [color="grey"];
+	"Binary scores" -> "Truth Table" [color="grey"];
+	"Interpretation" -> "With-in cases" -> "Intimacy with cases" [color="grey"];
+
+}
+#+END_SRC
+
+#+RESULTS:
+[[file:esquema.png]]
+
+
+** Set theory and complex causality
+
+*Complex causality:*
+- _Conjunctural:_ How characteristics work together
+- _Equifinality:_ There are more than one path that could lead to the same outcome
+- _Context-specific_
+- _Assymetric:_ Absence and present of a characteristic do not have opposite results
+
+*** Set relations
+
+#+BEGIN_SRC dot :file venn.png
+digraph D {
+	node [shape=circle]
+	label="Subsets and sufficiency\nX -> Y\nIf X occurs, Y also occurs";
+    subgraph cluster_g1 {
+    label = "Country with Outcome";
+    "Country with\nX";
+    }
+} 
+#+END_SRC
+
+#+RESULTS:
+[[file:venn.png]]
+
+#+BEGIN_SRC dot :file venn.png
+digraph D {
+	node [shape=circle]
+	label="Supersets and necessity\nX <- Y\nY needs X to occur ";
+    subgraph cluster_g1 {
+    label = "Country with\nX";
+    "Country with Outcome Y";
+    }
+} 
+#+END_SRC
+
+#+RESULTS:
+[[file:venn.png]]
+
+
+* Research design and calibration
+
+** Orientation and focal points
+
+In the calibration phase, the researcher attributes scores or degree to which the cases are member of the sets of cases with the outcome and the conditions.
+
+*** The research design
+
+The design is about what you want The design is about what you want to investigate and how you want to do the investigation.
+First of all, QCA techniques can be used for different purposes: inductive and deductive.
+
+- *Deductive research:* testing hypothesis that are based on previously published theory and research
+- *Inductive research:* exploring a data set bottom-up without the intention to test specific theory-based expectations
+
+QCA can be used in both ways. It can be used to test existing theory, and it can be used to develop theory by exploring how conditions and an outcome relate to each other. In both deductive and inductive research, the focus has to be on set relations and complex causality, because that's the core business of QCA. This means among other things that a QCA study should investigate _conjunctional causation_, which is if and how conditions work together in producing the outcome. _Equifinality_ which is if multiple causal recipes cause the outcome. Such causal relations should be approached as and discussed in terms of subset relations and sufficiency or superset relations and necessity.
+
+
+
+** Causes, outcome and conditions
+
+
+Conditions and outcomes, the first two elements, have a clear relationship. Conditions are seen as _potential causes_ of an outcome. Such conditions and outcomes are investigated in cases. So, cases form the third main elements of a research model. The outcome, conditions, and cases, and more fundamentally ones, research questions or hypotheses, should be selected on the basis of both theoretical knowledge and case knowledge.
+
+Case knowledge is in fact crucial for the whole research process. This implicates that the researcher cannot just investigate any outcome and any condition in any case that is theoretically or empirically interesting. A specific feature of the data that you need is that it should enable you to do the calibration process. Meaning, giving scores to cases for each condition and the outcome. This course reflect, as discussed previously, whether or the extent to which cases are member of sets.
+
+As regards the minimum number of cases, one rule of thumb is that the number of cases should ideally be at least *four times more than the number of conditions*. In practice however, not all research fulfills this condition. Further, the number of conditions should be kept low such as four, or six, or eight. This forces the researcher to follow and explicate a conscious strategy for building a research model with a functional and parsimonious set of conditions. There is a technical reason for these numerical conditions, which has to do with the research phase of logical minimization. The less cases and the more conditions there are, the more difficult it will be to do the minimization procedure meaningfully.
+
+Next to the number of cases, the composition of cases is of course also important. In QCA, the cases must be selected purposefully, rather than randomly, as is done in quantitative research. The first aim is to select cases that are _similar enough to compare_. What this means more specifically and concretely depends on the focus of the study, particularly its outcome. The outcome in the research model often implicates how or on which background characteristics cases have to be similar enough. So, you have to have a clear definition of the outcome before you start selecting cases.
+
+This similarity among the selected cases delineates an area of homogeneity within which the cases should have as much variety as possible as regard to the outcome and the conditions. That is the second aim. You need cases *with and without* the outcome and with and without the conditions of interest. So, if, for example, you are studying governmental corruption in democracies, you will need to have cases with and without the conditions that might explain governmental corruption. These conditions need to vary across cases.
+
+Variation in the outcome is specifically important because of what is called *asymmetric causality*. Because of such asymmetry, the occurrence of the outcome and its no occurrence must be assessed separately. To be able to do that, you need cases, if possible, with and without the outcome. In sum, the challenge is to purposefully select cases that are homogeneous on the background characteristics and heterogeneous on the conditions and outcome. Subsequently, the researcher proceeds with building as thick knowledge as possible and necessary for each selected case, particularly knowledge that is relevant for the conditions, outcome, and more generally, the research goals of a study.
+
+Based on that knowledge, the calibration can be done in an informed way. Keep in mind that the initial selection of cases, and the resources are in more generally, might be adjusted on the basis of case knowledge and insights gained in later stages of the research process. These later stages could, for instance, indicate that the case should be deselected, or that the selection of cases should be expanded.
+
+
+** Crisp vs fuzzy sets
+
+Calibration is about assigning membership scores to cases. These scores establish whether or to what extent cases are member of the sets of the outcome and the conditions, and you do this for each case separately.  Now, there are two ways to do the calibration. First, you can determine whether cases are members of sets. In that case, you determine whether cases are in or out sets. There are no middle positions. For instance, let's say that you want to calibrate the wealth of countries. Then you would determine for each country whether in or out, they can be considered a member of the group of set of wealthy nations. This is called Crisp-Set QCA.
+
+Fuzzy set QCA enables a more specific calibration, which can indicate the degree to which cases are members of sets. There are some other forms of QCA including so-called multi-value QCA. But these alternative forms of QCA are not yet used widely. Scores always vary from zero to one in both crisp and fuzzy sets. Zero is fully out, one is fully in. Said otherwise, zero means that a case does not have a condition. So, the condition is absence. One means that the case does have a condition, so the condition is present.
+
+Which form of calibration you choose depends on what is possible and desirable theoretically and empirically. For instance, if your data set is specific and thus enables a very specific conclusions about the degree to which cases are members of sets, then you could work with more values. For instance, you could work with a 10-value fuzzy set. But if your data only enables general indications about set membership, then you should work with less values.
+
+
+** Calibration with quantitative, qualitative and secondary data
+
+The important thing with calibration is that you need to do it, insofar possible, on the basis of *external standards*. This means that the researcher should develop rules to translate data into set membership scores, on the basis on _theoretical reasons_. Of course you can and should also use the distribution of cases on the data to develop calibration rules.
+
+Quantitative data can be transformed directly into membership scores.  In contrast, you can not assign membership scores to cases such that forwardly when you have qualitative data. Instead, if you have qualitative data, you will have to assign membership scores to your findings. That way you will have a two steps scoring system. Suppose you do interviews with students to find out if they liked QCA.
+
+~Students that like QCA very much will get a score of 1~
+~students that do not like QCA at all get score 0~ and
+~students that hold a middle position get the membership score of 0.5~
+
+Lastly, if you have secondary data, meaning that you look into other sources rather than your own empirical data, then you might also need to do the calibration in two steps. For instance, let's say that you're interested in assessing the quality of European educational systems. You could study the literature about this, and then calibrate your findings into fuzzy set scores.
+
+Thus far, we discussed how to calibrate outcomes and conditions. However, it is also possible to assess outcomes and conditions via *indicators*. In that case, you would first score each indicator, and then assign membership scores on the basis of the total sum of indicator scores. Let's take an _example_. Let's say that you would like to calibrate whether politicians in a number of counties used racist language. You could say for instance that if politicians use racist language more than 10 times a year on TV, then that country gets for racist speech on TV a score of 3. If it's between 3 and 10 times, then the country gets a score of 2. And if it's less than 3, then the country gets 1 point. And then you follow the same scoring system for the other two indicators, magazines and newspapers. Subsequently, you'll need to assign membership scores on the basis of the *summed indicator scores*. For instance, you could say that if the summed indicator score for a country is 3 points, then that country gets a membership score of 0. If a country scores in total 4, 5 or 6 points on the indicators, then it will get a membership score of 0.5. And if the total score is 7, 8 or 9 points, then the country gets a membership score of 1.
+
+
+
+* The Truth Table
+
+** The purpose and construction of a Truth Table
+
+
+The next step investigates the relations between sets of cases that _share a combination of *conditions*_ on the one hand and the set of cases with the *outcome* on the other. This assessment is facilitated by the truth table. The truth table is made from the data matrix, and both the truth table and the data matrix describe cases in terms of conditions and an outcome, but the data is structured differently in these tables. Data matrix rows mention set membership scores for one case. In contrast, truth table rows describe the _*outcome* for each possible combination of present and absent conditions_, for all cases that have that combination.
+
+#+CAPTION: Example of truth table row
+| A | B | C | Outcome | Cases |
+| 1 | 0 | 1 |       1 | X,Y,Z |
+
+By presenting data this way, the truth table enables the identification of *subset relations*. In these relations, are set of cases with a particular configuration exhibit the same outcome. In these instances, the configuration can be regarded as *sufficient* for the outcome. This is primarily what the truth table does. It identifies which truth table rows are *sufficient*. The data in the truth table also enables the identification of conditions that are *necessary* for the outcome.
+
+Suppose we have a crisp data matrix for a model with three conditions A, B, and C, showing set membership scores for 12 cases, with one indicating full membership, and zero indicating full non-membership. Let's make a truth table from this.
+
+#+CAPTION: Example of crisp matrix data
+| Case | A | B | C | Outcome |
+|    1 | 1 | 1 | 0 |       1 |
+|    2 | 1 | 0 | 1 |       1 |
+|    3 | 1 | 1 | 0 |       1 |
+|    4 | 0 | 0 | 1 |       0 |
+|    5 | 0 | 1 | 0 |       0 |
+|    6 | 1 | 1 | 1 |       1 |
+|    7 | 1 | 1 | 0 |       1 |
+|    8 | 1 | 0 | 0 |       0 |
+|    9 | 1 | 1 | 0 |       1 |
+|   10 | 0 | 0 | 0 |       0 |
+|   11 | 0 | 0 | 1 |       1 |
+|   12 | 1 | 1 | 1 |       1 |
+
+
+The first step is to distinguish between all possible configurations of present and absent conditions. There is a formula to calculate how many possible configurations there are, namely $2^k$, with $k$ being the number of conditions you have, and two representing the two possible states of a condition in the truth table. They are either present or absent. Now, each truth table row mentions _*one* configuration_.
+In this example, there are eight possible configurations, so this truth table gets eight rows.
+
+#+CAPTION: Distinguish between configurations
+| A | B | C |   |   |
+| 1 | 1 | 1 |   |   |
+| 1 | 1 | 0 |   |   |
+| 1 | 0 | 1 |   |   |
+| 0 | 1 | 1 |   |   |
+| 0 | 1 | 0 |   |   |
+| 0 | 0 | 1 |   |   |
+| 0 | 0 | 0 |   |   |
+
+The next step would be to *assign cases* to each row. Let's, for instance, take the configuration in the first row, in which all three conditions are present as indicated by the ones for A, B, and C. The question is, how many times does this configuration occur? Well, it occurs two times in cases 6 and 12. So, you note that number in the truth table. Now, the truth table says, the configuration in which the three conditions are present occurs two times. Subsequently, you move on to the other configurations and note how often they occur as well.
+
+#+CAPTION: Assign cases to each row
+| A | B | C | # Cases |   |
+| 1 | 1 | 1 |       2 |   |
+| 1 | 1 | 0 |       4 |   |
+| 1 | 0 | 1 |       1 |   |
+| 1 | 0 | 0 |       1 |   |
+| 0 | 1 | 1 |       0 |   |
+| 0 | 1 | 0 |       1 |   |
+| 0 | 0 | 1 |       2 |   |
+| 0 | 0 | 0 |       1 |   |
+
+
+Now the last step indicates in the last column of the truth table, what the *outcome* value is for each row. A row in the truth table is positive if all cases that have the configuration display outcome value one in the data matrix. Then you can say Y is one for that configuration in the truth table. These configurations are *sufficient* for the outcome. A truth table row is negative if all cases with a configuration show outcome value zero in the data matrix. In the truth table, Y is zero for that configuration. Third, if cases with the same configuration have different outcomes in the data matrix, then that configuration would be *contradictory*. Lastly, if there are no cases with a particular configuration, then that configuration is called a *logical remainder*.
+
+
+#+CAPTION: Determine outcome
+| A | B | C | # Cases | Y |
+| 1 | 1 | 1 |       2 | 1 |
+| 1 | 1 | 0 |       4 | 1 |
+| 1 | 0 | 1 |       1 | 1 |
+| 1 | 0 | 0 |       1 | 0 |
+| 0 | 1 | 1 |       0 | R |
+| 0 | 1 | 0 |       1 | 0 |
+| 0 | 0 | 1 |       2 | C |
+| 0 | 0 | 0 |       1 | 0 |
+
+
+** Raw consistency
+
+In this lecture, we will discuss the related topic of consistency. *Consistency* has to do with the whole idea of _subset relations_. If cases that share a condition or configuration have the same outcome, then the cases form a subset of instances of the outcome. The configuration in such a relationship can be interpreted as sufficient for the outcome, _whether subset relations and sufficiency exist_ can be assessed with *consistency*.
+
+In this lecture, we will specifically discuss *raw consistency*, which pertains to the sufficiency of truth table rows, order, configurations, in these rows. The importance of this is that _*sufficient* truth table rows_ will be included in the next research phase, the process of logical minimization. For *crisp sets*, consistency is indicated by the proportion of cases in a truth table row that _display the outcome_. Truth table rows with a consistency of _*at least* 0.75_ maybe considered sufficient for the outcome. In that case, the outcome value for the row is one, the outcome value is zero if that's not the case.
+
+For *fuzzy sets*, the consistency of a configuration is determined in a _two-step approach_, which starts with determining the membership of all cases in the configuration of interest. The membership of a case in a configuration is the cases *lowest membership* score in the individual conditions of the configuration. Membership in a negated set is determined by subtracting a score from one.
+
+This worked example illustrates how the parameters of fit of consistency and coverage are calculated for a fuzzy data set. Consistency is the extent to which the solution as a whole or a solution term are subsets of the outcome. Coverage indicates the extent to which the outcome is covered by a solution or a solution term. To exemplify what these parameters of fit mean more concretely we will calculate them manually on the same data matrix
+
+#+CAPTION: Fuzzy data matrix
+| Case | Condition A | Condition B | Condition C | Outcome |
+|    1 |          .0 |          .3 |          .0 |      .2 |
+|    2 |          .0 |         1.0 |          .0 |      .2 |
+|    3 |          .0 |          .3 |          .3 |      .2 |
+|    4 |          .0 |          .7 |          .4 |      .2 |
+|    5 |          .0 |          .3 |          .0 |      .2 |
+|    6 |          .7 |          .7 |          .4 |      .6 |
+|    7 |          .7 |          .7 |          .6 |      .8 |
+|    8 |          .7 |          .0 |          .8 |     1.0 |
+
+
+#+CAPTION: Determine membership in configuration
+| Case |  A |  B |  C | ~A*~B*C                 |
+|    1 | .7 | .3 | .7 | min(1-.7, 1-.3,.7) = .3 |
+
+
+#+CAPTION: Assign cases to rows
+| Case | Condition A | Condition B | Condition C | Outcome |  ABC | ~aBC |  AbC |  ABc | abC |   aBc | Abc | abc  |
+|    1 |          .0 |          .3 |          .0 |      .2 |   .0 |   .0 |   .0 |   .0 |  .0 |    .3 |  .0 | *.7* |
+|    2 |          .0 |         1.0 |          .0 |      .2 |   .0 |   .0 |   .0 |   .0 |  .0 | *1.0* |   0 |    0 |
+|    3 |          .0 |          .3 |          .3 |      .2 |   .0 |   .0 |   .0 |   .0 |  .0 |    .3 |  .0 | *.7* |
+|    4 |          .0 |          .7 |          .4 |      .2 |   .0 |   .4 |   .0 |   .0 |  .3 |  *.6* |  .0 |   .3 |
+|    5 |          .0 |          .3 |          .0 |      .2 |   .0 |   .0 |   .0 |   .0 |  .0 |    .3 |  .0 | *.7* |
+|    6 |          .7 |          .7 |          .4 |      .6 |   .4 |   .3 |   .3 | *.6* |  .3 |    .3 |  .3 |   .3 |
+|    7 |          .7 |          .7 |          .6 |      .8 | *.6* |   .3 |   .3 |   .4 |  .3 |    .3 |  .3 |   .3 |
+|    8 |          .7 |          .0 |          .8 |     1.0 |   .0 |   .0 | *.7* |   .0 |  .3 |    .0 |  .2 |   .2 |
+
+Hence, the following cases (membership bigger than .5) are assigned to the following configurations:
+
+The _second step_ of determining the consistency of a configuration in fuzzy set QCA until the comparison of the membership of all cases in the configuration of interests with the membership of all cases in the outcome. This comparison is relevant as consistency is indicated when membership scores in the configuration are consistently less than or equal to membership scores in the outcome. Now, why do membership scores in the subset needs to be less than or equal to outcome scores? Condition X is a _*subset of insufficient* for outcome Y_ if membership scores in X are less than or equal to scores in Y. 
+
+
+To follow the formula which determines the extent to which this is the case, you need to take for each case the lowest of its scores in a configuration and the outcome, and divide the sum of the scores by the summed membership scores in the combination. You may consider accepting rows with the consistency of _*at least* 0.8 as a consistent subset of insufficient for the outcome_, because here the consistency is less the conclusion must be that this configuration is insufficient for the outcome.
+
+$$
+\frac{\sum \min (X_i, Y_i)}{\sum X_i}
+$$
+
+
+#+CAPTION: Raw consistency A*B
+| Case | Condition A | Condition B | Condition C | Outcome | A*B  |
+|    1 |          .0 |          .3 |          .0 |      .2 | *.0* |
+|    2 |          .0 |         1.0 |          .0 |      .2 | *.0* |
+|    3 |          .0 |          .3 |          .3 |      .2 | *.0* |
+|    4 |          .0 |          .7 |          .4 |      .2 | *.0* |
+|    5 |          .0 |          .3 |          .0 |      .2 | *.0* |
+|    6 |          .7 |          .7 |          .4 |    *.6* | .7   |
+|    7 |          .7 |          .7 |          .6 |      .8 | *.7* |
+|    8 |          .7 |          .0 |          .8 |     1.0 | *.0* |
+
+
+Thus, we divide 
+
+$$
+\frac{1.3}{3.4} = \frac{0+0+0+0+0+.6+.7+.0}{.2+.2+.2+.2+.2+.6+.8+1.0} = .382353 < .8
+$$
+
+The last step of making the truth table pertains to the determination of the outcome values. The outcome value is based on the raw consistency of each truth table row. So let’s first determine the raw consistencies. In fsQCA, determining the consistency of a configuration entails the comparison of the membership of all cases in the configuration of interest with the membership of all cases in the outcome. This comparison is relevant as consistency is indicated when membership scores in the configuration are consistently less than or equal to membership scores in the outcome. The formula that determines the extent to which this is the case(i.e., the consistency formula) reads as follows:
+
+
+
+#+CAPTION: Fuzzy-set Truth Table
+| Condition A | Condition B | Condition C | Cases | Raw Consistency | Outcome |
+|           1 |           1 |           1 |     7 |               1 |     1.0 |
+|           1 |           1 |           0 |     6 |               1 |     1.0 |
+|           1 |           0 |           1 |     8 |               1 |     1.0 |
+|           0 |           1 |           1 |     0 |               - |       R |
+|           1 |           0 |           0 |     0 |               - |       R |
+|           0 |           1 |           0 |   2,4 |             0.5 |     0.0 |
+|           0 |           0 |           1 |     0 |               - |       R |
+|           0 |           0 |           0 | 1,3,5 |             0.5 |     0.0 |
+
+
+One word of caution, the application of consistency levels for sufficiency and the assignment of sufficiency to truth table rows, more generally, should not be done mechanically, though this depends on your research data. Now, assessing consistency and sufficiency is part of building the truth table. You do it to determine the value of the outcome column of the truth table.
+To demonstrate this, let's briefly review how to make a truth table in _fuzzy set QCA_.
+
+First, you need to distinguish between all possible rows. Let's say you have three conditions A, B, and C, then you have $2^K$ rows thus two times two times two is eight rows. The second step entails assigning cases to truth table rows. Cases are assigned to the configuration in which they have more than 0.5 membership. For instance, case one has a membership score of 0.7 in the configuration in which A and C are present, and B is absent, thus case one is assigned to that configuration. The number of cases for each configuration is added to the truth table in a separate column.
+
+Lastly, based on raw consistency you determined the value of outcome Y. As mentioned, configurations with a consistency of at least 0.8 maybe considered as sufficient for the outcome. In that case the outcome gets code one in the truth table. In all the cases, the outcome value will be zero.
+Note that consistency and outcome values are _only determined for the *non-remainders*_.
+
+** Resolving contradictory configurations
+
+First of all, a contradictory configuration is a configuration with different outcomes. The first step of resolving such contradictions is, of course, to identify them in the truth table. If there are contradictory configurations, you can look into the cases that belong to those configurations and assess whether contradictions can be resolved by changing things that have to do with the design of your study or the calibration. You have at least three measures at your disposal to resolve contradictory configurations.
+
+- Add conditions to your model,
+- Remove cases from your study,
+- Change your calibration.
+
+#+CAPTION: Example of contradiction
+| Case | A | B | C | Y |
+|    1 | 1 | 0 | 1 | 1 |
+|    2 | 1 | 0 | 1 | 0 |
+
+
+First, let's discuss how you can resolve a contradiction by *adding* a condition to your model, which means more generally that you specify your causal model.  You added condition d, and in so doing, you specify the configuration and resolve the contradiction. Now, the second way to resolve a contradiction is *removing a _case_*. By reassessing your data, you could decide that one case or multiple cases, in fact, should not be part of your study. For instance, because in hindsight, you decide that the case is not comparable with the other cases in your study. Lastly, you can also resolve a contradiction by changing the *calibration*. You can look into that and check whether the calibration can be improved, and that might lead to the disappearance of a contradiction.
+
+#+CAPTION: Add condition
+| Case | A | B | C | *D* | Y |
+|    1 | 1 | 0 | 1 | *1* | 1 |
+|    2 | 1 | 0 | 1 | *0* | 0 |
+
+
+#+CAPTION: Remove case
+| Case |   A |   B |   C |   Y |
+|    1 |   1 |   0 |   1 |   1 |
+|  +2+ | +1+ | +0+ | +1+ | +0+ |
+
+#+CAPTION: Recalibration
+| Case | A | B | C | Y     |
+|    1 | 1 | 0 | 1 | 1     |
+|    2 | 1 | 0 | 1 | +0+ 1 |
+
+Of course, a fundamental precondition for doing this back and forth process with removing cases, adding conditions and re-calibration, is that you have good theoretical or empirical reasons to do it, or else you might just be changing the data to get nice, consistent, clear-cut results. Now, those reasons might develop by looking into contradictions. Resolving contradictions deepens knowledge and understanding of cases in the words of Charles Ragin, and also may expand and elaborate theory. All of this is, of course, also part of the more general nature of QCA as an iterative approach. It allows for back and forth movements between designing a study and the analysis. After you have tried to resolve contradictions and finished your truth table, the logical minimization of the truth table can begin.
+
+* Logical minimization and the interpretation of output
+
