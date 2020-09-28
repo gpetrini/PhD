@@ -341,3 +341,145 @@ Of course, a fundamental precondition for doing this back and forth process with
 
 * Logical minimization and the interpretation of output
 
+** What is logical minimization?
+
+
+Logical minimization is the next step in the analysis of set relations. The truth table establishes which sets of cases that share a combination of conditions also share the outcome. These combinations can be regarded as a subset of and sufficient for the outcome. They are noted in truth table rows in which the outcome value is one. The purpose of logical minimization is to systematically *compare between the truth table rows* with the *sufficient combinations of conditions*.
+
+First of all, the sufficient combinations of conditions in the truth table rows are called *primitive expressions*. These expressions can be described in a Boolean notation by the use of operators.
+
+- AND: *
+- OR: +
+- NOT: ~ (or lower case)
+- Sufficiency: $\Rightarrow$
+
+The example here illustrates how these operators can be used to describe primitive expressions.
+
+#+CAPTION: Boolean Expression
+| A   | B   | C   | Y   |
+| *1* | *1* | *1* | *1* |
+| 0   | 1   | 0   | 0   |
+| *1* | *1* | *0* | *1* |
+| 1   | 0   | 1   | 0   |
+| 0   | 0   | 0   | 0   |
+| *1* | *0* | *0* | *1* |
+| *0* | *1* | *1* | *1* |
+| 0   | 0   | 1   | 0   |
+
+
+$ABC + ABc + Abc + aBC \Rightarrow Y$ 
+
+
+Now, the goal of logical minimization is to find a simpler notation of the primitive expressions. Simply means shorter, less operators, and without redundant elements. This is achieved through *pairwise comparison* between primitive expressions. The logic of such comparison can be described as follows. If two primitive expressions differ in one condition, which is present in one expression and absent in the other, then that condition does not contribute to the occurrence of the outcome. So, that condition is *logically redundant*. Let's take an example.
+
+
+$ABC <-> ABc : AB$
+
+This pairwise comparison indicates that C is redundant for the outcome, because whether C is present or not, it doesn't matter. Hence, C can be omitted and these expressions can be reduced to the presence of A and B. Moving on, we have the reduced terms as follows
+
+$AB + BC + Ac$
+
+These remaining combinations are called prime implicants or solution terms. Here they are combinations, but they could just as well be single conditions. Each of them is sufficient for the outcome. Now, _sometimes_ the solution that follows from the pairwise comparison between primitive expressions is also the *minimal formula*, the most parsimonious formula possible. Other times however, this solution can be further minimized by _omitting logically redundant prime implicants_. This is also possible in this example.
+
+
+So, like the conditions in the primitive expressions, a prime applicant can also be redundant. This is the case if it is formed through comparison between primitive expressions that are also used for comparisons that have led to other prime implicants. So, in that sense, its primitive expressions are already covered by other prime implicants. Such redundancy can be made visible and more concrete by a *prime implicant chart*, with prime applicants in the rows and primitive expressions in the columns. The cross in the cells indicate which primitive expressions are covered by which prime implicants. This information comes from the comparisons between the primitive expressions that we made earlier.
+
+#+CAPTION: Prime implicant chart
+|--------+-------+-----+-----+-----|
+|        | ABC   | ABc | Abc | aBC |
+| +_AB_+ | _X_   | _X_ |     |     |
+| *BC*   | _*X*_ |     |     | *X* |
+| Ac     |       | _X_ | X   |     |
+
+So, AB is redundant and the minimal formula is
+
+$BC + Ac \Rightarrow Y$
+
+Now, the table indicates that the prime implicants with the presence of conditions A and B is redundant. After all, one of the primitive expressions it
+covers is already covered by the second prime implicants. The second primitive expression it covers is already covered by the third prime implicant. Hence, the prime implicant is redundant and maybe removed, leading to a shorter solution, the minimal formula. But removing a redundant prime implicant is *optional*. You may leave it in and keep it visible if that is interesting for theoretical or empirical reasons. If you omit it, you would get a minimal formula that is significantly shorter than the notation of the truth table shown here. First, you omitted the redundant conditions from the primitive expressions, and then you omitted the redundant prime implicant.
+
+
+** The minimal formula
+
+This lecture is more about the output of logical minimization, which is the minimal formula or the solution. The minimal formula contains different types of conditions, which refer back to the information in the data matrix and the truth table.  If a *sufficient* condition is present, then the outcome is also present in the cases. This is visible in the truth table and also in the solution. The part in red in the solution says, condition A by itself is sufficient for outcome Y. A second type of conditions is *necessary*. Condition is necessary in the sense that an outcome needs it to occur. So, if you have the outcome in the cases, then you also have the necessary condition. Lastly, a condition can be an INUS condition, which is insufficient for the outcome, but a necessary part of an unnecessary configuration that is sufficient. Conditions B and C are such conditions which again is expressed in the solution and visible in the truth table.
+
+INUS: *I* nsufficient for the outcome, but *N* ecessary part of *U* nnecessary configuration that is *S* ufficient
+
+First of all, alone B and C are insufficient for the outcome. Second, together B and C are not necessary for the outcome. Third, B and C together as a configuration are sufficient for the outcome, hence B and C are INUS conditions. Now all of this pertains to the meaning of conditions A, B, and C individually. Individually, they can be sufficient, necessary, or INUS. But the solution terms are all sufficient.
+So, the two solution terms in our example,
+
+EXAMPLE
+
+One last thing about necessary conditions in particular, logical minimization is primarily a tool for the assessment of sufficiency. Sometimes necessary conditions get lost in this process. You won't see them in the solution or the solution may suggest
+that there are necessary conditions, while there aren't. To avoid these problems, one should _analyze necessary conditions separately_ before assessing sufficiency through logical minimization.
+
+As regards to the analysis of sufficiency, logical minimization can be conducted in different ways depending on how *remainders* are used. Remainders occur due to what is called *limited diversity* of reality. This refers to the fact that almost always, cases in a study and social reality more generally are not fully diversified in terms of the conditions. However, it is possible to use remainders in the minimization process to make the solution shorter, then you would _assume that remainder configurations would be *sufficient* for the outcome if they would have occurred_. There are three ways to work with remainders.
+
+1. Ignore them $\Rightarrow$ *Complex solution*
+   - Safe solution
+   - Stick to the observed facts
+   - Difficult to interpret
+2. Use all remainders $\Rightarrow$  *Parsimonious solution*
+   - Even if doing this requires theoretically implausible assumptions about how conditions relate to the outcome, so-called difficult counterfactuals
+   - Parsimonious solution is short and Easier to interpret.
+     - It is complex to interpret it theoretically, because It uses difficult counterfactuals.
+3. Easy counterfactuals $\Rightarrow$ *Intermediate solution*.
+   - These are theoretically plausible assumptions about the relationship between conditions and outcome
+
+The intermediate solution is determined in several steps
+- Finding the subset or subsets from the complex solution, 
+- Drop from the complex solution term conditions that are absent in the parsimonious solution term and are _not theoretically expected to contribute to the outcome_.
+- omits logically redundant solution terms, if there are any, from the intermediate solution. 
+
+Let's take an example. Suppose we *expect* that conditions A to E will contribute to the outcome, if they are present. These are the so-called *directional expectations*. Further assume that one of the parsimonious solution terms that we got from logical minimization, has the absence of B and the presence of D. Now, the first step in finding the intermediate solution term requires finding the subset of the parsimonious solution term, in the complex solution. Let's say that this subset has the absence of conditions A, B, and C and the presence of condition D. 
+
+#+CAPTION: Find subset from complex solution
+| Directional expectations  | A  | B  | C  | D | E |
+| Parsimonios solution term |    | ~B |    | D |   |
+| Complex solution tem      | ~A | ~B | ~C | D |   |
+
+
+The second step in finding the intermediate solution term entails omitting conditions from a complex solution term. These are conditions that are absent in the parsimonious solution term. Thus conditions B absent and D present in the orange cells, cannot be dropped because they are present in the parsimonious solution term in the yellow cells, but conditions not A and not C in the red cells may be dropped, if they are not theoretically expected to produce the outcome. 
+
+#+CAPTION: Ommit condition
+| Directional expectations  | A    | B      | C    | D     | E |
+| Parsimonios solution term |      | /~B/   |      | /D/   |   |
+| Complex solution tem      | *~A* | /*~B*/ | *~C* | /*D*/ |   |
+
+
+Now, the absence of A and C in the red cells are indeed not expected to contribute to the outcome. We expect that the reverse namely that the presence of A and C will lead to the outcome, as mentioned in the yellow cells. Thus the conditions not A and not C maybe dropped. Which leads to an intermediate solution term in which condition B is absent and condition D is present. 
+
+
+#+CAPTION: Intermediate solution term
+| Directional expectations   | A  | B  | C  | D | E |
+| Parsimonios solution term  |    | ~B |    | D |   |
+| Complex solution tem       | ~A | ~B | ~C | D |   |
+| Intermediate solution term |    | ~B |    | D |   |
+
+Now you take these two steps for all parsimonious solution terms and older subsets in the complex solution. Suppose that in doing this, we find another intermediate solution term in which condition B is absent and conditions D and E are present. The second intermediate solution term would be a subset of the intermediate term, in which condition B is absent and condition D is present. Being a subset here means that all cases with the absence of condition B and the presence of conditions D and E also have the absence of condition B, and the presence of condition D. The solution term with the absence of B in the presence of D and E is in that sense logically redundant, and can be omitted from the intermediate solution.
+
+
+** Parameters of fit
+
+
+In this lecture, we will discuss two parameters of fit that help you to interpret and evaluate that solution. The first parameter of fit is called *consistency*, and the second one is called *coverage*, both range from zero to one. _The higher, the better they are_. We discussed consistency earlier in week three as a measure which indicates whether a particular row in the truth table can be regarded as a subset of, and therefore sufficient for the outcome. That consistency for *truth table rows* is called raw consistency. However, the same idea can also be applied to the output of the process of logical minimization. In that case, consistency indicates the degree to which solution terms and the solution as a whole are *subsets of the outcome*.
+
+
+For crisp sets, consistency is the proportion of cases in set X which are also in set Y. For fuzzy sets, consistency is measured by comparing the membership scores each case has in condition X and outcome Y. You take for each case the lowest of these scores and divide the sum of these scores by the sum of membership scores in X. Here, X can either be a single condition or a combination of conditions. Configurations with the consistency of at least 0.75 in case of crisp sets and at least *0.8* in case of fuzzy sets may be considered as consistent subsets of, and sufficient for the outcome.
+
+
+$$
+\frac{\sum \min (X,Y)}{\sum X}
+$$
+
+The Venn diagrams here indicate on a more conceptual level and in an intuitive way what consistency means. The extent to which set X is a subset of set Y is represented by area B, which visualizes the area of X that is in Y. The whole of set X1 in the diagram on the left is area B and therefore, it is a perfect subset of Y. Set X2 in the diagram in the middle is almost fully consistent, a subset of Y. A much more part of set X3 in the diagram on the right is area B. Set X3 therefore is to a lower extent a subset of set Y. So, this is consistency. You use it to evaluate the extent to _which the solution or solution terms are subsets of the outcome_.
+
+Whereas consistency determines the extent to which there is a subset relation, _coverage indicates how much of the outcome is explained by a solution term or the solution as a whole_. This of course indicates the *importance* of a particular solution term or the whole solution. Now, there are different types of coverage. For the solution, it is called solution coverage. For our solution term, it's called raw coverage, and unique coverage indicates the extent to which the outcome is explained only by a particular solution term and not also by another solution too. The way coverage is determined is quite similar to how consistency is determined.
+
+For crisp sets, you look at the proportion of cases with the outcome Y that also have condition or configuration X. For fuzzy sets, the formula for coverage is like the one for consistency, but the denominator is now the sum of the membership scores in Y rather than X. You can use these formulas to determine the solution coverage and raw coverage. Unique coverage is determined by subtracting from the solution coverage. The raw coverage of all solution terms accepted term for which the unique coverage has to be determined. None of these types of coverage need a minimum value before they can be accepted or deemed informative. In all instances, coverage indicates the empirical importance of a solution or a solution term. Examples of how to calculate the different forms of coverage manually will be provided in the further readings.
+
+$$
+\frac{\sum \min (X,Y)}{\sum Y}
+$$
+
+For now, let's have a look at the more intuitive meaning of coverage based on these Venn diagrams which visualize how sets X1, X2, and X3, in that order cover to a decreasing extent set Y, the outcome. The size of area B and set X is increasingly smaller in relation to set Y. Therefore, the importance of X1, X2, and X3 respectively for explaining why also decreases. In some, consistency is about the extent to which set X is in set Y or the relationship between areas B and D in this Venn diagram. The more set X is in set Y, the more set X is a consistent subset of set Y. Coverage is about the amount of Y that is covered by X or the relationship in size between areas A and B here in the Venn diagram. The more of why is covered by X, the higher the coverage. That's it as regards consistency and coverage.

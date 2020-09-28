@@ -1,26 +1,17 @@
+#+OPTIONS: H:2 toc:t
 #+Title: Panorama Macroeconômico e a relação com a Inflação
 #+Author: PED: Gabriel Petrini
 #+Email: gpetrinidasilveira@gmail.com
 #+DATE: 04 de Janeiro de 2021
-
-
-
-* Reveal specific settings                                  :noexport:ignore:
-
-#+OPTIONS: timestamp:nil
 #+LANGUAGE: pt_BR
-#+REVEAL_THEME:beige
-#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js
 
 * Beamer specific settings                                  :ignore:noexport:
 
-#+startup: beamer
 #+LaTeX_CLASS: beamer
 #+LATEX_HEADER: \usepackage{csquotes}
 #+LATEX_HEADER: \usepackage[brazilian]{babel}
-#+LANGUAGE: pt_BR
-#+BEAMER_FRAME_LEVEL: 2
-#+OPTIONS: H:2 toc:t
+#+beamer_frame_level: 2
+
 
 The first line enables the Beamer specific commands for org-mode (more on this below); the next two tell the LaTeX exporter to use the Beamer class and to use the larger font settings
 
@@ -30,14 +21,14 @@ The following line specifies how org headlines translate to the Beamer document 
 
 ** Estrutura de tópicos e convenções
 
-Cada parte da aula terá a seguinte estrutura
+A aula terá a seguinte estrutura
 
 - Apresentação dos movimentos gerais
 - Apresentação dos dados
 
 *Convenções (exceto quando especificado o contrário):*
 - As taxas de crescimento são todas em relação ao mesmo período do ano anterior
-- As séries são desazonalizadas e em termos reai
+- As séries são desazonalizadas e em termos reais
 
 * O cenário internacional, o setor externo e a herança maldita
 
@@ -47,12 +38,6 @@ Cada parte da aula terá a seguinte estrutura
 - Brasileira (1998/9)
 - Argentina (2001/2002)
 
-Situações desiguais no momento de sua inserção na globalização financeira condicionaram as opções de política
-
-- México na etapa inicial de processo de estabilização monetária e já havia adotado algumas reformas liberalizantes
-- Argentina e Brasil enfrentavam contexto de estabilidade macroeconômica 
-
-
 ** Crescimento e desequilíbrios globais
 
 Após fase conturbada de 1997/2002, a economia global consolida um arrajno dinâmico e desequiblibrado entre 2002/3 a 2007/8
@@ -61,18 +46,15 @@ Após fase conturbada de 1997/2002, a economia global consolida um arrajno dinâ
   - Crescimento finance-led nos EUA
     - Déficit comercial elevado
   - Estratégia trade-account nos países asiáticos
-    - Superávit comercial chines com os EUA
-  - Impactos nas comodities
+    - Superávit comercial chinês com os EUA
+  - Impactos nas commodities
 
 *Superávits em conta corrente nos países emeergentes*
   - Fluxos líquidos oficiais de Capital
-  - Diversificação internacional entre os ricos
-  - Fluxos brutos de capital
   - Financiamento do déficit americano, conundrun nas taxas de juros
 
 ** A Herança Maldita
 
-- Regime de política econômica
 - Instabilidade macroeconômica
   - Baixo ritmo de crescimento
 - Dívida pública
@@ -82,15 +64,31 @@ Após fase conturbada de 1997/2002, a economia global consolida um arrajno dinâ
 - Inflação
 
 
+* Governos Lula e suas fases
 
-* Governo Lula I
+** Primeira Fase
 
-** Rumos Gerais
 
-- Retomada do crescimento
-- Melhora da situação das contas externas
-  - Desendividamento externo e crescimento das reservas
-  - Diminuição da dívida líquida com um aumento menos acentuado da dívida bruta
+Experimento desenvolvimentista junto de uma política macroeconômica conservadora:
+- Continuidade do tripé
+- Visão teórica da *política fiscal:* contração fiscal expansionista
+- *Estratégia de crescimento:* visão liberal predominante
+  - reformas microeconômicas
+  - regras estáveis de gestão
+  - ampliar ajuste fiscal
+- Apreciação cambial
+- Taxa de juros elevadas
+
+*Contexto de transição complexa:* desconfiança dos credores e pressões financeiras
+
+** Segunda fase
+
+- Retomada do Estado como elemento condutor do Crescimento
+- Desenho da política fiscal no centro de proposta do desenvolvimento
+- Remontagem da capacidade de atuação dos atores públicos
+- Não desmonta aparato regulatório do modelo anterior
+- Investimento de apoio às atividades privadas
+
 
 ** Fatores determinantes
 
@@ -103,7 +101,7 @@ Após fase conturbada de 1997/2002, a economia global consolida um arrajno dinâ
   - Investimento induzido
 - Investimento público a partir de 2007 com o PAC
 
-** Outros resultados:
+** Alguns resultados
 - Queda da taxa de desemprego aberta
 - Valorização real do salário mínimo
 - Expansão do gasto federal total
@@ -114,56 +112,49 @@ Após fase conturbada de 1997/2002, a economia global consolida um arrajno dinâ
 - Aumento do consumo das famílias, mas menor que o investimento
 
 
-** Política Econômica
+ 
 
-De um lado, um experimento desenvolvimentista junto de uma política macroeconômica conservadora e oscilante:
-- Início bastante ortodoxo
-  - Apreciação cambial
-  - Grandes superávitis primários
-  - Taxa de juros elevadas
+* (Des)Continuidades e dificuldades
 
-*Contexto de transição complexa:* desconfiança dos credores e pressões financeiras
+** Continuidades
 
-* Governo Lula: Segunda Fase
-  
-** Traços gerais
+*** Política cambial
 
-- Retomada do Estado como elemento condutor do Crescimento
-- Conjunto de medidas a favor do Crescimento
-- Desenho da política fiscal no centro de proposta do desenvolvimento
-- Remontagem da capacidade de atuação dos atores públicos
-- Não desmonta aparato regulatório do modelo anterior
-- Investimento de apoio às atividades privadas
+Pouco mudou ao longo do tempo
 
-** Política Cambial
+- Valorização com reflexo na inflação
+- Compras de divisas não evitou valorização
+- Impacto sobre o setor industrial
 
-Pouca mudança ao longo do tempo
-- Valorização com reflexo na Inflação
-  - Aumenta poder de compra da população
-  - Compras de divisas não evitou valorização
-    - Desdolarização
+*** Política monetária
 
-** Política Monetária e Fiscal
+Rígido regime de metas de inflação
 
-Manutenção do regime de metas para a Inflação em seus moldes institucionais
-  - Altos níveis de juros reais
-- Independência operacional do Banco Central
-- Lei de responsabilidade fiscal sem mudanças
+- altos níveis de juros reais
+- discussão sobre independência do Banco Central
+- conflito com meta de taxa de juros "desenvolvimentista"
 
-** Descontinuidades em Relação ao Lula I
+*** Política fiscal
 
-- Conjugação de políticas de incentivo à renda e ao mercado interno
+Não foi alterado o regime fiscal definido na era FHC
+
+- Lei de Responsabilidade Fiscal sem mudanças
+- Não alterou mercado de dívida pública
+
+
+** Descontinuidades
+
+Conjugação de políticas de incentivo à renda e ao mercado interno
+
 - Defesa da expansão da demanda como fator de impulso ao crescimento
-  - Programa de salário mínimo e gastos sociais
+  - Política deliberada de inserção social
   - Expansão do crédito
-  - Incentivo ao mercado interno
-  - Apoio ao setor industrial
-- Ações desenvolvimentistas (conceito de Dutra Fonseca)
-  - Estado (Planejamento)
-  - Nacionalismo (nação como unidade de referência)
-  - Indústria
+  - *Programa de Salário Mínimo*
+- Ações desenvolvimentistas
+  - Políticas de incentivo ao investimento: PAC e PDP
+  - Gasto público como estratégia para elevar o crescimento
+  - Política de fortalecimento dos Bancos Públicos e das empresas estatais
 
-* Dificuldades ao fim do governo Lula e rumo ao Dilma I
 
 ** Dificuldades
 
@@ -172,35 +163,123 @@ Manutenção do regime de metas para a Inflação em seus moldes institucionais
   - Dificuldade de retomada do investimento público
   - Crise mundial e investimento privado
 - Estrutura produtiva
+    
+* Governo(s?) Dilma
+
+** Os três tenores
+
+** Medidas macroprudenciais
+
+*Medidas macroprudenciais:** Redução do crescimento do crédito.
+
+- Redução da taxa de crescimento da renda disponível real
+- Aumento dos depósitos compulsórios
+- Aumento do capital mínimo exigido dos bancos para empréstimos ao consumidor de prazos mais longos
+- Aumento do percentual mínimo de pagamento de cartões de crédito
+
+**Implicações:**
+
+- Aumento do spread do crédito ao consumo final
+- Diminuição dos prazos
+- Elimina *boom* de consumo
+- Aumento da inadimplência
+
+
+** Desaceleração rudimentar I
+
+
+|---------------------+-----------+-----------|
+|                     | 2004-2010 | 2011-2014 |
+| PIB                 |      4.4% |      2.1% |
+| Produção industrial |      3.6% |     -0.9% |
+| Taxa de desemprego  |      9.0% |      5.4% |
+|---------------------+-----------+-----------|
+
+*Principal mudança:* do incentivo à demanda agregada ao incetivo ao investimento privado.
+
+** Desaceleração rudimentar II
 
 
 
+#+CAPTION: Consumo das famílias
+|------------------------------------+-----------+-----------|
+|                                    | 2004-2010 | 2011-2014 |
+| Crédito para habitação             | 21,5%     | 4,6%      |
+| Hipotecas                          | 20,1%     | 29,3%     |
+| Salário real (emprego formal)      | 2,9%      | 2,9%      |
+| Renda disponível real das famílias | 5,3%      | 1,2%      |
+|------------------------------------+-----------+-----------|
+
+** Desaceleração rudimentar III
+
+#+CAPTION: Política fiscal
+|                                              | 2004-2010 | 2011-2014 |
+| Superávit primário/PIB                       | 3,2%      | 1,7%      |
+| Receitas do setor público                    | 7,2%      | 1,2%      |
+| Transferências públicas para as famílias     | 5,6%      | 4,9%      |
+| Investimento das Empresas Estatais (Federal) | 16,3%     | -2,7%     |
+| Investimento Adm, Pública                    | 14,0%     | -1,0%     |
+
+
+** Prêambulo para a ópera do fim do mundo
+
+[[./opera.jpg][Brasil, o Golpe: A Ópera do fim do mundo - Flávio Tavares]]
+
+* Idade das trevas
 
 * Dados
 
-- ÍNDICE EMBI BRASIL (Fim de período) - IPEADATA
-- Saldo da Balança Comercial
-- Termos de troca
-- DÉFICIT DA BALANÇA COMERCIAL DOS SETORES DE ALTA E MÉDIA-ALTA TECNOLOGIA (IEDI 773)
-- SALDO DAS TRANSAÇÕES CORRENTES DO BALANÇO DE PAGAMENTOS (% do PIB) - BCB
-- EVOLUÇÃO DAS RESERVAS INTERNACIONAIS LÍQUIDAS* (US$ Bilhões) - BCB
-- DÍVIDA EXTERNA PÚBLICA E PRIVADA (US$ Bilhões) - BCB
-- RELAÇÃO DÍVIDA EXTERNA BRUTA / RESERVAS (%) - BCB
-- RELAÇÃO DÍVIDA EXTERNA LÍQUIDA / PIB(%) - BCB
-- Crescimento Econômico e Taxa de investimento a preços correntes (% PIB)
-- Investimento público federal - IBGE
-- Superávit primário
-- EVOLUÇÃO DA DÍVIDA PÚBLICA BRUTA E LÍQUIDA(% do PIB) - BCB
-- COMPOSIÇÃO DA DÍVIDA PÚBLICA FEDERAL
-- Consumo das famílias
-- EVOLUÇÃO DO NÚMERO TOTAL DE EMPREGADOS COM VÍNCULO FORMAL  DE EMPREGO - MTE/RAAIS
-- EVOLUÇÃO DO SALÁRIO MÍNIMO REAL
-- Razão entre a renda dos 10% mais ricos e a dos 40% mais pobres (Palma index)
-- ÍNDICE DE PESSOAL EMPREGADO NA INDÚSTRIA(Ano Base 1994 = 100) - IPEADATA
-- CRÉDITO TOTAL SALDO EM FINAL DE PERÍODO(% do PIB) - BCB
-- EVOLUÇÃO DA TAXA DE INFLAÇÃO (IPCA) - (Último gráfico)
-  - Incluir meta, centro da meta e etc
-  - Incluir atas do copom
-- IPCA –PREÇOS MONITORADOSVariação anual (%) - IPEADATA
-- IPCA –PREÇOS LIVRES -SERVIÇOSVariação anual (%) - IPEADATA
-- TAXA DE JUROS  SELIC (% ao ano)
+** Índice EMBI Brasil (Fim de período)
+
+** O ciclo das commodities
+
+*Dado:* Índice de Commodities (CRB)
+
+** O ciclo de liquidez internacional para países emergentes
+
+*Dado:* IIF (?)
+
+** Evolução das reservas internacionais líquidas
+
+** PIB puxado pelo mercado doméstico
+
+*Dado:* Decomposição do crescimento (doméstico e exportações líquidas)
+
+** Crescimento e o investimento induzido
+
+*Dado:* Decomposição do crescimento (Todos os componentes da demanda)
+
+
+** Crédito total
+
+** Emprego
+
+*Dado:* EVOLUÇÃO DO NÚMERO TOTAL DE EMPREGADOS COM VÍNCULO FORMAL  DE EMPREGO - MTE/RAAIS
+
+
+** Evolução do salário mínimo real
+
+** Consumo das famílias
+
+** Investimento público em recuperação
+
+*Dado:* Taxa de investimento público (%PIB)
+
+** A evolução favorável da dívida pública
+
+*Dado:* Evolução da dívida bruta e líquida (%PIB)
+
+** Superávit primário
+
+** Relação dívida externa líquida
+
+
+** Taxa de câmbio nominal
+
+** Taxa de juros selic
+
+** Preços livres vs Administrados
+
+** Finalmente, inflação (ops, IPCA)
+
+*Dado:* IPCA, centro da meta e limites
