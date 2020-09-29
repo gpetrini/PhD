@@ -1,0 +1,474 @@
+#+OPTIONS: toc:t num:nil
+#+TITLE: Hosuing Bubbles readings
+#+AUTHOR: Gabriel Petrini
+#+ARCHIVE: %s_read::
+#+TODO: READ SKIM PARTIAL WAIT MAYBE | REF REPORT DONE ARCH
+#+PROPERTY: header-args:bibtex :tangle bubbles.bib :exports none
+#+PROPERTY: COLUMNS %TYPE %PRIORITY %7TODO(Decision) %20ITEM(Title) %4YEAR %COUNTRY(Country) %8STATUS %4CITE
+#+PROPERTY: TYPE_ALL Theory Method Case Manual Other Thechnical Review Empirical
+#+PROPERTY: DECISION_ALL Read File Skip PartialRead
+#+PROPERTY: ZOTERO_ALL Yes No Partial Entry
+#+PROPERTY: STATUS_ALL Reading Searching Abandoned Finished Skimmed NotFound 404 Downloaded Filed
+#+PROPERTY: RELEVANCE_ALL High Regular Low None
+#+PROPERTY: IMPACT_ALL High Regular Low None
+#+PROPERTY: CITE_ALL Yes No Wait
+#+PROPERTY: YEAR
+#+PROPERTY: COUNTRY
+
+
+
+* [#A] HTML headers                                         :noexport:ignore:
+
+  #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+  #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+
+  #+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  #+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  #+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+  #+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+  #+HTML_HEAD: <style> #content{max-width:1800px;}</style>
+  #+CSL_STYLE: associacao-brasileira-de-normas-tecnicas-ipea.csl
+
+
+
+
+* [#A] Survey 
+  :PROPERTIES:
+  :UNNUMBERED: t
+  :END:
+
+
+#+BEGIN: columnview :maxlevel 2 :id global
+| TYPE       | PRIORITY | Decision | Title                                                                                                                                                                               | YEAR | Country | STATUS     | CITE |
+|------------+----------+----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+---------+------------+------|
+|            | A        |          | HTML headers                                                                                                                                                                        |      |         |            |      |
+|            | A        |          | Survey                                                                                                                                                                              |      |         |            |      |
+|            | A        |          | Books                                                                                                                                                                               |      |         |            |      |
+| Case       | B        | PARTIAL  | [[https://www.amazon.com.br/New-Paradigm-Macroeconomics-Macroeconomic-Performance/dp/1403920745][Werner - The New Paradigm in Macroeconomics: Solving the Riddle of Japanese Macroeconomic]]                                                                                           | 2005 | Japan   | Downloaded | Yes  |
+| Review     | A        | PARTIAL  | [[https://www.amazon.com.br/Asset-Price-Bubbles-Implications-International/dp/0262582538][Hunter et al - Asset Price Bubbles – The Implications for Monetary, Regulatory and International Policies]]                                                                           | 2003 |         | Downloaded | Yes  |
+| Review     | B        | PARTIAL  | [[https://www.econstor.eu/handle/10419/212980][Taipalus - Detecting asset price bubbles with time-series methods]]                                                                                                                   | 2012 |         | Downloaded | Wait |
+| Review     | A        | PARTIAL  | [[https://www.palgrave.com/gp/book/9783319715278][Vogel - Financial Market Bubbles and Crashes]]                                                                                                                                        | 2018 |         | Downloaded | Wait |
+| Case       | A        | PARTIAL  | [[https://www.amazon.com.br/Holy-Grail-Macroeconomics-Lessons-Recession/dp/0470824948][Koo - The Holy Grail of Macroeconomics: Lessons from Japans Great Recession]]                                                                                                         | 2009 | Japan   | NotFound   | Yes  |
+| Theory     | A        | PARTIAL  | [[https://www.amazon.com.br/Manias-Panics-Crashes-History-Financial/dp/1137525754][Kindelberger - Manias, Panics, and Crashes: A History of Financial Crises]]                                                                                                           | 1978 |         | Filed      | Yes  |
+|            | A        |          | Banking credit                                                                                                                                                                      |      |         |            |      |
+| Case       | A        | READ     | [[http://eprints.soton.ac.uk/id/eprint/36569][Werner - Towards a new monetary paradigm: a quantity theorem of disaggregated credit, with evidence from Japan]]                                                                      | 1997 | Japan   | Downloaded | Yes  |
+| Case       | C        | READ     | [[https://eprints.soton.ac.uk/186635/][Werner - Financial crises in Japan during the 20th century ]]                                                                                                                         | 2009 | Japan   | Downloaded | Yes  |
+| Theory     | A        | READ     | [[https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9957.2011.02265_5.x][Werner - Economics as if banks mattered: A contribution based on the inductive methodology]]                                                                                          | 2011 | -       | Downloaded | Yes  |
+| Review     | B        | SKIM     | [[https://www.dora.dmu.ac.uk/bitstream/handle/2086/17270/IRFA%202016%20Werner%20Lost%20Century%20in%20Economics.pdf;jsessionid=D19398460CD0BA51D2D43899078C2BAD?sequence=4][Werner - A lost century in economics: Three theories of banking and the conclusive evidence]]                                                                                         | 2015 |         | Downloaded | Wait |
+| Theory     | A        | SKIM     | [[https://www.sciencedirect.com/science/article/abs/pii/S1057521912000555?via%3Dihub][Werner - Towards a new research programme on ‘banking and the economy’ — Implications of the Quantity Theory of Credit for the prevention and resolution of banking and debt crises]] | 2012 |         | Filed      | Wait |
+|            | A        |          | Land Prices                                                                                                                                                                         |      |         |            |      |
+| Empirical  | A        | SKIM     | [[https://onlinelibrary.wiley.com/doi/epdf/10.1111/j.1467-9396.1994.tb00038.x][Werner - Japanese Foreign Investment and the “Land Bubble”]]                                                                                                                          | 1994 | Japan   | Downloaded | Wait |
+|            | A        |          | Dot-com                                                                                                                                                                             |      |         |            |      |
+|            | A        |          | Metrics and definitions                                                                                                                                                             |      |         |            |      |
+| Thechnical | A        | READ     | [[https://www.sciencedirect.com/science/article/abs/pii/S1057521914001471?via%3Dihub][Vogel and Werner - An analytical review of volatility metrics for bubbles and crashes]]                                                                                               | 2015 |         | Downloaded | Yes  |
+| Thechnical | C        | ARCH     | [[https://epubs.siam.org/doi/10.1137/10079673X][Jarrow et al - How to Detect an Asset Bubble]]                                                                                                                                        | 2011 |         | Filed      | Wait |
+|            | A        |          | Growth models                                                                                                                                                                       |      |         |            |      |
+| Theory     | A        | READ     | [[https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-999X.2010.04117.x][Taylor - Growth, Cycles, Asset Prices and Finance]]                                                                                                                                   | 2011 |         | Filed      | Yes  |
+|            | A        |          | Empirical                                                                                                                                                                           |      |         |            |      |
+| Empirical  | C        | SKIM     | [[https://www.jstor.org/stable/4135272?seq=1][Garino and Sarno - Speculative Bubbles in U.K. House Prices: Some New Evidence]]                                                                                                      | 2004 | UK      | Filed      | Wait |
+|            | C        | REF      | References                                                                                                                                                                          |      |         |            |      |
+#+END
+
+* [#A] Books
+
+** PARTIAL [#B] [[https://www.amazon.com.br/New-Paradigm-Macroeconomics-Macroeconomic-Performance/dp/1403920745][Werner - The New Paradigm in Macroeconomics: Solving the Riddle of Japanese Macroeconomic]]
+   :PROPERTIES:
+   :YEAR:    2005    
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Downloaded
+   :RELEVANCE: Regular
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :COUNTRY: Japan
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Werner_book_2005,
+  author       = {Werner, Richard A.},
+  title	       = {New Paradigm in Macroeconomics},
+  year	       = {2005},
+  doi	       = {10.1057/9780230506077},
+  url	       = {http://dx.doi.org/10.1057/9780230506077},
+  publisher    = {Palgrave Macmillan UK}
+}
+#+END_SRC
+
+** PARTIAL [#A] [[https://www.amazon.com.br/Asset-Price-Bubbles-Implications-International/dp/0262582538][Hunter et al - Asset Price Bubbles – The Implications for Monetary, Regulatory and International Policies]]
+   :PROPERTIES:
+   :YEAR:     2003
+   :ZOTERO:   Yes
+   :TYPE:     Review
+   :STATUS:   Downloaded
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:    
+
+*** [#C] Chapter 3 - Rational and Nonrational Bubbles
+
+*** [#B] Chapter 4 - Diverse Views on Asset Bubbles
+
+*** [#A] Chapter 8 - Lending Booms, Real Estate Bubbles, and the Asian Crisis
+
+*** [#C] Chapter 10 - Different Countries, Similar Experience           :QCA:
+
+*** [#A] Chapter 14 - Bubbles in Real Estate Markets
+
+*** [#B] Cahpter 33  - The Historical Pattern of Economic Cycles and Their Interaction with Asset Prices and Financial Regulation
+
+** PARTIAL [#B] [[https://www.econstor.eu/handle/10419/212980][Taipalus - Detecting asset price bubbles with time-series methods]]
+   :PROPERTIES:
+   :YEAR:     2012
+   :ZOTERO:   Yes
+   :TYPE:     Review
+   :STATUS:   Downloaded
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@book{Taipalus_2012_Detecting,
+    address = {Helsinki},
+    author = {Katja Taipalus},
+    publisher = {Bank of Finland},
+    series = {Scientific monographs},
+    title = {Detecting asset price bubbles with time-series methods},
+    url = {http://hdl.handle.net/10419/212980},
+    year = {2012}
+}
+#+END_SRC
+
+** PARTIAL [#A] [[https://www.palgrave.com/gp/book/9783319715278][Vogel - Financial Market Bubbles and Crashes]]
+   :PROPERTIES:
+   :YEAR:     2018
+   :ZOTERO:   Yes
+   :TYPE:     Review
+   :STATUS:   Downloaded
+   :RELEVANCE: Regular
+   :IMPACT:   Regular
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Vogel_2018,
+  author       = {Vogel, Harold L.},
+  title	       = {Financial Market Bubbles and Crashes: Features, Causes, and Effects},
+  year	       = {2018},
+  doi	       = {10.1007/978-3-319-71528-5},
+  url	       = {http://dx.doi.org/10.1007/978-3-319-71528-5},
+  isbn	       = 9783319715285,
+  publisher    = {Springer International Publishing}
+}
+#+END_SRC
+
+
+*** SKIM [#B] Introduction
+
+*** PARTIAL [#C] Chapter 2 - Bubble Stories
+
+** PARTIAL [#A] [[https://www.amazon.com.br/Holy-Grail-Macroeconomics-Lessons-Recession/dp/0470824948][Koo - The Holy Grail of Macroeconomics: Lessons from Japans Great Recession]]
+   :PROPERTIES:
+   :YEAR:     2009
+   :ZOTERO:   Entry
+   :TYPE:     Case
+   :STATUS:   NotFound
+   :RELEVANCE: High
+   :IMPACT:   High
+   :CITE:     Yes
+   :COUNTRY: Japan
+   :END:    
+
+*** READ [#A] Chapter 2 -  Characteristics of Balance Sheet Recessions
+
+*** SKIM [#C] Chapter 5 - Yin and Yang Economic Cycles and the Holy Grail of Macroeconomics
+
+*** SKIM [#C] Chapter 7 - Ongoing Bubbles and Balance Sheet Recessions
+
+** PARTIAL [#A] [[https://www.amazon.com.br/Manias-Panics-Crashes-History-Financial/dp/1137525754][Kindelberger - Manias, Panics, and Crashes: A History of Financial Crises]]
+   :PROPERTIES:
+   :YEAR:     1978
+   :ZOTERO:   Yes
+   :TYPE:     Theory
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   High
+   :CITE:     Yes
+   :END:    
+
+*** READ [#C] Chapter 2 - The anathomy of a typical crisis
+
+*** READ [#B] Chapter 3 - Speculative Manias
+
+*** READ [#A] Chapter 4 - Fueling the flames: the expansion of credit
+
+*** READ [#A] Chapter 5 - The critical stage: when the bubble is about to pop
+
+*** SKIM [#B] Chapter 6 - Euphoria and the paper wealth
+
+*** SKIM [#C] Chapter 7 - Bernie Madoff: Frauds, Swindles, and the credit cycle
+
+*** SKIM [#B] Chapter 9 - Bubble Contagion
+
+*** SKIM [#C] Chapter 11 - Policy responses: Benign neglect, exhortation and bank holidays
+
+*** SKIM [#A] Chapter 14 - The Lehman Panic: An avoidable crash
+
+*** SKIM [#B] Chapter 15 - The lessons of history
+
+* [#A] Banking credit
+
+** READ [#A] [[http://eprints.soton.ac.uk/id/eprint/36569][Werner - Towards a new monetary paradigm: a quantity theorem of disaggregated credit, with evidence from Japan]] :Japan:Orthodox:
+   :PROPERTIES:
+   :YEAR:     1997
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Downloaded
+   :RELEVANCE: High
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :COUNTRY: Japan
+   :END:    
+
+** READ [#C] [[https://eprints.soton.ac.uk/186635/][Werner - Financial crises in Japan during the 20th century ]] :Japan:QCA:Orthodox:
+   :PROPERTIES:
+   :YEAR:     2009
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Downloaded
+   :RELEVANCE: High
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :COUNTRY: Japan
+   :END:    
+
+** READ [#A] [[https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9957.2011.02265_5.x][Werner - Economics as if banks mattered: A contribution based on the inductive methodology]] :Orthodox:
+:PROPERTIES:
+   :YEAR:     2011
+   :ZOTERO:   Yes
+   :TYPE:     Theory
+   :STATUS:   Downloaded
+   :RELEVANCE: High
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :COUNTRY:  -
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Werner_mattered_2011,
+  author       = {Rerner, Richard},
+  title	       = {Economics as if banks mattered: a contribution based on the inductive methodology},
+  year	       = {2011},
+  volume       = {79},
+  month	       = {Sep},
+  pages	       = {25–35},
+  issn	       = {1463-6786},
+  doi	       = {10.1111/j.1467-9957.2011.02265_5.x},
+  url	       = {http://dx.doi.org/10.1111/j.1467-9957.2011.02265_5.x},
+  journal      = {The Manchester School},
+  publisher    = {Wiley}
+}
+#+END_SRC
+
+** SKIM [#B] [[https://www.dora.dmu.ac.uk/bitstream/handle/2086/17270/IRFA%202016%20Werner%20Lost%20Century%20in%20Economics.pdf;jsessionid=D19398460CD0BA51D2D43899078C2BAD?sequence=4][Werner - A lost century in economics: Three theories of banking and the conclusive evidence]] :QCA:
+   :PROPERTIES:
+   :YEAR:     2015
+   :ZOTERO:   Yes
+   :TYPE:     Review
+   :STATUS:   Downloaded
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Werner_century_2016,
+  author       = {Werner, Richard A.},
+  title	       = {A lost century in economics: Three theories of
+                  banking and the conclusive evidence},
+  year	       = 2016,
+  volume       = 46,
+  month	       = {Jul},
+  pages	       = {361–379},
+  issn	       = {1057-5219},
+  doi	       = {10.1016/j.irfa.2015.08.014},
+  url	       = {http://dx.doi.org/10.1016/j.irfa.2015.08.014},
+  journal      = {International Review of Financial Analysis},
+  publisher    = {Elsevier BV}
+}
+#+END_SRC
+
+** SKIM [#A] [[https://www.sciencedirect.com/science/article/abs/pii/S1057521912000555?via%3Dihub][Werner - Towards a new research programme on ‘banking and the economy’ — Implications of the Quantity Theory of Credit for the prevention and resolution of banking and debt crises]]
+   :PROPERTIES:
+   :YEAR:     2012
+   :ZOTERO:   Yes
+   :TYPE:     Theory
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+
+* [#A] Land Prices
+
+** SKIM [#A] [[https://onlinelibrary.wiley.com/doi/epdf/10.1111/j.1467-9396.1994.tb00038.x][Werner - Japanese Foreign Investment and the “Land Bubble”]]
+   :PROPERTIES:
+   :YEAR:     1994
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Downloaded
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :COUNTRY: Japan
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Werner_land_1994,
+  author       = {Werner, Richard A.},
+  title	       = {Japanese Foreign Investment and the ``Land Bubble''},
+  year	       = {1994},
+  volume       = {2},
+  number       = {2},
+  month	       = {Jun},
+  pages	       = {166–178},
+  issn	       = {1467-9396},
+  doi	       = {10.1111/j.1467-9396.1994.tb00038.x},
+  url	       = {http://dx.doi.org/10.1111/j.1467-9396.1994.tb00038.x},
+  journal      = {Review of International Economics},
+  publisher    = {Wiley}
+}
+#+END_SRC
+
+
+* [#A] Dot-com  
+
+* [#A] Metrics and definitions
+
+** READ [#A] [[https://www.sciencedirect.com/science/article/abs/pii/S1057521914001471?via%3Dihub][Vogel and Werner - An analytical review of volatility metrics for bubbles and crashes]]
+   :PROPERTIES:
+   :YEAR:    2015 
+   :ZOTERO:   Yes
+   :TYPE:     Thechnical
+   :STATUS:   Downloaded
+   :RELEVANCE: High
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Vogel_metrics_2015,
+  author       = {Vogel, Harold L. and Werner, Richard A.},
+  title	       = {An analytical review of volatility metrics for bubbles and crashes},
+  year	       = {2015},
+  volume       = {38},
+  month	       = {Mar},
+  pages	       = {15–28},
+  issn	       = {1057-5219},
+  doi	       = {10.1016/j.irfa.2014.11.003},
+  url	       = {http://dx.doi.org/10.1016/j.irfa.2014.11.003},
+  journal      = {International Review of Financial Analysis},
+  publisher    = {Elsevier BV}
+}
+#+END_SRC
+
+
+** ARCH [#C] [[https://epubs.siam.org/doi/10.1137/10079673X][Jarrow et al - How to Detect an Asset Bubble]]
+   CLOSED: [2020-09-29 ter 11:16]
+   :PROPERTIES:
+   :YEAR:    2011
+   :ZOTERO:   Entry
+   :TYPE:     Thechnical
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Regular
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Jarrow_detect_2011,
+  author       = {Jarrow, Robert and Kchia, Younes and Protter, Philip},
+  title	       = {How to Detect an Asset Bubble},
+  year	       = {2011},
+  volume       = {2},
+  number       = {1},
+  month	       = {Jan},
+  pages	       = {839–865},
+  issn	       = {1945-497X},
+  doi	       = {10.1137/10079673x},
+  url	       = {http://dx.doi.org/10.1137/10079673X},
+  journal      = {SIAM Journal on Financial Mathematics},
+  publisher    = {Society for Industrial & Applied Mathematics (SIAM)}
+}
+#+END_SRC
+
+
+* [#A] Growth models
+
+** READ [#A] [[https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-999X.2010.04117.x][Taylor - Growth, Cycles, Asset Prices and Finance]]
+   :PROPERTIES:
+   :YEAR:     2011
+   :ZOTERO:   Yes
+   :TYPE:     Theory
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Taylor_2011,
+  author       = {Taylor, Lance},
+  title	       = {Growth, cycles, asset prices and finance},
+  year	       = {2011},
+  volume       = {63},
+  number       = {1},
+  month	       = {Mar},
+  pages	       = {40–63},
+  doi	       = {10.1111/j.1467-999x.2010.04117.x},
+  url	       = {http://dx.doi.org/10.1111/j.1467-999X.2010.04117.x},
+  journal      = {Metroeconomica},
+  publisher    = {Wiley}
+}
+#+END_SRC
+
+
+* [#A] Empirical
+
+** SKIM [#C] [[https://www.jstor.org/stable/4135272?seq=1][Garino and Sarno - Speculative Bubbles in U.K. House Prices: Some New Evidence]]
+   :PROPERTIES:
+   :YEAR:     2004
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :COUNTRY: UK
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Garino_UK_2004,
+  author       = {Garino, Gaia and Sarno, Lucio},
+  title	       = {Speculative Bubbles in U.K. House Prices: Some New Evidence},
+  year	       = {2004},
+  volume       = {70},
+  number       = {4},
+  month	       = {Apr},
+  issn	       = {0038-4038},
+  doi	       = {10.2307/4135272},
+  url	       = {http://dx.doi.org/10.2307/4135272},
+  journal      = {Southern Economic Journal},
+  publisher    = {JSTOR}
+}
+#+END_SRC
+
+
+* REF [#C] References                                                :ignore:
+  CLOSED: [2020-09-29 ter 09:39]
+
+
+bibliography:bubbles.bib
+
