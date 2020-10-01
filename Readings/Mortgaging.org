@@ -1,3 +1,4 @@
+#+OPTIONS: num:nil
 #+TITLE: Mortgaging readings
 #+AUTHOR: Gabriel Petrini
 #+ARCHIVE: %s_read::
@@ -26,50 +27,73 @@
   :END:
   
 
-#+BEGIN: columnview :maxlevel 2 :id global
-| TYPE       | PRIORITY | Decision | Title                                                                                                     | YEAR | ISO3   | STATUS     | CITE |
-|------------+----------+----------+-----------------------------------------------------------------------------------------------------------+------+--------+------------+------|
-|            | A        |          | Survey                                                                                                    |      |        |            |      |
-|            | A        |          | Books                                                                                                     |      |        |            |      |
-| Theory     | A        | PARTIAL  | [[https://www.amazon.com.br/Manias-Panics-Crashes-History-Financial/dp/1137525754][Kindelberger - Manias, Panics, and Crashes: A History of Financial Crises]]                                 | 1978 |        | Filed      | Yes  |
-| Thechnical | C        | PARTIAL  | [[https://www.amazon.com.br/Comparative-National-Balance-Sheets-Countries/dp/0226301532][Goldsmith - Comparative National Balance Sheets: A Study of Twenty Countries, 1688-1979]]                   | 1985 |        | NotFound   | Wait |
-| Case       | C        | PARTIAL  | [[https://press.princeton.edu/books/paperback/9780691162386/the-bankers-new-clothes][The Bankers' New Clothes: What's Wrong with Banking and What to Do about It]]                               | 2013 |        | Filed      | Wait |
-| Review     | A        | PARTIAL  | [[https://www.amazon.com.br/Asset-Price-Bubbles-Implications-International/dp/0262582538][Hunter et al - Asset Price Bubbles – The Implications for Monetary, Regulatory and International Policies]] | 2003 |        | Filed      | Yes  |
-| Theory     | A        | PARTIAL  | [[https://doi.org/10.1017/CBO9780511559501][Kotz et al - Social Structures of Accumulation: The Political Economy of Growth and Crisis]]                | 1994 |        | Downloaded | Yes  |
-| Case       | C        | WAIT     | [[https://books.google.com.br/books/about/A_Business_Reborn.html?id=Sf9OAAAAIAAJ&redir_esc=y][Ewalt - A Business Reborn: The Savings and Loan Story, 1930-1960]]                                          | 1962 |        | Filed      | Wait |
-| Case       | C        | READ     | [[https://www.nber.org/books/fish12-2][Housing and Mortgage Markets in Historical Perspective]]                                                    | 2014 |        | Filed      | Wait |
-| Case       | B        | PARTIAL  | [[https://www.nber.org/books/mort56-1][Urban Mortgage Lending: Comparative Markets and Experience]]                                                | 1956 |        | Filed      | Wait |
-| Case       | C        | MAYBE    | [[https://www.amazon.com/Rise-Fall-Mortgage-Credit-Markets/dp/0470477245][The Rise and Fall of the US Mortgage and Credit Markets: A Comprehensive Analysis of the Market Meltdown]]  | 2009 |        | Filed      | Wait |
-| Case       | A        | MAYBE    | [[https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=Mortgage+securitization+in+the+United+States%3A+Twentieth+century+developments+in+historical+perspective&btnG=][Mortgage securitization in the United States: Twentieth century developments in historical perspective]]    | 1995 |        | NotFound   | Wait |
-|            | A        |          | Institutions                                                                                              |      |        |            |      |
-| Empirical  | A        | READ     | [[http://policydialogue.org/files/publications/Determinants_of_Banking_Crises.pdf][Demirgüç-Kunt and Detragiache - The Determinants of Banking Crises in Developing and Developed Countries]]  | 1998 |        | Skimmed    | Yes  |
-| Case       | A        | READ     | [[https://www.imf.org/en/Publications/WP/Issues/2016/12/30/Deposit-Protection-Arrangements-A-Survey-1875][Kyei - Deposit Protection Arrangements : A Survey]]                                                         | 1995 |        | NotFound   | Yes  |
-|            | A        |          | Mortgage Market                                                                                           |      |        |            |      |
-| Case       | B        | PARTIAL  | [[https://escholarship.org/content/qt41d5k3bd/qt41d5k3bd.pdf][Quigley - Federal Credit and Insurance Programs: Housing]]                                                  | 2006 | US     | Downloaded | Yes  |
-| Case       | A        | READ     | [[http://www.macrohistory.net/wp-content/uploads/2012/06/White-Picket-Finance-The-Remaking-of-the-U.S.-Mortgage-Market.pdf][Gärtner - White Picket Finance: The Making of the U.S. Mortgage Market, 1932–1960]]                         | 2012 |        | Filed      | Yes  |
-| Case       | A        | PARTIAL  | [[http://www.actuaries.org/CTTEES_TFRISKCRISIS/Documents/turner_review.pdf][Turner - A Regulatory Response to the Global Banking Crisis]]                                               | 2009 | UK,USA | Skimmed    | Yes  |
-|            | A        |          | Housing Bubbles                                                                                           |      |        |            |      |
-| Theory     | A        | PARTIAL  | [[https://papers.ssrn.com/sol3/papers.cfm?abstract_id=846305#][Borio et al - Asset Prices, Financial and Monetary Stability: Exploring the Nexus]]                         | 2005 |        | Filed      | Yes  |
-|            | A        |          | Housing cycle                                                                                             |      |        |            |      |
-| Case       | A        | PARTIAL  | [[https://www.nber.org/papers/w23694][Kaplan et al - The Housing Boom and Bust: Model Meets Evidence]]                                            | 2017 |        | Skimmed    | Yes  |
-|            | A        |          | Banking credit                                                                                            |      |        |            |      |
-| Empirical  | A        | READ     | [[https://academic.oup.com/restud/advance-article-abstract/doi/10.1093/restud/rdaa040/5889963?redirectedFrom=fulltext][Jordà et al - Bank Capital Redux: Solvency, Liquidity and Crisis]]                                          | 2020 |        | Filed      | Yes  |
-| Case       | C        | PARTIAL  | [[https://www.aeaweb.org/articles?id=10.1257/jep.27.2.3][Greenwood and Scharfstein - The Growth of Finance]]                                                         | 2013 |        | Downloaded | Wait |
-|            | A        |          | Household debt                                                                                            |      |        |            |      |
-| Review     | A        | PARTIAL  | [[https://doi.org/10.1146/annurev-economics-080614-115640][Zinman -  Household Debt: Facts, Puzzles, Theories, and Policies]]                                          | 2015 |        | Downloaded | Wait |
-|            | A        |          | House prices                                                                                              |      |        |            |      |
-| Thechnical | C        | PARTIAL  | [[https://www.kansascityfed.org/PUBLICAT/ECONREV/PDF/2q07rapp.pdf][Rappaport - A Guide to Aggregate House Price Measures]]                                                     | 2007 | USA    | Downloaded | Wait |
-| Empirical  | A        | READ     | [[https://www.nber.org/papers/w25653][Jordà et al - The Total Risk Premium Puzzle]]                                                               | 2019 |        | Filed      | Yes  |
-| Empirical  | A        | READ     | [[https://doi.org/10.1016/j.jinteco.2014.12.011][Jordà et al - Betting the house]]                                                                           | 2015 |        | Filed      | Yes  |
-| Empirical  | A        | READ     | [[https://www.aeaweb.org/articles?id=10.1257/aer.20150501][Knoll et al - No Price Like Home: Global House Prices, 1870-2012]]                                          | 2017 |        | Filed      | Yes  |
-|            | A        |          | Mortgage interest rate                                                                                    |      |        |            |      |
-|            | A        |          | Financial crisis                                                                                          |      |        |            |      |
-| Case       | B        | SKIM     | [[https://doi.org/10.1080/00076791.2013.800967][Blancheton et al - The French paradox: A financial crisis during the golden age of the 1960s]]              | 2014 |        | NotFound   | Wait |
-|            | A        |          | Data                                                                                                      |      |        |            |      |
-|            | B        | SKIM     | [[https://www.bis.org/statistics/totcredit.htm][Long Series on Credit to Private Non-financial Sectors]]                                                    |      |        |            |      |
-| Case       | B        | READ     | [[https://ideas.repec.org/a/jre/issued/v32n12010p23-46.html][LaCour-Little et al - Home Equity Extraction by Homeowners: 2000-2006]]                                     | 2010 | ?      | NotFound   | Wait |
-| Thechnical | A        | PARTIAL  | [[https://www.imf.org/~/media/Websites/IMF/imported-full-text-pdf/external/pubs/ft/wp/2008/_wp08224.ashx][IMF - Systemic Banking Crises: A New Database]]                                                             | 2008 |        | Downloaded | Yes  |
-|            | B        |          | HTML headers                                                                                              |      |        |            |      |
+#+BEGIN: columnview :maxlevel 3 :id global
+| TYPE       | PRIORITY | Decision | Title                                                                                                                                                   | YEAR | ISO3   | STATUS     | CITE |
+|------------+----------+----------+---------------------------------------------------------------------------------------------------------------------------------------------------------+------+--------+------------+------|
+|            | A        |          | Survey                                                                                                                                                  |      |        |            |      |
+|            | A        |          | Books                                                                                                                                                   |      |        |            |      |
+| Theory     | A        | PARTIAL  | [[https://www.amazon.com.br/Manias-Panics-Crashes-History-Financial/dp/1137525754][Kindelberger - Manias, Panics, and Crashes: A History of Financial Crises]]                                                                               | 1978 |        | Filed      | Yes  |
+| Thechnical | C        | PARTIAL  | [[https://www.amazon.com.br/Comparative-National-Balance-Sheets-Countries/dp/0226301532][Goldsmith - Comparative National Balance Sheets: A Study of Twenty Countries, 1688-1979]]                                                                 | 1985 |        | NotFound   | Wait |
+| Case       | C        | PARTIAL  | [[https://press.princeton.edu/books/paperback/9780691162386/the-bankers-new-clothes][The Bankers' New Clothes: What's Wrong with Banking and What to Do about It]]                                                                             | 2013 |        | Filed      | Wait |
+| Review     | A        | PARTIAL  | [[https://www.amazon.com.br/Asset-Price-Bubbles-Implications-International/dp/0262582538][Hunter et al - Asset Price Bubbles – The Implications for Monetary, Regulatory and International Policies]]                                               | 2003 |        | Filed      | Yes  |
+| Theory     | A        | PARTIAL  | [[https://doi.org/10.1017/CBO9780511559501][Kotz et al - Social Structures of Accumulation: The Political Economy of Growth and Crisis]]                                                              | 1994 |        | Downloaded | Yes  |
+| Case       | C        | WAIT     | [[https://books.google.com.br/books/about/A_Business_Reborn.html?id=Sf9OAAAAIAAJ&redir_esc=y][Ewalt - A Business Reborn: The Savings and Loan Story, 1930-1960]]                                                                                        | 1962 |        | Filed      | Wait |
+| Case       | C        | READ     | [[https://www.nber.org/books/fish12-2][Housing and Mortgage Markets in Historical Perspective]]                                                                                                  | 2014 |        | Filed      | Wait |
+|            | A        | READ     | [[https://www.nber.org/chapters/c12793.pdf][The Interwar Housing Cycle in the Light of 2001–2012A Comparative Historical Perspective]]                                                                |      |        |            |      |
+|            | A        | READ     | [[https://www.nber.org/chapters/c12801.pdf][The Twentieth-Century Increase in US Home Ownership]]                                                                                                     |      |        |            |      |
+|            | C        | PARTIAL  | [[https://www.nber.org/chapters/c12802.pdf][Did Housing Policies Cause the Postwar Boom in Home Ownership?]]                                                                                          |      |        |            |      |
+| Case       | B        | PARTIAL  | [[https://www.nber.org/books/mort56-1][Urban Mortgage Lending: Comparative Markets and Experience]]                                                                                              | 1956 |        | Filed      | Wait |
+|            | B        | PARTIAL  | [[https://www.nber.org/chapters/c2848.pdf][Structure of Urban Mortage Markets]]                                                                                                                      |      |        |            |      |
+|            | B        | PARTIAL  | [[https://www.nber.org/chapters/c2849.pdf][Structure of the Lending Industry]]                                                                                                                       |      |        |            |      |
+|            | A        | PARTIAL  | [[https://www.nber.org/chapters/c13003.pdf][A Historiography of  Early NBER Housing and Mortgage Research]]                                                                                           |      |        |            |      |
+| Case       | C        | MAYBE    | [[https://www.amazon.com/Rise-Fall-Mortgage-Credit-Markets/dp/0470477245][The Rise and Fall of the US Mortgage and Credit Markets: A Comprehensive Analysis of the Market Meltdown]]                                                | 2009 |        | Filed      | Wait |
+| Case       | A        | MAYBE    | [[https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=Mortgage+securitization+in+the+United+States%3A+Twentieth+century+developments+in+historical+perspective&btnG=][Mortgage securitization in the United States: Twentieth century developments in historical perspective]]                                                  | 1995 |        | NotFound   | Wait |
+|            | A        | PARTIAL  | [[https://www.sciencedirect.com/book/9780124017436/introduction-to-mortgages-and-mortgage-backed-securities][Green - Introduction to Mortgages & Mortgage Backed Securities]]                                                                                          |      |        |            |      |
+| Case       | A        | READ     | [[https://www.sciencedirect.com/science/article/pii/B9780124017436000081?via%3Dihub][Chapter 8 - International Comparisons of Mortgages]]                                                                                                      | 2014 |        | Filed      | Yes  |
+| Case       | C        | SKIM     | [[https://www.sciencedirect.com/science/article/pii/B9780124017436000093][Chapter 9 - The Subprime Crisis]]                                                                                                                         | 2014 |        | Filed      | Wait |
+| Case       | C        | SKIM     | [[https://www.sciencedirect.com/science/article/pii/B978012401743600010X][Chapter 10 - Consumers in Mortgage Markets]]                                                                                                              | 2014 |        | Filed      | Wait |
+| Case       | C        | PARTIAL  | [[https://link.springer.com/book/10.1007/978-94-011-3915-1][Hårsman and Quigley  - Housing Markets and Housing Institutions: An International Comparison]]                                                            | 2001 |        | Filed      | Wait |
+| Case       | C        | PARTIAL  | [[https://link.springer.com/chapter/10.1007%2F978-94-011-3915-1_3][Bengs and Loikkanen - The Finnish Housing Market: Structure, Institutions, and Policy Issues]]                                                            | 1991 |        | NotFound   | Wait |
+| Case       | C        | PARTIAL  | [[https://link.springer.com/chapter/10.1007/978-94-011-3915-1_2][Anas et al - The Swedish Housing Market: Development and Institutional Setting]]                                                                          | 1991 |        | NotFound   | Wait |
+| Theory     | C        | SKIM     | [[https://link.springer.com/chapter/10.1007/978-94-011-3915-1_1][Hårsman and Quigley - Housing Markets and Housing Institutions in a Comparative Context]]                                                                 | 1991 |        | NotFound   | Yes  |
+|            | A        |          | Institutions                                                                                                                                            |      |        |            |      |
+| Empirical  | A        | READ     | [[http://policydialogue.org/files/publications/Determinants_of_Banking_Crises.pdf][Demirgüç-Kunt and Detragiache - The Determinants of Banking Crises in Developing and Developed Countries]]                                                | 1998 |        | Skimmed    | Yes  |
+| Case       | A        | READ     | [[https://www.imf.org/en/Publications/WP/Issues/2016/12/30/Deposit-Protection-Arrangements-A-Survey-1875][Kyei - Deposit Protection Arrangements : A Survey]]                                                                                                       | 1995 |        | NotFound   | Yes  |
+|            | A        |          | Mortgage Market                                                                                                                                         |      |        |            |      |
+| Case       | B        | PARTIAL  | [[https://escholarship.org/content/qt41d5k3bd/qt41d5k3bd.pdf][Quigley - Federal Credit and Insurance Programs: Housing]]                                                                                                | 2006 | US     | Downloaded | Yes  |
+| Case       | C        | READ     | [[http://www.macrohistory.net/wp-content/uploads/2012/06/White-Picket-Finance-The-Remaking-of-the-U.S.-Mortgage-Market.pdf][Gärtner - White Picket Finance: The Making of the U.S. Mortgage Market, 1932–1960]]                                                                       | 2012 |        | Filed      | Yes  |
+| Case       | A        | PARTIAL  | [[http://www.actuaries.org/CTTEES_TFRISKCRISIS/Documents/turner_review.pdf][Turner - A Regulatory Response to the Global Banking Crisis]]                                                                                             | 2009 | UK,USA | Skimmed    | Yes  |
+| Case       | A        | READ     | [[https://www.tandfonline.com/doi/abs/10.1080/02673030050134600][Coles and Hardt - Mortgage Markets: Why US and EU Markets Are So Different]]                                                                              | 2000 |        | Filed      | Yes  |
+| Case       | A        | READ     | [[https://pubs.aeaweb.org/doi/10.1257/089533005775196660][Green and Wachter - The American Mortgage in Historical and International Context]]                                                                       | 2005 |        | Filed      | Yes  |
+|            | A        |          | Housing Bubbles                                                                                                                                         |      |        |            |      |
+| Theory     | A        | PARTIAL  | [[https://papers.ssrn.com/sol3/papers.cfm?abstract_id=846305#][Borio et al - Asset Prices, Financial and Monetary Stability: Exploring the Nexus]]                                                                       | 2005 |        | Filed      | Yes  |
+|            | A        |          | Housing cycle                                                                                                                                           |      |        |            |      |
+| Case       | A        | PARTIAL  | [[https://www.nber.org/papers/w23694][Kaplan et al - The Housing Boom and Bust: Model Meets Evidence]]                                                                                          | 2017 |        | Skimmed    | Yes  |
+|            | A        |          | Banking credit                                                                                                                                          |      |        |            |      |
+| Empirical  | A        | READ     | [[https://academic.oup.com/restud/advance-article-abstract/doi/10.1093/restud/rdaa040/5889963?redirectedFrom=fulltext][Jordà et al - Bank Capital Redux: Solvency, Liquidity and Crisis]]                                                                                        | 2020 |        | Filed      | Yes  |
+| Case       | C        | PARTIAL  | [[https://www.aeaweb.org/articles?id=10.1257/jep.27.2.3][Greenwood and Scharfstein - The Growth of Finance]]                                                                                                       | 2013 |        | Downloaded | Wait |
+|            | A        |          | Household debt                                                                                                                                          |      |        |            |      |
+| Review     | A        | PARTIAL  | [[https://doi.org/10.1146/annurev-economics-080614-115640][Zinman -  Household Debt: Facts, Puzzles, Theories, and Policies]]                                                                                        | 2015 |        | Downloaded | Wait |
+|            | A        |          | Varieties of (?)                                                                                                                                        |      |        |            |      |
+| Case       | A        | READ     | [[https://linkinghub.elsevier.com/retrieve/pii/S0049089X16304756][Guten and Navot - Varieties of indebtedness: Financialization and mortgage market institutions in Europe]]                                                | 2018 |        | Filed      | Yes  |
+| Theory     | A        | READ     | [[https://link.springer.com/chapter/10.1057%2F9780230280441_1][Schwartz and Seabrooke - Varieties of Residential Capitalism in the International Political Economy: Old Welfare States and the New Politics of Housing]] | 2009 |        | Filed      | Yes  |
+|            | A        |          | House prices                                                                                                                                            |      |        |            |      |
+| Thechnical | C        | PARTIAL  | [[https://www.kansascityfed.org/PUBLICAT/ECONREV/PDF/2q07rapp.pdf][Rappaport - A Guide to Aggregate House Price Measures]]                                                                                                   | 2007 | USA    | Downloaded | Wait |
+| Empirical  | A        | READ     | [[https://www.nber.org/papers/w25653][Jordà et al - The Total Risk Premium Puzzle]]                                                                                                             | 2019 |        | Filed      | Yes  |
+| Empirical  | A        | READ     | [[https://doi.org/10.1016/j.jinteco.2014.12.011][Jordà et al - Betting the house]]                                                                                                                         | 2015 |        | Filed      | Yes  |
+| Empirical  | A        | READ     | [[https://www.aeaweb.org/articles?id=10.1257/aer.20150501][Knoll et al - No Price Like Home: Global House Prices, 1870-2012]]                                                                                        | 2017 |        | Filed      | Yes  |
+|            | A        |          | Mortgage interest rate                                                                                                                                  |      |        |            |      |
+|            | A        |          | Financial crisis                                                                                                                                        |      |        |            |      |
+| Case       | B        | SKIM     | [[https://doi.org/10.1080/00076791.2013.800967][Blancheton et al - The French paradox: A financial crisis during the golden age of the 1960s]]                                                            | 2014 |        | NotFound   | Wait |
+|            | A        |          | Data                                                                                                                                                    |      |        |            |      |
+|            | B        | SKIM     | [[https://www.bis.org/statistics/totcredit.htm][Long Series on Credit to Private Non-financial Sectors]]                                                                                                  |      |        |            |      |
+| Case       | B        | READ     | [[https://ideas.repec.org/a/jre/issued/v32n12010p23-46.html][LaCour-Little et al - Home Equity Extraction by Homeowners: 2000-2006]]                                                                                   | 2010 | ?      | NotFound   | Wait |
+| Thechnical | B        | READ     | Lea - International Comparison of Mortgage Product                                                                                                      | 2010 |        | Downloaded | Wait |
+| Thechnical | B        | READ     | Westermann - Housing finance in the euro area                                                                                                           | 2010 |        | Downloaded | Wait |
+| Thechnical | A        | PARTIAL  | [[https://www.imf.org/~/media/Websites/IMF/imported-full-text-pdf/external/pubs/ft/wp/2008/_wp08224.ashx][IMF - Systemic Banking Crises: A New Database]]                                                                                                           | 2008 |        | Downloaded | Yes  |
+| Empirical  | A        | SKIM     | [[https://link.springer.com/article/10.1007%2Fs11146-019-09705-z][Agnello et all - The Housing Cycle: What Role for Mortgage Market Development and Housing Finance?]]                                                      | 2020 |        | Filed      | Wait |
+| Empirical  | A        | PARTIAL  | [[https://www.ijcb.org/journal/ijcb16q2a3.htm][Bover et al - The distribution of debt across euro-area countries: the role of individual characteristics, institutions, and credit conditions]]          | 2016 |        | Filed      | Yes  |
+|            | B        |          | HTML headers                                                                                                                                            |      |        |            |      |
 #+END
          
 * [#A] Books
@@ -193,6 +217,170 @@
    :IMPACT:   Low
    :CITE:     Wait
    :END:    
+** PARTIAL [#A] [[https://www.sciencedirect.com/book/9780124017436/introduction-to-mortgages-and-mortgage-backed-securities][Green - Introduction to Mortgages & Mortgage Backed Securities]]
+*** READ [#A] [[https://www.sciencedirect.com/science/article/pii/B9780124017436000081?via%3Dihub][Chapter 8 - International Comparisons of Mortgages]]
+   :PROPERTIES:
+   :YEAR:     2014
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :END:    
+#+BEGIN_SRC bibtex
+@Article{Green_International_2014,
+  author       = {Green, Richard K.},
+  year	       = {2014},
+  title        = {International Comparisons of Mortgages},
+  pages	       = {107–122},
+  doi	       = {10.1016/b978-0-12-401743-6.00008-1},
+  url	       = {http://dx.doi.org/10.1016/B978-0-12-401743-6.00008-1},
+  journal      = {Introduction to Mortgages & Mortgage Backed Securities},
+  publisher    = {Elsevier}
+}
+#+END_SRC
+
+*** SKIM [#C] [[https://www.sciencedirect.com/science/article/pii/B9780124017436000093][Chapter 9 - The Subprime Crisis]]
+   :PROPERTIES:
+   :YEAR:     2014
+   :ZOTERO:   Entry
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Green_Subprime_2014,
+  author       = {Green, Richard K.},
+  year	       = {2014},
+  title        = {The Subprime Crisis},
+  pages	       = {123–141},
+  doi	       = {10.1016/b978-0-12-401743-6.00009-3},
+  url	       = {http://dx.doi.org/10.1016/B978-0-12-401743-6.00009-3},
+  journal      = {Introduction to Mortgages & Mortgage Backed Securities},
+  publisher    = {Elsevier}
+}
+
+#+END_SRC
+
+
+*** SKIM [#C] [[https://www.sciencedirect.com/science/article/pii/B978012401743600010X][Chapter 10 - Consumers in Mortgage Markets]]
+   :PROPERTIES:
+   :YEAR:     2014
+   :ZOTERO:   Entry
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Green_Subprime_2014,
+  author       = {Green, Richard K.},
+  year	       = {2014},
+  title        = {Consumers in Mortgage Markets},
+  pages	       = {123–141},
+  doi	       = {10.1016/b978-0-12-401743-6.00009-3},
+  url	       = {http://dx.doi.org/10.1016/B978-0-12-401743-6.00009-3},
+  journal      = {Introduction to Mortgages & Mortgage Backed Securities},
+  publisher    = {Elsevier}
+}
+
+#+END_SRC
+
+
+** PARTIAL [#C] [[https://link.springer.com/book/10.1007/978-94-011-3915-1][Hårsman and Quigley  - Housing Markets and Housing Institutions: An International Comparison]]
+   :PROPERTIES:
+   :YEAR:     2001
+   :ZOTERO:   No
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+#+BEGIN_SRC bibtex
+@Article{1991,
+  title	       = {Housing Markets and Housing Institutions: An International Comparison},
+  year	       = {1991},
+  doi	       = {10.1007/978-94-011-3915-1},
+  url	       = {http://dx.doi.org/10.1007/978-94-011-3915-1},
+  publisher    = {Springer Netherlands}
+}
+#+END_SRC
+
+*** PARTIAL [#C] [[https://link.springer.com/chapter/10.1007%2F978-94-011-3915-1_3][Bengs and Loikkanen - The Finnish Housing Market: Structure, Institutions, and Policy Issues]]
+   :PROPERTIES:
+   :YEAR:     1991
+   :ZOTERO:   Entry
+   :TYPE:     Case
+   :STATUS:   NotFound
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+#+BEGIN_SRC bibtex
+@Article{Bengs_1991,
+  author       = {Bengs, Christer and Loikkanen, Heikki A.},
+  title	       = {The Finnish Housing Market: Structure, Institutions, and Policy Issues},
+  year	       = {1991},
+  pages	       = {63–112},
+  doi	       = {10.1007/978-94-011-3915-1_3},
+  url	       = {http://dx.doi.org/10.1007/978-94-011-3915-1_3},
+  journal      = {Housing Markets and Housing Institutions: An International Comparison},
+  publisher    = {Springer Netherlands}
+}
+#+END_SRC
+*** PARTIAL [#C] [[https://link.springer.com/chapter/10.1007/978-94-011-3915-1_2][Anas et al - The Swedish Housing Market: Development and Institutional Setting]]
+   :PROPERTIES:
+   :YEAR:     1991
+   :ZOTERO:   Entry
+   :TYPE:     Case
+   :STATUS:   NotFound
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+#+BEGIN_SRC bibtex
+@Article{Anas_Swedish_1991,
+  author       = {Anas, Alex and Jirlow, Ulf and Hårsman, Björn and Snickars, Folke},
+  title	       = {The Swedish Housing Market: Development and Institutional Setting},
+  year	       = {1991},
+  pages	       = {31–62},
+  doi	       = {10.1007/978-94-011-3915-1_2},
+  url	       = {http://dx.doi.org/10.1007/978-94-011-3915-1_2},
+  journal      = {Housing Markets and Housing Institutions: An International Comparison},
+  publisher    = {Springer Netherlands}
+}
+#+END_SRC
+
+*** SKIM [#C] [[https://link.springer.com/chapter/10.1007/978-94-011-3915-1_1][Hårsman and Quigley - Housing Markets and Housing Institutions in a Comparative Context]]
+   :PROPERTIES:
+   :YEAR:     1991
+   :ZOTERO:   Entry
+   :TYPE:     Theory
+   :STATUS:   NotFound
+   :RELEVANCE: High
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:    
+#+BEGIN_SRC bibtex
+@Article{Harsman_Comparative_1991,
+  author       = {Hårsman, Björn and Quigley, John M.},
+  title	       = {Housing Markets and Housing Institutions in a Comparative Context},
+  year	       = {1991},
+  pages	       = {1–29},
+  doi	       = {10.1007/978-94-011-3915-1_1},
+  url	       = {http://dx.doi.org/10.1007/978-94-011-3915-1_1},
+  journal      = {Housing Markets and Housing Institutions: An International Comparison},
+  publisher    = {Springer Netherlands}
+}
+#+END_SRC
+
 * [#A] Institutions 
 ** READ [#A] [[http://policydialogue.org/files/publications/Determinants_of_Banking_Crises.pdf][Demirgüç-Kunt and Detragiache - The Determinants of Banking Crises in Developing and Developed Countries]]
    :PROPERTIES:
@@ -214,6 +402,34 @@
    :IMPACT:   Low
    :CITE:     Yes
    :END:    
+** SKIM [#B] [[https://journals.sagepub.com/doi/10.1179/102452909X12506915718111][Dixon and Sorsa - Institutional Change and the Financialisation of Pensions in Europe]]
+   :PROPERTIES:
+   :YEAR:     2009
+   :ZOTERO:   Yes
+   :TYPE:     Theory
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Dixon_Pension_2009,
+  author       = {Dixon, Adam D. and Sorsa, Ville-Pekka},
+  title	       = {Institutional Change and the Financialisation of Pensions in Europe},
+  year	       = {2009},
+  volume       = {13},
+  number       = {4},
+  month	       = {Dec},
+  pages	       = {347–367},
+  doi	       = {10.1179/102452909x12506915718111},
+  url	       = {http://dx.doi.org/10.1179/102452909X12506915718111},
+  journal      = {Competition & Change},
+  publisher    = {SAGE Publications}
+}
+#+END_SRC
+
+
 * [#A] Mortgage Market
 
 ** PARTIAL [#B] [[https://escholarship.org/content/qt41d5k3bd/qt41d5k3bd.pdf][Quigley - Federal Credit and Insurance Programs: Housing]] :USA:
@@ -227,7 +443,7 @@
    :CITE:     Yes
    :COUNTRY: US
    :END:    
-** READ [#A] [[http://www.macrohistory.net/wp-content/uploads/2012/06/White-Picket-Finance-The-Remaking-of-the-U.S.-Mortgage-Market.pdf][Gärtner - White Picket Finance: The Making of the U.S. Mortgage Market, 1932–1960]]
+** READ [#C] [[http://www.macrohistory.net/wp-content/uploads/2012/06/White-Picket-Finance-The-Remaking-of-the-U.S.-Mortgage-Market.pdf][Gärtner - White Picket Finance: The Making of the U.S. Mortgage Market, 1932–1960]]
     :PROPERTIES:
     :YEAR: 2012
     :ZOTERO:   Yes
@@ -249,6 +465,60 @@
    :CITE:     Yes
    :COUNTRY: UK,USA
    :END:    
+
+** READ [#A] [[https://www.tandfonline.com/doi/abs/10.1080/02673030050134600][Coles and Hardt - Mortgage Markets: Why US and EU Markets Are So Different]]
+   :PROPERTIES:
+   :YEAR:     2000
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+
+#+END_SRC
+
+** READ [#A] [[https://pubs.aeaweb.org/doi/10.1257/089533005775196660][Green and Wachter - The American Mortgage in Historical and International Context]]
+   :PROPERTIES:
+   :YEAR:     2005
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   High
+   :CITE:     Yes
+   :END:    
+#+BEGIN_SRC bibtex
+@Article{Green_Historical_2005,
+  author       = {Green, Richard K and Wachter, Susan M},
+  title	       = {The American Mortgage in Historical and International Context},
+  year	       = {2005},
+  volume       = {19},
+  number       = {4},
+  month	       = {Nov},
+  pages	       = {93–114},
+  doi	       = {10.1257/089533005775196660},
+  url	       = {http://dx.doi.org/10.1257/089533005775196660},
+  journal      = {Journal of Economic Perspectives},
+  publisher    = {American Economic Association}
+}
+#+END_SRC
+
+** SKIM [#B] [[https://www.nbs.sk/_img/Documents/PUBLIK/muc0070.pdf][IMF - Mortgages in Europe]]
+   :PROPERTIES:
+   :YEAR:     2000
+   :ZOTERO:   Partial
+   :TYPE:     Review
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+*Zotero file:* muc0070.pdf
 
 * [#A] Housing Bubbles
 ** PARTIAL [#A] [[https://papers.ssrn.com/sol3/papers.cfm?abstract_id=846305#][Borio et al - Asset Prices, Financial and Monetary Stability: Exploring the Nexus]] :BIS:
@@ -370,6 +640,57 @@
 }
 #+END_SRC
 
+* [#A] Varieties of (?)
+** READ [#A] [[https://linkinghub.elsevier.com/retrieve/pii/S0049089X16304756][Guten and Navot - Varieties of indebtedness: Financialization and mortgage market institutions in Europe]]
+   :PROPERTIES:
+   :YEAR:     2018
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Van_Gunten_2018,
+  author       = {Van Gunten, Tod and Navot, Edo},
+  title	       = {Varieties of indebtedness: Financialization and mortgage market institutions in Europe},
+  year	       = {2018},
+  volume       = {70},
+  month	       = {Feb},
+  pages	       = {90–106},
+  doi	       = {10.1016/j.ssresearch.2017.11.005},
+  url	       = {http://dx.doi.org/10.1016/j.ssresearch.2017.11.005},
+  journal      = {Social Science Research},
+  publisher    = {Elsevier BV}
+}
+#+END_SRC
+
+
+** READ [#A] [[https://link.springer.com/chapter/10.1057%2F9780230280441_1][Schwartz and Seabrooke - Varieties of Residential Capitalism in the International Political Economy: Old Welfare States and the New Politics of Housing]]
+   :PROPERTIES:
+   :YEAR:     2009
+   :ZOTERO:   Yes
+   :TYPE:     Theory
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:    
+#+BEGIN_SRC bibtex
+@Article{Schwartz_2009,
+  author       = {Schwartz, Herman M. and Seabrooke, Leonard},
+  title	       = {Varieties of Residential Capitalism in the International Political Economy: Old Welfare States and the New Politics of Housing},
+  year	       = {2009},
+  pages	       = {1–27},
+  doi	       = {10.1057/9780230280441_1},
+  url	       = {http://dx.doi.org/10.1057/9780230280441_1},
+  journal      = {The Politics of Housing Booms and Busts},
+  publisher    = {Palgrave Macmillan UK}
+}
+#+END_SRC
+
 * [#A] House prices
 ** PARTIAL [#C] [[https://www.kansascityfed.org/PUBLICAT/ECONREV/PDF/2q07rapp.pdf][Rappaport - A Guide to Aggregate House Price Measures]]   :USA:
    :PROPERTIES:
@@ -464,6 +785,32 @@
 }
 #+END_SRC
 
+** READ [#A] [[https://onlinelibrary.wiley.com/doi/abs/10.1111/jmcb.12188][Wachter - The Housing and Credit Bubbles in the United States and Europe: A Comparison]]
+   :PROPERTIES:
+   :YEAR:     2015
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :END:    
+#+BEGIN_SRC bibtex
+@Article{Wachter_bubbles_2015,
+  author       = {Wachter, Susan},
+  title	       = {The Housing and Credit Bubbles in the United States and Europe: A Comparison},
+  year	       = {2015},
+  volume       = {47},
+  number       = {S1},
+  month	       = {Mar},
+  pages	       = {37–42},
+  doi	       = {10.1111/jmcb.12188},
+  url	       = {http://dx.doi.org/10.1111/jmcb.12188},
+  journal      = {Journal of Money, Credit and Banking},
+  publisher    = {Wiley}
+}
+#+END_SRC
+
 * [#A] Mortgage interest rate
 * [#A] Financial crisis
 ** SKIM [#B] [[https://doi.org/10.1080/00076791.2013.800967][Blancheton et al - The French paradox: A financial crisis during the golden age of the 1960s]] :France:
@@ -512,7 +859,26 @@
    :COUNTRY: ?
    :END:    
 
-
+** READ [#B] Lea - International Comparison of Mortgage Product         :QCA:
+   :PROPERTIES:
+   :YEAR:     2010
+   :ZOTERO:   Partial
+   :TYPE:     Thechnical
+   :STATUS:   Downloaded
+   :RELEVANCE: High
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+** READ [#B] Westermann - Housing finance in the euro area              :QCA:
+   :PROPERTIES:
+   :YEAR:     2010
+   :ZOTERO:   Partial
+   :TYPE:     Thechnical
+   :STATUS:   Downloaded
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
 ** PARTIAL [#A] [[https://www.imf.org/~/media/Websites/IMF/imported-full-text-pdf/external/pubs/ft/wp/2008/_wp08224.ashx][IMF - Systemic Banking Crises: A New Database]]
    :PROPERTIES:
    :YEAR: 2008
@@ -523,6 +889,92 @@
    :IMPACT:   High
    :CITE:     Yes
    :END:    
+** SKIM [#A] [[https://link.springer.com/article/10.1007%2Fs11146-019-09705-z][Agnello et all - The Housing Cycle: What Role for Mortgage Market Development and Housing Finance?]] :QCA:
+   :PROPERTIES:
+   :YEAR:     2020
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Agnello_Cycle_2019,
+  author       = {Agnello, Luca and Castro, Vitor and Sousa, Ricardo M.},
+  title	       = {The Housing Cycle: What Role for Mortgage Market Development and Housing Finance?},
+  year	       = {2019},
+  volume       = {61},
+  number       = {4},
+  month	       = {Jun},
+  pages	       = {607–670},
+  doi	       = {10.1007/s11146-019-09705-z},
+  url	       = {http://dx.doi.org/10.1007/s11146-019-09705-z},
+  journal      = {The Journal of Real Estate Finance and Economics},
+  publisher    = {Springer Science and Business Media LLC}
+}
+#+END_SRC
+** PARTIAL [#A] [[https://www.ijcb.org/journal/ijcb16q2a3.htm][Bover et al - The distribution of debt across euro-area countries: the role of individual characteristics, institutions, and credit conditions]]
+   :PROPERTIES:
+   :YEAR:     2016
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :END:    
+** PARTIAL [#B] [[https://www.oecd-ilibrary.org/docserver/5kgk8t2k9vf3-en.pdf?expires=1601577774&id=id&accname=guest&checksum=ACA0089C73178336532B9AB2C723EFC2][Andrews et al - Housing Markets and Structural Policiesin OECD Countries]]
+   :PROPERTIES:
+   :YEAR:     2011
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+FIX BIB
+
+#+BEGIN_SRC bibtex
+@Article{Andrews_OECD_2011,
+  year	       = {2011},
+  month	       = {Jan},
+  issn	       = {1815-1973},
+  doi	       = {10.1787/5kgk8t2k9vf3-en},
+  url	       = {http://dx.doi.org/10.1787/5kgk8t2k9vf3-en},
+  journal      = {OECD Economics Department Working Papers},
+  publisher    = {Organisation for Economic Co-Operation and
+                  Development (OECD)}
+}
+#+END_SRC
+
+** PARTIAL [#C] [[https://ec.europa.eu/economy_finance/publications/economic_paper/2012/pdf/ecp_457_en.pdf][Vandevyvere and Zenthöfer - The housing market in the Netherlands]]
+   :PROPERTIES:
+   :YEAR:     2012
+   :ZOTERO:   Entry
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :COUNTRY: Netherlands
+   :END:    
+
+** READ [#A] [[https://www.ecb.europa.eu/pub/pdf/scpops/ecbocp101.pdf][European Central Bank - Housing Finance in the Euro Area]]
+   :PROPERTIES:
+   :YEAR:     2009
+   :ZOTERO:   Partial
+   :TYPE:     Thechnical
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :END:    
+
+*Zotero file:* ecbocp101.pdf
 
 * HTML headers                                              :noexport:ignore:
 

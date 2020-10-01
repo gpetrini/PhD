@@ -16,18 +16,6 @@
 #+PROPERTY: COUNTRY
 
 
-* HTML headers                                              :noexport:ignore:
-
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
-#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
-
-#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
-#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
-#+HTML_HEAD: <style> #content{max-width:1800px;}</style>
-#+CSL_STYLE: associacao-brasileira-de-normas-tecnicas-ipea.csl
-
 
 * [#A] Survey 
   :PROPERTIES:
@@ -39,22 +27,22 @@
 #+BEGIN: columnview :maxlevel 3 :id global
 | TYPE       | PRIORITY | Decision | Title                                                                                                                              | YEAR | ISO3 | STATUS     | CITE |
 |------------+----------+----------+------------------------------------------------------------------------------------------------------------------------------------+------+------+------------+------|
-|            | B        |          | HTML headers                                                                                                                       |      |      |            |      |
 |            | A        |          | Survey                                                                                                                             |      |      |            |      |
 |            | B        |          | Literature survey                                                                                                                  |      |      |            |      |
 |            | B        |          | Hypothesis testing survey                                                                                                          |      |      |            |      |
 |            | A        |          | Books                                                                                                                              |      |      |            |      |
-| Manual     | A        | READ     | [[https://www.emerald.com/insight/publication/doi/10.1016/S0731-9053(2001)15][Baltagi - Nonstationary Panels, Panel Cointegration, and Dynamic Panels: Volume 15]]                                                 | 2000 |      | Downloaded | Yes  |
+| Manual     | A        | PARTIAL  | [[https://oxford.universitypressscholarship.com/view/10.1093/acprof:oso/9780198736912.001.0001/acprof-9780198736912][Pesaran - Time Series and Panel Data Econometrics]]                                                                                  | 2015 |      | Downloaded | Yes  |
+| Manual     | A        | PARTIAL  | [[https://www.emerald.com/insight/publication/doi/10.1016/S0731-9053(2001)15][Baltagi - Nonstationary Panels, Panel Cointegration, and Dynamic Panels: Volume 15]]                                                 | 2000 |      | Downloaded | Yes  |
 | Review     | A        | SKIM     | [[https://www.emerald.com/insight/content/doi/10.1016/S0731-9053(00)15002-9/full/html][Baltagi and Kao - Nonstationary panels, cointegration in panels and dynamic panels: A survey]]                                       | 2000 |      | Downloaded | Yes  |
 | Thechnical | C        | MAYBE    | [[https://www.emerald.com/insight/content/doi/10.1016/S0731-9053(00)15003-0/full/html][Blundel et al - Estimation in dynamic panel data models: Improving on the performance of the standard GMM estimator]]                | 2000 |      | Downloaded | Wait |
 | Thechnical | A        | WAIT     | [[https://www.emerald.com/insight/content/doi/10.1016/S0731-9053(00)15004-2/full/html][Pedroni - Fully modified OLS for heterogeneous cointegrated panels]]                                                                 | 2001 |      | Filed      | Yes  |
 | Thechnical | B        | SKIM     | [[https://www.emerald.com/insight/content/doi/10.1016/S0731-9053(00)15007-8/full/html][Kao and Chiang - On the estimation and inference of a cointegrated regression in panel data]]                                        | 2001 |      | Filed      | Wait |
 | Case       | A        | READ     | [[https://www.emerald.com/insight/content/doi/10.1016/S0731-9053(00)15008-X/full/html][Murray and Papell - Testing for unit roots in panels in the presence of structural change with an application to OECD unemployment]] | 2001 |      | Filed      | Wait |
 | Thechnical | B        | SKIM     | [[https://www.emerald.com/insight/content/doi/10.1016/S0731-9053(00)15010-8/full/html][Yin and Wu - Stationarity tests in heterogeneous panels]]                                                                            | 2001 |      | Filed      | Yes  |
-|            | A        | READ     | [[https://link.springer.com/book/10.1007/978-3-540-75892-1][Mátyás and Sevestre - The Econometrics of Panel Data: Vol 46]]                                                                       |      |      |            |      |
+|            | C        | PARTIAL  | [[https://link.springer.com/book/10.1007/978-3-540-75892-1][Mátyás and Sevestre - The Econometrics of Panel Data: Vol 46]]                                                                       |      |      |            |      |
 | Thechnical | A        | READ     | [[https://link.springer.com/chapter/10.1007/978-3-540-75892-1_9][Breitung and Pesaran - Unit Roots and Cointegration in Panels]]                                                                      | 2008 |      | Filed      | Yes  |
 | Thechnical | A        | READ     | [[https://link.springer.com/chapter/10.1007/978-3-540-75892-1_2][Balestra and Krishnakumar - Fixed Effects Models and Fixed Coefficients Models]]                                                     | 2008 |      | Downloaded | Yes  |
-|            | A        | READ     | [[https://link.springer.com/book/10.1007/978-3-540-75892-1][Baltagi and Bresson - The Econometrics of multi-dimensional Panels: Vol 50]]                                                         |      |      |            |      |
+|            | B        | PARTIAL  | [[https://link.springer.com/book/10.1007/978-3-540-75892-1][Baltagi and Bresson - The Econometrics of multi-dimensional Panels: Vol 50]]                                                         |      |      |            |      |
 | Thechnical | A        | SKIM     | [[https://link.springer.com/chapter/10.1007/978-3-319-60783-2_2][Balazsi, Baltagi, Matyas and Pus -  Random Effects Models]]                                                                          | 2017 |      | Filed      | Yes  |
 | Thechnical | A        | SKIM     | [[https://link.springer.com/chapter/10.1007/978-3-319-60783-2_1][Balazsi, Laszlo and Wansbeek - Fixed Effects Models]]                                                                                | 2017 |      | Filed      | Yes  |
 | Case       | A        | READ     | [[https://link.springer.com/chapter/10.1007/978-3-319-60783-2_12][Baltagi and Bresson - Modelling Housing Using Multi-dimensional Panel Data]]                                                         | 2017 |      | Filed      | Yes  |
@@ -73,6 +61,7 @@
 |            | A        |          | Software                                                                                                                           |      |      |            |      |
 | Review     | C        | PARTIAL  | [[https://link.springer.com/chapter/10.1007/978-3-540-75892-1_26][Blanchard - Software Review]]                                                                                                        | 2008 |      | Filed      | Wait |
 | Manual     | B        | PARTIAL  | [[https://www.stata.com/manuals13/xt.pdf][Stata 13 XT]]                                                                                                                        | 2013 |      | Filed      | No   |
+|            | B        |          | HTML headers                                                                                                                       |      |      |            |      |
 |            | B        |          | References                                                                                                                         |      |      |            |      |
 #+END
 
@@ -99,7 +88,34 @@
 
 * [#A] Books
 
-** READ [#A] [[https://www.emerald.com/insight/publication/doi/10.1016/S0731-9053(2001)15][Baltagi - Nonstationary Panels, Panel Cointegration, and Dynamic Panels: Volume 15]]
+** PARTIAL [#A] [[https://oxford.universitypressscholarship.com/view/10.1093/acprof:oso/9780198736912.001.0001/acprof-9780198736912][Pesaran - Time Series and Panel Data Econometrics]]
+   :PROPERTIES:
+   :YEAR:     2015
+   :ZOTERO:   Yes
+   :TYPE:     Manual
+   :STATUS:   Downloaded
+   :RELEVANCE: High
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :END:    
+
+*Reading parts:* Part VI onwards + selected sections of Part II
+
+#+BEGIN_SRC bibtex
+@Article{Pesaran_Manual_2015,
+  author       = {Pesaran, M. Hashem},
+  title	       = {Time Series and Panel Data Econometrics},
+  year	       = {2015},
+  month	       = {Oct},
+  doi	       = {10.1093/acprof:oso/9780198736912.001.0001},
+  url	       = {http://dx.doi.org/10.1093/acprof:oso/9780198736912.001.0001},
+  isbn	       = {9780198736912},
+  publisher    = {Oxford University Press}
+}
+#+END_SRC
+
+
+** PARTIAL [#A] [[https://www.emerald.com/insight/publication/doi/10.1016/S0731-9053(2001)15][Baltagi - Nonstationary Panels, Panel Cointegration, and Dynamic Panels: Volume 15]]
    :PROPERTIES:
    :YEAR:     2000
    :ZOTERO:   Yes
@@ -253,8 +269,7 @@
 }
 #+END_SRC
 
-
-** READ [#A] [[https://link.springer.com/book/10.1007/978-3-540-75892-1][Mátyás and Sevestre - The Econometrics of Panel Data: Vol 46]] 
+** PARTIAL [#C] [[https://link.springer.com/book/10.1007/978-3-540-75892-1][Mátyás and Sevestre - The Econometrics of Panel Data: Vol 46]] 
 *** READ [#A] [[https://link.springer.com/chapter/10.1007/978-3-540-75892-1_9][Breitung and Pesaran - Unit Roots and Cointegration in Panels]]
    :PROPERTIES:
    :YEAR:     2008
@@ -301,7 +316,7 @@
 }
 #+END_SRC
 
-** READ [#A] [[https://link.springer.com/book/10.1007/978-3-540-75892-1][Baltagi and Bresson - The Econometrics of multi-dimensional Panels: Vol 50]] 
+** PARTIAL [#B] [[https://link.springer.com/book/10.1007/978-3-540-75892-1][Baltagi and Bresson - The Econometrics of multi-dimensional Panels: Vol 50]] 
 *** SKIM [#A] [[https://link.springer.com/chapter/10.1007/978-3-319-60783-2_2][Balazsi, Baltagi, Matyas and Pus -  Random Effects Models]]
    :PROPERTIES:
    :YEAR:     2017
@@ -555,6 +570,19 @@
    :IMPACT:   Low
    :CITE:     No
    :END:    
+
+* HTML headers                                              :noexport:ignore:
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+
+#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+#+HTML_HEAD: <style> #content{max-width:1800px;}</style>
+#+CSL_STYLE: associacao-brasileira-de-normas-tecnicas-ipea.csl
+
 
 * References                                                         :ignore:
 
