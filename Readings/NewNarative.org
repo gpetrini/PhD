@@ -37,12 +37,108 @@
   :END:
 
 
-  #+BEGIN: columnview :maxlevel 3 :id global
-  #+END
+#+BEGIN: columnview :maxlevel 3 :id global
+| TYPE      | PRIORITY | Decision | Title                                                                                                                                      | YEAR | ISO3 | STATUS     | CITE |
+|-----------+----------+----------+--------------------------------------------------------------------------------------------------------------------------------------------+------+------+------------+------|
+|           | B        |          | HTML headers                                                                                                                               |      |      |            |      |
+|           | A        |          | Survey                                                                                                                                     |      |      |            |      |
+|           | B        |          | Subprime crises interpretations                                                                                                            |      |      |            |      |
+|           | B        |          | Old Narrative                                                                                                                              |      |      |            |      |
+| Case      | A        | READ     | [[https://scholar.harvard.edu/files/straub/files/mss_richsavingglut.pdf][Mian et al - The Saving Glut of the Rich]]                                                                                                   | 2020 |      | Filed      | Yes  |
+| Empirical | A        | READ     | [[https://academic.oup.com/qje/article-abstract/124/4/1449/1917185?redirectedFrom=fulltext][Mian and Sufi - The Consequences of Mortgage Credit Expansion: Evidence from the U.S. Mortgage Default Crisis]]                              | 2009 |      | Filed      | Yes  |
+| Empirical | A        | READ     | [[https://www.aeaweb.org/articles?id=10.1257/aer.101.5.2132][Mian and Sufi - House Prices, Home Equity-Based Borrowing, and the US Household Leverage Crisis]]                                            | 2011 |      | Filed      | Yes  |
+|           | B        |          | Supply-side                                                                                                                                |      |      |            |      |
+| Empirical | C        | READ     | [[https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1669401][Levitin and Wachter - Explaining the Housing Bubble]]                                                                                        | 2010 |      | Filed      | Wait |
+|           | B        |          | Regulatory framework                                                                                                                       |      |      |            |      |
+| Case      | B        | SKIM     | [[https://academic.oup.com/rfs/article/30/11/3711/3903098#114134095][Di Maggio - Credit-Induced Boom and Bust]]                                                                                                   | 2017 |      | Filed      | Wait |
+|           | B        |          | Household indebtedness/consumption and (?)                                                                                                 |      |      |            |      |
+|           | B        |          | ... Inequality                                                                                                                             |      |      |            |      |
+| Empirical | C        | MAYBE    | [[https://journals.sagepub.com/doi/full/10.1177/2378023117722330][Fligstein - Keeping up with the Joneses: How Households Fared in the Era of High Income Inequality and the Housing Price Bubble, 1999–2007]] | 2017 |      | Filed      | No   |
+| Empirical | B        | MAYBE    | [[https://www.nber.org/papers/w19850][Coibion et al - Does Greater Inequality Lead to More Household Borrowing? New Evidence from Household Data]]                                 | 2014 |      | Filed      | Wait |
+| Empirical | C        | MAYBE    | [[https://www.sciencedirect.com/science/article/pii/S1051137717302693][De Stefani - Debt, inequality and house prices: Explaining the dynamics of household borrowing prior to the great recession]]                | 2020 |      | Filed      | Wait |
+|           | B        |          | ... House prices                                                                                                                           |      |      |            |      |
+| Theory    | C        | SKIM     | [[https://www.nber.org/papers/w21667][Berger - House Prices and Consumer Spending]]                                                                                                | 2017 |      | Filed      | Wait |
+| Case      | C        | SKIM     | [[https://www.aeaweb.org/articles?id=10.1257/aer.20180086&&from=f][Cloyne et al - The Effect of House Prices on Household Borrowing: A New Approach]]                                                           | 2019 |      | Filed      | Wait |
+|           | B        |          | New Narrative associated                                                                                                                   |      |      |            |      |
+| Empirical | A        | SKIM     | [[https://academic.oup.com/rfs/article/29/7/1635/2607168][Adelino et al - Loan Originations and Defaults in the Mortgage Crisis: The Role of the Middle Class]]                                        | 2016 |      | Downloaded | Yes  |
+| Case      | A        | SKIM     | [[https://www.annualreviews.org/doi/abs/10.1146/annurev-financial-110217-023036][Adelino et al - The Role of Housing and Mortgage Markets in the Financial Crisis]]                                                           | 2018 |      | Filed      | Yes  |
+| Empirical | A        | READ     | [[https://www.nber.org/papers/w23740.pdf][Albanesi et al - Credit Growth and the Financial Crisis: A New Narrative]]                                                                   | 2017 |      | Filed      | Yes  |
+| Empirical | A        | SKIM     | [[https://www.nber.org/papers/w22985][Foote et al -  Cross-sectional patterns of mortgage debt during the housing boom: evidence and implications]]                                | 2016 |      | Filed      | Yes  |
+| Empirical | C        | SKIM     | [[https://www.newyorkfed.org/medialibrary/media/research/staff_reports/sr514.pdf][Haughwout et al - Real Estate Investors, the Leverage Cycle, and the Housing Market Crisis]]                                                 | 2011 |      | Filed      | Wait |
+| Empirical | C        | SKIM     | [[https://www.sciencedirect.com/science/article/abs/pii/S0304393215000215][Bhutta - The ins and outs of mortgage debt during the housing boom and bust]]                                                                | 2015 |      | Filed      | Wait |
+| Theory    | C        | MAYBE    | [[https://www.sciencedirect.com/science/article/pii/S1574004816300143][Guerrieri and Uhlig - Housing and Credit Markets: Booms and Busts]]                                                                          | 2016 |      | Filed      | Wait |
+#+END
 
 
 
 * Subprime crises interpretations
+
+** Old Narrative
+*** READ [#A] [[https://scholar.harvard.edu/files/straub/files/mss_richsavingglut.pdf][Mian et al - The Saving Glut of the Rich]]
+   :PROPERTIES:
+   :YEAR:     2020
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   High
+   :CITE:     Yes
+   :END:    
+*** READ [#A] [[https://academic.oup.com/qje/article-abstract/124/4/1449/1917185?redirectedFrom=fulltext][Mian and Sufi - The Consequences of Mortgage Credit Expansion: Evidence from the U.S. Mortgage Default Crisis]]
+   :PROPERTIES:
+   :YEAR:     2009
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   High
+   :CITE:     Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Mian_Credit_2009,
+  author       = {Mian, Atif and Sufi, Amir},
+  title	       = {The Consequences of Mortgage Credit Expansion:
+                  Evidence from the U.S. Mortgage Default Crisis*},
+  year	       = {2009},
+  volume       = {124},
+  number       = {4},
+  month	       = {Nov},
+  pages	       = {1449–1496},
+  doi	       = {10.1162/qjec.2009.124.4.1449},
+  url	       = {http://dx.doi.org/10.1162/qjec.2009.124.4.1449},
+  journal      = {Quarterly Journal of Economics},
+  publisher    = {Oxford University Press (OUP)}
+}
+#+END_SRC
+
+*** READ [#A] [[https://www.aeaweb.org/articles?id=10.1257/aer.101.5.2132][Mian and Sufi - House Prices, Home Equity-Based Borrowing, and the US Household Leverage Crisis]]
+   :PROPERTIES:
+   :YEAR:     2011
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   High
+   :CITE:     Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Mian_House_2011,
+  author       = {Mian, Atif and Sufi, Amir},
+  title	       = {House Prices, Home Equity–Based Borrowing, and the US Household Leverage Crisis},
+  year	       = {2011},
+  volume       = {101},
+  number       = {5},
+  month	       = {Aug},
+  pages	       = {2132–2156},
+  doi	       = {10.1257/aer.101.5.2132},
+  url	       = {http://dx.doi.org/10.1257/aer.101.5.2132},
+  journal      = {American Economic Review},
+  publisher    = {American Economic Association}
+}
+#+END_SRC
+
 
 ** Supply-side
 
@@ -72,11 +168,66 @@
 
 
 
-* Household indebtedness and (?)
+** Regulatory framework
+*** SKIM [#B] [[https://academic.oup.com/rfs/article/30/11/3711/3903098#114134095][Di Maggio - Credit-Induced Boom and Bust]]
+   :PROPERTIES:
+   :YEAR:     2017
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{DiMaggio_Regulatory_2017,
+  author       = {Di Maggio, Marco and Kermani, Amir},
+  title	       = {Credit-Induced Boom and Bust},
+  year	       = {2017},
+  volume       = {30},
+  number       = {11},
+  month	       = {Jun},
+  pages	       = {3711–3758},
+  doi	       = {10.1093/rfs/hhx056},
+  url	       = {http://dx.doi.org/10.1093/rfs/hhx056},
+  journal      = {The Review of Financial Studies},
+  publisher    = {Oxford University Press (OUP)}
+}
+#+END_SRC
+
+
+* Household indebtedness/consumption and (?)
 
 ** ... Inequality
 
-*** [[https://www.nber.org/papers/w19850][Coibion et al - Does Greater Inequality Lead to More Household Borrowing? New Evidence from Household Data]]
+*** MAYBE [#C] [[https://journals.sagepub.com/doi/full/10.1177/2378023117722330][Fligstein - Keeping up with the Joneses: How Households Fared in the Era of High Income Inequality and the Housing Price Bubble, 1999–2007]]
+   :PROPERTIES:
+   :YEAR:     2017
+   :ZOTERO:   Entry
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     No
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Fligstein_Joneses_2017,
+  author       = {Fligstein, Neil and Hastings, Orestes P. and Goldstein, Adam},
+  title	       = {Keeping up with the Joneses: How Households Fared in the Era of High Income Inequality and the Housing Price Bubble, 1999–2007},
+  year	       = {2017},
+  volume       = {3},
+  month	       = {Aug},
+  doi	       = {10.1177/2378023117722330},
+  url	       = {http://dx.doi.org/10.1177/2378023117722330},
+  journal      = {Socius: Sociological Research for a Dynamic World},
+  publisher    = {SAGE Publications}
+}
+#+END_SRC
+
+
+*** MAYBE [#B] [[https://www.nber.org/papers/w19850][Coibion et al - Does Greater Inequality Lead to More Household Borrowing? New Evidence from Household Data]]
    :PROPERTIES:
    :YEAR:     2014
    :ZOTERO:   Yes
@@ -99,6 +250,328 @@
 }
 #+END_SRC
 
+
+
+*** MAYBE [#C] [[https://www.sciencedirect.com/science/article/pii/S1051137717302693][De Stefani - Debt, inequality and house prices: Explaining the dynamics of household borrowing prior to the great recession]]
+   :PROPERTIES:
+   :YEAR:     2020
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Stefani_2020,
+  author       = {Stefani, Alessia De},
+  title	       = {Debt, inequality and house prices: Explaining the dynamics of household borrowing prior to the great recession},
+  year	       = {2020},
+  volume       = {47},
+  month	       = {Mar},
+  doi	       = {10.1016/j.jhe.2018.09.001},
+  url	       = {http://dx.doi.org/10.1016/j.jhe.2018.09.001},
+  journal      = {Journal of Housing Economics},
+  publisher    = {Elsevier BV}
+}
+#+END_SRC
+
+*** SKIM [#B] [[https://ideas.repec.org/p/red/sed017/931.html][Kuhn et al - Income and Wealth Inequality in America, 1949–2013]]
+   :PROPERTIES:
+   :YEAR:     2017
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :END:    
+
+** ... House prices
+
+*** SKIM [#C] [[https://www.nber.org/papers/w21667][Berger - House Prices and Consumer Spending]]
+   :PROPERTIES:
+   :YEAR:     2017
+   :ZOTERO:   Yes
+   :TYPE:     Theory
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Regular
+   :CITE:     Wait
+   :END:    
+
+** SKIM [#C] [[https://www.aeaweb.org/articles?id=10.1257/aer.20180086&&from=f][Cloyne et al - The Effect of House Prices on Household Borrowing: A New Approach]]
+   :PROPERTIES:
+   :YEAR:     2019
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Cloyne_Borrowing_2019,
+  author       = {Cloyne, James and Huber, Kilian and Ilzetzki, Ethan and Kleven, Henrik},
+  title	       = {The Effect of House Prices on Household Borrowing: A New Approach},
+  year	       = {2019},
+  volume       = {109},
+  number       = {6},
+  month	       = {Jun},
+  pages	       = {2104–2136},
+  doi	       = {10.1257/aer.20180086},
+  url	       = {http://dx.doi.org/10.1257/aer.20180086},
+  journal      = {American Economic Review},
+  publisher    = {American Economic Association}
+}
+#+END_SRC
+
+
+* New Narrative associated
+
+** SKIM [#A] [[https://academic.oup.com/rfs/article/29/7/1635/2607168][Adelino et al - Loan Originations and Defaults in the Mortgage Crisis: The Role of the Middle Class]]
+   :PROPERTIES:
+   :YEAR:     2016
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Downloaded
+   :RELEVANCE: High
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Adelino_Defaults_2016,
+  author       = {Adelino, Manuel and Schoar, Antoinette and Severino, Felipe},
+  title	       = {Loan Originations and Defaults in the Mortgage Crisis: The Role of the Middle Class},
+  year	       = {2016},
+  volume       = {29},
+  number       = {7},
+  month	       = {Mar},
+  pages	       = {1635–1670},
+  issn	       = {1465-7368},
+  doi	       = {10.1093/rfs/hhw018},
+  url	       = {http://dx.doi.org/10.1093/rfs/hhw018},
+  journal      = {Review of Financial Studies},
+  publisher    = {Oxford University Press (OUP)}
+}
+#+END_SRC
+
+
+** SKIM [#A] [[https://www.annualreviews.org/doi/abs/10.1146/annurev-financial-110217-023036][Adelino et al - The Role of Housing and Mortgage Markets in the Financial Crisis]]
+   :PROPERTIES:
+   :YEAR:     2018
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Adelino_Housing_2018,
+  author       = {Adelino, Manuel and Schoar, Antoinette and Severino, Felipe},
+  title	       = {The Role of Housing and Mortgage Markets in the Financial Crisis},
+  year	       = {2018},
+  volume       = {10},
+  number       = {1},
+  month	       = {Nov},
+  pages	       = {25–41},
+  issn	       = {1941-1375},
+  doi	       = {10.1146/annurev-financial-110217-023036},
+  url	       = {http://dx.doi.org/10.1146/annurev-financial-110217-023036},
+  journal      = {Annual Review of Financial Economics},
+  publisher    = {Annual Reviews}
+}
+#+END_SRC
+
+
+** READ [#A] [[https://www.nber.org/papers/w23740.pdf][Albanesi et al - Credit Growth and the Financial Crisis: A New Narrative]]
+   :PROPERTIES:
+   :YEAR:     2017
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   High
+   :CITE:     Yes
+   :END:    
+
+
+** SKIM [#A] [[https://www.nber.org/papers/w22985][Foote et al -  Cross-sectional patterns of mortgage debt during the housing boom: evidence and implications]]
+   :PROPERTIES:
+   :YEAR:     2016
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:    
+#+BEGIN_SRC bibtex
+@Article{Foote_Implications_2016,
+  author       = {Foote, Christopher and Loewenstein, Lara and Willen, Paul},
+  title	       = {Cross-Sectional Patterns of Mortgage Debt during the Housing Boom: Evidence and Implications},
+  year	       = {2016},
+  month	       = {Dec},
+  doi	       = {10.3386/w22985},
+  url	       = {http://dx.doi.org/10.3386/w22985},
+  publisher    = {National Bureau of Economic Research}
+}
+#+END_SRC
+
+** SKIM [#C] [[https://www.newyorkfed.org/medialibrary/media/research/staff_reports/sr514.pdf][Haughwout et al - Real Estate Investors, the Leverage Cycle, and the Housing Market Crisis]]
+   :PROPERTIES:
+   :YEAR:     2011
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+* Data  
+
+** SKIM [#C] [[https://www.sciencedirect.com/science/article/abs/pii/S0304393215000215][Bhutta - The ins and outs of mortgage debt during the housing boom and bust]]
+   :PROPERTIES:
+   :YEAR:     2015
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Regular
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Bhutta_mortgage_2015,
+  author       = {Bhutta, Neil},
+  title	       = {The ins and outs of mortgage debt during the housing boom and bust},
+  year	       = {2015},
+  volume       = {76},
+  month	       = {Nov},
+  pages	       = {284–298},
+  doi	       = {10.1016/j.jmoneco.2015.02.005},
+  url	       = {http://dx.doi.org/10.1016/j.jmoneco.2015.02.005},
+  journal      = {Journal of Monetary Economics},
+  publisher    = {Elsevier BV}
+}
+#+END_SRC
+
+** SKIM [#A] [[https://www.aeaweb.org/articles?id=10.1257/aer.20140040][Bhutta and Keys - Interest Rates and Equity Extraction during the Housing Boom]]
+   :PROPERTIES:
+   :YEAR:     2016
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Bhutta_Extraction_2016,
+  author       = {Bhutta, Neil and Keys, Benjamin J.},
+  title	       = {Interest Rates and Equity Extraction During the Housing Boom},
+  year	       = {2016},
+  volume       = {106},
+  number       = {7},
+  month	       = {Jul},
+  pages	       = {1742–1774},
+  doi	       = {10.1257/aer.20140040},
+  url	       = {http://dx.doi.org/10.1257/aer.20140040},
+  journal      = {American Economic Review},
+  publisher    = {American Economic Association}
+}
+#+END_SRC
+
+** MAYBE [#C] [[https://www.jstor.org/stable/2667357?seq=1][Case et al - Real Estate and the Macroeconomy]]
+   :PROPERTIES:
+   :YEAR:     2000
+   :ZOTERO:   Entry
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Regular
+   :CITE:     Wait
+   :END:    
+** ARCH [[https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1520563][Kooper - Did Easy Credit Lead to Overspending? Home Equity Borrowing and Household Behavior in the Early 2000s]]
+   CLOSED: [2020-10-02 sex 16:14]
+   :PROPERTIES:
+   :YEAR:     2010
+   :ZOTERO:   Entry
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     No
+   :END:    
+** ARCH [[http://www.ericzwick.com/volume/volume.pdf][DeFusco et al - Speculative Dynamics of Prices and Volume]]
+   CLOSED: [2020-10-02 sex 16:19]
+   :PROPERTIES:
+   :YEAR:     2020
+   :ZOTERO:   Entry
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: None
+   :IMPACT:   Low
+   :CITE:     No
+   :END:    
+
+* Modelling
+
+** MAYBE [#C] [[https://www.sciencedirect.com/science/article/pii/S1574004816300143][Guerrieri and Uhlig - Housing and Credit Markets: Booms and Busts]]
+   :PROPERTIES:
+   :YEAR:     2016
+   :ZOTERO:   Entry
+   :TYPE:     Theory
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Guerrieri_Credit_2016,
+  author       = {Guerrieri, V. and Uhlig, H.},
+  title	       = {Housing and Credit Markets},
+  year	       = {2016},
+  pages	       = {1427–1496},
+  doi	       = {10.1016/bs.hesmac.2016.06.001},
+  url	       = {http://dx.doi.org/10.1016/bs.hesmac.2016.06.001},
+  journal      = {Handbook of Macroeconomics},
+  publisher    = {Elsevier}
+}
+#+END_SRC
+
+** READ [#B] [[https://www.nber.org/papers/w23694][Kaplan et al - The Housing Boom and Bust: Model Meets Evidence]]
+   :PROPERTIES:
+   :YEAR:     2017
+   :ZOTERO:   Yes
+   :TYPE:     Theory
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Kaplan_2017,
+  author       = {Kaplan, Greg and Mitman, Kurt and Violante,
+                  Giovanni},
+  title	       = {The Housing Boom and Bust: Model Meets Evidence},
+  year	       = {2017},
+  month	       = {Aug},
+  doi	       = {10.3386/w23694},
+  url	       = {http://dx.doi.org/10.3386/w23694},
+  publisher    = {National Bureau of Economic Research}
+}
+#+END_SRC
+        
 
 * References                                                         :ignore:
 
