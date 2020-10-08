@@ -1,3 +1,4 @@
+#+OPTIONS: num:nil
 #+TITLE: Agent Based Model Readings
 #+AUTHOR: Gabriel Petrini
 #+ARCHIVE: %s_read::
@@ -15,6 +16,8 @@
 #+PROPERTY: COUNTRY
 
 
+- Search [[http://www.brettparris.com/econometrics/]] from Finance onwards
+
 * HTML headers                                              :noexport:ignore:
 
   #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
@@ -29,7 +32,6 @@
 
 
 
-
 * [#A] Survey 
   :PROPERTIES:
   :UNNUMBERED: t
@@ -37,10 +39,62 @@
 
 
 #+BEGIN: columnview :maxlevel 3 :id global
+| TYPE       | PRIORITY | Decision | Title                                                                                                                                                    | YEAR | ISO3 | STATUS | CITE |
+|------------+----------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------------+------+------+--------+------|
+|            | B        |          | HTML headers                                                                                                                                             |      |      |        |      |
+|            | A        |          | Survey                                                                                                                                                   |      |      |        |      |
+|            | B        |          | Usefull links                                                                                                                                            |      |      |        |      |
+|            | B        |          | [[http://jasss.soc.surrey.ac.uk/8/1/5.html][JASS - Journal of Artificial Societies and Social Simulation]]                                                                                             |      |      |        |      |
+|            | B        |          | [[http://www2.econ.iastate.edu/classes/econ308/tesfatsion/sylVIITrento.LT.htm][VII Trento Summer School ]]                                                                                                                                |      |      |        |      |
+|            | B        |          | [[http://www.brettparris.com/abm/][Brettparis]]                                                                                                                                               |      |      |        |      |
+|            | B        |          | [[https://www.comses.net/resources/education/][Educational Materials]]                                                                                                                                    |      |      |        |      |
+|            | B        |          | [[http://www2.econ.iastate.edu/tesfatsi/ace.htm][ABM Repo]]                                                                                                                                                 |      |      |        |      |
+|            | B        |          | [[http://www2.econ.iastate.edu/tesfatsi/abmread.htm#Readings][ABM for new users]]                                                                                                                                        |      |      |        |      |
+|            | B        |          | [[https://www.complexityexplorer.org/courses/101-introduction-to-agent-based-modeling-spring-2020/segments/9191?summary][Intro to ABM Course]]                                                                                                                                      |      |      |        |      |
+|            | B        |          | [[http://www2.econ.iastate.edu/tesfatsi/publish.htm][Journals]]                                                                                                                                                 |      |      |        |      |
+|            | B        |          | [[http://www2.econ.iastate.edu/classes/econ308/tesfatsion/syl308.htm][Syllabus for Economics 308]]                                                                                                                               |      |      |        |      |
+|            | B        |          | Books                                                                                                                                                    |      |      |        |      |
+| Theory     | B        | REF      | [[http://gen.lib.rus.ec/book/index.php?md5=4CBC5AFE486F8150371F018B1B015F20][Epstien and Axtell - Growing Artificial Societies: Social Science From the Bottom Up]]                                                                     | 1996 |      | Filed  | Yes  |
+| Theory     | A        | PARTIAL  | [[http://gen.lib.rus.ec/book/index.php?md5=60AED5BA853C46B130B8DA239A3F60FE][Delli Gatti et al - Emergent Macroeconomics: An Agent-Based Approach to Business Fluctuations]]                                                            | 2008 |      | Filed  | Yes  |
+| Manual     | B        | PARTIAL  | [[http://gen.lib.rus.ec/book/index.php?md5=88C473B42DF5B33ED2334D46F5691704][Delli Gatti et al - Macroeconomics from the Bottom-up]]                                                                                                    | 2011 |      | Filed  | Yes  |
+|            | B        |          | First steps, Canonicals and concepts                                                                                                                     |      |      |        |      |
+| Manual     | A        | READ     | Gilbert - AGENT-BASED MODELS                                                                                                                             | 2008 |      | Filed  | Yes  |
+| Other      | C        | READ     | [[https://www.bankofengland.co.uk/speech/2016/the-dappled-world][Haldane - The dappled world (Speech)]]                                                                                                                     | 2016 |      | Filed  | Yes  |
+| Manual     | A        | PARTIAL  | [[http://www2.econ.iastate.edu/tesfatsi/hbace.htm][Tesfatsion - Handbook of Computational Economics, Vol. 2: Agent-Based Computational Economics]]                                                            | 2006 |      | Filed  | Wait |
+| Review     | A        | READ     | [[https://www.bankofengland.co.uk/-/media/boe/files/quarterly-bulletin/2016/agent-based-models-understanding-the-economy-from-the-bottom-up.pdf?la=en&hash=66A41463EC6EBCDD4B040AA27A8DF7929387A5B6][Turrell  - Agent-based models:  understanding the economy from the bottom up]]                                                                             | 2016 |      | Filed  | Yes  |
+| Manual     | A        | PARTIAL  | [[https://www.amazon.co.uk/Agent-Based-Models-Economics-Domenico-Delli/dp/1108400043/ref=pd_sim_14_1/259-6428882-6123063?_encoding=UTF8&pd_rd_i=1108400043&pd_rd_r=21472ae1-eca0-4128-97c5-0475fe0cfc96&pd_rd_w=Xjf0b&pd_rd_wg=gCSt3&pf_rd_p=8e67ecf5-6d33-440e-afdb-8f596dbe82f6&pf_rd_r=G2Y1FNMG6M3FSCGN23W7&psc=1&refRID=G2Y1FNMG6M3FSCGN23W7][Delli Gatti et al - Agent-Based Models in Economics: A Toolkit]]                                                                                           | 2018 |      | Filed  | Yes  |
+| Review     | C        | READ     | [[https://link.springer.com/article/10.1057/jos.2010.3][Macal and North - Tutorial on agent-based modelling and simulation]]                                                                                       | 2010 |      | Filed  | Yes  |
+|            | B        |          | Empirical procedures, best practices, calibration and validation                                                                                         |      |      |        |      |
+|            | B        |          | Empirical procedures                                                                                                                                     |      |      |        |      |
+| Empirical  | C        | PARTIAL  | [[https://www.ecologyandsociety.org/vol11/iss2/art37/][Jansem and Ostrom - Empirically Based, Agent-based models ]]                                                                                               | 2006 |      | Filed  | Wait |
+|            | B        |          | Validation and Calibration                                                                                                                               |      |      |        |      |
+| Case       | B        | PARTIAL  | [[https://link.springer.com/article/10.1007/s10614-007-9097-z][Cirillo et al - Validating and Calibrating Agent-Based Models: A Case Study]]                                                                              | 2007 |      | Filed  | Wait |
+| Thechnical | C        | READ     | [[https://link.springer.com/article/10.1007/s10614-007-9104-4][Fagiolo et al - A Critical Guide to Empirical Validation of Agent-Based Models in Economics: Methodologies, Procedures, and Open Problems]]                | 2007 |      | Filed  | Yes  |
+| Manual     | B        | READ     | [[https://link.springer.com/article/10.1007/s10614-007-9101-7][Marks - Validating Simulation Models: A General Framework and Four Applied Examples]]                                                                      | 2007 |      | Filed  | Yes  |
+|            | B        |          | Best practices                                                                                                                                           |      |      |        |      |
+| Manual     | C        | SKIM     | [[https://www.sciencedirect.com/science/article/abs/pii/S1364815214000395][Muller et al - Standardised and transparent model descriptions for agent-based models: Current status and prospects]]                                      | 2014 |      | Filed  | Yes  |
+|            | B        |          | Mainstream critiques                                                                                                                                     |      |      |        |      |
+| Theory     | B        | READ     | [[https://academic.oup.com/oxrep/article/34/1-2/219/4781810#107279884][Haldane and Turrel - An interdisciplinary model for macroeconomics]]                                                                                       | 2018 |      | Filed  | Yes  |
+|            | B        |          | Mathematical and thechnical stuff                                                                                                                        |      |      |        |      |
+| Thechnical | A        | READ     | [[https://link.springer.com/article/10.1057%2Feej.2016.2][Tesfatsion - Elements of Dynamic Economic Modeling: Presentation and Analysis]]                                                                            | 2017 |      | Filed  | Yes  |
+| Thechnical | C        | SKIM     | [[http://jasss.soc.surrey.ac.uk/8/1/5.html][Polhill - The Ghost in the Model (and Other Effects of Floating Point Arithmetic)]]                                                                        | 2005 |      | Filed  | Wait |
+|            | B        |          | Households                                                                                                                                               |      |      |        |      |
+| Theory     | B        | SKIM     | [[https://www.sciencedirect.com/science/article/abs/pii/S0264999318303948][Orazio - Income inequality, consumer debt, and prudential regulation: An agent-based approach to study the emergence of crises and financial instability]] | 2019 |      | Filed  | Wait |
+|            | B        |          | Firms                                                                                                                                                    |      |      |        |      |
+| Theory     | A        | READ     | [[http://jasss.soc.surrey.ac.uk/22/1/6.html][Llacay and Peffer - Impact of Basel III Countercyclical Measures on Financial Stability: An Agent-Based Model]]                                            | 2019 |      | Filed  | Wait |
+|            | B        |          | Housing market                                                                                                                                           |      |      |        |      |
+| Theory     | B        | READ     | [[https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2018375][Geanakoplos et al - Getting at Systemic Risk Via an Agent-Based Model of the Housing Market]]                                                              | 2012 |      | Filed  | Yes  |
+| Theory     | C        | READ     | [[http://jasss.soc.surrey.ac.uk/12/1/3.html][Filatova et al - Agent-Based Urban Land Markets: Agent's Pricing Behavior, Land Prices and Urban Land Use Change]]                                         | 2009 |      | Filed  | Wait |
+| Theory     | B        | READ     | [[https://link.springer.com/article/10.1007/s11403-019-00238-5][Ozel et al - Macroeconomic implications of mortgage loan requirements: an agent-based approach]]                                                           | 2019 |      | Filed  | Wait |
+|            | B        |          | Stock prices                                                                                                                                             |      |      |        |      |
+| Theory     | C        | SKIM     | [[http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.130.6439][LeBaron - Building the santa fe artificial stock market]]                                                                                                  | 2002 |      | Filed  | Yes  |
+|            | B        |          | References                                                                                                                                               |      |      |        |      |
 #+END
 
 ** Usefull links
-
+*** [[http://jasss.soc.surrey.ac.uk/8/1/5.html][JASS - Journal of Artificial Societies and Social Simulation]]
+*** [[http://www2.econ.iastate.edu/classes/econ308/tesfatsion/sylVIITrento.LT.htm][VII Trento Summer School ]]
+*** [[http://www.brettparris.com/abm/][Brettparis]]
 *** [[https://www.comses.net/resources/education/][Educational Materials]]
 
 *** [[http://www2.econ.iastate.edu/tesfatsi/ace.htm][ABM Repo]]
@@ -49,20 +103,855 @@
 
 *** [[https://www.complexityexplorer.org/courses/101-introduction-to-agent-based-modeling-spring-2020/segments/9191?summary][Intro to ABM Course]]
 
+*** [[http://www2.econ.iastate.edu/tesfatsi/publish.htm][Journals]]
+*** [[http://www2.econ.iastate.edu/classes/econ308/tesfatsion/syl308.htm][Syllabus for Economics 308]]
+* Books 
+** REF [[http://gen.lib.rus.ec/book/index.php?md5=4CBC5AFE486F8150371F018B1B015F20][Epstien and Axtell - Growing Artificial Societies: Social Science From the Bottom Up]]
+   CLOSED: [2020-10-06 ter 15:58]
+   :PROPERTIES:
+   :YEAR:     1996
+   :ZOTERO:   Entry
+   :TYPE:     Theory
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   High
+   :CITE:     Yes
+   :END:
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
+        
+** PARTIAL [#A] [[http://gen.lib.rus.ec/book/index.php?md5=60AED5BA853C46B130B8DA239A3F60FE][Delli Gatti et al - Emergent Macroeconomics: An Agent-Based Approach to Business Fluctuations]]
+   :PROPERTIES:
+   :YEAR:     2008
+   :ZOTERO:   Entry
+   :TYPE:     Theory
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   High
+   :CITE:     Yes
+   :END:
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
+
+** PARTIAL [#B] [[http://gen.lib.rus.ec/book/index.php?md5=88C473B42DF5B33ED2334D46F5691704][Delli Gatti et al - Macroeconomics from the Bottom-up]]
+   :PROPERTIES:
+   :YEAR:     2011
+   :ZOTERO:   Entry
+   :TYPE:     Manual
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   High
+   :CITE:     Yes
+   :END:
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
+
+
+* First steps, Canonicals and concepts
+** READ [#A] [[https://www.amazon.com/Agent-Based-Models-Quantitative-Applications-Sciences/dp/1506355609/ref=sr_1_1?dchild=1&keywords=Agent-Based+Models+Gilbert%2C+Nigel&qid=1602166449&sr=8-1][Gilbert - AGENT-BASED MODELS (ch 1)]]
+   :PROPERTIES:
+   :YEAR:    2008
+   :ZOTERO:   Partial
+   :TYPE:     Manual
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:
+
+*Zotero File:* AgentBasedModels.Chapter1.NGilbert2008.pdf
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
+
+** READ [#C] [[https://www.bankofengland.co.uk/speech/2016/the-dappled-world][Haldane - The dappled world (Speech)]]
+   :PROPERTIES:
+   :YEAR:     2016
+   :ZOTERO:   Partial
+   :TYPE:     Other
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   High
+   :CITE:     Yes
+   :END:
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
+
+** PARTIAL [#A] [[http://www2.econ.iastate.edu/tesfatsi/hbace.htm][Tesfatsion - Handbook of Computational Economics, Vol. 2: Agent-Based Computational Economics]]
+   :PROPERTIES:
+   :YEAR:    2006
+   :ZOTERO:   No
+   :TYPE:     Manual
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
+
+** READ [#A] [[https://www.bankofengland.co.uk/-/media/boe/files/quarterly-bulletin/2016/agent-based-models-understanding-the-economy-from-the-bottom-up.pdf?la=en&hash=66A41463EC6EBCDD4B040AA27A8DF7929387A5B6][Turrell  - Agent-based models:  understanding the economy from the bottom up]]
+   :PROPERTIES:
+   :YEAR:     2016
+   :ZOTERO:   Partial
+   :TYPE:     Review
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
+
+** PARTIAL [#A] [[https://www.amazon.co.uk/Agent-Based-Models-Economics-Domenico-Delli/dp/1108400043/ref=pd_sim_14_1/259-6428882-6123063?_encoding=UTF8&pd_rd_i=1108400043&pd_rd_r=21472ae1-eca0-4128-97c5-0475fe0cfc96&pd_rd_w=Xjf0b&pd_rd_wg=gCSt3&pf_rd_p=8e67ecf5-6d33-440e-afdb-8f596dbe82f6&pf_rd_r=G2Y1FNMG6M3FSCGN23W7&psc=1&refRID=G2Y1FNMG6M3FSCGN23W7][Delli Gatti et al - Agent-Based Models in Economics: A Toolkit]]
+   :PROPERTIES:
+   :YEAR:     2018
+   :ZOTERO:   Entry
+   :TYPE:     Manual
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :END:
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
+
+** READ [#C] [[https://link.springer.com/article/10.1057/jos.2010.3][Macal and North - Tutorial on agent-based modelling and simulation]]
+   :PROPERTIES:
+   :YEAR:     2010
+   :ZOTERO:   Yes
+   :TYPE:     Review
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:
+
+   #+BEGIN_SRC bibtex
+@Article{Macal_2010,
+  author       = {Macal, C M and North, M J},
+  title	       = {Tutorial on agent-based modelling and simulation},
+  year	       = {2010},
+  volume       = {4},
+  number       = {3},
+  month	       = {Sep},
+  pages	       = {151–162},
+  issn	       = {1747-7786},
+  doi	       = {10.1057/jos.2010.3},
+  url	       = {http://dx.doi.org/10.1057/jos.2010.3},
+  journal      = {Journal of Simulation},
+  publisher    = {Informa UK Limited}
+}
+   #+END_SRC
+** PARTIAL [#A] [[http://jasss.soc.surrey.ac.uk/14/2/5.htmlLink][Issac - The ABM Template Models: A Reformulation with Reference Implementations]]
+   :PROPERTIES:
+   :YEAR:     2011
+   :ZOTERO:   Yes
+   :TYPE:     Manual
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
+
+* Empirical procedures, best practices, calibration and validation
+** Empirical procedures
+*** PARTIAL [#C] [[https://www.ecologyandsociety.org/vol11/iss2/art37/][Jansem and Ostrom - Empirically Based, Agent-based models ]]
+   :PROPERTIES:
+   :YEAR:     2006
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
+
+
+** Validation and Calibration
+*** PARTIAL [#B] [[https://link.springer.com/article/10.1007/s10614-007-9097-z][Cirillo et al - Validating and Calibrating Agent-Based Models: A Case Study]]
+    :PROPERTIES:
+    :YEAR:     2007
+    :ZOTERO:   Entry
+    :TYPE:     Case
+    :STATUS:   Filed
+    :RELEVANCE: Regular
+    :IMPACT:   Low
+    :CITE:     Wait
+    :END:
+
+    #+BEGIN_SRC bibtex
+@Article{Bianchi_2007,
+  author       = {Bianchi, Carlo and Cirillo, Pasquale and Gallegati, Mauro and Vagliasindi, Pietro A.},
+  title	       = {Validating and Calibrating Agent-Based Models: A Case Study},
+  year	       = {2007},
+  volume       = {30},
+  number       = {3},
+  month	       = {Jul},
+  pages	       = {245–264},
+  issn	       = {1572-9974},
+  doi	       = {10.1007/s10614-007-9097-z},
+  url	       = {http://dx.doi.org/10.1007/s10614-007-9097-z},
+  journal      = {Computational Economics},
+  publisher    = {Springer Science and Business Media LLC}
+}
+    #+END_SRC
+
+*** READ [#C] [[https://link.springer.com/article/10.1007/s10614-007-9104-4][Fagiolo et al - A Critical Guide to Empirical Validation of Agent-Based Models in Economics: Methodologies, Procedures, and Open Problems]]
+    :PROPERTIES:
+    :YEAR:     2007
+    :ZOTERO:   Entry
+    :TYPE:     Thechnical
+    :STATUS:   Filed
+    :RELEVANCE: Regular
+    :IMPACT:   High
+    :CITE:     Yes
+    :END:
+
+    #+BEGIN_SRC bibtex
+@Article{Fagiolo_2007,
+  author       = {Fagiolo, Giorgio and Moneta, Alessio and Windrum,
+                  Paul},
+  title	       = {A Critical Guide to Empirical Validation of
+                  Agent-Based Models in Economics: Methodologies,
+                  Procedures, and Open Problems},
+  year	       = 2007,
+  volume       = 30,
+  number       = 3,
+  month	       = {Sep},
+  pages	       = {195–226},
+  issn	       = {1572-9974},
+  doi	       = {10.1007/s10614-007-9104-4},
+  url	       = {http://dx.doi.org/10.1007/s10614-007-9104-4},
+  journal      = {Computational Economics},
+  publisher    = {Springer Science and Business Media LLC}
+}
+    #+END_SRC
+
+*** READ [#B] [[https://link.springer.com/article/10.1007/s10614-007-9101-7][Marks - Validating Simulation Models: A General Framework and Four Applied Examples]]
+    :PROPERTIES:
+    :YEAR:     2007
+    :ZOTERO:   Entry
+    :TYPE:     Manual
+    :STATUS:   Filed
+    :RELEVANCE: High
+    :IMPACT:   Regular
+    :CITE:     Yes
+    :END:
+
+    #+BEGIN_SRC bibtex
+
+    #+END_SRC
+
+** Best practices
+*** SKIM [#C] [[https://www.sciencedirect.com/science/article/abs/pii/S1364815214000395][Muller et al - Standardised and transparent model descriptions for agent-based models: Current status and prospects]]
+    :PROPERTIES:
+    :YEAR:     2014
+    :ZOTERO:   Yes
+    :TYPE:     Manual
+    :STATUS:   Filed
+    :RELEVANCE: Regular
+    :IMPACT:   Low
+    :CITE:     Yes
+    :END:
+
+    #+BEGIN_SRC bibtex
+@Article{M_ller_2014,
+  author       = {Müller, Birgit and Balbi, Stefano and Buchmann,
+                  Carsten M. and de Sousa, Luís and Dressler, Gunnar
+                  and Groeneveld, Jürgen and Klassert, Christian
+                  J. and Le, Quang Bao and Millington, James D.A. and
+                  Nolzen, Henning and et al.},
+  title	       = {Standardised and transparent model descriptions for
+                  agent-based models: Current status and prospects},
+  year	       = 2014,
+  volume       = 55,
+  month	       = {May},
+  pages	       = {156–163},
+  issn	       = {1364-8152},
+  doi	       = {10.1016/j.envsoft.2014.01.029},
+  url	       = {http://dx.doi.org/10.1016/j.envsoft.2014.01.029},
+  journal      = {Environmental Modelling & Software},
+  publisher    = {Elsevier BV}
+}
+
+
+    #+END_SRC
+
+* Mainstream critiques
+** READ [#B] [[https://academic.oup.com/oxrep/article/34/1-2/219/4781810#107279884][Haldane and Turrel - An interdisciplinary model for macroeconomics]]
+   :PROPERTIES:
+   :YEAR:     2018
+   :ZOTERO:   Yes
+   :TYPE:     Theory
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   High
+   :CITE:     Yes
+   :END:
+
+   #+BEGIN_SRC bibtex
+@Article{Haldane_2018,
+  author       = {Haldane, A G and Turrell, A E},
+  title	       = {An interdisciplinary model for macroeconomics},
+  year	       = {2018},
+  volume       = {34},
+  number       = {1-2},
+  pages	       = {219–251},
+  issn	       = {1460-2121},
+  doi	       = {10.1093/oxrep/grx051},
+  url	       = {http://dx.doi.org/10.1093/oxrep/grx051},
+  journal      = {Oxford Review of Economic Policy},
+  publisher    = {Oxford University Press (OUP)}
+}
+   #+END_SRC
+
+* Mathematical and thechnical stuff
+** READ [#A] [[https://link.springer.com/article/10.1057%2Feej.2016.2][Tesfatsion - Elements of Dynamic Economic Modeling: Presentation and Analysis]]
+   :PROPERTIES:
+   :YEAR:     2017
+   :ZOTERO:   Yes
+   :TYPE:     Thechnical
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:
+
+   #+BEGIN_SRC bibtex
+@Article{Tesfatsion_2017,
+  author       = {Tesfatsion, Leigh},
+  title	       = {Elements of Dynamic Economic Modeling: Presentation and Analysis},
+  year	       = {2017,
+  volume       = {43},
+  number       = {2},
+  month	       = {Feb},
+  pages	       = {192–216},
+  issn	       = {1939-4632},
+  doi	       = {10.1057/eej.2016.2},
+  url	       = {http://dx.doi.org/10.1057/eej.2016.2},
+  journal      = {Eastern Economic Journal},
+  publisher    = {Springer Science and Business Media LLC}
+}
+   #+END_SRC
+
+** SKIM [#C] [[http://jasss.soc.surrey.ac.uk/8/1/5.html][Polhill - The Ghost in the Model (and Other Effects of Floating Point Arithmetic)]]
+   :PROPERTIES:
+   :YEAR:     2005
+   :ZOTERO:   Entry
+   :TYPE:     Thechnical
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   High
+   :CITE:     Wait
+   :END:
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
+
 * Households
+** SKIM [#B] [[https://www.sciencedirect.com/science/article/abs/pii/S0264999318303948][Orazio - Income inequality, consumer debt, and prudential regulation: An agent-based approach to study the emergence of crises and financial instability]]
+   :PROPERTIES:
+   :YEAR:     2019
+   :ZOTERO:   Entry
+   :TYPE:     Theory
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:
 
-* Firms
+   #+BEGIN_SRC bibtex
+@Article{D_Orazio_2019,
+  author       = {D’Orazio, Paola},
+  title	       = {Income inequality, consumer debt, and prudential
+                  regulation: An agent-based approach to study the
+                  emergence of crises and financial instability},
+  year	       = 2019,
+  volume       = 82,
+  month	       = {Nov},
+  pages	       = {308–331},
+  issn	       = {0264-9993},
+  doi	       = {10.1016/j.econmod.2019.01.015},
+  url	       = {http://dx.doi.org/10.1016/j.econmod.2019.01.015},
+  journal      = {Economic Modelling},
+  publisher    = {Elsevier BV}
+}
 
-* Banks
 
-* Housing
+   #+END_SRC
+
+* Firms 
+Financial fragility, patterns of firms’ entry and exit and aggregate dynamics]] :canonical:
+    :PROPERTIES:
+    :YEAR:     2033
+    :ZOTERO:   Yes
+    :TYPE:     Theory
+    :STATUS:   Filed
+    :RELEVANCE: Low
+    :IMPACT:   High
+    :CITE:     Wait
+    :END:
+
+    #+BEGIN_SRC bibtex
+
+    #+END_SRC
+
+* Banks 
+** READ [#A] [[http://jasss.soc.surrey.ac.uk/22/1/6.html][Llacay and Peffer - Impact of Basel III Countercyclical Measures on Financial Stability: An Agent-Based Model]]
+   :PROPERTIES:
+   :YEAR:     2019
+   :ZOTERO:   Entry
+   :TYPE:     Theory
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:
+
+   #+BEGIN_SRC bibtex
+@Article{Llacay_2019,
+  author       = {Llacay, Barbara and Peffer, Gilbert},
+  title	       = {Impact of Basel III Countercyclical Measures on Financial Stability: An Agent-Based Model},
+  year	       = {2019},
+  volume       = {22},
+  number       = {1},
+  issn	       = {1460-7425},
+  doi	       = {10.18564/jasss.3927},
+  url	       = {http://dx.doi.org/10.18564/jasss.3927},
+  journal      = {Journal of Artificial Societies and Social
+                  Simulation},
+  publisher    = {Journal of Artificial Societies and Social
+                  Simulation}
+}
+   #+END_SRC
+        
+** SKIM [#C] [[http://jasss.soc.surrey.ac.uk/21/1/2.html][Cuenda et al - A Minimal Agent-Based Model Reproduces the Overall Topology of Interbank Networks]]
+   :PROPERTIES:
+   :YEAR:     2018
+   :ZOTERO:   Entry
+   :TYPE:     Theory
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:
+
+   #+BEGIN_SRC bibtex
+@Article{Cuenda_2018,
+  author       = {Cuenda, Sara and Fernández, Maximiliano and Galeano,
+                  Javier and Capitán, José A.},
+  title	       = {A Minimal Agent-Based Model Reproduces the Overall
+                  Topology of Interbank Networks},
+  year	       = 2018,
+  volume       = 21,
+  number       = 1,
+  issn	       = {1460-7425},
+  doi	       = {10.18564/jasss.3562},
+  url	       = {http://dx.doi.org/10.18564/jasss.3562},
+  journal      = {Journal of Artificial Societies and Social
+                  Simulation},
+  publisher    = {Journal of Artificial Societies and Social
+                  Simulation}
+}
+   #+END_SRC
+
+** PARTIAL [#A] [[https://www.sciencedirect.com/science/article/abs/pii/S0165188999000226][LeBaron - Agent-based computational finance: Suggested readings and early research]]
+   :PROPERTIES:
+   :YEAR:     2000
+   :ZOTERO:   Yes
+   :TYPE:     Review
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:
+
+*Sections to Read:*
+
+- SantaFe Model
+
+- Neural network model
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
+
+* Housing market, mortgages, land and speculation
+** Housing market
+*** ARCH [[https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9671.2008.01109.x][Jackson et al - Agent‐Based Simulation of Urban Residential Dynamics and Land Rent Change in a Gentrifying Area of Boston]]
+    CLOSED: [2020-10-08 qui 10:50]
+    :PROPERTIES:
+    :YEAR:     2008
+    :ZOTERO:   Entry
+    :TYPE:     Case
+    :STATUS:   Filed
+    :RELEVANCE: Low
+    :IMPACT:   Low
+    :CITE:     No
+    :END:
+
+    #+BEGIN_SRC bibtex
+
+    #+END_SRC
+
+*** READ [#B] [[https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2018375][Geanakoplos et al - Getting at Systemic Risk Via an Agent-Based Model of the Housing Market]]
+    :PROPERTIES:
+    :YEAR:     2012
+    :ZOTERO:   Yes
+    :TYPE:     Theory
+    :STATUS:   Filed
+    :RELEVANCE: Regular
+    :IMPACT:   High
+    :CITE:     Yes
+    :END:
+
+    #+BEGIN_SRC bibtex
+@Article{Geanakoplos_2012,
+  author       = {Geanakoplos, John and Axtell, Robert and Farmer,
+                  J. Doyne and Howitt, Peter and Conlee, Benjamin and
+                  Goldstein, Jonathan and Hendrey, Matthew and Palmer,
+                  Nathan M. and Yang, Chun-Yi},
+  title	       = {Getting at Systemic Risk Via an Agent-Based Model of
+                  the Housing Market},
+  year	       = 2012,
+  issn	       = {1556-5068},
+  doi	       = {10.2139/ssrn.2018375},
+  url	       = {http://dx.doi.org/10.2139/ssrn.2018375},
+  journal      = {SSRN Electronic Journal},
+  publisher    = {Elsevier BV}
+}
+
+
+    #+END_SRC
+
+*** PARTIAL [#B] [[https://apo.org.au/sites/default/files/resource-files/2015-09/apo-nid173221.pdf][Carstensen - An agent-based model of the housing marketSteps toward a computationaltoolforpolicy analysis]]
+    :PROPERTIES:
+    :YEAR:     2015
+    :ZOTERO:   Partial
+    :TYPE:     Review
+    :STATUS:   Filed
+    :RELEVANCE: Regular
+    :IMPACT:   Low
+    :CITE:     Wait
+    :END:
+
+*Zotero PDF file:* apo-nid173221.pdf
+
+    #+BEGIN_SRC bibtex
+
+    #+END_SRC
+
+*** READ [#B] [[https://www.econstor.eu/handle/10419/202878][Cokayne - The effects of macroprudential policies on house price cycles in an agent-based model of the Danish housing market]]
+    :PROPERTIES:
+    :YEAR:     2019
+    :ZOTERO:   Yes
+    :TYPE:     Theory
+    :STATUS:   Filed
+    :RELEVANCE: High
+    :IMPACT:   Low
+    :CITE:     Wait
+    :END:
+
+    #+BEGIN_SRC bibtex
+
+    #+END_SRC
+
+*** READ [#A] [[http://jasss.soc.surrey.ac.uk/23/4/5.html][Yun and Moon - Housing Market Agent-Based Simulation with Loan-To-Value and Debt-To-Income]]
+    :PROPERTIES:
+    :YEAR:     2020
+    :ZOTERO:   Entry
+    :TYPE:     Theory
+    :STATUS:   Filed
+    :RELEVANCE: High
+    :IMPACT:   Regular
+    :CITE:     Yes
+    :END:
+
+*** READ [#A] [[http://jasss.soc.surrey.ac.uk/17/1/19.html][Özbaş - Modeling and Simulation of the Endogenous Dynamics of Housing Market Cycles]]
+    :PROPERTIES:
+    :YEAR:     2014
+    :ZOTERO:   Entry
+    :TYPE:     Theory
+    :STATUS:   Filed
+    :RELEVANCE: High
+    :IMPACT:   Low
+    :CITE:     Yes
+    :END:
+
+    #+BEGIN_SRC bibtex
+@Article{_zba__2014,
+  author       = {Özbaş, Birnur and Özgün, Onur and Barlas, Yaman},
+  title	       = {Modeling and Simulation of the Endogenous Dynamics
+                  of Housing Market Cycles},
+  year	       = 2014,
+  volume       = 17,
+  number       = 1,
+  issn	       = {1460-7425},
+  doi	       = {10.18564/jasss.2353},
+  url	       = {http://dx.doi.org/10.18564/jasss.2353},
+  journal      = {Journal of Artificial Societies and Social
+                  Simulation},
+  publisher    = {Journal of Artificial Societies and Social
+                  Simulation}
+}
+
+
+    #+END_SRC
+
+*** READ [#A] [[https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2850414][Baptista et al - Macroprudential Policy in an Agent-Based Model of the UK Housing Market]]
+    :PROPERTIES:
+    :YEAR:     2016
+    :ZOTERO:   Entry
+    :TYPE:     Theory
+    :STATUS:   Filed
+    :RELEVANCE: High
+    :IMPACT:   Regular
+    :CITE:     Yes
+    :END:
+
+    #+BEGIN_SRC bibtex
+@Article{Baptista_2016,
+  author       = {Baptista, Rafa and Hinterschweiger, Marc and Low,
+                  Katie and Uluc, Arzu},
+  title	       = {Macroprudential Policy in an Agent-Based Model of
+                  the UK Housing Market},
+  year	       = 2016,
+  issn	       = {1556-5068},
+  doi	       = {10.2139/ssrn.2850414},
+  url	       = {http://dx.doi.org/10.2139/ssrn.2850414},
+  journal      = {SSRN Electronic Journal},
+  publisher    = {Elsevier BV}
+}
+
+    #+END_SRC
+        
+** Land 
+
+*** READ [#C] [[http://jasss.soc.surrey.ac.uk/12/1/3.html][Filatova et al - Agent-Based Urban Land Markets: Agent's Pricing Behavior, Land Prices and Urban Land Use Change]]
+    :PROPERTIES:
+    :YEAR:     2009
+    :ZOTERO:   Entry
+    :TYPE:     Theory
+    :STATUS:   Filed
+    :RELEVANCE: Regular
+    :IMPACT:   Low
+    :CITE:     Wait
+    :END:
+
+    #+BEGIN_SRC bibtex
+@article{filatova_land_2009,
+   title = {Agent-Based Urban Land Markets: Agent\'s Pricing Behavior, Land Prices and Urban Land Use Change},
+   author = {Filatova, Tatiana and Parker, Dawn and van der Veen, Anne},
+   journal = {Journal of Artificial Societies and Social Simulation},
+   ISSN = {1460-7425},
+   volume = {12},
+   number = {1},
+   pages = {3},
+   year = {2009},
+   URL = {http://jasss.soc.surrey.ac.uk/12/1/3.html},
+   keywords = {Location Choice, Urban Land Market, Agent-Based Computational Economics, Land Use, Land Rent Gradient, Spatial Simulation}
+}
+    #+END_SRC
+
+** Mortgages
+*** READ [#B] [[https://link.springer.com/article/10.1007/s11403-019-00238-5][Ozel et al - Macroeconomic implications of mortgage loan requirements: an agent-based approach]]
+    :PROPERTIES:
+    :YEAR:     2019
+    :ZOTERO:   Entry
+    :TYPE:     Theory
+    :STATUS:   Filed
+    :RELEVANCE: High
+    :IMPACT:   Regular
+    :CITE:     Wait
+    :END:
+
+    #+BEGIN_SRC bibtex
+@Article{Ozel_2019,
+  author       = {Ozel, Bulent and Nathanael, Reynold Christian and
+                  Raberto, Marco and Teglio, Andrea and Cincotti,
+                  Silvano},
+  title	       = {Macroeconomic implications of mortgage loan
+                  requirements: an agent-based approach},
+  year	       = 2019,
+  volume       = 14,
+  number       = 1,
+  month	       = {Feb},
+  pages	       = {7–46},
+  issn	       = {1860-7128},
+  doi	       = {10.1007/s11403-019-00238-5},
+  url	       = {http://dx.doi.org/10.1007/s11403-019-00238-5},
+  journal      = {Journal of Economic Interaction and Coordination},
+  publisher    = {Springer Science and Business Media LLC}
+}       
+
+
+    #+END_SRC
+
+*** READ [#A] [[https://www.tandfonline.com/doi/abs/10.1080/14697688.2020.1733058][Laliotis - An agent-based model for the assessment of LTV caps]]
+    :PROPERTIES:
+    :YEAR:     2020
+    :ZOTERO:   Yes
+    :TYPE:     Case
+    :STATUS:   Filed
+    :RELEVANCE: High
+    :IMPACT:   Regular
+    :CITE:     Wait
+    :END:
+
+    #+BEGIN_SRC bibtex
+@Article{Laliotis_2020,
+  author       = {Laliotis, Dimitrios and Buesa, Alejandro and Leber,
+                  Miha and Población, Javier},
+  title	       = {An agent-based model for the assessment of LTV caps},
+  year	       = 2020,
+  volume       = 20,
+  number       = 10,
+  month	       = {Apr},
+  pages	       = {1721–1748},
+  issn	       = {1469-7696},
+  doi	       = {10.1080/14697688.2020.1733058},
+  url	       = {http://dx.doi.org/10.1080/14697688.2020.1733058},
+  journal      = {Quantitative Finance},
+  publisher    = {Informa UK Limited}
+}
+    #+END_SRC
+
+** Speculation
+*** READ [#A] [[http://hdl.handle.net/10419/38760][Dieci and Westerhoff - A simple model of a speculative housing market]]
+    :PROPERTIES:
+    :YEAR:     2009
+    :ZOTERO:   Yes
+    :TYPE:     Theory
+    :STATUS:   Filed
+    :RELEVANCE: High
+    :IMPACT:   Low
+    :CITE:     Yes
+    :END:
+
+    #+BEGIN_SRC bibtex
+
+    #+END_SRC
+
+** Spatial models
+*** MAYBE [#C] [[https://arxiv.org/abs/2009.06914][Evans et al - The impact of social influence in Australian real-estate: market forecasting with a spatial agent-based model]]
+    :PROPERTIES:
+    :YEAR:     2009
+    :ZOTERO:   Yes
+    :TYPE:     Case
+    :STATUS:   Filed
+    :RELEVANCE: Low
+    :IMPACT:   Low
+    :CITE:     Wait
+    :END:
 
 * Asset prices and Bubbles
+** Stock prices
+*** SKIM [#C] [[http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.130.6439][LeBaron - Building the santa fe artificial stock market]]
+    :PROPERTIES:
+    :YEAR:     2002
+    :ZOTERO:   Yes
+    :TYPE:     Theory
+    :STATUS:   Filed
+    :RELEVANCE: Low
+    :IMPACT:   High
+    :CITE:     Yes
+    :END:
 
-* Complexity and ABM
+    #+BEGIN_SRC bibtex
+@INPROCEEDINGS{Lebaron02buildingthe,
+    author = {Blake Lebaron},
+    title = {Building the santa fe artificial stock market. Working Paper, Graduate},
+    booktitle = {School of International Economics and Finance, Brandeis},
+    year = {2002},
+    pages = {1117--1147}
+}
+    #+END_SRC
+
+
+**** SKIM [#A] [[http://www2.econ.iastate.edu/tesfatsi/SFISTOCKDetailed.LT.htm][Tesfatsion - Detailed Notes on th Santa Fe Artificial Stock Market (ASM) Model]]
+   :PROPERTIES:
+   :YEAR:     2012
+   :ZOTERO:   Partial
+   :TYPE:     Manual
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     No
+   :END:
+
+
+*** SKIM [#A] [[https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2252Link][Arthur et al - Asset Pricing Under Endogenous Expectations in an Artificial Stock Market]]
+    :PROPERTIES:
+    :YEAR:     1996
+    :ZOTERO:   Yes
+    :TYPE:     Theory
+    :STATUS:   Filed
+    :RELEVANCE: Low
+    :IMPACT:   High
+    :CITE:     Yes
+    :END:
+
+    #+BEGIN_SRC bibtex
+@Article{Arthur_1997,
+  author       = {Arthur, W. Brian and Holland, John H. and LeBaron,
+                  Blake D. and Palmer, Richard G. and Tayler, Paul},
+  title	       = {Asset Pricing Under Endogenous Expectations in an
+                  Artificial Stock Market},
+  year	       = 1997,
+  issn	       = {1556-5068},
+  doi	       = {10.2139/ssrn.2252},
+  url	       = {http://dx.doi.org/10.2139/ssrn.2252},
+  journal      = {SSRN Electronic Journal},
+  publisher    = {Elsevier BV}
+}
+
+
+    #+END_SRC
+
+*** READ [#C] [[http://www2.econ.iastate.edu/classes/econ308/tesfatsion/SFIStockOverview.LT.pdf][Tesfatsion - Overview of theSanta Fe Artificial Stock Market Model]]
+    :PROPERTIES:
+    :YEAR:
+    :ZOTERO:   Partial
+    :TYPE:     Other
+    :STATUS:   Filed
+    :RELEVANCE: Low
+    :IMPACT:   Low
+    :CITE:     No
+    :END:
+
+    #+BEGIN_SRC bibtex
+
+    #+END_SRC
+
+* AB-SFC
 
 * References                                                         :ignore:
 
 
-  bibliography:ABM.bib
 
+bibliography:ABM.bib

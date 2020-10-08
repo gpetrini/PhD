@@ -450,6 +450,34 @@
 #+END_SRC
 
 * [#A] Time series panel related (long panel)
+** State of art reviews
+*** [[https://journals.sagepub.com/doi/abs/10.1177/1536867X1601600210][Burdisso and Sangiácomo - Panel Time Series: Review of the Methodological Evolution]]
+   :PROPERTIES:
+   :YEAR:     2016
+   :ZOTERO:   Yes
+   :TYPE:     Thechnical
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:    
+#+BEGIN_SRC bibtex
+@Article{Burdisso_TSPanelEvolution_2016,
+  author       = {Burdisso, Tamara and Sangiácomo, Máximo},
+  title	       = {Panel Time Series: Review of the Methodological Evolution},
+  year	       = {2016},
+  volume       = {16},
+  number       = {2},
+  month	       = {Jun},
+  pages	       = {424–442},
+  issn	       = {1536-8734},
+  doi	       = {10.1177/1536867x1601600210},
+  url	       = {http://dx.doi.org/10.1177/1536867X1601600210},
+  journal      = {The Stata Journal: Promoting communications on statistics and Stata},
+  publisher    = {SAGE Publications}
+}
+#+END_SRC
+
 ** Manual
 *** READ [#A] [[https://www.statalist.org/forums/filedata/fetch?id=1464882][Labra and Torrecillas - Estimating dynamic Panel data. A practical approach to perform long panels]]
    :PROPERTIES:
@@ -526,9 +554,9 @@
    :IMPACT:   Regular
    :CITE:     Wait
    :END:    
-* [#A] Housing and House Prices
-
-** READ [#A] [[https://www.ecb.europa.eu/pub/pdf/scpwps/ecbwp888.pdf?ec420f6e04a07efadb15fbbd5d4223e6][Goodhart and Hofmann -  House prices, money, credit and the macroeconomy]]
+* [#A] Housing, House Prices, Cycles, Bubbles and Household debt
+** House prices
+*** READ [#A] [[https://www.ecb.europa.eu/pub/pdf/scpwps/ecbwp888.pdf?ec420f6e04a07efadb15fbbd5d4223e6][Goodhart and Hofmann -  House prices, money, credit and the macroeconomy]]
    :PROPERTIES:
    :YEAR:     2008
    :ZOTERO:   Yes
@@ -539,6 +567,128 @@
    :CITE:     Yes
    :END:    
    
+*** READ [#A] [[https://doi.org/10.1002/9781444317978.ch2][Girouard - Housing and Mortgage Markets: An OECD Perspective]]
+   :PROPERTIES:
+   :YEAR:     2010
+   :ZOTERO:   Entry
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:    
+** Household debt
+*** PARTIAL [#A] [[https://doi.org/10.1146/annurev-economics-080614-115640][Zinman -  Household Debt: Facts, Puzzles, Theories, and Policies]]
+   :PROPERTIES:
+   :YEAR: 2015
+   :ZOTERO:   Yes
+   :TYPE:     Review
+   :STATUS:   Downloaded
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Zinman_2015,
+  author       = {Zinman, Jonathan},
+  title	       = {Household Debt: Facts, Puzzles, Theories, and
+                  Policies},
+  year	       = 2015,
+  volume       = 7,
+  number       = 1,
+  month	       = {Aug},
+  pages	       = {251–276},
+  issn	       = {1941-1391},
+  doi	       = {10.1146/annurev-economics-080614-115640},
+  url	       =
+                  {http://dx.doi.org/10.1146/annurev-economics-080614-115640},
+  journal      = {Annual Review of Economics},
+  publisher    = {Annual Reviews}
+}
+#+END_SRC
+*** SKIM [#B] [[https://onlinelibrary.wiley.com/doi/10.1002/9781444317978.ch5][Waldron and Zampolli - The Rise in Home Prices and Household Debt in the UK: Potential Causes and Implications]]
+   :PROPERTIES:
+   :YEAR:     2010
+   :ZOTERO:   Entry
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+** Housing Bubbles
+*** PARTIAL [#A] [[https://papers.ssrn.com/sol3/papers.cfm?abstract_id=846305#][Borio et al - Asset Prices, Financial and Monetary Stability: Exploring the Nexus]] :BIS:
+   :PROPERTIES:
+   :YEAR:     2005
+   :ZOTERO:   Yes
+   :TYPE:     Theory
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   High
+   :CITE:     Yes
+   :END:    
+** Housing cycle
+*** PARTIAL [#A] [[https://www.nber.org/papers/w23694][Kaplan et al - The Housing Boom and Bust: Model Meets Evidence]]
+   :PROPERTIES:
+   :YEAR:     2017
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Skimmed
+   :RELEVANCE: High
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Kaplan_2017,
+  author       = {Kaplan, Greg and Mitman, Kurt and Violante,
+                  Giovanni},
+  title	       = {The Housing Boom and Bust: Model Meets Evidence},
+  year	       = 2017,
+  month	       = {Aug},
+  doi	       = {10.3386/w23694},
+  url	       = {http://dx.doi.org/10.3386/w23694},
+  publisher    = {National Bureau of Economic Research}
+}
+#+END_SRC
+*** SKIM [#B] [[https://onlinelibrary.wiley.com/doi/10.1002/9781444317978.ch9][Maclennan - What Happened to the Housing System?]]
+   :PROPERTIES:
+   :YEAR:     2010
+   :ZOTERO:   Entry
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+*** SKIM [#A] [[https://onlinelibrary.wiley.com/doi/10.1002/9781444317978.ch19][Case and Quigley - How Housing Busts End: Home Prices, User Cost, and Rigidities During Down Cycles]]
+   :PROPERTIES:
+   :YEAR:     2010
+   :ZOTERO:   Entry
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:    
+
+#+BEGIN_SRC bibtex
+@Article{Case_2010,
+  author       = {Case, Karl E. and Quigley, John M.},
+  title	       = {How Housing Busts End: Home Prices, User Cost, and Rigidities During Down Cycles},
+  year	       = {2010},
+  month	       = {Apr},
+  pages	       = {459–480},
+  doi	       = {10.1002/9781444317978.ch19},
+  url	       = {http://dx.doi.org/10.1002/9781444317978.ch19},
+  isbn	       = 9781405192156,
+  journal      = {The Blackwell Companion to the Economics of Housing},
+  publisher    = {Wiley-Blackwell}
+}
+#+END_SRC
+
 
 
 * [#A] Software
