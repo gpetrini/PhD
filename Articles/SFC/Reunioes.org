@@ -1,0 +1,84 @@
+#+OPTIONS: num:nil
+#+TITLE: Reuniões com Professor Lucas sobre o artigo SFC
+#+AUTHOR: Gabriel Petrini
+#+DATE: 2020
+#+LANG: pt_Br
+
+* LaTeX headers                                         :noexport:ignore:
+
+* HTML headers                                         :noexport:ignore:
+  #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+  #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+
+  #+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  #+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  #+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+  #+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+
+
+* Reestruturação do plano de trabalho <2020-10-09 sex>
+
+** Questões gerais
+
+** Introdução
+
+** Motivação empírica
+*Taxa Própria:* O quanto devo x quanto meu ativo vale (quanto tenho a partir do que emprestei, ativo vendável)
+- Keynes, taxa de retorno ou EmgK
+
+
+Discutir literatura empírica (econométrica) e discutir resultados. Mencionar que algumas pessoas apontam relação entre consumo e investimento residencial.
+
+*** Investimento residencial e dinâmica macroeconômica
+- Apresentar o que é possível replicar no modelo de simulação com dados reais
+  - Padrão cíclico
+  - Curva de concentração
+    - Quem teve um segundo imóvel e, portanto, especulando são os mais ricos
+    - Possível referência (rodapé) à Nova Narrativa
+  - Investimento residencial com as recessões (em termos do PIB)
+  - Talvez gráfico de volatilidade do investimento residencial
+
+
+*** Bolha imobiliária e investimento residencial
+- Apresentação da taxa própria
+  - Nota de rodapé sobre como Sraffa chama
+  - Talvez mudar o nome? (House rate)
+    - Se alterar, passar um pente fino para não ter resquícios do nome antigo
+**** Explicação teórica da taxa própria
+**** Bolha e investimento
+- Não explicar bolha, tomar como dado
+  - *Objeto:* Como bolha conecta com demanda agregada
+  - Não falar de bolha
+
+** Revisão da literatura
+
+- Citar DeJuan e McCombie, mas evidenciar que seguimos caminhos diferentes
+  - Como bolhas de ativos se conectam com a demanda agregada
+
+- Sem revisão da literatura, apenas na introdução (mais longa)
+  - Textos devem aparecer ao longo do modelo. Dialoga ao longo da construção
+    - Mais simples que o da Lídia
+    - Sem modelo SFC com investimento residencial liderando
+
+** Modelo
+- Simulação de redução da taxa de juros
+- Apresentação de curto prazo tal como nas notas do Lucas e encerra apresentando o Lucas
+- Na Fully-adjusted positivo, começa pelo travesse e inicia pela Eq 54
+- Derivação dos SF ratio para um apêndice
+- Devem aparecer nos gráficos
+  - Eq 60 só como apêndice
+- R variável com gCk para que o produto varie menos que o investimento residencial
+  - Talvez colocar defasagens no investimento das firmas
+  - Taxa de crescimento seja igual a taxa de crescimento média do investimento residencial na simulação com dados reais
+    - Avisar alteração no texto
+*** TODO Testar mudar o $R$
+- Até o momento isso não tem alterado o resultado
+** Solução analítica
+
+** Simulações
+
+** Próximos passos
+
+*** TODO Primeira versão só com mudanças no modelo $\Rightarrow$ Nova versão base de trabalho 
+- Mexer pouco no texto
+**** TODO Corrigir simulação com dados reais

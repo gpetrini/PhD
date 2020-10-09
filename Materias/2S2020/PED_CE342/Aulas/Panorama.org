@@ -4,14 +4,15 @@
 #+Email: gpetrinidasilveira@gmail.com
 #+DATE: 04 de Janeiro de 2021
 #+LANGUAGE: pt_BR
+#+PROPERTY: header-args:ipython :async t :session *panorama* :results output drawer :exports none
 
 * Beamer specific settings                                  :ignore:noexport:
 
 #+LaTeX_CLASS: beamer
-#+LATEX_HEADER: \usepackage{csquotes}
+#+LATEX_HEADER: \usepackage{csquotes, caption}
 #+LATEX_HEADER: \usepackage[brazilian]{babel}
 #+beamer_frame_level: 2
-
+#+startup: beamer
 
 The first line enables the Beamer specific commands for org-mode (more on this below); the next two tell the LaTeX exporter to use the Beamer class and to use the larger font settings
 
@@ -229,11 +230,89 @@ Conjugação de políticas de incentivo à renda e ao mercado interno
 
 * Dados
 
+
+#+BEGIN_SRC ipython
+%config InlineBackend.figure_format = 'retina'
+%matplotlib inline
+
+import datetime
+import pandas as pd
+import seaborn as sns; sns.set()
+import matplotlib.pyplot as plt
+
+import matplotlib
+
+
+plt.style.use('seaborn')
+
+
+def consulta_bc(codigo_bcb, nome = ["Nome da série"]):
+  url = 'http://api.bcb.gov.br/dados/serie/bcdata.sgs.{}/dados?formato=json'.format(codigo_bcb)
+  df = pd.read_json(url)
+  df['data'] = pd.to_datetime(df['data'], dayfirst=True)
+  df.set_index('data', inplace=True)
+  df.index.name = ''
+  df.columns = nome
+  return df
+
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [1]: 
+:end:
+
+
 ** Índice EMBI Brasil (Fim de período)
+
+
 
 ** O ciclo das commodities
 
-*Dado:* Índice de Commodities (CRB)
+#+BEGIN_SRC ipython
+df = consulta_bc(27574, nome = ["Índice de Commodities - Brasil"])
+
+fig, ax = plt.subplots(figsize=(8,5))
+
+df.rolling(12).mean().plot(ax=ax,
+	lw=2.5,
+	color='black',
+	ls='-',
+        legend = False
+)
+
+ax.text(
+	0.95, -0.1,
+        f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
+        verticalalignment='bottom', horizontalalignment='right',
+        transform=ax.transAxes,
+        color='black', fontsize=10)
+
+
+sns.despine()
+plt.show()
+fig.savefig("./figs/Commodities.png", transparent = True, dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [3]: 
+# text/plain
+: <Figure size 576x360 with 1 Axes>
+
+# image/png
+[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/68aa584b8817cb70a0202cd84f4825831d216b82.png]]
+:end:
+
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{Índice de Commodities - Brasil\\Média móvel 12 meses} 
+\includegraphics[width = .9\textwidth]{./figs/Commodities.png}
+\caption*{\textbf{Fonte:} BCB-Depec}
+\end{figure}
+#+end_export
+
 
 ** O ciclo de liquidez internacional para países emergentes
 
