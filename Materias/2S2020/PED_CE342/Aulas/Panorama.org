@@ -243,7 +243,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 
 
-plt.style.use('seaborn')
+plt.style.use('bmh')
 
 
 def consulta_bc(codigo_bcb, nome = ["Nome da série"]):
@@ -291,17 +291,17 @@ ax.text(
 
 sns.despine()
 plt.show()
-fig.savefig("./figs/Commodities.png", transparent = True, dpi = 300)
+fig.savefig("./figs/Commodities.png", transparent = False, dpi = 300)
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [3]: 
+# Out [2]: 
 # text/plain
 : <Figure size 576x360 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/68aa584b8817cb70a0202cd84f4825831d216b82.png]]
+[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/75fe48d288c0add0ecfa144ba2eacb2f8662bc8d.png]]
 :end:
 
 #+begin_export latex

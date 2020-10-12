@@ -1,0 +1,411 @@
+% Created 2020-10-12 seg 16:25
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[top=3cm, bottom=2cm, left=3cm, right=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[theorems, skins]{tcolorbox}
+\usepackage[style=abnt,noslsn,extrayear,uniquename=init,giveninits,justify,sccite,
+scbib,repeattitles,doi=false,isbn=false,url=false,maxcitenames=2,
+natbib=true,backend=biber]{biblatex}
+\usepackage{url}
+\usepackage[cache=false]{minted}
+\usepackage[linktocpage,pdfstartview=FitH,colorlinks,
+linkcolor=blue,anchorcolor=blue,
+citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
+\usepackage{attachfile}
+\usepackage{setspace}
+\usepackage{tikz}
+\author{Gabriel Petrini da Silveira}
+\date{\today}
+\title{}
+\begin{document}
+
+\tableofcontents
+
+\section{General equations}
+\label{sec:org44cf9d2}
+
+Our model is the most parsimonious as possible: a closed capitalist economy without government sector. Output (\(Y\)) is determined by  a fixed combination of a homogeneous labor (\(L\)) input with homogeneous fixed business capital (\(K_f\)). 
+For simplicity, we put technological progress, depreciation and goods inflation aside so investment is presented in net terms and all variables --- except for houses --- are measured in real terms.
+Assuming a Leontief production function and that growth is not constrained by labor scarcity, full capacity output (\(Y_{FC}\)) is
+determined by firms' capital stock:
+\begin{equation}
+\label{_Leontieff}
+    Y_{FC} = \min (Y_L, Y_K)
+\end{equation}
+\begin{equation}
+\label{_YFC}
+    Y_{FC} = \frac{K_{f_{-1}}}{v}
+\end{equation}
+\begin{equation}
+\label{_u}
+    u = \frac{Y}{Y_{FC}}
+\end{equation}
+where \(Y_L\) and \(Y_K\) stands for full employment and full capacity output respectively, \(v\) is exogenous capital-output ratio and \(u\) is utilization rate.
+
+We further assume an economic structure composed by both workers (denoted by \(w\)) and capitalists (denoted by \(k\)) households\footnote{In accordance with \textcite{albanesi_credit_2017}, we consider that only the latter invest in real estate and are not credit constrained.}.
+Thus, demand-determined output level (\(Y\))  is the sum of workers and capitalists consumption (\(C_w\) and \(C_k\) respectively) and both households and firms investment (\(I_h\) and \(I_f\) respectively) and only the latter creates capacity to the business sector of the economy:
+\begin{equation}
+\label{_Ct}
+    C = C_w + C_k
+\end{equation}
+\begin{equation}
+\label{_It}
+    I_t = I_f + I_h
+\end{equation}
+\begin{equation}
+\label{_Y}
+    Y = \overbrace{[C_w + \underbrace{C_k + I_h}_{\text{Capitalists}}]}^{\text{Households}} + \overbrace{[I_f]}^{\text{Firms}}
+\end{equation}
+
+In other words, from institutional sectors perspective, household expenditures have two components (consumption and residential investment) and firms just one (non-residential investment). 
+Only non-residential investment creates productive capacity. 
+So, the novelty of this model is the inclusion of a second investment component all made by household sector and held by capitalists households for simplicity. 
+Therefore, this economy produces two types of real assets: firms productive capital (\(K_f\)) and households housing (\(K_h\)):
+\begin{equation}
+    \label{_K}
+    K = K_f + K_h
+\end{equation}
+
+Denoting the houses share in total real assets as \(k\), we can rewrite equation \ref{_K} as:
+\begin{equation}
+\label{_k}
+    k = \frac{K_h}{K}
+\end{equation}
+$$
+K = (1-k)\cdot K + k\cdot K
+$$
+
+We further assume an exogenous functional income distribution. 
+Following Sraffian strands, profit-share is determined both by historical-institutional factors and class struggle.
+As a consequence, we define total wages (\(W\), Eq. \ref{_W}) as a function of wage-share (\(\omega\)):
+
+\begin{equation}
+\label{_W}
+    W = \omega\cdot Y
+\end{equation}
+
+Table \ref{Matriz_Estoques} presents the balance sheet matrix for all institutional sectors. 
+Capitalists households hold financial wealth as bank deposits (\(M\)) and residential investment is financed by mortgages (\(MO\)).
+Capitalists' total net wealth (\(NW_{k}\)) is the sum of their net financial wealth (\(V_{k}\)) and real assets (\textit{i.e.} housing, \(K_h\)). 
+Table  \ref{Matriz_Fluxos} presents both transactions flows and the flow of funds matrix. 
+This table shows all economic relations between institutional sectors ensuring that there is no  ``black holes''
+so all financial and real transaction are explicitly defined \cite{macedo_e_silva_peering_2011}.
+
+In this model, capitalist consumption (\(C_k\)) is fully autonomous and financed by loans (\(L_{k}\)) while workers consumption (\(C_w\)) is fully induced by their wages.
+We assume that workers expend what they earn while capitalists earn what they expend, so workers financial and real wealth are both null.
+Firms finance their investment primarily by undistributed profits (\(FU\)) and the residual by bank loans (\(L_f\)) --- thus they do not hold deposits. 
+Banks create credit \textit{ex nihilo} and then collect the deposits, paying the same interest rate that they charge.
+On the following subsections, we will present the equations of each of these institutional sectors.
+
+
+
+\begin{table}[H]
+\centering
+\caption{Balance Sheet matrix}
+\label{Matriz_Estoques}
+\begin{tabular}{lccccc}
+\hline
+\hline
+                          & Workers & Capitalists      & Firms        & Banks  &    $\sum$ \\ \hline
+
+Deposits & & $+M$ & & $-M$ & 0\\
+Loans& &$-L_{k}$ &$-L_f$& $+L$ & 0\\
+Mortages & &$-MO$&  & $+MO$ & 0\\\hline
+$\sum$ Net Financial Wealth &--- &$V_{k}$&$V_f$&$V_b$& $0$\\\hline
+Capital & & &$+K_f$&  & $+K_f$\\
+Houses & &$+K_{hd}$& &   & $+K_h$\\\hline
+$\sum$ Net Wealth &---&$NW_{k}$&$NW_f$&$NW_b$& $+K$\\
+\hline
+\hline
+\end{tabular}%
+\caption*{\textbf{Source:} Authors' Elaboration}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Transactions flow matrix and flow of funds
+}
+\label{Matriz_Fluxos}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccccccc}
+\hline
+\hline
+& Workers
+& \multicolumn{2}{c}{Capitalists}
+& \multicolumn{2}{c}{Firms}                        
+& Banks       & Total    \\ \cline{3-4}\cline{5-6}
+& &
+Current & Capital & 
+Current & Capital     & 
+&       $\sum$ \\ 
+Consumption                       &$-Cw$&$-C_k$& & $+C$& & & 0\\
+Non-residential Investment                   & & & &$+I_f$&$-I_f$ & & 0\\
+Residential Investment       &  & &$-I_h$&$+I_h$& & & 0\\
+\textbf{{[}Output{]}}   & & & &{[}$Y${]}& & & {[}$Y${]}\\
+Wages                        &$+W$&& &$-W$& & & 0\\
+Profits                      & &$+FD$& &$-FT$&$+FU$& & 0\\
+Deposits interest rate         & &$+r_m\cdot M_{-1}$& && &$-r_m\cdot M_{-1}$& 0\\
+Loans interest rate         & &$-r_l\cdot L_{k_{-1}}$& &$-r_l\cdot L_{f_{-1}}$& &$+r_l\cdot L_{-1}$& 0\\
+
+Mortages interest rates         & &$-r_{mo}\cdot MO_{-1}$& && &$+r_{mo}\cdot MO_{-1}$& 0\\\hline
+\textbf{Subtotal}           &---&$+S_h$&$-I_h$& &$+NFW_f$&$+NFW_b$& 0\\\hline
+Change in deposits     & &$-\Delta M$& & & &$+\Delta M$& 0\\
+Change in mortgages     & & &$+ \Delta MO$& & &$-\Delta MO$& 0\\
+Change in loans     & &$+\Delta L_{k}$&&$+\Delta L_f$& &$-\Delta L$& 0\\
+\textbf{Total} & & 0 & 0 & 0  & 0  & 0  & 0\\
+\hline
+\hline
+\end{tabular}%
+}
+\caption*{\textbf{Source:} Authors' Elaboration}
+\end{table}
+
+
+\section{Firms}
+\label{sec:org72e52d6}
+
+In order to produce, firms purchase capital goods (\(-I_f\) in capital account) and hire workers, whom total remuneration is the economy wage bill. 
+Their total profits (\(FT\)) are a residual between sales (\(Y\)) and total wages (\(W\)). 
+Firms retain part (\(\gamma_F\)) of profits net of interest payments (\(FU\)) --- to reinvest --- and distribute the rest to capitalists (\(FD\)):
+
+\begin{equation}
+\label{_FT}
+    FT = Y - W = FD + FU
+\end{equation}
+\begin{equation}
+    FU = \gamma_F\cdot (FT - r_l\cdot L_{f_{-1}})
+\end{equation}
+\begin{equation}
+    FD = (1-\gamma_F)\cdot (FT - r_l\cdot L_{f_{-1}})
+\end{equation}
+
+Firms (non-residential) investment is fully induced by the level of effective demand (Eq. \ref{_If}), and its growth rate changes accordingly to the capital stock adjustment principle \cite{freitas_growth_2015}.
+Equation \ref{_h} in one simple way to describe this mechanism.
+According to it, the marginal propensity to invest (\(h\)) endogenously adjust the discrepancies between actual and normal utilization rates (\(u\) and \(u_N\), respectively). To do so, the adjustment parameter (\$\(\gamma\)\_u) must sufficiently small and non-negative\footnote{The size of this parameter guards a fundamental relation to the stability of the model, as shown by \textcite{freitas_growth_2015}.}. 
+As a consequence, productive capacity gradually reacts to effective demand movements.
+
+\begin{equation}
+\label{_If}
+    I_f = h\cdot Y
+\end{equation}
+\begin{equation}
+\label{_h}
+    \Delta h = h_{t-1}\cdot \gamma_u\cdot (u - u_N)
+\end{equation}
+\begin{equation}
+    \Delta K_f = I_f
+\end{equation}
+
+
+Firms finance part of investment that exceeds undistributed profits by bank loans, paying an interest rate on it (\(r_l\)) charged by the banks. 
+We assume an elastic supply of credit for investment. 
+Moreover, tables \ref{Matriz_Estoques} and \ref{Matriz_Fluxos} show firms net wealth (\(NW_f\)) and net financial balance (\(NFW_f\)) explicitly:
+
+\begin{equation}
+\label{_Lf}
+    \Delta L_f = I_f - FU
+\end{equation}
+$$
+r_g = \frac{1-\omega\cdot u}{v}
+$$
+$$
+r_n = r_g - r_l\cdot\frac{L_{f_{-1}}}{K_f}
+$$
+\begin{equation}
+    NFW_f = FU - I_f
+\end{equation}
+\begin{equation}
+    NW_f = K_f - L_f
+\end{equation}
+where \(r_g\) and \(r_n\) denotes gross and net profit rate respectively.
+
+
+\textbf{TODO:} Substituir letra da taxa de lucro por outra.
+
+\section{Banks}
+\label{sec:orge2c8486}
+
+As in most part of SFC literature, banks do not have an active role in this model.
+They create money as credit is demanded and just after they collect deposits \cite{le_bourva_money_1992}. 
+Firms finance part of their investment with credit (\(L_f\)) and capitalists households finance all their residential investment by mortgages (\(MO\)) and consumption by loans (\(L_{k}\)), as already mentioned. 
+Each operation has its own interest rate defined by a spread (\(\sigma_l\) and \(\sigma_{mo}\)) over deposits interest rate (\(r_m\)) exogenously determined by banks.
+For simplicity, we assume null bank spreads so interest rate on mortgages and on loans
+are the same as on deposits.
+Banks net balances (\(NFW_b\)) are defined by interests received net of interests payments. 
+As those interests are the same, banks net wealth is necessarily zero (see table \ref{Matriz_Estoques}) and deposits are residuum:
+
+\begin{equation}
+L = L_f + L_{k}
+\end{equation}
+\begin{equation}
+    r_l = (1+\sigma_l)\cdot r_m
+\end{equation}
+\begin{equation}
+    r_{mo} = (1+\sigma_{mo})\cdot r_m
+\end{equation}
+\begin{equation}
+    r_m = \overline r_m
+\end{equation}
+\begin{equation}
+    NFW_b = r_{mo}\cdot MO_{-1} + r_l\cdot L_{-1} - r_m\cdot M_{-1}
+\end{equation}
+$$
+NFW_b = \Delta MO + \Delta L - \Delta M
+$$
+\begin{equation}
+    NW_b = V_b \equiv 0
+\end{equation}
+\begin{equation}
+\label{_M}
+    \Delta M = \Delta L + \Delta MO
+\end{equation}
+
+\section{Households}
+\label{sec:org0bf7f34}
+
+\subsection*{Workers}
+\label{sec:orgbb6b9b0}
+As mentioned before, we assume that workers expend (\(C_w\)) what they earn (\(W\)). 
+For simplicity, we consider that wages are the only source of income workers' disposable income (\(YD_{w}\)) and do not have access to consumption loans, so worker' saving (\(S_{hw}\)) are null.
+Therefore, accordingly to our hypothesis, workers' do not hold both net financial and total wealth.
+
+\begin{equation}
+C_w = W
+\end{equation}
+\begin{equation}
+YD_w = W
+\end{equation}
+\begin{equation}
+S_{w} = YD_w - C_w
+\end{equation}
+$$
+S_{w} = 0
+$$
+\begin{equation}
+NFW_{w} = S_{w} = 0
+\end{equation}
+\begin{equation}
+V_{w} = 0
+\end{equation}
+
+\subsection*{Capitalists}
+\label{sec:org57a8d35}
+This is the most complex institutional sector of our model. 
+We assume consumption (\(C_k\)) is fully-autonomous and financed by loans (\(L_{k}\)). 
+Disposable income (\(YD_k\)) is the sum of distributed profits and received interests on deposits, net of interests payments
+on both mortgages and loans.
+Capitalists savings (\(S_{k}\)) are disposable income net of consumption.
+At odds with SFC literature, savings are not equal to net balance (\(NFW_{k}\)) since we have included residential investment as in Equation \ref{NFWh}.
+
+\begin{equation}
+\Delta L_{k} = C_k
+\end{equation}
+\begin{equation}
+    \label{EqYD}
+    YD_k = FD + \overline r_m\cdot M_{-1} - r_{mo}\cdot MO_{-1} - r_{l}\cdot L_{k_{-1}}
+\end{equation}
+\begin{equation}
+    \label{EqSh}
+    S_{k} = YD_k - C_k
+\end{equation}
+\begin{equation}
+\label{NFWh}
+    NFW_{k} = S_{k} - I_h
+\end{equation}
+
+
+As mentioned before, capitalist households are the only institutional section investing in real estate which is financed by mortgages as in equation (\ref{EqMO}). Next, we present residential investment growth rate (\(g_{I_h}\)) as determined by houses own interest rate (\(own\), equation \ref{_own}) as introduced by \textcite{teixeira_crescimento_2015} and discussed in section \ref{sec:empirical}.
+
+
+\begin{equation}
+    \label{EqMO}
+    \Delta MO = I_h
+\end{equation}
+
+
+
+
+
+\begin{equation}
+    I_h = (1 + g_{I_h})\cdot Ih_{-1}
+\end{equation}
+\begin{equation}
+\label{g_Z_own}
+g_{I_h} = \phi_0 - \phi_1\cdot own
+\end{equation}
+
+\begin{equation}
+\label{_own}
+own = \left(\frac{1+r_{mo}}{1+\pi}\right) -1
+\end{equation}
+$$
+\pi = \frac{\Delta p_h}{p_{h_{t-1}}}
+$$
+where \(\pi\) stands for real estate inflation, \(\phi_0\) represents long-term determinants (\emph{e.g.} demographic factors, housing and credit policies, etc.) while \(\phi_1\) captures the demand for real estate arising from expectations of capital gains resulting from speculation with the existing dwellings stock. 
+
+Accordingly to our hypothesis, nominal (\(V_{nk}\)) and real net wealth (\(V_{k}\)) are distinguished only by the inclusion of real estate price (\(p_h\)) and are defined as follows:
+\begin{equation}
+V_{k} = K_{hd} + M - L_{k} - MO
+\end{equation}
+\begin{equation}
+V_{nk} = K_{hd}\cdot p_h + M - L_{k} - MO
+\end{equation}
+
+
+In order to fulfill our goals, we employ \citeauthor*{freitas_baseline_2020}'s \citeyear{freitas_baseline_2020} procedure in which NCC autonomous expenditure (\(Z\)) composition (\(R\)) remains unchanged. Thus, we can express capitalists total consumption as follows:
+
+\begin{equation}
+\label{_Z}
+Z = C_k + I_h
+\end{equation}
+$$
+\frac{C_k}{Z} + \frac{I_h}{Z} = R + (1-R)
+$$
+\begin{equation}
+\label{_Ck}
+    C_k = R\cdot Z
+\end{equation}
+\begin{equation}
+\label{ConsumoTotal}
+C = C_w + C_k
+\end{equation}
+$$
+C = C_w + R\cdot Z
+$$
+which allows us to rewrite both NCC and autonomous consumption in terms of residential investment (Eq. \ref{Z_Ih}):
+\begin{equation}
+\label{Z_Ih}
+Z = \frac{I_h}{(1-R)}
+\end{equation}
+
+\begin{equation}
+\label{C_kZ}
+C\textsubscript{k} = I\_h\(\cdot\) \frac{R}{(1-R)}
+\end{equation}
+
+Finally, replacing Equation \ref{Z_Ih} in \ref{_Ck}, we can describe NCC autonomous expenditure growth rate as follows:
+\begin{equation}
+\label{g_Z}
+g\textsubscript{C\textsubscript{k}} = g\textsubscript{Z} = g\textsubscript{I\textsubscript{h}} = \(\phi\)\textsubscript{0} - \(\phi\)\textsubscript{1}\(\cdot\) own
+\end{equation}
+
+In this section, we presented a fully-specified parsimonious model to connect asset bubbles with aggregate demand. It worth mentioning that, although simplified, our hypotheses are supported data as discussed in Section. 
+%Following textcites:teixeira_crescimento_2015,petrini_demanda_2019, we specify a econometrically significant residential investment growth rate function which allows us to include housing bubbles in the SMM model.
+On the next Section, we present the short-run and fully-adjusted position dynamics in order to show the particularities of a model with two types of capital stock in the presence of asset bubble.
+\end{document}
