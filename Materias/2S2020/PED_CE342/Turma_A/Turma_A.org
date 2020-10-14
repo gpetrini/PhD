@@ -3,10 +3,11 @@
 #+AUTHOR: Gabriel Petrini (PED)
 #+DATE: 2020/2S
 #+EXCLUDE_TAGS: private noexport
-
+#+PROPERTY: TAREFA_ALL "Resenha 1" "Resenha 2" "Resenha 3" "Resenha 4" "Resenha 5" "Prova" "Seminário"
 
 * Configurações de exportação e propriedades                :ignore:noexport:
 
-A propriedade abaixo especifica qual tarefa está sendo avalaiada
+A propriedade abaixo especifica qual tarefa está sendo avaliada
 
 #+PROPERTY: TAREFA_ALL "Resenha 1" "Resenha 2" "Resenha 3" "Resenha 4" "Resenha 5" "Prova" "Seminário"
+#+PROPERTY: OBJETIVO_ALL "Atingido totalmente" "Atingido satisfatoriamente" "Atingido parcialmente" "Atingindo minimamente" "Não atingido"

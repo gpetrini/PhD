@@ -566,6 +566,12 @@
    :IMPACT:   Regular
    :CITE:     Yes
    :END:    
+
+*DOI:* http://dx.doi.org/grn009 
+
+#+BEGIN_SRC bibtex
+
+#+END_SRC
    
 *** READ [#A] [[https://doi.org/10.1002/9781444317978.ch2][Girouard - Housing and Mortgage Markets: An OECD Perspective]]
    :PROPERTIES:
@@ -630,6 +636,59 @@
    :CITE:     Yes
    :END:    
 ** Housing cycle
+** SKIM [#A] [[https://www.google.com/search?channel=fs&client=ubuntu&q=Residential+Construction+Activity+in+OECD+Economies][Arestis and González-Martínez - Residential Construction Activity In OECD Economies]]
+   :PROPERTIES:
+   :YEAR:     2015
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Reading
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:
+
+*DOI:* 10.1111/manc.12072
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
+
+
+| *Background*                                  | Heterogenous recovery after the great financial crisis. Residential investment plays a prominent role on the recovery. This justify the relevance of this paper.  Most research on Housing has been analyzing house prices and not its volume. Household behavior change: house as a durable good $\Rightarrow$ asset                                                                                                                                  |
+| *Supporting Ideas*                            | Residential investiment usually leads the economic recovery. Both house prices and construction section still at pre-GFC levels. In the short-run, housing is constrained by its supply. As a consequence, increasing demand press housing prices while it supply becomes gradually more elastic. Quantitative equilibrium adjustments. Housing is considered a speculative asset. ARDL method assumes that all variables are endogenously determined. |
+| *Purpose*                                     |                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| *Originality/value (Contribution)*            | Increasing housing prices ($RHP$) accelerates real residential investment ($RRI$) as long as household expect that this rise will last in the future.                                                                                                                                                                                                                                                                                                  |
+| *Relevance*                                   | This paper move towards the residential investment literature paying attention to the market-finance link.                                                                                                                                                                                                                                                                                                                                             |
+| *Design/methodology/approach*                 | ARDL model for 17 OECD countries from 1970-2013. *Variables:* Real Disposable Income, real house prices, real interest rate (housing loans), unemployment rate and volume of banking credit. *Demographic and Monetary Channels:* Mortgage rate and credit.                                                                                                                                                                                            |
+| *Results*                                     | For the US, banking credit and Real House Prices are the most statistically significant variables. Only Canada, Japan, New Zeland, Norway, UK and USA do not have statistically significant Real Disposable Income variable. So, for most of analyzed countries, RDY is the most relevant determinant of RRI. Positive correlation between house prices and housing acquisition.                                                                       |
+| *(Interesting) Findings*                      | Interest rate is not the most powerful variable to influence residential investment.                                                                                                                                                                                                                                                                                                                                                                   |
+| *Research limitations/implications (Critics)* | There probably is endogenety problems between variables (/e.g./ UN and RDY; RHP and C; RDY and MR, and, most important, RDY and RRI and so on). *Todo:* Check if authors tested controls (Problably do not).                                                                                                                                                                                                                                           |
+| *Uncategorized stuff*                         | There is still no consensus about residential investment specification function.                                                                                                                                                                                                                                                                                                                                                                       |
+| *5SS*                                         | This paper contributes to residential investment empirical agenda and finds a positive correlation between RDY, RHP and residential investment demand. Improves previous works including banking sector related variable.                                                                                                                                                                                                                              |
+
+
+$$
+D_H = D_H(\underset{-}{RHP}, \underset{+}{RDY}, \underset{-}{MR}, \underset{+}{C}, \underset{-}{UN})
+$$
+
+$$
+S_H = S_H(\underset{+}{RHP}, \underset{+}{RRI})
+$$
+
+$$
+RRI = RRI(\underset{+}{RHP}, \underset{+}{RDY}, \underset{-}{MR}, \underset{+}{C}, \underset{-}{UN})
+$$
+
+where:
+
+- $RHP$: Real house prices
+- $RDY$: Real disposable income
+- $MR$: Mortgage rate
+- $C$: Banking credit
+- $UN$: Unemployment rate
+- $RRI$: Real residential investment
+
+
 *** PARTIAL [#A] [[https://www.nber.org/papers/w23694][Kaplan et al - The Housing Boom and Bust: Model Meets Evidence]]
    :PROPERTIES:
    :YEAR:     2017
@@ -689,6 +748,35 @@
 }
 #+END_SRC
 
+
+** SKIM [#A] [[https://onlinelibrary.wiley.com/doi/abs/10.1111/1540-6229.00714][Green - Follow the Leader: How Changes in Residential and Non‐residential Investment Predict Changes in GDP]]
+   :PROPERTIES:
+   :YEAR:     2003
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   High
+   :CITE:     Yes
+   :END:
+
+*DOI:* https://doi.org/10.1111/1540-6229.00714
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
+
+| *Background*                                  |Relative consensus (at the time) that there is a misallocation of capital towards housing. |
+| *Supporting Ideas*                            |     |
+| *Purpose*                                     |Test whether or not (non-)residential investment leads GDP |
+| *Originality/value (Contribution)*            |Uses new econometric techniques at the time such as ECM  |
+| *Relevance*                                   |This paper is one of the first to indicates that residential investment leads the business cycle |
+| *Design/methodology/approach*                 |Granger Causality and cointegration tests for the US from 1959-1992 |
+| *Results*                                     |Residential investment Granger-causes GDP and GDP Granger-causes non-residential investment |
+| *(Interesting) Findings*                      |     |
+| *Research limitations/implications (Critics)* |     |
+| *Uncategorized stuff*                         |     |
+| *5SS*                                         |Based on Granger Causality test, this paper concludes that residential investment lead GDP and GDP leads non-residential investment. |
 
 
 * [#A] Software

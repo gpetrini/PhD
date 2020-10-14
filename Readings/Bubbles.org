@@ -60,12 +60,21 @@
 | Empirical  | A        | SKIM     | [[https://onlinelibrary.wiley.com/doi/epdf/10.1111/j.1467-9396.1994.tb00038.x][Werner - Japanese Foreign Investment and the “Land Bubble”]]                                                                                                                          | 1994 | Japan   | Downloaded | Wait |
 |            | A        |          | Dot-com                                                                                                                                                                             |      |         |            |      |
 |            | A        |          | Metrics and definitions                                                                                                                                                             |      |         |            |      |
+| Case       | A        | SKIM     | [[https://www.newyorkfed.org/medialibrary/media/research/epr/04v10n3/0412mccapdf.pdfLink][McCarthy and Peach - Are Home Prices the Next “Bubble”?]]                                                                                                                             | 2004 |         | Filed      | Wait |
+| Review     | A        | MAYBE    | [[https://www.aeaweb.org/articles?id=10.1257/jep.4.2.35Link][Garber - Famous First Bubbles]]                                                                                                                                                       | 1990 |         | Filed      | Yes  |
+| Theory     | A        | READ     | [[https://www.aeaweb.org/articles?id=10.1257/jep.4.2.13][Stiglitz - Symposium on Bubbles]]                                                                                                                                                     | 1990 |         | Filed      | Yes  |
 | Thechnical | A        | READ     | [[https://www.sciencedirect.com/science/article/abs/pii/S1057521914001471?via%3Dihub][Vogel and Werner - An analytical review of volatility metrics for bubbles and crashes]]                                                                                               | 2015 |         | Downloaded | Yes  |
+| Empirical  | A        | PARTIAL  | [[https://www.brookings.edu/wp-content/uploads/2006/03/2006a_bpea_smith.pdfLink][Smith and Smith - Bubble, Bubble, Where’s the Housing Bubble?]]                                                                                                                       | 2006 |         | Filed      | Wait |
 | Thechnical | C        | ARCH     | [[https://epubs.siam.org/doi/10.1137/10079673X][Jarrow et al - How to Detect an Asset Bubble]]                                                                                                                                        | 2011 |         | Filed      | Wait |
 |            | A        |          | Growth models                                                                                                                                                                       |      |         |            |      |
 | Theory     | A        | READ     | [[https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-999X.2010.04117.x][Taylor - Growth, Cycles, Asset Prices and Finance]]                                                                                                                                   | 2011 |         | Filed      | Yes  |
 |            | A        |          | Empirical                                                                                                                                                                           |      |         |            |      |
+| Empirical  | A        | SKIM     | [[https://papers.ssrn.com/sol3/papers.cfm?abstract_id=945542Link][Gallin - The Long-Run Relationship between House Prices and Income: Evidence from Local Housing Markets]]                                                                             | 2006 |         | Filed      | Yes  |
+| Empirical  | A        | SKIM     | [[https://link.springer.com/article/10.1007/s11146-007-9090-2Link][Mikhed and Zemčík - Testing for Bubbles in Housing Markets: A Panel Data Approach]]                                                                                                   | 2007 |         | Filed      | Wait |
+| Empirical  | B        | SKIM     | [[https://www0.gsb.columbia.edu/faculty/rhodrick/on%20testing%20bubbles.pdfLink][Flood and Hodrick - On Testing for Speculative Bubbles]]                                                                                                                              | 1990 |         | Filed      | Yes  |
+| Empirical  | A        | SKIM     | [[https://muse.jhu.edu/article/51240Link][Case and Shiller - Is There a Bubble in the Housing Market?]]                                                                                                                         | 2003 |         | Filed      | Yes  |
 | Empirical  | C        | SKIM     | [[https://www.jstor.org/stable/4135272?seq=1][Garino and Sarno - Speculative Bubbles in U.K. House Prices: Some New Evidence]]                                                                                                      | 2004 | UK      | Filed      | Wait |
+| Empirical  | A        | SKIM     | [[https://www.imf.org/external/pubs/ft/wp/2002/wp0220.pdfLink][Collyns and Senhadji - Lending Booms, Real Estate Bubbles and The Asian Crisis]]                                                                                                      | 2002 |         | Filed      | Wait |
 |            | C        | REF      | References                                                                                                                                                                          |      |         |            |      |
 #+END
 
@@ -216,7 +225,8 @@
 *** SKIM [#A] Chapter 14 - The Lehman Panic: An avoidable crash
 
 *** SKIM [#B] Chapter 15 - The lessons of history
-
+*** READ [#B] Appendix - Nobel Prize Lecture: Speculative Asset Prices
+*** READ [#A] Chapter 3 - The Real Estate Market in Historical Perspective
 * [#A] Banking credit
 
 ** READ [#A] [[http://eprints.soton.ac.uk/id/eprint/36569][Werner - Towards a new monetary paradigm: a quantity theorem of disaggregated credit, with evidence from Japan]] :Japan:Orthodox:
@@ -346,6 +356,62 @@
 * [#A] Dot-com  
 
 * [#A] Metrics and definitions
+** SKIM [#A] [[https://www.newyorkfed.org/medialibrary/media/research/epr/04v10n3/0412mccapdf.pdfLink][McCarthy and Peach - Are Home Prices the Next “Bubble”?]]
+   :PROPERTIES:
+   :YEAR:     2004
+   :ZOTERO:   Yes
+   :TYPE:     Case
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Regular
+   :CITE:     Wait
+   :END:
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
+
+** MAYBE [#A] [[https://www.aeaweb.org/articles?id=10.1257/jep.4.2.35Link][Garber - Famous First Bubbles]]
+   :PROPERTIES:
+   :YEAR:     1990
+   :ZOTERO:   Yes
+   :TYPE:     Review
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   High
+   :CITE:     Yes
+   :END:
+
+*DOI:* 10.1257/jep.4.2.35
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
+
+** READ [#A] [[https://www.aeaweb.org/articles?id=10.1257/jep.4.2.13][Stiglitz - Symposium on Bubbles]]
+   :PROPERTIES:
+   :YEAR:     1990
+   :ZOTERO:   Yes
+   :TYPE:     Theory
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   High
+   :CITE:     Yes
+   :END:
+
+   #+BEGIN_SRC bibtex
+@article{10.1257/jep.4.2.13,
+Author = {Stiglitz, Joseph E.},
+Title = {Symposium on Bubbles},
+Journal = {Journal of Economic Perspectives},
+Volume = {4},
+Number = {2},
+Year = {1990},
+Month = {June},
+Pages = {13-18},
+DOI = {10.1257/jep.4.2.13},
+URL = {https://www.aeaweb.org/articles?id=10.1257/jep.4.2.13}}
+   #+END_SRC
 
 ** READ [#A] [[https://www.sciencedirect.com/science/article/abs/pii/S1057521914001471?via%3Dihub][Vogel and Werner - An analytical review of volatility metrics for bubbles and crashes]]
    :PROPERTIES:
@@ -374,6 +440,22 @@
 }
 #+END_SRC
 
+** PARTIAL [#A] [[https://www.brookings.edu/wp-content/uploads/2006/03/2006a_bpea_smith.pdfLink][Smith and Smith - Bubble, Bubble, Where’s the Housing Bubble?]]
+   :PROPERTIES:
+   :YEAR:     2006
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Regular
+   :CITE:     Wait
+   :END:
+
+*Doi:* 10.1353/eca.2006.0019
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
 
 ** ARCH [#C] [[https://epubs.siam.org/doi/10.1137/10079673X][Jarrow et al - How to Detect an Asset Bubble]]
    CLOSED: [2020-09-29 ter 11:16]
@@ -436,6 +518,71 @@
 
 
 * [#A] Empirical
+** SKIM [#A] [[https://papers.ssrn.com/sol3/papers.cfm?abstract_id=945542Link][Gallin - The Long-Run Relationship between House Prices and Income: Evidence from Local Housing Markets]]
+   :PROPERTIES:
+   :YEAR:     2006
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:
+
+*DOI:* http://dx.doi.org/10.2139/ssrn.410808 
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
+
+** SKIM [#A] [[https://link.springer.com/article/10.1007/s11146-007-9090-2Link][Mikhed and Zemčík - Testing for Bubbles in Housing Markets: A Panel Data Approach]]
+   :PROPERTIES:
+   :YEAR:     2007
+   :ZOTERO:   Entry
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   Low
+   :CITE:     Wait
+   :END:
+
+*DOI:* https://doi.org/10.1007/s11146-007-9090-2
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
+
+** SKIM [#B] [[https://www0.gsb.columbia.edu/faculty/rhodrick/on%20testing%20bubbles.pdfLink][Flood and Hodrick - On Testing for Speculative Bubbles]]
+   :PROPERTIES:
+   :YEAR:     1990
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   High
+   :CITE:     Yes
+   :END:
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
+
+** SKIM [#A] [[https://muse.jhu.edu/article/51240Link][Case and Shiller - Is There a Bubble in the Housing Market?]]
+   :PROPERTIES:
+   :YEAR:     2003
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   High
+   :CITE:     Yes
+   :END:
+
+*DOI:* 10.1353/eca.2004.0004
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
 
 ** SKIM [#C] [[https://www.jstor.org/stable/4135272?seq=1][Garino and Sarno - Speculative Bubbles in U.K. House Prices: Some New Evidence]]
    :PROPERTIES:
@@ -465,6 +612,22 @@
 }
 #+END_SRC
 
+** SKIM [#A] [[https://www.imf.org/external/pubs/ft/wp/2002/wp0220.pdfLink][Collyns and Senhadji - Lending Booms, Real Estate Bubbles and The Asian Crisis]]
+   :PROPERTIES:
+   :YEAR:     2002
+   :ZOTERO:   Partial
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: Regular
+   :IMPACT:   Regular
+   :CITE:     Wait
+   :END:
+
+*Zotero PDF File:* wp0220.pdf
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
 
 * REF [#C] References                                                :ignore:
   CLOSED: [2020-09-29 ter 09:39]

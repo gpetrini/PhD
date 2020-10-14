@@ -1,0 +1,166 @@
+#+OPTIONS: toc:nil num:nil
+#+TITLE: Desenvolvimento de equações para endividamento sobre a renda
+#+AUTHOR: Gabriel Petrini
+#+DATE: 14 de Outubro de 2020
+#+LANG: pt_Br
+
+O objetivo dessa nota é apresentar o desenvolvimento algébrico para obter a relação endividamento das firmas e das famílias capitalistas em termos da renda (respectivamente $\ell_{fy}$ e $\ell_{ky}$)[fn::Depois pensamos em uma notação melhor]. 
+
+* Endividamento das firmas
+
+Na versão atual do artigo, temos o endividamento das firmas em relação ao seu capital e será denotado por $\ell_f$
+
+$$
+\ell_f = \frac{L_f}{K_f}
+$$
+podemos reescrever da seguinte maneira
+$$
+\ell_f = \frac{L_f}{Y}\frac{Y}{Y_{fc}}\frac{Y_fc}{K_f}
+$$
+$$
+\ell_f = \ell_{fy}\frac{u}{v}
+$$
+rearranjando
+$$
+\ell_{fy} = \ell_f\frac{v}{u} \Rightarrow \ell_{fy}^\star = \ell_f^\star\frac{v}{u}
+$$
+
+Sendo assim, podemos dividir a norma de /steady state/ entre o endividamento das firmas e seu estoque de capital ($\ell_f^\star$) apresentada na equação 57 pelo grau de utilização e multiplicar pela relação técnica capital produto para obter $\ell_{fy}^\star$. Vou repetir a equação 57 abaixo para facilitar[fn::Lembrando que estou pensando ainda por qual letra irei substituir as taxas de juros/lucro.]:
+
+\begin{equation}
+\tag{57}
+\ell_f^\star = \frac{g^\star\cdot v + \gamma_f\cdot u^\star\cdot (1-\omega)}{v\cdot (g^\star - \gamma_f \cdot rm)}
+\end{equation}
+Multiplicando por $v$
+
+\begin{equation}
+\ell_f^\star\cdot v = \frac{g^\star\cdot v + \gamma_f\cdot u^\star\cdot (1-\omega)}{g^\star - \gamma_f \cdot rm}
+\end{equation}
+Dividindo por $u\star$
+\begin{equation}
+\ell_f^\star\cdot \frac{v}{u\star} = \ell_{fy} = \frac{\frac{g^\star\cdot v}{u^\star} + \gamma_f\cdot (1-\omega)}{g^\star - \gamma_f\cdot rm}
+\end{equation}
+lembrando da definição de $h^\star$:
+
+\begin{equation}
+\label{endiv_firm}
+\ell_{fy} = \frac{h^\star + \gamma_f\cdot (1-\omega)}{g^\star - \gamma_f\cdot}
+\end{equation}
+
+* Endividamento das famílias capitalistas
+
+Nesta seção, irei indicar as etapas para obter o endividamento capitalista em termos da renda disponível. Para isso, seguem algumas definições e hipóteses[fn::Ainda estou pensando em quais letrar utilizar na versão final]:
+
+- $DT$: Dívida total $= L_k + MO$
+- $DL$: Dívida líquida dos depósitos $= L_k + MO - M$
+- Não há spread sobre a taxa básica de juros: $r_m = r_{mo} = r_l$
+
+Relembrando algumas identidades contábeis, temos
+
+$$
+M = L_f + L_k + MO
+$$
+então
+$$
+M - L_k - MO = L_f
+$$
+logo, 
+\begin{equation}
+\label{DL}
+DL = -L_f
+\end{equation}
+
+Dito isso, vou reescrever a equação da renda disponível das famílias capitalistas abaixo tal como a equação 32 do artigo
+
+\begin{equation}
+\tag{32}
+YD_k = FD + rm\cdot M_{-1} - r_{mo}\cdot MO_{-1}  - r_{L}\cdot L_{k_{-1}}
+\end{equation}
+fazendo $r_m = r_{mo} = r_l$
+\begin{equation}
+YD_k = FD + rm\cdot (M_{-1} - MO_{-1}  - L_{k_{-1}})
+\end{equation}
+que é equivalente à 
+\begin{equation}
+YD_k = FD - rm\cdot DL_{-1}
+\end{equation}
+ou ainda
+\begin{equation}
+YD_k = FD + rm\cdot L_{f_{-1}}
+\end{equation}
+
+Substituindo a equação dos lucros distribuídos (Eq 12) na equação anterior, temos
+
+\begin{equation}
+YD_k = (1-\gamma_f)\cdot ((1-\omega)Y - r_m L_{f_{-1}}) + rm\cdot L_{f_{-1}}
+\end{equation}
+
+\begin{equation}
+\label{New_YD}
+YD_k = (1-\gamma_f)\cdot (1-\omega)Y - r_m \cdot \gamma_F \cdot L_{f_{-1}}
+\end{equation}
+
+Com isso, podemos encontrar a relação entre endividamento (líquido) capitalista e renda disponível ($\ell_k^\star$)
+
+$$
+\ell_{ky}^\star = \frac{DL}{YD_k}
+$$
+
+Substituindo \ref{DL} e \ref{New_YD} na relação acima, temos
+\begin{equation}
+\ell_{ky}^\star = -\frac{L_{f_{-1}}}{Y}\frac{1}{(1-\gamma_F)\cdot (1-\omega)} - \frac{-L_{f_{-1}}}{r_m L_{f_{-1}}}
+\end{equation}
+
+\begin{equation}
+\ell_k^\star = -\frac{L_{f_{-1}}}{Y}\frac{1}{(1-\gamma_F)\cdot (1-\omega)} + \frac{1}{r_m\cdot \gamma_F}
+\end{equation}
+
+\begin{equation}
+\label{endiv_k_parcial}
+\ell_{ky}^\star = \frac{1}{r_m\cdot \gamma_F} - \frac{\ell_{fy}\star}{(1-\gamma_F)\cdot (1-\omega)}
+\end{equation}
+
+Finalmente, substituindo ref:endiv_firm em ref:endiv_k_parcial, temos
+
+\begin{equation}
+\ell_{ky}^\star = \frac{1}{r_m\cdot \gamma_F} - \frac{h^\star + \gamma_F\cdot (1-\omega)}{(1-\gamma_F)\cdot (1-\omega)\cdot (g^\star - \gamma_F)}
+\end{equation}
+
+Rearranjando e lembrando a definição de $h^\star$
+
+\begin{equation}
+\ell_{ky}^\star = \frac{1}{r_m\cdot \gamma_F} - \frac{g^\star\cdot v}{u^\star \cdot (1-\gamma_F)\cdot (1-\omega)\cdot (g^\star - \gamma_F)} - \frac{\gamma_F}{(1-\gamma_F)\cdot (g^\star - \gamma_F)}
+\end{equation}
+
+*Nota:* Diferenciei as equações seguintes a mão e notei que não me lembro tanto assim de derivada parcial. Então considere como uma primeira tentativa.
+
+Dado que
+$$
+\frac{\partial g^\star}{\partial \omega} = 0
+$$
+
+$$
+\frac{\partial u^\star}{\partial \omega} = 0
+$$
+
+
+Podemos avaliar como se dá o endividamento das famílias capitalistas dada uma variação positiva no /wage-share/:
+$$
+\frac{\partial \ell_{ky}^\star}{\partial \omega} = -\frac{g^\star\cdot v}{(1-\omega)^2\cdot u^\star \cdot (1-\gamma_F)\cdot (g^\star - \gamma_F)} < 0
+$$
+
+Portanto, uma redução no /wage-share/ (simulação 1) faz com que o endividamento capitalista *aumente* dado um $g^\star > \gamma_F> 0$
+
+Já um aumento na taxa de juros implica
+$$
+\frac{\partial \ell_{ky}^\star}{\partial r_m} = -\frac{1}{r_m^2\cdot \gamma_F} < 0
+$$
+
+
+* Considerações finais
+
+- Talvez precise desenvolver melhor esta última equação
+  - Pode ser que seja interessante calcular as derivadas parciais em função dos parâmetros que fizemos os choques na simulação
+  - Acho que essa última equação pode ajudar a explicar um resultado que você havia perguntado se temos algumas equação (p. 14 do PDF comentado)
+- Não sei dizer em que medida faz sentido tratar de endividamento líquido do pagamento de juros dos depósitos, mas acho que não deve ser muito complicado tratar de endividamento total a partir da equação que desenvolvi
+- No primeiro gráfico da segunda linha da figura 6, o endividamento capitalista plotado *não é* líquido do pagamento do juros dos depósitos

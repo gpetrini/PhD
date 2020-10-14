@@ -1,11 +1,9 @@
 #+PROPERTY: header-args:ipython :async t :results output drawer :session empirical :exports none :tangle ./codes/Empirical_Motivation.py
 * Empirical TODOs and Setups                                       :noexport:
 
-** TODO [#B] Checar se gráfico da taxa própria deve ser em média móvel
-
 ** Loading packages
    
-#+BEGIN_SRC ipython :async t :results output :session empirical :exports none :tangle ./codes/Empirical_Motivation.py
+#+BEGIN_SRC ipython
 %config InlineBackend.figure_format = 'retina'
 
 import pandas as pd
@@ -28,8 +26,13 @@ def salvar_grafico(file_name, extension=".png", pasta="./figs/"):
 
 #+RESULTS:
 :results:
-# Out [131]: 
+# Out [3]: 
+# output
+/home/gpetrini/.local/lib/python3.8/site-packages/pandas_datareader/compat/__init__.py:7: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
+  from pandas.util.testing import assert_frame_equal
+
 :end:
+
 
 ** Functions
 
@@ -58,7 +61,7 @@ def crises(axes, color='lightgray', alpha=0.4):
 
 #+RESULTS:
 :results:
-# Out [132]: 
+# Out [4]: 
 :end:
 
 ** Getting data
@@ -90,7 +93,7 @@ df.to_csv('./data/Cycle.csv')
 
 #+RESULTS:
 :results:
-# Out [133]: 
+# Out [5]: 
 :end:
 
 
@@ -135,7 +138,7 @@ df.to_csv("./data/OwnInterestRate_data.csv")
 
 #+RESULTS:
 :results:
-# Out [134]: 
+# Out [6]: 
 :end:
 
 ** Residuals
@@ -495,6 +498,110 @@ salvar_grafico("Own_gI")
 #+end_export
 
 
+#+BEGIN_SRC ipython 
+df = pd.read_excel(
+    './data/SCF_merged.xlsx', 
+    sheet_name='Riqueza',
+    index_col=[0]
+)
+
+imoveis = df.loc['Imóveis',:]
+imoveis = imoveis.drop(['Percentil da riqueza'], axis='columns')
+imoveis.index = [.249, .499, .749, .899, 1]
+imoveis = imoveis/100
+
+acoes = df.loc['Ações',:]
+acoes = acoes.drop(['Percentil da riqueza'], axis='columns')
+acoes.index = [.249, .499, .749, .899, 1]
+acoes = acoes/100
+
+secund = df.loc['Secundário',:]
+secund = secund.drop(['Percentil da riqueza'], axis='columns')
+secund.index = [.249, .499, .749, .899, 1]
+secund = secund/100
+
+# Suavizando curvas. Não utilizado
+def suavizacao(serie, n=1000, k=2):
+
+    xnew = np.linspace(serie.min().min(), serie.max().max(), n) 
+    suavizado = serie.apply(lambda x: make_interp_spline(x.index, x, k=k)(xnew))
+    suavizado = suavizado[suavizado > 0].dropna()
+    suavizado.index = suavizado.index/n
+    return suavizado
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [7]: 
+:end:
+
+#+BEGIN_SRC ipython
+import numpy as np
+fig, ax = plt.subplots(figsize=(16, 10))
+
+ax.plot(
+    np.linspace(0,0), 
+    np.linspace(0,0),
+    color='white',
+    ls='-',
+    label='Primary\n'
+)
+
+imoveis.loc[:, imoveis.columns <= 2010].plot(
+    ax=ax,
+    cmap="Blues", 
+    linewidth=2.5,
+)
+
+ax.plot(
+    np.linspace(0,0), 
+    np.linspace(0,0),
+    color='white',
+    ls='-',
+    label='Secoundary\n'
+)
+
+secund.loc[:, secund.columns <= 2010].plot(
+    ax=ax,
+    cmap="Reds", 
+    linewidth=2.5,
+)
+
+ax.legend(ncol=2)
+
+ax.plot(
+    np.linspace(*ax.get_xlim()), 
+    np.linspace(*ax.get_xlim()),
+    color='black',
+    ls='--',
+)
+
+ax.arrow(0.6, 0.6, +0.08, -0.08, head_width=0.01, head_length=0.01, fc='gray', ec='black')
+ax.text(.61,.53, "Concentration", fontsize=12, rotation=-30)
+ax.arrow(0.6, 0.6, -0.07, 0.07, head_width=0.01, head_length=0.01, fc='gray', ec='black')
+ax.text(.54,.61, "Distribution", fontsize=12, rotation=-30)
+ax.text(.8,.75, "Perfect equality line", fontsize=12, rotation=35)
+
+ax.set_xlim(0,1)
+ax.set_ylim(0,1)
+
+ax.set_xlabel('Cumulative proportion of Households\n(Households without wealth omiited)')
+ax.set_ylabel('Asset cumulative proportion\n(Primary and Secoundary houses)')
+ax.secondary_yaxis('right')
+
+plt.show()
+salvar_grafico(file_name="Concentration_Curve")
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [10]: 
+# text/plain
+: <Figure size 1152x720 with 1 Axes>
+
+# image/png
+[[file:obipy-resources/55f4d82f99285b53283e312a47760264590346bb/53eaeb0a443ba67ff7895fcdbdcd01ea196b7194.png]]
+:end:
 
 @@comment: Importância da bolha de ativos para explicar o investimento residencial e, por conseguinte, o ciclo econômico comment@@
 There is also an indirect relation between residential investment and durables goods consumption. Real estate constitutes a significant portion of household wealth so houses serves as collateral to borrowing cite:teixeira_uma_2011. 
@@ -563,10 +670,10 @@ salvar_grafico(file_name="Debt_Prices")
 #+BEGIN_SRC latex
 \begin{figure}[htb]
     \centering
-        \caption{Household debt and House prices\\\centering (Jan/2000 = 100)} 
-    \includegraphics[width = 0.65\textwidth]{./figs/Debt_Prices.png}
-    \label{fig:debt}
-    \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration.}
+        \caption{Concentration curves for primary and secoundary houses} 
+    \includegraphics[width = 0.95\textwidth]{./figs/Concentration_Curve.png}
+    \label{fig:concentration}
+    \caption*{\textbf{Source:} Survey of Consumer Finance, authors’ elaboration.}
 \end{figure}
 #+END_SRC
 
@@ -574,10 +681,10 @@ salvar_grafico(file_name="Debt_Prices")
 #+begin_export latex
 \begin{figure}[htb]
     \centering
-        \caption{Household debt and House prices\\\centering (Jan/2000 = 100)} 
-    \includegraphics[width = 0.65\textwidth]{./figs/Debt_Prices.png}
-    \label{fig:debt}
-    \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration.}
+        \caption{Concentration curves for primary and secoundary houses} 
+    \includegraphics[width = 0.65\textwidth]{./figs/Concentration_Curve.png}
+    \label{fig:concentration}
+    \caption*{\textbf{Source:} Survey of Consumer Finance, authors’ elaboration.}
 \end{figure}
 #+end_export
 

@@ -324,7 +324,7 @@ As a consequence, productive capacity gradually reacts to effective demand movem
 #+BEGIN_SRC latex
 \begin{equation}
 \label{_If}
-    I_f = h\cdot Y
+    I_f = h_{t-1}\cdot Y
 \end{equation}
 \begin{equation}
 \label{_h}
@@ -339,7 +339,7 @@ As a consequence, productive capacity gradually reacts to effective demand movem
 #+begin_export latex
 \begin{equation}
 \label{_If}
-    I_f = h\cdot Y
+    I_f = h_{t-1}\cdot Y
 \end{equation}
 \begin{equation}
 \label{_h}

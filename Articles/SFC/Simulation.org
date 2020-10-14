@@ -1,10 +1,8 @@
-
-
 * Simulation TODOs and setups                                      :noexport:
 
- #+PROPERTY: header-args:ipython :session SFC  :exports none :results output :eval yes :cache yes :async t
+#+PROPERTY: header-args:ipython :session SFC  :exports none :results output :eval yes :cache no :async t :tangle ./codes/SFC_setup.py
 
-#+BEGIN_SRC ipython :tangle ./codes/SFC_setup.py
+#+BEGIN_SRC ipython 
 from pysolve3.model import Model
 from pysolve3.utils import SolveSFC, ShockModel, SummaryShock, SFCTable
 
@@ -35,7 +33,7 @@ def model(
     phi_1 = 0.1,
     infla = 0.0,
     phparam=1.0,
-    R = 0.9,  # Previous 0.7 Increased
+    R = 0.7,  # Previous 0.7 Increased
     gC = 0.0, #0.025 (Real Data)
     real = 0.0
 ):
@@ -47,6 +45,8 @@ def model(
   model.var('C', desc='Consumption')
   model.var('Cw', desc='Workers Consumption', default=112)
   model.var('Ck', desc='Capitalist Consumption', default=68)
+  model.var('DT', desc='Capitalists total debt')
+  model.var('DN', desc='Capitalist net debt')
   model.var('FD', desc='Distributed profits')
   model.var('Fn', desc='Net profits')
   model.var('FT', desc='Total Profits')
@@ -145,6 +145,7 @@ def model(
   model.add('Fn = FT -rl*Lf(-1)')
   model.add('FU = gamma_F*(Fn)') # Eq 17
   model.add('FD = (1 - gamma_F)*(Fn)') # Eq 18
+  #model.add('I_f = h*Y') # Eq 19
   model.add('I_f = h(-1)*Y') # Eq 19, Warning: h -> h(-1).
   model.add('d(K_f) = I_f') # 20
   model.add('h = h(-1)*gamma_u*(u-un) + h(-1)') # Eq 21 # Version without corridor
@@ -172,6 +173,11 @@ def model(
   model.add('g_Z = phi_0 - phi_1*own')
 
   # Stock flow ration (in progress)
+
+  # Aux variables
+
+  model.add('DT = MO + Lk')
+  model.add('DN = DT - M')
   
   return model
 
@@ -270,16 +276,16 @@ def plot_norms(filename, shock, df):
     sns.set_context('talk')
     fig, ax = plt.subplots(2,2, figsize=(16,10))
 
-    ((shock["YDk"]/shock['V_h'])**(1)).plot(title = "Flow/Stock", ax = ax[0,0], ls = (':'), lw=3)
-    ((shock["YDk"]/shock['V_hr'])**(1)).plot(ax = ax[0,0], ls = ('-'), lw=3)
-    ((shock["FU"]/shock['V_f'])**(1)).plot(ax = ax[0,0], ls = ('-'), lw=3)
+    ((shock['YDk']/(shock["MO"] + shock["Lk"] - shock["M"]))).plot(title = "Capitalists households\nFlow-Stock ratios", ax = ax[0,0], ls = ('-'), lw=3)
+    ((shock["YDk"]/shock['V_hr'])).plot(ax = ax[0,0], ls = ('-'), lw=3)
+    ((shock["YDk"]/shock['V_h'])).plot(ax = ax[0,0], ls = ('-'), lw=3)
     
     ax[0,0].set_yticklabels(['{:,.1%}'.format(x) for x in ax[0,0].get_yticks()])
     ax[0,0].legend(loc='upper center', bbox_to_anchor=(0.5, -0.08),
                    labels = [
-                       "$YDk/V_{hk}$",
-                       "$YDk/V_{hkr}$",
-                       "$FU$/V_f",
+                       "$YD_{k}/ND$",
+                       "$YD_{k}/V_{hr}$",
+                       "$YD_{k}/V_{h}$",
                             ],
               fancybox=True, shadow=True, ncol=2)
     #ax[0,0].ticklabel_format(useOffset=False)
@@ -358,8 +364,9 @@ def other_plots(shock, df):
 
 #+RESULTS:
 :results:
-# Out [36]: 
+# Out [78]: 
 :end:
+
 
 ** Increase in autonomous growth rate ($g_Z$)
 
@@ -378,48 +385,48 @@ shock1.columns = ['$\Delta \phi_0$']
 
 #+RESULTS:
 :results:
-# Out [37]: 
+# Out [79]: 
 # text/plain
 : <Figure size 1728x360 with 3 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/9d9390557c5976a9964a625dd56a912fb7076217.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/82840f004b4ae2956a09aac102101cf3d848a5c7.png]]
 
 # text/plain
 : <Figure size 1152x720 with 4 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/791499ddbdebaf477d719491868baf33d6abae01.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/db9ad38911832052170665dd13bf39cbe79a6fdc.png]]
 
 # text/plain
 : <Figure size 1152x720 with 4 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/3f0006505a2e14d7eb5c0754ae4ab53490445b72.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/a2e3d14eebc6524cc8ef7aafb7e7aa40a3ea39f4.png]]
 
 # text/plain
 : <Figure size 432x288 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/d1800dd915374910a36be81ac17a60e7037372b4.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/e92a6e2fb874031231f6773941e132be79460a9e.png]]
 
 # text/plain
 : <Figure size 432x288 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/e86061cbfec0d26f166810461e537225d178a218.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/206765c3e9dfd66919d2f357a9f58402817ad170.png]]
 
 # text/plain
 : <Figure size 432x288 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/a0831bded4239f902124dd94f6cb52356a8e51ad.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/138f35fa4034626546fc081d2e157d36944e2c2b.png]]
 
 # text/plain
 : <Figure size 576x360 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/a266477f0be09186dff5103716af579c8d8915ec.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/d3ef7d16a7c340d24d1b7789f1e8b332a280ed34.png]]
 :end:
 
 ** Wage-share decrease ($\Downarrow \omega$)
@@ -439,56 +446,56 @@ shock2.columns = ['$\Delta \omega$']
 
 #+RESULTS:
 :results:
-# Out [38]: 
+# Out [80]: 
 # text/plain
 : <Figure size 1728x360 with 3 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/1fe8257c6402b118c2d5d6b7c03c5541d7513981.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/393333fe407ee25f2cec23f73a7ee1d3c718e28d.png]]
 
 # text/plain
 : <Figure size 1152x720 with 4 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/7c049f459eb55c6968cb4b81675b0d62300da674.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/37cf354939657a8ff4d1b23d9b342494c210d5a9.png]]
 
 # text/plain
 : <Figure size 1152x720 with 4 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/01df7b390a93473df227d49af59d1cb157b6ba57.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/d58c7c84e59dca70b2624941923aad30930b7c2f.png]]
 
 # text/plain
 : <Figure size 432x288 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/8babeb542fa6793e2682a37688cc285300fce8d5.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/097da4eb4da6fa3573bddbe856c04b5db2ba551d.png]]
 
 # text/plain
 : <Figure size 432x288 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/1980a13ee757843c6b873a999747cf8fb905fdf0.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/0e75018270a2703f7f1fe6de0f044bdca2f547c4.png]]
 
 # text/plain
 : <Figure size 432x288 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/ce713a69d1107495e5328bf19afe31d01a791cd6.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/7ba935ea23a55d02d6040121db4b2ac14ca4d266.png]]
 
 # text/plain
 : <Figure size 576x360 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/b9efd963f365640ebb4c71ede2344137e77b5b94.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/b429e9f930fe1aa6bce3f5ab629677b7528aa7dc.png]]
 :end:
 
 ** Increase in mortgage interest rate
-
+   
 #+BEGIN_SRC ipython :tangle ./codes/setup.py :cache no
 base = model()
 df = SolveSFC(base, time=1000)
-shock = ShockModel(base_model=base, create_function=model(), variable='rm', increase=0.01, time = 1000)
+shock = ShockModel(base_model=base, create_function=model(), variable='rm', increase=0.0025, time = 1000)
 df3=shock
 shock3 = shock.round(decimals = 3).tail(1).transpose().loc['alpha':,:]
 shock3.columns = ['$\Delta rm$']
@@ -500,46 +507,48 @@ other_plots(shock, df=df)
 
 #+RESULTS:
 :results:
-# Out [39]: 
-# output
+# Out [81]: 
+# text/plain
+: <Figure size 1728x360 with 3 Axes>
 
-SolutionNotFoundErrorTraceback (most recent call last)
-<ipython-input-39-2f84ee2726ee> in <module>
-      1 base = model()
-      2 df = SolveSFC(base, time=1000)
-----> 3 shock = ShockModel(base_model=base, create_function=model(), variable='rm', increase=0.01, time = 1000)
-      4 df3=shock
-      5 shock3 = shock.round(decimals = 3).tail(1).transpose().loc['alpha':,:]
+# image/png
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/64fc11f11927b42d4f0454b0780a6f161371e3a1.png]]
 
-~/.local/lib/python3.8/site-packages/pysolve3/utils.py in ShockModel(base_model, create_function, variable, increase, time, initial_time, table)
-    138     model.parameters[variable].value += increase
-    139 
---> 140     df = SolveSFC(model, time=time, table=table)
-    141 
-    142     return df
+# text/plain
+: <Figure size 1152x720 with 4 Axes>
 
-~/.local/lib/python3.8/site-packages/pysolve3/utils.py in SolveSFC(model, time, iterations, threshold, table)
-    106 
-    107     for i in range(time):
---> 108         model.solve(iterations=iterations, threshold=1e-5)
-    109 
-    110     if table == True:
+# image/png
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/432d7ecb56815d1531f3947cfee8e7c1b54e5ae9.png]]
 
-~/.local/lib/python3.8/site-packages/pysolve3/model.py in solve(self, iterations, until, threshold, debuglist, method)
-    751 
-    752         solver.setup()
---> 753         solution = self._run_solver(solver,
-    754                                     current,
-    755                                     max_iterations=iterations,
+# text/plain
+: <Figure size 1152x720 with 4 Axes>
 
-~/.local/lib/python3.8/site-packages/pysolve3/model.py in _run_solver(self, solver, context, max_iterations, until, threshold, debuglist)
-    690                              [next_soln[variable._index], ]):
-    691                     problem_vars.append(variable.name)
---> 692             raise SolutionNotFoundError(', '.join(problem_vars) +
-    693                                         ' have not converged')
-    694         return soln
+# image/png
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/ecd49af3a38937b9722f89c2051fb0de3d1a1386.png]]
 
-SolutionNotFoundError: YDk have not converged
+# text/plain
+: <Figure size 432x288 with 1 Axes>
+
+# image/png
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/6bda01376e0c787440ac8d7e974973ad1230718e.png]]
+
+# text/plain
+: <Figure size 432x288 with 1 Axes>
+
+# image/png
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/906a5b023cb8a7c1a78051c3ff5c01eca67fbbd3.png]]
+
+# text/plain
+: <Figure size 432x288 with 1 Axes>
+
+# image/png
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/f86f7c35a0df0d7a59b1adc9ce6d0f06e32b8e9f.png]]
+
+# text/plain
+: <Figure size 576x360 with 1 Axes>
+
+# image/png
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/60116603dca1773c7c110654a0ea8b2e671bda88.png]]
 :end:
 
 ** TODO Decrease in mortgage interest rate
@@ -547,7 +556,7 @@ SolutionNotFoundError: YDk have not converged
 #+BEGIN_SRC ipython :tangle ./codes/setup.py :cache no
 base = model()
 df = SolveSFC(base, time=1000)
-shock = ShockModel(base_model=base, create_function=model(), variable='rm', increase=-0.01, time = 1000)
+shock = ShockModel(base_model=base, create_function=model(), variable='rm', increase=-0.005, time = 1000)
 df3b=shock
 shock3b = shock.round(decimals = 3).tail(1).transpose().loc['alpha':,:]
 shock3b.columns = ['$\Downarrow rm$']
@@ -559,48 +568,48 @@ other_plots(shock, df=df)
 
 #+RESULTS:
 :results:
-# Out [40]: 
+# Out [82]: 
 # text/plain
 : <Figure size 1728x360 with 3 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/e93596b0dd13a0d025da6f1e99be388e6771e735.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/ded0599eaf9c9dbc968b4ba19900f399035daa66.png]]
 
 # text/plain
 : <Figure size 1152x720 with 4 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/5e2e53ade8c83ff7e6bb10b9777dd7c3fcea3805.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/f0b4ce1934569799b1f847d99ccd3ff051497060.png]]
 
 # text/plain
 : <Figure size 1152x720 with 4 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/37c0c3e194b5719de91fb9d263aaf7c86698a679.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/e1967ff9a373ce0190702e0174bcae741aaec19a.png]]
 
 # text/plain
 : <Figure size 432x288 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/1ad8dfcc97b4f1ffcb50f2a35f3d39bdb28b4b87.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/68b90eeeb1b809cbe6cfc9a88b0d9d62723f4f3f.png]]
 
 # text/plain
 : <Figure size 432x288 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/73f6aa1d77a70c1d231a95b74d8bdb79ae75eea1.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/bbf62bc4168b919ee8889a3324d90aefd734dade.png]]
 
 # text/plain
 : <Figure size 432x288 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/d5d6453f72cba37f55124c690fac91063d34bed4.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/22efbca09bda5361253b1821a5da9be13500d4c9.png]]
 
 # text/plain
 : <Figure size 576x360 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/79c3aa5849c81d4a6665152e3dbac579179d33f4.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/50ed3b9f13145cf200a816b2d6bf5f11a6b07b85.png]]
 :end:
 
 ** Increase in house inflation
@@ -621,52 +630,54 @@ shock4.columns = ['$\pi$']
 
 #+RESULTS:
 :results:
-# Out [41]: 
+# Out [83]: 
 # text/plain
 : <Figure size 1728x360 with 3 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/44a1cab2cb24c57afbe7c1fe28a748a72bf93094.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/6a9f7279a9c993451a3c2324b67c051f2bbde3f8.png]]
 
 # text/plain
 : <Figure size 1152x720 with 4 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/bfa79a5470da49c4ab78034480674334fb7e3529.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/23a93b1536ba67ca02964b36fee9bd6d5e8989fd.png]]
 
 # text/plain
 : <Figure size 1152x720 with 4 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/465ab14a8449d368c6202e141137ac935728ca2e.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/d9393791e773ad7376ed7a89cc56c10e22d2fb2e.png]]
 
 # text/plain
 : <Figure size 432x288 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/1e71b492edaa1a27da5f8192c71a31f914d5f2ff.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/46bfa7eb8e533ba60ed02446cb6a7cd9d584d3c2.png]]
 
 # text/plain
 : <Figure size 432x288 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/8fa55900f1caac865b4b6ffc9055bf4cb53b8930.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/595b3b8a9e8150480b93e630d5736b964fe4439e.png]]
 
 # text/plain
 : <Figure size 432x288 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/23465c7fe8daa7fecaedab198b54f7a1a9d34f32.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/6956c27a028174da98d3180d2276e3e0a2da018d.png]]
 
 # text/plain
 : <Figure size 576x360 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/ab4d316d8220d6df70eda11ef62deda058546e67.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/d412686ef8f32a9668eb3887660d1165b5b0beea.png]]
 :end:
 
 
 ** Merging tables and results                                        :ignore:
+
+*** Table
 
 #+BEGIN_SRC ipython :tangle ./codes/setup.py :results value table :cache no
 base = model()
@@ -705,21 +716,21 @@ table
 
 #+RESULTS:
 :results:
-# Out [42]: 
+# Out [84]: 
 # text/plain
 :                Base scenario  $\Delta \phi_0$  $\Delta \omega$  $\Delta rm$  \
 : $\alpha$               0.500             0.50            0.500        0.500   
 : $\gamma_F$             0.080             0.08            0.080        0.080   
 : $\gamma_u$             0.090             0.09            0.090        0.090   
 : $\omega$               0.500             0.50            0.490        0.500   
-: $rm$                   0.010             0.01            0.010        0.020   
+: $rm$                   0.010             0.01            0.010        0.012   
 : $\sigma_{l}$           0.000             0.00            0.000        0.000   
 : $\sigma_{mo}$          0.000             0.00            0.000        0.000   
 : $u_N$                  0.800             0.80            0.800        0.800   
 : $v$                    1.200             1.20            1.200        1.200   
 : $\phi_0$               0.025             0.03            0.025        0.025   
 : $\phi_1$               0.100             0.10            0.100        0.100   
-: $R$                    0.900             0.90            0.900        0.700   
+: $R$                    0.700             0.70            0.700        0.700   
 : $\pi$                  0.000             0.00            0.000        0.000   
 : 
 :                $\pi$  
@@ -734,11 +745,17 @@ table
 : $v$            1.200  
 : $\phi_0$       0.025  
 : $\phi_1$       0.100  
-: $R$            0.900  
+: $R$            0.700  
 : $\pi$          0.050  
 
-[[file:/tmp/ob-ipython-htmleJNIXp.html]]
+[[file:/tmp/ob-ipython-html3GSJPs.html]]
 :end:
+
+t> <interrupt> |
+|   |
+:end:
+
+*** Figure 1
 
 #+BEGIN_SRC ipython :tangle ./codes/Simulation.py :cache no
 base = model()
@@ -751,6 +768,7 @@ fig, ax = plt.subplots(2,2, figsize=(2*8,2*5))
 df1['Y'].pct_change().plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[0,0])
 df2['Y'].pct_change().plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[0,0])
 df3['Y'].pct_change().plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[0,0])
+#df3b['Y'].pct_change().plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Downarrow r_m$ (Shock 3)", ax = ax[0,0])
 ax[0,0].axhline(y = df_base['g_Z'].iloc[-1], ls ='--', lw=1, color = "black", label = "Baseline")
 ax[0,0].ticklabel_format(useOffset=False)
 ax[0,0].set_title('GDP growth rate ($g$)')
@@ -758,6 +776,7 @@ ax[0,0].set_title('GDP growth rate ($g$)')
 df1['Z/Y'].plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[0,1])
 df2['Z/Y'].plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[0,1])
 df3['Z/Y'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[0,1])
+#df3b['Z/Y'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Downarrow r_m$ (Shock 3)", ax = ax[0,1])
 ax[0,1].axhline(y = df_base['Z/Y'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
 ax[0,1].ticklabel_format(useOffset=False)
 ax[0,1].set_title('Autonomous Expenditure\nShare on GDP ($Z/Y$)')
@@ -765,6 +784,7 @@ ax[0,1].set_title('Autonomous Expenditure\nShare on GDP ($Z/Y$)')
 df1['u'].plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 3)", ax = ax[1,0])
 df2['u'].plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,0])
 df3['u'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 4)", ax = ax[1,0])
+#df3b['u'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Downarrow r_m$ (Shock 4)", ax = ax[1,0])
 ax[1,0].axhline(y = df_base['u'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
 ax[1,0].ticklabel_format(useOffset=False)
 ax[1,0].set_title('Capacity utilization rate ($u$)')
@@ -772,6 +792,7 @@ ax[1,0].set_title('Capacity utilization rate ($u$)')
 df1['h'].plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[1,1])
 df2['h'].plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,1])
 df3['h'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,1])
+#df3b['h'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Downarrow r_m$ (Shock 3)", ax = ax[1,1])
 ax[1,1].axhline(y = df_base['h'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
 ax[1,1].ticklabel_format(useOffset=False)
 ax[1,1].set_title('Marginal propsenty\nto invest ($h$)')
@@ -786,14 +807,16 @@ fig.savefig("./figs/Compared_Shocks_1.png", dpi = 600)
 
 #+RESULTS:
 :results:
-# Out [43]: 
+# Out [85]: 
 # text/plain
 : <Figure size 1152x720 with 4 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/709be5e0fa25d038610b7c6f68b94bc03ed71e81.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/15876501d4fb0c8efcf4bc821ddd2c951d7f7948.png]]
 :end:
 
+*** Figure 2
+    
 #+BEGIN_SRC ipython :tangle ./codes/setup.py :cache no
 base = model()
 df = SolveSFC(base, time=1000)
@@ -826,11 +849,11 @@ ax[0,1].axhline(y = df_base['K_k'].iloc[-1], ls ='--', lw=1.5, color = "black", 
 ax[0,1].ticklabel_format(useOffset=False)
 ax[0,1].set_title('Houses share on\nReal Assets ($K_k$)')
 
-((df1["MO"]*df1["rmo"][1:] + df1["Lk"]*df1["rl"][1:])/df1['YDk'][1:]).plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[1,0])
-((df2["MO"]*df2["rmo"][1:] + df2["Lk"]*df2["rl"][1:])/df2['YDk'][1:]).plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,0])
-((df3["MO"]*df3["rmo"][1:] + df3["Lk"]*df3["rl"][1:])/df3['YDk'][1:]).plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,0])
-#((df3b["MO"]*df3b["rmo"][1:] + df3b["Lk"]*df3b["rl"][1:])/df3b['YDk'][1:]).plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,0])
-ax[1,0].axhline(y = ((df_base["MO"].iloc[-2]*df_base["rmo"].iloc[-1] + df_base["Lk"].iloc[-2]*df_base["rl"].iloc[-1])/df_base['YDk'].iloc[-1]), ls ='--', lw=1.5, color = "black", label = "Baseline")
+((df1["DN"][1:]*df1["rm"][2:])/df1['YDk'][2:]).plot(ls ='-', lw=3, color = "darkred", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[1,0])
+((df2["DN"][1:]*df2["rm"][2:])/df2['YDk'][2:]).plot(ls ='-', lw=3, color = "darkblue", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,0])
+((df3["DN"]*df3["rm"])[1:]/df3['YDk'][1:]).plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,0])
+#((df3b["MO"]*df3b["rmo"][1:] + df3b["Lk"]*df3b["rl"][1:] - df3b["M"]*df3b["rl"][1:])/df3b['YDk'][1:]).plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,0])
+ax[1,0].axhline(y = ((df_base["DN"].iloc[-1]*df_base["rm"].iloc[-1])/df_base['YDk'].iloc[-1]), ls ='--', lw=1.5, color = "black", label = "Baseline")
 ax[1,0].ticklabel_format(useOffset=False)
 ax[1,0].set_title('Capitalist Indebtedness\n(as % $YD_k$)')
 
@@ -851,17 +874,17 @@ fig.savefig("./figs/Compared_Shocks_2.png", dpi = 600)
 
 #+RESULTS:
 :results:
-# Out [44]: 
+# Out [86]: 
 # text/plain
 : <Figure size 1152x720 with 4 Axes>
 
 # image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/58d0377d03095aa3973537b6f761c402a976fa9e.png]]
+[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/f8a4fc23c5da45e5ffca88c18bebcd43dc3b12c6.png]]
 :end:
 
 
 ** Real data                                                         :ignore:
-
+   
 #+BEGIN_SRC ipython :tangle ./codes/Simulation.py :cache no
 data = pd.read_csv('./data/OwnInterestRate_data.csv', index_col=[0], parse_dates=True)
 initial=int(1000) ## Warning 1000
@@ -900,7 +923,7 @@ shock["Z/Y"] = shock["Z"]/shock["Y"]
 
 #+RESULTS:
 :results:
-# Out [55]: 
+# Out [87]: 
 :end:
 
 #+BEGIN_SRC ipython :tangle ./codes/Simulation.py :cache no
@@ -920,19 +943,25 @@ ax[0,0].ticklabel_format(useOffset=False)
 ax[0,0].set_title('Selected growth rates')
 
 shock['Z/Y'].plot(ls ='-', lw=3, color = "darkred", label = "Real data", ax = ax[0,1])
-ax[0,1].axhline(y = df_base['Z/Y'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
-ax[0,1].ticklabel_format(useOffset=False)
-ax[0,1].set_title('Autonomous Expenditure\nShare on GDP ($Z/Y$)')
+ax[1,0].axhline(y = df_base['Z/Y'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[1,0].ticklabel_format(useOffset=False)
+ax[1,0].set_title('Autonomous Expenditure\nShare on GDP ($Z/Y$)')
 
 shock['u'].plot(ls ='-', lw=3, color = "darkred", label = "Real data", ax = ax[1,0])
-ax[1,0].axhline(y = df_base['u'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
-ax[1,0].ticklabel_format(useOffset=False)
-ax[1,0].set_title('Capacity utilization rate ($u$)')
+ax[0,1].axhline(y = df_base['u'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[0,1].ticklabel_format(useOffset=False)
+ax[0,1].set_title('Capacity utilization rate ($u$)')
 
-shock['h'].plot(ls ='-', lw=3, color = "darkred", label = "Real data", ax = ax[1,1])
-ax[1,1].axhline(y = df_base['h'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
-ax[1,1].ticklabel_format(useOffset=False)
-ax[1,1].set_title('Marginal propsenty\nto invest ($h$)')
+#shock['h'].plot(ls ='-', lw=3, color = "darkred", label = "Real data", ax = ax[1,1])
+#ax[1,1].axhline(y = df_base['h'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+#ax[1,1].ticklabel_format(useOffset=False)
+#ax[1,1].set_title('Marginal propsenty\nto invest ($h$)')
+
+sns.scatterplot(y = 'Z/Y', x='u', data=shock, size="TIME", sizes = (1,100), color = 'darkred', legend=False, ax=ax[1,1])
+
+sns.lineplot(y = 'Z/Y', x='u', data=shock, sort=False, color = 'darkred', ax=ax[1,1])
+ax[1,1].set_title('Share of residential investment and capacity utilization\n(Dots size grow in time)')
+
 
 
 sns.despine()
@@ -955,8 +984,8 @@ ax[0,1].axhline(y = df_base['K_k'].iloc[-1], ls ='--', lw=1.5, color = "black", 
 ax[0,1].ticklabel_format(useOffset=False)
 ax[0,1].set_title('Houses share on\nReal Assets ($K_k$)')
 
-((shock["MO"]*shock["rmo"][1:] + shock["Lk"]*shock["rl"][1:])/shock['YDk'][1:]).plot(ls ='-', lw=3, color = "darkred", label = "$Real data", ax = ax[1,0])
-ax[1,0].axhline(y = ((df_base["MO"].iloc[-2]*df_base["rmo"].iloc[-1] + df_base["Lk"].iloc[-2]*df_base["rl"].iloc[-1])/df_base['YDk'].iloc[-1]), ls ='--', lw=1.5, color = "black", label = "Baseline")
+((shock["DN"]*shock["rm"][2:])/shock['YDk'][2:]).plot(ls ='-', lw=3, color = "darkred", label = "Real data", ax = ax[1,0])
+ax[1,0].axhline(y = ((df_base["DN"].iloc[-2]*df_base["rm"].iloc[-1])/df_base['YDk'].iloc[-1]), ls ='--', lw=1.5, color = "black", label = "Baseline")
 ax[1,0].ticklabel_format(useOffset=False)
 ax[1,0].set_title('Capitalist Indebtedness\n(as % $YD_k$)')
 
@@ -974,18 +1003,7 @@ fig.savefig("./figs/Real_Shocks_2.png", dpi = 600)
 
 #+RESULTS:
 :results:
-# Out [56]: 
-# text/plain
-: <Figure size 1152x720 with 4 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/2ce89cbbe1194d1dcb5254f4c4db960f1a53bc65.png]]
-
-# text/plain
-: <Figure size 1152x720 with 4 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/4aed48cf511597e08cb4a2637875c50e7b04e5d9.png]]
+61 - a375fa88-f385-4f04-b596-f87147788930 <output> <interrupt>
 :end:
 
 
@@ -994,14 +1012,14 @@ fig.savefig("./figs/Real_Shocks_2.png", dpi = 600)
   #+LATEX: \label{sec:Experiments}
 
 
-In this Section, we present the results of the following experiments[fn:5]: 
+In this Section, we present the results of the following experiments: 
     (i) wage-share decrease;
     (ii) real estate inflation and;
     (iii) deposits interest rate increase.
-In order to evaluate if our model is able to reproduce some stylized facts, we introduce U.S. houses own interest rate observed data (from 1992 to 2019) into our numerical simulation.
+In order to evaluate if our model is able to reproduce some stylized facts, we introduce U.S. houses own rate of interest observed data (from 1992 to 2019) into our numerical simulation.
 Before we move foward, it worth mentioning that we use \citeauthor*{fazzari-2020-deman-led}'s  citeyear:fazzari-2020-deman-led parameter values callibrated for the U.S. economy for a similar time range (from 1980 to 2016).
-Since we use a SFC framework, first experiment assess if income distribution affects fully-adjusted position growth rates temporal --- as in textcite:mandarino-2020-worker-debt --- or persistently ---  as in textcite:brochier_supermultiplier_2018.
-Real estate increase experiment is motivated by recent US experience (from 1992 to 2019) as discussed in Section ref:sec:empirical while the last one aims to evaluate indebtedness stability.
+Our first experiment assess if income distribution affects fully-adjusted position growth rates temporal --- as in textcite:mandarino-2020-worker-debt --- or persistently ---  as in textcite:brochier_supermultiplier_2018.
+Real estate inflation increase experiment is motivated by recent US experience (from 1992 to 2019) as discussed in Section ref:sec:empirical while the last simulation aims to evaluate indebtedness stability.
 Table \ref{tab:param} in Appendix ref:append:Data presents the parameters of simulation and Table \ref{ResumoChoques} compare each result to baseline.
 
 
@@ -1022,25 +1040,32 @@ Finally, Appendix \ref{Appen:Sensibility} presents a primer parameters sensibili
 #+LATEX: \label{sec:Exp1}
 
 A wage-share decrease has a temporary negative impact both in GDP level and capacity utilization rate due to changes on the supermultiplier (see Figure ref:fig:results_1).
-As a consequence of this negative level effect, both accumulation growth rate and marginal propensity to invest decline while NCC autonomous expenditures share on GDP increases.
-Since NCC autonomous expenditure growth rate remains unchanged, this negative level effect is followed by a increase in non-residential investment growth rate because firms react to the discrepancies between actual and normal utilization rates.
+So, aggregate demand growth level is temporarily lower than baseline as a result of the lower supermultiplier.
+As a consequence of this negative level effect, both accumulation growth rate and marginal propensity to invest temporaly decline while NCC autonomous expenditures share on GDP increases.
+Since NCC autonomous expenditure growth rate remains unchanged and its share on GDP increases, aggregate demand grows faster than accumulation rate.
+As a result, capacity utilization is higher than the normal one.
+During the traverse, marginal propensity to invest endogenously adjust to discrepancies between actual and normal utilization rates.
+Consequently, non-residential investment growth rate increases faster than aggregate demand.
+This endogenous adjustment process continues as long as actual capacity utilization rate is different from the normal one.
 In summary, we report standards SSM model results:
     (i) marginal propensity to invest decrease is temporally and returns to baseline level;
     (ii) utilization rate moves towards normal one;
     (iii) supermultiplier decreases and autonomous expenditure share increases due to GDP decline and; 
-    (iv) since autonomous expenditure growth rate does not change, distribution effects are temporally.
+    (iv) since autonomous expenditure growth rate does not change, distribution effects on growth rates are temporary. 
 
-Despite temporary effects in growth rate, wage-share decrease has a permanent effect in house share on total capital stock (see Equation ref:_k_star and Figure ref:fig:results_2).
-As a consequence of the initially lower accumulation rate, total capital stock (firms' and households') also grows at a temporarily lower rate.
+
+Despite temporary effects in growth rate, wage-share decrease has a permanent effect in house share on total capital stock (see Equation ref:k_long and Figure ref:fig:results_2).
+As a consequence of the initially lower accumulation rate, total capital stock also grows at a temporarily lower rate.
 However, since residencial investment growth rate remains unchanged, its share on total capital stock increases.
-Another persistent effect is the higher capitalists' indebtedness despite the profit-share increase.
+Another persistent effect is the higher capitalists' indebtedness compared to baseline despite the profit-share increase.
 This result stems from the negative level effect on profits as a consequence of the negative effect on GDP and subsequent decrease in capitalists' disposable income.
 In other words, we report a paradox in capitalists attempt to increase their profit share which results a negative effect both on net profits and capitalists' disposable income.
 
 Finally, we also report a persistent effect on firms' balance sheet due to wage-share decrease.
 The negative level effect on GDP implies an already mentioned temporally decrease in marginal propensity to invest.
-As a consequence of the initially lower accumulation ratio and higher profit share, firms require less external funding --- as profits distribution policy remains the same  --- so its indebtedness decreases.
-Therefore, gross and net profit rate remains persistently close to each other (see Figure ref:fig:results_2).
+As a consequence of the initially lower accumulation rate and higher profit share, firms' loan-to-profit ratio decrease.
+Thus, according to Equation NUMBER, gross and net profit rate remain persistently close to each other (see Figure ref:fig:results_2 D).
+Therefore, as profits distribution policy remains the same, firms require less external funding so its indebtedness decreases.
 
 *Nota:* Farei referência às equações stock/flow quando terminar esta seção
 
@@ -1048,7 +1073,7 @@ Therefore, gross and net profit rate remains persistently close to each other (s
 #+LATEX: \label{sec:Exp2}
 
 
-Real estate inflation implies a higher residential investment growth due to houses own interest rate decrease.
+Real estate inflation implies a higher residential investment growth due to houses own rate of interest decrease.
 As a result, both GDP growth rate and capacity utilization rate increase as well.
 Since firms react to discrepancies between actual and normal utilization rates, non-residential investment growth rate 
 is temporally higher than GDP growth rate due to marginal propensity to invest adjustment.
@@ -1064,13 +1089,16 @@ In summary, we report SSM standard fully-adjusted position results:
 As mentioned before, our model distinctiveness is the existence of two types of capital stocks since households invest as well.
 Besides the usual SSM results, we report some particularities regarding real assets composition.
 The most distinct result is real houses share decreases on total capital stock as a result of residential investment growth rate increase.
+Although counterintuitive, this result is similar to the conventional paradox of debt.
+This is the case since houses are always equivalent to  mortgage debt.
 
-Although counterintuitive, this result is in line with SSM literature.
+
+Additionally, this result is in line with SSM literature.
 Firms investment follows capital stock adjustment principle, so a higher firms investment growth rate implies that
 GDP grows faster than residential investment, reducing both the latter share on GDP and
 also the utilization rate.
 In other words, both autonomous expenditures share on GDP --- higher supermultiplier --- and houses share on real assets (see Equation ref:partial_pi) decline as a result of the already described non-residential investment positive reaction.
-Finally, it worth noting that real estate increase also has permanent effects over real stock/flow ratios due to capital gains.
+#+LATEX: %Finally, it worth noting that real estate inflation also has permanent effects over real stock/flow ratios due to capital gains.
 
 
 #+BEGIN_COMMENT
@@ -1081,7 +1109,7 @@ Figure \ref{fig:shock_4norm} in Appendix \ref{appen:Simulation} shows that capit
 
 A increase in benchmark interest rate  has a persistent effect on long-run growth rate since houses own interest rate increases as well[fn:Juros].
 Non-residential investment growth rate decreases as a result of residential investment growth rate permanent decline, so houses share on real assets increases.
-In summary, this shock has opposite effects on long-run growth rates, NCC autonomous expenditure share on GDP, utilization rate and marginal propensity to invest  than the previous one (see Figure ref:fig:results_1).
+Compared to the previous experiments, this shock has opposite effects on long-run growth rates, NCC autonomous expenditure share on GDP, utilization rate and marginal propensity to invest  than the previous one (see Figure ref:fig:results_1).
 
 
 [fn:Juros] Since we assume null spread on both mortgage and loans interest rate, an increase on deposits interest rate also increases the other ones. As a consequence, banks' net financial wealth remains unchanged.
@@ -1089,12 +1117,14 @@ In summary, this shock has opposite effects on long-run growth rates, NCC autono
 
 In particular, we report a stronger negative effect over both capitalists' and firms' balance sheet than wage-share decrease (see figures ref:fig:results_1 and ref:fig:results_2).
 This result stems from the temporarily stronger decline of GDP growth rate compared to NCC autonomous expenditure growth rate.
-As a consequence of lower GDP growth rate, profits level also decreases.
+As a consequence of lower GDP growth rate, mass of profits also decreases.
 Thus, capitalists' disposable income decreases more than debt-financed consumption growth rate.
-This result alone is enough to capitalists' indebtedness level to increase, however it is followed by loans interest rate increase, so the overall effect is stronger than wage-share decrease experiment (Section ref:sec:Exp1).
-Regarding firms' balance sheet, we report a temporarily negative effect on gross profit rate and a permanent one on net profit rate. 
+Interest rate increase alone is enough to capitalists' indebtedness level to increase, however it is followed by GDP growth rate decrease, so the overall effect is stronger than wage-share decrease experiment (Section ref:sec:Exp1).
+Regarding firms' balance sheet, we report a temporarily negative level effect on gross profit rate and a permanent one on net profit rate. 
 So, there is a permanent increase in the gap between them due to increase in external funding and to the negative level effect on profits.
 Therefore, we find a stable debt dynamics for both capitalists and firms (other parameters remaining unchanged).
+
+*Nota:* Atualizar resultado do endividamento capitalista na tabela assim que for revisado.
 
 #+BEGIN_SRC latex :tangle ./tabs/Summary_tab.tex
 \begin{table}[H]
@@ -1104,15 +1134,15 @@ Therefore, we find a stable debt dynamics for both capitalists and firms (other 
 	%\resizebox{\textwidth}{!}{%
 		\begin{tabular}{c|c|c|c||c|c|c}
 			\hline\hline
-			\multirow{2}{*}{} & \multicolumn{3}{c||}{\textbf{Medium-run ($h \neq h^*$)}} & \multicolumn{3}{c}{\textbf{Long-run ($h = h^*$)}} \\ \cline{2-7} 
-			&  \textbf{$\Uparrow \pi$} & \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow rm$} &  \textbf{$\Uparrow \pi$} & \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow rm$} \\ \hline
-			\textbf{$g$}  & + & - & - & + & 0 & - \\ \hline
-			\textbf{$g_Z$}  & + & 0 & -  & + & 0 & - \\ \hline
-			\textbf{$u$}  & + & - & -  & 0 & 0 & 0 \\ \hline
-			\textbf{$h$}  & + & - & -  & + & 0 & - \\ \hline
-			\textbf{$k$}  & - & + & +  & - & + & + \\ \hline
-			\textbf{$\frac{Z}{Y}$}  & - & + & +  & - & + & + \\ \hline
-			\textit{$\frac{(r_{mo}\cdot MO_{-1} + r_l\cdot L_{k_{-1}})}{YD_k}$}  & - & + & +  & - & + & + \\ \hline\hline
+			\multirow{2}{*}{} & \multicolumn{3}{c||}{\textbf{Medium-run ($h \neq h^\star$)}} & \multicolumn{3}{c}{\textbf{Long-run ($h = h^\star$)}} \\ \cline{2-7} 
+			&  \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow \pi$} & \textbf{$\Uparrow rm$} &  \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow \pi$} & \textbf{$\Uparrow rm$} \\ \hline
+			\textbf{$g$}  & - & + & - & 0 & + & - \\ \hline
+			\textbf{$g_Z$}  & 0 & + & -  & 0 & + & - \\ \hline
+			\textbf{$u$}  & - & + & -  & 0 & 0 & 0 \\ \hline
+			\textbf{$h$}  & - & + & -  & 0 & + & - \\ \hline
+			\textbf{$k$}  & + & * & +  & + & - & + \\ \hline
+			\textbf{$\frac{Z}{Y}$}  & + & - & +  & + & - & + \\ \hline
+			\textit{$\frac{(r_{mo}\cdot DN)}{YD_k}$}  & - & - & +  & - & - & + \\ \hline\hline
 		\end{tabular}%
 	%}
 	\caption*{\textbf{Source:} Authors' Elaboration}
@@ -1128,15 +1158,15 @@ Therefore, we find a stable debt dynamics for both capitalists and firms (other 
 	%\resizebox{\textwidth}{!}{%
 		\begin{tabular}{c|c|c|c||c|c|c}
 			\hline\hline
-			\multirow{2}{*}{} & \multicolumn{3}{c||}{\textbf{Medium-run ($h \neq h^*$)}} & \multicolumn{3}{c}{\textbf{Long-run ($h = h^*$)}} \\ \cline{2-7} 
-			&  \textbf{$\Uparrow \pi$} & \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow rm$} &  \textbf{$\Uparrow \pi$} & \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow rm$} \\ \hline
-			\textbf{$g$}  & + & - & - & + & 0 & - \\ \hline
-			\textbf{$g_Z$}  & + & 0 & -  & + & 0 & - \\ \hline
-			\textbf{$u$}  & + & - & -  & 0 & 0 & 0 \\ \hline
-			\textbf{$h$}  & + & - & -  & + & 0 & - \\ \hline
-			\textbf{$k$}  & - & + & +  & - & + & + \\ \hline
-			\textbf{$\frac{Z}{Y}$}  & - & + & +  & - & + & + \\ \hline
-			\textit{$\frac{(r_{mo}\cdot MO_{-1} + r_l\cdot L_{k_{-1}})}{YD_k}$}  & - & + & +  & - & + & + \\ \hline\hline
+			\multirow{2}{*}{} & \multicolumn{3}{c||}{\textbf{Medium-run ($h \neq h^\star$)}} & \multicolumn{3}{c}{\textbf{Long-run ($h = h^\star$)}} \\ \cline{2-7} 
+			&  \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow \pi$} & \textbf{$\Uparrow rm$} &  \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow \pi$} & \textbf{$\Uparrow rm$} \\ \hline
+			\textbf{$g$}  & - & + & - & 0 & + & - \\ \hline
+			\textbf{$g_Z$}  & 0 & + & -  & 0 & + & - \\ \hline
+			\textbf{$u$}  & - & + & -  & 0 & 0 & 0 \\ \hline
+			\textbf{$h$}  & - & + & -  & 0 & + & - \\ \hline
+			\textbf{$k$}  & + & * & +  & + & - & + \\ \hline
+			\textbf{$\frac{Z}{Y}$}  & + & - & +  & + & - & + \\ \hline
+			\textit{$\frac{(r_{mo}\cdot DN)}{YD_k}$}  & - & - & +  & - & - & + \\ \hline\hline
 		\end{tabular}%
 	%}
 	\caption*{\textbf{Source:} Authors' Elaboration}
@@ -1192,7 +1222,7 @@ Therefore, we find a stable debt dynamics for both capitalists and firms (other 
 ** Plugging real data
 
 
-Finally, we include houses own interest rate data into our model (see Figure ref:fig:propria_investo) proposed by cite:teixeira_crescimento_2015 and evaluated under econometric scrutinity by textcite:petrini_demanda_2019.
+Finally, we include houses own interest rate data into our model (see Figure ref:fig:propria_investo).
 To do so, each year corresponds to ten simulated periods for visualization reasons.
 Although rudimentary, this procedure allows us to investigate whether or not our model reports the following stylized facts:
 (i) positive relationship between non-residential investment share and GDP growth rate; (ii) capacity utilization towards the normal one, although quite volatile; (iii) NCC autonomous expenditure lead the business cycle and accumulation growth rate; (iv) residential investment is more volatile than others expenditures.
@@ -1201,17 +1231,17 @@ Finally, all results are presented in Figure ref:fig:Realresults_1,fig:Realresul
 Simillarly to Figure ref:fig:cycles, we report a clockwise relationship between autonomous expenditure share on GDP and capacity utilization growth rate.
 Since the analyzed period does not correspond to the fully-adjusted position, discrepancies between actual and normal capacity utilization rate are adjusted through changes in marginal propensity to invest.
 So, with due mediation, we also report a smooth gravitation of capacity utilization ratio towards the normal one.
-As expected, accumulation and GDP growth rate are discrebed by NCC autonomous expenditure, notably residential investment. 
-However, our model is not able to replicate the higher residential investment volatility compared to other expenditures.
-In order to report this stylized fact, we argue that would be necessary to include other autonomous expenditures that grow at different rates for this effect to be captured in the simulations.
-
+As expected, accumulation and GDP growth rate are described by NCC autonomous expenditure, notably residential investment. 
+However, this model is not able to replicate the higher residential investment volatility compared to other expenditures.
+We argue that this result is somewhat related to the investment function employed. In order to reproduce this stylized fact it would be necessary to *O que seria necessário para replicar*.
+Together these results provide a first step towards the connection between asset bubbles and aggregate demand.
 
 
 
 #+BEGIN_SRC latex
 \begin{figure}[htb]
 	\centering
-	\caption{Real Data Experiments simulations (I)}
+	\caption{Real Data Experiments simulations}
 	\label{fig:Realresults_1}
 	\includegraphics[width=.8\textwidth]{./figs/Real_Shocks_1.png}
 	\caption*{\textbf{Source:} Authors' elaboration}
@@ -1222,7 +1252,7 @@ In order to report this stylized fact, we argue that would be necessary to inclu
 #+begin_export latex
 \begin{figure}[htb]
 	\centering
-	\caption{Real Data Experiments simulations (I)}
+	\caption{Real Data Experiments simulations}
 	\label{fig:Realresults_1}
 	\includegraphics[width=.8\textwidth]{./figs/Real_Shocks_1.png}
 	\caption*{\textbf{Source:} Authors' elaboration}

@@ -583,53 +583,84 @@ In this Section, we show the implications residential investment inclusion into 
 ** Short-run good market equilibrium
 #+LATEX: \label{short}
 
-In our no-government closed economic system, real output (equation \ref{_Y}) is the sum of household consumption (equation \ref{ConsumoTotal}) and both types of investment (equation ref:_It). 
+In this model, real output (equation \ref{_Y}) is the sum of household consumption (equation \ref{ConsumoTotal}) and both types of investment (equation ref:_It). 
 If we replace equations ref:_W and  ref:_If into ref:_Y and considering equation ref:_Z we get the short-run GDP level:
 
+\begin{equation}
+\label{Y_nivel}
+Y_t = \frac{Z_t}{1 - h_t - \omega}
+\end{equation}
+and replacing Equation ref:Z_Ih in the previous one
+\begin{equation}
+\label{Y_Ih}
+Y_t = \frac{I_h}{(1-R)(1 - h_t - \omega)}
+\end{equation}
+Next, dividing equation ref:Y_Ih by ref:_YFC and rearranging, we get the short-run equilibrium utilization rate (Eq ref:short_u)
 
 
-#+BEGIN_equation
-#+LATEX: \label{AnaliticaNivel}
-#+CALL:YNivel()
-
-#+RESULTS:
-:results:
-36 - aeb49019-e5c1-4a0b-9b16-8aee5c9c5ee1 <output> <interrupt>
-:end:
-
-#+END_equation
-
-Next, dividing equation ref:AnaliticaNivel by ref:_YFC and presenting firm's capital stock in terms of $k$, we get the short-run equilibrium utilization rate (Eq ref:short_u)
-
-
-#+BEGIN_equation
-#+LATEX: \label{short_u}
-#+CALL: ushort()
-
-#+RESULTS:
-:results:
-37 - 0dfc2999-c0e7-45aa-b1fc-1c07f131e3f8 <output> <interrupt>
-:end:
-
-#+END_equation
-
-So, rearranging Equation ref:short_u in terms of houses,
+\begin{equation}
+\label{u_to_k}
+u_t = \frac{I_h}{(1-R)(1-h_t - \omega)}\frac{v}{K_{f_{t-1}}}
+\end{equation}
 $$
-u_{t} = Y\frac{v}{K_{HD}}\cdot \frac{k_{t}}{1-k_{t}}
+u_t = \frac{I_{h_{t-1}}\cdot (1 + g_{I_h})}{(1-R)(1-h_t - \omega)}\frac{v}{K_{f_{t-2}}\cdot (1+g_{K_{t-1}})}
+$$
+$$
+u_t = \frac{I_{h_{t-1}}\cdot (1 + g_{I_h})}{(1-R)(1-h_t - \omega)}\frac{v}{K_{f_{t-2}}\cdot (1+g_{K_{t-1}})}
 $$
 
 \begin{equation}
-\label{u_houses}
-u_{t} = \frac{1}{1-R}\cdot \frac{g_Z\cdot v}{1 - \omega - h_{t}}\cdot \frac{k_{t}}{1-k_{t}}
+\label{short_u}
+u_t = \frac{v}{(1-R)(1-h_t - \omega)}\frac{I_{h_{t-1}}}{K_{f_{t-2}}}\frac{(1 + g_{I_h})}{(1+g_{K_{t-1}})}
 \end{equation}
-which allows us to present houses share on total capital stock of the economy
+
+
+Finally, replacing residential investment growth rate by Equation ref:g_Z_own
+
+
+\begin{equation}
+\label{short_u}
+u_t = \frac{v}{(1-R)(1-h_t - \omega)}\frac{I_{h_{t-1}}}{K_{f_{t-2}}}\frac{(1 + \phi_0 - \phi_1\cdot own_t)}{(1+g_{K_{t-1}})}
+\end{equation}
+
+Before moving towards the traverse, we revisit Equation ref:u_to_ki in order to present firms' capital-to-houses ratio[fn::As we will see on section ref:long, this ratio guards a special relation with marginal propensity to invest in the fully-adjusted position.].  To do so, we express firms' capital in terms of houses. 
+$$
+u_t = \frac{I_h}{(1-R)(1-h_t - \omega)}\frac{v}{(1-k)\cdot K{t-1}}
+$$
+Finally, dividing both sides of equation ref:u_to_k by houses and after some algebraic manipulations, we get firms' capital-to-houses ratio (Equation ref:k_short)[fn::The intermediate steps to obtain Equation ref:k_short are
+$$
+u_t = \frac{v}{(1-R)(1-h_t - \omega)}\frac{I_h}{K_{HD_{t-1}}}\frac{1}{(1-k)}\frac{K_{HD_{t-1}}}{K_{t-1}}
+$$
+$$
+u_t = \frac{v\cdot g_{I_h}}{(1-R)(1-h_t - \omega)}\frac{k}{(1-k)}
+$$
+$$
+1-k = \frac{v\cdot g_{I_h}}{(1-R)(1-h_t - \omega)}\frac{k}{u}
+$$
+then
+$$
+\frac{1-k}{k} = \frac{v\cdot g_{I_h}}{(1 - h_t - \omega)\cdot u_{t}}
+$$
+]
+
+$$
+u_t = \frac{I_h}{(1-R)(1-h_t - \omega)}\frac{v}{(1-k)\cdot K{t-1}}\frac{K_{HD_{t-1}}}{K_{HD_{t-1}}}
+$$
+
 \begin{equation}
 \label{k_short}
-k = 1 - \frac{v\cdot g_Z}{(1 - \omega)\cdot u_{t}}
+\frac{1-k}{k} = \frac{v\cdot g_{I_h}}{(1 - h_t - \omega)\cdot u_{t}}
 \end{equation}
 
+*TODO:* Encontrar solução no python
 
-Finally, we present short-run growth rate following textcite:freitas_growth_2015:
+** Analytical Traverse
+
+*Nota:* Optei por chamar de ``Analytical Traverse'' (não sei se faz sentido/existe) porque ainda vamos simular e estas relações não estão exatamente expressas ali.
+
+*Nota:* Começar descrevendo a partir da diferença entre $g$ e $g_K$ e subsequente processo de reajustamento
+
+Moving foward, we present traverse growth rate following textcite:freitas_growth_2015[fn:: It worth mentioning that we addopt a slightly different concept of medium-run from textcite:freitas_growth_2015. That is why we chose to refer to is as traverse as usual in SFC literature. textcite:freitas_growth_2015 describes medium-run as the theoretical moment when expenditures growth rates converges to the NCC growth rate ($g_{I_h}$ in our case). However, as we employ numerical simulations, that equality could not occur during the traverse. That been said, the medium-run is defined as the moment in which the capacity ratio is not equal to the normal one while the firms' investment is still adjusting according to changes in marginal propensity to invest ($h\neqh^\star$).]:
 
 \begin{equation}
 \label{g_short}
@@ -719,20 +750,19 @@ $$
 #+LATEX: \label{M_long_intermediate}
 m^{\star} = mo^{\star}\cdot k^{\star} + \ell^{\star}_{k}\cdot k^{\star} + \ell^{\star}_{f}\cdot (1-k^{\star})
 #+END_equation
-Thus, replacing Equations ref:h_long, ref:k_long, ref:firm_ratio, ref:capitalist_ratio and ref:mortgage_ratio in to ref:M_long_intermediate, we obtain steady state deposits to total capital stock ratio (Equation ref:deposits_rhs[fn:lhs]):
 
-
+#+BEGIN_comment
+[fn:lhs] Additionally, replacing Equations ref:h_long, ref:k_long, ref:firm_ratio, ref:capitalist_ratio and ref:mortgage_ratio in to ref:M_long_intermediate, we obtain steady state deposits to total capital stock ratio (Equation ref:deposits_rhs):
 #+CALL:mrhsstar(label="deposits_rhs")
-
 #+RESULTS:
 :results:
 41 - f69b211b-c651-4b65-ae63-a266a5e381c9 <output> <interrupt>
 :end:
 
-[fn:lhs] Since banks deposits are a residuum, we could express Equation ref:deposits_rhs in terms of Equations ref:EqYD, ref:EqSh and --- assuming null spread on mortgage and on loans interest rate --- we can rewrite net interest rate income as follows 
+Since banks deposits are a residuum, we could express Equation ref:deposits_rhs in terms of Equations ref:EqYD, ref:EqSh and --- assuming null spread on mortgage and on loans interest rate --- we can rewrite net interest rate income as follows 
 $$rm\cdot (M - L_k - MO) = rm\cdot (L_f)$$
 So, we achieve the same result of Equation ref:deposits_rhs as expected.
-
+#+END_comment
 
 Before moving on to the numerical simulations, it worth noting that --- besides its counterintuitivity --- the decrease of $k^{\star}$ as a result of the increase of residential investment growth rate (reported in equations \ref{partial_phi0} and \ref{partial_pi} in Appendix ref:append:Solution) is in line with the SSM.
 Since firms' investment grows (temporally) at a higher pace than NCC autonomous expenditures, it has only a level effect on capital stock.
