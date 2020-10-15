@@ -15,21 +15,32 @@ In summary,  SSM describes a demand-led growth pattern led by NCC autonomous exp
 Different NCC autonomous expenditures have been included in this framework. 
 For instance, some scholars have investigated the macroeconomic implications of both debt-financed cites:pariboni_autonomous_2015,fagundes_role_2017,mandarino-2020-worker-debt and financial wealth-financed consumption cite:brochier_supermultiplier_2018.
 The same applies to government expenditures cites:allain_tackling_2015,bougrine_autonomous_2020 and exports cite:nah_long-run_2017.
-Nevertheless, residential investment --- another NCC autonomous expenditure --- has been systematically neglected. 
-One way to include residential investment with the SSM model is through houses' own interest rate proposed by textcite:teixeira_crescimento_2015.
-This particular real interest rate is the relevant one for house investors (households) and allow us to include asset bubble in a SSM-friendly framework.
 
+*Nota:* Os dois parágrafos seguintes não estavam na versão anterior.
 
-@@comment: Estrutura do artigo. comment@@
-In this paper, we include residential investment into the Sraffian supermultiplier model within a Stock-Flow Consistent framework. 
-In Section ref:sec:empirical we introduce the so-called houses own interest rate and some residential investment related stylized facts.
-Section ref:sec:Review reviews heterodox growth models with NCC autonomous expenditures and highlights the lack of residential investment as an autonomous expenditure.
-In Section ref:sec:Model we present our SSM-SFC model  with two real assets: firms' capital and household' real estate. 
-Section ref:sec:runs evaluates both short-run and fully-adjusted position equilibria in order to access the consequences of residential investment inclusion on stock-flow consistent ratios.
-Next, in Section ref:sec:Experiments, we evaluate both traverse and steady-state dynamics through numerical simulations.
-The experiments are: decrease in wage-share (Section ref:sec:Exp1); increase in real estate inflation (Section ref:sec:Exp2); and an increase in interest rate ref:sec:Exp3).
-In this same Section, we also plug houses own interest rate observed data for the U.S. (from 1992 to 2019) in order to compare our simulations' results  with recent housing bubble episode.
-Section ref:sec:Conclusion offers some concluding remarks while Appendix ref:append:Solution provides the analytical solution in order to assess stability condition and Appendix ref:append:Data presents simulation's parameters and baseline values.
+Even though these works emphasize the relevance of some NCC autonomous expenditures, residential investment has been systematically neglected.
+To be fair, textcites:zezza_u.s._2008,nikolaidi_securitisation_2015 include residential investment in a SFC growth model.
+However, as a result of neo-Kaleckian non-residential investment function specification, residential investment does not lead the business cycle and plays a secondary role.
+In a recent contribution, textcite:dejuan_supermultiplier-cum-finance_2018 presents an SSM model with residential investment in order to analyze household over-indebtedness.
+In summary, we report an increasing attention to the macroeconomic implications of residential investment.
+#+LATEX: %However, there has been little discussion about the connection between housing bubble and aggregate demand.
+
+Despite the importance of the recent housing bubble episode, little attention has been paid to the connection between asset bubbles and aggregate demand.
+This paper attempts to fill this gap. 
+One way to do this is through houses' own rate of interest proposed by textcite:teixeira_crescimento_2015.
+Originally introduced by textcite:Sraffa_Own_1932, this concept DESCREVER TAXA PRÓPRIA.
+In summary, this particular real interest rate is the relevant one for house investors (households). 
+
+Based on this concept, this paper attempts to connect asset bubble and aggregate demand within a Sraffian Supermultiplier Stock-Flow Consistent framework. 
+The remainder of this paper is organized as follows.
+Section ref:sec:empirical introduces the so-called houses own rate of interest and some residential investment related stylized facts for the US economy.
+#+LATEX: %Section ref:sec:Review reviews heterodox growth models with NCC autonomous expenditures and highlights the lack of residential investment as an autonomous expenditure.
+Section ref:sec:Model presents a SSM-SFC model  with asset bubbles and two real assets: firms' capital and household' real estate. 
+Section ref:sec:runs evaluates short-run, traverse and fully-adjusted position equilibria in order to access the consequences of residential investment inclusion on stock-flow consistent ratios.
+Next, in Section ref:sec:Experiments, both traverse and steady-state dynamics are evaluated through numerical simulations.
+Inspired by the recent housing bubble episode, the experiments are: decrease in wage-share (Section ref:sec:Exp1); increase in real estate inflation (Section ref:sec:Exp2); and an increase in interest rate ref:sec:Exp3).
+In this same Section, we also plug houses own rate of interest observed data for the U.S. (from 1992 to 2019) in order to compare simulations' results with the stylized facts presented previously.
+Section ref:sec:Conclusion offers some concluding remarks while Appendix ref:append:Solution presents some partial derivatives and Appendix ref:append:Data provides simulation's parameters and baseline values.
 
 #+BEGIN_COMMENT
 The analytical solution is presented in Section ref:sec:Solution in order to assess stability condition since residential investment growth rate is now described by houses' own interest rate.

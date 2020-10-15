@@ -654,17 +654,6 @@ Z = C_k + I_h
 $$
 \frac{C_k}{Z} + \frac{I_h}{Z} = R + (1-R)
 $$
-\begin{equation}
-\label{_Ck}
-    C_k = R\cdot Z
-\end{equation}
-\begin{equation}
-\label{ConsumoTotal}
-C = C_w + C_k
-\end{equation}
-$$
-C = C_w + R\cdot Z
-$$
 #+END_SRC
 
 #+RESULTS:
@@ -676,28 +665,21 @@ Z = C_k + I_h
 $$
 \frac{C_k}{Z} + \frac{I_h}{Z} = R + (1-R)
 $$
+#+end_export
+which allows us to rewrite both NCC and autonomous consumption in terms of residential investment (Eq. ref:Z_Ih):
 \begin{equation}
 \label{_Ck}
     C_k = R\cdot Z
 \end{equation}
 \begin{equation}
-\label{ConsumoTotal}
-C = C_w + C_k
-\end{equation}
-$$
-C = C_w + R\cdot Z
-$$
-#+end_export
-which allows us to rewrite both NCC and autonomous consumption in terms of residential investment (Eq. ref:Z_Ih):
-#+BEGIN_equation
-#+LATEX: \label{Z_Ih}
+\label{Z_Ih}
 Z = \frac{I_h}{(1-R)}
-#+END_equation
+\end{equation}
 
-#+BEGIN_equation
-#+LATEX: \label{C_kZ}
+\begin{equation}
+\label{C_kZ}
 C_{k} = I_h\cdot \frac{R}{(1-R)}
-#+END_equation
+\end{equation}
 
 #+BEGIN_comment
 As households are the only institutional sector investing in real estate, its supply ($I_{hs}$) and demand ($I_h$) are equal and the same applies to its stock.
@@ -728,7 +710,7 @@ As households are the only institutional sector investing in real estate, its su
 where subscripts $S$ and $D$ denote supply and demand respectively. 
 #+END_comment
 
-Finally, replacing Equation ref:Z_Ih in ref:_Ck, we can describe NCC autonomous expenditure growth rate as follows:
+Finally,  we can describe NCC autonomous expenditure growth rate as follows:
 #+BEGIN_equation
 #+LATEX: \label{g_Z}
 g_{C_{k}} = g_{Z} = g_{I_{h}} = \phi_{0} - \phi_{1}\cdot own

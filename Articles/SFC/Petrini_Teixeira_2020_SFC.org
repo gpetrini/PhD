@@ -42,9 +42,10 @@ Therefore, this model introduces both housing and asset bubbles	on Sraffian supe
 #+INCLUDE: "Empirical.org"
 
 
-* The absence of residential investment in demand-led growth models
+* The absence of residential investment in demand-led growth models :noexport:
 #+LATEX: \label{sec:Review}
 #+INCLUDE: "Review.org"
+
 
 
 * A Sraffian supermultiplier SFC model with residential investment
@@ -94,9 +95,7 @@ No potential conflict of interest was reported by the authors.
 
 * Analytical TODOs                                                 :noexport:
 
-* Analytical Solution
-#+LATEX: \label{append:Solution}
-
+** Residuals
 
 In this appendix, we present both analytical solution of our model and some relations between variables and parameters.
 To do so, some equations will be turned into their continuous time equivalent to express it in terms of partial derivatives[fn:Script_Sol].
@@ -158,10 +157,182 @@ $$
 own < \frac{\phi_0}{\phi_1}
 \end{equation}
 
+** Codes
 
-Next, we show that houses share on total capital stock depends positively on deposits interest rate (Eq. \ref{partial_rm}) and negatively both on autonomous component of residential investment growth rate (equation \ref{partial_phi0}), real estate inflation (equation \ref{partial_pi}) and wage-share (equation \ref{partial_omega}):
+#+BEGIN_SRC ipython :session derivatives :exports none
+import sympy as sp
+k, h, R, w = sp.symbols('k h R omega')
+lf, g, v, gamma_f, u, rm = sp.symbols('l_f g v gamma_F u r_m')
+phi_0, phi_1, infla = sp.symbols('phi_0 phi_1 infla')
+own = ((1+rm)/(1+infla)-1)
+gIh = phi_0 - phi_1*own
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [25]: 
+# output
+        ⎛       rₘ + 1 ⎞
+φ₀ - φ₁⋅⎜-1 + ─────────⎟
+        ⎝     infla + 1⎠
+
+:end:
+
+#+BEGIN_SRC ipython :session derivatives :exports none
+from sympy.simplify.radsimp import collect_const
+dicts = {
+g: "g^\star",
+    k: "k^\star",
+    u : "u^{\star}",
+    infla: '\pi'
+               }
+
+
+
+def printer(symbol, equation, var, replace_g = True):
+
+    num = '\\frac{\partial ' + symbol + '^{\star}}'
+    
+    if replace_g == True:
+        express = equation.subs(g, gIh)
+    else:
+        express = equation.factor().cancel()
+
+    result = sp.Derivative(express,  var).doit()    
+    result = result.cancel().expand().cancel().factor()
+    result = sp.factor(result.simplify())
+    result = collect_const(result)
+    result = result.collect(R).collect(h + w - 1).collect(infla).collect(infla + 1).collect(1+infla).collect(gIh)
+    
+    print(
+            sp.latex(
+                num + '{\partial ' + f"{sp.latex(var, symbol_names = dicts)}" + '} = ' + f"{sp.latex(result, symbol_names = dicts)}",
+                mul_symbol = 'dot',
+                symbol_names = dicts,
+                mode = 'equation'
+            )
+        )
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [38]: 
+:end:
+
+
+
+*** Houses share
+
+#+BEGIN_SRC ipython :session derivatives :exports none
+expression = 1 - (h/(h + (1-R)*(1-h-w)))
+sp.pprint(sp.Eq(k, expression))
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [27]: 
+# output
+                 h                
+k = - ──────────────────────── + 1
+      h + (1 - R)⋅(-h - ω + 1)    
+                                     ⎛       rₘ + 1 ⎞                         
+                             φ₀ - φ₁⋅⎜-1 + ─────────⎟                         
+                                     ⎝     infla + 1⎠                         
+k = - ────────────────────────────────────────────────────────────────────── +
+              ⎛       rₘ + 1 ⎞           ⎛             ⎛       rₘ + 1 ⎞    ⎞  
+      φ₀ - φ₁⋅⎜-1 + ─────────⎟ + (1 - R)⋅⎜-ω - φ₀ + φ₁⋅⎜-1 + ─────────⎟ + 1⎟  
+              ⎝     infla + 1⎠           ⎝             ⎝     infla + 1⎠    ⎠  
+
+  
+  
+  
+ 1
+  
+  
+  
+
+:end:
+
+
+#+BEGIN_SRC ipython :session derivatives :exports none
+printer(symbol =  'k', equation = expression, var = w, replace_g = False)
+expression = expression.subs(h, g*v/v).subs(g, gIh)
+printer(symbol =  'k', equation = expression, var = rm)
+printer(symbol =  'k', equation = expression, var = phi_0)
+printer(symbol =  'k', equation = expression, var = infla)
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [37]: 
+# output
+\begin{equation}\frac{\partial k^{\star}}{\partial \omega} = \frac{\left(R - 1\right) \left(\pi + 1\right) \left(\pi \phi_{0} + \pi \phi_{1} + \phi_{0} - \phi_{1} r_{m}\right)}{\left(R \left(\pi \omega + \pi \phi_{0} + \pi \phi_{1} - \pi + \omega + \phi_{0} - \phi_{1} r_{m} - 1\right) - \pi \omega + \pi - \omega + 1\right)^{2}}\end{equation}
+\begin{equation}\frac{\partial k^{\star}}{\partial r_{m}} = \frac{\phi_{1} \left(R - 1\right) \left(\pi + 1\right) \left(\omega - 1\right)}{\left(R \left(\pi \omega + \pi \phi_{0} + \pi \phi_{1} - \pi + \omega + \phi_{0} - \phi_{1} r_{m} - 1\right) - \pi \omega + \pi - \omega + 1\right)^{2}}\end{equation}
+\begin{equation}\frac{\partial k^{\star}}{\partial \phi_{0}} = - \frac{\left(R - 1\right) \left(\pi + 1\right)^{2} \left(\omega - 1\right)}{\left(R \left(\pi \omega + \pi \phi_{0} + \pi \phi_{1} - \pi + \omega + \phi_{0} - \phi_{1} r_{m} - 1\right) - \pi \omega + \pi - \omega + 1\right)^{2}}\end{equation}
+\begin{equation}\frac{\partial k^{\star}}{\partial \pi} = - \frac{\phi_{1} \left(R - 1\right) \left(\omega - 1\right) \left(r_{m} + 1\right)}{\left(R \left(\pi \omega + \pi \phi_{0} + \pi \phi_{1} - \pi + \omega + \phi_{0} - \phi_{1} r_{m} - 1\right) - \pi \omega + \pi - \omega + 1\right)^{2}}\end{equation}
+
+:end:
+
+
+*** Firms ratio
+
+#+BEGIN_SRC ipython :session derivatives :exports none
+expression = (g*v - gamma_f*u*(1-w))/(v*(g-gamma_f*rm))
+sp.pprint(sp.Eq(lf, expression))
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [40]: 
+# output
+      g⋅v - γ_F⋅u⋅(1 - ω)
+l_f = ───────────────────
+         v⋅(g - γ_F⋅rₘ)  
+
+:end:
+
+#+BEGIN_SRC ipython :session derivatives :exports none
+printer(symbol =  '\\ell_f', equation = expression, var = w, replace_g = False)
+expression = expression.subs(h, g*v/v).subs(g, gIh)
+printer(symbol =  '\\ell_f', equation = expression, var = rm)
+printer(symbol =  '\\ell_f', equation = expression, var = phi_0)
+printer(symbol =  '\\ell_f', equation = expression, var = infla)
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [41]: 
+# output
+\begin{equation}\frac{\partial \ell_f^{\star}}{\partial \omega} = \frac{\gamma_{F} u^{\star}}{v \left(g^\star - \gamma_{F} r_{m}\right)}\end{equation}
+\begin{equation}\frac{\partial \ell_f^{\star}}{\partial r_{m}} = \frac{\gamma_{F} \left(\pi + 1\right) \left(\gamma_{F} \omega u^{\star} - \gamma_{F} u^{\star} + \pi \left(\gamma_{F} \omega u^{\star} - \gamma_{F} u^{\star} + \phi_{0} v + \phi_{1} v\right) + \omega \phi_{1} u^{\star} + \phi_{0} v - \phi_{1} u^{\star}\right)}{v \left(\gamma_{F} r_{m} + \pi \left(\gamma_{F} r_{m} - \phi_{0} - \phi_{1}\right) - \phi_{0} + \phi_{1} r_{m}\right)^{2}}\end{equation}
+\begin{equation}\frac{\partial \ell_f^{\star}}{\partial \phi_{0}} = - \frac{\gamma_{F} \left(\pi + 1\right)^{2} \left(\omega u^{\star} + r_{m} v - u^{\star}\right)}{v \left(\gamma_{F} r_{m} + \pi \left(\gamma_{F} r_{m} - \phi_{0} - \phi_{1}\right) - \phi_{0} + \phi_{1} r_{m}\right)^{2}}\end{equation}
+\begin{equation}\frac{\partial \ell_f^{\star}}{\partial \pi} = - \frac{\gamma_{F} \phi_{1} \left(r_{m} + 1\right) \left(\omega u^{\star} + r_{m} v - u^{\star}\right)}{v \left(\gamma_{F} r_{m} + \pi \left(\gamma_{F} r_{m} - \phi_{0} - \phi_{1}\right) - \phi_{0} + \phi_{1} r_{m}\right)^{2}}\end{equation}
+
+:end:
+
+and mortgage to total capital stock ratio ($m^{\star}$):
+
+#+BEGIN_SRC ipython :session derivatives :exports none :eval no
+printer(symbol =  'm', equation = m, var = rm)
+printer(symbol =  'm', equation = m, var = phi_0)
+printer(symbol =  'm', equation = m, var = infla)
+printer(symbol =  'm', equation = m, var = omega, replace_g = False)
+#+END_SRC
+
+#+RESULTS:
+:results:
+2 - e16d543e-36f7-48e9-b5d9-32a986ee534c <output> <interrupt>
+:end:
+
+
+* Analytical Solution
+#+LATEX: \label{append:Solution}
+
+In this appendix, we present the partial derivatives of somes stock/flow ratios.
+Firt, we show that houses share on total capital stock depends positively on deposits interest rate (Eq. \ref{partial_rm}) and negatively both on autonomous component of residential investment growth rate (equation \ref{partial_phi0}), real estate inflation (equation \ref{partial_pi}) and wage-share (equation \ref{partial_omega}):
+
+
 \begin{equation}
-%TODO Checar solução analítica
 \label{partial_rm}
 \frac{\partial k}{\partial rm} = - \frac{\phi_{1} v \left(\sigma_{mo} + 1\right)}{u_N \left(\pi + 1\right) \left(\omega - 1\right)} > 0
 \end{equation}
@@ -179,86 +350,22 @@ Next, we show that houses share on total capital stock depends positively on dep
 \end{equation}
 
 
+*Nota:* Output python
+
+\begin{equation}\frac{\partial k^{\star}}{\partial \omega} = \frac{\left(R - 1\right) \left(\pi + 1\right) \left(\pi \phi_{0} + \pi \phi_{1} + \phi_{0} - \phi_{1} r_{m}\right)}{\left(R \left(\pi \omega + \pi \phi_{0} + \pi \phi_{1} - \pi + \omega + \phi_{0} - \phi_{1} r_{m} - 1\right) - \pi \omega + \pi - \omega + 1\right)^{2}}\end{equation}
+\begin{equation}\frac{\partial k^{\star}}{\partial r_{m}} = \frac{\phi_{1} \left(R - 1\right) \left(\pi + 1\right) \left(\omega - 1\right)}{\left(R \left(\pi \omega + \pi \phi_{0} + \pi \phi_{1} - \pi + \omega + \phi_{0} - \phi_{1} r_{m} - 1\right) - \pi \omega + \pi - \omega + 1\right)^{2}}\end{equation}
+\begin{equation}\frac{\partial k^{\star}}{\partial \phi_{0}} = - \frac{\left(R - 1\right) \left(\pi + 1\right)^{2} \left(\omega - 1\right)}{\left(R \left(\pi \omega + \pi \phi_{0} + \pi \phi_{1} - \pi + \omega + \phi_{0} - \phi_{1} r_{m} - 1\right) - \pi \omega + \pi - \omega + 1\right)^{2}}\end{equation}
+\begin{equation}\frac{\partial k^{\star}}{\partial \pi} = - \frac{\phi_{1} \left(R - 1\right) \left(\omega - 1\right) \left(r_{m} + 1\right)}{\left(R \left(\pi \omega + \pi \phi_{0} + \pi \phi_{1} - \pi + \omega + \phi_{0} - \phi_{1} r_{m} - 1\right) - \pi \omega + \pi - \omega + 1\right)^{2}}\end{equation}
+
+
 Since capitalists' loans and mortgage to house ratios ($\ell^{\star}_{k}$ and $mo^{\star}$, respectively) depend only on parameters not analyzed on our experiments, we repeat this  procedure to firms' loans to capacity generating capital stock ($\ell^{\star}_f$):
 
+*Nota:* Output python. Ainda irei reorganizar
 
-#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results
-from sympy.simplify.radsimp import collect_const
-dicts = {
-g_: "g^\star",
-    k_: "k^\star",
-    un : "u^{\star}",
-    infla: '\pi'
-               }
-
-
-new_own = sp.Function('own')(rm,infla)
-
-def printer(symbol, equation, var, replace_g = True):
-
-    num = '\\frac{\partial ' + symbol + '^{\star}}'
-    
-    if replace_g == True:
-        express = equation.subs(g_, g_Z).subs(_own(t), own).subs(_rmo(t), rm)
-    else:
-        express = equation.factor().cancel()
-
-    result = sp.Derivative(express,  var).doit()    
-    result = result.cancel().expand().cancel().factor()
-    result = sp.factor(result.simplify())
-    result = collect_const(result)
-    #result = result.collect(1+rm).collect(phi_0).collect(phi_1).collect(1+infla).collect(1-omega).collect(un).collect(gamma_F).collect(R)
-    #result = result.collect(v).collect(phi_0).collect(phi_1).subs(phi_0 - phi_1*((1+rm)/(1+infla) - 1), g_)
-    #result = sp.factor(result.simplify().cancel())
-    numerical = replacer(result)
-
-    if numerical > 0:
-        numerical = '> 0'
-    elif numerical == 0:
-        numerical = '= 0'
-    else:
-        numerical = '< 0'
-    
-    print(
-            sp.latex(
-                num + '{\partial ' + f"{sp.latex(var, symbol_names = dicts)}" + '} = ' + f"{sp.latex(result, symbol_names = dicts)}"  + f" {numerical}",
-                mul_symbol = 'dot',
-                symbol_names = dicts,
-                mode = 'equation'
-            )
-        )
-#+END_SRC
-
-#+RESULTS:
-:results:
-2 - 1f19708b-7460-47b9-a5d3-9c2d83e1522a <output> <interrupt>
-:end:
-
-#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results
-printer(symbol =  '\ell_{f}', equation = lfstar, var = rm)
-printer(symbol =  '\ell_{f}', equation = lfstar, var = phi_0)
-printer(symbol =  '\ell_{f}', equation = lfstar, var = infla)
-printer(symbol =  '\ell_{f}', equation = lfstar, var = omega, replace_g = False)
-#+END_SRC
-
-#+RESULTS:
-:results:
-1 - 453c6f1d-a870-42db-be58-b238cfac88dc <output> <interrupt>
-:end:
-
-and mortgage to total capital stock ratio ($m^{\star}$):
-
-#+BEGIN_SRC ipython :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results
-printer(symbol =  'm', equation = m, var = rm)
-printer(symbol =  'm', equation = m, var = phi_0)
-printer(symbol =  'm', equation = m, var = infla)
-printer(symbol =  'm', equation = m, var = omega, replace_g = False)
-#+END_SRC
-
-#+RESULTS:
-:results:
-2 - e16d543e-36f7-48e9-b5d9-32a986ee534c <output> <interrupt>
-:end:
+\begin{equation}\frac{\partial \ell_f^{\star}}{\partial \omega} = \frac{\gamma_{F} u^{\star}}{v \left(g^\star - \gamma_{F} r_{m}\right)}\end{equation}
+\begin{equation}\frac{\partial \ell_f^{\star}}{\partial r_{m}} = \frac{\gamma_{F} \left(\pi + 1\right) \left(\gamma_{F} \omega u^{\star} - \gamma_{F} u^{\star} + \pi \left(\gamma_{F} \omega u^{\star} - \gamma_{F} u^{\star} + \phi_{0} v + \phi_{1} v\right) + \omega \phi_{1} u^{\star} + \phi_{0} v - \phi_{1} u^{\star}\right)}{v \left(\gamma_{F} r_{m} + \pi \left(\gamma_{F} r_{m} - \phi_{0} - \phi_{1}\right) - \phi_{0} + \phi_{1} r_{m}\right)^{2}}\end{equation}
+\begin{equation}\frac{\partial \ell_f^{\star}}{\partial \phi_{0}} = - \frac{\gamma_{F} \left(\pi + 1\right)^{2} \left(\omega u^{\star} + r_{m} v - u^{\star}\right)}{v \left(\gamma_{F} r_{m} + \pi \left(\gamma_{F} r_{m} - \phi_{0} - \phi_{1}\right) - \phi_{0} + \phi_{1} r_{m}\right)^{2}}\end{equation}
+\begin{equation}\frac{\partial \ell_f^{\star}}{\partial \pi} = - \frac{\gamma_{F} \phi_{1} \left(r_{m} + 1\right) \left(\omega u^{\star} + r_{m} v - u^{\star}\right)}{v \left(\gamma_{F} r_{m} + \pi \left(\gamma_{F} r_{m} - \phi_{0} - \phi_{1}\right) - \phi_{0} + \phi_{1} r_{m}\right)^{2}}\end{equation}
 
 
 

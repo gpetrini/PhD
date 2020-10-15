@@ -1,0 +1,57 @@
+#+TITLE: Histórico de versões artigo SFC
+#+AUTHOR: Gabriel Petrini
+#+DATE: 2020
+#+LANG: pt_Br
+
+
+* Versão <2020-10-16 sex>
+
+** Introdução
+
+Não alterei nada do texto que estava na versão anterior. Apenas adicionei dois parágrafos (preliminares) em que tenho fazer uma mini revisão da literatura. Acho que não é muito interessante aumentar mais ainda a introdução. Digo isso porque a maioria dos textos citados na antiga revisão da literatura não eram sobre investimento residencial, mas sim sobre gastos autônomos. A discussão sobre investimento residencial ali era minúscula.
+
+** Seção dos fatos estilizados
+
+Não alterei nada do texto. Apenas substitui o gráfico do preço dos imóveis x endividamento (em número índice) pela curva de concentração. Estou pensando em como deixar esse gráfico mais /printer-friendly/ (talvez deixar os as curvas como linhas cheias e tracejadas).
+
+** Revisão da literatura
+   
+Não alterei nada dessa seção. Apenas pedi para não compilar (dado que optamos por tirá-la).
+
+** Modelo 
+
+Não houve nenhuma mudança radical. Fiz as correções que sugeriu. Mais no fim dessa seção reorganizei a ordem das equações de um jeito que fizesse mais sentido. Para isso fiz pequenas adaptações no texto. Também removi (comentei) a parte que igualava a oferta à demanda por imóveis. Não parecem ser equações essenciais. Se achar necessário, desfaço isso. De todo modo, achei que estavam jogadas ali. Seria o caso de repensar onde incluí-las.
+
+Dentre as perfumarias (estão nas minhas respostas aos seus comentários), ainda estou pensando em qual letra usar no lugar de taxa de lucro bruta e líquida.
+
+** Solução analítica
+
+Fiz um meio termo entre as suas equações e as minhas anteriores. Em um primeiro momento, priorizei aquelas equações que me enviou no PDF. Apenas rearranjei a posição de algumas variáveis. Se achar melhor, deixo da forma que me enviou. Corrigi e atualizei a equação do $k$. Estava faltando o termo $(1-R)$.
+
+Adicionei a discussão da /traverse/ partindo relação entre $g$ e $g_K$ expressa na sua equação do grau de utilização. Inclui uma nota de rodapé pontuando a diferença entre a traverse e o /medium-run/ do Freitas e Serrano. Poderia dar uma olhada nesta nota de rodapé? não estou contente com o resultado.
+
+Na subseção da /fully-adjusted position/, apenas retirei as equações desnecessárias e adaptei para ficar de uma forma mais elegante que o /output/ do /python/. Deixei registrado as etapas até chegar nos /stock-flow ratio/ porque pensamos em mudar isso para o apêndice. Nesta versão, as variáveis ainda estão normalizadas pelo estoque de capital das firmas ou de casas. Ainda não alterei para a normalização pela renda porque não sei se aquelas notas que te envie estavam certas.
+
+** Simulações
+
+Essa foi a seção que teve mais mudança no texto. Acho que a principal coisa para nos preocuparmos aqui é se faz sentido aquele "novo paradoxo" sumir a partir do valor dos parâmetros. Ainda acho que esse resultado pode ter sumido antes e eu não vi por conta do efeito de escala no gráfico anterior. O mais estranho é que os parâmetros que estão diferentes em relação à dissertação não aparecem nas derivadas parciais do documento que te enviei. Outro possível problema é que esse paradoxo era bem pequeno na dissertação. Ainda assim, acho estranho mudar de direção.
+
+Algumas observações em relação aos gráficos: 
+- Na figura 6 (página 19), desconsidere o segundo gráfico da primeira linha e o primeiro da segunda ($u$ e $Z/Y$). Estão com os títulos e a linha tracejada trocados. Consigo arrumar isso rápido, mas quero resolver outras questões antes (essa simulação leva mais tempo para rodar também)
+- Pretendo incluir identificadores (A, B, C e D) nos gráficos para mencionar no texto com mais facilidade.
+- Dadas as dicas do Rochon, estou pensando em formas de deixar os gráficos mais /printer-friendly/, mas ainda sim legíveis.
+  - Na maioria dos gráficos, consigo diferenciar cada linha em termos de estilo do tracejado. No entanto, isso é mais difícil no gráfico de ciclos (primeiro gráfico figura 5).
+    - No gráfico com os dados reais, isso já não é um problema já que é uma única série
+** Conclusões
+Não alterei nada
+** Apêndice A
+
+Vi nos seus comentários que a nossa diferença com Freitas e Serrano não é tão importante. Dito isso, optei por comentar toda aquela discussão da estabilidade (é a mesma que a deles com a diferença de que $own < \frac{\phi_0}{\phi_1}$). Comecei esse apêndice a partir do trecho em que você indicou ser outro apêndice. Nesta nova versão, existem várias equações tal como saídas do /python/. Não comecei a melhorá-las porque está em aberto se vamos priorizar a normalização pelo capital ou pela renda. De todo modo, imagino que as derivadas do $k$ não devem mudar muito (já está com o $k$ corrigido). Também achei melhor tirar as derivadas do estoque de moeda (uma vez que é resíduo, não tem muita importância para nós).
+
+** Apêndice B
+
+Talvez essa tabela mude na medida que forem usados outros valores dos parâmetros. Uma vez encerradas as alterações no modelo, rodo o comando para gerar essa tabela. Ainda não descobri como formatar melhor pelo python. Essa é uma das poucas coisas que acho melhor manter o mais próximo do /output/ do computador. Se um parecerista pedir o /script/, ele deve chegar nesse mesmo lugar. Além disso, imagino que esse processo de formatação seja função do journal e não nossa.
+
+** Apêndice C (em construção)
+
+Eu tinha iniciado (faz um tempo) um código para retornar uma tabela de análise de sensibilidade similar à do Fazzari. Esse é um código que leva um certo tempo para rodar porque faço vários /nested for loops/ (a.k.a simulo um porrilhão de cenários rs). No final das contas acabei deixando de lado. Havendo tempo, penso em retornar a isso. Imagino que se desse certo, seria bastante interessante mas também acho que não esta entre as nossas prioridades. Talvez pudesse trabalhar nisso enquanto o artigo estivesse sendo revisado na expectativa de que algum parecerista peça. Por fim, esse apêndice inexistente é um dos motivos de ter tantos /hashs/ ("lixos") no fim do apêndice B.
