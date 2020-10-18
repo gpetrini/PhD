@@ -1,8 +1,8 @@
-#+OPTIONS: toc:nil num:nil tag:nil
+#+OPTIONS: toc:nil num:nil tags:nil
 #+TITLE: 213360 - Augusto Lima Alves
 #+AUTHOR: Gabriel Petrini (PED)
-#+PROPERTY: RA 213360
-#+PROPERTY: NOME "Augusto Lima Alves"
+#+RA: "213360"
+#+NOME: "Augusto Lima Alves"
 #+INCLUDE_TAGS: private
 #+PROPERTY: COLUMNS %TAREFA(Tarefa) %OBJETIVO(Objetivo) %CONCEITOS(Conceito) %ARGUMENTO(Argumento) %DESENVOLVIMENTO(Desenvolvimento) %CLAREZA(Clareza) %NOTA(Nota)
 #+PROPERTY: TAREFA_ALL "Resenha 1" "Resenha 2" "Resenha 3" "Resenha 4" "Resenha 5" "Prova" "Seminário"
@@ -15,7 +15,7 @@
 #+PROPERTY: NOTA_ALL "Atingido totalmente" "Atingido satisfatoriamente" "Atingido parcialmente" "Atingindo minimamente" "Não atingido"
 
 
-* Notas :private:
+* Notas                                                             :private:
 
   #+BEGIN: columnview :maxlevel 3 :id global
   | Tarefa    | Objetivo | Conceito | Argumento | Desenvolvimento | Clareza | Nota |
@@ -28,13 +28,24 @@
 * Resenha 1: Monetaristas                                           :private:
   :PROPERTIES:
   :TAREFA:   Resenha 1
-  :OBJETIVO:
-  :ARGUMENTO:
-  :CONCEITOS:
-  :DESENVOLVIMENTO:
-  :CONCLUSAO:
-  :CLAREZA:
-  :NOTA:
+  :OBJETIVO: Atingido satisfatoriamente
+  :ARGUMENTO: Atingido satisfatoriamente
+  :CONCEITOS: Atingido parcialmente
+  :DESENVOLVIMENTO: Atingido totalmente
+  :CONCLUSAO: Atingido totalmente
+  :CLAREZA:  Atingido totalmente
+  :NOTA:     Atingido satisfatoriamente
   :END:
 
 ** Comentários individuais 
+
+
+Na sua resenha, foi dada muita ênfase à hipótese de taxa natural de desemprego (adiante $Un$). Por mais que este conceito seja bastante relevante para essa escola de pensamento, não é o elemento central para compreender as implicações da política econômica sobre o nível de preços e de atividade. Em resumo, este ponto levantado esta correto, mas pouco se aproxima dos objetivos da disciplina. Lembre-se sempre que resenha tem um propósito enquanto resumo não. Em que medida $Un$ ajuda à explicar a taxa de inflação?
+
+Adiante, é mencionada a hipótese de expectativas adaptativas. Também correto, mas ainda não apareceu o elemento central do porquê mudanças na quantidade de moeda têm efeitos temporários sobre o nível de produto e persistentes sobre o nível de preços.
+
+Você corretamente apresentou o raciocínio econômico associado à curva de Phillips aceleracionista. No entanto, fica um questionamento: neutralidade da moeda (no longo prazo) é hipótese ou implicação do ``modelo monetarista''? Se é hipótese (e dada sua importância no argumento), deveria ser melhor enfatizada; se implicação, deveria explicitar o que faz com que esse resultado ocorra. Adiante, você bem colocou que existem outros elementos (defasagens, não-optimalidade, etc) que contrariam a indicação de uma autoridade monetária mais discricionária.
+
+Mais ao fim, você apresenta a Teoria Quantitativa da Moeda (TQM). No entanto, note que esse é um elemento central da escola monetarista. Sem as hipóteses associadas à ela, dificilmente conseguiria explicar as demais implicações de mudanças na oferta de moeda. Somado a isso, pontua-se as hipóteses (comportamentais) que descrevem o consumo agregado para Friedman. Em seguida, você corretamente associa a TQM com uma regra de expansão monetária com a taxa de crescimento do produto. Note que somente com a TQM é possível explicar o porquê de um regime de regras para a expansão de moeda. 
+
+*Resumo:* De modo geral, sua resenha está boa e os argumentos estão bem encadeados. No entanto, a TQM ocupou um lugar de menor destaque em sua análise. Você corretamente pontuou as outras hipóteses presentes nesta escola e as associou com as recomendações de política econômicas. Além disso, você bem descreveu a racionalidade econômica da curva de Phillips aceleracionista bem como outros pontos que vão além da ilusão monetária que embasam os regimes monetários propostos por essa escola.

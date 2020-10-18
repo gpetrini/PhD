@@ -230,6 +230,7 @@ Conjugação de políticas de incentivo à renda e ao mercado interno
 
 * Dados
 
+** Configurações                                                   :noexport:
 
 #+BEGIN_SRC ipython
 %config InlineBackend.figure_format = 'retina'
@@ -259,7 +260,7 @@ def consulta_bc(codigo_bcb, nome = ["Nome da série"]):
 
 #+RESULTS:
 :results:
-# Out [1]: 
+# Out [6]: 
 :end:
 
 
@@ -267,7 +268,8 @@ def consulta_bc(codigo_bcb, nome = ["Nome da série"]):
 
 
 
-** O ciclo das commodities
+** DONE O ciclo das commodities
+   CLOSED: [2020-10-16 sex 16:12]
 
 #+BEGIN_SRC ipython
 df = consulta_bc(27574, nome = ["Índice de Commodities - Brasil"])
@@ -318,7 +320,54 @@ fig.savefig("./figs/Commodities.png", transparent = False, dpi = 300)
 
 *Dado:* IIF (?)
 
-** Evolução das reservas internacionais líquidas
+** DONE Evolução das reservas internacionais líquidas
+   CLOSED: [2020-10-16 sex 16:12]
+
+
+#+BEGIN_SRC ipython
+df = consulta_bc(13621, nome = ["Total"])
+#df = pd.concat([df, consulta_bc(13982 , nome = ["Conceito Liquidez"])], axis=1, sort=False)
+fig, ax = plt.subplots(figsize=(8,5))
+
+df.plot(ax=ax,
+lw=2.5,
+ls='-',
+        color='darkred'
+)
+
+ax.text(
+0.95, -0.2,
+f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
+verticalalignment='bottom', horizontalalignment='right',
+transform=ax.transAxes,
+color='black', fontsize=10)
+ax.set_ylabel('US$ (milhões)')
+
+sns.despine()
+plt.show()
+fig.savefig("./figs/Reservas_Internacionais.png", transparent = True, dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [12]: 
+# text/plain
+: <Figure size 576x360 with 1 Axes>
+
+# image/png
+[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/08f8f803a3be2b082e19c90a698e33d3426c31de.png]]
+:end:
+
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{Reservas Internacionais} 
+\includegraphics[width = 0.9\textwidth]{./figs/Reservas_Internacionais.png}
+\label{fig:reservas}
+\caption*{\textbf{Fonte:} BCB-DSTAT}
+\end{figure}
+#+end_export
+
 
 ** PIB puxado pelo mercado doméstico
 
@@ -329,16 +378,308 @@ fig.savefig("./figs/Commodities.png", transparent = False, dpi = 300)
 *Dado:* Decomposição do crescimento (Todos os componentes da demanda)
 
 
-** Crédito total
+** DONE Saldo de Crédito
+   CLOSED: [2020-10-16 sex 18:14]
 
-** Emprego
+#+BEGIN_SRC ipython
 
-*Dado:* EVOLUÇÃO DO NÚMERO TOTAL DE EMPREGADOS COM VÍNCULO FORMAL  DE EMPREGO - MTE/RAAIS
+df = consulta_bc(20622, ["Total"])
+
+df = pd.concat([
+    df,
+    consulta_bc(20625, ["Crédito livre"]),
+    consulta_bc(20628, ["Crédito direcionado"]),
+]
+).apply(pd.to_numeric, errors='coerce').resample("MS").last()
 
 
-** Evolução do salário mínimo real
+fig, ax = plt.subplots(figsize=(8,5))
 
-** Consumo das famílias
+df["1996-01-01":].plot(ax=ax,
+lw=2.5,
+ls='-',
+)
+
+ax.text(
+0.95, -0.17,
+f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
+verticalalignment='bottom', horizontalalignment='right',
+transform=ax.transAxes,
+color='black', fontsize=10)
+
+ax.set_yticklabels(['{:,.2%}'.format(x/100) for x in ax.get_yticks()])
+
+sns.despine()
+plt.show()
+fig.savefig("./figs/Credito.png", transparent = True, dpi = 300)
+
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [155]: 
+# text/plain
+: <Figure size 576x360 with 1 Axes>
+
+# image/png
+[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/fc641961292fdc22772f9d599208bc89afcf6d45.png]]
+:end:
+
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{Saldo de Crédito\\em \% do PIB} 
+\includegraphics[width = 0.9\textwidth]{./figs/Credito.png}
+\label{fig:Credito}
+\caption*{\textbf{Fonte:} BCB-DSTAT}
+\end{figure}
+#+end_export
+
+
+** DONE Emprego
+   CLOSED: [2020-10-16 sex 16:33]
+
+#+BEGIN_SRC ipython
+df = consulta_bc(28512, ["Emprego Formal"])
+
+fig, ax = plt.subplots(figsize=(8,5))
+
+df.plot(ax=ax,
+lw=2.5,
+color='black',
+ls='-',
+)
+
+ax.text(
+0.95, -0.15,
+f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
+verticalalignment='bottom', horizontalalignment='right',
+transform=ax.transAxes,
+color='black', fontsize=10)
+
+
+sns.despine()
+plt.show()
+fig.savefig("./figs/EmpregoFormal.png", transparent = True, dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [60]: 
+# text/plain
+: <Figure size 576x360 with 1 Axes>
+
+# image/png
+[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/1e88f2ca6ec7159b8c4ae41e7237cf757c6fb37f.png]]
+:end:
+
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{Índice do Emprego Formal} 
+\includegraphics[width = 0.9\textwidth]{./figs/EmpregoFormal.png}
+\label{fig:EmpFormal}
+\caption*{\textbf{Fonte:} MTb}
+\end{figure}
+#+end_export
+
+
+** DONE Evolução dos rendimentos (I)
+   CLOSED: [2020-10-16 sex 16:41]
+#+BEGIN_SRC ipython
+df = consulta_bc(10790, ["RMRE - Todos os trabalhos"])
+
+fig, ax = plt.subplots(figsize=(8,5))
+
+df.plot(ax=ax,
+lw=2.5,
+color='darkred',
+ls='-'
+)
+
+ax.text(
+0.95, -0.15,
+f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
+verticalalignment='bottom', horizontalalignment='right',
+transform=ax.transAxes,
+color='black', fontsize=10)
+ax.set_ylabel('R$')
+
+
+sns.despine()
+plt.show()
+fig.savefig("./figs/RendimentoEfetivo.png", transparent = True, dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [66]: 
+# text/plain
+: <Figure size 576x360 with 1 Axes>
+
+# image/png
+[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/b93a948c5b9118a52f6d24faadbac000931a6231.png]]
+:end:
+
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{Rendimento médio real efetivo das pessoas ocupadas\\ Não desazonalizada} 
+\includegraphics[width = 0.9\textwidth]{./figs/RendimentoEfetivo.png}
+\label{fig:RendimentoE}
+\caption*{\textbf{Fonte:} IBGE}
+\end{figure}
+#+end_export
+
+*Nota:* Esta séria foi descontinuada
+
+
+** DONE Evolução dos rendimentos (II)
+   CLOSED: [2020-10-16 sex 16:41]
+   
+#+BEGIN_SRC ipython
+df = consulta_bc(28545, ["MRRH - Todos os trabalhos"])
+
+fig, ax = plt.subplots(figsize=(8,5))
+
+df.plot(ax=ax,
+lw=2.5,
+color='darkred',
+ls='-'
+)
+
+ax.text(
+0.95, -0.15,
+f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
+verticalalignment='bottom', horizontalalignment='right',
+transform=ax.transAxes,
+color='black', fontsize=10)
+ax.set_ylabel('R$ (milhões)')
+
+
+sns.despine()
+plt.show()
+fig.savefig("./figs/RendimentoHabitual.png", transparent = True, dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [64]: 
+# text/plain
+: <Figure size 576x360 with 1 Axes>
+
+# image/png
+[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/eaa4c354946dd371b67a70b6325875f6c1bac487.png]]
+:end:
+
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{Massa de rendimento real habitual de todos os trabalhos} 
+\includegraphics[width = 0.9\textwidth]{./figs/RendimentoHabitual.png}
+\label{fig:RendimentoH}
+\caption*{\textbf{Fonte:} IBGE}
+\end{figure}
+#+end_export
+
+*Memo:* Série anterior descontinuada
+
+** DONE Consumo das famílias
+   CLOSED: [2020-10-16 sex 17:55]
+#+BEGIN_SRC ipython
+fig, ax = plt.subplots(figsize=(8,5))
+
+consulta_bc(22110, ["Número Índice"]).plot(ax=ax,
+lw=2.5,
+color='black',
+ls='-',
+)
+
+ax.text(
+0.95, -0.1,
+f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
+verticalalignment='bottom', horizontalalignment='right',
+transform=ax.transAxes,
+color='black', fontsize=10)
+
+
+sns.despine()
+plt.show()
+fig.savefig("./figs/ConsumoFamilias.png", transparent = True, dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [122]: 
+# text/plain
+: <Figure size 576x360 with 1 Axes>
+
+# image/png
+[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/bc9ada2ccb7f69be3ba93a53aed5fd8cda44145e.png]]
+:end:
+
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{Consumo das famílias\\Jan/1995=100} 
+\includegraphics[width = 0.9\textwidth]{./figs/ConsumoFamilias.png}
+\label{fig:Consumo}
+\caption*{\textbf{Source:} IBGE}
+\end{figure}
+#+end_export
+
+** DONE Endividamento das famílias
+   CLOSED: [2020-10-16 sex 17:55]
+
+#+BEGIN_SRC ipython
+df = pd.concat(
+    [
+        consulta_bc(19882, ["Total"]),
+        consulta_bc(20400, ["Exceto crédito habitacional"])
+    ],
+    axis = 1
+)
+
+fig, ax = plt.subplots(figsize=(8,5))
+
+df.plot(ax=ax,
+	lw=2.5,
+	ls='-'
+)
+
+ax.text(
+	0.95, -0.15,
+	f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
+        verticalalignment='bottom', horizontalalignment='right',
+        transform=ax.transAxes,
+        color='black', fontsize=10)
+ax.set_yticklabels(['{:,.2%}'.format(x/100) for x in ax.get_yticks()])
+
+sns.despine()
+plt.show()
+fig.savefig("./figs/EndividamentoFam.png", transparent = True, dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [124]: 
+# text/plain
+: <Figure size 576x360 with 1 Axes>
+
+# image/png
+[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/645750194f4897619afd26ef2c811ac460828188.png]]
+:end:
+
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{Endividamento das famílias\\em \% do PIB} 
+\includegraphics[width = 0.65\textwidth]{./figs/EndividamentoFam.png}
+\label{fig:Endiv}
+\caption*{\textbf{Fonte:} BCB}
+\end{figure}
+#+end_export
+
 
 ** Investimento público em recuperação
 
@@ -348,17 +689,227 @@ fig.savefig("./figs/Commodities.png", transparent = False, dpi = 300)
 
 *Dado:* Evolução da dívida bruta e líquida (%PIB)
 
-** Superávit primário
+** Resultado primário do Governo Central
 
-** Relação dívida externa líquida
+** DONE Dívida líquida do setor público
+   CLOSED: [2020-10-16 sex 16:20]
+
+#+BEGIN_SRC ipython
+df = pd.concat(
+    [
+        consulta_bc(4503, ["Total"]),
+        consulta_bc(4514, ["Interna"]),
+        consulta_bc(4525, ["Externa"]),
+    ],
+    axis=1
+)
+
+fig, ax = plt.subplots(figsize=(8,5))
+
+df.plot(ax=ax,
+lw=2.5,
+ls='-'
+)
+
+ax.set_yticklabels(['{:,.2%}'.format(x/100) for x in ax.get_yticks()])
+ax.axhline(y=0, ls='--', lw=1.0, color='black')
+
+ax.text(
+0.95, -0.1,
+f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
+verticalalignment='bottom', horizontalalignment='right',
+transform=ax.transAxes,
+color='black', fontsize=10)
 
 
-** Taxa de câmbio nominal
+sns.despine()
+plt.show()
+fig.savefig("./figs/DividaLiquida.png", transparent = True, dpi = 300)
+#+END_SRC
 
-** Taxa de juros selic
+#+RESULTS:
+:results:
+# Out [57]: 
+# text/plain
+: <Figure size 576x360 with 1 Axes>
+
+# image/png
+[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/2ba080a4bca8943cfa7d55c63a716fbce8643b02.png]]
+:end:
+
+
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{Dívida líquida do Governo Federal e Banco Central\\em \% do PIB} 
+\includegraphics[width = 0.9\textwidth]{./figs/DividaLiquida.png}
+\label{fig:divliq}
+\caption*{\textbf{Source:} BCB-DSTAT}
+\end{figure}
+#+end_export
+
+
+
+** DONE Taxa de câmbio nominal
+   CLOSED: [2020-10-16 sex 16:12]
+
+#+BEGIN_SRC ipython
+df = consulta_bc(20360, ['Câmbio'])
+
+fig, ax = plt.subplots(figsize=(8,5))
+
+df.plot(ax=ax,
+	lw=2.5,
+	color='black',
+	ls='-',
+        label=False,
+)
+
+ax.text(
+	0.95, -0.2,
+	f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
+        verticalalignment='bottom', horizontalalignment='right',
+        transform=ax.transAxes,
+        color='black', fontsize=10)
+
+
+sns.despine()
+plt.show()
+fig.savefig("./figs/CambioNominal.png", transparent = True, dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [52]: 
+# text/plain
+: <Figure size 576x360 with 1 Axes>
+
+# image/png
+[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/48ad52a35e68e346bea3ee3552d27dd16618b54a.png]]
+:end:
+
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{ Índice da taxa de câmbio efetiva nominal\\Jun/1994=100 } 
+\includegraphics[width = 0.9\textwidth]{./figs/CambioNominal.png}
+\label{fig:cambio}
+\caption*{\textbf{Fonte:} BCB-DSTAT}
+\end{figure}
+#+end_export
+
+
+** DONE Taxa de juros selic
+   CLOSED: [2020-10-16 sex 16:12]
+
+
+#+BEGIN_SRC ipython
+fig, ax = plt.subplots(1,1, figsize=(8,5))
+
+
+df = pd.concat([consulta_bc(1178, ['Efetiva']), consulta_bc(432, ['Meta'])],axis=1)
+df["Desvio"] = df["Meta"] - df["Efetiva"]
+
+df["1999-01-01":].plot(ax=ax, color=('black', 'red', 'gray'))
+
+ax.set_yticklabels(['{:,.2%}'.format(x/100) for x in ax.get_yticks()])
+
+
+
+ax.text(
+0.95, -0.2,
+f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
+verticalalignment='bottom', horizontalalignment='right',
+transform=ax.transAxes,
+color='black', fontsize=10)
+
+
+sns.despine()
+plt.show()
+fig.savefig("./figs/Selic.png", transparent = True, dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [47]: 
+# text/plain
+: <Figure size 576x360 with 1 Axes>
+
+# image/png
+[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/93d83beecdd3efce1d4c8b27f60457d952b033c0.png]]
+:end:
+
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{Taxa de juros selic a.a. (efetivo x meta)\\Anualizada base 252} 
+\includegraphics[width = 0.9\textwidth]{./figs/Selic.png}
+\label{fig:Selic}
+\caption*{\textbf{Fonte:} Copom e BCB-Demab}
+\end{figure}
+#+end_export
+
 
 ** Preços livres vs Administrados
 
 ** Finalmente, inflação (ops, IPCA)
 
-*Dado:* IPCA, centro da meta e limites
+*TODO:* Revisar IPCA
+
+#+BEGIN_SRC ipython
+
+df = consulta_bc(13521, ["Meta"])
+df = df.resample('MS').ffill()#.bfill()
+
+df["Teto"] = df["Meta"] + 2.0
+df["Piso"] = df["Meta"] - 2.0
+
+df = pd.concat([
+    df,
+    consulta_bc(433,["IPCA"])
+], axis=1)
+
+df = df["1998-01-01":]
+df = df/100
+df["IPCA"] = (1+ df["IPCA"]).rolling(window=12).agg(lambda x : x.prod()) -1
+
+fig, ax = plt.subplots(figsize=(8,5))
+
+df.plot(ax=ax,
+lw=2.5,
+ls='-',
+color = ('red', 'gray', 'lightgray', 'black')
+)
+
+ax.text(
+0.95, -0.2,
+f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
+verticalalignment='bottom', horizontalalignment='right',
+transform=ax.transAxes,
+color='black', fontsize=10)
+
+
+sns.despine()
+plt.show()
+fig.savefig("./figs/IPCA.png", transparent = True, dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [120]: 
+# text/plain
+: <Figure size 576x360 with 1 Axes>
+
+# image/png
+[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/d828acd987deaed484600a26765fd1d8ae0280bc.png]]
+:end:
+
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{IPCA e Metas para Inflação} 
+\includegraphics[width = 0.9\textwidth]{./figs/IPCA.png}
+\label{fig:IPCA}
+\caption*{\textbf{Fonte:} BCB}
+\end{figure}
+#+end_export

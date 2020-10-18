@@ -1,0 +1,86 @@
+
+#+OPTIONS: num:nil
+#+TITLE: Reuniões de Orientação - Lorena
+#+AUTHOR: Gabriel Petrini
+#+DATE: 2020
+
+* HTML headers                                              :ignore:noexport:
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+
+#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+
+* Proposta de estrutura de capítulos
+
+#+BEGIN_SRC dot :file capitulos.png
+digraph {
+node [shape=record fontname=Arial];
+a  [label="Relevância da distribuição pessoal\n(Contraponto à funcional)"]
+b  [label="Discussão teórica sobre os\ndeterminantes da distribuição\n pessoal da renda"]
+c  [label="Distribuição pessoal da renda\nElementos históricos institucionais"]
+d  [label="Hipóteses a serem testadas"]
+e  [label="Panorama histórico da guerra fria\n(Breve)"]
+f  [label="Apresentação dos dados\n(Fatos estilizados)"]
+g  [label="Distribuição Pessoal\nem uma perspectiva comparada"]
+h  [label="Apresentação de outros trabalhos\n(empíricos)"]
+i  [label="Apresentação e justificativa\nda metodologia de referência"]
+j  [label="Apresentação e justificativa\nda metodologia adotada (QCA)"]
+k  [label="Adequação dos dados\ne da metodologia\n(Calibragem)"]
+l  [label="Apresentação e discussão\ndos resultados"]
+
+    subgraph cluster_0 {
+        label="Capítulo teórico";
+        a -> b -> c -> d;
+    }
+
+    subgraph cluster_1 {
+        label="Capítulo histórico/\nFatos Estilizados";
+        e -> f -> g -> h;
+	b -> e;
+	d -> h;
+	d -> g;
+    }
+    subgraph cluster_2 {
+        label="Metodologia e proposta";
+	i -> j -> k -> l;
+	f -> i;
+	e -> i;
+	g -> j;
+	h -> l;
+    }
+}
+#+END_SRC
+
+#+RESULTS:
+[[file:capitulos.png]]
+
+* Reunião <2020-09-30 qua>
+
+** Antes da próxima reunião
+
+*** TODO Parágrafos sobre objetivo
+*** TODO Enviar projeto
+*** TODO Github para poetas
+*** TODO Latex monografia
+*** TODO Link Zotero
+* Reunião <2020-10-16 sex> - Discussão dos objetivos
+
+A aluna apresentou os parágrafos que desenvolveu sobre o problema e objetivo da pesquisa. Como próximos passos, foi sugerido escrever os objetivos específicos para então pautar a estrutura da monografia e direcionar a revisão da literatura. Também foi proposto uma forma de como pontuar o problema na revisão da literatura. Me foi solicitado um auxílio na seleção da literatura levantada pela aluna. Segue o texto discutido abaixo:
+
+*** Problema da pesquisa
+
+#+BEGIN_QUOTE
+É um fato estilizado a trajetória crescente da desigualdade nos anos 80. Essa tendência tem suscitado o interesse de economistas de diversas áreas em compreender melhor os determinantes do aumento da concentração de renda.
+Grande parte da literatura tem se focado no período recente, partindo de 1980 até os dias atuais. No entanto, para entender o porquê de a desigualdade ter dado esse salto, é necessário resgatar as condições que explicam o baixo nível de desigualdade de renda durante o pós-guerra.
+#+END_QUOTE
+
+*** Objetivos
+#+BEGIN_QUOTE
+            As Guerras Mundiais tiveram um papel incisivo na redução das desigualdades nas três décadas que seguiram o seu fim. O debate acerca do tema ressalta o conflito militar como fator explicativo importante em fazer com que as sociedades mantivessem um nível relativamente igual de renda, mas não explica como isso se sustenta nos 30 anos seguintes.
+            O objetivo desta pesquisa é investigar tal lacuna: os condicionantes da diminuição da desigualdade de renda no pós-guerra nos países centrais. A hipótese principal para a menor concentração de renda reside no contexto geopolítico que condicionou a ordem mundial de 1945 a 1989: a Guerra Fria. Assim, a monografia buscará responder a seguinte questão: a ameaça do comunismo teria forçado as elites dos países da OCDE a distribuírem renda no pós-guerra?
+#+END_QUOTE
+

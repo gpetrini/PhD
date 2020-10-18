@@ -2,12 +2,17 @@
 #+TITLE: Notas CE 342/A
 #+AUTHOR: Gabriel Petrini (PED)
 #+DATE: 2020/2S
+#+PROPERTY: COLUMNS %RA %TAREFA(Tarefa) %NOTA(Nota)
 #+EXCLUDE_TAGS: private noexport
-#+PROPERTY: TAREFA_ALL "Resenha 1" "Resenha 2" "Resenha 3" "Resenha 4" "Resenha 5" "Prova" "Seminário"
 
-* Configurações de exportação e propriedades                :ignore:noexport:
+#+INCLUDE: 213360.org
 
-A propriedade abaixo especifica qual tarefa está sendo avaliada
+* Notas                                                            
 
-#+PROPERTY: TAREFA_ALL "Resenha 1" "Resenha 2" "Resenha 3" "Resenha 4" "Resenha 5" "Prova" "Seminário"
-#+PROPERTY: OBJETIVO_ALL "Atingido totalmente" "Atingido satisfatoriamente" "Atingido parcialmente" "Atingindo minimamente" "Não atingido"
+  #+BEGIN: columnview :maxlevel 1 :id global
+  | RA | Tarefa | Nota |
+  |----+--------+------|
+  |    |        |      |
+  #+END
+
+
