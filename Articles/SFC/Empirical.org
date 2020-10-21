@@ -26,11 +26,7 @@ def salvar_grafico(file_name, extension=".png", pasta="./figs/"):
 
 #+RESULTS:
 :results:
-# Out [3]: 
-# output
-/home/gpetrini/.local/lib/python3.8/site-packages/pandas_datareader/compat/__init__.py:7: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
-  from pandas.util.testing import assert_frame_equal
-
+# Out [35]: 
 :end:
 
 
@@ -61,7 +57,7 @@ def crises(axes, color='lightgray', alpha=0.4):
 
 #+RESULTS:
 :results:
-# Out [4]: 
+# Out [36]: 
 :end:
 
 ** Getting data
@@ -93,7 +89,7 @@ df.to_csv('./data/Cycle.csv')
 
 #+RESULTS:
 :results:
-# Out [5]: 
+63 - 86d642db-e11d-4509-aa92-e3935a369992 <output> <interrupt>
 :end:
 
 
@@ -138,7 +134,7 @@ df.to_csv("./data/OwnInterestRate_data.csv")
 
 #+RESULTS:
 :results:
-# Out [6]: 
+64 - 82767da6-004c-41d8-94ce-333cf828b280 <output> <interrupt>
 :end:
 
 ** Residuals
@@ -189,12 +185,7 @@ fig.savefig("./figs/Own_Cycle.png", transparent = True, dpi = 300)
 
 #+RESULTS:
 :results:
-# Out [135]: 
-# text/plain
-: <Figure size 1152x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/55f4d82f99285b53283e312a47760264590346bb/ed3f32e54dce5d0665515dd607b91c625223d1d5.png]]
+65 - c96451fb-4ee2-480b-9667-de15002b080d <output> <interrupt>
 :end:
 
 
@@ -243,12 +234,7 @@ plt.show()
 
 #+RESULTS:
 :results:
-# Out [136]: 
-# text/plain
-: <Figure size 432x288 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/55f4d82f99285b53283e312a47760264590346bb/0f52450b4303f91d7d04695fdbae5242bc5ea534.png]]
+66 - d65f11da-12bb-4214-b1dd-d572b125f426 <output> <interrupt>
 :end:
 
 #+BEGIN_SRC latex
@@ -320,12 +306,7 @@ fig.savefig("./figs/Durables.png", transparent = True, dpi = 300)
 
 #+RESULTS:
 :results:
-# Out [137]: 
-# text/plain
-: <Figure size 1152x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/55f4d82f99285b53283e312a47760264590346bb/afef9652822cf42537231cf44ab1b47bd7758a63.png]]
+67 - d21deaae-6d95-4ac4-8096-83d74e4cff8e <output> <interrupt>
 :end:
 
 
@@ -358,7 +339,7 @@ df = pd.read_csv(
     parse_dates = True
 )
 sns.set_context('talk')
-fig, ax = plt.subplots(2,3, sharex=True, sharey=True, squeeze=False, figsize=(8*3,2*5))
+fig, ax = plt.subplots(2,3, sharex=True, sharey=True, squeeze=False, figsize=(8,5))
 
 sns.scatterplot(y = 'Housing share', x='TCU', data=df["1970-12":"1975-01"], ax=ax[0,0], size='Year', sizes = (5,100), color = 'black', legend=False)
 sns.lineplot(y = 'Housing share', x='TCU', data=df["1970-12":"1975-01"], ax=ax[0,0], sort=False, color = 'black')
@@ -390,8 +371,8 @@ ax[0,0].set_ylabel(""); ax[1,0].set_xlabel('')
 ax[1,0].set_ylabel(""); ax[1,1].set_xlabel(''); ax[1,2].set_xlabel('')
 
 fig.tight_layout(rect=[0, 0.03, 1, 0.90])
-fig.text(0.5, 0.03, 'Capacity utilization ratio (Total Industry)', ha='center', fontsize =9)
-fig.text(0, 0.5, 'Residential Investment/GDP', va='center', rotation='vertical', fontsize=9)
+fig.text(0.5, 0.03, 'Capacity utilization ratio (Total Industry)', ha='center', fontsize =12)
+fig.text(0, 0.5, 'Residential Investment/GDP', va='center', rotation='vertical', fontsize=12)
 #fig.tight_layout(rect=[0, 0.03, 1, 1])
 plt.show()
 
@@ -400,12 +381,7 @@ fig.savefig("./figs/cycles.png", transparent = True, dpi = 300)
 
 #+RESULTS:
 :results:
-# Out [138]: 
-# text/plain
-: <Figure size 1728x720 with 6 Axes>
-
-# image/png
-[[file:obipy-resources/55f4d82f99285b53283e312a47760264590346bb/a65d79db616d3eeb359687cb9e46862aa8488471.png]]
+61 - 6785c99a-cca3-4cbd-bb19-653a26f269e9 <output> <interrupt>
 :end:
 
 #+BEGIN_SRC latex
@@ -465,7 +441,7 @@ df = pd.read_csv(
 sns.set_context('paper')
 fig, ax = plt.subplots(figsize=(8,5))
 
-df[['Real mortgage interest rate', "Own interest rate", '$g_{I_h}$']].plot(ax=ax, lw=3)
+df[['Real mortgage interest rate', "Own interest rate", '$g_{I_h}$']].plot(ax=ax, lw=3, color = ("gray", "black", "darkgray"))
 
 sns.despine()
 plt.show()
@@ -474,12 +450,7 @@ salvar_grafico("Own_gI")
 
 #+RESULTS:
 :results:
-# Out [139]: 
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/55f4d82f99285b53283e312a47760264590346bb/0df11e0865e9553e18f990383e4935a288f1d7d3.png]]
+69 - cd33c5d0-e7fb-45d0-94c5-ef129dabef3a <output> <interrupt>
 :end:
 
 #+BEGIN_SRC latex
@@ -538,48 +509,53 @@ def suavizacao(serie, n=1000, k=2):
 
 #+RESULTS:
 :results:
-# Out [7]: 
+70 - ae2cb6c2-ee81-46a2-9bcb-ed1c6890b571 <output> <interrupt>
 :end:
 
 #+BEGIN_SRC ipython
 import numpy as np
+import matplotlib.patheffects as pe
 fig, ax = plt.subplots(figsize=(16, 10))
 
 ax.plot(
     np.linspace(0,0), 
     np.linspace(0,0),
     color='white',
-    ls='-',
+    ls='None',
     label='Primary\n'
 )
 
 imoveis.loc[:, imoveis.columns <= 2010].plot(
     ax=ax,
-    cmap="Blues", 
+    cmap="gray", 
     linewidth=2.5,
+    ls = "--",
+    path_effects=[pe.Stroke(linewidth=4.0, foreground='k'), pe.Normal()]
 )
 
 ax.plot(
     np.linspace(0,0), 
     np.linspace(0,0),
     color='white',
-    ls='-',
+    ls='None',
     label='Secoundary\n'
 )
 
 secund.loc[:, secund.columns <= 2010].plot(
     ax=ax,
-    cmap="Reds", 
+    cmap="gray", 
     linewidth=2.5,
+    ls="-.",
+    path_effects=[pe.Stroke(linewidth=4.0, foreground='k'), pe.Normal()]
 )
 
-ax.legend(ncol=2)
+ax.legend(ncol=2, frameon=True, facecolor='white', framealpha=2, edgecolor='black')
 
 ax.plot(
     np.linspace(*ax.get_xlim()), 
     np.linspace(*ax.get_xlim()),
     color='black',
-    ls='--',
+    ls='-',
 )
 
 ax.arrow(0.6, 0.6, +0.08, -0.08, head_width=0.01, head_length=0.01, fc='gray', ec='black')
@@ -601,12 +577,7 @@ salvar_grafico(file_name="Concentration_Curve")
 
 #+RESULTS:
 :results:
-# Out [10]: 
-# text/plain
-: <Figure size 1152x720 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/55f4d82f99285b53283e312a47760264590346bb/53eaeb0a443ba67ff7895fcdbdcd01ea196b7194.png]]
+71 - df8b2f09-8297-445c-8b81-29a98202bc4f <output> <interrupt>
 :end:
 
 @@comment: Importância da bolha de ativos para explicar o investimento residencial e, por conseguinte, o ciclo econômico comment@@
@@ -665,12 +636,7 @@ salvar_grafico(file_name="Debt_Prices")
 
 #+RESULTS:
 :results:
-# Out [140]: 
-# text/plain
-: <Figure size 1152x720 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/55f4d82f99285b53283e312a47760264590346bb/64005ce37326180051174db02ea26d6bd63a0a9a.png]]
+72 - 5e32d5df-13d2-4473-9663-5c39f2b9bbf8 <output> <interrupt>
 :end:
 
 #+BEGIN_SRC latex
@@ -688,7 +654,7 @@ salvar_grafico(file_name="Debt_Prices")
 \begin{figure}[htb]
     \centering
         \caption{Concentration curves for primary and secoundary houses} 
-    \includegraphics[width = 0.65\textwidth]{./figs/Concentration_Curve.png}
+    \includegraphics[width = 0.95\textwidth]{./figs/Concentration_Curve.png}
     \label{fig:concentration}
     \caption*{\textbf{Source:} Survey of Consumer Finance, authors’ elaboration.}
 \end{figure}
@@ -843,12 +809,7 @@ fig.savefig("./figs/own_Ih.png", transparent = True, dpi = 300)
 
 #+RESULTS:
 :results:
-# Out [141]: 
-# text/plain
-: <Figure size 1728x360 with 3 Axes>
-
-# image/png
-[[file:obipy-resources/55f4d82f99285b53283e312a47760264590346bb/1e2843dfcc62dfada17c19318a205de9426c2a32.png]]
+73 - 31a53fd3-2156-4a9e-963d-5e5bfa1b108b <output> <interrupt>
 :end:
 
 #+BEGIN_SRC ipython
@@ -894,12 +855,7 @@ fig.savefig("./figs/Durables_Ih.png", transparent = True, dpi = 300)
 
 #+RESULTS:
 :results:
-# Out [142]: 
-# text/plain
-: <Figure size 1728x360 with 3 Axes>
-
-# image/png
-[[file:obipy-resources/55f4d82f99285b53283e312a47760264590346bb/3b8a856b63a3bc1f9d2e439ba1bd0647f51cc35b.png]]
+74 - 058bd355-6ca4-4135-92c1-d9a2fab78f1e <output> <interrupt>
 :end:
 
 #+BEGIN_SRC ipython
@@ -945,12 +901,7 @@ fig.savefig("./figs/Durables_Own.png", transparent = True, dpi = 300)
 
 #+RESULTS:
 :results:
-# Out [143]: 
-# text/plain
-: <Figure size 1728x360 with 3 Axes>
-
-# image/png
-[[file:obipy-resources/55f4d82f99285b53283e312a47760264590346bb/67df8957fab8c4ba06094ebdfda0f04e7c60bcbf.png]]
+75 - fbb7e256-0eb5-4106-89b7-778ca3c61780 <output> <interrupt>
 :end:
 
 #+BEGIN_SRC ipython
@@ -984,12 +935,7 @@ fig.savefig("./figs/Durables_Ih_own.png", transparent = True, dpi = 300)
 
 #+RESULTS:
 :results:
-# Out [144]: 
-# text/plain
-: <Figure size 1728x360 with 3 Axes>
-
-# image/png
-[[file:obipy-resources/55f4d82f99285b53283e312a47760264590346bb/6dc7df3c32357e43b2483f3d0ca55b6b6a961899.png]]
+76 - 6a539944-9fc5-40eb-bc88-dd4d7cf03386 <output> <interrupt>
 :end:
 
 #+BEGIN_SRC latex :eval no
