@@ -114,7 +114,8 @@
 }
 #+END_SRC
 
-** PARTIAL [#A] [[https://www.emerald.com/insight/publication/doi/10.1016/S0731-9053(2001)15][Baltagi - Nonstationary Panels, Panel Cointegration, and Dynamic Panels: Volume 15]]
+
+** SKIM [#A] [[https://www.emerald.com/insight/publication/doi/10.1016/S0731-9053(2001)15][Baltagi - Nonstationary Panels, Panel Cointegration, and Dynamic Panels: Volume 15]]
    :PROPERTIES:
    :YEAR:     2000
    :ZOTERO:   Yes
@@ -505,7 +506,6 @@
   publisher    = {Universidad Nacional de Colombia}
 }
 #+END_SRC
-
 *** SKIM [#C] [[https://arxiv.org/abs/1709.08980][Fernández-Val and Weidner - Fixed Effect Estimation of Large T Panel Data Models]]
    :PROPERTIES:
    :YEAR:     2018
@@ -516,6 +516,21 @@
    :IMPACT:   Low
    :CITE:     Yes
    :END:    
+*** READ [#A] [[https://himayatullah.weebly.com/uploads/5/3/4/0/53400977/baltagi-econometric-analysis-of-panel-data_himmy.pdf][Baltagi (chap. 12) - Nonstationary Panels]]
+   :PROPERTIES:
+   :YEAR:     2008
+   :ZOTERO:   Partial
+   :TYPE:     Manual
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   High
+   :CITE:     Yes
+   :END:
+
+   #+BEGIN_SRC bibtex
+
+   #+END_SRC
+
 ** Unit root test
 *** READ [#B] [[https://onlinelibrary.wiley.com/doi/abs/10.1111/1468-0084.0610s1631][Maddala and Wu - A Comparative Study of Unit Root Tests with Panel Data and a New Simple Test]]
    :PROPERTIES:
@@ -639,7 +654,8 @@ helps to uncover common dynamic relationships which might otherwise be obscured 
 
 
 
-*** READ [#A] cite:Hofmann_2004 -  [[https://ideas.repec.org/a/bla/intfin/v7y2004i2p203-234.html][The Determinants of Bank Credit in Industrialized Countries: Do Property Prices Matter?]]
+*** DONE [#A] cite:Hofmann_2004 -  [[https://ideas.repec.org/a/bla/intfin/v7y2004i2p203-234.html][The Determinants of Bank Credit in Industrialized Countries: Do Property Prices Matter?]]
+    CLOSED: [2020-10-22 qui 09:46]
      :PROPERTIES:
      :YEAR:     2004
      :ZOTERO:   Yes
@@ -733,7 +749,8 @@ First, the author estimate the model without property prices and do not find a c
 }
     #+END_SRC
 
-*** READ [#B] [[https://www.tandfonline.com/doi/abs/10.2753/PKE0160-3477360304][Arestis and González - Bank credit and the housing market in OECD countries]]
+*** DONE [#B] [[https://www.tandfonline.com/doi/abs/10.2753/PKE0160-3477360304][Arestis and González - Bank credit and the housing market in OECD countries]]
+    CLOSED: [2020-10-22 qui 15:11]
     :PROPERTIES:
     :YEAR:     2014
     :ZOTERO:   Yes
@@ -762,7 +779,71 @@ First, the author estimate the model without property prices and do not find a c
 }
     #+END_SRC
 
-*** READ [#A] [[https://eprints.kingston.ac.uk/id/eprint/38796/1/2017_003.pdf][Stockhammer and Wildauer - Expenditure Cascades, Low Interest Rates or Property Booms? Determinants of Household Debt in OECD Countries]]
+*FOR:* VECM
+
+| *Background*                                  |                                                                   |
+| *Supporting Ideas*                            |This paper is highly based on "dynamic monetized production economy" which means that production requires credit to occurs. It is supposed that an increase on house prices would lead to a decrease on demand for credit (which is at odd with some stylized facts). |
+| *Purpose*                                     | Evaluates if banking credit is determined by house prices.        |
+| *Originality/value (Contribution)*            | Bank credit is endogenised through real estate-related variables. |
+| *Relevance*                                   | This paper assumes some different hypothesis than those utilized in the dissertation. Addionaly, it analyses some similar countries. The dataset, though, is not so comparable.  Results are at odds with the empirical literature for the US |
+| *Design/methodology/approach*                 |The theoretical model assumes two types of firms: real-estate and non-real estate producers. Demand for Houses depends on disposable income ($RDY$), mortgage rate ($MR$) and housing prices ($P_H$). House supply, on the other side, depends positively on house prices and on real residential investment ($RRI$). Cointegration and error correction techniques |
+| *Countries*                                   |9 OECD countries: Belgium, Finland, Italy, Japan, the Netherlands, New Zealand, Norway, Spain and the United States.                                                |
+| *Time range*                                  | 1970 to 2011 (restricted by availability)                         |
+| *Results*                                     |There is a direct relationship between house prices and credit volume (but not at the US). For the US, Belgium and Norway, RDY is the only variable that describes credit volume. For the short-run dynamics, MR is not statiscally significant for any country while RDY is the only one for the US (which has the lowest $R^2$). Anyway, house prices has a positive effect on volume of credit in almost every country analyzed. |
+| *(Interesting) Findings*                      |                                                                   |
+| *Research limitations/implications (Critics)* |The authors implicitly suppose that there is no speculative reason for buy a House. Additionally, they suppose and price-adjustment mechanism. The authors describe a loop in housing-credit relation in which an increase in credit demand leads to an increase on house prices since its supply is fixed on the short-run. Real disposable income is include as a proxy for borrower risk of default. However, the following rationale is based on information criteria and other supply-side elements, which could be inconsistent with overall assumptions. Further, is mentioned that RDY is supposed to be the main determinant of house demand (and not credit). It is said that mortgage interest rate could crowd out construction investment. |
+| *Uncategorized stuff*                         |Points out AMECO databank (Dwellings and Long-term interest rate), BIS (Real House price index) |
+| *5SS*                                         |                                                                   |
+
+
+$$
+D_H = D_H (\underset{-}{P_H}, \underset{+}{RDY}, \underset{-}{MR})
+$$
+
+$$
+S_H = S_H (\underset{+}{P_H}, \underset{+}{RRI})
+$$
+
+on equilibrium
+
+$$
+P_H = P_H (\underset{+}{RDY}, \underset{-}{MR}, \underset{-}{RRI})
+$$
+
+$$
+Q_H = Q_H (\underset{+}{P_H}, \underset{+}{RDY}, \underset{-}{MR})
+$$
+
+Next, they present an equation for Demand for Credit which depends on house market equilibrium
+
+$$
+D_C = D_C (\underset{+}{P_H(\cdot)}, \underset{+}{Q_H(\cdot)})
+$$
+
+$$
+D_C = D_C (\underset{+}{P_H}, \underset{+}{RDY}, \underset{+}{RRI}, \underset{-}{MR},)
+$$
+while supply of credit depends only on mortgage rate (as a proxy for user cost of dwellings)
+
+$$
+S_C = S_C (MR)
+$$
+which implies the following Banking Credit (volume) equilibrium
+
+$$
+BC = BC (\underset{+}{P_H}, \underset{+}{RDY},\underset{+}{RRI},\underset{-}{MR})
+$$
+
+thus, the equation to be estimated is
+
+$$
+BC = \gamma_0 + \gamma_1 P_H + \gamma_2 RDY + \gamma_3 + RRI - \gamma_4 MR
+$$
+where credit share to GDP was used as endogenous variable. Additionally, long-term interest rate was used instead of mortgage interest rate due to homogeneous and reliable information.
+
+
+*** DONE [#A] [[https://eprints.kingston.ac.uk/id/eprint/38796/1/2017_003.pdf][Stockhammer and Wildauer - Expenditure Cascades, Low Interest Rates or Property Booms? Determinants of Household Debt in OECD Countries]]
+    CLOSED: [2020-10-22 qui 12:03]
     :PROPERTIES:
     :YEAR:     2018
     :ZOTERO:   Yes
@@ -794,6 +875,29 @@ First, the author estimate the model without property prices and do not find a c
 
     #+END_SRC
 
+*FOR:* VEC (detail) and SFC (skim)
+
+                                                                                                                                  | *Background*                                  | Literature has been recognizing the importance of household debt increase for macroeconomic dynamic. However, there still fewer studies that describe this increase empirically.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |       
+                                                                                                                                  | *Supporting Ideas*                            | Most frequently, household over indebtedness is associated with income inequality increase. Households are credit constrained and aim to meet wealth target norms.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |     
+                                                                                                                                  | *Purpose*                                     | Test the most recurrent hypothesis about household indebtedness for OECD countries: (i) expenditure cascades (ECH); (ii) house prices increase (wealth effects, HBH); (iii) low interest rate (LIH) and (iv) credit market deregulation (CDH).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | 
+                                                                                                                                  | *Originality/value (Contribution)*            | Controls for property prices (this is important for ommited variable problem), do not analyzed private sector altogether (households only)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |     
+                                                                                                                                  | *Relevance*                                   | Share a lot of references with dissertation. Furthermore, analyses similar countries for a relatively close time range.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | 
+                                                                                                                                  | *Design/methodology/approach*                 | Estimate debt accumulation function as a function of disposable income ($Y^D$), property prices index ($PP$), inequality ($Q$), real interest rate ($R$) and credit market deregulation index ($DEREF$). Error correction model. Dynamic Fixed Effects (DFE) and Pooled Mean Group (PMG) have been used as a estimator for robustness.  Uses reduced-form approach.                                                                                                                                                                                                                                                                                                                                                                                         |     
+                                                                                                                                  | *Countries*                                   | 13 OECD countries:  Australia, Belgium, Canada, Finland, France, Italy, Netherlands, Norway, Sweden, United Kingdom and the US.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |       
+                                                                                                                                  | *Time range*                                  | 1980-2011                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |       
+                                                                                                                                  | *Results*                                     | Real estate prices were the mos important driver (across all specifications). There is no evidence for income distribution shift. Results are in line with credit deregulation and long interest rate hypothesis (weaker effect recently). Most literature associates household debt as driven by consumption decisions. However, most debt is mortgage debt to buy houses. Literature that analyze asset prices dynamics, usually do not investigates its relation with debt. Empirical literature that investigates real estate prices effects on economic dynamic are based on small scale panels and time series models. Additionally, minskyan scholar are interested in business debt rather than household debt and most of them do not include houses (except for Ryoo (2016)).  |       
+                                                                                                                                  | *(Interesting) Findings*                      | They use Fraser Index on credit regulation as a proxies for credit supply changes. One drawback is that do not include risk appetite of the financial sector, use of off-balance sheet vehicles, increased proprietary trading and low capital requirements for assets                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |      
+                                                                                                                                  | *Research limitations/implications (Critics)* | |
+| *Uncategorized stuff*                         | Presents an summary of empirical studies on the effects of income distribution on household debt (table 2). The same is done for the relation between property prices and household debt. Next, they present some gaps: (i) most studies do not distinguish between household and corporate sector; (ii) few studies about income inequality and property prices on debt simultaneously;(iii) most of then rely on short-run (non-cointegrated) data. The authors ends the paper ponting out the relevance of housing for macroeconomics and its absence is inconsistent with some stylized facts.        
+                                                                                                                                                                                                                                                                   
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+      
+
+$$
+D = d(Y^D, \underset{HBH, +}{PP}, \underset{ECH, +}{Q}, \underset{LIH, -}{R}, \underset{CDH, +}{DEREG})
+$$
+
+
 *** REPORT [#A] [[https://www.postkeynesian.net/working-papers/2005/][Wood and Stockhammer - House prices, private debt and the macroeconomics of comparative political economy]]
     CLOSED: [2020-10-21 qua 10:49]
     :PROPERTIES:
@@ -822,7 +926,8 @@ First, the author estimate the model without property prices and do not find a c
 | *(Interesting) Findings*                      | The author proposes an classification criteria for more or less marked-based economy based on Beck et al. (2009).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | *Research limitations/implications (Critics)* | Do not include residential investiment variable nor its specification. Since residential investment is not included, there is no reason for house prices affects GDP growth rate.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | *Uncategorized stuff*                         | Present Hay (2013) contribution in which economic growth is determined by house price increases and mortgage deregulation. There is a summary of CPE and VoC critics. The authors indicates that ARDL is adequate in the presence of a unit root.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| *5SS*                                         | House prices are relevant for describing Household indebtedness while the latter determines GDP growth rate in advance economies.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+| *5SS*                                         |House prices are relevant for describing Household indebtedness while the latter determines GDP growth rate in advance economies.    |                                                                                                                                                                                                                                                                                                       
+*FOR:* VEC (detail) and SFC (skim)
 
 **** Baseline specification
 
@@ -890,6 +995,8 @@ $$
    :END:    
 
 ** Housing Bubbles
+
+*** READ [#B] KARWOWSKI et al
 *** READ [#A] [[https://www.um.edu.mo/fba/irer/papers/current/vol23n3_pdf/04.pdf][Miles - The Dynamics of House Prices and Income in the UK]]
    :PROPERTIES:
    :YEAR:     2020
@@ -1069,12 +1176,12 @@ where:
 #+END_SRC
 
 
-*** SKIM [#A] cite:Green_1997 - [[https://onlinelibrary.wiley.com/doi/abs/10.1111/1540-6229.00714][Follow the Leader: How Changes in Residential and Non‐residential Investment Predict Changes in GDP]]
+*** READ [#A] cite:Green_1997 - [[https://onlinelibrary.wiley.com/doi/abs/10.1111/1540-6229.00714][Follow the Leader: How Changes in Residential and Non‐residential Investment Predict Changes in GDP]]
    :PROPERTIES:
    :YEAR:     2003
    :ZOTERO:   Yes
    :TYPE:     Empirical
-   :STATUS:   Filed
+   :STATUS:   Reading
    :RELEVANCE: High
    :IMPACT:   High
    :CITE:     Yes
@@ -1109,6 +1216,20 @@ where:
 | *Research limitations/implications (Critics)* |     |
 | *Uncategorized stuff*                         |     |
 | *5SS*                                         |Based on Granger Causality test, this paper concludes that residential investment lead GDP and GDP leads non-residential investment. |
+
+
+*FOR:* VEC (detail) and SFC (skim)
+
+*** READ [#A] Fiebiger
+
+*FOR:* SFC
+
+*** READ [#A] Gauger and Coxwell
+
+*FOR:* VEC
+
+*** READ [#A] Huang et al
+
 
 
 * [#A] Software
