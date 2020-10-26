@@ -4,12 +4,116 @@
 #+DATE: 2020/2S
 #+PROPERTY: COLUMNS %RA %TAREFA(Tarefa) %NOTA(Nota)
 #+EXCLUDE_TAGS: private noexport
+#+PROPERTY: header-args:ipython  :session *Turma_C* :exports results results: output
 
-* Notas                                                            
+* Configuração                                                     :noexport:
 
-  #+BEGIN: columnview :maxlevel 1 :id global
-  | RA | Tarefa | Nota |
-  |----+--------+------|
-  |    |        |      |
-  #+END
+#+BEGIN_SRC ipython
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+#+END_SRC
 
+#+RESULTS:
+:results:
+# Out [1]: 
+:end:
+
+* Monetaristas
+
+#+BEGIN_SRC ipython output: table
+df = pd.read_csv('./Notas/Monetaristas.csv')[["Endereço de e-mail", "Nota", "Status da atividade"]]
+df["RA"] = [i[1:7] for i in  df["Endereço de e-mail"]]
+df.drop(["Endereço de e-mail", "Status da atividade"], axis="columns", inplace=True)
+df.set_index("RA", inplace=True)
+df.columns = ["Monetaristas"]
+df
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [2]: 
+# text/plain
+:         Monetaristas
+: RA                  
+: 230645          50.0
+: 213549          30.0
+: 257748          50.0
+: 232568          70.0
+: 233566          30.0
+: 215626           0.0
+: 091108          50.0
+: 234311          50.0
+: 216397          30.0
+: 197474          50.0
+: 234982           0.0
+: 235042           0.0
+: 197724          50.0
+: 217350          30.0
+: 174154          30.0
+: 237534          30.0
+: 199967          70.0
+: 237856          50.0
+: 103034          50.0
+: 172577          50.0
+: 159866          50.0
+: 221896          70.0
+: 257876         100.0
+: 242087           0.0
+: 242328          50.0
+: 147614           0.0
+: 176104           0.0
+: 205149         100.0
+: 205151           0.0
+: 244207          70.0
+: 158425          50.0
+: 257932         100.0
+: 177964          70.0
+: 245099          50.0
+: 206806          50.0
+: 225851          50.0
+
+[[file:/tmp/ob-ipython-htmlHcT30A.html]]
+:end:
+
+#+BEGIN_SRC ipython
+fig, ax = plt.subplots(1,2, figsize=(8,5), sharey=True)
+
+sns.distplot(df['Monetaristas'], hist=True, kde=True, 
+             bins=int(10), color = 'darkblue', 
+             hist_kws={'edgecolor':'black'}, ax=ax[0],
+             kde_kws={'linewidth': 4, 'shade': True})
+
+ax[0].set_title('Nota das resenhas\nTurma C')
+ax[0].text(90, 0.03, f'$\mu = ${df["Monetaristas"].mean().round(1)/10}', fontsize=12)
+ax[0].text(90, 0.027, f'$\sigma = ${df["Monetaristas"].std().round(1)/10}', fontsize=12)
+
+sns.distplot(df[df['Monetaristas']>0]['Monetaristas'], hist=True, kde=True, 
+             bins=int(10), color = 'darkblue', 
+             hist_kws={'edgecolor':'black'}, ax=ax[1],
+             kde_kws={'linewidth': 4, 'shade': True})
+
+ax[1].set_title('Nota das resenhas\n(Exceto não entregues)')
+ax[1].text(90, 0.03, f"$\mu = ${df[df['Monetaristas']>0]['Monetaristas'].mean().round(1)/10}", fontsize=12)
+ax[1].text(90, 0.027, f"$\sigma = ${round(df[df['Monetaristas']>0]['Monetaristas'].std())/10}", fontsize=12)
+ax[1].set_ylabel('Densidade')
+
+plt.tight_layout()
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [17]: 
+# output
+/home/gpetrini/.local/lib/python3.8/site-packages/seaborn/distributions.py:2551: FutureWarning: `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+  warnings.warn(msg, FutureWarning)
+/home/gpetrini/.local/lib/python3.8/site-packages/seaborn/distributions.py:2551: FutureWarning: `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+  warnings.warn(msg, FutureWarning)
+
+# text/plain
+: <Figure size 576x360 with 2 Axes>
+
+# image/png
+[[file:obipy-resources/8f0e11a6005cb70041688b819f26537d6c776922/08ba3cdf3bafa2b261d41af57b078c27e75669ef.png]]
+:end:

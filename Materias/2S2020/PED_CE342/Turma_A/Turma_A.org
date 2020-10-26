@@ -4,15 +4,124 @@
 #+DATE: 2020/2S
 #+PROPERTY: COLUMNS %RA %TAREFA(Tarefa) %NOTA(Nota)
 #+EXCLUDE_TAGS: private noexport
+#+PROPERTY: header-args:ipython  :session *Turma_A* :exports results results: output
 
-#+INCLUDE: 213360.org
+* Configuração                                                     :noexport:
 
-* Notas                                                            
+#+BEGIN_SRC ipython
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+#+END_SRC
 
-  #+BEGIN: columnview :maxlevel 1 :id global
-  | RA | Tarefa | Nota |
-  |----+--------+------|
-  |    |        |      |
-  #+END
+#+RESULTS:
+:results:
+# Out [4]: 
+:end:
+
+* Monetaristas
+
+#+BEGIN_SRC ipython output: table
+df = pd.read_csv('./Notas/Monetaristas.csv')[["Endereço de e-mail", "Nota", "Status da atividade"]]
+df["RA"] = [i[1:7] for i in  df["Endereço de e-mail"]]
+df.drop(["Endereço de e-mail", "Status da atividade"], axis="columns", inplace=True)
+df.set_index("RA", inplace=True)
+df.columns = ["Monetaristas"]
+df
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [5]: 
+# text/plain
+:         Monetaristas
+: RA                  
+: 212883          50.0
+: 212900          50.0
+: 231302          70.0
+: 231732           0.0
+: 213360          70.0
+: 231898          70.0
+: 213731          70.0
+: 232395          30.0
+: 232796          70.0
+: 233335          50.0
+: 233747          70.0
+: 255207          50.0
+: 216459           0.0
+: 235951          30.0
+: 236276           0.0
+: 218090          70.0
+: 255241          50.0
+: 199735          50.0
+: 237618          70.0
+: 218975          70.0
+: 238414          70.0
+: 219613          50.0
+: 219907         100.0
+: 239052          70.0
+: 220194          70.0
+: 201326          50.0
+: 156242           0.0
+: 240317          30.0
+: 240409          70.0
+: 221515          50.0
+: 255293          30.0
+: 241430          50.0
+: 222315          50.0
+: 184528          50.0
+: 222615          70.0
+: 186966           0.0
+: 244321          50.0
+: 244379          50.0
+: 187323         100.0
+: 206194          50.0
+: 245212         100.0
+: 206883           0.0
+: 245459          70.0
+
+[[file:/tmp/ob-ipython-html5krrZR.html]]
+:end:
+
+#+BEGIN_SRC ipython
+fig, ax = plt.subplots(1,2, figsize=(8,5), sharey=True)
+
+sns.distplot(df['Monetaristas'], hist=True, kde=True, 
+             bins=int(10), color = 'darkblue', 
+             hist_kws={'edgecolor':'black'}, ax=ax[0],
+             kde_kws={'linewidth': 4, 'shade': True})
+
+ax[0].set_title('Nota das resenhas\nTurma A')
+ax[0].text(90, 0.03, f'$\mu = ${df["Monetaristas"].mean().round(1)/10}', fontsize=12)
+ax[0].text(90, 0.027, f'$\sigma = ${df["Monetaristas"].std().round(1)/10}', fontsize=12)
 
 
+sns.distplot(df[df['Monetaristas']>0]['Monetaristas'], hist=True, kde=True, 
+             bins=int(10), color = 'darkblue', 
+             hist_kws={'edgecolor':'black'}, ax=ax[1],
+             kde_kws={'linewidth': 4, 'shade': True})
+
+ax[1].set_title('Nota das resenhas\n(Exceto não entregues)')
+ax[1].text(90, 0.03, f"$\mu = ${df[df['Monetaristas']>0]['Monetaristas'].mean().round(1)/10}", fontsize=12)
+ax[1].text(90, 0.027, f"$\sigma = ${round(df[df['Monetaristas']>0]['Monetaristas'].std())/10}", fontsize=12)
+ax[1].set_ylabel('Densidade')
+
+plt.tight_layout()
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [9]: 
+# output
+/home/gpetrini/.local/lib/python3.8/site-packages/seaborn/distributions.py:2551: FutureWarning: `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+  warnings.warn(msg, FutureWarning)
+/home/gpetrini/.local/lib/python3.8/site-packages/seaborn/distributions.py:2551: FutureWarning: `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
+  warnings.warn(msg, FutureWarning)
+
+# text/plain
+: <Figure size 576x360 with 2 Axes>
+
+# image/png
+[[file:obipy-resources/fb91f94cdd92525210d496d4f2faec4922a30e79/2c0a50ca3412c867da94c4032b1458d67ea942c7.png]]
+:end:

@@ -240,7 +240,7 @@ import datetime
 import pandas as pd
 import seaborn as sns; sns.set()
 import matplotlib.pyplot as plt
-
+import numpy as np
 import matplotlib
 
 
@@ -272,15 +272,24 @@ def consulta_bc(codigo_bcb, nome = ["Nome da série"]):
    CLOSED: [2020-10-16 sex 16:12]
 
 #+BEGIN_SRC ipython
-df = consulta_bc(27574, nome = ["Índice de Commodities - Brasil"])
+
+
+df = pd.concat([
+    consulta_bc(27574, nome = ["Brasil"]),
+    consulta_bc(27576, nome = ["Metal"]),
+    consulta_bc(27575, nome = ["Agropecuária"]),
+], axis=1)
+
+
+for col in df.columns:
+    df[col] = df[col].apply(lambda x: 100*x/df[col]["2002-01-01"])
+
 
 fig, ax = plt.subplots(figsize=(8,5))
 
-df.rolling(12).mean().plot(ax=ax,
+df.plot(ax=ax,
 	lw=2.5,
-	color='black',
 	ls='-',
-        legend = False
 )
 
 ax.text(
@@ -298,12 +307,12 @@ fig.savefig("./figs/Commodities.png", transparent = False, dpi = 300)
 
 #+RESULTS:
 :results:
-# Out [2]: 
+# Out [72]: 
 # text/plain
 : <Figure size 576x360 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/75fe48d288c0add0ecfa144ba2eacb2f8662bc8d.png]]
+[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/23ebb56074c197da3ac978f15158419fb2d17094.png]]
 :end:
 
 #+begin_export latex
@@ -369,14 +378,167 @@ fig.savefig("./figs/Reservas_Internacionais.png", transparent = True, dpi = 300)
 #+end_export
 
 
-** PIB puxado pelo mercado doméstico
+** DONE Taxa de crescimento e IBC-Br
+   CLOSED: [2020-10-26 seg 16:57]
 
-*Dado:* Decomposição do crescimento (doméstico e exportações líquidas)
+#+BEGIN_SRC ipython
+fig, ax = plt.subplots(figsize=(8,5))
 
-** Crescimento e o investimento induzido
+df = pd.concat([
+    consulta_bc(24364, ["IBC-Br"]),
+    consulta_bc(22109, ["Efetivo"]),
+    ]
+).apply(pd.to_numeric, errors='coerce').resample("MS").last()
 
-*Dado:* Decomposição do crescimento (Todos os componentes da demanda)
+df.pct_change(4).dropna().plot(ax=ax,
+lw=2.5,
+color=('black','red'),
+ls='-',
+)
 
+ax.axhline(y=0, ls='--', color='gray', lw=1.0)
+
+ax.text(
+0.95, -0.15,
+f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
+verticalalignment='bottom', horizontalalignment='right',
+transform=ax.transAxes,
+color='black', fontsize=10)
+
+
+sns.despine()
+plt.show()
+fig.savefig("./figs/PIB_IBCBr.png", transparent = True, dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [6]: 
+# text/plain
+: <Figure size 576x360 with 1 Axes>
+
+# image/png
+[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/9e99957d995dbdcf315568204b11e1336addac43.png]]
+:end:
+
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{Taxa de crescimento do PIB: Efetiva x IBCBr} 
+\includegraphics[width = 0.9\textwidth]{./figs/PIB_IBCBr.png}
+\label{fig:ibcbr}
+\caption*{\textbf{Fonte:} }
+\end{figure}
+#+end_export
+
+
+** DONE PIB puxado pelo mercado doméstico
+   CLOSED: [2020-10-26 seg 16:26]
+
+#+BEGIN_SRC ipython
+import matplotlib.ticker as mticker
+
+
+df = pd.concat([
+    consulta_bc(22109,["PIB"]),
+    consulta_bc(22110,["Consumo das famílias"]),
+    consulta_bc(22111,["Consumo do governo"]),
+    consulta_bc(22113,["FBCF"]),
+    consulta_bc(22114,["Exportação"]),
+    consulta_bc(22115,["Importação"])
+], axis=1)
+
+df["Mercado doméstico"] = df[["Consumo das famílias", "Consumo do governo", "FBCF"]].sum(axis=1)
+df["Setor Externo"] = df["Exportação"] - df["Importação"]
+
+fig, ax = plt.subplots(figsize=(8,5))
+
+df[["Mercado doméstico", "Setor Externo"]].diff(4).apply(lambda x: x/(df["PIB"].shift(4))).dropna().plot(ax=ax,
+                                                lw=1.5,
+                                                kind='bar',
+                                                stacked=True,
+                                                                                                width = 0.75,
+                                                edgecolor='black'
+                                                
+)
+#ax.set_xticklabels(df.index.strftime('%Y-%m')[::8])
+#ax.set_xticklabels(ax.get_xticklabels(), rotation=0)
+
+ticklabels = ['']*len(df)
+skip = len(df)//12
+ticklabels[4::skip] = df.index[4::skip].strftime('%Y')
+ax.xaxis.set_major_formatter(mticker.FixedFormatter(ticklabels))
+fig.autofmt_xdate()
+
+ax.text(
+	0.95, -0.15,
+	f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
+        verticalalignment='bottom', horizontalalignment='right',
+        transform=ax.transAxes,
+        color='black', fontsize=10)
+
+
+sns.despine()
+plt.show()
+fig.savefig("./figs/PIB_Decomp.png", transparent = True, dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [73]: 
+# text/plain
+: <Figure size 576x360 with 1 Axes>
+
+# image/png
+[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/77f20c5a7c3203f05caa0c03d57a1fa3f8d3d82f.png]]
+:end:
+
+** DONE Crescimento e o investimento induzido
+   CLOSED: [2020-10-26 seg 16:26]
+
+
+#+BEGIN_SRC ipython
+fig, ax = plt.subplots(figsize=(8,5))
+
+df[["Consumo das famílias", "Consumo do governo", "FBCF",
+    "Setor Externo"
+]].diff(4).apply(lambda x: x/(df["PIB"].shift(4))).dropna().plot(ax=ax,
+                                                                 lw=1.5,
+                                                                 kind='bar',
+                                                                 stacked=True,
+                                                                 width = 0.75,
+                                                                 color = ("darkred", "darkblue", "darkorange", "darkgreen",),
+                                                                 edgecolor='black'
+                                                
+)
+ticklabels = ['']*len(df)
+skip = len(df)//12
+ticklabels[4::skip] = df.index[4::skip].strftime('%Y')
+ax.xaxis.set_major_formatter(mticker.FixedFormatter(ticklabels))
+fig.autofmt_xdate()
+
+ax.text(
+	0.95, -0.15,
+	f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
+        verticalalignment='bottom', horizontalalignment='right',
+        transform=ax.transAxes,
+        color='black', fontsize=10)
+
+
+sns.despine()
+plt.show()
+fig.savefig("./figs/PIB_Decomp_Total.png", transparent = True, dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [82]: 
+# text/plain
+: <Figure size 576x360 with 1 Axes>
+
+# image/png
+[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/511a5624d1547c7fafbf56a73a60e73262e32082.png]]
+:end:
 
 ** DONE Saldo de Crédito
    CLOSED: [2020-10-16 sex 18:14]
@@ -691,6 +853,60 @@ fig.savefig("./figs/EndividamentoFam.png", transparent = True, dpi = 300)
 
 ** Resultado primário do Governo Central
 
+#+BEGIN_SRC ipython
+fig, ax = plt.subplots(figsize=(8,5))
+
+df = pd.concat([
+    consulta_bc(5497, ["Resultado Primário"]),
+    consulta_bc(5431, ["Resultado Nominal"]),
+    consulta_bc(5464, ["Juros nominais"]),
+    ]
+).apply(pd.to_numeric, errors='coerce').resample("MS").last().dropna()
+
+df[["Resultado Primário", "Resultado Nominal"]] = df[["Resultado Primário", "Resultado Nominal"]]*(-1)
+
+(df/100).rolling(12).mean()["1996-01-01":].plot(ax=ax,
+lw=2.5,
+color=('black','red', 'blue'),
+ls='-',
+)
+
+ax.axhline(y=0, ls='--', color='gray', lw=1.0)
+
+ax.text(
+0.95, -0.15,
+f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
+verticalalignment='bottom', horizontalalignment='right',
+transform=ax.transAxes,
+color='black', fontsize=10)
+
+
+sns.despine()
+plt.show()
+fig.savefig("./figs/Resultado_Primario.png", transparent = True, dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [21]: 
+# text/plain
+: <Figure size 576x360 with 1 Axes>
+
+# image/png
+[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/a09d5cf1bade84a996cd4c71087e718727282523.png]]
+:end:
+
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{Setor público consolidado em \% do PIB} 
+\includegraphics[width = 0.9\textwidth]{./figs/Resultado_Primario.png}
+\label{fig:primario}
+\caption*{\textbf{Fonte:} BCB}
+\end{figure}
+#+end_export
+
+
 ** DONE Dívida líquida do setor público
    CLOSED: [2020-10-16 sex 16:20]
 
@@ -852,9 +1068,8 @@ fig.savefig("./figs/Selic.png", transparent = True, dpi = 300)
 
 ** Preços livres vs Administrados
 
-** Finalmente, inflação (ops, IPCA)
-
-*TODO:* Revisar IPCA
+** DONE Finalmente, inflação (ops, IPCA)
+   CLOSED: [2020-10-23 sex 18:30]
 
 #+BEGIN_SRC ipython
 
@@ -875,19 +1090,32 @@ df["IPCA"] = (1+ df["IPCA"]).rolling(window=12).agg(lambda x : x.prod()) -1
 
 fig, ax = plt.subplots(figsize=(8,5))
 
-df.plot(ax=ax,
-lw=2.5,
+df[["IPCA"]].plot(ax=ax,
+lw=2,
 ls='-',
-color = ('red', 'gray', 'lightgray', 'black')
+color = 'red',                  
 )
 
 ax.text(
-0.95, -0.2,
+0.95, -0.15,
 f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
 verticalalignment='bottom', horizontalalignment='right',
 transform=ax.transAxes,
 color='black', fontsize=10)
 
+ax.pcolorfast(ax.get_xlim(), ax.get_ylim(),
+              (df['IPCA'] > df["Teto"]).values[np.newaxis],
+              cmap='Blues', alpha=0.3, label="Acima do Teto",
+              zorder=-1,
+)
+
+ax.pcolorfast(ax.get_xlim(), ax.get_ylim(),
+              (df['IPCA'] < df["Piso"]).values[np.newaxis],
+              cmap='Reds', alpha=0.3, label="Abaixo do Piso",
+              zorder=-1,
+)
+
+ax.legend()
 
 sns.despine()
 plt.show()
@@ -896,12 +1124,12 @@ fig.savefig("./figs/IPCA.png", transparent = True, dpi = 300)
 
 #+RESULTS:
 :results:
-# Out [120]: 
+# Out [32]: 
 # text/plain
 : <Figure size 576x360 with 1 Axes>
 
 # image/png
-[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/d828acd987deaed484600a26765fd1d8ae0280bc.png]]
+[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/193fc93e6e283919165009c15b192d37363e0b63.png]]
 :end:
 
 #+begin_export latex

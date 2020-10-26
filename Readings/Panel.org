@@ -721,7 +721,7 @@ First, the author estimate the model without property prices and do not find a c
    :CITE:     Yes
    :END:    
 ** Household debt
-*** SKIM [#B] [[https://onlinelibrary.wiley.com/doi/abs/10.1111/ecin.12254Link][Bezemer et al - MORE MORTGAGES, LOWER GROWTH?]]
+*** SKIM [#B] cite:Bezemer_Mortgages_2015 - [[https://onlinelibrary.wiley.com/doi/abs/10.1111/ecin.12254Link][MORE MORTGAGES, LOWER GROWTH?]]
     :PROPERTIES:
     :YEAR:     2015
     :ZOTERO:   Yes
@@ -733,7 +733,7 @@ First, the author estimate the model without property prices and do not find a c
     :END:
 
     #+BEGIN_SRC bibtex
-@Article{Bezemer_2015,
+@Article{Bezemer_Mortgages_2015,
   author       = {Bezemer, Dirk and Grydaki, Maria and Zhang, Lu},
   title	       = {MORE MORTGAGES, LOWER GROWTH?},
   year	       = 2015,
@@ -749,6 +749,45 @@ First, the author estimate the model without property prices and do not find a c
 }
     #+END_SRC
 
+
+| *Background/Empirical motivation*             | Empirical evidence relates a recent higher credit-to-GDP ratio with lower economic growth. Rapid increase in household mortgage share debt in total debt while credit to nonfinancial sector remained stable. This negative relation of credit and GDP is attributed to the increase of debt.                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| *Supporting Ideas*                            | Based on Werner (1997), the  that the use o credit matter for economic growth effectiveness. Credit growth may inflate assets instead of leading GDP growth. It is argued that an increase of credit for mortgage has a negative effect on saving and this is an explanation for lower growth rates.                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| *Purpose*                                     | Evaluate whether the composition of financial intermediation matters for growth                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| *Originality/value (Contribution)*            | Construct a dataset in which consumption and mortgage credit are distinguished.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| *Relevance*                                   | Tests whether or not credit increase leads to higher GDP growth. Highlights the increase of mortgage share. The results are at odds with Sraffian Supermultiplier model (at least some of them).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| *Design/methodology/approach*                 | Split household credit into mortgage and credit components. It is argued that a flow of credit increase leads to an expenditure increase but is accompanied by a stock dampening mechanism. The estimate a system GMM and difference-in-difference models to account for endogeneity. Short period dynamic panel with country and time fixed effects.                                                                                                                                                                                                                                                                                                                                                                                                           |
+| *Countries*                                   | 43 countries:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| *Time range*                                  | 1990-2011                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| *Results*                                     | Since 1990, financial development was due to credit to real estate and other assets. This components, however, have a negative growth coefficient. Furthermore, these trends are previous to the 2008 crisis. Stock of both type of credits have a negative impact on GDP growth. The same holds when including an interaction between credit stocks and flows. However, credit flow impact is positive and higher than the negative stock and stock-flow effect. However, this positive effect diminishes in higher levels of financial development. The results remains qualitatively the same even when estimating the subsample (removing countries with Credit-to-GDP ratio to discrepant). The same holds for the subsample that excludes de 2008 crisis. |
+| *(Interesting) Findings*                      | Presents some recent studies that investigates the increase of mortgage share on total debt (p. 4).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| *Research limitations/implications (Critics)* | The hypothesis adopt seems to have a supply-side element on credit volume, so that is way the use o credit is relevant. There is an implicit assumption that asset inflation could not lead growth. The author themselves indicates that there is a potential bias related to include countries with different levels of credit-to-GDP ration together (if the relation between credit flow and GDP is non-linear). Additionally, they also indicates that the short time sample is a limitation.                                                                                                                                                                                                                                                               |
+| *Uncategorized stuff*                         | They differentiate credit stock and flow effects. Beck et al (2012) decompose bank credit into enterprise and household components. Biggs et al (2010) show that credit to non-financial sector, debt and capital have identical dynamics, so an increase on credit should also leads the accumulation rate. This results supports the Sraffian supermultiplier mode.                                                                                                                                                                                                                                                                                                                                                                                           |
+| *5SS*                                         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+
+$$
+g = \alpha + \beta_1 \frac{C}{GDP} + \beta_2 \frac{\Delta C}{GDP} + \gamma X_{i,t} + \varphi_i + \phi_t + \varepsilon_{i,t}
+$$
+
+- $g$ GDP growth
+- $C$ Credit
+- $X_{it}$ control variables:
+  - level of real GDP per capita at the beginning of t country
+  - trade openness (imports plus exports as a percentage of GDP)
+  - government expenditure as a share of GDP
+  - inflation
+  - education
+  - composite country risk indicator as a proxy for institutional quality
+- $\varphi_i$ unobserved country-specific time-invariant effects
+- $\phi_t$ time dummies
+
+The endogenous credit variables are now instrumented by their lags
+
+
+$$
+g = \beta_1 \Delta \frac{C}{GDP} + \beta_2 \Delta \frac{\Delta C}{GDP} + \gamma \Delta X_{i,t} + \Delta \phi_t + \Delta \varepsilon_{i,t}
+$$
+
+For GMM to be consistent, the instrument must be valid and error must not exhibit *serial correlation*
 *** DONE [#B] [[https://www.tandfonline.com/doi/abs/10.2753/PKE0160-3477360304][Arestis and González - Bank credit and the housing market in OECD countries]]
     CLOSED: [2020-10-22 qui 15:11]
     :PROPERTIES:
@@ -1220,9 +1259,53 @@ where:
 
 *FOR:* VEC (detail) and SFC (skim)
 
-*** READ [#A] Fiebiger
+*** READ [#A] cite:Fiebiger_External_2017 - [[http://dx.doi.org/10.1111/meca.12192][Trend and business cycles with external markets: Non-capacity generating semi-autonomous expenditures and effective demand]]
+    :PROPERTIES:
+    :YEAR:     2017
+    :ZOTERO:   Yes
+    :TYPE:     Theory
+    :STATUS:   Reading
+    :RELEVANCE: High
+    :IMPACT:   High
+    :CITE:     Yes
+    :END:
+
+    #+BEGIN_SRC bibtex
+@Article{Fiebiger_External_2017,
+  author       = {Fiebiger, Brett and Lavoie, Marc},
+  title	       = {Trend and business cycles with external markets  :
+                  Non‐capacity generating semi‐autonomous expenditures
+                  and effective demand},
+  year	       = 2017,
+  volume       = 70,
+  number       = 2,
+  month	       = {Nov},
+  pages	       = {247–262},
+  issn	       = {1467-999X},
+  doi	       = {10.1111/meca.12192},
+  url	       = {http://dx.doi.org/10.1111/meca.12192},
+  journal      = {Metroeconomica},
+  publisher    = {Wiley}
+}
+    #+END_SRC
+
+
 
 *FOR:* SFC
+
+
+| *Background*                                  |     |
+| *Supporting Ideas*                            |     |
+| *Purpose*                                     |     |
+| *Originality/value (Contribution)*            |     |
+| *Relevance*                                   |     |
+| *Design/methodology/approach*                 |     |
+| *Results*                                     |     |
+| *(Interesting) Findings*                      |     |
+| *Research limitations/implications (Critics)* |     |
+| *Uncategorized stuff*                         |     |
+| *5SS*                                         |     |
+
 
 *** READ [#A] Gauger and Coxwell
 

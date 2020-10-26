@@ -1,4 +1,4 @@
-% Created 2020-10-26 seg 15:55
+% Created 2020-10-26 seg 15:56
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -31,13 +31,13 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \usepackage{tikz}
 \author{Gabriel Petrini (PED)}
 \date{2020/2S}
-\title{Notas CE 342/A}
+\title{Notas CE 342/C}
 \begin{document}
 
 \maketitle
 
 \section{Monetaristas}
-\label{sec:orgaa43bfd}
+\label{sec:orgc86dc73}
 
 \begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{ipython}
 df = pd.read_csv('./Notas/Monetaristas.csv')[["Endereço de e-mail", "Nota", "Status da atividade"]]
@@ -51,53 +51,46 @@ df
 \begin{verbatim}
         Monetaristas
 RA                  
-212883          50.0
-212900          50.0
-231302          70.0
-231732           0.0
-213360          70.0
-231898          70.0
-213731          70.0
-232395          30.0
-232796          70.0
-233335          50.0
-233747          70.0
-255207          50.0
-216459           0.0
-235951          30.0
-236276           0.0
-218090          70.0
-255241          50.0
-199735          50.0
-237618          70.0
-218975          70.0
-238414          70.0
-219613          50.0
-219907         100.0
-239052          70.0
-220194          70.0
-201326          50.0
-156242           0.0
-240317          30.0
-240409          70.0
-221515          50.0
-255293          30.0
-241430          50.0
-222315          50.0
-184528          50.0
-222615          70.0
-186966           0.0
-244321          50.0
-244379          50.0
-187323         100.0
-206194          50.0
-245212         100.0
-206883           0.0
-245459          70.0
+230645          50.0
+213549          30.0
+257748          50.0
+232568          70.0
+233566          30.0
+215626           0.0
+091108          50.0
+234311          50.0
+216397          30.0
+197474          50.0
+234982           0.0
+235042           0.0
+197724          50.0
+217350          30.0
+174154          30.0
+237534          30.0
+199967          70.0
+237856          50.0
+103034          50.0
+172577          50.0
+159866          50.0
+221896          70.0
+257876         100.0
+242087           0.0
+242328          50.0
+147614           0.0
+176104           0.0
+205149         100.0
+205151           0.0
+244207          70.0
+158425          50.0
+257932         100.0
+177964          70.0
+245099          50.0
+206806          50.0
+225851          50.0
 \end{verbatim}
 
 
-\url{file:///tmp/ob-ipython-html5krrZR.html}
+\url{file:///tmp/ob-ipython-htmlHcT30A.html}
 
 \begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{ipython}
 fig, ax = plt.subplots(1,2, figsize=(8,5), sharey=True)
@@ -107,10 +100,9 @@ sns.distplot(df['Monetaristas'], hist=True, kde=True,
              hist_kws={'edgecolor':'black'}, ax=ax[0],
              kde_kws={'linewidth': 4, 'shade': True})
 
-ax[0].set_title('Nota das resenhas\nTurma A')
+ax[0].set_title('Nota das resenhas\nTurma C')
 ax[0].text(90, 0.03, f'$\mu = ${df["Monetaristas"].mean().round(1)/10}', fontsize=12)
 ax[0].text(90, 0.027, f'$\sigma = ${df["Monetaristas"].std().round(1)/10}', fontsize=12)
-
 
 sns.distplot(df[df['Monetaristas']>0]['Monetaristas'], hist=True, kde=True, 
              bins=int(10), color = 'darkblue', 
@@ -137,6 +129,6 @@ plt.show()
 
 
 \begin{center}
-\includegraphics[width=.9\linewidth]{obipy-resources/fb91f94cdd92525210d496d4f2faec4922a30e79/2c0a50ca3412c867da94c4032b1458d67ea942c7.png}
+\includegraphics[width=.9\linewidth]{obipy-resources/8f0e11a6005cb70041688b819f26537d6c776922/08ba3cdf3bafa2b261d41af57b078c27e75669ef.png}
 \end{center}
 \end{document}
