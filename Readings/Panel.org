@@ -391,7 +391,7 @@
 #+END_SRC
 
 
-* [#A] Best practices
+* [#A] Best practices and Manuals
 
 ** READ [#B] [[https://www.jstor.org/stable/2082979?seq=1][Beck and Katz - What to do (and not to do) with Time-Series Cross-Section Data]]
    :PROPERTIES:
@@ -420,7 +420,20 @@
 }
 #+END_SRC
 
+** READ [#A] [[https://himayatullah.weebly.com/uploads/5/3/4/0/53400977/baltagi-econometric-analysis-of-panel-data_himmy.pdf][Baltagi - Econometric analysis of Panel Data]]
+  :PROPERTIES:
+   :YEAR:     2008
+   :ZOTERO:   Partial
+   :TYPE:     Manual
+   :STATUS:   Filed
+   :RELEVANCE: High
+   :IMPACT:   High
+   :CITE:     Yes
+   :END:
 
+*** Chapter 1 - Introduction
+
+    
 * [#A] Causality related
 
 ** SKIM [#C] [[https://www.sciencedirect.com/science/article/abs/pii/S0264999312000491][Dumitrescu and Hurlin - Testing for Granger non-causality in heterogeneous panels]]
@@ -1375,6 +1388,31 @@ where:
 
    #+END_SRC
 
+** SKIM [#A] [[https://www.oecd-ilibrary.org/docserver/d91329c2-en.pdf?expires=1603819592&id=id&accname=guest&checksum=95E31464E82D4AFC012716DD2076A7FD][Causa and Pichelmann - hould I stay or should I go? Housing and residential mobility across OECD countries]]
+   :PROPERTIES:
+   :YEAR:     2020
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Filed
+   :RELEVANCE: Low
+   :IMPACT:   Regular
+   :CITE:     Wait
+   :END:
+
+   #+BEGIN_SRC bibtex
+@article{Causa_Mobility_2020,
+  author =	 {Orsetta Causa and Jacob Pichelmann},
+  title =	 {Should I stay or should I go? Housing and
+                  residential mobility across OECD countries},
+  year =	 2020,
+  number =	 1626,
+  url =
+                  {https://www.oecd-ilibrary.org/content/paper/d91329c2-en},
+  doi =		 {https://doi.org/https://doi.org/10.1787/d91329c2-en},
+  publisher =	 {Organisation for Economic Co-Operation and
+                  Development (OECD)}
+}
+   #+END_SRC
 
 * HTML headers                                              :noexport:ignore:
 

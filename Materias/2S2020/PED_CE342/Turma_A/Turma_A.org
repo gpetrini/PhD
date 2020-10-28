@@ -21,6 +21,9 @@ import seaborn as sns
 
 * Monetaristas
 
+- Checar Eduardo Vinicius de oliveira 215242
+- Nomes sobre moeda não importante Keynes
+
 #+BEGIN_SRC ipython output: table
 df = pd.read_csv('./Notas/Monetaristas.csv')[["Endereço de e-mail", "Nota", "Status da atividade"]]
 df["RA"] = [i[1:7] for i in  df["Endereço de e-mail"]]
