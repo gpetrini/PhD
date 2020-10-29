@@ -3,9 +3,9 @@
 #+EMAIL: gpetrinidasilveira@gmail.com, lucas.teixeira@unicamp.br
 #+OPTIONS: toc:nil
 #+LATEX_HEADER: \addbibresource{refs.bib}
-#+LATEX_HEADER: \usepackage{svg, caption, multirow}
+#+LATEX_HEADER: \usepackage{svg, caption, multirow, booktabs}
 #+LATEX_HEADER: \usepackage[english]{babel}
-
+#+PROPERTY: header-args:python :python /usr/bin/python3 :exports none :eval never-export
 #+BEGIN_abstract
 In this paper, we build a fully specified parsimonious Sraffian supermultiplier stock-flow consistent model (SSM-SFC) with two non-capacity creating autonomous expenditure: residential investment and debt-financed consumption.
 Our model represents a closed and without government economy with workers and capitalist households and only the latter are not not credit constrained.
@@ -395,13 +395,15 @@ Since capitalists' loans and mortgage to house ratios ($\ell^{\star}_{k}$ and $m
 #+end_export
 
 
-#+BEGIN_SRC ipython :tangle ./codes/Sobol.py :async t :session Sobol :results verbatim drawer :exports results
-#!pip install pysolve3
+** Sensibility                                                       :ignore:
+
+#+BEGIN_SRC python :tangle ./codes/Sobol.py :async t :session Sobol :exports none :python /usr/bin/python3.8 :eval never-export
+
 import sys
 
 sys.path.insert(1, './codes/')
 from SFC_Setup import *
-
+import pandas as pd
 base = model()
 df = SolveSFC(base, time=1000)
 
@@ -419,12 +421,9 @@ parameters = [
 #+END_SRC
 
 #+RESULTS:
-:results:
-# Out [44]: 
-:end:
 
 
-#+BEGIN_SRC ipython  :tangle ./codes/Sobol.py :async t :session Sobol :results verbatim drawer :exports results
+#+BEGIN_SRC python  :tangle ./codes/Sobol.py :async t :session Sobol :exports none :python /usr/bin/python3.8 :eval never-export
 def sensibility(
     parameters,
     bound = np.linspace(0,1,101),
@@ -454,12 +453,9 @@ def sensibility(
 #+END_SRC
 
 #+RESULTS:
-:results:
-# Out [45]: 
-:end:
 
 
-#+BEGIN_SRC ipython  :tangle ./codes/Sobol.py :async t :session Sobol :results verbatim drawer :exports none
+#+BEGIN_SRC python  :tangle ./codes/Sobol.py :async t :session Sobol :exports none :cache no :python /usr/bin/python3.8 :eval never-export
 df = sensibility(time=400, parameters=parameters)
 
 report = pd.DataFrame(
@@ -468,71 +464,34 @@ report = pd.DataFrame(
     )
 #report.columns = [sp.Symbol(i) for i in report.columns] # Turn into latex
 print(df)
-report
 #+END_SRC
 
-#+RESULTS:
-:results:
-# Out [46]: 
-# output
-       gamma_u     omega   gamma_F     alpha  spread_mo     phi_0     phi_1  \
-0.00 -2.530464 -2.087674 -2.698257 -2.087646  -2.698247 -3.018613 -2.691682   
-0.01 -2.711678 -2.095959 -2.698256 -2.095936  -2.698288 -1.967421 -2.692559   
-0.02 -2.694301 -2.104348 -2.698260 -2.104328  -2.698331 -2.635810 -2.693389   
-0.03 -2.709234 -2.112844 -2.698255 -2.112824  -2.698374 -2.627593 -2.694172   
-0.04 -2.718127 -2.121447 -2.698251 -2.121426  -2.698412 -2.389913 -2.694906   
-...        ...       ...       ...       ...        ...       ...       ...   
-0.96       NaN -3.816070 -2.698230 -3.815963  -2.699445       NaN -2.470601   
-0.97       NaN -3.785307 -2.698232 -3.785165  -2.699429       NaN -2.464600   
-0.98       NaN -3.749482 -2.698234 -3.749338  -2.699412       NaN -2.458528   
-0.99       NaN -3.709475 -2.698236 -3.709410  -2.699395       NaN -2.452386   
-1.00       NaN -3.666369 -2.698235 -3.666278  -2.699377       NaN -2.446172   
 
-         infla         R  
-0.00 -2.698247 -1.092702  
-0.01 -2.691682 -1.100112  
-0.02 -2.680788 -1.107645  
-0.03 -2.666582 -1.115304  
-0.04 -2.649931 -1.123094  
-...        ...       ...  
-0.96 -1.831873       NaN  
-0.97 -1.829003       NaN  
-0.98 -1.826174       NaN  
-0.99 -1.823388       NaN  
-1.00 -1.820641       NaN  
 
-[101 rows x 9 columns]
-
-# text/plain
-:    gamma_u  omega  gamma_F  alpha  spread_mo  phi_0  phi_1  infla     R
-: 0     0.65    1.0      1.0    1.0        1.0   0.32    1.0    1.0  0.91
-
-[[file:/tmp/ob-ipython-htmlHHlPzz.html]]
-:end:
-
-#+BEGIN_SRC ipython  :tangle ./codes/Sobol.py :async t :session Sobol :results verbatim drawer :exports results
-results = report.copy()
+#+attr_latex: placement=[H]
+#+BEGIN_SRC python  :tangle ./codes/Sobol.py :async t :session Sobol :results table drawer latex :exports results :python /usr/bin/python3.8 :eval never-export
+results = report.copy(deep=True)
 df_ = df.copy()
-long_string = "Value that induces instability"
+long_string = "Instability inducing value"
 results["Value"] = [long_string]
 results.set_index("Value", inplace=True)
 results.index.name = 'Parameter'
 results = results.transpose().copy()
-results["Effect of increase on stability"] = df.diff().median() >= 0
+results["Effect of increase"] = df.diff().median() >= 0
 translate = {
     True: "Destabilizing",
     False: "Stabilizing"
 }
-results["Effect of increase on stability"] = results["Effect of increase on stability"].map(translate)
+results["Effect of increase"] = results["Effect of increase"].map(translate)
 
 for i in range(len(results[long_string])):
     val = results[long_string][i]
     if val >= 1.0:
-        results[long_string].iloc[i] = "Does not induces instability"
+        results[long_string].iloc[i] = np.nan
 
 latex = {
-    "gamma_u": "$\gamma_u$", "omega": "\omega", "gamma_F" : "$\gamma_F$",
-    "phi_0" : "$\phi_0", "phi_1" : "$\phi_1$",
+    "gamma_u": "$\gamma_u$", "omega": "$\omega$", "gamma_F" : "$\gamma_F$",
+    "phi_0" : "$\phi_0$", "phi_1" : "$\phi_1$",
     "infla" : "$\pi$", "spread_mo" : "$\sigma_{mo}$", "alpha" : "$\\alpha$",
     "R" : "$R$",
 }
@@ -546,7 +505,7 @@ desc = {
     "infla" : "real estate inflation",
     "spread_mo" : "Mortgage spread",
     "alpha" : "Marginal propensity to consume",
-    "R" : "Autonomous consumption share on $Z$",
+    "R" : "$C_k$ share on $Z$",
 }
 results["Description"] = results["Description"].map(desc)
 results["Parameter"] = results.index.map(latex)
@@ -555,48 +514,46 @@ results.index.name = ''
 results  = results[[ # Reorder columns
     "Description",
     long_string,
-    "Effect of increase on stability"
+    "Effect of increase"
 ]]
 print(results.to_latex(
-    caption = "Effect of individual parameters on model stability",
+    caption = "Effect of individual parameters\\\\on model stability",
     label = "tab:sensibility",
     escape = False,
+    na_rep = '-',
+    multirow=True,
+    #position="H"
 ))
 #+END_SRC
 
 #+RESULTS:
-:results:
-# Out [108]: 
-# output
+#+begin_export latex
 \begin{table}
 \centering
-\caption{Effect of individual parameters on model stability}
+\caption{Effect of individual parameters\\on model stability}
 \label{tab:sensibility}
-\begin{tabular}{llll}
+\begin{tabular}{llrl}
 \toprule
-Parameter &                          Description & Value that induces instability & Effect of increase on stability \\
-              &                                      &                                &                                 \\
+Parameter &                     Description &  Instability inducing value & Effect of increase \\
+              &                                 &                             &                    \\
 \midrule
-$\gamma_u$    &                     Adjustment speed &                           0.65 &                   Destabilizing \\
-\omega        &                           wage-share &   Does not induces instability &                     Stabilizing \\
-$\gamma_F$    &           Profit distribution policy &   Does not induces instability &                   Destabilizing \\
-$\alpha$      &       Marginal propensity to consume &   Does not induces instability &                     Stabilizing \\
-$\sigma_{mo}$ &                      Mortgage spread &   Does not induces instability &                     Stabilizing \\
-$\phi_0       &       $g_{I_Z}$ autonomous component &                           0.32 &                   Destabilizing \\
-$\phi_1$      &          own interest rate parameter &   Does not induces instability &                   Destabilizing \\
-$\pi$         &                real estate inflation &   Does not induces instability &                   Destabilizing \\
-$R$           &  Autonomous consumption share on $Z$ &                           0.91 &                     Stabilizing \\
+$\gamma_u$    &                Adjustment speed &                        0.65 &      Destabilizing \\
+$\omega$      &                      wage-share &                           - &      Destabilizing \\
+$\gamma_F$    &      Profit distribution policy &                           - &      Destabilizing \\
+$\alpha$      &  Marginal propensity to consume &                           - &      Destabilizing \\
+$\sigma_{mo}$ &                 Mortgage spread &                           - &      Destabilizing \\
+$\phi_0$      &  $g_{I_Z}$ autonomous component &                        0.32 &      Destabilizing \\
+$\phi_1$      &     own interest rate parameter &                           - &      Destabilizing \\
+$\pi$         &           real estate inflation &                           - &      Destabilizing \\
+$R$           &              $C_k$ share on $Z$ &                        0.91 &      Destabilizing \\
 \bottomrule
 \end{tabular}
 \end{table}
+#+end_export
 
 
-:end:
 
 
-#+BEGIN_SRC ipython  :tangle ./codes/Sobol.py :async t :session Sobol :results verbatim drawer :exports results
-
-#+END_SRC
 
 * Particular experiments results                                   :noexport:
 #+LATEX: \label{append:Single}

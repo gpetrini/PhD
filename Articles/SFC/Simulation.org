@@ -1,8 +1,10 @@
 * Simulation TODOs and setups                                      :noexport:
 
-#+PROPERTY: header-args:ipython :session SFC  :exports none :results output :eval yes :cache no :async t :tangle ./codes/SFC_setup.py
+** General config
 
-#+BEGIN_SRC ipython 
+#+PROPERTY: header-args:python :session SFC  :exports none :results output :eval yes :cache no :async t :tangle ./codes/SFC_setup.py :python /usr/bin/python3.8 :eval never-export
+
+#+BEGIN_SRC python 
 from pysolve3.model import Model
 from pysolve3.utils import SolveSFC, ShockModel, SummaryShock, SFCTable
 
@@ -209,6 +211,8 @@ def clock_plots(shock, filename, variable):
     sns.despine()
     
     fig.savefig("./figs/" + filename, dpi = 600)
+    plt.clf()
+    plt.close('all')
 
 def plot_shock(filename, shock, df):
     """
@@ -265,6 +269,8 @@ def plot_shock(filename, shock, df):
 
 
     fig.savefig("./figs/" + filename, dpi = 600)
+    plt.clf()
+    plt.close('all')
 
 def plot_norms(filename, shock, df):
     """
@@ -317,21 +323,26 @@ def plot_norms(filename, shock, df):
     
     sns.despine()
     plt.tight_layout(rect=[0, 0.03, 1, 0.95])
-
     
     fig.savefig("./figs/" + filename, dpi = 300)
+    plt.clf()
+
+    plt.close('all')
 
 def other_plots(shock, df):
-
-    (shock['MO']/(shock['M'])).plot(title="Mortgage as % of deposits")
+  
+    fig, ax = plt.subplots()  
+    (shock['MO']/(shock['M'])).plot(title="Mortgage as % of deposits", ax=ax)
     sns.despine()
-    plt.show()
+    #plt.show()
+    plt.clf()
     
     fig, ax = plt.subplots()
     (shock['FT']/shock['K_f']).plot(ax=ax, label='Gross profit rate')
     (shock['Fn']/shock['K_f']).plot(ax=ax, label='Net profit rate')
     ax.legend()
     sns.despine()
+    plt.clf()
 
     
     fig, ax = plt.subplots()
@@ -339,7 +350,8 @@ def other_plots(shock, df):
     (shock['YDk']/(shock['K_HD']*shock['ph'])).plot(ax=ax, label='Nominal')
     ax.legend()
     sns.despine()
-    plt.show()
+    #plt.show()
+    plt.clf()
     
     fig, ax = plt.subplots()
     (shock['NFW_h']/(shock['Lk'] + shock['MO']) - (shock['rm'] - shock['g_Z'])).plot(title = 'Household debt stability',ax=ax)
@@ -347,7 +359,8 @@ def other_plots(shock, df):
     
     sns.despine()
     plt.tight_layout(rect=[0, 0.03, 1, 0.95])
-    plt.show()
+    #plt.show()
+    plt.clf()
     
     fig, ax = plt.subplots(1,1, figsize=(8,5))
 
@@ -358,19 +371,19 @@ def other_plots(shock, df):
     
     sns.despine()
     plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+    plt.clf()
 
+    plt.close('all')
 
+  
 #+END_SRC
 
 #+RESULTS:
-:results:
-# Out [1]: 
-:end:
 
 
 ** Increase in autonomous growth rate ($g_Z$)
 
-#+BEGIN_SRC ipython :tangle ./codes/setup.py :cache no
+#+BEGIN_SRC python :results raw drawer table
 base = model()
 df = SolveSFC(base, time=1000)
 shock = ShockModel(base_model=base, create_function=model(), variable='phi_0', increase=0.005, time = 1000)
@@ -381,57 +394,50 @@ other_plots(shock, df=df)
 
 shock1 = shock.round(decimals = 5).tail(1).transpose().loc['alpha':,:]
 shock1.columns = ['$\Delta \phi_0$']
+print(shock1)
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [2]: 
-# text/plain
-: <Figure size 1728x360 with 3 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/a45c135db06cbe5eb2fab0981a49b1b505636c81.png]]
-
-# text/plain
-: <Figure size 1152x720 with 4 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/d9bb5adeda2f6f797d53bf230132be1351be0740.png]]
-
-# text/plain
-: <Figure size 1152x720 with 4 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/43733d5e90eb1746185a3c982a0b308244ac1623.png]]
-
-# text/plain
-: <Figure size 432x288 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/271c17b11ee2271d9a769eba1312ed28f9fe85a1.png]]
-
-# text/plain
-: <Figure size 432x288 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/2e4c669c70fbc492eda9e785e9abcc3ee65c506c.png]]
-
-# text/plain
-: <Figure size 432x288 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/0c1df22e7602849ed22b6b947ccf3210b59af47d.png]]
-
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/cb47f39d265547c8f5ad9bdc47a26521e64b9a21.png]]
+$\Delta \phi_0$
+alpha         5.000000e-01
+gamma_F       8.000000e-02
+gamma_u       9.000000e-02
+omega         5.000000e-01
+rm            1.000000e-02
+spread_l      0.000000e+00
+spread_mo     0.000000e+00
+un            8.000000e-01
+v             1.200000e+00
+phi_0         3.000000e-02
+phi_1         1.000000e-01
+R             7.000000e-01
+infla         0.000000e+00
+gC            0.000000e+00
+real_data     0.000000e+00
+_K_f__1       1.202767e+26
+_M_h__1       9.083433e+26
+_MO__1        5.860454e+26
+_Lk__1        1.367432e+27
+_Ck__1        3.853792e+25
+_Lf__1        9.951484e+24
+_h__1         4.350000e-02
+_L__1         1.377383e+27
+_M__1         9.083433e+26
+_K_HD__1      5.860454e+26
+_I_h__1       1.651634e+25
+_ph__1        1.000000e+00
+TIME          1.051000e+03
+Ih/Y          2.119500e-01
+I/Y           2.554500e-01
+Z/Y           7.065000e-01
+gY            2.900000e-02
 :end:
+
 
 ** Wage-share decrease ($\Downarrow \omega$)
    
-#+BEGIN_SRC ipython :tangle ./codes/setup.py :cache no
+#+BEGIN_SRC python :results raw drawer table
 base = model()
 df = SolveSFC(base, time=1000)
 shock = ShockModel(base_model=base, create_function=model(), variable='omega', increase=-0.01, time = 1000)
@@ -442,57 +448,49 @@ plot_norms(shock = shock, filename = 'Shock_2Norms.png', df=df)
 other_plots(shock, df)
 shock2 = shock.round(decimals = 3).tail(1).transpose().loc['alpha':,:]
 shock2.columns = ['$\Delta \omega$']
+print(shock2)
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [3]: 
-# text/plain
-: <Figure size 1728x360 with 3 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/7f56fb9f0c2ee016ec11e56b920f88a28dc0a641.png]]
-
-# text/plain
-: <Figure size 1152x720 with 4 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/c12c60aadc3d9f80def86cae4e4fd3f01841bd13.png]]
-
-# text/plain
-: <Figure size 1152x720 with 4 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/5cdd11eb195e4e34eff02dd252dc3299960f5429.png]]
-
-# text/plain
-: <Figure size 432x288 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/940772180c1671e261e99c57231ac3c671d9a24f.png]]
-
-# text/plain
-: <Figure size 432x288 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/8975664653d2e7b21f566e93b82f8c3be897f036.png]]
-
-# text/plain
-: <Figure size 432x288 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/ec10378ccfdfb18a0470287809ad23e318fa3878.png]]
-
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/1d40cea62017a44414d9f4b978f8c47528a33d96.png]]
+$\Delta \omega$
+alpha         5.000000e-01
+gamma_F       8.000000e-02
+gamma_u       9.000000e-02
+omega         4.900000e-01
+rm            1.000000e-02
+spread_l      0.000000e+00
+spread_mo     0.000000e+00
+un            8.000000e-01
+v             1.200000e+00
+phi_0         2.500000e-02
+phi_1         1.000000e-01
+R             7.000000e-01
+infla         0.000000e+00
+gC            0.000000e+00
+real_data     0.000000e+00
+_K_f__1       9.060400e+23
+_M_h__1       7.400107e+24
+_MO__1        5.428750e+24
+_Lk__1        1.266703e+25
+_Ck__1        2.968835e+23
+_Lf__1       -1.249747e+23
+_h__1         3.600000e-02
+_L__1         1.254205e+25
+_M__1         7.400107e+24
+_K_HD__1      5.428750e+24
+_I_h__1       1.272363e+23
+_ph__1        1.000000e+00
+TIME          1.051000e+03
+Ih/Y          2.160000e-01
+I/Y           2.520000e-01
+Z/Y           7.190000e-01
+gY            2.400000e-02
 :end:
 
 ** Increase in mortgage interest rate
    
-#+BEGIN_SRC ipython :tangle ./codes/setup.py :cache no
+#+BEGIN_SRC python :results raw table drawer
 base = model()
 df = SolveSFC(base, time=1000)
 shock = ShockModel(base_model=base, create_function=model(), variable='rm', increase=0.0025, time = 1000)
@@ -503,57 +501,44 @@ clock_plots(shock = shock, filename = 'Clock_3.png', variable='rmo')
 plot_shock(shock = shock, filename = 'Shock_3.png', df=df)
 plot_norms(shock = shock, filename = 'Shock_3Norms.png', df=df)
 other_plots(shock, df=df)
+print(shock3)
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [4]: 
-# text/plain
-: <Figure size 1728x360 with 3 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/36ddd54d66386a5c14c861380f87ae2e27f1af8f.png]]
-
-# text/plain
-: <Figure size 1152x720 with 4 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/dea7d03e536812f545bac79b3eefce6d042bb042.png]]
-
-# text/plain
-: <Figure size 1152x720 with 4 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/6a6047495c08b05baa987c1bf79d874dc6dabf35.png]]
-
-# text/plain
-: <Figure size 432x288 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/1e60238cacf9409af6cd301068545a05c6b534dc.png]]
-
-# text/plain
-: <Figure size 432x288 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/fe429c3f9f7529ecbf384f6328088c0c6471a69f.png]]
-
-# text/plain
-: <Figure size 432x288 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/8b83d840a1e562b4ae0130367d7dc831cc9bbc13.png]]
-
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/5a5275e579de14886c9c9c434342c2be2cc47e5a.png]]
+$\Delta rm$
+alpha      5.000000e-01
+gamma_F    8.000000e-02
+gamma_u    9.000000e-02
+omega      5.000000e-01
+rm         1.200000e-02
+spread_l   0.000000e+00
+spread_mo  0.000000e+00
+un         8.000000e-01
+v          1.200000e+00
+phi_0      2.500000e-02
+phi_1      1.000000e-01
+R          7.000000e-01
+infla      0.000000e+00
+gC         0.000000e+00
+real_data  0.000000e+00
+_K_f__1    7.143483e+23
+_M_h__1    3.649994e+24
+_MO__1     4.297398e+24
+_Lk__1     1.002723e+25
+_Ck__1     2.326220e+23
+_Lf__1    -9.158435e+22
+_h__1      3.600000e-02
+_L__1      9.935648e+24
+_M__1      3.649994e+24
+_K_HD__1   4.297398e+24
+_I_h__1    9.969545e+22
+_ph__1     1.000000e+00
 :end:
 
 ** TODO Decrease in mortgage interest rate
 
-#+BEGIN_SRC ipython :tangle ./codes/setup.py :cache no
+#+BEGIN_SRC python :results raw drawer table
 base = model()
 df = SolveSFC(base, time=1000)
 shock = ShockModel(base_model=base, create_function=model(), variable='rm', increase=-0.005, time = 1000)
@@ -564,57 +549,44 @@ clock_plots(shock = shock, filename = 'Clock_3b.png', variable='rmo')
 plot_shock(shock = shock, filename = 'Shock_3b.png', df=df)
 plot_norms(shock = shock, filename = 'Shock_3Normsb.png', df=df)
 other_plots(shock, df=df)
+print(shock3b)
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [5]: 
-# text/plain
-: <Figure size 1728x360 with 3 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/186904d7ae13ee4986928a3668f1d657f4f92a32.png]]
-
-# text/plain
-: <Figure size 1152x720 with 4 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/43128e4ed3cf4ef6003e601e20454a5813e91666.png]]
-
-# text/plain
-: <Figure size 1152x720 with 4 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/dacb176420a37572cd707aa512aad7fdc88e3b84.png]]
-
-# text/plain
-: <Figure size 432x288 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/c8a356183641516ea84894a9cc9040fdc61cd238.png]]
-
-# text/plain
-: <Figure size 432x288 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/9358061f8e8c3f38bffc6bda3fc5f2f3d2b27638.png]]
-
-# text/plain
-: <Figure size 432x288 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/ffa0b37235713813190b4b20f73de679dd8c7593.png]]
-
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/1ae6962ddc150b22de388e487922a61dcaffa1cc.png]]
+$\Downarrow rm$
+alpha         5.000000e-01
+gamma_F       8.000000e-02
+gamma_u       9.000000e-02
+omega         5.000000e-01
+rm            5.000000e-03
+spread_l      0.000000e+00
+spread_mo     0.000000e+00
+un            8.000000e-01
+v             1.200000e+00
+phi_0         2.500000e-02
+phi_1         1.000000e-01
+R             7.000000e-01
+infla         0.000000e+00
+gC            0.000000e+00
+real_data     0.000000e+00
+_K_f__1       1.488134e+24
+_M_h__1       1.602903e+25
+_MO__1        8.664652e+24
+_Lk__1        2.021746e+25
+_Ck__1        4.834824e+23
+_Lf__1       -1.337916e+23
+_h__1         3.700000e-02
+_L__1         2.008366e+25
+_M__1         1.602903e+25
+_K_HD__1      8.664652e+24
+_I_h__1       2.072074e+23
+_ph__1        1.000000e+00
 :end:
 
 ** Increase in house inflation
 
-#+BEGIN_SRC ipython :tangle ./codes/setup.py :cache no
+#+BEGIN_SRC python :results raw drawer table
 base = model()
 df = SolveSFC(base, time=1000)
 shock = ShockModel(base_model=base, create_function=model(), variable='infla', increase=0.05, time = 1000)
@@ -626,52 +598,44 @@ other_plots(shock, df=df)
 
 shock4 = shock.round(decimals = 3).tail(1).transpose().loc['alpha':,:]
 shock4.columns = ['$\pi$']
+print(shock4)
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [6]: 
-# text/plain
-: <Figure size 1728x360 with 3 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/99ac70ac4fdb1eb568d84313b4fe3625ecb01ff1.png]]
-
-# text/plain
-: <Figure size 1152x720 with 4 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/736f1405316a6d17573b252f125d723aac2923af.png]]
-
-# text/plain
-: <Figure size 1152x720 with 4 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/2baff68496e880178dd169c8a8c5aae28f798c6a.png]]
-
-# text/plain
-: <Figure size 432x288 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/65e7e65be2ef407b4c021533865a5a6c63e129c3.png]]
-
-# text/plain
-: <Figure size 432x288 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/d980b9b89b20f75734f16030c6be55a208affcb4.png]]
-
-# text/plain
-: <Figure size 432x288 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/88e59507c227d36338985f391fa8600e3fb92f43.png]]
-
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/e93c9fc6c530c9994c0b7f6b0fc1c7cc397089d7.png]]
+$\pi$
+alpha      5.000000e-01
+gamma_F    8.000000e-02
+gamma_u    9.000000e-02
+omega      5.000000e-01
+rm         1.000000e-02
+spread_l   0.000000e+00
+spread_mo  0.000000e+00
+un         8.000000e-01
+v          1.200000e+00
+phi_0      2.500000e-02
+phi_1      1.000000e-01
+R          7.000000e-01
+infla      5.000000e-02
+gC         0.000000e+00
+real_data  0.000000e+00
+_K_f__1    9.990957e+25
+_M_h__1    7.564192e+26
+_MO__1     4.902237e+26
+_Lk__1     1.143849e+27
+_Ck__1     3.203095e+25
+_Lf__1     7.643164e+24
+_h__1      4.300000e-02
+_L__1      1.151492e+27
+_M__1      7.564192e+26
+_K_HD__1   4.902237e+26
+_I_h__1    1.372763e+25
+_ph__1     1.472685e+21
+TIME       1.051000e+03
+Ih/Y       2.120000e-01
+I/Y        2.550000e-01
+Z/Y        7.070000e-01
+gY         2.900000e-02
 :end:
 
 
@@ -679,7 +643,7 @@ shock4.columns = ['$\pi$']
 
 *** Table
 
-#+BEGIN_SRC ipython :tangle ./codes/setup.py :results value table :cache no
+#+BEGIN_SRC python :results raw table latex
 base = model()
 df = SolveSFC(base, time=1000)
 df = df.round(decimals = 4).tail(1).transpose().loc['alpha':,:]
@@ -711,59 +675,52 @@ table.to_latex(
     escape=False, 
     float_format="{:0.4f}".format,
 )
-table
+
+table.to_latex(
+    "./tabs/parameters.tex",
+    #column_format = 'cccccc',
+    escape=False, 
+    float_format="{:0.4f}".format,
+)
+
+print(table.to_latex(
+    escape=False, 
+    float_format="{:0.4f}".format,
+))
 #+END_SRC
 
 #+RESULTS:
-:results:
-# Out [7]: 
-# text/plain
-:                Base scenario  $\Delta \phi_0$  $\Delta \omega$  $\Delta rm$  \
-: $\alpha$               0.500             0.50            0.500        0.500   
-: $\gamma_F$             0.080             0.08            0.080        0.080   
-: $\gamma_u$             0.090             0.09            0.090        0.090   
-: $\omega$               0.500             0.50            0.490        0.500   
-: $rm$                   0.010             0.01            0.010        0.012   
-: $\sigma_{l}$           0.000             0.00            0.000        0.000   
-: $\sigma_{mo}$          0.000             0.00            0.000        0.000   
-: $u_N$                  0.800             0.80            0.800        0.800   
-: $v$                    1.200             1.20            1.200        1.200   
-: $\phi_0$               0.025             0.03            0.025        0.025   
-: $\phi_1$               0.100             0.10            0.100        0.100   
-: $R$                    0.700             0.70            0.700        0.700   
-: $\pi$                  0.000             0.00            0.000        0.000   
-: 
-:                $\pi$  
-: $\alpha$       0.500  
-: $\gamma_F$     0.080  
-: $\gamma_u$     0.090  
-: $\omega$       0.500  
-: $rm$           0.010  
-: $\sigma_{l}$   0.000  
-: $\sigma_{mo}$  0.000  
-: $u_N$          0.800  
-: $v$            1.200  
-: $\phi_0$       0.025  
-: $\phi_1$       0.100  
-: $R$            0.700  
-: $\pi$          0.050  
-
-[[file:/tmp/ob-ipython-htmlXVHEmq.html]]
-:end:
-
-t> <interrupt> |
-|   |
-:end:
+#+begin_export latex
+\begin{tabular}{lrrrrr}
+\toprule
+{} &  Base scenario &  $\Delta \phi_0$ &  $\Delta \omega$ &  $\Delta rm$ &  $\pi$ \\
+\midrule
+$\alpha$      &         0.5000 &           0.5000 &           0.5000 &       0.5000 & 0.5000 \\
+$\gamma_F$    &         0.0800 &           0.0800 &           0.0800 &       0.0800 & 0.0800 \\
+$\gamma_u$    &         0.0900 &           0.0900 &           0.0900 &       0.0900 & 0.0900 \\
+$\omega$      &         0.5000 &           0.5000 &           0.4900 &       0.5000 & 0.5000 \\
+$rm$          &         0.0100 &           0.0100 &           0.0100 &       0.0120 & 0.0100 \\
+$\sigma_{l}$  &         0.0000 &           0.0000 &           0.0000 &       0.0000 & 0.0000 \\
+$\sigma_{mo}$ &         0.0000 &           0.0000 &           0.0000 &       0.0000 & 0.0000 \\
+$u_N$         &         0.8000 &           0.8000 &           0.8000 &       0.8000 & 0.8000 \\
+$v$           &         1.2000 &           1.2000 &           1.2000 &       1.2000 & 1.2000 \\
+$\phi_0$      &         0.0250 &           0.0300 &           0.0250 &       0.0250 & 0.0250 \\
+$\phi_1$      &         0.1000 &           0.1000 &           0.1000 &       0.1000 & 0.1000 \\
+$R$           &         0.7000 &           0.7000 &           0.7000 &       0.7000 & 0.7000 \\
+$\pi$         &         0.0000 &           0.0000 &           0.0000 &       0.0000 & 0.0500 \\
+\bottomrule
+\end{tabular}
+#+end_export
 
 *** Figure 1
 
-#+BEGIN_SRC ipython :tangle ./codes/Simulation.py :cache no
+#+BEGIN_SRC python :results graphics file :file ./figs/Compared_Shocks_1.png
 base = model()
 df = SolveSFC(base, time=1000)
 df["Z/Y"] = df["Z"]/df["Y"]
 df_base = df
 
-fig, ax = plt.subplots(2,2, figsize=(2*8,2*5))
+fig, ax = plt.subplots(2,2, figsize=(19.20,10.80))
 
 df1['Y'].pct_change().plot(ls ='-', lw=3, color = "black", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[0,0])
 df2['Y'].pct_change().plot(ls ='-', lw=3, color = "darkgray", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[0,0])
@@ -771,7 +728,7 @@ df3['Y'].pct_change().plot(ls ='-', lw=3, color = "gray", label = "$\\Uparrow r_
 #df3b['Y'].pct_change().plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Downarrow r_m$ (Shock 3)", ax = ax[0,0])
 ax[0,0].axhline(y = df_base['g_Z'].iloc[-1], ls ='--', lw=1, color = "lightgray", label = "Baseline")
 ax[0,0].ticklabel_format(useOffset=False)
-ax[0,0].set_title('GDP growth rate ($g$)')
+ax[0,0].set_title('A GDP growth rate ($g$)')
 
 df1['Z/Y'].plot(ls ='-', lw=3, color = "black", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[0,1])
 df2['Z/Y'].plot(ls ='-', lw=3, color = "darkgray", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[0,1])
@@ -779,7 +736,7 @@ df3['Z/Y'].plot(ls ='-', lw=3, color = "gray", label = "$\\Uparrow r_m$ (Shock 3
 #df3b['Z/Y'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Downarrow r_m$ (Shock 3)", ax = ax[0,1])
 ax[0,1].axhline(y = df_base['Z/Y'].iloc[-1], ls ='--', lw=1.5, color = "lightgray", label = "Baseline")
 ax[0,1].ticklabel_format(useOffset=False)
-ax[0,1].set_title('Autonomous Expenditure\nShare on GDP ($Z/Y$)')
+ax[0,1].set_title('B Autonomous Expenditure\nShare on GDP ($Z/Y$)')
 
 df1['u'].plot(ls ='-', lw=3, color = "black", label = "$\\Downarrow \omega$ (Shock 3)", ax = ax[1,0])
 df2['u'].plot(ls ='-', lw=3, color = "darkgray", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,0])
@@ -787,7 +744,7 @@ df3['u'].plot(ls ='-', lw=3, color = "gray", label = "$\\Uparrow r_m$ (Shock 4)"
 #df3b['u'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Downarrow r_m$ (Shock 4)", ax = ax[1,0])
 ax[1,0].axhline(y = df_base['u'].iloc[-1], ls ='--', lw=1.5, color = "lightgray", label = "Baseline")
 ax[1,0].ticklabel_format(useOffset=False)
-ax[1,0].set_title('Capacity utilization rate ($u$)')
+ax[1,0].set_title('C Capacity utilization rate ($u$)')
 
 df1['h'].plot(ls ='-', lw=3, color = "black", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[1,1])
 df2['h'].plot(ls ='-', lw=3, color = "darkgray", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,1])
@@ -795,29 +752,22 @@ df3['h'].plot(ls ='-', lw=3, color = "gray", label = "$\\Uparrow r_m$ (Shock 3)"
 #df3b['h'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Downarrow r_m$ (Shock 3)", ax = ax[1,1])
 ax[1,1].axhline(y = df_base['h'].iloc[-1], ls ='--', lw=1.5, color = "lightgray", label = "Baseline")
 ax[1,1].ticklabel_format(useOffset=False)
-ax[1,1].set_title('Marginal propsenty\nto invest ($h$)')
+ax[1,1].set_title('D Marginal propsenty\nto invest ($h$)')
 
 
 sns.despine()
 plt.tight_layout(rect=[0, 0.03, .85, 0.95])
-ax[1,1].legend(loc='center left', bbox_to_anchor=(1.05, 1.25))
-plt.show()
-fig.savefig("./figs/Compared_Shocks_1.png", dpi = 600)
+ax[1,1].legend(loc='center left', bbox_to_anchor=(1.00, 1.25))
+#plt.show()
+fig.savefig("./figs/Compared_Shocks_1.png", dpi = 300)
 #+END_SRC
 
 #+RESULTS:
-:results:
-# Out [8]: 
-# text/plain
-: <Figure size 1152x720 with 4 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/18b0c8cbe7c29cd50a6661a0130aefa3cfb0fa7d.png]]
-:end:
+[[file:./figs/Compared_Shocks_1.png]]
 
 *** Figure 2
     
-#+BEGIN_SRC ipython :tangle ./codes/setup.py :cache no
+#+BEGIN_SRC python :results graphics file :file ./figs/Compared_Shocks_2.png
 base = model()
 df = SolveSFC(base, time=1000)
 df["Z/Y"] = df["Z"]/df["Y"]
@@ -828,7 +778,7 @@ df2["TIME"] = [i+1 for i in range(len(df2.index))]
 df3["TIME"] = [i+1 for i in range(len(df3.index))]
 #df3b["TIME"] = [i+1 for i in range(len(df3.index))]
 
-fig, ax = plt.subplots(2,2, figsize=(2*8,2*5))
+fig, ax = plt.subplots(2,2, figsize=(19.20,10.80))
 
 sns.scatterplot(y = 'Z/Y', x='u', data=df1, size="TIME", sizes = (1,100), color = 'black', legend=False, ax=ax[0,0])
 sns.scatterplot(y = 'Z/Y', x='u', data=df2, size="TIME", sizes = (1,100), color = 'darkgray', legend=False, ax=ax[0,0])
@@ -839,7 +789,7 @@ sns.lineplot(y = 'Z/Y', x='u', data=df1, sort=False, color = 'black', ax=ax[0,0]
 sns.lineplot(y = 'Z/Y', x='u', data=df2, sort=False, color = 'darkgray', ax=ax[0,0])
 sns.lineplot(y = 'Z/Y', x='u', data=df3, sort=False, color = 'gray', ax=ax[0,0])
 #sns.lineplot(y = 'Z/Y', x='u', data=df3b, sort=False, color = 'gray', ax=ax[0,0])
-ax[0,0].set_title('Share of residential investment and capacity utilization\n(Dots size grow in time)')
+ax[0,0].set_title('A Share of residential investment and capacity utilization\n(Dots size grow in time)')
 
 df1['K_k'].plot(ls ='-', lw=3, color = "black", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[0,1])
 df2['K_k'].plot(ls ='-', lw=3, color = "darkgray", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[0,1])
@@ -847,7 +797,7 @@ df3['K_k'].plot(ls ='-', lw=3, color = "gray", label = "$\\Uparrow r_m$ (Shock 3
 #df3b['K_k'].plot(ls ='-', lw=3, color = "gray", label = "$\\Downarrow r_m$ (Shock 3)", ax = ax[0,1])
 ax[0,1].axhline(y = df_base['K_k'].iloc[-1], ls ='--', lw=1.5, color = "lightgray", label = "Baseline")
 ax[0,1].ticklabel_format(useOffset=False)
-ax[0,1].set_title('Houses share on\nReal Assets ($K_k$)')
+ax[0,1].set_title('B Houses share on\nReal Assets ($K_k$)')
 
 ((df1["DN"][1:]*df1["rm"][2:])/df1['YDk'][2:]).plot(ls ='-', lw=3, color = "black", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[1,0])
 ((df2["DN"][1:]*df2["rm"][2:])/df2['YDk'][2:]).plot(ls ='-', lw=3, color = "darkgray", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,0])
@@ -855,7 +805,7 @@ ax[0,1].set_title('Houses share on\nReal Assets ($K_k$)')
 #((df3b["MO"]*df3b["rmo"][1:] + df3b["Lk"]*df3b["rl"][1:] - df3b["M"]*df3b["rl"][1:])/df3b['YDk'][1:]).plot(ls ='-', lw=3, color = "gray", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,0])
 ax[1,0].axhline(y = ((df_base["DN"].iloc[-1]*df_base["rm"].iloc[-1])/df_base['YDk'].iloc[-1]), ls ='--', lw=1.5, color = "lightgray", label = "Baseline")
 ax[1,0].ticklabel_format(useOffset=False)
-ax[1,0].set_title('Capitalist Indebtedness\n(as % $YD_k$)')
+ax[1,0].set_title('C Capitalist Indebtedness\n(as % $YD_k$)')
 
 (df1['Fn']/df1['K_f']).plot(ls ='-', lw=3, color = "black", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[1,1])
 (df2['Fn']/df2['K_f']).plot(ls ='-', lw=3, color = "darkgray", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,1])
@@ -863,29 +813,23 @@ ax[1,0].set_title('Capitalist Indebtedness\n(as % $YD_k$)')
 #(df3b['Fn']/df3b['K_f']).plot(ls ='-', lw=3, color = "gray", label = "$\\Downarrow r_m$ (Shock 3)", ax = ax[1,1])
 ax[1,1].axhline(y = (df_base['Fn']/df_base['K_f']).iloc[-1], ls ='--', lw=1.5, color = "lightgray", label = "Baseline")
 ax[1,1].ticklabel_format(useOffset=False)
-ax[1,1].set_title('Net profit rate')
+ax[1,1].set_title('D Net profit rate')
 
 sns.despine()
 plt.tight_layout(rect=[0, 0.03, .85, 0.95])
-ax[1,1].legend(loc='center left', bbox_to_anchor=(1.05, 1.25))
-plt.show()
+ax[1,1].legend(loc='center left', bbox_to_anchor=(1.0, 1.25))
+#plt.show()
 fig.savefig("./figs/Compared_Shocks_2.png", dpi = 600)
 #+END_SRC
 
 #+RESULTS:
-:results:
-# Out [9]: 
-# text/plain
-: <Figure size 1152x720 with 4 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/9d76da24dcc3a852861596ab3fccad11659e5d51.png]]
-:end:
+[[file:./figs/Compared_Shocks_2.png]]
 
 
 ** Real data                                                         :ignore:
-   
-#+BEGIN_SRC ipython :tangle ./codes/Simulation.py :cache no
+
+*** Simulation   
+#+BEGIN_SRC python :tangle ./codes/Simulation.py
 data = pd.read_csv('./data/OwnInterestRate_data.csv', index_col=[0], parse_dates=True)
 initial=int(1000) ## Warning 1000
 shock_duration=int(10) ## Warning 10
@@ -922,11 +866,10 @@ shock["Z/Y"] = shock["Z"]/shock["Y"]
 #+END_SRC
 
 #+RESULTS:
-:results:
-# Out [10]: 
-:end:
 
-#+BEGIN_SRC ipython :tangle ./codes/Simulation.py :cache no
+*** Plots
+
+#+BEGIN_SRC python :tangle ./codes/Simulation.py :results graphics
 base = model()
 df = SolveSFC(base, time=1000)
 df["Z/Y"] = df["Z"]/df["Y"]
@@ -935,22 +878,25 @@ df_base = df
 shock["TIME"] = [i+1 for i in range(len(shock.index))]
 
 # First shock
-fig, ax = plt.subplots(2,2, figsize=(2*8,2*5))
+fig, ax = plt.subplots(2,2, figsize=(19.20,10.80))
 
-shock[['Y', 'I_h', 'I_f']].pct_change().plot(ls ='-', lw=3, ax = ax[0,0], color=("black", "darkgray", "gray"))
+shock["$I_{h}$"] = shock["I_h"]
+shock["$I_{f}$"] = shock["I_f"]
+
+shock[['Y', '$I_{h}$', '$I_{f}$']].pct_change().plot(ls ='-', lw=3, ax = ax[0,0], color=("black", "darkgray", "gray"))
 ax[0,0].axhline(y = df_base['g_Z'].iloc[-1], ls ='--', lw=1, color = "lightgray", label = "Baseline")
 ax[0,0].ticklabel_format(useOffset=False)
-ax[0,0].set_title('Selected growth rates')
+ax[0,0].set_title('A Selected growth rates')
 
-shock['Z/Y'].plot(ls ='-', lw=3, color = "black", label = "Real data", ax = ax[0,1])
+shock['Z/Y'].plot(ls ='-', lw=3, color = "black", label = "Real data", ax = ax[1,0])
 ax[1,0].axhline(y = df_base['Z/Y'].iloc[-1], ls ='--', lw=1.5, color = "lightgray", label = "Baseline")
 ax[1,0].ticklabel_format(useOffset=False)
-ax[1,0].set_title('Autonomous Expenditure\nShare on GDP ($Z/Y$)')
+ax[1,0].set_title('C Autonomous Expenditure\nShare on GDP ($Z/Y$)')
 
-shock['u'].plot(ls ='-', lw=3, color = "black", label = "Real data", ax = ax[1,0])
+shock['u'].plot(ls ='-', lw=3, color = "black", label = "Real data", ax = ax[0,1])
 ax[0,1].axhline(y = df_base['u'].iloc[-1], ls ='--', lw=1.5, color = "lightgray", label = "Baseline")
 ax[0,1].ticklabel_format(useOffset=False)
-ax[0,1].set_title('Capacity utilization rate ($u$)')
+ax[0,1].set_title('B Capacity utilization rate ($u$)')
 
 #shock['h'].plot(ls ='-', lw=3, color = "black", label = "Real data", ax = ax[1,1])
 #ax[1,1].axhline(y = df_base['h'].iloc[-1], ls ='--', lw=1.5, color = "lightgray", label = "Baseline")
@@ -959,66 +905,48 @@ ax[0,1].set_title('Capacity utilization rate ($u$)')
 
 sns.scatterplot(y = 'Z/Y', x='u', data=shock, size="TIME", sizes = (1,100), color = 'black', legend=False, ax=ax[1,1])
 
-sns.lineplot(y = 'Z/Y', x='u', data=shock, sort=False, color = 'black', ax=ax[1,1])
-ax[1,1].set_title('Share of residential investment and capacity utilization\n(Dots size grow in time)')
-
+sns.lineplot(y = 'Z/Y', x='u', data=shock, sort=False, color = 'black', ax=ax[1,1], legend=False)
+ax[1,1].set_title('D Share of residential investment and capacity utilization\n(Dots size grow in time)')
 
 
 sns.despine()
 plt.tight_layout(rect=[0, 0.03, .85, 0.95])
-ax[1,1].legend(loc='center left', bbox_to_anchor=(1.05, 1.25))
-plt.show()
+#ax[1,1].legend(loc='center left', bbox_to_anchor=(1.0, 1.25))
+#plt.show()
 fig.savefig("./figs/Real_Shocks_1.png", dpi = 600)
 
 
 # Second Shock
-fig, ax = plt.subplots(2,2, figsize=(2*8,2*5))
+fig, ax = plt.subplots(2,2, figsize=(19.20,10.80))
 
 sns.scatterplot(y = 'Z/Y', x='u', data=shock, size="TIME", sizes = (1,100), color = 'black', legend=False, ax=ax[0,0])
 
 sns.lineplot(y = 'Z/Y', x='u', data=shock, sort=False, color = 'black', ax=ax[0,0])
-ax[0,0].set_title('Share of residential investment and capacity utilization\n(Dots size grow in time)')
+ax[0,0].set_title('A Share of residential investment and capacity utilization\n(Dots size grow in time)')
 
 shock['K_k'].plot(ls ='-', lw=3, color = "black", label = "Real data", ax = ax[0,1])
 ax[0,1].axhline(y = df_base['K_k'].iloc[-1], ls ='--', lw=1.5, color = "lightgray", label = "Baseline")
 ax[0,1].ticklabel_format(useOffset=False)
-ax[0,1].set_title('Houses share on\nReal Assets ($K_k$)')
+ax[0,1].set_title('B Houses share on\nReal Assets ($K_k$)')
 
 ((shock["DN"]*shock["rm"][2:])/shock['YDk'][2:]).plot(ls ='-', lw=3, color = "black", label = "Real data", ax = ax[1,0])
 ax[1,0].axhline(y = ((df_base["DN"].iloc[-2]*df_base["rm"].iloc[-1])/df_base['YDk'].iloc[-1]), ls ='--', lw=1.5, color = "lightgray", label = "Baseline")
 ax[1,0].ticklabel_format(useOffset=False)
-ax[1,0].set_title('Capitalist Indebtedness\n(as % $YD_k$)')
+ax[1,0].set_title('C Capitalist Indebtedness\n(as % $YD_k$)')
 
 (shock['Fn']/shock['K_f']).plot(ls ='-', lw=3, color = "black", label = "Real data", ax = ax[1,1])
 ax[1,1].axhline(y = (df_base['Fn']/df_base['K_f']).iloc[-1], ls ='--', lw=1.5, color = "lightgray", label = "Baseline")
 ax[1,1].ticklabel_format(useOffset=False)
-ax[1,1].set_title('Net profit rate')
+ax[1,1].set_title('D Net profit rate')
 
 sns.despine()
 plt.tight_layout(rect=[0, 0.03, .85, 0.95])
-ax[1,1].legend(loc='center left', bbox_to_anchor=(1.05, 1.25))
-plt.show()
+ax[1,1].legend(loc='center left', bbox_to_anchor=(1.0, 1.25))
+#plt.show()
 fig.savefig("./figs/Real_Shocks_2.png", dpi = 600)
 #+END_SRC
 
 #+RESULTS:
-:results:
-# Out [12]: 
-# output
-No handles with labels found to put in legend.
-
-# text/plain
-: <Figure size 1152x720 with 4 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/63cb530ab5fe71fd2330ddd697a976cae23e7716.png]]
-
-# text/plain
-: <Figure size 1152x720 with 4 Axes>
-
-# image/png
-[[file:obipy-resources/12e1327ee496c904bd31f7ced3f8f1d5d336a129/25ce783e06bec21dfd8b21ad50da497dd93a470a.png]]
-:end:
 
 
 
@@ -1236,11 +1164,11 @@ Therefore, we find a stable debt dynamics for both capitalists and firms (other 
 ** Plugging real data
 
 
-Finally, we include houses own interest rate data into our model (see Figure ref:fig:propria_investo).
+Finally, we include houses own interest rate data into our model (see Figure ref:propria_investo).
 To do so, each year corresponds to ten simulated periods for visualization reasons.
 Although rudimentary, this procedure allows us to investigate whether or not our model reports the following stylized facts:
 (i) positive relationship between non-residential investment share and GDP growth rate; (ii) capacity utilization towards the normal one, although quite volatile; (iii) NCC autonomous expenditure lead the business cycle and accumulation growth rate; (iv) residential investment is more volatile than others expenditures.
-Finally, all results are presented in Figure ref:fig:Realresults_1,fig:Realresults_2.
+Finally, all results are presented in Figure ref:fig:Realresults_1.
 
 Simillarly to Figure ref:fig:cycles, we report a clockwise relationship between autonomous expenditure share on GDP and capacity utilization growth rate.
 Since the analyzed period does not correspond to the fully-adjusted position, discrepancies between actual and normal capacity utilization rate are adjusted through changes in marginal propensity to invest.

@@ -37,7 +37,7 @@ df = pd.read_excel(
 )
 df["Nome"] = [nome.lower().strip() for nome in df["Nome"]] # Covert to lower case
 df.set_index(["Nome"], inplace=True)
-df.drop(["Unnamed: 17", "Unnamed: 18"], axis='columns', inplace=True) # Removendo coluna vazia e coluna de e-mails (é possível inferir)
+df.drop(["Unnamed: 17"], axis='columns', inplace=True) # Removendo coluna vazia e coluna de e-mails (é possível inferir)
 #df.columns = pd.to_datetime(df.columns, errors='ignore', format='%Y-%m-%d')
 min_df = df[["RA"]].astype(str)
 #+END_SRC
@@ -47,7 +47,7 @@ min_df = df[["RA"]].astype(str)
 ** Funções
 
 #+BEGIN_SRC python
-def importar_ext(Turma="A", data="2020-10-19"):
+def importar_ext(Turma=Turma, data="2020-10-19"):
     tmp = pd.read_csv(
         f'./Presença/Turma_{Turma} ({data}).csv',
         skiprows=3,
@@ -72,7 +72,6 @@ def importar_ext(Turma="A", data="2020-10-19"):
 
 #+RESULTS:
 
-
 ** Merge e exportação
 
 #+BEGIN_SRC python
@@ -86,10 +85,10 @@ df = min_df.reset_index().merge(
     monetaristas.reset_index(),
     how='left',
     ).join(
-    importar_ext(Turma='A', data="2020-10-19"),
+    importar_ext(Turma=Turma, data="2020-10-19"),
     how='left', on='Nome'
     ).join(
-        importar_ext(Turma='A', data="2020-10-26"),
+        importar_ext(Turma=Turma, data="2020-10-26"),
         how='left', on='Nome'
     ).set_index('RA')
 
@@ -102,148 +101,90 @@ df.to_excel(f'./output/CE342_{Turma}.xlsx')
 
 #+RESULTS:
 
-* Lista de presença e notas
-** Lista de chamada com nota das resenhas
-#+NAME:Lista
-#+BEGIN_SRC python :results table latexprint('\small{\\begin{landscape}')
-print(df.to_latex(longtable=True), end='')
-print('\end{landscape}}')
+* Monetaristas
+
+** Pendências                                                        :ignore:
+
+** Notas                                                             :ignore:
+
+#+NAME:Monetaristas
+#+BEGIN_SRC python :results table latex
+print('\\begin{center}')
+print(
+    df[["Resenha Monetaristas"]].to_latex(
+        caption=f"Notas das resenhas - {Resenhas[0]}",
+        bold_rows=True,
+        longtable=True,
+        na_rep='-',
+    ),end='')
+print('\end{center}')
 #+END_SRC
 
-#+RESULTS: Lista
+#+RESULTS: Monetaristas
 #+begin_export latex
-\small{\begin{landscape}
-\begin{longtable}{llrrrl}
+\begin{center}
+\begin{longtable}{lr}
+\caption{Notas das resenhas - Monetaristas}\\
 \toprule
-{} &                                  Nome &  Resenha Monetaristas &  2020-10-19 &  2020-10-26 &                   Email \\
-RA     &                                       &                       &             &             &                         \\
+{} &  Resenha Monetaristas \\
+\textbf{RA    } &                       \\
 \midrule
 \endhead
 \midrule
-\multicolumn{6}{r}{{Continued on next page}} \\
+\multicolumn{2}{r}{{Continued on next page}} \\
 \midrule
 \endfoot
 
 \bottomrule
 \endlastfoot
-212883 &                    ana pasti villalba &                  50.0 &         NaN &         NaN &  a212883@dac.unicamp.br \\
-212900 &                     ana paula martins &                  50.0 &        0.00 &        0.00 &  a212900@dac.unicamp.br \\
-231302 &              andré apolinário cardoso &                  70.0 &        0.00 &        0.00 &  a231302@dac.unicamp.br \\
-231732 &             artur preciozo figliolino &                   0.0 &        0.00 &        0.00 &  a231732@dac.unicamp.br \\
-213360 &                    augusto lima alves &                  70.0 &       54.03 &        0.00 &  a213360@dac.unicamp.br \\
-231898 &         beatriz consolmagno de marchi &                  70.0 &        1.61 &        0.00 &  b231898@dac.unicamp.br \\
-213731 &                     bianca senne roma &                  70.0 &       29.03 &       62.64 &  b213731@dac.unicamp.br \\
-232395 &                   bruno bueno de lima &                  30.0 &        0.00 &        0.00 &  b232395@dac.unicamp.br \\
-232796 &          carlos henrique araujo viana &                  70.0 &        4.84 &       14.29 &  c232796@dac.unicamp.br \\
-233335 &                 danielle araujo sousa &                  50.0 &        1.61 &        0.00 &  d233335@dac.unicamp.br \\
-233747 &          eduardo ranieri guedes pinto &                  70.0 &       49.19 &       19.78 &  e233747@dac.unicamp.br \\
-255207 &                  fernanda lima santos &                  50.0 &         NaN &         NaN &  f255207@dac.unicamp.br \\
-216459 &            gabriel santana rosmaninho &                   0.0 &        0.00 &        0.00 &  g216459@dac.unicamp.br \\
-235951 &                guilherme garcia gobbo &                  30.0 &        2.42 &        0.00 &  g235951@dac.unicamp.br \\
-236276 &               gustavo henrique biondi &                   0.0 &        0.00 &        1.10 &  g236276@dac.unicamp.br \\
-218090 &            isabela de oliveira garcia &                  70.0 &        1.61 &        0.00 &  i218090@dac.unicamp.br \\
-255241 &             isabella rodrigues soares &                  50.0 &        0.81 &        0.00 &  i255241@dac.unicamp.br \\
-237618 &           joão pedro de paula e silva &                  70.0 &        2.42 &        0.00 &  j237618@dac.unicamp.br \\
-199735 &                    joao pedro gabriel &                  50.0 &       11.29 &        0.00 &  j199735@dac.unicamp.br \\
-218975 &                joão vitor santos melo &                  70.0 &       22.58 &        8.79 &  j218975@dac.unicamp.br \\
-238414 &     juliana florentina fernandes leão &                  70.0 &       16.94 &       40.66 &  j238414@dac.unicamp.br \\
-219613 &  keivan de castro almeida g. de souza &                  50.0 &        6.45 &        0.00 &  k219613@dac.unicamp.br \\
-219907 &           laura maria alves de mattos &                 100.0 &        2.42 &        0.00 &  l219907@dac.unicamp.br \\
-239052 &        lavínia dias de oliveira roman &                  70.0 &       11.29 &        0.00 &  l239052@dac.unicamp.br \\
-220194 &             leonardo tredici de souza &                  70.0 &        0.81 &        1.10 &  l220194@dac.unicamp.br \\
-201326 &               leonardo vitor da silva &                  50.0 &       75.81 &        0.00 &  l201326@dac.unicamp.br \\
-156242 &                 leticia da silva cruz &                   0.0 &         NaN &         NaN &  l156242@dac.unicamp.br \\
-240317 &                       luis felipe avi &                  30.0 &         NaN &       30.77 &  l240317@dac.unicamp.br \\
-240409 &                luísa mendes amstalden &                  70.0 &        5.65 &        0.00 &  l240409@dac.unicamp.br \\
-221515 &        marcos baldez lagoeiro barroso &                  50.0 &        0.81 &        1.10 &  m221515@dac.unicamp.br \\
-255293 &         maria júlia faustino da silva &                  30.0 &         NaN &         NaN &  m255293@dac.unicamp.br \\
-241430 &              marina de marco santucci &                  50.0 &        0.00 &       74.73 &  m241430@dac.unicamp.br \\
-222315 &                 matheus oliveira lima &                  50.0 &        0.81 &        0.00 &  m222315@dac.unicamp.br \\
-184528 &       maycon jefferson teodoro bosing &                  50.0 &        0.00 &       71.43 &  m184528@dac.unicamp.br \\
-222615 &     moises aparecido dos santos filho &                  70.0 &        0.00 &        0.00 &  m222615@dac.unicamp.br \\
-186966 &     samuel henrique rezende bernardes &                   0.0 &         NaN &         NaN &  s186966@dac.unicamp.br \\
-244321 &         sofia helena de oliveira nery &                  50.0 &        3.23 &        0.00 &  s244321@dac.unicamp.br \\
-244379 &                stefanno felipe bicudo &                  50.0 &        1.61 &        0.00 &  s244379@dac.unicamp.br \\
-187323 &              tatiana marchiori keller &                 100.0 &        0.00 &        0.00 &  t187323@dac.unicamp.br \\
-206194 &       thiago alexandre ramos dos reis &                  50.0 &       46.77 &        1.10 &  t206194@dac.unicamp.br \\
-245212 &          victoria silva torres santos &                 100.0 &         NaN &         NaN &  v245212@dac.unicamp.br \\
-206883 &       vinicius santos bering da silva &                   0.0 &       16.94 &        0.00 &  v206883@dac.unicamp.br \\
-245459 &                     vinicius venancio &                  70.0 &        4.84 &        1.10 &  v245459@dac.unicamp.br \\
+\textbf{212883} &                  50.0 \\
+\textbf{212900} &                  50.0 \\
+\textbf{231302} &                  70.0 \\
+\textbf{231732} &                   0.0 \\
+\textbf{213360} &                  70.0 \\
+\textbf{231898} &                  70.0 \\
+\textbf{213731} &                  70.0 \\
+\textbf{232395} &                  30.0 \\
+\textbf{232796} &                  70.0 \\
+\textbf{233335} &                  50.0 \\
+\textbf{233747} &                  70.0 \\
+\textbf{255207} &                  50.0 \\
+\textbf{216459} &                   0.0 \\
+\textbf{235951} &                  30.0 \\
+\textbf{236276} &                   0.0 \\
+\textbf{218090} &                  70.0 \\
+\textbf{255241} &                  50.0 \\
+\textbf{237618} &                  70.0 \\
+\textbf{199735} &                  50.0 \\
+\textbf{218975} &                  70.0 \\
+\textbf{238414} &                  70.0 \\
+\textbf{219613} &                  50.0 \\
+\textbf{219907} &                 100.0 \\
+\textbf{239052} &                  70.0 \\
+\textbf{220194} &                  70.0 \\
+\textbf{201326} &                  50.0 \\
+\textbf{156242} &                   0.0 \\
+\textbf{240317} &                  30.0 \\
+\textbf{240409} &                  70.0 \\
+\textbf{221515} &                  50.0 \\
+\textbf{255293} &                  30.0 \\
+\textbf{241430} &                  50.0 \\
+\textbf{222315} &                  50.0 \\
+\textbf{184528} &                  50.0 \\
+\textbf{222615} &                  70.0 \\
+\textbf{186966} &                   0.0 \\
+\textbf{244321} &                  50.0 \\
+\textbf{244379} &                  50.0 \\
+\textbf{187323} &                 100.0 \\
+\textbf{206194} &                  50.0 \\
+\textbf{245212} &                 100.0 \\
+\textbf{206883} &                   0.0 \\
+\textbf{245459} &                  70.0 \\
 \end{longtable}
-\end{landscape}}
+\end{center}
 #+end_export
 
-
-
-* Monetaristas
-
-** Pendências
-  
-- Checar Eduardo Vinicius de oliveira 215242
-- Nomes sobre moeda não importante Keynes
-
-** Notas
-
-#+NAME:Monetaristas
-#+BEGIN_SRC python :results table latex
-print(df[["Resenha Monetaristas"]].to_latex(),end='');
-#+END_SRC
-
-#+RESULTS: Monetaristas
-#+begin_export latex
-\begin{tabular}{lr}
-\toprule
-{} &  Resenha Monetaristas \\
-RA     &                       \\
-\midrule
-212883 &                  50.0 \\
-212900 &                  50.0 \\
-231302 &                  70.0 \\
-231732 &                   0.0 \\
-213360 &                  70.0 \\
-231898 &                  70.0 \\
-213731 &                  70.0 \\
-232395 &                  30.0 \\
-232796 &                  70.0 \\
-233335 &                  50.0 \\
-233747 &                  70.0 \\
-255207 &                  50.0 \\
-216459 &                   0.0 \\
-235951 &                  30.0 \\
-236276 &                   0.0 \\
-218090 &                  70.0 \\
-255241 &                  50.0 \\
-237618 &                  70.0 \\
-199735 &                  50.0 \\
-218975 &                  70.0 \\
-238414 &                  70.0 \\
-219613 &                  50.0 \\
-219907 &                 100.0 \\
-239052 &                  70.0 \\
-220194 &                  70.0 \\
-201326 &                  50.0 \\
-156242 &                   0.0 \\
-240317 &                  30.0 \\
-240409 &                  70.0 \\
-221515 &                  50.0 \\
-255293 &                  30.0 \\
-241430 &                  50.0 \\
-222315 &                  50.0 \\
-184528 &                  50.0 \\
-222615 &                  70.0 \\
-186966 &                   0.0 \\
-244321 &                  50.0 \\
-244379 &                  50.0 \\
-187323 &                 100.0 \\
-206194 &                  50.0 \\
-245212 &                 100.0 \\
-206883 &                   0.0 \\
-245459 &                  70.0 \\
-\bottomrule
-\end{tabular}
-#+end_export
-
-** Gráfico
+** Gráficos                                                          :ignore:
 
 #+BEGIN_SRC python :results graphics file :file ./figs/monetaristas.png
 fig, ax = plt.subplots(1,2, figsize=(8,5), sharey=True)
@@ -298,5 +239,91 @@ plt.show()
 
 #+RESULTS:
 [[file:./figs/monetaristas_presenca.png]]
+
+
+* Lista de presença e notas
+** Lista de chamada com nota das resenhas                            :ignore:
+#+NAME:Lista
+#+BEGIN_SRC python :results table latex
+print('\\begin{center}\\begin{landscape}')
+print('\small\n\setlength\LTleft{0pt}\n\setlength\LTright{0pt}')
+print(
+    df.to_latex(
+        caption="Lista de presença e de notas",
+        bold_rows=True,
+        longtable=True,
+        na_rep='-',
+        label="lista"
+), end='')
+print('\end{landscape}\end{center}')
+#+END_SRC
+
+#+RESULTS: Lista
+#+begin_export latex
+\begin{center}\begin{landscape}
+\small
+\setlength\LTleft{0pt}
+\setlength\LTright{0pt}
+\begin{longtable}{llrrrl}
+\caption{Lista de presença e de notas}\label{lista}\\
+\toprule
+{} &                                  Nome &  Resenha Monetaristas &  2020-10-19 &  2020-10-26 &                   Email \\
+\textbf{RA    } &                                       &                       &             &             &                         \\
+\midrule
+\endhead
+\midrule
+\multicolumn{6}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+\textbf{212883} &                    ana pasti villalba &                  50.0 &           - &           - &  a212883@dac.unicamp.br \\
+\textbf{212900} &                     ana paula martins &                  50.0 &        0.00 &        0.00 &  a212900@dac.unicamp.br \\
+\textbf{231302} &              andré apolinário cardoso &                  70.0 &        0.00 &        0.00 &  a231302@dac.unicamp.br \\
+\textbf{231732} &             artur preciozo figliolino &                   0.0 &        0.00 &        0.00 &  a231732@dac.unicamp.br \\
+\textbf{213360} &                    augusto lima alves &                  70.0 &       54.03 &        0.00 &  a213360@dac.unicamp.br \\
+\textbf{231898} &         beatriz consolmagno de marchi &                  70.0 &        1.61 &        0.00 &  b231898@dac.unicamp.br \\
+\textbf{213731} &                     bianca senne roma &                  70.0 &       29.03 &       62.64 &  b213731@dac.unicamp.br \\
+\textbf{232395} &                   bruno bueno de lima &                  30.0 &        0.00 &        0.00 &  b232395@dac.unicamp.br \\
+\textbf{232796} &          carlos henrique araujo viana &                  70.0 &        4.84 &       14.29 &  c232796@dac.unicamp.br \\
+\textbf{233335} &                 danielle araujo sousa &                  50.0 &        1.61 &        0.00 &  d233335@dac.unicamp.br \\
+\textbf{233747} &          eduardo ranieri guedes pinto &                  70.0 &       49.19 &       19.78 &  e233747@dac.unicamp.br \\
+\textbf{255207} &                  fernanda lima santos &                  50.0 &           - &           - &  f255207@dac.unicamp.br \\
+\textbf{216459} &            gabriel santana rosmaninho &                   0.0 &        0.00 &        0.00 &  g216459@dac.unicamp.br \\
+\textbf{235951} &                guilherme garcia gobbo &                  30.0 &        2.42 &        0.00 &  g235951@dac.unicamp.br \\
+\textbf{236276} &               gustavo henrique biondi &                   0.0 &        0.00 &        1.10 &  g236276@dac.unicamp.br \\
+\textbf{218090} &            isabela de oliveira garcia &                  70.0 &        1.61 &        0.00 &  i218090@dac.unicamp.br \\
+\textbf{255241} &             isabella rodrigues soares &                  50.0 &        0.81 &        0.00 &  i255241@dac.unicamp.br \\
+\textbf{237618} &           joão pedro de paula e silva &                  70.0 &        2.42 &        0.00 &  j237618@dac.unicamp.br \\
+\textbf{199735} &                    joao pedro gabriel &                  50.0 &       11.29 &        0.00 &  j199735@dac.unicamp.br \\
+\textbf{218975} &                joão vitor santos melo &                  70.0 &       22.58 &        8.79 &  j218975@dac.unicamp.br \\
+\textbf{238414} &     juliana florentina fernandes leão &                  70.0 &       16.94 &       40.66 &  j238414@dac.unicamp.br \\
+\textbf{219613} &  keivan de castro almeida g. de souza &                  50.0 &        6.45 &        0.00 &  k219613@dac.unicamp.br \\
+\textbf{219907} &           laura maria alves de mattos &                 100.0 &        2.42 &        0.00 &  l219907@dac.unicamp.br \\
+\textbf{239052} &        lavínia dias de oliveira roman &                  70.0 &       11.29 &        0.00 &  l239052@dac.unicamp.br \\
+\textbf{220194} &             leonardo tredici de souza &                  70.0 &        0.81 &        1.10 &  l220194@dac.unicamp.br \\
+\textbf{201326} &               leonardo vitor da silva &                  50.0 &       75.81 &        0.00 &  l201326@dac.unicamp.br \\
+\textbf{156242} &                 leticia da silva cruz &                   0.0 &           - &           - &  l156242@dac.unicamp.br \\
+\textbf{240317} &                       luis felipe avi &                  30.0 &           - &       30.77 &  l240317@dac.unicamp.br \\
+\textbf{240409} &                luísa mendes amstalden &                  70.0 &        5.65 &        0.00 &  l240409@dac.unicamp.br \\
+\textbf{221515} &        marcos baldez lagoeiro barroso &                  50.0 &        0.81 &        1.10 &  m221515@dac.unicamp.br \\
+\textbf{255293} &         maria júlia faustino da silva &                  30.0 &           - &           - &  m255293@dac.unicamp.br \\
+\textbf{241430} &              marina de marco santucci &                  50.0 &        0.00 &       74.73 &  m241430@dac.unicamp.br \\
+\textbf{222315} &                 matheus oliveira lima &                  50.0 &        0.81 &        0.00 &  m222315@dac.unicamp.br \\
+\textbf{184528} &       maycon jefferson teodoro bosing &                  50.0 &        0.00 &       71.43 &  m184528@dac.unicamp.br \\
+\textbf{222615} &     moises aparecido dos santos filho &                  70.0 &        0.00 &        0.00 &  m222615@dac.unicamp.br \\
+\textbf{186966} &     samuel henrique rezende bernardes &                   0.0 &           - &           - &  s186966@dac.unicamp.br \\
+\textbf{244321} &         sofia helena de oliveira nery &                  50.0 &        3.23 &        0.00 &  s244321@dac.unicamp.br \\
+\textbf{244379} &                stefanno felipe bicudo &                  50.0 &        1.61 &        0.00 &  s244379@dac.unicamp.br \\
+\textbf{187323} &              tatiana marchiori keller &                 100.0 &        0.00 &        0.00 &  t187323@dac.unicamp.br \\
+\textbf{206194} &       thiago alexandre ramos dos reis &                  50.0 &       46.77 &        1.10 &  t206194@dac.unicamp.br \\
+\textbf{245212} &          victoria silva torres santos &                 100.0 &           - &           - &  v245212@dac.unicamp.br \\
+\textbf{206883} &       vinicius santos bering da silva &                   0.0 &       16.94 &        0.00 &  v206883@dac.unicamp.br \\
+\textbf{245459} &                     vinicius venancio &                  70.0 &        4.84 &        1.10 &  v245459@dac.unicamp.br \\
+\end{longtable}
+\end{landscape}\end{center}
+#+end_export
+
 
 
