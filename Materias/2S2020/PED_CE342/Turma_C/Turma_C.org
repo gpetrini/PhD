@@ -4,116 +4,286 @@
 #+DATE: 2020/2S
 #+PROPERTY: COLUMNS %RA %TAREFA(Tarefa) %NOTA(Nota)
 #+EXCLUDE_TAGS: private noexport
-#+PROPERTY: header-args:ipython  :session *Turma_C* :exports results results: output
+#+PROPERTY: header-args:python  :session *Turma_C* :python /usr/bin/python3 :exports results
+#+LATEX_HEADER: \usepackage{longtable, pdflscape, booktabs}
+
+#+RESULTS:
 
 * Configuração                                                     :noexport:
 
-#+BEGIN_SRC ipython
+** Pacotes
+#+BEGIN_SRC python
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import datetime
+import numpy as np
+import sympy as sp
+
+Turma = "C"
+
+Resenhas = ["Monetaristas", "Novos Clássicos", "Novos Keynesianos", "Novo Consenso"]
 #+END_SRC
 
 #+RESULTS:
-:results:
-# Out [1]: 
-:end:
+: Python 3.8.5 (default, Jul 28 2020, 12:59:40) 
+: [GCC 9.3.0] on linux
+: Type "help", "copyright", "credits" or "license" for more information.
+: python.el: native completion setup loaded
+
+** Importando tabela Ana Rosa
+
+#+BEGIN_SRC python :export no
+df = pd.read_excel(
+    '../Lista presença 2020.xlsx',
+    sheet_name="CE342_" + Turma,
+    parse_dates=True,
+)
+df["Nome"] = [nome.lower().strip() for nome in df["Nome"]] # Covert to lower case
+df.set_index(["Nome"], inplace=True)
+df.drop(["Unnamed: 17"], axis='columns', inplace=True) # Removendo coluna vazia e coluna de e-mails (é possível inferir)
+#df.columns = pd.to_datetime(df.columns, errors='ignore', format='%Y-%m-%d')
+min_df = df[["RA"]].astype(str)
+#+END_SRC
+
+#+RESULTS:
+
+** Funções
+
+#+BEGIN_SRC python
+def importar_ext(Turma=Turma, data="2020-10-19"):
+    tmp = pd.read_csv(
+        f'./Presença/Turma_{Turma} ({data}).csv',
+        skiprows=3,
+        usecols=[0,6,7],
+        sep=',',
+    )
+
+    tmp["Nome"] = [nome.lower() for nome in tmp["Names"]]
+
+    tmp["Tempo"] = [float(str(i).replace('"', '')) for i in tmp[' "# of Checks"']]
+    tmp["Entrada"] = [float(str(i).replace('"', '')) for i in tmp[' "Joined"']]
+    tmp.set_index(['Nome'], inplace=True)
+    tmp[f"{data}"] = ((tmp["Tempo"]/np.max(tmp["Tempo"]))*100).round(2)
+    tmp = tmp[:-2][[f"{data}"]].fillna(0) # Descartando rodapé
+    #midx = pd.MultiIndex.from_product([[f'{data}'], ['Presença', 'Entrada']], names=['Data', f'Turma {Turma}']) # criando multiindex
+    #tmp = pd.DataFrame(tmp, columns=midx) # Criando df com multindex
+
+    return tmp
+
+
+#+END_SRC
+
+#+RESULTS:
+
+** Merge e exportação
+
+#+BEGIN_SRC python
+monetaristas = pd.read_csv('./Notas/Monetaristas.csv')[["Endereço de e-mail", "Nota", "Status da atividade"]]
+monetaristas["RA"] = [i[1:7] for i in  monetaristas["Endereço de e-mail"]]
+monetaristas.drop(["Endereço de e-mail", "Status da atividade"], axis="columns", inplace=True)
+monetaristas.set_index("RA", inplace=True)
+monetaristas.columns = ["Resenha Monetaristas"]
+
+df = min_df.reset_index().merge(
+    monetaristas.reset_index(),
+    how='left',
+    ).join(
+    importar_ext(Turma=Turma, data="2020-10-19"),
+    how='left', on='Nome'
+    ).join(
+        importar_ext(Turma=Turma, data="2020-10-26"),
+        how='left', on='Nome'
+    ).set_index('RA')
+
+df["Email"] = [df["Nome"][i][0] + df.index[i] + "@dac.unicamp.br" for i in range(len(df.index))]
+
+df.to_csv(f'./output/CE342_{Turma}.csv')
+df.to_excel(f'./output/CE342_{Turma}.xlsx')
+
+#+END_SRC
+
+#+RESULTS:
+
+* Lista de presença e notas
+** Lista de chamada com nota das resenhas
+#+NAME:Lista
+#+BEGIN_SRC python :results table latex
+print('\small{\\begin{landscape}')
+print(df.to_latex(longtable=True), end='')
+print('\end{landscape}}')
+#+END_SRC
+
+#+RESULTS: Lista
+#+begin_export latex
+\small{\begin{landscape}
+\begin{longtable}{llrrrl}
+\toprule
+{} &                                   Nome &  Resenha Monetaristas &  2020-10-19 &  2020-10-26 &                   Email \\
+RA     &                                        &                       &             &             &                         \\
+\midrule
+\endhead
+\midrule
+\multicolumn{6}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+230645 &                    alice pereira dario &                  50.0 &       17.86 &        0.00 &  a230645@dac.unicamp.br \\
+213549 &           beatriz helena toledo pastre &                  30.0 &        0.00 &        0.00 &  b213549@dac.unicamp.br \\
+257748 &             breno rivelino fima castro &                  50.0 &        7.14 &        5.31 &  b257748@dac.unicamp.br \\
+232568 &                 caio cimino de almeida &                  70.0 &         NaN &        2.65 &  c232568@dac.unicamp.br \\
+233566 &                 diego tabacof labriola &                  30.0 &        0.00 &        0.00 &  d233566@dac.unicamp.br \\
+215626 &                felipe barbosa de souza &                   0.0 &        0.00 &        0.00 &  f215626@dac.unicamp.br \\
+91108  &                 felipe eboli sotorilli &                   NaN &        1.79 &        0.00 &   f91108@dac.unicamp.br \\
+234311 &                  felipe rubbo aguilera &                  50.0 &       33.93 &        1.77 &  f234311@dac.unicamp.br \\
+216397 &                        gabriel pereira &                  30.0 &        0.00 &        0.88 &  g216397@dac.unicamp.br \\
+197474 &                gabriel pereira jovetta &                  50.0 &        0.00 &        4.42 &  g197474@dac.unicamp.br \\
+234982 &                 gabriel pereira santos &                   0.0 &         NaN &       13.27 &  g234982@dac.unicamp.br \\
+235042 &                gabriel silva gonçalves &                   0.0 &        0.00 &        0.00 &  g235042@dac.unicamp.br \\
+197724 &           gabriela santana das virgens &                  50.0 &        0.00 &        0.88 &  g197724@dac.unicamp.br \\
+217350 &       guilherme yoshio agata domingues &                  30.0 &         NaN &         NaN &  g217350@dac.unicamp.br \\
+174154 &               gustavo josé lara campos &                  30.0 &        0.00 &        4.42 &  g174154@dac.unicamp.br \\
+237534 &         joao mateus rodrigues da silva &                  30.0 &         NaN &         NaN &  j237534@dac.unicamp.br \\
+237856 &        joão vitor dos santos rodrigues &                  50.0 &        1.79 &        0.00 &  j237856@dac.unicamp.br \\
+199967 &                   jonas pereira cintra &                  70.0 &        0.00 &        3.54 &  j199967@dac.unicamp.br \\
+103034 &  leonardo augusto de oliveira piovesan &                  50.0 &        0.00 &        0.00 &  l103034@dac.unicamp.br \\
+172577 &                   lucas azevedo soares &                  50.0 &        2.68 &        5.31 &  l172577@dac.unicamp.br \\
+159866 &              marcela chenfel dos anjos &                  50.0 &        0.89 &        0.00 &  m159866@dac.unicamp.br \\
+221896 &               mariana sayuri silva doi &                  70.0 &       34.82 &        0.88 &  m221896@dac.unicamp.br \\
+257876 &    maryana beatriz ventura de carvalho &                 100.0 &       67.86 &        0.88 &  m257876@dac.unicamp.br \\
+242087 &                          miguel razera &                   0.0 &        0.89 &        1.77 &  m242087@dac.unicamp.br \\
+242328 &    natalia kimberlle tavares imperiano &                  50.0 &         NaN &         NaN &  n242328@dac.unicamp.br \\
+147614 &          pedro augusto de almeida rosa &                   0.0 &        0.00 &        0.00 &  p147614@dac.unicamp.br \\
+176104 &              rafael da silva tomasella &                   0.0 &         NaN &         NaN &  r176104@dac.unicamp.br \\
+205149 &                 raphaela freitas souza &                 100.0 &         NaN &         NaN &  r205149@dac.unicamp.br \\
+205151 &               raphaela prado francisco &                   0.0 &        0.89 &       47.79 &  r205151@dac.unicamp.br \\
+244207 &                 sanny alves dos santos &                  70.0 &        0.89 &        0.00 &  s244207@dac.unicamp.br \\
+158425 &                           tales alonso &                  50.0 &        0.89 &       61.95 &  t158425@dac.unicamp.br \\
+257932 &              thaís monello de oliveira &                 100.0 &        0.89 &        0.00 &  t257932@dac.unicamp.br \\
+177964 &               victor hugo alves duarte &                  70.0 &        0.00 &        0.00 &  v177964@dac.unicamp.br \\
+245099 &                            victor maia &                  50.0 &       16.07 &       53.98 &  v245099@dac.unicamp.br \\
+206806 &            vinicius jeronimo capodalio &                  50.0 &        0.00 &        7.08 &  v206806@dac.unicamp.br \\
+225851 &                william de sousa rabelo &                  50.0 &         NaN &         NaN &  w225851@dac.unicamp.br \\
+\end{longtable}
+\end{landscape}}
+#+end_export
+
+
 
 * Monetaristas
 
-#+BEGIN_SRC ipython output: table
-df = pd.read_csv('./Notas/Monetaristas.csv')[["Endereço de e-mail", "Nota", "Status da atividade"]]
-df["RA"] = [i[1:7] for i in  df["Endereço de e-mail"]]
-df.drop(["Endereço de e-mail", "Status da atividade"], axis="columns", inplace=True)
-df.set_index("RA", inplace=True)
-df.columns = ["Monetaristas"]
-df
+** Pendências
+
+** Notas
+
+#+NAME:Monetaristas
+#+BEGIN_SRC python :results table latex
+print(df[["Resenha Monetaristas"]].to_latex(),end='');
 #+END_SRC
 
-#+RESULTS:
-:results:
-# Out [2]: 
-# text/plain
-:         Monetaristas
-: RA                  
-: 230645          50.0
-: 213549          30.0
-: 257748          50.0
-: 232568          70.0
-: 233566          30.0
-: 215626           0.0
-: 091108          50.0
-: 234311          50.0
-: 216397          30.0
-: 197474          50.0
-: 234982           0.0
-: 235042           0.0
-: 197724          50.0
-: 217350          30.0
-: 174154          30.0
-: 237534          30.0
-: 199967          70.0
-: 237856          50.0
-: 103034          50.0
-: 172577          50.0
-: 159866          50.0
-: 221896          70.0
-: 257876         100.0
-: 242087           0.0
-: 242328          50.0
-: 147614           0.0
-: 176104           0.0
-: 205149         100.0
-: 205151           0.0
-: 244207          70.0
-: 158425          50.0
-: 257932         100.0
-: 177964          70.0
-: 245099          50.0
-: 206806          50.0
-: 225851          50.0
+#+RESULTS: Monetaristas
+#+begin_export latex
+\begin{tabular}{lr}
+\toprule
+{} &  Resenha Monetaristas \\
+RA     &                       \\
+\midrule
+230645 &                  50.0 \\
+213549 &                  30.0 \\
+257748 &                  50.0 \\
+232568 &                  70.0 \\
+233566 &                  30.0 \\
+215626 &                   0.0 \\
+91108  &                   NaN \\
+234311 &                  50.0 \\
+216397 &                  30.0 \\
+197474 &                  50.0 \\
+234982 &                   0.0 \\
+235042 &                   0.0 \\
+197724 &                  50.0 \\
+217350 &                  30.0 \\
+174154 &                  30.0 \\
+237534 &                  30.0 \\
+237856 &                  50.0 \\
+199967 &                  70.0 \\
+103034 &                  50.0 \\
+172577 &                  50.0 \\
+159866 &                  50.0 \\
+221896 &                  70.0 \\
+257876 &                 100.0 \\
+242087 &                   0.0 \\
+242328 &                  50.0 \\
+147614 &                   0.0 \\
+176104 &                   0.0 \\
+205149 &                 100.0 \\
+205151 &                   0.0 \\
+244207 &                  70.0 \\
+158425 &                  50.0 \\
+257932 &                 100.0 \\
+177964 &                  70.0 \\
+245099 &                  50.0 \\
+206806 &                  50.0 \\
+225851 &                  50.0 \\
+\bottomrule
+\end{tabular}
+#+end_export
 
-[[file:/tmp/ob-ipython-htmlHcT30A.html]]
-:end:
+** Gráficos
 
-#+BEGIN_SRC ipython
+#+BEGIN_SRC python :results graphics file :file ./figs/monetaristas.png
 fig, ax = plt.subplots(1,2, figsize=(8,5), sharey=True)
 
-sns.distplot(df['Monetaristas'], hist=True, kde=True, 
+sns.distplot(df['Resenha Monetaristas'], hist=True, kde=True, 
              bins=int(10), color = 'darkblue', 
              hist_kws={'edgecolor':'black'}, ax=ax[0],
              kde_kws={'linewidth': 4, 'shade': True})
 
-ax[0].set_title('Nota das resenhas\nTurma C')
-ax[0].text(90, 0.03, f'$\mu = ${df["Monetaristas"].mean().round(1)/10}', fontsize=12)
-ax[0].text(90, 0.027, f'$\sigma = ${df["Monetaristas"].std().round(1)/10}', fontsize=12)
+ax[0].set_title(f'Nota das resenhas\nTurma {Turma}')
+ax[0].text(90, 0.03, f'$\mu = ${df["Resenha Monetaristas"].mean().round(1)/10}', fontsize=12)
+ax[0].text(90, 0.027, f'$\sigma = ${df["Resenha Monetaristas"].std().round(1)/10}', fontsize=12)
 
-sns.distplot(df[df['Monetaristas']>0]['Monetaristas'], hist=True, kde=True, 
+
+sns.distplot(df[df['Resenha Monetaristas']>0]['Resenha Monetaristas'], hist=True, kde=True, 
              bins=int(10), color = 'darkblue', 
              hist_kws={'edgecolor':'black'}, ax=ax[1],
              kde_kws={'linewidth': 4, 'shade': True})
 
 ax[1].set_title('Nota das resenhas\n(Exceto não entregues)')
-ax[1].text(90, 0.03, f"$\mu = ${df[df['Monetaristas']>0]['Monetaristas'].mean().round(1)/10}", fontsize=12)
-ax[1].text(90, 0.027, f"$\sigma = ${round(df[df['Monetaristas']>0]['Monetaristas'].std())/10}", fontsize=12)
+ax[1].text(90, 0.03, f"$\mu = ${df[df['Resenha Monetaristas']>0]['Resenha Monetaristas'].mean().round(1)/10}", fontsize=12)
+ax[1].text(90, 0.027, f"$\sigma = ${round(df[df['Resenha Monetaristas']>0]['Resenha Monetaristas'].std())/10}", fontsize=12)
 ax[1].set_ylabel('Densidade')
 
 plt.tight_layout()
+fig.savefig('./figs/monetaristas.png')
+
 plt.show()
 #+END_SRC
 
 #+RESULTS:
-:results:
-# Out [17]: 
-# output
-/home/gpetrini/.local/lib/python3.8/site-packages/seaborn/distributions.py:2551: FutureWarning: `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
-  warnings.warn(msg, FutureWarning)
-/home/gpetrini/.local/lib/python3.8/site-packages/seaborn/distributions.py:2551: FutureWarning: `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
-  warnings.warn(msg, FutureWarning)
+[[file:./figs/monetaristas.png]]
 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
+#+BEGIN_SRC python :results graphics file :file ./figs/monetaristas_presenca.png
+tmp = df.copy()
 
-# image/png
-[[file:obipy-resources/8f0e11a6005cb70041688b819f26537d6c776922/08ba3cdf3bafa2b261d41af57b078c27e75669ef.png]]
-:end:
+tmp["Média presença"] = tmp[["2020-10-19", "2020-10-26"]].mean(axis=1)
+
+resenha = "Monetaristas"
+
+fig, ax = plt.subplots()
+
+sns.regplot(x="Média presença", y=f"Resenha {resenha}", data=tmp, ax=ax, y_jitter=.05);
+
+ax.set_title(f"Nota x Presença\nResenha {resenha} - Turma {Turma}")
+
+fig.savefig('./figs/monetaristas_presenca.png')
+
+plt.show()
+
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/monetaristas_presenca.png]]
+
+

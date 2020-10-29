@@ -433,7 +433,126 @@
 
 *** Chapter 1 - Introduction
 
-    
+After introducing some panel datasets an its characteristics, the author itemize some advantages and disadvantages of Panel Data as follows:
+
+*Advantages:*
+
+- _Controlling for individual heterogeneity_: Time-series and cross-section studies not controlling this heterogeneity run the risk of obtaining *biased results*
+- _More informative data, more variability, less collinearity among the variables, more degrees of freedom and more efficiency_
+- _Better able to study the dynamics of adjustment_
+- _Better able to identify and measure effects that are simply not detectable in pure cross-section or pure time-series data_
+- _Biases resulting from aggregation may be reduced or eliminated_
+- _*Macro Panel Data* have a longer time series and unlike the problem of nonstandard distributions typical of unit roots tests in time-series analysis_
+
+*Limitations:* Most of them are related to micro panel data which are
+
+- Design and data collection problems
+- Distortions of measurement errors
+- Selectivity problems
+- Self-selectivity
+- Short time-series dimension
+- *Cross-section dependence:*  may lead to misleading inference. Alternative panel unit root tests are suggested that account for this dependence.
+
+*** Chapter 2 - The One-way Error Component Regression Model
+
+**** Introduction
+
+The following equation is an example of a panel data regression
+
+$$
+y_{i,t} = \alpha + X'_{i,t}\beta + u_{i,t} \hspace{2cm} i = 1, \ldots, N; t = 1, \ldots, T; 
+$$
+
+where
+
+- $i$ cross-section dimension
+- $t$ time-series dimension
+- $\alpha$ is a scalar
+
+Most of the panel data applications utilize a *one-way error* component model for the disturbances
+
+$$
+u_{i,t} = \mu_i + v_{i,t}
+$$
+in which
+
+- $\mu_i$  unobservable individual-specific effect (time-invariant)
+  - accounts for any individual-specific effect that is not included in the regression
+- $v_{i,t}$ remainder disturbance
+
+
+**** The fixed effects model (FE)
+
+In this case, the $\mu_i$ are assumed to be fixed parameters to be estimated and the remainder disturbances stochastic with $ν_{i,t} independent and identically distributed $IID(0, \sigma_v^2)$. The $X_{i,t}$ are assumed *independent* of the $ν_{i,t}$ for all $i$ and $t$. The fixed effects model is an appropriate specification if we are focusing on a set of N OECD countries. If $N$ is large, regression include too many individual dummies, and the matrix to be inverted by OLS is large and of dimension $(N + K)$.
+
+$$
+y = \alpha\iota_{NT}  + X\beta + Z_\mu \mu + v
+$$
+
+
+For large panels, where N is very large, regressions like the previous one may not be feasible, since one is including $(N − 1)$ dummies in the regression. This fixed effects (FE) least squares, also known as least squares dummy variables (LSDV), suffers from a *large loss of degrees of freedom*. We are estimating $(N − 1)$ extra parameters, and too many dummies may aggravate the problem of _*multicollinearity* among the regressors_. In addition, this FE estimator cannot estimate the effect of any time-invariant variable like sex, race, religion, schooling or union participation since  These time-invariant variables are wiped out by the $Q$ transformation.
+
+If the equation bellow is the true model, LSDV is BLUE as long as $v_{i,t}$ is the standard classical distribution with mean 0 and variance-covariance matrix $\sigma^2_v I_{NT}$.
+
+- As $T \to \infty$, FE estimator is *consistent*
+- If $T$ is fixed and $N \to \infty$
+  - only the FE of $\beta$ is concistent
+  - the FE estimator of individual effects ($\alpha + \mu_i$) are *not consistent*
+
+If the equation bellow is the true model, OLS yields *biased and inconsistent estimates* of the regression parameters. This is an *omission variables bias* due to the fact that OLS deletes the individual dummies when in fact they are relevant.
+
+*Testing for fixed effects:* One could test the joint significance of these dummies, i.e. $H_0: \mu_1 = \mu_2 = \ldots - \mu_{N-1} = 0$ by performing an F-test (simple Chow test).
+
+*Robust estimates of the standard errors:*  $T$ is assumed _small_ and $N$ _large_ and the asymptotic results are performed for $N \to \infty$ and T fixed. 
+
+**** Random Effects Model (RE)
+
+There are too many parameters in the fixed effects model and the *loss of degrees of freedom* can be avoided if the $\mu_i$ can be assumed *random*. In this case
+
+$$
+\mu_i \sim IID(0, \sigma^2_\mu) \hspace{2cm} v_{i,t} \sim IID(0, \sigma^2_v)
+$$
+Also
+
+- $\mu_i$ are independent of the $v_{i,t}$
+- $X_{i,t}$ are independent of $\mu_i$ and $v_{i,t}$ for all $i$ and $t$
+
+The random effects model is an appropriate specification if we are drawing N individuals *randomly* from a _large population_.  In this case, N is usually large and a fixed effects model would lead to an enormous loss of degrees of freedom. The individual effect is characterized as random and inference pertains to the population from which this sample was randomly drawn.
+
+In order to obtain the GLS estimator of the regression coefficients, we need $\Omega^{-1}$. This is a huge matrix for typical panels and is of dimension $NT \times NT$. *No brute force* inversion should be attempted even if the researcher’s application has a small N and T. After some matrix manipulations, it is possible to obtain GLS as a weighted lest squares. 
+
+Under the random effects model, the OLS estimates are still *unbiased and consistent*, but *no longer efficient*. Under the random effects model, GLS based on the true variance components is *BLUE*, and all the feasible GLS estimators considered are asymptotically *efficient* as either $N$ or $T \to \infty$. Additionally,
+
+- Feasible GLS is more efficient than LSDV for all but the fewest degrees of freedom.
+- More efficient estimators of the variance components do not necessarily yield more efficient feasible GLS estimators.
+
+
+**** Fixed vs Random
+
+Unfortunately, applied researchers have interpreted a rejection as an adoption of the fixed effects model and nonrejection as an adoption of the random effects model.  Mundlak (1978) argued that the random effects model assumes *exogeneity* of all the regressors with the random individual effects. In contrast, the fixed effects model *allows for endogeneity of all the regressors* with these individual effects. So, it is an "all" or "nothing" choice of exogeneity of the regressors and the individual effects.
+
+**** Maximum Likehood Estimation (MLE)
+
+Some short notes about MLE
+
+- Under normality of the disturbances
+- It is suggested to start with $\tilde{\beta}_{\text{Within}}$ and $\hat{\beta}_{\text{Between}}$ and iterating
+  -  If these two sequences converge to the same maximum, then this is the global maximum.
+
+**** Summary
+
+
+|           | Unbiased | Consistent | Efficient | OBS                               |
+| LSDV (FE) | X        | X          | ?         | as long as $IID(0, \sigma^2_{v})$ |
+| OLS (FE)  | -        | -          | -         | omission variables bias           |
+| OLS (RE)  | X        | X          | ?         |                                   |
+| GLS (RE)  | X        | X          | X         | all but fewest DoF                |
+
+
+
+*** Chapter 3 - The Two-way Error Component Regression Model
+
+
 * [#A] Causality related
 
 ** SKIM [#C] [[https://www.sciencedirect.com/science/article/abs/pii/S0264999312000491][Dumitrescu and Hurlin - Testing for Granger non-causality in heterogeneous panels]]
