@@ -643,6 +643,7 @@ gY         2.900000e-02
 
 *** Table
 
+#+ATTR_LATEX: :environment tabularx :placement [h] :center t :width \linewidth
 #+BEGIN_SRC python :results raw table latex
 base = model()
 df = SolveSFC(base, time=1000)

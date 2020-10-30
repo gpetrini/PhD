@@ -6,6 +6,7 @@
 #+LATEX_HEADER: \usepackage{svg, caption, multirow, booktabs}
 #+LATEX_HEADER: \usepackage[english]{babel}
 #+PROPERTY: header-args:python :python /usr/bin/python3 :exports none :eval never-export
+#+BIND: org-latex-prefer-user-labels t
 #+BEGIN_abstract
 In this paper, we build a fully specified parsimonious Sraffian supermultiplier stock-flow consistent model (SSM-SFC) with two non-capacity creating autonomous expenditure: residential investment and debt-financed consumption.
 Our model represents a closed and without government economy with workers and capitalist households and only the latter are not not credit constrained.
@@ -373,6 +374,7 @@ Since capitalists' loans and mortgage to house ratios ($\ell^{\star}_{k}$ and $m
 * Numerical Appendix
  #+LATEX: \label{append:Data}
 
+
 #+BEGIN_SRC latex
 \begin{table}[H]
 \caption{Parameters of variables}
@@ -396,6 +398,8 @@ Since capitalists' loans and mortgage to house ratios ($\ell^{\star}_{k}$ and $m
 
 
 ** Sensibility                                                       :ignore:
+
+*** Config
 
 #+BEGIN_SRC python :tangle ./codes/Sobol.py :async t :session Sobol :exports none :python /usr/bin/python3.8 :eval never-export
 
@@ -454,6 +458,7 @@ def sensibility(
 
 #+RESULTS:
 
+*** Simulation
 
 #+BEGIN_SRC python  :tangle ./codes/Sobol.py :async t :session Sobol :exports none :cache no :python /usr/bin/python3.8 :eval never-export
 df = sensibility(time=400, parameters=parameters)
@@ -466,9 +471,9 @@ report = pd.DataFrame(
 print(df)
 #+END_SRC
 
+*** Table
 
 
-#+attr_latex: placement=[H]
 #+BEGIN_SRC python  :tangle ./codes/Sobol.py :async t :session Sobol :results table drawer latex :exports results :python /usr/bin/python3.8 :eval never-export
 results = report.copy(deep=True)
 df_ = df.copy()
@@ -521,7 +526,6 @@ print(results.to_latex(
     label = "tab:sensibility",
     escape = False,
     na_rep = '-',
-    multirow=True,
     #position="H"
 ))
 #+END_SRC

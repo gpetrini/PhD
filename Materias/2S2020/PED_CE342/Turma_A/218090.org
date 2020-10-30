@@ -15,6 +15,17 @@
 #+PROPERTY: NOTA_ALL "Atingido totalmente" "Atingido satisfatoriamente" "Atingido parcialmente" "Atingindo minimamente" "Não atingido"
 
 
+* HTML headers                                         :noexport:ignore:
+  #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+  #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+
+  #+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  #+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  #+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+  #+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+
+
+
 * Notas :private:
 
   #+BEGIN: columnview :maxlevel 3 :id global
@@ -35,3 +46,25 @@
 ** Comentários individuais 
 
 Apesar de curtos, seus dois primeiros parágrafos de aberturam possuem informação suficiente para contextualizar a resenha. Adiante, contrapõe corretamente o keynesianismo ortodoxo à retomada da TQM. Aos descrever a TQM enquanto teoria da demanda por moeda, deixou de pontuar que esta implica estabilidade na demanda por saldos monetários. Em seguida, ao introduzir a Curva de Phillips, escreve como se Friedman aceitasse o trade-off entre salários e inflação. Mais precisamente, ele afirmava que tal trade-off é temporário e duraria enquanto a ilusão monetária perdurasse. No parágrafo seguinte, por sua vez, fica claro que tal trade-off se dá no curto prazo. Dessa forma, há uma contradição entre esses dois parágrafos. A seguir, corretamente pontua as proposições tanto do lado da oferta quanto do lado da demanda. Mais ao fim, encerra a discussão pontuando as influências e fragilidades do monetarismo.
+
+
+** Revisão e sugestão <2020-10-30 sex>
+
+- É mencionado que a demanda por moeda é constante e não estável. Esta claro o que quis dizer, mas poderia ser mais precisa
+- A partir da exposição da TQM, não fica explicitado o porquê de variações no estoque de moeda implicariam aumento dos preços
+  - Um possível caminho seria por meio da taxa natural de desemprego. Se a economia é estável e converge para a taxa natural de desemprego (como se estivesse no pleno emprego), um aumento na demanda faz com que os preços se elevem
+    - Ajuste via preços e não via quantidade (todos os fatores de produção estão empregados)
+    - Na presença de ilusão monetária, pode haver ajustes via quantidade, mas como não estão associados à otimização dos agentes, esta posição não é estável
+  - Este ponto de não descrever o porquê de variações no estoque de moeda implicarem inflação é uma das questões que fez com que sua nota não fosse 10
+    - Um ponto a seu favor é que destacou a importância da TQM, mas pouco associou (ou enfatizou) a estabilidade da demanda por moeda.
+    - ARGUMENTO e DESENVOLVIMENTO comprometidos ($TQM \Rightarrow \text{Estabilidade } \Rightarrow U_N \Leftrightarrow \Uparrow M \Rightarrow \Uparrow P$)
+- Redução da nível de desemprego via estímulo à demanda agregada se dá em um primeiro momento sobre como o governo gasta e subsequente emissão de Moeda (pouco ponto importante para a resenha)
+- Da forma como construiu, não fica explícito o porquê de que a moeda tem efeitos apenas no curto prazo (nem porque é neutra no longo)
+  - Os elementos para esta conclusão estão colocados, falta apenas conectá-los melhor
+    - Da forma como construiu o parágrafo, daria para entender que a inflação ocorreria somente no curto prazo
+  - O fenômeno da ilusão monetária também é importante para explicar esse ponto
+    - Salvo engano, este conceito também não apareceu em sua resenha.
+- A proposição de uma regra para a taxa de crescimento do estoque de moeda esta colocado para que a economia "permanecesse" em equilíbrio. Em linhas gerais, esta correto, mas poderia ter pontuado também que a política monetária discricionária gera instabilidade (mais do que estabilidade)
+  - Essa questão é pontuada adiante, mas não esta conectada aos argumentos
+- Impressão geral: parece que esta descrevendo Snowdon e Vane. A princípio, isso faz com que seu texto seja uma resenha. No entanto, vale lembrar o propósito do porquê resenhar determinado texto.
+  - Para a disciplina, é uma mais importante pontuar como os conceitos se conectam para explicar alguma proposição de política monetária do que como Snowdon e Vane conectam tais conceitos (os objetivos e intenções deles são outros). Sinta-se a vontade para alterar a ordem dos textos
