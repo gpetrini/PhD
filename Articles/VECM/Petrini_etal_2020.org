@@ -1,0 +1,72 @@
+#+TITLE: Long-run effective demand and residential investment: a Sraffian supermultiplier based analysis
+#+AUTHOR: Gabriel Petrini, Lucas Teixeira
+#+EMAIL: gpetrinidasilveira@gmail.com, lucas.teixeira@unicamp.br
+#+OPTIONS: toc:nil
+#+LATEX_HEADER: \addbibresource{refs.bib}
+#+LATEX_HEADER: \usepackage{svg, caption, multirow, booktabs}
+#+LATEX_HEADER: \usepackage[english]{babel}
+#+PROPERTY: header-args:python :python /usr/bin/python3 :exports none :eval never-export
+#+BIND: org-latex-prefer-user-labels t
+#+BEGIN_abstract
+This article investigates the relationship between residential investment, asset inflation, and macroeconomic dynamics based on
+the US post-deregulation case (1992-2019). To do so, we estimate a vector error correction model (VECM) to asses the relevance of
+real interest rate of real estate. We find residential investment growth rate and houses’ own interest rate to be cointegrated. We
+also find that that long-run causality goes unidirectionally from houses’ own interest rate to residential investment growth rate,
+as expected. In summary, our findings support the relevance of houses’ own interest rate in determining residential investment
+while the other way round does not occur.
+	
+#+LATEX: \noindent \textbf{Keywords:} Residential Investment; Sraffian supermultiplier; Asset bubble;  Stock-Flow Consistent approach.
+#+END_abstract
+
+
+* General TODOs                                                    :noexport:
+
+* Introduction
+#+LATEX: \label{sec:introduction}
+#+INCLUDE: "Introduction.org"
+
+
+
+* Housing Dynamics and Business Cycle in the US Economy
+
+* Review of the Macroeconometric Literature
+
+* Macroeconometric analysis
+
+** Houses’ own interest rate and residential investment growth rate in the US Economy
+
+** Data and estimation strategy
+
+** Estimation results
+
+
+
+* Concluding Remarks
+#+LATEX: \label{sec:Conclusion}
+#+INCLUDE: "Conclusion.org"
+
+
+* Acknowledgments
+  :PROPERTIES:
+  :UNNUMBERED: t
+  :END:
+
+#+LATEX: \noindent We are grateful to Rosângela Ballini, Carolina Baltar, Júlia Braga, Ítalo Pedrosa, Cecon/Unicamp and UFRJ Macroeconomic discussion groups for useful comments and suggestions on earlier drafts of this article. All remaining errors are, of course, our own.
+
+
+* Disclosure statement
+  :PROPERTIES:
+  :UNNUMBERED: t
+  :END:
+No potential conflict of interest was reported by the authors.
+
+* References
+  :PROPERTIES:
+  :UNNUMBERED: t
+  :END:
+
+#+LaTeX: \printbibliography[heading=none]
+
+
+#+Latex: \appendix
+

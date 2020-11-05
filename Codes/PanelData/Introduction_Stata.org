@@ -1,0 +1,61 @@
+#+TITLE: Introduction to modern econometrics using Stata
+#+AUTHOR: Gabriel Petrini
+#+DATE: Date
+#+LANG: en
+
+* LaTeX headers                                         :noexport:ignore:
+
+* HTML headers                                         :noexport:ignore:
+  #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+  #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+
+  #+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  #+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  #+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+  #+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+
+
+* Initial configs
+
+** Change in stata_kernel path
+
+file ~\~/.stata_kernel.config~ was changed to
+
+~stata_path = faketime '2020-04-16' /usr/local/stata16/stata~
+
+* Working with economic and financial data in Stata
+
+#+BEGIN_SRC jupyter-stata :kernel stata :session stata
+webuse auto
+describe
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+(1978 Automobile Data)
+
+
+Contains data from https://www.stata-press.com/data/r16/auto.dta
+  obs:            74                          1978 Automobile Data
+ vars:            12                          13 Apr 2018 17:45
+                                              (_dta has notes)
+--------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+--------------------------------------------------------------------------------
+make            str18   %-18s                 Make and Model
+price           int     %8.0gc                Price
+mpg             int     %8.0g                 Mileage (mpg)
+rep78           int     %8.0g                 Repair Record 1978
+headroom        float   %6.1f                 Headroom (in.)
+trunk           int     %8.0g                 Trunk space (cu. ft.)
+weight          int     %8.0gc                Weight (lbs.)
+length          int     %8.0g                 Length (in.)
+turn            int     %8.0g                 Turn Circle (ft.)
+displacement    int     %8.0g                 Displacement (cu. in.)
+gear_ratio      float   %6.2f                 Gear Ratio
+foreign         byte    %8.0g      origin     Car type
+--------------------------------------------------------------------------------
+Sorted by: foreign
+#+end_example
