@@ -29,22 +29,22 @@ Sendo assim, podemos dividir a norma de /steady state/ entre o endividamento das
 
 \begin{equation}
 \tag{57}
-\ell_f^\star = \frac{g^\star\cdot v + \gamma_f\cdot u^\star\cdot (1-\omega)}{v\cdot (g^\star - \gamma_f \cdot rm)}
+\ell_f^\star = \frac{g^\star\cdot v + \gamma_F\cdot u^\star\cdot (1-\omega)}{v\cdot (g^\star - \gamma_F \cdot r_m)}
 \end{equation}
 Multiplicando por $v$
 
 \begin{equation}
-\ell_f^\star\cdot v = \frac{g^\star\cdot v + \gamma_f\cdot u^\star\cdot (1-\omega)}{g^\star - \gamma_f \cdot rm}
+\ell_f^\star\cdot v = \frac{g^\star\cdot v + \gamma_F\cdot u^\star\cdot (1-\omega)}{g^\star - \gamma_F \cdot r_m}
 \end{equation}
 Dividindo por $u\star$
 \begin{equation}
-\ell_f^\star\cdot \frac{v}{u\star} = \ell_{fy} = \frac{\frac{g^\star\cdot v}{u^\star} + \gamma_f\cdot (1-\omega)}{g^\star - \gamma_f\cdot rm}
+\ell_f^\star\cdot \frac{v}{u\star} = \ell_{fy} = \frac{\frac{g^\star\cdot v}{u^\star} + \gamma_F\cdot (1-\omega)}{g^\star - \gamma_F\cdot r_m}
 \end{equation}
 lembrando da definição de $h^\star$:
 
 \begin{equation}
 \label{endiv_firm}
-\ell_{fy} = \frac{h^\star + \gamma_f\cdot (1-\omega)}{g^\star - \gamma_f\cdot}
+\ell_{fy} = \frac{h^\star + \gamma_F\cdot (1-\omega)}{g^\star - \gamma_F\cdot r_m}
 \end{equation}
 
 * Endividamento das famílias capitalistas
@@ -74,30 +74,30 @@ Dito isso, vou reescrever a equação da renda disponível das famílias capital
 
 \begin{equation}
 \tag{32}
-YD_k = FD + rm\cdot M_{-1} - r_{mo}\cdot MO_{-1}  - r_{L}\cdot L_{k_{-1}}
+YD_k = FD + r_m\cdot M_{-1} - r_{mo}\cdot MO_{-1}  - r_{L}\cdot L_{k_{-1}}
 \end{equation}
 fazendo $r_m = r_{mo} = r_l$
 \begin{equation}
-YD_k = FD + rm\cdot (M_{-1} - MO_{-1}  - L_{k_{-1}})
+YD_k = FD + r_m\cdot (M_{-1} - MO_{-1}  - L_{k_{-1}})
 \end{equation}
 que é equivalente à 
 \begin{equation}
-YD_k = FD - rm\cdot DL_{-1}
+YD_k = FD - r_m\cdot DL_{-1}
 \end{equation}
 ou ainda
 \begin{equation}
-YD_k = FD + rm\cdot L_{f_{-1}}
+YD_k = FD + r_m\cdot L_{f_{-1}}
 \end{equation}
 
 Substituindo a equação dos lucros distribuídos (Eq 12) na equação anterior, temos
 
 \begin{equation}
-YD_k = (1-\gamma_f)\cdot ((1-\omega)Y - r_m L_{f_{-1}}) + rm\cdot L_{f_{-1}}
+YD_k = (1-\gamma_F)\cdot ((1-\omega)Y - r_m L_{f_{-1}}) + r_m\cdot L_{f_{-1}}
 \end{equation}
 
 \begin{equation}
 \label{New_YD}
-YD_k = (1-\gamma_f)\cdot (1-\omega)Y - r_m \cdot \gamma_F \cdot L_{f_{-1}}
+YD_k = (1-\gamma_F)\cdot (1-\omega)Y - r_m \cdot \gamma_F \cdot L_{f_{-1}}
 \end{equation}
 
 Com isso, podemos encontrar a relação entre endividamento (líquido) capitalista e renda disponível ($\ell_k^\star$)
@@ -108,7 +108,7 @@ $$
 
 Substituindo \ref{DL} e \ref{New_YD} na relação acima, temos
 \begin{equation}
-\ell_{ky}^\star = -\frac{L_{f_{-1}}}{Y}\frac{1}{(1-\gamma_F)\cdot (1-\omega)} - \frac{-L_{f_{-1}}}{r_m L_{f_{-1}}}
+\ell_{ky}^\star = -\frac{L_{f_{-1}}}{Y}\frac{1}{(1-\gamma_F)\cdot (1-\omega)} - \frac{-L_{f_{-1}}}{r_m\cdot \gamma_F\cdot L_{f_{-1}}}
 \end{equation}
 
 \begin{equation}
@@ -146,14 +146,21 @@ $$
 
 Podemos avaliar como se dá o endividamento das famílias capitalistas dada uma variação positiva no /wage-share/:
 $$
-\frac{\partial \ell_{ky}^\star}{\partial \omega} = -\frac{g^\star\cdot v}{(1-\omega)^2\cdot u^\star \cdot (1-\gamma_F)\cdot (g^\star - \gamma_F)} < 0
+\frac{\partial \ell_{ky}^\star}{\partial \omega} = -\frac{g^\star\cdot v}{(1-\omega)^2\cdot u^\star \cdot (1-\gamma_F)\cdot (g^\star - \gamma_F)}
 $$
 
-Portanto, uma redução no /wage-share/ (simulação 1) faz com que o endividamento capitalista *aumente* dado um $g^\star > \gamma_F> 0$
+Dado $\gamma_F > g^\star > 0$, a redução no /wage-share/ (simulação 1) faz com que o endividamento capitalista *diminua*
 
-Já um aumento na taxa de juros implica
 $$
-\frac{\partial \ell_{ky}^\star}{\partial r_m} = -\frac{1}{r_m^2\cdot \gamma_F} < 0
+\frac{\partial \ell_{ky}^\star}{\partial \omega} < 0
+$$
+
+Isso contradiz a nova versão do modelo enviada em <2020-11-03 ter> em que o valor de $\omega$ foi de $0.5$ para $0. 25 (= \omega\cdot \alpha)$   
+
+*Nota:* Removi a derivada parcial da taxa de juros porque
+
+$$
+\frac{\partial g^\star}{\partial r_m} \neq 0
 $$
 
 

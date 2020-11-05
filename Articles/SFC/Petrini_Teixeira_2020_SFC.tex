@@ -1,4 +1,4 @@
-% Created 2020-10-30 sex 14:16
+% Created 2020-11-04 qua 12:24
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -54,7 +54,7 @@ Therefore, this model introduces both housing and asset bubbles	on Sraffian supe
 
 
 \section{Introduction}
-\label{sec:org6b4a813}
+\label{sec:org1c8a94b}
 \label{sec:introduction}
 
 Non-residential investment is the most scrutinized variable in demand-led growth models so that others expenditures play a secondary role \cite{brochier_macroeconomics_2017}.
@@ -102,41 +102,47 @@ Section \ref{sec:Conclusion} offers some concluding remarks while Appendix \ref{
 
 
 \section{Empirical Motivation}
-\label{sec:orgcec45fe}
+\label{sec:org9d1257f}
 \label{sec:empirical}
-
-A current trend among empirical research on demand-led growth is about the role of NCC autonomous expenditures.
-\textcite{freitas_pattern_2013} present a growth accounting decomposition and report the relevance of those expenditures in explaining Brazilian GDP growth between 1970 and 2005. \textcite{braga_investment_2018} shows evidence that economic growth and non-residential investment are explained by NCC autonomous expenditures in Brazilian economy from 1962 to 2015. For the U.S., \textcite{girardi_long-run_2016} show that NCC autonomous expenditures have permanent effects on growth rate. 
+A growing body of empirical demand-led literature has evaluated the role of NCC autonomous expenditures.
+\textcite{freitas_pattern_2013} present a growth accounting decomposition fro Brazil from 1970 to 2005 and report the relevance of those expenditures in describing Brazilian GDP growth. \textcite{braga_investment_2018} shows evidence that economic growth and non-residential investment are explained by NCC autonomous expenditures in Brazilian economy from 1962 to 2015. For the U.S., \textcite{girardi_long-run_2016} show that NCC autonomous expenditures have permanent effects on growth rate. 
 \textcite{haluska_growth_2019} employ Granger-causality tests to assess the stability of the SSM for the US (1987-2017) and report a causality from NCC autonomous expenditures to the marginal propensity to invest, as expected.
-Finally, \textcite{girardi_autonomous_2018} bring evidence that those expenditures determine the investment share on GDP for twenty OECD countries. 
+Finally, \textcite{girardi_autonomous_2018} bring evidence that those expenditures determine investment share on GDP for twenty OECD countries.
 
+\\
+However, there still is a lack of studies on the role of residential investment specifically.
+What is commonly  discussed about this NCC autonomous expenditure is largely based on \textcite{green_follow_1997} pioneer work.
+Based on Granger Causality and cointegration tests for the US from 1959-1992, this is one of the first papers to indicates that residential investment leads the business cycle.
+Subsequently, \textcite{leamer_housing_2007} concludes that this pattern occurs at least since the post-war period.
+More precisely,  \textcite[p.~8]{leamer_housing_2007} describes US business cycles as follows: ''[f]irst homes, then cars,
+and last business equipment''.
+Recently, \textcites{fiebiger_semi-autonomous_2018}{fiebiger_trend_2017} also report residential investment as an important determinant of business cycles for the US based on causal narratives.
 
-Nevertheless, there still is a lack of studies on the role of residential investment specifically.
-Except for \textcites{green_follow_1997}{leamer_housing_2007}, most of those studies were published after the Great Recession (2008-2009).
-Additionally, most research on housing has emphasized house prices and not its volume.
+\\
+After the Great Recession (2008-2009), there has been growing macroeconometric studies on housing.
+However, most of them have emphasized house prices and not its volume (residential investment).
 \textcite{goodhart_house_2008} for instance, estimate a time-series fixed effects panel data for 17 industrialized countries from 1970 to 2006. They report a multidirectional relation between money, credit, house prices and GDP growth and have found stronger effects during housing booms\footnote{\textcite{Arestis_Bank_2014} also found a  direct relationship between house prices and credit volume based on cointegration and error correction techniques for 9 OECD countries from 1970 to 2011.}. 
 \textcite{wood_house_2020} report that house prices are relevant for describing household indebtedness from 1980 to 2017 in 18 advance economies.
 However, both studies do not include residential investment.
 \textcite{arestis_residential_2015}, on the other side, include residential investment. Using a ARDL model for 17 OECD countries from 1970 to 2013, the authors report that banking credit and real house prices are the most statistically significant variables for real residential investment in the US.
+Although those approaches are interesting, it fails to take into account the connection between asset bubbles and aggregate demand which is relevant for describe the recent housing burst event.
 
-
-Before we move forward, it worth mentioning that the relevance of residential investment is not restricted to its growth effects nor to the U.S. 
-For example, \textcite{jorda_great_2016} report that credit and financial sector growth has been led mainly by mortgages for at least 17 OECD countries\footnote{As a consequence, banking activities were redirected towards granting credit majorly to households and not to productive investment \cites{erturk_banks_2007}{kohl_more_2018}.}. 
-Other studies also have shown that real estate inflation describes household indebtedness and wealth distribution movements and has implications for macroeconomic stability \cites{ryoo_household_2016}{stockhammer_debt-driven_2016}{barnes_private_2016}{johnston_global_2017}{mian_household_2017}{anderson_politics_2020}{fuller_housing_2020}. 
-With regard to the role of residential investment for the Great Recession, \textcite{albanesi_credit_2017} shed some light on who were the housing bubble blowers and presented higher default rates: prime rate borrowers\footnote{Contrary to the ``Old Narrative'' \cite{mian_consequences_2009},  \textcite{albanesi_credit_2017}  also report that the granting of credit and the default rate among those with the worst risk assessment remained constant throughout the housing bubble.}.
-
+\\
 From this review of recent empirical literature, it is noticeable that few macroeconometric studies have investigated residential investment in any systematic way.
 In this paper, we argue that besides this growing body of literature that recognizes the macroeconomic importance of residential investment, little progress has been made in understanding its theoretical determinants.
-On the following subsection, we present some residential investment-related stylized facts in order to highlight its relevance for the US business cycle.
+On the following subsection, we present some residential investment-related stylized facts in order to highlight its relevance for the US business cycle which will be compared to the theoretical model in Section \ref{real_sim}.
 Next, we analyze the connection between residential investment, real estate inflation and mortgage interest rate during the U.S. housing bubble episode.
-\subsection{Residential investment stylized facts}
-\label{sec:orgea04b33}
 
-In this subsection, we show some residential investment stylized facts for the US.
-Both \cites{green_follow_1997}{leamer_housing_2007} made it clear how important this particular expenditure is to USA business cycle.
-More precisely,  \textcite[p.~8]{leamer_housing_2007} describes US business cycles as follows: ''[f]irst homes, then cars,
-and last business equipment''.
-Figure \ref{Investo_Resid_GDP} shows how the behavior of residential dynamics can help to predict recessions. Recessions are anticipated by a reduction of residential investment share of GDP, while the expansion of those expenditures precedes economic recovery. The fall of dwellings expenditures in 1966-67 are an exception because the increase of military expenditures because of Vietnam War offset an eventual economic downturn \cite[p.~20]{leamer_housing_2007}. Another exception is the dot-com bubble 2000 crisis that was not caused by residential investment. The Great Recession 2008-2009 is the one in which this pattern is the most evident. 
+\subsection{Residential investment stylized facts}
+\label{sec:orge4fec7a}
+
+As discussed before, both \textcites{green_follow_1997}{leamer_housing_2007} made it clear how important this particular expenditure is to USA business cycle. In this subsection, we show some residential investment stylized facts for the US in more detail.
+
+\begin{itemize}
+\item[{$\square$}] Introdução mais alongada
+\end{itemize}
+
+Figure \ref{Investo_Resid_GDP} shows how residential investment movements help to predict recessions. Recessions are anticipated by a reduction of residential investment share on GDP, while the expansion of those expenditures precedes economic recovery. The fall of dwellings expenditures in 1966-67 are an exception because the increase of military expenditures because of Vietnam War offset an eventual economic downturn \cite[p.~20]{leamer_housing_2007}. Another exception is the dot-com bubble 2000 crisis that was not caused by residential investment. The Great Recession 2008-2009 is the one in which this pattern is the most evident. 
 
 
 
@@ -148,12 +154,10 @@ Figure \ref{Investo_Resid_GDP} shows how the behavior of residential dynamics ca
     \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration}
 \end{figure}
 
-
-
-
-In order to depict the relation between housing and business cycle, we present Figure \ref{fig:cycles} in which each cycle is represented in a different panel\footnote{This similar reasoning can be found in \textcite{fiebiger_trend_2017}. Unlike them, we plot only residential investment without including other households expenses financed by credit.}.
-The vertical axis represents residential investment-GDP ratio and the horizontal axis represents the capacity utilization ratio  as a proxy for business cycle. Economic recovery is generally characterized by residential investment growing faster than GDP — with the 1991-2000 period being a particular case. Both residential investment share on GDP and capacity utilization increase as a consequence of this higher growth rate.
-Following the Sraffian supermultiplier growth model, we conclude that increase of non-residential investment is the result of capital stock adjustment principle\footnote{\textcites{fiebiger_semi-autonomous_2018}{fiebiger_trend_2017} also report residential investment as an important determinant of business cycles. Those works associate economic instability to the behavior of (at least some) autonomous expenditures in spite of the behavior firms investment --- as it follows capital stock adjustment principle. \textcites{dejuan_hidden_2017}{teixeira_crescimento_2015} find similar results.}. This increase implies GDP to grow faster than residential investment, therefore reducing both its share on GDP and capacity utilization ratio. Finally, as a result of economic burst, capacity utilization ratio falls and the cycle ends.
+In order to depict the relation between housing and business cycle, we present Figure \ref{fig:cycles} in which each cycle is represented in a different panel\footnote{Similar reasoning can be found in \textcite{fiebiger_trend_2017}. Unlike them, we plot only residential investment without including other households expenses financed by credit.}.
+Residential investment-GDP ratio and capacity utilization --- as a proxy for business cycle --- are presented on vertical and horizontal axis respectively.
+Economic recovery is generally characterized by residential investment growing faster than GDP\footnote{It worth noting that 1991-2000 period is a particular case.}. Both residential investment share on GDP and capacity utilization increase as a consequence of higher growth rate.
+Following the Sraffian supermultiplier growth model, we conclude that increase of non-residential investment is the result of capital stock adjustment principle. This increase implies GDP to grow faster than residential investment, therefore reducing both its share on GDP and capacity utilization ratio. Finally, as a result of economic burst, capacity utilization ratio falls and the cycle ends.
 
 
 
@@ -164,8 +168,9 @@ Following the Sraffian supermultiplier growth model, we conclude that increase o
     \label{fig:cycles}
     \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration.}
 \end{figure}
-Another key aspect of recent housing development is the  popularization of primary houses and concentration of secondary ones\footnote{According to \textcite{us_census_bureau_characteristics_2017}, a primary property is one that the owner has regular access to and, in the case of having more than one (secondary) property, it is the one that enjoys most of the time throughout the year. Secondary properties are those where:
-(i) the owners reside part of the year only; (ii) it is at least 50 miles from the primary property and; (iii) cannot be subject to a rental agreement.}. The expansion of primary houses can be seen in Figure \ref{fig:concentration}, which shows the concentration curve from 1989 to 2010 by different types of properties (primary and secondary)\footnote{Concentration curves are drawn from the cumulative ordering of two distinct variables. The horizontal axis of Figure \ref{fig:concentration} contains the cumulative proportion of wealthy households while the vertical axis shows the accumulated proportion of a portion of this wealth (in this case, primary and secondary houses). Finally, to build the concentration curves, both axes are ordered by total wealth. Thus, unlikely the Lorenz curve, concentration curves are non-decreasing. As a consequence, it can cross the perfect equality line. For more details, see \textcite{Jann_Concentration_2016}.}. Based on these curves, it is possible to assess how concentrated a certain asset is by comparing it with perfect equality line\footnote{In 2010, for example,  up to 25\% of wealthy households owned 21.80\% of all primary houses. Moving on, households up to 50\%, 75\% and 90\% owned 61.30\%, 90.10\% and  95.30\% respectively while 2.9\% was not in the possession of any households.}\textsuperscript{,}\,\footnote{The higher and to the left a concentration curve is compared to the Lorenz curve, the less concentrated the asset is. In this case, the asset  is distributed in favor of the poorest strata of wealth. A concentration curve more to the right and below compared to the Lorenz curve indicates the opposite.}.
+Additionally, some key aspects of recent housing developments have not been dealt with in depth.
+More specifically, there has been little discussion on popularization of primary houses and concentration of secondary ones\footnote{According to \textcite{us_census_bureau_characteristics_2017}, a primary property is one that the owner has regular access to and, in the case of having more than one (secondary) property, it is the one that enjoys most of the time throughout the year. Secondary properties are those where:
+(i) the owners reside part of the year only; (ii) it is at least 50 miles from the primary property and; (iii) cannot be subject to a rental agreement.}. The expansion of primary houses can be seen in Figure \ref{fig:concentration}, which shows concentration curves from 1989 to 2010 by different types of properties (primary and secondary)\footnote{Concentration curves are drawn from the cumulative ordering of two distinct variables. The horizontal axis of Figure \ref{fig:concentration} contains the cumulative proportion of wealthy households while the vertical axis shows the accumulated proportion of a portion of this wealth (in this case, primary and secondary houses). Finally, to build the concentration curves, both axes are ordered by total wealth. Thus, unlikely the Lorenz curve, concentration curves are non-decreasing. As a consequence, it can cross the perfect equality line. For more details, see \textcite{Jann_Concentration_2016}.}. Based on these curves, it is possible to assess how concentrated a certain asset is by comparing it with perfect equality line\footnote{In 2010, for example,  up to 25\% of wealthy households owned 21.80\% of all primary houses. Moving on, households up to 50\%, 75\% and 90\% owned 61.30\%, 90.10\% and  95.30\% respectively while 2.9\% was not in the possession of any households.}\textsuperscript{,}\,\footnote{The higher and to the left a concentration curve is compared to the Lorenz curve, the less concentrated the asset is. In this case, the asset  is distributed in favor of the poorest strata of wealth. A concentration curve more to the right and below compared to the Lorenz curve indicates the opposite.}.
 
 \begin{figure}[htb]
     \centering
@@ -176,15 +181,19 @@ Another key aspect of recent housing development is the  popularization of prima
 \end{figure}
 
 
-A brief inspection of Figure \ref{fig:concentration} reveals that the years leading up to the Great Recession were characterized by the deconcentration of primary houses. In other words, poorer strata of the population now have a larger accumulated share of this type of asset. 
-Since primary houses concern those that are used for purposes that are not necessarily speculative, there is a general increase in the demand for properties as final good. The same cannot be said about secondary houses whose concentration/distribution movement is not as marked as in the previous case. Since this type of property is not intended for regular use by its owner, a greater distribution of this asset suggests an increase in the demand for properties in the expectation of capital gains\footnote{This increase in demand for secondary houses may indicate --- but is not limited to --- an increase for speculative reasons. A vacation or rental home, for example, are non-speculative uses of a secondary house. Nevertheless, it is argued that there is a connection between secondary houses and speculation with real estate. It worth noting that the wealthiest households are not the main holders of this secoundary houses. According to Figure \ref{fig:concentration}, they accumulate less than 50\% of these properties over the analyzed period (see vertical axis).}.
+A brief inspection of Figure \ref{fig:concentration} reveals that the years leading up to the Great Recession were characterized by the deconcentration of primary houses. In other words, poorer strata of the population now have a larger accumulated share of primary houses. 
+Since this asset is mainly acquired for non-speculative reasons, there is a general increase in the demand for properties as final good. The same cannot be said about secondary houses whose concentration/distribution movement is not as marked as in the previous case. Since this type of property is not intended for regular use by its owner, deconcentration of this asset suggests an increase in the demand for properties in the expectation of capital gains\footnote{This increase in demand for secondary houses may indicate --- but is not limited to --- an increase for speculative reasons. A vacation or rental home, for example, are non-speculative uses of a secondary house. Nevertheless, it is argued that there is a connection between secondary houses and speculation with real estate. It worth noting that the wealthiest households are not the main holders of this secoundary houses. According to Figure \ref{fig:concentration}, they accumulate less than 50\% of these properties over the analyzed period (see vertical axis).}.
 
 \subsubsection{Conexão com a subseção seguinte}
-\label{sec:orgc8af542}
+\label{sec:org8062181}
 
+
+\begin{itemize}
+\item[{$\square$}] Explicitar que os fatos estilizados apresentados até então serão comparados com o modelo teórico
+\end{itemize}
 
 \subsection{Housing bubble and residential investment}
-\label{sec:org915a456}
+\label{sec:orgc396d07}
 
 
 After the Great Recession, the literature have analyzed the macroeconomic relevance of residential investment \cites{leamer_housing_2015}{fiebiger_semi-autonomous_2018}.
@@ -215,10 +224,10 @@ In summary, what we intended to show is that one cannot analyze the U.S. busines
 
 
 \section{A Sraffian supermultiplier SFC model with residential investment}
-\label{sec:orgdb0d305}
+\label{sec:orgc0664b2}
 \label{sec:Model}
 \subsection{General equations}
-\label{sec:org974e94e}
+\label{sec:org59b3880}
 
 Our model is the most parsimonious as possible: a closed capitalist economy without government sector. Output (\(Y\)) is determined by  a fixed combination of a homogeneous labor (\(L\)) input with homogeneous fixed business capital (\(K_f\)). 
 For simplicity, we put technological progress, depreciation and goods inflation aside so investment is presented in net terms and all variables --- except for houses --- are measured in real terms.
@@ -359,7 +368,7 @@ Change in loans     & &$+\Delta L_{k}$&&$+\Delta L_f$& &$-\Delta L$& 0\\
 
 
 \subsection{Firms}
-\label{sec:org75823ba}
+\label{sec:orgd725e21}
 
 In order to produce, firms purchase capital goods (\(-I_f\) in capital account) and hire workers, whom total remuneration is the economy wage bill. 
 Their total profits (\(FT\)) are a residual between sales (\(Y\)) and total wages (\(W\)). 
@@ -420,7 +429,7 @@ where \(r_g\) and \(r_n\) denotes gross and net profit rate respectively.
 \textbf{TODO:} Substituir letra da taxa de lucro por outra.
 
 \subsection{Banks}
-\label{sec:org9539a2d}
+\label{sec:org32bd5d3}
 
 As in most part of SFC literature, banks do not have an active role in this model.
 They create money as credit is demanded and just after they collect deposits \cite{le_bourva_money_1992}. 
@@ -458,10 +467,10 @@ $$
 \end{equation}
 
 \subsection{Households}
-\label{sec:orgb5a441f}
+\label{sec:org5ffe7b1}
 
 \subsubsection*{Workers}
-\label{sec:orgd3e86ef}
+\label{sec:orgcf19120}
 As mentioned before, we assume that workers expend (\(C_w\)) what they earn (\(W\)). 
 For simplicity, we consider that wages are the only source of income workers' disposable income (\(YD_{w}\)) and do not have access to consumption loans, so worker' saving (\(S_{hw}\)) are null.
 Therefore, accordingly to our hypothesis, workers' do not hold both net financial and total wealth.
@@ -486,7 +495,7 @@ V_{w} = 0
 \end{equation}
 
 \subsubsection*{Capitalists}
-\label{sec:org71c7f46}
+\label{sec:org3f5d179}
 This is the most complex institutional sector of our model. 
 We assume consumption (\(C_k\)) is fully-autonomous and financed by loans (\(L_{k}\)). 
 Disposable income (\(YD_k\)) is the sum of distributed profits and received interests on deposits, net of interests payments
@@ -586,11 +595,11 @@ On the next Section, we present the short-run and fully-adjusted position dynami
 
 
 \section{Short and long-run equilibria}
-\label{sec:org1c07671}
+\label{sec:org4ed22d6}
 \label{sec:runs}
 In this Section, we show the implications residential investment inclusion into a SSM-SFC model. First, we present the short-run dynamics and then move to the fully-adjusted position (denoted by \(\star\)).
 \subsection{Short-run good market equilibrium}
-\label{sec:org927ea54}
+\label{sec:orge8adc03}
 \label{short}
 
 In this model, real output (equation \ref{_Y}) is the sum of household consumption (equation \ref{ConsumoTotal}) and both types of investment (equation \ref{_It}). 
@@ -664,7 +673,7 @@ k = \frac{(1-R)\cdot (1-h_t - \omega)}{\frac{g\cdot v}{u_t} + (1-R)\cdot (1-h_t 
 
 
 \subsection{Analytical Traverse}
-\label{sec:orgbb3e8dd}
+\label{sec:org9442cc1}
 
 \textbf{Nota:} Optei por chamar de ``Analytical Traverse'' (não sei se faz sentido/existe) porque ainda vamos simular e estas relações não estão exatamente expressas ali.
 
@@ -684,7 +693,7 @@ This process continues as long as GDP growth rate moves towards NCC autonomous e
 
 
 \subsection{Fully-adjusted position}
-\label{sec:org1b0ccc1}
+\label{sec:org01d7210}
 \label{long}
 
 As mentioned before, endogenous firms’ marginal propensity to invest reacts to discrepancies between the utilization rate and the normal one.  This adjustment process continues until actual a normal capacity utilization rate are equal:
@@ -778,7 +787,7 @@ However, it has permanent effects over capital stock composition as a result of 
 
 
 \section{Numerical Simulations}
-\label{sec:org01411db}
+\label{sec:org2a26090}
 \label{sec:Experiments}
 \label{sec:Experiments}
 
@@ -793,7 +802,7 @@ Our first experiment assess if income distribution affects fully-adjusted positi
 Real estate inflation increase experiment is motivated by recent US experience (from 1992 to 2019) as discussed in Section \ref{sec:empirical} while the last simulation aims to evaluate indebtedness stability.
 Table \ref{tab:param} in Appendix \ref{append:Data} presents the parameters of simulation and Table \ref{ResumoChoques} compare each result to baseline.
 \subsection{Wage-share decrease}
-\label{sec:org67b6e7f}
+\label{sec:org941bb10}
 \label{sec:Exp1}
 
 A wage-share decrease has a temporary negative impact both in GDP level and capacity utilization rate due to changes on the supermultiplier (see Figure \ref{fig:results_1}).
@@ -827,7 +836,7 @@ Therefore, as profits distribution policy remains the same, firms require less e
 \textbf{Nota:} Farei referência às equações stock/flow quando terminar esta seção
 
 \subsection{Real estate inflation}
-\label{sec:org7fe9be9}
+\label{sec:orga3eddb5}
 \label{sec:Exp2}
 
 
@@ -858,7 +867,7 @@ also the utilization rate.
 In other words, both autonomous expenditures share on GDP --- higher supermultiplier --- and houses share on real assets (see Equation \ref{partial_pi}) decline as a result of the already described non-residential investment positive reaction.
 %Finally, it worth noting that real estate inflation also has permanent effects over real stock/flow ratios due to capital gains.
 \subsection{Interest rate increase}
-\label{sec:orgb558678}
+\label{sec:orgc2bcc43}
 \label{sec:Exp3}
 
 A increase in benchmark interest rate  has a persistent effect on long-run growth rate since houses own interest rate increases as well\footnote{Since we assume null spread on both mortgage and loans interest rate, an increase on deposits interest rate also increases the other ones. As a consequence, banks' net financial wealth remains unchanged.}.
@@ -919,8 +928,8 @@ Therefore, we find a stable debt dynamics for both capitalists and firms (other 
 
 
 \subsection{Plugging real data}
-\label{sec:org08da4ac}
-
+\label{sec:org6c41235}
+\label{real_sim}
 
 Finally, we include houses own interest rate data into our model (see Figure \ref{propria_investo}).
 To do so, each year corresponds to ten simulated periods for visualization reasons.
@@ -949,7 +958,7 @@ Together these results provide a first step towards the connection between asset
 
 
 \section{Concluding Remarks}
-\label{sec:org4eab0d0}
+\label{sec:org5645124}
 \label{sec:Conclusion}
 This paper contributes to demand-led growth agenda, taking in consideration recent efforts of embedding it in a SFC framework.
 Our novelty is twofold: (i) inclusion of residential investment and (ii) determination of its growth rate by houses' own interest rate.
@@ -974,27 +983,28 @@ For example, future research could assess which institutional arrangements allow
 
 
 \section*{Acknowledgments}
-\label{sec:org779e003}
+\label{sec:org7bf898a}
 \noindent We  are  grateful  to  Lídia  Brochier,  Carolina  Baltar,  Franklin  Serrano  for  discussions,  as  well  as  comments  by  the participants of Cecon/Unicamp and UFRJ Political Economy research seminars and the participants of XII AKB meeting, 20th FMM forum, and 46th EEA Annual Conference. Any remaining errors are, of course, our own.
 
 \section*{Disclosure statement}
-\label{sec:org1179e6f}
+\label{sec:org99deb60}
 No potential conflict of interest was reported by the authors.
 
 \section*{References}
-\label{sec:org1cd1a62}
+\label{sec:org3e9482a}
 \printbibliography[heading=none]
 
 
 \appendix
 
 \section{Analytical Solution}
-\label{sec:org5fc6182}
+\label{sec:org4c9dcb8}
 \label{append:Solution}
 
 In this appendix, we present the partial derivatives of somes stock/flow ratios.
 Firt, we show that houses share on total capital stock depends positively on deposits interest rate (Eq. \ref{partial_rm}) and negatively both on autonomous component of residential investment growth rate (equation \ref{partial_phi0}), real estate inflation (equation \ref{partial_pi}) and wage-share (equation \ref{partial_omega}):
 
+\textbf{Nota:} Resultado anterior. Não alterado para comparação e no aguardo da conferência do arquivo sobre endividamentos.
 
 \begin{equation}
 \label{partial_rm}
@@ -1022,6 +1032,26 @@ Firt, we show that houses share on total capital stock depends positively on dep
 \begin{equation}\frac{\partial k^{\star}}{\partial \pi} = - \frac{\phi_{1} \left(R - 1\right) \left(\omega - 1\right) \left(r_{m} + 1\right)}{\left(R \left(\pi \omega + \pi \phi_{0} + \pi \phi_{1} - \pi + \omega + \phi_{0} - \phi_{1} r_{m} - 1\right) - \pi \omega + \pi - \omega + 1\right)^{2}}\end{equation}
 
 
+\textbf{Nota:} Output python rearranjado
+
+\begin{equation}
+\frac{\partial k^{\star}}{\partial \omega} = \frac{-(1-R)(\phi_0 - \phi_1\cdot r_m)}{(R(\phi_0 - \phi_1\cdot r_m) + (1-R)(1-\omega))^2} < 0
+\end{equation}
+
+\begin{equation}
+\frac{\partial k^{\star}}{\partial r_{m}} = \frac{\phi_1\cdot(1-R)\cdot(1-\omega)}{(R\cdot (\phi_0 - \phi_1\cdot r_m) + (1-R)\cdot (1-\omega))^2} > 0
+\end{equation}
+
+\begin{equation}
+\frac{\partial k^{\star}}{\partial \phi_0} = 
+ \frac{R\cdot(\phi_0 - \phi_1\cdot r_m)}{(R(\phi_0 - \phi_1\cdot r_m) + (1-R)(1-\omega))^2} - \frac{1}{(R(\phi_0 - \phi_1\cdot r_m) + (1-R)(1-\omega))^2} < 0
+\end{equation}
+
+
+\begin{equation}
+\frac{\partial k^{\star}}{\partial \pi} = -\frac{\phi_1\cdot(1-R)\cdot(1-\omega)\cdot(1+r_m)}{(R\cdot((1+\pi)\cdot(\phi_0 + \phi_1\cdot r_m + \omega - 1) + \phi_1\cdot \pi \cdot(1-r_m)) + (1-\omega)\cdot(1+\pi))^2} < 0
+\end{equation}
+
 Since capitalists' loans and mortgage to house ratios (\(\ell^{\star}_{k}\) and \(mo^{\star}\), respectively) depend only on parameters not analyzed on our experiments, we repeat this  procedure to firms' loans to capacity generating capital stock (\(\ell^{\star}_f\)):
 
 \textbf{Nota:} Output python. Ainda irei reorganizar
@@ -1032,10 +1062,29 @@ Since capitalists' loans and mortgage to house ratios (\(\ell^{\star}_{k}\) and 
 \begin{equation}\frac{\partial \ell_f^{\star}}{\partial \pi} = - \frac{\gamma_{F} \phi_{1} \left(r_{m} + 1\right) \left(\omega u^{\star} + r_{m} v - u^{\star}\right)}{v \left(\gamma_{F} r_{m} + \pi \left(\gamma_{F} r_{m} - \phi_{0} - \phi_{1}\right) - \phi_{0} + \phi_{1} r_{m}\right)^{2}}\end{equation}
 
 
+\textbf{Nota:} Output python rearranjado
 
+\begin{equation}
+\frac{\partial \ell_f^{\star}}{\partial \omega} = \frac{\gamma_{F} u^{\star}}{v \left(g^\star - \gamma_{F} r_{m}\right)}
+\end{equation}
+
+\begin{equation}
+\frac{\partial \ell_f^{\star}}{\partial r_{m}} = 
+\frac{\gamma_F}{v\cdot((1+\pi)\cdot(\gamma_F\cdot r_m - \phi_0) + \phi_1\cdot (r_m -\pi))^2}
+\end{equation}
+
+\begin{equation}
+\frac{\partial \ell_f^{\star}}{\partial \phi_0} = 
+\frac{-\gamma_F\cdot (1+\pi)\cdot(r_g^\star + r_m)}{((1+\pi)\cdot (\gamma_F\cdot r_m - \phi_0) + \phi_1\cdot (r_m -\pi))^2} <0
+\end{equation}
+
+\begin{equation}
+\frac{\partial \ell_f^{\star}}{\partial \pi} = 
+\frac{-\gamma_F\cdot \phi_1\cdot (1+\pi)\cdot(r_g^\star + r_m)}{((1+\pi)\cdot (\gamma_F\cdot r_m - \phi_0) + \phi_1\cdot (r_m -\pi))^2} < 0
+\end{equation}
 
 \section{Numerical Appendix}
-\label{sec:orgc51f06a}
+\label{sec:org8c0762b}
 \label{append:Data}
 
 
@@ -1046,37 +1095,11 @@ Since capitalists' loans and mortgage to house ratios (\(\ell^{\star}_{k}\) and 
 \input{./tabs/parameters.tex}
 \caption*{\textbf{Source:} Authors' elaboration}
 \end{table}
-
-
-\subsection{Config}
-\label{sec:org78cd6c3}
-
-\subsection{Simulation}
-\label{sec:org2b91c3e}
-
-\subsection{Table}
-\label{sec:orge6bf765}
-
-
-\begin{table}
-\centering
+\begin{table}[H]
 \caption{Effect of individual parameters\\on model stability}
 \label{tab:sensibility}
-\begin{tabular}{llrl}
-\toprule
-Parameter &                     Description &  Instability inducing value & Effect of increase \\
-              &                                 &                             &                    \\
-\midrule
-$\gamma_u$    &                Adjustment speed &                        0.65 &      Destabilizing \\
-$\omega$      &                      wage-share &                           - &      Destabilizing \\
-$\gamma_F$    &      Profit distribution policy &                           - &      Destabilizing \\
-$\alpha$      &  Marginal propensity to consume &                           - &      Destabilizing \\
-$\sigma_{mo}$ &                 Mortgage spread &                           - &      Destabilizing \\
-$\phi_0$      &  $g_{I_Z}$ autonomous component &                        0.32 &      Destabilizing \\
-$\phi_1$      &     own interest rate parameter &                           - &      Destabilizing \\
-$\pi$         &           real estate inflation &                           - &      Destabilizing \\
-$R$           &              $C_k$ share on $Z$ &                        0.91 &      Destabilizing \\
-\bottomrule
-\end{tabular}
+\centering
+\input{./tabs/sobol.tex}
+\caption*{\textbf{Source:} Authors' elaboration}
 \end{table}
 \end{document}

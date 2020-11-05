@@ -4,7 +4,7 @@
 #+PROPERTY: RA 218090
 #+PROPERTY: NOME "Isabela de Oliveira Garcia"
 #+INCLUDE_TAGS: private
-#+PROPERTY: COLUMNS %TAREFA(Tarefa) %OBJETIVO(Objetivo) %CONCEITOS(Conceito) %ARGUMENTO(Argumento) %DESENVOLVIMENTO(Desenvolvimento) %CLAREZA(Clareza) %NOTA(Nota)
+#+PROPERTY: COLUMNS %TAREFA(Tarefa) %OBJETIVO(Objetivo) %CONCEITOS(Conceito) %ARGUMENTO(Argumento) %DESENVOLVIMENTO(Desenvolvimento) %CLAREZA(Clareza) %CONCLUSAO(Conclusão) %NOTA(Nota)
 #+PROPERTY: TAREFA_ALL "Resenha 1" "Resenha 2" "Resenha 3" "Resenha 4" "Resenha 5" "Prova" "Seminário"
 #+PROPERTY: OBJETIVO_ALL "Atingido totalmente" "Atingido satisfatoriamente" "Atingido parcialmente" "Atingindo minimamente" "Não atingido"
 #+PROPERTY: CONCEITOS_ALL "Atingido totalmente" "Atingido satisfatoriamente" "Atingido parcialmente" "Atingindo minimamente" "Não atingido"
@@ -27,8 +27,16 @@
 
 
 * Notas :private:
-
-  #+BEGIN: columnview :maxlevel 3 :id global
+  
+  #+BEGIN: columnview :maxlevel 1 :id global
+  | Tarefa          |   |   | Resenha 1                  |
+  | Objetivo        |   |   | Atingido totalmente        |
+  | Conceito        |   |   | Atingido satisfatoriamente |
+  | Argumento       |   |   | Atingido satisfatoriamente |
+  | Desenvolvimento |   |   | Atingido satisfatoriamente |
+  | Clareza         |   |   | Atingido satisfatoriamente |
+  | Conclusão       |   |   | Atingido totalmente        |
+  | Nota            |   |   | Atingido satisfatoriamente |
   #+END
 
 * Resenha 1: Monetaristas                                           :private:

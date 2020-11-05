@@ -1,5 +1,8 @@
 #+PROPERTY: header-args:python :results output drawer :session empirical :exports none :tangle ./codes/Empirical_Motivation.py :eval never-export :python /usr/bin/python3
+
 * Empirical TODOs and Setups                                       :noexport:
+
+bibliography:refs.bib
 
 ** Loading packages
    
@@ -135,8 +138,16 @@ df.to_csv("./data/OwnInterestRate_data.csv")
 :end:
 
 ** Residuals
+Code and text not used anymore
 
-Code not used anymore, so eval is set to no
+*** Residential investment relevance other than growth             :noexport:ignore:
+This whole paragraph was disconnected
+
+Before we move forward, it worth mentioning that the relevance of residential investment is not restricted to its growth effects nor to the U.S. 
+For example, textcite:jorda_great_2016 report that credit and financial sector growth has been led mainly by mortgages for at least 17 OECD countries[fn::As a consequence, banking activities were redirected towards granting credit majorly to households and not to productive investment cites:erturk_banks_2007,kohl_more_2018.]. 
+Other studies also have shown that real estate inflation describes household indebtedness and wealth distribution movements and has implications for macroeconomic stability cites:ryoo_household_2016,stockhammer_debt-driven_2016,barnes_private_2016,johnston_global_2017,mian_household_2017,anderson_politics_2020,fuller_housing_2020. 
+With regard to the role of residential investment for the Great Recession, textcite:albanesi_credit_2017 shed some light on who were the housing bubble blowers and presented higher default rates: prime rate borrowers[fn::Contrary to the ``Old Narrative'' cite:mian_consequences_2009,  textcite:albanesi_credit_2017  also report that the granting of credit and the default rate among those with the worst risk assessment remained constant throughout the housing bubble.].
+
 *** Taxa própria 3D
 
 
@@ -898,42 +909,55 @@ plt.clf()
 
 ** Introduction                                                      :ignore:
 
-
-@@comment: Parágrafo introdutório: Evidenciar trabalhos com NCC e lacuna do investimento residencial. comment@@
-A current trend among empirical research on demand-led growth is about the role of NCC autonomous expenditures.
-textcite:freitas_pattern_2013 present a growth accounting decomposition and report the relevance of those expenditures in explaining Brazilian GDP growth between 1970 and 2005. textcite:braga_investment_2018 shows evidence that economic growth and non-residential investment are explained by NCC autonomous expenditures in Brazilian economy from 1962 to 2015. For the U.S., textcite:girardi_long-run_2016 show that NCC autonomous expenditures have permanent effects on growth rate. 
+*** Literature state-of-art                                          :ignore:
+A growing body of empirical demand-led literature has evaluated the role of NCC autonomous expenditures.
+textcite:freitas_pattern_2013 present a growth accounting decomposition fro Brazil from 1970 to 2005 and report the relevance of those expenditures in describing Brazilian GDP growth. textcite:braga_investment_2018 shows evidence that economic growth and non-residential investment are explained by NCC autonomous expenditures in Brazilian economy from 1962 to 2015. For the U.S., textcite:girardi_long-run_2016 show that NCC autonomous expenditures have permanent effects on growth rate. 
 textcite:haluska_growth_2019 employ Granger-causality tests to assess the stability of the SSM for the US (1987-2017) and report a causality from NCC autonomous expenditures to the marginal propensity to invest, as expected.
-Finally, textcite:girardi_autonomous_2018 bring evidence that those expenditures determine the investment share on GDP for twenty OECD countries. 
+Finally, textcite:girardi_autonomous_2018 bring evidence that those expenditures determine investment share on GDP for twenty OECD countries.
+
+#+LATEX:\\
+
+*** Leamer and Fiebiger related                                      :ignore:
+However, there still is a lack of studies on the role of residential investment specifically.
+What is commonly  discussed about this NCC autonomous expenditure is largely based on textcite:green_follow_1997 pioneer work.
+Based on Granger Causality and cointegration tests for the US from 1959-1992, this is one of the first papers to indicates that residential investment leads the business cycle.
+Subsequently, textcite:leamer_housing_2007 concludes that this pattern occurs at least since the post-war period.
+More precisely,  \textcite[p.~8]{leamer_housing_2007} describes US business cycles as follows: ''[f]irst homes, then cars,
+and last business equipment''.
+Recently, textcites:fiebiger_semi-autonomous_2018,fiebiger_trend_2017 also report residential investment as an important determinant of business cycles for the US based on causal narratives.
+
+#+LATEX:\\
 
 
-Nevertheless, there still is a lack of studies on the role of residential investment specifically.
-Except for textcites:green_follow_1997,leamer_housing_2007, most of those studies were published after the Great Recession (2008-2009).
-Additionally, most research on housing has emphasized house prices and not its volume.
+
+*** Lack of residential investment literature                        :ignore:
+After the Great Recession (2008-2009), there has been growing macroeconometric studies on housing.
+However, most of them have emphasized house prices and not its volume (residential investment).
 textcite:goodhart_house_2008 for instance, estimate a time-series fixed effects panel data for 17 industrialized countries from 1970 to 2006. They report a multidirectional relation between money, credit, house prices and GDP growth and have found stronger effects during housing booms[fn::textcite:Arestis_Bank_2014 also found a  direct relationship between house prices and credit volume based on cointegration and error correction techniques for 9 OECD countries from 1970 to 2011.]. 
 textcite:wood_house_2020 report that house prices are relevant for describing household indebtedness from 1980 to 2017 in 18 advance economies.
 However, both studies do not include residential investment.
 textcite:arestis_residential_2015, on the other side, include residential investment. Using a ARDL model for 17 OECD countries from 1970 to 2013, the authors report that banking credit and real house prices are the most statistically significant variables for real residential investment in the US.
+Although those approaches are interesting, it fails to take into account the connection between asset bubbles and aggregate demand which is relevant for describe the recent housing burst event.
 
+#+LATEX:\\
 
-Before we move forward, it worth mentioning that the relevance of residential investment is not restricted to its growth effects nor to the U.S. 
-For example, textcite:jorda_great_2016 report that credit and financial sector growth has been led mainly by mortgages for at least 17 OECD countries[fn::As a consequence, banking activities were redirected towards granting credit majorly to households and not to productive investment cites:erturk_banks_2007,kohl_more_2018.]. 
-Other studies also have shown that real estate inflation describes household indebtedness and wealth distribution movements and has implications for macroeconomic stability cites:ryoo_household_2016,stockhammer_debt-driven_2016,barnes_private_2016,johnston_global_2017,mian_household_2017,anderson_politics_2020,fuller_housing_2020. 
-With regard to the role of residential investment for the Great Recession, textcite:albanesi_credit_2017 shed some light on who were the housing bubble blowers and presented higher default rates: prime rate borrowers[fn::Contrary to the ``Old Narrative'' cite:mian_consequences_2009,  textcite:albanesi_credit_2017  also report that the granting of credit and the default rate among those with the worst risk assessment remained constant throughout the housing bubble.].
+*** Section structure                                                :ignore:
 
 From this review of recent empirical literature, it is noticeable that few macroeconometric studies have investigated residential investment in any systematic way.
 In this paper, we argue that besides this growing body of literature that recognizes the macroeconomic importance of residential investment, little progress has been made in understanding its theoretical determinants.
-On the following subsection, we present some residential investment-related stylized facts in order to highlight its relevance for the US business cycle.
+On the following subsection, we present some residential investment-related stylized facts in order to highlight its relevance for the US business cycle which will be compared to the theoretical model in Section ref:real_sim.
 Next, we analyze the connection between residential investment, real estate inflation and mortgage interest rate during the U.S. housing bubble episode.
+
+
 
 ** Residential investment stylized facts
 
 *** Investmento residencial e o ciclo econômico                      :ignore:
+As discussed before, both textcites:green_follow_1997,leamer_housing_2007 made it clear how important this particular expenditure is to USA business cycle. In this subsection, we show some residential investment stylized facts for the US in more detail.
 
-In this subsection, we show some residential investment stylized facts for the US.
-Both cites:green_follow_1997,leamer_housing_2007 made it clear how important this particular expenditure is to USA business cycle.
-More precisely,  \textcite[p.~8]{leamer_housing_2007} describes US business cycles as follows: ''[f]irst homes, then cars,
-and last business equipment''.
-Figure ref:Investo_Resid_GDP shows how the behavior of residential dynamics can help to predict recessions. Recessions are anticipated by a reduction of residential investment share of GDP, while the expansion of those expenditures precedes economic recovery. The fall of dwellings expenditures in 1966-67 are an exception because the increase of military expenditures because of Vietnam War offset an eventual economic downturn \cite[p.~20]{leamer_housing_2007}. Another exception is the dot-com bubble 2000 crisis that was not caused by residential investment. The Great Recession 2008-2009 is the one in which this pattern is the most evident. 
+- [ ] Introdução mais alongada
+
+Figure ref:Investo_Resid_GDP shows how residential investment movements help to predict recessions. Recessions are anticipated by a reduction of residential investment share on GDP, while the expansion of those expenditures precedes economic recovery. The fall of dwellings expenditures in 1966-67 are an exception because the increase of military expenditures because of Vietnam War offset an eventual economic downturn \cite[p.~20]{leamer_housing_2007}. Another exception is the dot-com bubble 2000 crisis that was not caused by residential investment. The Great Recession 2008-2009 is the one in which this pattern is the most evident. 
 
 
 
@@ -947,12 +971,10 @@ Figure ref:Investo_Resid_GDP shows how the behavior of residential dynamics can 
 \end{figure}
 #+end_export
 
-
-
-@@comment: Importância do investimento residencial para o ciclo econômico comment@@
-In order to depict the relation between housing and business cycle, we present Figure ref:fig:cycles in which each cycle is represented in a different panel[fn::This similar reasoning can be found in textcite:fiebiger_trend_2017. Unlike them, we plot only residential investment without including other households expenses financed by credit.].
-The vertical axis represents residential investment-GDP ratio and the horizontal axis represents the capacity utilization ratio  as a proxy for business cycle. Economic recovery is generally characterized by residential investment growing faster than GDP — with the 1991-2000 period being a particular case. Both residential investment share on GDP and capacity utilization increase as a consequence of this higher growth rate.
-Following the Sraffian supermultiplier growth model, we conclude that increase of non-residential investment is the result of capital stock adjustment principle[fn::textcites:fiebiger_semi-autonomous_2018,fiebiger_trend_2017 also report residential investment as an important determinant of business cycles. Those works associate economic instability to the behavior of (at least some) autonomous expenditures in spite of the behavior firms investment --- as it follows capital stock adjustment principle. textcites:dejuan_hidden_2017,teixeira_crescimento_2015 find similar results.]. This increase implies GDP to grow faster than residential investment, therefore reducing both its share on GDP and capacity utilization ratio. Finally, as a result of economic burst, capacity utilization ratio falls and the cycle ends.
+In order to depict the relation between housing and business cycle, we present Figure ref:fig:cycles in which each cycle is represented in a different panel[fn::Similar reasoning can be found in textcite:fiebiger_trend_2017. Unlike them, we plot only residential investment without including other households expenses financed by credit.].
+Residential investment-GDP ratio and capacity utilization --- as a proxy for business cycle --- are presented on vertical and horizontal axis respectively.
+Economic recovery is generally characterized by residential investment growing faster than GDP[fn::It worth noting that 1991-2000 period is a particular case.]. Both residential investment share on GDP and capacity utilization increase as a consequence of higher growth rate.
+Following the Sraffian supermultiplier growth model, we conclude that increase of non-residential investment is the result of capital stock adjustment principle. This increase implies GDP to grow faster than residential investment, therefore reducing both its share on GDP and capacity utilization ratio. Finally, as a result of economic burst, capacity utilization ratio falls and the cycle ends.
 
 
 
@@ -980,8 +1002,9 @@ Following the Sraffian supermultiplier growth model, we conclude that increase o
 *** Curva de Concentração                                            :ignore:
 
 
-Another key aspect of recent housing development is the  popularization of primary houses and concentration of secondary ones[fn::According to textcite:us_census_bureau_characteristics_2017, a primary property is one that the owner has regular access to and, in the case of having more than one (secondary) property, it is the one that enjoys most of the time throughout the year. Secondary properties are those where:
-(i) the owners reside part of the year only; (ii) it is at least 50 miles from the primary property and; (iii) cannot be subject to a rental agreement.]. The expansion of primary houses can be seen in Figure ref:fig:concentration, which shows the concentration curve from 1989 to 2010 by different types of properties (primary and secondary)[fn::Concentration curves are drawn from the cumulative ordering of two distinct variables. The horizontal axis of Figure ref:fig:concentration contains the cumulative proportion of wealthy households while the vertical axis shows the accumulated proportion of a portion of this wealth (in this case, primary and secondary houses). Finally, to build the concentration curves, both axes are ordered by total wealth. Thus, unlikely the Lorenz curve, concentration curves are non-decreasing. As a consequence, it can cross the perfect equality line. For more details, see textcite:Jann_Concentration_2016.]. Based on these curves, it is possible to assess how concentrated a certain asset is by comparing it with perfect equality line[fn::In 2010, for example,  up to 25% of wealthy households owned 21.80% of all primary houses. Moving on, households up to 50%, 75% and 90% owned 61.30%, 90.10% and  95.30% respectively while 2.9% was not in the possession of any households.][fn::The higher and to the left a concentration curve is compared to the Lorenz curve, the less concentrated the asset is. In this case, the asset  is distributed in favor of the poorest strata of wealth. A concentration curve more to the right and below compared to the Lorenz curve indicates the opposite.].
+Additionally, some key aspects of recent housing developments have not been dealt with in depth.
+More specifically, there has been little discussion on popularization of primary houses and concentration of secondary ones[fn::According to textcite:us_census_bureau_characteristics_2017, a primary property is one that the owner has regular access to and, in the case of having more than one (secondary) property, it is the one that enjoys most of the time throughout the year. Secondary properties are those where:
+(i) the owners reside part of the year only; (ii) it is at least 50 miles from the primary property and; (iii) cannot be subject to a rental agreement.]. The expansion of primary houses can be seen in Figure ref:fig:concentration, which shows concentration curves from 1989 to 2010 by different types of properties (primary and secondary)[fn::Concentration curves are drawn from the cumulative ordering of two distinct variables. The horizontal axis of Figure ref:fig:concentration contains the cumulative proportion of wealthy households while the vertical axis shows the accumulated proportion of a portion of this wealth (in this case, primary and secondary houses). Finally, to build the concentration curves, both axes are ordered by total wealth. Thus, unlikely the Lorenz curve, concentration curves are non-decreasing. As a consequence, it can cross the perfect equality line. For more details, see textcite:Jann_Concentration_2016.]. Based on these curves, it is possible to assess how concentrated a certain asset is by comparing it with perfect equality line[fn::In 2010, for example,  up to 25% of wealthy households owned 21.80% of all primary houses. Moving on, households up to 50%, 75% and 90% owned 61.30%, 90.10% and  95.30% respectively while 2.9% was not in the possession of any households.][fn::The higher and to the left a concentration curve is compared to the Lorenz curve, the less concentrated the asset is. In this case, the asset  is distributed in favor of the poorest strata of wealth. A concentration curve more to the right and below compared to the Lorenz curve indicates the opposite.].
 
 #+begin_export latex
 \begin{figure}[htb]
@@ -994,11 +1017,13 @@ Another key aspect of recent housing development is the  popularization of prima
 #+end_export
 
 
-A brief inspection of Figure ref:fig:concentration reveals that the years leading up to the Great Recession were characterized by the deconcentration of primary houses. In other words, poorer strata of the population now have a larger accumulated share of this type of asset. 
-Since primary houses concern those that are used for purposes that are not necessarily speculative, there is a general increase in the demand for properties as final good. The same cannot be said about secondary houses whose concentration/distribution movement is not as marked as in the previous case. Since this type of property is not intended for regular use by its owner, a greater distribution of this asset suggests an increase in the demand for properties in the expectation of capital gains[fn::This increase in demand for secondary houses may indicate --- but is not limited to --- an increase for speculative reasons. A vacation or rental home, for example, are non-speculative uses of a secondary house. Nevertheless, it is argued that there is a connection between secondary houses and speculation with real estate. It worth noting that the wealthiest households are not the main holders of this secoundary houses. According to Figure ref:fig:concentration, they accumulate less than 50% of these properties over the analyzed period (see vertical axis).].
+A brief inspection of Figure ref:fig:concentration reveals that the years leading up to the Great Recession were characterized by the deconcentration of primary houses. In other words, poorer strata of the population now have a larger accumulated share of primary houses. 
+Since this asset is mainly acquired for non-speculative reasons, there is a general increase in the demand for properties as final good. The same cannot be said about secondary houses whose concentration/distribution movement is not as marked as in the previous case. Since this type of property is not intended for regular use by its owner, deconcentration of this asset suggests an increase in the demand for properties in the expectation of capital gains[fn::This increase in demand for secondary houses may indicate --- but is not limited to --- an increase for speculative reasons. A vacation or rental home, for example, are non-speculative uses of a secondary house. Nevertheless, it is argued that there is a connection between secondary houses and speculation with real estate. It worth noting that the wealthiest households are not the main holders of this secoundary houses. According to Figure ref:fig:concentration, they accumulate less than 50% of these properties over the analyzed period (see vertical axis).].
 
 *** Conexão com a subseção seguinte
 
+
+- [ ] Explicitar que os fatos estilizados apresentados até então serão comparados com o modelo teórico
 
 ** Housing bubble and residential investment
 

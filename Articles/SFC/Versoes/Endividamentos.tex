@@ -1,4 +1,4 @@
-% Created 2020-10-14 qua 12:25
+% Created 2020-11-04 qua 10:29
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -38,7 +38,7 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 O objetivo dessa nota é apresentar o desenvolvimento algébrico para obter a relação endividamento das firmas e das famílias capitalistas em termos da renda (respectivamente \(\ell_{fy}\) e \(\ell_{ky}\))\footnote{Depois pensamos em uma notação melhor}. 
 
 \section*{Endividamento das firmas}
-\label{sec:org5448064}
+\label{sec:orgb5d8f80}
 
 Na versão atual do artigo, temos o endividamento das firmas em relação ao seu capital e será denotado por \(\ell_f\)
 
@@ -61,26 +61,26 @@ Sendo assim, podemos dividir a norma de \emph{steady state} entre o endividament
 
 \begin{equation}
 \tag{57}
-\ell_f^\star = \frac{g^\star\cdot v + \gamma_f\cdot u^\star\cdot (1-\omega)}{v\cdot (g^\star - \gamma_f \cdot rm)}
+\ell_f^\star = \frac{g^\star\cdot v + \gamma_F\cdot u^\star\cdot (1-\omega)}{v\cdot (g^\star - \gamma_F \cdot r_m)}
 \end{equation}
 Multiplicando por \(v\)
 
 \begin{equation}
-\ell_f^\star\cdot v = \frac{g^\star\cdot v + \gamma_f\cdot u^\star\cdot (1-\omega)}{g^\star - \gamma_f \cdot rm}
+\ell_f^\star\cdot v = \frac{g^\star\cdot v + \gamma_F\cdot u^\star\cdot (1-\omega)}{g^\star - \gamma_F \cdot r_m}
 \end{equation}
 Dividindo por \(u\star\)
 \begin{equation}
-\ell_f^\star\cdot \frac{v}{u\star} = \ell_{fy} = \frac{\frac{g^\star\cdot v}{u^\star} + \gamma_f\cdot (1-\omega)}{g^\star - \gamma_f\cdot rm}
+\ell_f^\star\cdot \frac{v}{u\star} = \ell_{fy} = \frac{\frac{g^\star\cdot v}{u^\star} + \gamma_F\cdot (1-\omega)}{g^\star - \gamma_F\cdot r_m}
 \end{equation}
 lembrando da definição de \(h^\star\):
 
 \begin{equation}
 \label{endiv_firm}
-\ell_{fy} = \frac{h^\star + \gamma_f\cdot (1-\omega)}{g^\star - \gamma_f\cdot}
+\ell_{fy} = \frac{h^\star + \gamma_F\cdot (1-\omega)}{g^\star - \gamma_F\cdot r_m}
 \end{equation}
 
 \section*{Endividamento das famílias capitalistas}
-\label{sec:org2b36d9c}
+\label{sec:org1d7da5e}
 
 Nesta seção, irei indicar as etapas para obter o endividamento capitalista em termos da renda disponível. Para isso, seguem algumas definições e hipóteses\footnote{Ainda estou pensando em quais letrar utilizar na versão final}:
 
@@ -109,30 +109,30 @@ Dito isso, vou reescrever a equação da renda disponível das famílias capital
 
 \begin{equation}
 \tag{32}
-YD_k = FD + rm\cdot M_{-1} - r_{mo}\cdot MO_{-1}  - r_{L}\cdot L_{k_{-1}}
+YD_k = FD + r_m\cdot M_{-1} - r_{mo}\cdot MO_{-1}  - r_{L}\cdot L_{k_{-1}}
 \end{equation}
 fazendo \(r_m = r_{mo} = r_l\)
 \begin{equation}
-YD_k = FD + rm\cdot (M_{-1} - MO_{-1}  - L_{k_{-1}})
+YD_k = FD + r_m\cdot (M_{-1} - MO_{-1}  - L_{k_{-1}})
 \end{equation}
 que é equivalente à 
 \begin{equation}
-YD_k = FD - rm\cdot DL_{-1}
+YD_k = FD - r_m\cdot DL_{-1}
 \end{equation}
 ou ainda
 \begin{equation}
-YD_k = FD + rm\cdot L_{f_{-1}}
+YD_k = FD + r_m\cdot L_{f_{-1}}
 \end{equation}
 
 Substituindo a equação dos lucros distribuídos (Eq 12) na equação anterior, temos
 
 \begin{equation}
-YD_k = (1-\gamma_f)\cdot ((1-\omega)Y - r_m L_{f_{-1}}) + rm\cdot L_{f_{-1}}
+YD_k = (1-\gamma_F)\cdot ((1-\omega)Y - r_m L_{f_{-1}}) + r_m\cdot L_{f_{-1}}
 \end{equation}
 
 \begin{equation}
 \label{New_YD}
-YD_k = (1-\gamma_f)\cdot (1-\omega)Y - r_m \cdot \gamma_F \cdot L_{f_{-1}}
+YD_k = (1-\gamma_F)\cdot (1-\omega)Y - r_m \cdot \gamma_F \cdot L_{f_{-1}}
 \end{equation}
 
 Com isso, podemos encontrar a relação entre endividamento (líquido) capitalista e renda disponível (\(\ell_k^\star\))
@@ -143,7 +143,7 @@ $$
 
 Substituindo \ref{DL} e \ref{New_YD} na relação acima, temos
 \begin{equation}
-\ell_{ky}^\star = -\frac{L_{f_{-1}}}{Y}\frac{1}{(1-\gamma_F)\cdot (1-\omega)} - \frac{-L_{f_{-1}}}{r_m L_{f_{-1}}}
+\ell_{ky}^\star = -\frac{L_{f_{-1}}}{Y}\frac{1}{(1-\gamma_F)\cdot (1-\omega)} - \frac{-L_{f_{-1}}}{r_m\cdot \gamma_F\cdot L_{f_{-1}}}
 \end{equation}
 
 \begin{equation}
@@ -181,19 +181,26 @@ $$
 
 Podemos avaliar como se dá o endividamento das famílias capitalistas dada uma variação positiva no \emph{wage-share}:
 $$
-\frac{\partial \ell_{ky}^\star}{\partial \omega} = -\frac{g^\star\cdot v}{(1-\omega)^2\cdot u^\star \cdot (1-\gamma_F)\cdot (g^\star - \gamma_F)} < 0
+\frac{\partial \ell_{ky}^\star}{\partial \omega} = -\frac{g^\star\cdot v}{(1-\omega)^2\cdot u^\star \cdot (1-\gamma_F)\cdot (g^\star - \gamma_F)}
 $$
 
-Portanto, uma redução no \emph{wage-share} (simulação 1) faz com que o endividamento capitalista \textbf{aumente} dado um \(g^\star > \gamma_F> 0\)
+Dado \(\gamma_F > g^\star > 0\), a redução no \emph{wage-share} (simulação 1) faz com que o endividamento capitalista \textbf{diminua}
 
-Já um aumento na taxa de juros implica
 $$
-\frac{\partial \ell_{ky}^\star}{\partial r_m} = -\frac{1}{r_m^2\cdot \gamma_F} < 0
+\frac{\partial \ell_{ky}^\star}{\partial \omega} < 0
+$$
+
+Isso contradiz a nova versão do modelo enviada em \textit{<2020-11-03 ter> } em que o valor de \(\omega\) foi de \(0.5\) para \(0. 25 (= \omega\cdot \alpha)\)   
+
+\textbf{Nota:} Removi a derivada parcial da taxa de juros porque
+
+$$
+\frac{\partial g^\star}{\partial r_m} \neq 0
 $$
 
 
 \section*{Considerações finais}
-\label{sec:org2f3ca5b}
+\label{sec:org5faa777}
 
 \begin{itemize}
 \item Talvez precise desenvolver melhor esta última equação

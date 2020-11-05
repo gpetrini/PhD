@@ -4,7 +4,7 @@
 #+Email: gpetrinidasilveira@gmail.com
 #+DATE: 04 de Janeiro de 2021
 #+LANGUAGE: pt_BR
-#+PROPERTY: header-args:ipython :async t :session *panorama* :results output drawer :exports none
+#+PROPERTY: header-args:python :async t :session *panorama* :results output drawer :exports none :eval never-export :python /usr/bin/python3.8
 
 * Beamer specific settings                                  :ignore:noexport:
 
@@ -200,50 +200,53 @@ Conjugação de políticas de incentivo à renda e ao mercado interno
 
 ** Desaceleração rudimentar II
 
-
-
 #+CAPTION: Consumo das famílias
-|------------------------------------+-----------+-----------|
-|                                    | 2004-2010 | 2011-2014 |
-| Crédito para habitação             | 21,5%     | 4,6%      |
-| Hipotecas                          | 20,1%     | 29,3%     |
-| Salário real (emprego formal)      | 2,9%      | 2,9%      |
-| Renda disponível real das famílias | 5,3%      | 1,2%      |
-|------------------------------------+-----------+-----------|
+|-------------------------------+-----------+-----------|
+|                               | 2004-2010 | 2011-2014 |
+| Crédito para habitação        | 21,5%     | 4,6%      |
+| Hipotecas                     | 20,1%     | 29,3%     |
+| Salário real (emp, formal)    | 2,9%      | 2,9%      |
+| Renda disponível das famílias | 5,3%      | 1,2%      |
+|-------------------------------+-----------+-----------|
 
 ** Desaceleração rudimentar III
 
 #+CAPTION: Política fiscal
-|                                              | 2004-2010 | 2011-2014 |
-| Superávit primário/PIB                       | 3,2%      | 1,7%      |
-| Receitas do setor público                    | 7,2%      | 1,2%      |
-| Transferências públicas para as famílias     | 5,6%      | 4,9%      |
-| Investimento das Empresas Estatais (Federal) | 16,3%     | -2,7%     |
-| Investimento Adm, Pública                    | 14,0%     | -1,0%     |
+|-----------------------------------+-----------+-----------|
+|                                   | 2004-2010 | 2011-2014 |
+| Superávit primário/PIB            | 3,2%      | 1,7%      |
+| Receitas do setor público         | 7,2%      | 1,2%      |
+| Transf. públicas para as famílias | 5,6%      | 4,9%      |
+| Invest. Emp. Estatais (Federal)   | 16,3%     | -2,7%     |
+| Investimento Adm, Pública         | 14,0%     | -1,0%     |
+|-----------------------------------+-----------+-----------|
 
 
-** Prêambulo para a ópera do fim do mundo
+** [[https://www.causaoperaria.org.br/brasil-o-golpe-a-opera-do-fim-do-mundo-artista-retrata-o-golpe-de-estado-no-pais/][Prêambulo para a ópera do fim do mundo]]
 
-[[./opera.jpg][Brasil, o Golpe: A Ópera do fim do mundo - Flávio Tavares]]
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{Brasil, O Golpe: A Ópera do fim do mundo} 
+\includegraphics[width = 0.9\textwidth]{./figs/opera.png}
+\caption*{\textbf{Fonte:} Jornal GGN}
+\end{figure}
+#+end_export
 
-* Idade das trevas
 
 * Dados
 
 ** Configurações                                                   :noexport:
 
-#+BEGIN_SRC ipython
-%config InlineBackend.figure_format = 'retina'
-%matplotlib inline
-
+#+BEGIN_SRC python
 import datetime
 import pandas as pd
 import seaborn as sns; sns.set()
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib
-
-
+import statsmodels.api as sm
+sns.set_context('talk')
 plt.style.use('bmh')
 
 
@@ -260,18 +263,66 @@ def consulta_bc(codigo_bcb, nome = ["Nome da série"]):
 
 #+RESULTS:
 :results:
-# Out [1]: 
 :end:
 
 
-** Índice EMBI Brasil (Fim de período)
+** DONE Índice EMBI Brasil (Fim de período)
+   CLOSED: [2020-11-02 seg 20:15]
+
+#+BEGIN_SRC python
+df = pd.read_html(
+    'http://www.ipeadata.gov.br/ExibeSerie.aspx?serid=40940&module=M',
+    thousands='.',
+)[2]
+
+df = pd.DataFrame(df).iloc[1:]
+df.iloc[:,0] =  pd.to_datetime(df.iloc[:,0], format='%d/%m/%Y')
+df.columns = ["Data", "EMBI+"]
+df.set_index("Data", inplace=True)
+df.index.name=''
+df = df.apply(pd.to_numeric, errors='coerce')#.resample('B').last()
+
+fig, ax = plt.subplots(figsize=(19.2,10.8))
+
+df.plot(ax=ax,
+	lw=2.5,
+	color='red',
+	ls='-',
+)
+
+ax.text(
+    0.95, -0.12,
+    f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
+    verticalalignment='bottom', horizontalalignment='right',
+    transform=ax.transAxes,
+    color='black', fontsize=15)
 
 
+sns.despine()
+plt.show()
+fig.savefig("./figs/EMBI.png", transparent = True, dpi = 300)
+plt.clf()
+#+END_SRC
+
+#+RESULTS:
+:results:
+:end:
+   
+
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{Spread Soberano = EMBI+} 
+\includegraphics[width = 0.9\textwidth]{./figs/EMBI.png}
+\label{fig:embi}
+\caption*{\textbf{Fonte:} IPEADATA}
+\end{figure}
+#+end_export
 
 ** DONE O ciclo das commodities
    CLOSED: [2020-10-16 sex 16:12]
 
-#+BEGIN_SRC ipython
+#+BEGIN_SRC python
 
 
 df = pd.concat([
@@ -285,7 +336,7 @@ for col in df.columns:
     df[col] = df[col].apply(lambda x: 100*x/df[col]["2002-01-01"])
 
 
-fig, ax = plt.subplots(figsize=(8,5))
+fig, ax = plt.subplots(figsize=(19.20,10.80))
 
 df.plot(ax=ax,
 	lw=2.5,
@@ -301,18 +352,12 @@ ax.text(
 
 
 sns.despine()
-plt.show()
+
 fig.savefig("./figs/Commodities.png", transparent = False, dpi = 300)
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [72]: 
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/23ebb56074c197da3ac978f15158419fb2d17094.png]]
 :end:
 
 #+begin_export latex
@@ -325,18 +370,76 @@ fig.savefig("./figs/Commodities.png", transparent = False, dpi = 300)
 #+end_export
 
 
-** O ciclo de liquidez internacional para países emergentes
+** Fluxos de capital
 
-*Dado:* IIF (?)
+#+BEGIN_SRC python
+df = pd.concat([
+    consulta_bc(22864, nome = ["Investimento Direto Estrangeiro líquido"]),
+    consulta_bc(22905, nome = ["Investimento em carteira (líquido)"]),
+    consulta_bc(22969, nome = ["Outros investimentos (líquido)"]),
+    consulta_bc(22863, nome = ["Conta financeira (líquido)"]),
+]).apply(pd.to_numeric, errors='coerce').resample("MS").last()
+
+fig, ax = plt.subplots(figsize=(19.20,10.80))
+
+df.drop(['Conta financeira (líquido)'], axis='columns').rolling(12).mean().plot(
+    ax=ax,
+    lw=2.5,
+    color=('orange', 'lightblue', 'darkblue'),
+    ls='-',
+    legend=False
+)
+
+df[['Conta financeira (líquido)']].rolling(12).mean().plot(
+    ax=ax,
+    lw=2.5,
+    color=('red'),
+    kind='area',
+    legend=False,
+    stacked=False
+)
+
+ax.legend(frameon=True, edgecolor='black')
+
+ax.set_ylabel('US$ (Milhões)')
+
+ax.text(
+    0.95, -0.08,
+    f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
+    verticalalignment='bottom', horizontalalignment='right',
+    transform=ax.transAxes,
+    color='black', fontsize=15)
+
+
+sns.despine()
+fig.savefig("./figs/FluxosInternacionais.png", transparent = True, dpi = 300)
+plt.clf()
+#+END_SRC
+
+#+RESULTS:
+:results:
+:end:
+
+
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{Balanço de Bagamentos - Conta financeira e seus componentes} 
+\includegraphics[width = 0.9\textwidth]{./figs/FluxosInternacionais.png}
+\label{fig:financeira}
+\caption*{\textbf{Fonte:} BCB}
+\end{figure}
+#+end_export
+
 
 ** DONE Evolução das reservas internacionais líquidas
    CLOSED: [2020-10-16 sex 16:12]
 
 
-#+BEGIN_SRC ipython
+#+BEGIN_SRC python
 df = consulta_bc(13621, nome = ["Total"])
 #df = pd.concat([df, consulta_bc(13982 , nome = ["Conceito Liquidez"])], axis=1, sort=False)
-fig, ax = plt.subplots(figsize=(8,5))
+fig, ax = plt.subplots(figsize=(19.20,10.80))
 
 df.plot(ax=ax,
 lw=2.5,
@@ -353,18 +456,12 @@ color='black', fontsize=10)
 ax.set_ylabel('US$ (milhões)')
 
 sns.despine()
-plt.show()
+
 fig.savefig("./figs/Reservas_Internacionais.png", transparent = True, dpi = 300)
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [12]: 
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/08f8f803a3be2b082e19c90a698e33d3426c31de.png]]
 :end:
 
 #+begin_export latex
@@ -381,8 +478,8 @@ fig.savefig("./figs/Reservas_Internacionais.png", transparent = True, dpi = 300)
 ** DONE Taxa de crescimento e IBC-Br
    CLOSED: [2020-10-26 seg 16:57]
 
-#+BEGIN_SRC ipython
-fig, ax = plt.subplots(figsize=(8,5))
+#+BEGIN_SRC python
+fig, ax = plt.subplots(figsize=(19.20,10.80))
 
 df = pd.concat([
     consulta_bc(24364, ["IBC-Br"]),
@@ -407,18 +504,12 @@ color='black', fontsize=10)
 
 
 sns.despine()
-plt.show()
+
 fig.savefig("./figs/PIB_IBCBr.png", transparent = True, dpi = 300)
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [6]: 
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/9e99957d995dbdcf315568204b11e1336addac43.png]]
 :end:
 
 #+begin_export latex
@@ -435,7 +526,7 @@ fig.savefig("./figs/PIB_IBCBr.png", transparent = True, dpi = 300)
 ** DONE PIB puxado pelo mercado doméstico
    CLOSED: [2020-10-26 seg 16:26]
 
-#+BEGIN_SRC ipython
+#+BEGIN_SRC python
 import matplotlib.ticker as mticker
 
 
@@ -451,7 +542,7 @@ df = pd.concat([
 df["Mercado doméstico"] = df[["Consumo das famílias", "Consumo do governo", "FBCF"]].sum(axis=1)
 df["Setor Externo"] = df["Exportação"] - df["Importação"]
 
-fig, ax = plt.subplots(figsize=(8,5))
+fig, ax = plt.subplots(figsize=(19.20,10.80))
 
 df[["Mercado doméstico", "Setor Externo"]].diff(4).apply(lambda x: x/(df["PIB"].shift(4))).dropna().plot(ax=ax,
                                                 lw=1.5,
@@ -471,34 +562,39 @@ ax.xaxis.set_major_formatter(mticker.FixedFormatter(ticklabels))
 fig.autofmt_xdate()
 
 ax.text(
-	0.95, -0.15,
+	0.95, -0.12,
 	f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
         verticalalignment='bottom', horizontalalignment='right',
         transform=ax.transAxes,
-        color='black', fontsize=10)
+        color='black', fontsize=15)
 
 
 sns.despine()
-plt.show()
 fig.savefig("./figs/PIB_Decomp.png", transparent = True, dpi = 300)
+plt.clf()
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [73]: 
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/77f20c5a7c3203f05caa0c03d57a1fa3f8d3d82f.png]]
 :end:
+
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{Decomposição da taxa de crescimento do produto - Domésticos e externos} 
+\includegraphics[width = 0.9\textwidth]{./figs/PIB_Decomp.png}
+\label{fig:cycles}
+\caption*{\textbf{Fonte:} BCB}
+\end{figure}
+#+end_export
+
 
 ** DONE Crescimento e o investimento induzido
    CLOSED: [2020-10-26 seg 16:26]
 
 
-#+BEGIN_SRC ipython
-fig, ax = plt.subplots(figsize=(8,5))
+#+BEGIN_SRC python
+fig, ax = plt.subplots(figsize=(19.20,10.80))
 
 df[["Consumo das famílias", "Consumo do governo", "FBCF",
     "Setor Externo"
@@ -518,32 +614,38 @@ ax.xaxis.set_major_formatter(mticker.FixedFormatter(ticklabels))
 fig.autofmt_xdate()
 
 ax.text(
-	0.95, -0.15,
+	0.95, -0.12,
 	f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
         verticalalignment='bottom', horizontalalignment='right',
         transform=ax.transAxes,
-        color='black', fontsize=10)
+        color='black', fontsize=15)
 
 
 sns.despine()
-plt.show()
+
 fig.savefig("./figs/PIB_Decomp_Total.png", transparent = True, dpi = 300)
+plt.clf()
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [82]: 
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/511a5624d1547c7fafbf56a73a60e73262e32082.png]]
 :end:
+
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{Taxa de crescimento do produto - decomposição total} 
+\includegraphics[width = 0.9\textwidth]{./figs/PIB_Decomp_Total.png}
+\label{fig:PIB_Decomp_Total}
+\caption*{\textbf{Fonte:} BCB}
+\end{figure}
+#+end_export
+
 
 ** DONE Saldo de Crédito
    CLOSED: [2020-10-16 sex 18:14]
 
-#+BEGIN_SRC ipython
+#+BEGIN_SRC python
 
 df = consulta_bc(20622, ["Total"])
 
@@ -555,7 +657,7 @@ df = pd.concat([
 ).apply(pd.to_numeric, errors='coerce').resample("MS").last()
 
 
-fig, ax = plt.subplots(figsize=(8,5))
+fig, ax = plt.subplots(figsize=(19.20,10.80))
 
 df["1996-01-01":].plot(ax=ax,
 lw=2.5,
@@ -572,19 +674,13 @@ color='black', fontsize=10)
 ax.set_yticklabels(['{:,.2%}'.format(x/100) for x in ax.get_yticks()])
 
 sns.despine()
-plt.show()
+
 fig.savefig("./figs/Credito.png", transparent = True, dpi = 300)
 
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [155]: 
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/fc641961292fdc22772f9d599208bc89afcf6d45.png]]
 :end:
 
 #+begin_export latex
@@ -601,10 +697,10 @@ fig.savefig("./figs/Credito.png", transparent = True, dpi = 300)
 ** DONE Emprego
    CLOSED: [2020-10-16 sex 16:33]
 
-#+BEGIN_SRC ipython
+#+BEGIN_SRC python
 df = consulta_bc(28512, ["Emprego Formal"])
 
-fig, ax = plt.subplots(figsize=(8,5))
+fig, ax = plt.subplots(figsize=(19.20,10.80))
 
 df.plot(ax=ax,
 lw=2.5,
@@ -621,18 +717,12 @@ color='black', fontsize=10)
 
 
 sns.despine()
-plt.show()
+
 fig.savefig("./figs/EmpregoFormal.png", transparent = True, dpi = 300)
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [60]: 
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/1e88f2ca6ec7159b8c4ae41e7237cf757c6fb37f.png]]
 :end:
 
 #+begin_export latex
@@ -648,14 +738,19 @@ fig.savefig("./figs/EmpregoFormal.png", transparent = True, dpi = 300)
 
 ** DONE Evolução dos rendimentos (I)
    CLOSED: [2020-10-16 sex 16:41]
-#+BEGIN_SRC ipython
-df = consulta_bc(10790, ["RMRE - Todos os trabalhos"])
+#+BEGIN_SRC python
+df = consulta_bc(
+    10790,
+    ["RMRE - Todos os trabalhos"]
+)
 
-fig, ax = plt.subplots(figsize=(8,5))
+df['Série Desazonalizada'] = sm.tsa.seasonal_decompose(df["RMRE - Todos os trabalhos"]).trend
+
+fig, ax = plt.subplots(figsize=(19.20,10.80))
 
 df.plot(ax=ax,
 lw=2.5,
-color='darkred',
+color=('darkred', 'black'),
 ls='-'
 )
 
@@ -669,18 +764,13 @@ ax.set_ylabel('R$')
 
 
 sns.despine()
-plt.show()
+
 fig.savefig("./figs/RendimentoEfetivo.png", transparent = True, dpi = 300)
+plt.clf()
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [66]: 
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/b93a948c5b9118a52f6d24faadbac000931a6231.png]]
 :end:
 
 #+begin_export latex
@@ -699,10 +789,10 @@ fig.savefig("./figs/RendimentoEfetivo.png", transparent = True, dpi = 300)
 ** DONE Evolução dos rendimentos (II)
    CLOSED: [2020-10-16 sex 16:41]
    
-#+BEGIN_SRC ipython
+#+BEGIN_SRC python
 df = consulta_bc(28545, ["MRRH - Todos os trabalhos"])
 
-fig, ax = plt.subplots(figsize=(8,5))
+fig, ax = plt.subplots(figsize=(19.20,10.80))
 
 df.plot(ax=ax,
 lw=2.5,
@@ -720,18 +810,12 @@ ax.set_ylabel('R$ (milhões)')
 
 
 sns.despine()
-plt.show()
+
 fig.savefig("./figs/RendimentoHabitual.png", transparent = True, dpi = 300)
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [64]: 
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/eaa4c354946dd371b67a70b6325875f6c1bac487.png]]
 :end:
 
 #+begin_export latex
@@ -748,8 +832,8 @@ fig.savefig("./figs/RendimentoHabitual.png", transparent = True, dpi = 300)
 
 ** DONE Consumo das famílias
    CLOSED: [2020-10-16 sex 17:55]
-#+BEGIN_SRC ipython
-fig, ax = plt.subplots(figsize=(8,5))
+#+BEGIN_SRC python
+fig, ax = plt.subplots(figsize=(19.20,10.80))
 
 consulta_bc(22110, ["Número Índice"]).plot(ax=ax,
 lw=2.5,
@@ -766,18 +850,12 @@ color='black', fontsize=10)
 
 
 sns.despine()
-plt.show()
+
 fig.savefig("./figs/ConsumoFamilias.png", transparent = True, dpi = 300)
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [122]: 
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/bc9ada2ccb7f69be3ba93a53aed5fd8cda44145e.png]]
 :end:
 
 #+begin_export latex
@@ -786,14 +864,14 @@ fig.savefig("./figs/ConsumoFamilias.png", transparent = True, dpi = 300)
 \caption{Consumo das famílias\\Jan/1995=100} 
 \includegraphics[width = 0.9\textwidth]{./figs/ConsumoFamilias.png}
 \label{fig:Consumo}
-\caption*{\textbf{Source:} IBGE}
+\caption*{\textbf{Fonte:} IBGE}
 \end{figure}
 #+end_export
 
 ** DONE Endividamento das famílias
    CLOSED: [2020-10-16 sex 17:55]
 
-#+BEGIN_SRC ipython
+#+BEGIN_SRC python
 df = pd.concat(
     [
         consulta_bc(19882, ["Total"]),
@@ -802,7 +880,7 @@ df = pd.concat(
     axis = 1
 )
 
-fig, ax = plt.subplots(figsize=(8,5))
+fig, ax = plt.subplots(figsize=(19.20,10.80))
 
 df.plot(ax=ax,
 	lw=2.5,
@@ -818,18 +896,12 @@ ax.text(
 ax.set_yticklabels(['{:,.2%}'.format(x/100) for x in ax.get_yticks()])
 
 sns.despine()
-plt.show()
+
 fig.savefig("./figs/EndividamentoFam.png", transparent = True, dpi = 300)
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [124]: 
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/645750194f4897619afd26ef2c811ac460828188.png]]
 :end:
 
 #+begin_export latex
@@ -847,69 +919,21 @@ fig.savefig("./figs/EndividamentoFam.png", transparent = True, dpi = 300)
 
 *Dado:* Taxa de investimento público (%PIB)
 
-#+BEGIN_SRC ipython
-url = "https://www.tesourotransparente.gov.br/ckan/dataset/e048826b-b6b0-4d92-9204-fd218b1f25b3/resource/7a761d07-583a-4191-9f7d-db940f9f90bf/download/INVESTIMENTO-TOTAL---VALORES-PAGOS.csv"
+#+BEGIN_SRC python
+url = "https://www.tesourotransparente.gov.br/ckan/dataset/e048826b-b6b0-4d92-9204-fd218b1f25b3/reFonte/7a761d07-583a-4191-9f7d-db940f9f90bf/download/INVESTIMENTO-TOTAL---VALORES-PAGOS.csv"
 
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [23]: 
-# output
-
-ParserErrorTraceback (most recent call last)
-<ipython-input-23-00bb250345c7> in <module>
-----> 1 df = pd.read_csv('https://www.tesourotransparente.gov.br/ckan/dataset/e048826b-b6b0-4d92-9204-fd218b1f25b3/resource/7a761d07-583a-4191-9f7d-db940f9f90bf/download/INVESTIMENTO-TOTAL---VALORES-PAGOS.csv')
-      2 df
-
-~/.local/lib/python3.8/site-packages/pandas/io/parsers.py in parser_f(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, dialect, error_bad_lines, warn_bad_lines, delim_whitespace, low_memory, memory_map, float_precision)
-    674         )
-    675 
---> 676         return _read(filepath_or_buffer, kwds)
-    677 
-    678     parser_f.__name__ = name
-
-~/.local/lib/python3.8/site-packages/pandas/io/parsers.py in _read(filepath_or_buffer, kwds)
-    452 
-    453     try:
---> 454         data = parser.read(nrows)
-    455     finally:
-    456         parser.close()
-
-~/.local/lib/python3.8/site-packages/pandas/io/parsers.py in read(self, nrows)
-   1131     def read(self, nrows=None):
-   1132         nrows = _validate_integer("nrows", nrows)
--> 1133         ret = self._engine.read(nrows)
-   1134 
-   1135         # May alter columns / col_dict
-
-~/.local/lib/python3.8/site-packages/pandas/io/parsers.py in read(self, nrows)
-   2035     def read(self, nrows=None):
-   2036         try:
--> 2037             data = self._reader.read(nrows)
-   2038         except StopIteration:
-   2039             if self._first_chunk:
-
-pandas/_libs/parsers.pyx in pandas._libs.parsers.TextReader.read()
-
-pandas/_libs/parsers.pyx in pandas._libs.parsers.TextReader._read_low_memory()
-
-pandas/_libs/parsers.pyx in pandas._libs.parsers.TextReader._read_rows()
-
-pandas/_libs/parsers.pyx in pandas._libs.parsers.TextReader._tokenize_rows()
-
-pandas/_libs/parsers.pyx in pandas._libs.parsers.raise_parser_error()
-
-ParserError: Error tokenizing data. C error: Expected 1 fields in line 4, saw 33
-
 :end:
 
 ** A evolução favorável da dívida pública
 
 *Dado:* Evolução da dívida bruta e líquida (%PIB)
 
-#+BEGIN_SRC ipython
-fig, ax = plt.subplots(figsize=(8,5))
+#+BEGIN_SRC python
+fig, ax = plt.subplots(figsize=(19.20,10.80))
 
 df = pd.concat([
     consulta_bc(4536, ["Líquida"]),
@@ -936,24 +960,18 @@ color='black', fontsize=10)
 
 
 sns.despine()
-plt.show()
+
 fig.savefig("./figs/Divida_BrutaLiquida.png", transparent = True, dpi = 300)
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [41]: 
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/e881f8b9cca723b42b48e20102d76a042d936434.png]]
 :end:
 
 ** Resultado primário do Governo Central
 
-#+BEGIN_SRC ipython
-fig, ax = plt.subplots(figsize=(8,5))
+#+BEGIN_SRC python
+fig, ax = plt.subplots(figsize=(19.20,10.80))
 
 df = pd.concat([
     consulta_bc(5497, ["Resultado Primário"]),
@@ -981,18 +999,12 @@ color='black', fontsize=10)
 
 
 sns.despine()
-plt.show()
+
 fig.savefig("./figs/Resultado_Primario.png", transparent = True, dpi = 300)
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [22]: 
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/b41ce7398e53e3e35b6211fcad9d5e2ccd28c026.png]]
 :end:
 
 #+begin_export latex
@@ -1009,7 +1021,7 @@ fig.savefig("./figs/Resultado_Primario.png", transparent = True, dpi = 300)
 ** DONE Dívida líquida do setor público
    CLOSED: [2020-10-16 sex 16:20]
 
-#+BEGIN_SRC ipython
+#+BEGIN_SRC python
 df = pd.concat(
     [
         consulta_bc(4503, ["Total"]),
@@ -1019,7 +1031,7 @@ df = pd.concat(
     axis=1
 )
 
-fig, ax = plt.subplots(figsize=(8,5))
+fig, ax = plt.subplots(figsize=(19.20,10.80))
 
 df.plot(ax=ax,
 lw=2.5,
@@ -1038,18 +1050,12 @@ color='black', fontsize=10)
 
 
 sns.despine()
-plt.show()
+
 fig.savefig("./figs/DividaLiquida.png", transparent = True, dpi = 300)
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [57]: 
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/2ba080a4bca8943cfa7d55c63a716fbce8643b02.png]]
 :end:
 
 
@@ -1059,7 +1065,7 @@ fig.savefig("./figs/DividaLiquida.png", transparent = True, dpi = 300)
 \caption{Dívida líquida do Governo Federal e Banco Central\\em \% do PIB} 
 \includegraphics[width = 0.9\textwidth]{./figs/DividaLiquida.png}
 \label{fig:divliq}
-\caption*{\textbf{Source:} BCB-DSTAT}
+\caption*{\textbf{Fonte:} BCB-DSTAT}
 \end{figure}
 #+end_export
 
@@ -1068,10 +1074,10 @@ fig.savefig("./figs/DividaLiquida.png", transparent = True, dpi = 300)
 ** DONE Taxa de câmbio nominal
    CLOSED: [2020-10-16 sex 16:12]
 
-#+BEGIN_SRC ipython
+#+BEGIN_SRC python
 df = consulta_bc(20360, ['Câmbio'])
 
-fig, ax = plt.subplots(figsize=(8,5))
+fig, ax = plt.subplots(figsize=(19.20,10.80))
 
 df.plot(ax=ax,
 	lw=2.5,
@@ -1089,18 +1095,12 @@ ax.text(
 
 
 sns.despine()
-plt.show()
+
 fig.savefig("./figs/CambioNominal.png", transparent = True, dpi = 300)
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [52]: 
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/48ad52a35e68e346bea3ee3552d27dd16618b54a.png]]
 :end:
 
 #+begin_export latex
@@ -1118,8 +1118,8 @@ fig.savefig("./figs/CambioNominal.png", transparent = True, dpi = 300)
    CLOSED: [2020-10-16 sex 16:12]
 
 
-#+BEGIN_SRC ipython
-fig, ax = plt.subplots(1,1, figsize=(8,5))
+#+BEGIN_SRC python
+fig, ax = plt.subplots(1,1, figsize=(19.20,10.80))
 
 
 df = pd.concat([consulta_bc(1178, ['Efetiva']), consulta_bc(432, ['Meta'])],axis=1)
@@ -1140,18 +1140,12 @@ color='black', fontsize=10)
 
 
 sns.despine()
-plt.show()
+
 fig.savefig("./figs/Selic.png", transparent = True, dpi = 300)
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [47]: 
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/93d83beecdd3efce1d4c8b27f60457d952b033c0.png]]
 :end:
 
 #+begin_export latex
@@ -1168,7 +1162,7 @@ fig.savefig("./figs/Selic.png", transparent = True, dpi = 300)
 ** DONE Finalmente, inflação (ops, IPCA)
    CLOSED: [2020-10-23 sex 18:30]
 
-#+BEGIN_SRC ipython
+#+BEGIN_SRC python
 
 df = consulta_bc(13521, ["Meta"])
 df = df.resample('MS').ffill()#.bfill()
@@ -1185,7 +1179,7 @@ df = df["1998-01-01":]
 df = df/100
 df["IPCA"] = (1+ df["IPCA"]).rolling(window=12).agg(lambda x : x.prod()) -1
 
-fig, ax = plt.subplots(figsize=(8,5))
+fig, ax = plt.subplots(figsize=(19.20,10.80))
 
 df[["IPCA"]].plot(ax=ax,
 lw=2,
@@ -1215,18 +1209,12 @@ ax.pcolorfast(ax.get_xlim(), ax.get_ylim(),
 ax.legend()
 
 sns.despine()
-plt.show()
+
 fig.savefig("./figs/IPCA.png", transparent = True, dpi = 300)
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [32]: 
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/193fc93e6e283919165009c15b192d37363e0b63.png]]
 :end:
 
 #+begin_export latex
@@ -1241,7 +1229,7 @@ fig.savefig("./figs/IPCA.png", transparent = True, dpi = 300)
 ** DONE Preços livres, monitorados, serviços
    CLOSED: [2020-10-26 seg 20:14]
 
-#+BEGIN_SRC ipython
+#+BEGIN_SRC python
 df = consulta_bc(13521, ["Meta"])
 df = df.resample('MS').ffill()#.bfill()
 
@@ -1262,7 +1250,7 @@ df["IPCA"] = (1+ df["IPCA"]).rolling(window=12).agg(lambda x : x.prod()) -1
 df["Livres"] = (1+ df["Livres"]).rolling(window=12).agg(lambda x : x.prod()) -1
 df["Monitorados"] = (1+ df["Monitorados"]).rolling(window=12).agg(lambda x : x.prod()) -1
 df["Serviços"] = (1+ df["Serviços"]).rolling(window=12).agg(lambda x : x.prod()) -1
-fig, ax = plt.subplots(figsize=(8,5))
+fig, ax = plt.subplots(figsize=(19.20,10.80))
 
 df[["Livres", "Monitorados", "Serviços", "IPCA"]].plot(ax=ax,
 lw=2,
@@ -1292,18 +1280,12 @@ ax.pcolorfast(ax.get_xlim(), ax.get_ylim(),
 ax.legend()
 
 sns.despine()
-plt.show()
+
 fig.savefig("./figs/Livres_Administrados.png", transparent = True, dpi = 300)
 #+END_SRC
 
 #+RESULTS:
 :results:
-# Out [28]: 
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/16b24a9f11b8f145e4f56b550bfdf20a123bf01d/3c04b1dc8d26541c7285d0baa45b21cdfc2ab648.png]]
 :end:
 
 #+begin_export latex

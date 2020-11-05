@@ -56,11 +56,13 @@ Talvez essa tabela mude na medida que forem usados outros valores dos parâmetro
 
 Eu tinha iniciado (faz um tempo) um código para retornar uma tabela de análise de sensibilidade similar à do Fazzari. Esse é um código que leva um certo tempo para rodar porque faço vários /nested for loops/ (a.k.a simulo um porrilhão de cenários rs). No final das contas acabei deixando de lado. Havendo tempo, penso em retornar a isso. Imagino que se desse certo, seria bastante interessante mas também acho que não esta entre as nossas prioridades. Talvez pudesse trabalhar nisso enquanto o artigo estivesse sendo revisado na expectativa de que algum parecerista peça. Por fim, esse apêndice inexistente é um dos motivos de ter tantos /hashs/ ("lixos") no fim do apêndice B.
 
-* Versão <2020-10-29 qui>
+* Versão <2020-11-03 ter>
 
 ** Seção empírica
 
 - Feitas algumas pequenas correções no inglês
+- Incluídas discussões empíricas (Green, Leamer e Fiebiger)
+  - O mesmo foi feito para artigos econometricos
 - Dividida em duas subseções
 - Ajustadas proporções e qualidade dos gráficos
 - Gráficos foram adaptados para escala de cinza
@@ -89,4 +91,12 @@ Eu tinha iniciado (faz um tempo) um código para retornar uma tabela de análise
 - Retomado apêndice C
 - Corrigidas referências quebradas (estavam com ??) desta seção
 - [ ] Reduzido espaçamento entre título e o gráfico
+- Valor de $\alpha$ alterado para 1.0 e $\omega = 0.25$ (igual a $\alpha\cdot \omega$ do Fazzari)
 
+* Versão <2020-11-06 sex>
+
+** Solução analítica
+
+- Resultados do python para $k^\star$ e $\ell_f^\star$ foram rearranjados
+  - Resultados das derivadas parciais para $k^\star$ de acordo com as simulações
+- Documento endividamento corrigido em <2020-11-04 qua>

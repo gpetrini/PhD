@@ -332,6 +332,7 @@ printer(symbol =  'm', equation = m, var = omega, replace_g = False)
 In this appendix, we present the partial derivatives of somes stock/flow ratios.
 Firt, we show that houses share on total capital stock depends positively on deposits interest rate (Eq. \ref{partial_rm}) and negatively both on autonomous component of residential investment growth rate (equation \ref{partial_phi0}), real estate inflation (equation \ref{partial_pi}) and wage-share (equation \ref{partial_omega}):
 
+*Nota:* Resultado anterior. Não alterado para comparação e no aguardo da conferência do arquivo sobre endividamentos.
 
 \begin{equation}
 \label{partial_rm}
@@ -359,6 +360,26 @@ Firt, we show that houses share on total capital stock depends positively on dep
 \begin{equation}\frac{\partial k^{\star}}{\partial \pi} = - \frac{\phi_{1} \left(R - 1\right) \left(\omega - 1\right) \left(r_{m} + 1\right)}{\left(R \left(\pi \omega + \pi \phi_{0} + \pi \phi_{1} - \pi + \omega + \phi_{0} - \phi_{1} r_{m} - 1\right) - \pi \omega + \pi - \omega + 1\right)^{2}}\end{equation}
 
 
+*Nota:* Output python rearranjado
+
+\begin{equation}
+\frac{\partial k^{\star}}{\partial \omega} = \frac{-(1-R)(\phi_0 - \phi_1\cdot r_m)}{(R(\phi_0 - \phi_1\cdot r_m) + (1-R)(1-\omega))^2} < 0
+\end{equation}
+
+\begin{equation}
+\frac{\partial k^{\star}}{\partial r_{m}} = \frac{\phi_1\cdot(1-R)\cdot(1-\omega)}{(R\cdot (\phi_0 - \phi_1\cdot r_m) + (1-R)\cdot (1-\omega))^2} > 0
+\end{equation}
+
+\begin{equation}
+\frac{\partial k^{\star}}{\partial \phi_0} = 
+ \frac{R\cdot(\phi_0 - \phi_1\cdot r_m)}{(R(\phi_0 - \phi_1\cdot r_m) + (1-R)(1-\omega))^2} - \frac{1}{(R(\phi_0 - \phi_1\cdot r_m) + (1-R)(1-\omega))^2} < 0
+\end{equation}
+
+
+\begin{equation}
+\frac{\partial k^{\star}}{\partial \pi} = -\frac{\phi_1\cdot(1-R)\cdot(1-\omega)\cdot(1+r_m)}{(R\cdot((1+\pi)\cdot(\phi_0 + \phi_1\cdot r_m + \omega - 1) + \phi_1\cdot \pi \cdot(1-r_m)) + (1-\omega)\cdot(1+\pi))^2} < 0
+\end{equation}
+
 Since capitalists' loans and mortgage to house ratios ($\ell^{\star}_{k}$ and $mo^{\star}$, respectively) depend only on parameters not analyzed on our experiments, we repeat this  procedure to firms' loans to capacity generating capital stock ($\ell^{\star}_f$):
 
 *Nota:* Output python. Ainda irei reorganizar
@@ -369,7 +390,26 @@ Since capitalists' loans and mortgage to house ratios ($\ell^{\star}_{k}$ and $m
 \begin{equation}\frac{\partial \ell_f^{\star}}{\partial \pi} = - \frac{\gamma_{F} \phi_{1} \left(r_{m} + 1\right) \left(\omega u^{\star} + r_{m} v - u^{\star}\right)}{v \left(\gamma_{F} r_{m} + \pi \left(\gamma_{F} r_{m} - \phi_{0} - \phi_{1}\right) - \phi_{0} + \phi_{1} r_{m}\right)^{2}}\end{equation}
 
 
+*Nota:* Output python rearranjado
 
+\begin{equation}
+\frac{\partial \ell_f^{\star}}{\partial \omega} = \frac{\gamma_{F} u^{\star}}{v \left(g^\star - \gamma_{F} r_{m}\right)}
+\end{equation}
+
+\begin{equation}
+\frac{\partial \ell_f^{\star}}{\partial r_{m}} = 
+\frac{\gamma_F}{v\cdot((1+\pi)\cdot(\gamma_F\cdot r_m - \phi_0) + \phi_1\cdot (r_m -\pi))^2}
+\end{equation}
+
+\begin{equation}
+\frac{\partial \ell_f^{\star}}{\partial \phi_0} = 
+\frac{-\gamma_F\cdot (1+\pi)\cdot(r_g^\star + r_m)}{((1+\pi)\cdot (\gamma_F\cdot r_m - \phi_0) + \phi_1\cdot (r_m -\pi))^2} <0
+\end{equation}
+
+\begin{equation}
+\frac{\partial \ell_f^{\star}}{\partial \pi} = 
+\frac{-\gamma_F\cdot \phi_1\cdot (1+\pi)\cdot(r_g^\star + r_m)}{((1+\pi)\cdot (\gamma_F\cdot r_m - \phi_0) + \phi_1\cdot (r_m -\pi))^2} < 0
+\end{equation}
 
 * Numerical Appendix
  #+LATEX: \label{append:Data}
@@ -399,7 +439,7 @@ Since capitalists' loans and mortgage to house ratios ($\ell^{\star}_{k}$ and $m
 
 ** Sensibility                                                       :ignore:
 
-*** Config
+*** Config                                                           :ignore:
 
 #+BEGIN_SRC python :tangle ./codes/Sobol.py :async t :session Sobol :exports none :python /usr/bin/python3.8 :eval never-export
 
@@ -415,7 +455,7 @@ parameters = [
     'gamma_u',
     'omega',
     'gamma_F',
-    'alpha',
+#    'alpha',
     'spread_mo',
     'phi_0',
     'phi_1',
@@ -458,7 +498,7 @@ def sensibility(
 
 #+RESULTS:
 
-*** Simulation
+*** Simulation                                                       :ignore:
 
 #+BEGIN_SRC python  :tangle ./codes/Sobol.py :async t :session Sobol :exports none :cache no :python /usr/bin/python3.8 :eval never-export
 df = sensibility(time=400, parameters=parameters)
@@ -471,23 +511,41 @@ report = pd.DataFrame(
 print(df)
 #+END_SRC
 
-*** Table
+#+RESULTS:
+#+begin_example
+gamma_u     omega   gamma_F  spread_mo     phi_0     phi_1     infla         R
+0.00 -2.530464 -2.087674 -2.698257  -2.698247 -3.018613 -2.691682 -2.698247 -1.092702
+0.01 -2.711678 -2.095959 -2.698256  -2.698288 -1.967421 -2.692559 -2.691682 -1.100112
+0.02 -2.694301 -2.104348 -2.698260  -2.698331 -2.635810 -2.693389 -2.680788 -1.107645
+0.03 -2.709234 -2.112844 -2.698255  -2.698374 -2.627593 -2.694172 -2.666582 -1.115304
+0.04 -2.718127 -2.121447 -2.698251  -2.698412 -2.389913 -2.694906 -2.649931 -1.123094
+...       ...       ...        ...       ...       ...       ...       ...
+0.96       NaN -3.816070 -2.698230  -2.699445       NaN -2.470601 -1.831873       NaN
+0.97       NaN -3.785307 -2.698232  -2.699429       NaN -2.464600 -1.829003       NaN
+0.98       NaN -3.749482 -2.698234  -2.699412       NaN -2.458528 -1.826174       NaN
+0.99       NaN -3.709475 -2.698236  -2.699395       NaN -2.452386 -1.823388       NaN
+1.00       NaN -3.666369 -2.698235  -2.699377       NaN -2.446172 -1.820641       NaN
+
+[101 rows x 8 columns]
+#+end_example
+
+*** Table                                                            :ignore:
 
 
-#+BEGIN_SRC python  :tangle ./codes/Sobol.py :async t :session Sobol :results table drawer latex :exports results :python /usr/bin/python3.8 :eval never-export
+#+BEGIN_SRC python  :tangle ./codes/Sobol.py :async t :session Sobol :exports none :python /usr/bin/python3.8 :eval never-export
 results = report.copy(deep=True)
-df_ = df.copy()
+df_ = df.copy(deep=True)
 long_string = "Instability inducing value"
 results["Value"] = [long_string]
 results.set_index("Value", inplace=True)
 results.index.name = 'Parameter'
-results = results.transpose().copy()
+results = results.transpose().copy(deep=True)
 results["Effect of increase"] = df.diff().median() >= 0
 translate = {
     True: "Destabilizing",
     False: "Stabilizing"
 }
-results["Effect of increase"] = results["Effect of increase"].map(translate)
+results["Effect of increase"] = results["Effect of increase"].map(translate).copy(deep=True)
 
 for i in range(len(results[long_string])):
     val = results[long_string][i]
@@ -509,7 +567,7 @@ desc = {
     "phi_1" : "own interest rate parameter",
     "infla" : "real estate inflation",
     "spread_mo" : "Mortgage spread",
-    "alpha" : "Marginal propensity to consume",
+#    "alpha" : "Marginal propensity to consume",
     "R" : "$C_k$ share on $Z$",
 }
 results["Description"] = results["Description"].map(desc)
@@ -521,41 +579,42 @@ results  = results[[ # Reorder columns
     long_string,
     "Effect of increase"
 ]]
-print(results.to_latex(
-    caption = "Effect of individual parameters\\\\on model stability",
+results.to_latex(
+    './tabs/sobol.tex',
     label = "tab:sensibility",
     escape = False,
     na_rep = '-',
     #position="H"
-))
+)
+#+END_SRC
+
+#+RESULTS:
+: /home/gpetrini/.local/lib/python3.8/site-packages/pandas/core/indexing.py:670: SettingWithCopyWarning: 
+: A value is trying to be set on a copy of a slice from a DataFrame
+: 
+: See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+:   iloc._setitem_with_indexer(indexer, value)
+
+#+BEGIN_SRC latex
+\begin{table}[H]
+\caption{Effect of individual parameters\\on model stability}
+\label{tab:sensibility}
+\centering
+\input{./tabs/sobol.tex}
+\caption*{\textbf{Source:} Authors' elaboration}
+\end{table}
 #+END_SRC
 
 #+RESULTS:
 #+begin_export latex
-\begin{table}
-\centering
+\begin{table}[H]
 \caption{Effect of individual parameters\\on model stability}
 \label{tab:sensibility}
-\begin{tabular}{llrl}
-\toprule
-Parameter &                     Description &  Instability inducing value & Effect of increase \\
-              &                                 &                             &                    \\
-\midrule
-$\gamma_u$    &                Adjustment speed &                        0.65 &      Destabilizing \\
-$\omega$      &                      wage-share &                           - &      Destabilizing \\
-$\gamma_F$    &      Profit distribution policy &                           - &      Destabilizing \\
-$\alpha$      &  Marginal propensity to consume &                           - &      Destabilizing \\
-$\sigma_{mo}$ &                 Mortgage spread &                           - &      Destabilizing \\
-$\phi_0$      &  $g_{I_Z}$ autonomous component &                        0.32 &      Destabilizing \\
-$\phi_1$      &     own interest rate parameter &                           - &      Destabilizing \\
-$\pi$         &           real estate inflation &                           - &      Destabilizing \\
-$R$           &              $C_k$ share on $Z$ &                        0.91 &      Destabilizing \\
-\bottomrule
-\end{tabular}
+\centering
+\input{./tabs/sobol.tex}
+\caption*{\textbf{Source:} Authors' elaboration}
 \end{table}
 #+end_export
-
-
 
 
 
