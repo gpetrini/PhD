@@ -1,8 +1,13 @@
+#+OPTIONS: num:nil toc:nil
 #+TITLE: Histórico de versões artigo SFC
 #+AUTHOR: Gabriel Petrini
 #+DATE: 2020
-#+LANG: pt_Br
+#+LANG: pt_BR
+#+LATEX_HEADER: \addbibresource{../refs.bib}
 
+* Configs                                                          :noexport:
+
+bibliography:../refs.bib
 
 * Versão <2020-10-16 sex>
 
@@ -95,8 +100,86 @@ Eu tinha iniciado (faz um tempo) um código para retornar uma tabela de análise
 
 * Versão <2020-11-06 sex>
 
+** Introdução
+
+Inalterada em relação à versão anterior
+
+** Seção Empírica
+
+Inalterada em relação à versão anterior
+
+** Modelo
+
+*** Equações gerais
+
+- Feitas as correções sugeridas. Cabe pontuar
+  - Sraffian Strands $\Rightarrow$ Sraffian literature
+  - /while capitalists earn what they expend/ mantido
+
+*** Firmas
+- Feitas as correções sugeridas. Vale pontuar
+  - Não foram incluídas as equações da taxa de crescimento do investimento das firmas
+    - Conforme discutido via Telegram
+  - /To do so/ (p. 9) $\Rightarrow$ /For this mechanism to take place/
+*** Bancos
+- Feitas as correções sugeridas. Vale pontuar
+  - Não foi alterada a letra que representa taxa de juros
+    - *Motivo:* Falta de ideias/pragmatismo (rs)
+  - Concordo que as duas frases sobre ter taxas de juros específicas estavam contraditórias (p. 10 do pdf comentado). Alterei para
+
+#+BEGIN_QUOTE
+For simplicity, we assume null bank spreads ($\sigma_{mo} = \sigma_l = 0$) so interest rate on mortgages ($r_{mo}$) and on loans ($r_{l}$)
+are the same as on deposits ($r_{m}$) which is  exogenously determined by banks.
+#+END_QUOTE
+
+
+*** Trabalhadores
+- Feitas as correções sugeridas. Nada a comentar
+*** Capitalistas
+- Feitas as correções sugeridas. Vale pontuar
+  - Dívida total dos capitalistas ($D$) definida
+  - Funções da taxa própria movidas para a seção empírica. Função da taxa de crescimento to investimento residencial mantida
+  - Adicionadas referências sobre tendência do mercado imobiliário e institucionalidade das hipotecas (ao descrever $\phi_0$)
+    - Citar orientando do Lavoie? cite:gowans_introducing_2014
+      - Discussão sobre determinantes demográficos da taxa de crescimento do investimento residencial. Resumidamente, argumenta por ai do porquê investimento residencial é NCC.
+      - [[https://ruor.uottawa.ca/bitstream/10393/32013/1/Gowans_Dylan_2014_researchpaper.pdf][Link]]
+  - Trecho sobre $\phi_1$ na equação da taxa de crescimento do investimento residencial alterado para
+
+#+BEGIN_QUOTE
+$\phi_1$ captures the demand for housing arising from expectations of capital gains resulting from speculation with flow of new houses. 
+#+END_QUOTE
+
 ** Solução analítica
+*** Short-run
+
+- Feitas correções sugeridas. Vale pontuar
+  - Não foi adicionada discussão sobre os efeitos de mudanças na taxa de crescimento do investimento residencial em $k$
+    - Anteriormente estava no fim da seção seguinte
+
+*** Analitical Traverse
+
+- Unida com a subseção seguinte e renomeada para /Traverse and long-run Equilibrium/
+  - Nota de rodapé pontuando a diferença com textcite:freitas_growth_2015 esta ok?
+- Mantidas etapas para obter os /stock ratios/
+  - *Motivo:* Caso fossem movidas para um apêndice, faria sentido apresentar as etapas em maiores detalhes. Acho que não temos tanto espaço sobrando assim
+- Conforme mencionado, parágrafo final que tratada dos impactos de $g_{I_h}$ em $k$ foi removido
+** Simulações
+Inalterada em relação à versão anterior
+** Conclusão
+Inalterada em relação à versão anterior
+** Apêndice A
 
 - Resultados do python para $k^\star$ e $\ell_f^\star$ foram rearranjados
-  - Resultados das derivadas parciais para $k^\star$ de acordo com as simulações
-- Documento endividamento corrigido em <2020-11-04 qua>
+  - Mantidas versões antigas para comparação
+- Documento Endividamentos.pdf corrigido em <2020-11-04 qua>
+  - Já enviado
+
+
+* Referências
+  :PROPERTIES:
+  :UNNUMBERED: t
+  :END:
+
+#+LaTeX: \printbibliography[heading=none]
+
+

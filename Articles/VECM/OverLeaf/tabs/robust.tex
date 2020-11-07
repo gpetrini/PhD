@@ -1,0 +1,35 @@
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+% \usepackage{graphicx}
+\begin{table}[]
+\centering
+\caption{Robustness check}
+\label{tab:robust}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{c|c|c|c|c|c|c|c|c}
+\hline\hline
+\multirow{2}{*}{\textbf{Lags}} &
+  \multirow{2}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Information\\ Criteria\end{tabular}}} &
+  \multirow{2}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Reject $H_0$ for Adjusted \\ Portmanteau test?\\ (zero residual auto corr. )\end{tabular}}} &
+  \multicolumn{2}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Reject $H_0$ for\\ ARCH-LM test?\\ (Homoscedasticity)\end{tabular}}} &
+  \multirow{2}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Reject $H_0$ for\\ Jarque-Bera test?\\ (Normality)\end{tabular}}} &
+  \multicolumn{2}{c|}{\textbf{\begin{tabular}[c]{@{}c@{}}Reject $H_0$\\ for KPSS \\ Stationarity test?\end{tabular}}} &
+  \multirow{2}{*}{\textbf{\begin{tabular}[c]{@{}c@{}}Expected\\ results\end{tabular}}} \\ \cline{4-5} \cline{7-8}
+   &                &     & \textbf{$g_{I_h}$} & \textbf{$own$} &     & \textbf{$g_{I_h}$} & \textbf{$own$} &                       \\ \hline\hline
+0  & BIC            & yes & yes                & yes            & yes & no                 & no             & 1,2, 3 and 5          \\
+1  & $-$            & yes & no                 & yes            & yes & no                 & no             & all                   \\
+2  & $-$            & yes & no                 & yes            & yes & no                 & no             & all                   \\
+3  & $-$            & yes & no                 & yes            & yes & no                 & no             & all                   \\
+4  & AIC, FPE, HQIC & no  & no                 & no             & yes & no                 & no             & all                   \\
+5  & $-$            & no  & no                 & no             & yes & no                 & no             & all                   \\
+6  & $-$            & no  & no                 & no             & yes & no                 & no             & all                   \\
+7  & $-$            & yes & no                 & no             & yes & no                 & no             & all                   \\
+8  & $-$            & yes & no                 & no             & yes & no                 & no             & all except 7          \\
+9  & $-$            & yes & no                 & no             & yes & no                 & no             & all except 2 and 7    \\
+10 & $-$            & yes & no                 & no             & yes & no                 & no             & all except 2, 3 and 7 \\
+11 & $-$            & no  & yes                & no             & yes & no                 & no             & all except 7          \\
+12 & $-$            & yes & no                 & no             & yes & no                 & no             & all except 2 and 7    \\ \hline\hline
+\end{tabular}%
+}
+\caption*{\textbf{Source:} Authors' elaboration}
+\end{table}

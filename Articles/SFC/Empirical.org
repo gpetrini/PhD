@@ -1071,3 +1071,13 @@ In summary, what we intended to show is that one cannot analyze the U.S. busines
 
 
 
+#+BEGIN_EXPORT latex
+\begin{equation}
+\label{_own}
+own = \left(\frac{1+r_{mo}}{1+\pi}\right) -1
+\end{equation}
+$$
+\pi = \frac{\Delta p_h}{p_{h_{t-1}}}
+$$
+#+END_EXPORT
+where $\pi$ stands for house price inflation

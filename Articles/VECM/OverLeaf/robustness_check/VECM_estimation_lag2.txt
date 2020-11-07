@@ -1,0 +1,551 @@
+Robustness Check Using Lag = 2
+Det. terms outside the coint. relation & lagged endog. parameters for equation Own Interest rate
+========================================================================================
+                           coef    std err          z      P>|z|      [0.025      0.975]
+----------------------------------------------------------------------------------------
+lin_trend            -9.351e-05   5.44e-05     -1.719      0.086      -0.000    1.31e-05
+L1.Own Interest rate     0.0842      0.109      0.773      0.440      -0.129       0.298
+L1.gIh                   0.1028      0.068      1.508      0.132      -0.031       0.237
+L2.Own Interest rate    -0.0383      0.104     -0.368      0.713      -0.242       0.165
+L2.gIh                   0.0360      0.052      0.691      0.490      -0.066       0.138
+   Det. terms outside the coint. relation & lagged endog. parameters for equation gIh   
+========================================================================================
+                           coef    std err          z      P>|z|      [0.025      0.975]
+----------------------------------------------------------------------------------------
+lin_trend               -0.0003   9.51e-05     -3.216      0.001      -0.000      -0.000
+L1.Own Interest rate    -0.0800      0.190     -0.420      0.674      -0.453       0.293
+L1.gIh                  -0.3845      0.119     -3.227      0.001      -0.618      -0.151
+L2.Own Interest rate    -0.8024      0.182     -4.420      0.000      -1.158      -0.447
+L2.gIh                  -0.2675      0.091     -2.936      0.003      -0.446      -0.089
+         Loading coefficients (alpha) for equation Own Interest rate          
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+ec1           -0.1382      0.082     -1.681      0.093      -0.299       0.023
+                Loading coefficients (alpha) for equation gIh                 
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+ec1           -0.4641      0.144     -3.231      0.001      -0.746      -0.183
+          Cointegration relations for loading-coefficients-column 1           
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+beta.1         1.0000          0          0      0.000       1.000       1.000
+beta.2         0.9854      0.105      9.368      0.000       0.779       1.192
+const         -0.1130      0.007    -16.545      0.000      -0.126      -0.100
+==============================================================================
+============================================================
+
+Post estimation analysis
+
+RESIDUAL AUTOCORRELATION: PORTMANTEAU
+
+Portmanteau-test for residual autocorrelation. H_0: residual autocorrelation up to lag 15 is zero. Conclusion: fail to reject H_0 at 5% significance level.
+========================================
+Test statistic Critical value p-value df
+----------------------------------------
+         66.18          67.50   0.062 50
+----------------------------------------
+
+RESIDUAL AUTOCORRELATION: ADJUSTED PORTMANTEAU
+
+Adjusted Portmanteau-test for residual autocorrelation. H_0: residual autocorrelation up to lag 15 is zero. Conclusion: reject H_0 at 5% significance level.
+========================================
+Test statistic Critical value p-value df
+----------------------------------------
+         71.78          67.50   0.023 50
+----------------------------------------
+
+LJUNGBOX
+
+H0: autocorrelations up to lag k equal zero
+H1: autocorrelations up to lag k not zero
+Box-Pierce:  False
+Testing for  OWN INTEREST RATE . Considering a significance level of 5.0 %
+p-value = 0.6094892317031356
+Reject H0 on lag  1 ?  False 
+
+p-value = 0.49890426690718237
+Reject H0 on lag  2 ?  False 
+
+p-value = 0.4269721163516118
+Reject H0 on lag  3 ?  False 
+
+p-value = 0.5918625188425453
+Reject H0 on lag  4 ?  False 
+
+p-value = 0.6020310842666735
+Reject H0 on lag  5 ?  False 
+
+p-value = 0.6076926938819569
+Reject H0 on lag  6 ?  False 
+
+p-value = 0.36040054073680294
+Reject H0 on lag  7 ?  False 
+
+p-value = 0.4605238056712636
+Reject H0 on lag  8 ?  False 
+
+p-value = 0.30767405161119693
+Reject H0 on lag  9 ?  False 
+
+p-value = 0.2230508061030798
+Reject H0 on lag  10 ?  False 
+
+p-value = 0.19246678960604996
+Reject H0 on lag  11 ?  False 
+
+p-value = 0.14452599393930396
+Reject H0 on lag  12 ?  False 
+
+
+
+Testing for  GIH . Considering a significance level of 5.0 %
+p-value = 0.007333121495440322
+Reject H0 on lag  1 ?  True 
+
+p-value = 0.034934249998280174
+Reject H0 on lag  2 ?  True 
+
+p-value = 0.4534081070014353
+Reject H0 on lag  3 ?  False 
+
+p-value = 2.1309793777002364
+Reject H0 on lag  4 ?  False 
+
+p-value = 9.163833064288298
+Reject H0 on lag  5 ?  False 
+
+p-value = 9.374519924437308
+Reject H0 on lag  6 ?  False 
+
+p-value = 11.035855499739808
+Reject H0 on lag  7 ?  False 
+
+p-value = 11.28048082167324
+Reject H0 on lag  8 ?  False 
+
+p-value = 11.572862785680895
+Reject H0 on lag  9 ?  False 
+
+p-value = 11.838430576077084
+Reject H0 on lag  10 ?  False 
+
+p-value = 18.445810979127174
+Reject H0 on lag  11 ?  False 
+
+p-value = 22.823088521862378
+Reject H0 on lag  12 ?  False 
+
+
+
+
+BOXPIERCE
+
+H0: autocorrelations up to lag k equal zero
+H1: autocorrelations up to lag k not zero
+Box-Pierce:  True
+Testing for  OWN INTEREST RATE . Considering a significance level of 5.0 %
+p-value = 0.6144551708966617
+Reject H0 on lag  1 ?  False 
+
+p-value = 0.5111864785915401
+Reject H0 on lag  2 ?  False 
+
+p-value = 0.44592373344709146
+Reject H0 on lag  3 ?  False 
+
+p-value = 0.6116042534554484
+Reject H0 on lag  4 ?  False 
+
+p-value = 0.6272700535012989
+Reject H0 on lag  5 ?  False 
+
+p-value = 0.6387193702691325
+Reject H0 on lag  6 ?  False 
+
+p-value = 0.4084235951346675
+Reject H0 on lag  7 ?  False 
+
+p-value = 0.5119961903094583
+Reject H0 on lag  8 ?  False 
+
+p-value = 0.3694497014557083
+Reject H0 on lag  9 ?  False 
+
+p-value = 0.2878684794278561
+Reject H0 on lag  10 ?  False 
+
+p-value = 0.26057772394683126
+Reject H0 on lag  11 ?  False 
+
+p-value = 0.21172705990493104
+Reject H0 on lag  12 ?  False 
+
+
+
+Testing for  GIH . Considering a significance level of 5.0 %
+p-value = 0.007333121495440322
+Reject H0 on lag  1 ?  True 
+
+p-value = 0.034934249998280174
+Reject H0 on lag  2 ?  True 
+
+p-value = 0.4534081070014353
+Reject H0 on lag  3 ?  False 
+
+p-value = 2.1309793777002364
+Reject H0 on lag  4 ?  False 
+
+p-value = 9.163833064288298
+Reject H0 on lag  5 ?  False 
+
+p-value = 9.374519924437308
+Reject H0 on lag  6 ?  False 
+
+p-value = 11.035855499739808
+Reject H0 on lag  7 ?  False 
+
+p-value = 11.28048082167324
+Reject H0 on lag  8 ?  False 
+
+p-value = 11.572862785680895
+Reject H0 on lag  9 ?  False 
+
+p-value = 11.838430576077084
+Reject H0 on lag  10 ?  False 
+
+p-value = 18.445810979127174
+Reject H0 on lag  11 ?  False 
+
+p-value = 22.823088521862378
+Reject H0 on lag  12 ?  False 
+
+
+
+
+NORMALITY
+
+normality (skew and kurtosis) test. H_0: data generated by normally-distributed process. Conclusion: reject H_0 at 5% significance level.
+========================================
+Test statistic Critical value p-value df
+----------------------------------------
+         30.96          9.488   0.000  4
+----------------------------------------
+
+HOMOSCEDASTICITY
+
+H0: Residuals are homoscedastic
+H1: Residuals are heteroskedastic
+Testing for  OWN INTEREST RATE
+LM statistic:  23.147704580505263
+LM p-value:  0.00011830638120110877
+Reject H0?  True
+F statistic:  7.102097181340706
+F p-value:  4.599119387454249e-05
+Reject H0?  True
+
+
+Testing for  GIH
+LM statistic:  0.6443282034482034
+LM p-value:  0.42214782399734085
+Reject H0?  False
+F statistic:  0.6360372632620472
+F p-value:  0.42696654926813693
+Reject H0?  False
+
+
+============================================================
+============================================================
+
+Unit root tests over residuals
+
+
+g_Ih
+
+
+ZIVOT ANDREWS level series
+        Zivot-Andrews Results        
+=====================================
+Test Statistic                -11.715
+P-value                         0.000
+Lags                                0
+-------------------------------------
+
+Trend: Constant
+Critical Values: -5.28 (1%), -4.81 (5%), -4.57 (10%)
+Null Hypothesis: The process contains a unit root with a single structural break.
+Alternative Hypothesis: The process is trend and break stationary. 
+
+
+ZIVOT ANDREWS First differences
+        Zivot-Andrews Results        
+=====================================
+Test Statistic                 -8.218
+P-value                         0.000
+Lags                                5
+-------------------------------------
+
+Trend: Constant
+Critical Values: -5.28 (1%), -4.81 (5%), -4.57 (10%)
+Null Hypothesis: The process contains a unit root with a single structural break.
+Alternative Hypothesis: The process is trend and break stationary. 
+
+
+ADF level series
+   Augmented Dickey-Fuller Results   
+=====================================
+Test Statistic                -10.827
+P-value                         0.000
+Lags                                0
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+ADF First differences
+   Augmented Dickey-Fuller Results   
+=====================================
+Test Statistic                 -7.958
+P-value                         0.000
+Lags                                5
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.50 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+DFGLS level series
+      Dickey-Fuller GLS Results      
+=====================================
+Test Statistic                 -0.798
+P-value                         0.380
+Lags                                6
+-------------------------------------
+
+Trend: Constant
+Critical Values: -2.76 (1%), -2.14 (5%), -1.82 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+DFGLS First differences
+      Dickey-Fuller GLS Results      
+=====================================
+Test Statistic                 -0.213
+P-value                         0.616
+Lags                               11
+-------------------------------------
+
+Trend: Constant
+Critical Values: -2.77 (1%), -2.15 (5%), -1.84 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+KPSS (level)
+    KPSS Stationarity Test Results   
+=====================================
+Test Statistic                  0.117
+P-value                         0.507
+Lags                                4
+-------------------------------------
+
+Trend: Constant
+Critical Values: 0.74 (1%), 0.46 (5%), 0.35 (10%)
+Null Hypothesis: The process is weakly stationary.
+Alternative Hypothesis: The process contains a unit root. 
+
+
+KPSS (first difference)
+    KPSS Stationarity Test Results   
+=====================================
+Test Statistic                  0.147
+P-value                         0.401
+Lags                               20
+-------------------------------------
+
+Trend: Constant
+Critical Values: 0.74 (1%), 0.46 (5%), 0.35 (10%)
+Null Hypothesis: The process is weakly stationary.
+Alternative Hypothesis: The process contains a unit root. 
+
+
+Phillips Perron (level)
+     Phillips-Perron Test (Z-tau)    
+=====================================
+Test Statistic                -10.807
+P-value                         0.000
+Lags                               13
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+Phillips Perron (first difference)
+     Phillips-Perron Test (Z-tau)    
+=====================================
+Test Statistic                -42.121
+P-value                         0.000
+Lags                               13
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+============================================================
+
+Own Interest rate
+
+
+ZIVOT ANDREWS level series
+        Zivot-Andrews Results        
+=====================================
+Test Statistic                 -5.937
+P-value                         0.001
+Lags                                4
+-------------------------------------
+
+Trend: Constant
+Critical Values: -5.28 (1%), -4.81 (5%), -4.57 (10%)
+Null Hypothesis: The process contains a unit root with a single structural break.
+Alternative Hypothesis: The process is trend and break stationary. 
+
+
+ZIVOT ANDREWS First differences
+        Zivot-Andrews Results        
+=====================================
+Test Statistic                 -7.042
+P-value                         0.000
+Lags                                9
+-------------------------------------
+
+Trend: Constant
+Critical Values: -5.28 (1%), -4.81 (5%), -4.57 (10%)
+Null Hypothesis: The process contains a unit root with a single structural break.
+Alternative Hypothesis: The process is trend and break stationary. 
+
+
+ADF level series
+   Augmented Dickey-Fuller Results   
+=====================================
+Test Statistic                 -5.394
+P-value                         0.000
+Lags                                4
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.50 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+ADF First differences
+   Augmented Dickey-Fuller Results   
+=====================================
+Test Statistic                 -6.408
+P-value                         0.000
+Lags                                9
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.50 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+DFGLS level series
+      Dickey-Fuller GLS Results      
+=====================================
+Test Statistic                 -9.747
+P-value                         0.000
+Lags                                0
+-------------------------------------
+
+Trend: Constant
+Critical Values: -2.75 (1%), -2.13 (5%), -1.81 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+DFGLS First differences
+      Dickey-Fuller GLS Results      
+=====================================
+Test Statistic                 -1.077
+P-value                         0.262
+Lags                               12
+-------------------------------------
+
+Trend: Constant
+Critical Values: -2.77 (1%), -2.15 (5%), -1.84 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+KPSS (level)
+    KPSS Stationarity Test Results   
+=====================================
+Test Statistic                  0.045
+P-value                         0.909
+Lags                                1
+-------------------------------------
+
+Trend: Constant
+Critical Values: 0.74 (1%), 0.46 (5%), 0.35 (10%)
+Null Hypothesis: The process is weakly stationary.
+Alternative Hypothesis: The process contains a unit root. 
+
+
+KPSS (first difference)
+    KPSS Stationarity Test Results   
+=====================================
+Test Statistic                  0.192
+P-value                         0.285
+Lags                               40
+-------------------------------------
+
+Trend: Constant
+Critical Values: 0.74 (1%), 0.46 (5%), 0.35 (10%)
+Null Hypothesis: The process is weakly stationary.
+Alternative Hypothesis: The process contains a unit root. 
+
+
+Phillips Perron (level)
+     Phillips-Perron Test (Z-tau)    
+=====================================
+Test Statistic                -10.353
+P-value                         0.000
+Lags                               13
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+Phillips Perron (first difference)
+     Phillips-Perron Test (Z-tau)    
+=====================================
+Test Statistic                -37.534
+P-value                         0.000
+Lags                               13
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+============================================================

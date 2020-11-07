@@ -1,7 +1,11 @@
+#+OPTIONS: num:nil
 #+TITLE: Introduction to modern econometrics using Stata
 #+AUTHOR: Gabriel Petrini
 #+DATE: Date
 #+LANG: en
+#+PROPERTY: header-args:jupyter-stata :kernel stata :session stata :hlines yes :eval never-export :exports both
+bibliography:/HDD/PhD/Readings/Panel.bib
+
 
 * LaTeX headers                                         :noexport:ignore:
 
@@ -17,45 +21,832 @@
 
 * Initial configs
 
+** Emacs configuration
+
+Emacs is compiled from source with the following configuration
+
+#+BEGIN_SRC shell :eval no
+  ./configure --with-modules --with-x-toolkit=gtk --with-xpm=no --with-gif=no --with-tiff=no --with-gnutls=no --with-mailutils
+  make
+  sudo make install
+#+END_SRC
+
+the following configs was added to emacs init file
+
+#+BEGIN_SRC elisp :eval no
+  (require 'package)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+
+  (with-eval-after-load 'tls
+    (push "/usr/local/etc/libressl/cert.pem" gnutls-trustfiles))
+#+END_SRC
+
+
 ** Change in stata_kernel path
 
-file ~\~/.stata_kernel.config~ was changed to
+file ~/home/.stata_kernel.config~ was changed to
 
 ~stata_path = faketime '2020-04-16' /usr/local/stata16/stata~
 
-* Working with economic and financial data in Stata
+so
 
-#+BEGIN_SRC jupyter-stata :kernel stata :session stata
-webuse auto
+#+BEGIN_EXAMPLE :eval no
+[stata_kernel] 
+stata_path = faketime '2020-04-16' /usr/local/stata16/stata
+execution_mode = console
+cache_directory = ~/.stata_kernel_cache
+autocomplete_closing_symbol = False
+graph_format = svg
+graph_scale = 1
+user_graph_keywords = coefplot,vioplot
+#+END_EXAMPLE
+
+
+* The One-way Error Component Regression Model - Chapter 3
+
+** Loading Grundfeld investment dataset
+
+
+*** Loading dataset
+
+#+BEGIN_SRC jupyter-stata
+clear // Droping previous datasets
+use http://www.stata-press.com/data/r16/grunfeld
+xtset
+#+END_SRC
+
+#+RESULTS:
+: 
+: 
+: 
+:        panel variable:  company (strongly balanced)
+:         time variable:  year, 1935 to 1954
+:                 delta:  1 year
+*** Visualizing
+
+#+BEGIN_SRC jupyter-stata
 describe
 #+END_SRC
 
 #+RESULTS:
 #+begin_example
 
-(1978 Automobile Data)
+Contains data from http://www.stata-press.com/data/r16/grunfeld.dta
+  obs:           200                          
+ vars:             6                          3 Mar 2018 20:27
+--------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+--------------------------------------------------------------------------------
+company         float   %9.0g                 
+year            float   %ty                   
+invest          float   %9.0g                 
+mvalue          float   %9.0g                 
+kstock          float   %9.0g                 
+time            float   %9.0g                 
+--------------------------------------------------------------------------------
+Sorted by: company  year
+#+end_example
+
+**** Ploting
+
+#+BEGIN_SRC jupyter-stata
+xtline invest
+#+END_SRC
+
+#+RESULTS:
+
+*** Model
 
 
-Contains data from https://www.stata-press.com/data/r16/auto.dta
-  obs:            74                          1978 Automobile Data
- vars:            12                          13 Apr 2018 17:45
+Investment Function
+
+$$
+I_{i,t} = \alpha + \beta_1 F_{i,t} + \beta_2 C_{i,t} + u_{i,t}
+$$
+
+** Fixed effects                      :Baltagi:
+*** Estimation
+#+BEGIN_SRC jupyter-stata
+estimates store fe_test
+xtreg invest mvalue kstock, fe
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+
+
+Fixed-effects (within) regression               Number of obs     =        200
+Group variable: company                         Number of groups  =         10
+
+R-sq:                                           Obs per group:
+     within  = 0.7668                                         min =         20
+     between = 0.8194                                         avg =       20.0
+     overall = 0.8060                                         max =         20
+
+                                                F(2,188)          =     309.01
+corr(u_i, Xb)  = -0.1517                        Prob > F          =     0.0000
+
+------------------------------------------------------------------------------
+      invest |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      mvalue |   .1101238   .0118567     9.29   0.000     .0867345    .1335131
+      kstock |   .3100653   .0173545    17.87   0.000     .2758308    .3442999
+       _cons |  -58.74393   12.45369    -4.72   0.000    -83.31086     -34.177
+-------------+----------------------------------------------------------------
+     sigma_u |  85.732501
+     sigma_e |  52.767964
+         rho |  .72525012   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+F test that all u_i=0: F(9, 188) = 49.18                     Prob > F = 0.0000
+#+end_example
+
+*** Postestimation
+
+**** Wald tests of simple and composite linear hypotheses
+
+#+BEGIN_SRC jupyter-stata
+
+#+END_SRC
+
+#+RESULTS:
+
+** Between-effects model                :Baltagi:
+
+*** Estimation
+
+#+BEGIN_SRC jupyter-stata
+xtreg invest mvalue kstock, be
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+Between regression (regression on group means)  Number of obs     =        200
+Group variable: company                         Number of groups  =         10
+
+R-sq:                                           Obs per group:
+     within  = 0.4778                                         min =         20
+     between = 0.8578                                         avg =       20.0
+     overall = 0.7551                                         max =         20
+
+                                                F(2,7)            =      21.11
+sd(u_i + avg(e_i.))=  85.02366                  Prob > F          =     0.0011
+
+------------------------------------------------------------------------------
+      invest |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      mvalue |   .1346461   .0287455     4.68   0.002     .0666739    .2026183
+      kstock |   .0320315   .1909378     0.17   0.872    -.4194647    .4835276
+       _cons |  -8.527114   47.51531    -0.18   0.863     -120.883    103.8287
+------------------------------------------------------------------------------
+#+end_example
+
+
+** Random effects                      :Baltagi:
+
+*** By Maximum likelihood
+#+BEGIN_SRC jupyter-stata
+estimates store re_test
+xtreg invest mvalue kstock, re mle // by maximum likehood
+hausman .  re_test
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+
+
+Fitting constant-only model:
+Iteration 0:   log likelihood = -1241.9899
+Iteration 1:   log likelihood = -1241.9696
+Iteration 2:   log likelihood = -1241.9696
+
+Fitting full model:
+Iteration 0:   log likelihood = -1105.6101
+Iteration 1:   log likelihood = -1098.8418
+Iteration 2:   log likelihood = -1095.4188
+Iteration 3:   log likelihood = -1095.2576
+Iteration 4:   log likelihood =  -1095.257
+
+Random-effects ML regression                    Number of obs     =        200
+Group variable: company                         Number of groups  =         10
+
+Random effects u_i ~ Gaussian                   Obs per group:
+                                                              min =         20
+                                                              avg =       20.0
+                                                              max =         20
+
+                                                LR chi2(2)        =     293.43
+Log likelihood  =  -1095.257                    Prob > chi2       =     0.0000
+
+------------------------------------------------------------------------------
+      invest |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      mvalue |   .1097626   .0103389    10.62   0.000     .0894988    .1300265
+      kstock |    .307942   .0171006    18.01   0.000     .2744254    .3414585
+       _cons |   -57.7672   27.70004    -2.09   0.037    -112.0583   -3.476114
+-------------+----------------------------------------------------------------
+    /sigma_u |   80.29729   18.37811                      51.27213    125.7536
+    /sigma_e |   52.49255    2.69306                      47.47094    58.04534
+         rho |   .7005943   .0985226                      .4881266    .8603709
+------------------------------------------------------------------------------
+LR test of sigma_u=0: chibar2(01) = 193.09             Prob >= chibar2 = 0.000
+
+no coefficients in common; specify equations(matchlist)
+for problems with different equation names.
+r(498);
+r(498);
+#+end_example
+ 
+*** Standard Estimation (GLS)
+#+BEGIN_SRC jupyter-stata
+estimates store re_test
+xtreg invest mvalue kstock, re
+hausman .  re_test
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+
+
+Random-effects GLS regression                   Number of obs     =        200
+Group variable: company                         Number of groups  =         10
+
+R-sq:                                           Obs per group:
+     within  = 0.7668                                         min =         20
+     between = 0.8196                                         avg =       20.0
+     overall = 0.8061                                         max =         20
+
+                                                Wald chi2(2)      =     657.67
+corr(u_i, X)   = 0 (assumed)                    Prob > chi2       =     0.0000
+
+------------------------------------------------------------------------------
+      invest |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      mvalue |   .1097811   .0104927    10.46   0.000     .0892159    .1303464
+      kstock |    .308113   .0171805    17.93   0.000     .2744399    .3417861
+       _cons |  -57.83441   28.89893    -2.00   0.045    -114.4753   -1.193537
+-------------+----------------------------------------------------------------
+     sigma_u |   84.20095
+     sigma_e |  52.767964
+         rho |  .71800838   (fraction of variance due to u_i)
+------------------------------------------------------------------------------
+
+no coefficients in common; specify equations(matchlist)
+for problems with different equation names.
+r(498);
+r(498);
+#+end_example
+
+*** Postestimation
+
+****  Breuch-Pagan Lagrange  multiplier test
+
+#+BEGIN_SRC jupyter-stata
+xttest0
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+Breusch and Pagan Lagrangian multiplier test for random effects
+
+        invest[company,t] = Xb + u[company] + e[company,t]
+
+        Estimated results:
+                         |       Var     sd = sqrt(Var)
+                ---------+-----------------------------
+                  invest |   47034.89       216.8753
+                       e |   2784.458       52.76796
+                       u |     7089.8       84.20095
+
+        Test:   Var(u) = 0
+                             chibar2(01) =   798.16
+                          Prob > chibar2 =   0.0000
+#+end_example
+
+* Working with Jordà el tal dataset in Stata
+
+** Open file
+
+To open a Stata file (~.dta~), type ~use~ command. If there is space, quote marks are required.
+
+#+BEGIN_SRC jupyter-stata
+use http://macrohistory.net/JST/JSTdatasetR4.dta, clear //Jordà dataset
+xtset //declare your data to be panel
+#+END_SRC
+
+#+RESULTS:
+: 
+: (Type 'notes' for license, see https://creativecommons.org/licenses/by-nc-sa/4.0
+: > /)
+: 
+:        panel variable:  ifs (strongly balanced)
+:         time variable:  year, 1870 to 2016
+:                 delta:  1 unit
+
+** Collapsing
+
+** Analyzing data
+
+All columns name must stat with a letter and cannot contain spaces, hyphens, nonalphabetic or nonnumeric characters.
+
+The following command summarizes the dataset and prints the variable type.
+
+#+BEGIN_SRC jupyter-stata
+describe
+#+END_SRC
+
+
+#+RESULTS:
+#+begin_example
+
+Contains data from http://macrohistory.net/JST/JSTdatasetR4.dta
+  obs:         2,499                          Type 'notes' for license, see
+                                                https://creativecommons.org/lice
+                                                nses/by-nc-sa/4.0/
+ vars:            51                          14 May 2019 09:49
                                               (_dta has notes)
 --------------------------------------------------------------------------------
               storage   display    value
 variable name   type    format     label      variable label
 --------------------------------------------------------------------------------
-make            str18   %-18s                 Make and Model
-price           int     %8.0gc                Price
-mpg             int     %8.0g                 Mileage (mpg)
-rep78           int     %8.0g                 Repair Record 1978
-headroom        float   %6.1f                 Headroom (in.)
-trunk           int     %8.0g                 Trunk space (cu. ft.)
-weight          int     %8.0gc                Weight (lbs.)
-length          int     %8.0g                 Length (in.)
-turn            int     %8.0g                 Turn Circle (ft.)
-displacement    int     %8.0g                 Displacement (cu. in.)
-gear_ratio      float   %6.2f                 Gear Ratio
-foreign         byte    %8.0g      origin     Car type
---------------------------------------------------------------------------------
-Sorted by: foreign
+year            double  %10.0g                Year
+country         str22   %22s                  Country
+iso             str12   %12s                  ISO 3-letter code
+ifs             int     %10.0g                IFS 3-number country-code
+pop             double  %10.0g                Population
+rgdpmad         double  %10.0g                Real GDP per capita (PPP)
+rgdppc          double  %10.0g                Real GDP per capita (index,
+                                                2005=100)
+rconpc          double  %10.0g                Real consumption per capita
+                                                (index, 2006=100)
+gdp             double  %10.0g                GDP (nominal, local currency)
+iy              double  %10.0g                Investment-to-GDP ratio
+cpi             double  %10.0g                Consumer prices (index, 1990=100)
+ca              double  %10.0g                Current account (nominal, local
+                                                currency)
+imports         double  %10.0g                Imports (nominal, local currency)
+exports         double  %10.0g                Exports (nominal, local currency)
+narrowm         double  %10.0g                Narrow money (nominal, local
+                                                currency)
+money           double  %10.0g                Broad money (nominal, local
+                                                currency)
+stir            double  %10.0g                Short-term interest rate (nominal,
+                                                percent per year)
+ltrate          double  %10.0g                Long-term interest rate (nominal,
+                                                percent per year)
+debtgdp         double  %10.0g                Public debt-to-GDP ratio
+revenue         double  %10.0g                Government revenues (nominal,
+                                                local currency)
+expenditure     double  %10.0g                Government expenditure (nominal,
+                                                local currency)
+xrusd           double  %10.0g                USD exchange rate (local
+                                                currency/USD)
+peg             byte    %10.0g                Peg dummy
+peg_strict      byte    %10.0g                Strict peg dummy
+crisisJST       byte    %10.0g                Systemic financial crises (0-1
+                                                dummy)
+tloans          double  %10.0g                Total loans to non-financial
+                                                private sector (nominal, local
+                                                currency)
+tmort           double  %10.0g                Mortgage loans to non-financial
+                                                private sector (nominal, local
+                                                currency)
+thh             double  %10.0g                Total loans to households
+                                                (nominal, local currency)
+tbus            double  %10.0g                Total loans to business (nominal,
+                                                local currency)
+hpnom           double  %10.0g                House prices (nominal index,
+                                                1990=100)
+peg_type        str5    %9s                   Peg type (BASE, PEG, FLOAT)
+peg_base        str6    %9s                   Peg base (GBR, USA, DEU, HYBRID,
+                                                NA)
+eq_tr           float   %9.0g                 Equity total return, nominal. r[t]
+                                                = [[p[t] + d[t]] / p[t-1] ] - 1
+housing_tr      float   %9.0g                 Housing total return, nominal.
+                                                r[t] = [[p[t] + d[t]] / p[t-1] ]
+                                                - 1
+bond_tr         float   %9.0g                 Government bond total return,
+                                                nominal. r[t] = [[p[t] +
+                                                coupon[t]] / p[t-1] ] - 1
+bill_rate       float   %9.0g                 Bill rate, nominal. r[t] =
+                                                coupon[t] / p[t-1]
+rent_ipolated   float   %9.0g                 1 if housing rental yields
+                                                interpolated e.g. wartime
+housing_capga~d float   %9.0g                 1 if housing capital gains and
+                                                total returns interpolated e.g.
+                                                wartime
+housing_capgain float   %9.0g                 Housing capital gain, nominal.
+                                                cg[t] = [ p[t] / p[t-1] ] - 1
+housing_rent_~n float   %9.0g                 Housing rental return. dp_rtn[t] =
+                                                rent[t]/p[t-1]
+housing_rent_yd float   %9.0g                 Housing rental yield. dp[t] =
+                                                rent[t]/p[t]
+eq_capgain      float   %9.0g                 Equity capital gain, nominal.
+                                                cg[t] = [ p[t] / p[t-1] ] - 1
+eq_dp           float   %9.0g                 Equity dividend yield. dp[t] =
+                                                dividend[t]/p[t]
+eq_capgain_in~p float   %9.0g                 1 if equity cap. gain interpolated
+                                                to cover exchange closure
+eq_tr_interp    float   %9.0g                 1 if equity total return
+                                                interpolated to cover exchange
+                                                closure
+eq_dp_interp    float   %9.0g                 1 if equity dividend interpolated
+                                                or assumed zero to cover
+                                                exchange closure
+bond_rate       float   %9.0g                 Gov. bond rate, rate[t] =
+                                                coupon[t] / p[t-1], or yield to
+                                                maturity at t
+eq_div_rtn      float   %9.0g                 Equity dividend return. dp_rtn[t]
+                                                = dividend[t]/p[t-1]
+--more--
 #+end_example
+
+
+#+BEGIN_SRC jupyter-stata
+xtdes
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+     ifs:  111, 112, ..., 193                                n =         17
+    year:  1870, 1871, ..., 2016                             T =        147
+           Delta(year) = 1 unit
+           Span(year)  = 147 periods
+           (ifs*year uniquely identifies each observation)
+
+Distribution of T_i:   min      5%     25%       50%       75%     95%     max
+                       147     147     147       147       147     147     147
+
+     Freq.  Percent    Cum. |  Pattern
+ ---------------------------+---------------------------------------------------
+> ------------------------------------------------------------------------------
+> --------------------
+       17    100.00  100.00 |  1111111111111111111111111111111111111111111111111
+> 111111111111111111111111111111111111111111111111111111111111111111111111111111
+> 11111111111111111111
+ ---------------------------+---------------------------------------------------
+> ------------------------------------------------------------------------------
+> --------------------
+       17    100.00         |  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+> XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+> XXXXXXXXXXXXXXXXXXXX
+#+end_example
+
+** Creating other variables
+
+In this cases, ~own~ variable is created in order to express houses own rate of interest. To do so, long-term interest rate is uses as a proxy for mortgage interest rate and houses capital gain as a proxy for house inflation. Houses capital gain is calculated as follows:
+
+$$
+h_gc = \frac{\Delta p_t}{p_{t-1}}
+$$
+
+#+BEGIN_SRC jupyter-stata
+generate own=(((1+ltrate)/(1+housing_capgain))-1)/100
+generate mortgaging=tmort/tloans
+#+END_SRC
+
+#+RESULTS:
+: 
+: (465 missing values generated)
+: 
+: (343 missing values generated)
+
+#+BEGIN_SRC jupyter-stata
+generate neg_own=1 if own <0
+#+END_SRC
+
+#+RESULTS:
+: (2,498 missing values generated)
+
+#+BEGIN_SRC jupyter-stata
+summarize country year if own <=0
+#+END_SRC
+
+#+RESULTS:
+: 
+:     Variable |        Obs        Mean    Std. Dev.       Min        Max
+: -------------+---------------------------------------------------------
+:      country |          0
+:         year |          1        2015           .       2015       2015
+
+
+* Time-Series Econometric tests
+
+** Unit root test for panel data
+
+#+BEGIN_SRC jupyter-stata
+xtunitroot ips ltrate
+xtunitroot ips housing_capgain
+xtunitroot ips housing_rent_rtn
+xtunitroot ips tmort
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+
+Im-Pesaran-Shin unit-root test for ltrate
+-----------------------------------------
+Ho: All panels contain unit roots           Number of panels       =     17
+Ha: Some panels are stationary              Avg. number of periods = 144.94
+
+AR parameter: Panel-specific                Asymptotics: T,N -> Infinity
+Panel means:  Included                                        sequentially
+Time trend:   Not included
+
+ADF regressions: No lags included
+------------------------------------------------------------------------------
+                                              Fixed-N exact critical values
+                    Statistic      p-value         1%      5%      10%
+------------------------------------------------------------------------------
+ t-bar               -1.4148                          (Not available)
+ t-tilde-bar         -1.4057
+ Z-t-tilde-bar        0.5019        0.6921
+------------------------------------------------------------------------------
+
+
+Im-Pesaran-Shin unit-root test for housing_capgain
+--------------------------------------------------
+Ho: All panels contain unit roots           Number of panels       =     17
+Ha: Some panels are stationary              Avg. number of periods = 120.76
+
+AR parameter: Panel-specific                Asymptotics: T,N -> Infinity
+Panel means:  Included                                        sequentially
+Time trend:   Not included
+
+ADF regressions: No lags included
+------------------------------------------------------------------------------
+                                              Fixed-N exact critical values
+                    Statistic      p-value         1%      5%      10%
+------------------------------------------------------------------------------
+ t-bar               -7.4984                          (Not available)
+ t-tilde-bar         -6.0526
+ Z-t-tilde-bar      -22.6937        0.0000
+------------------------------------------------------------------------------
+
+
+Im-Pesaran-Shin unit-root test for housing_rent_rtn
+---------------------------------------------------
+Ho: All panels contain unit roots           Number of panels       =     16
+Ha: Some panels are stationary              Avg. number of periods = 114.31
+
+AR parameter: Panel-specific                Asymptotics: T,N -> Infinity
+Panel means:  Included                                        sequentially
+Time trend:   Not included
+
+ADF regressions: No lags included
+------------------------------------------------------------------------------
+                                              Fixed-N exact critical values
+                    Statistic      p-value         1%      5%      10%
+------------------------------------------------------------------------------
+ t-bar               -1.9602                          (Not available)
+ t-tilde-bar         -1.9217
+ Z-t-tilde-bar       -2.0336        0.0210
+------------------------------------------------------------------------------
+
+
+Im-Pesaran-Shin unit-root test for tmort
+----------------------------------------
+Ho: All panels contain unit roots           Number of panels       =     17
+Ha: Some panels are stationary              Avg. number of periods = 128.59
+
+AR parameter: Panel-specific                Asymptotics: T,N -> Infinity
+Panel means:  Included                                        sequentially
+Time trend:   Not included
+
+ADF regressions: No lags included
+------------------------------------------------------------------------------
+                                              Fixed-N exact critical values
+                    Statistic      p-value         1%      5%      10%
+------------------------------------------------------------------------------
+ t-bar               12.0286                          (Not available)
+ t-tilde-bar          7.2385
+ Z-t-tilde-bar       43.5863        1.0000
+------------------------------------------------------------------------------
+#+end_example
+
+
+** Cointegration test for Panel time series
+
+*** Kao
+
+#+BEGIN_SRC jupyter-stata
+xtcointtest kao ltrate housing_tr tmort
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+Kao test for cointegration
+--------------------------
+Ho: No cointegration                        Number of panels       =     16
+Ha: All panels are cointegrated             Avg. number of periods = 104.06
+
+Cointegrating vector: Same
+Panel means:          Included              Kernel:           Bartlett
+Time trend:           Not included          Lags:             3.62 (Newey-West)
+AR parameter:         Same                  Augmented lags:   1 
+------------------------------------------------------------------------------
+                                            Statistic         p-value
+------------------------------------------------------------------------------
+ Modified Dickey-Fuller t                    -8.2121          0.0000
+ Dickey-Fuller t                             -4.0748          0.0000
+ Augmented Dickey-Fuller t                   -2.9550          0.0016
+ Unadjusted modified Dickey-Fuller t         -7.8811          0.0000
+ Unadjusted Dickey-Fuller t                  -3.9980          0.0000
+------------------------------------------------------------------------------
+#+end_example
+
+
+*** Pedroni
+
+#+BEGIN_SRC jupyter-stata
+xtcointtest pedroni ltrate housing_capgain housing_tr, trend
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+Pedroni test for cointegration
+------------------------------
+Ho: No cointegration                        Number of panels       =     16
+Ha: All panels are cointegrated             Avg. number of periods = 111.56
+
+Cointegrating vector: Panel specific
+Panel means:          Included              Kernel:           Bartlett
+Time trend:           Included              Lags:             3.00 (Newey-West)
+AR parameter:         Panel specific        Augmented lags:   1 
+------------------------------------------------------------------------------
+                                            Statistic         p-value
+------------------------------------------------------------------------------
+ Modified Phillips-Perron t                   1.5699          0.0582
+ Phillips-Perron t                            4.7045          0.0000
+ Augmented Dickey-Fuller t                    5.3706          0.0000
+------------------------------------------------------------------------------
+#+end_example
+
+
+*** Westerlund
+
+#+BEGIN_SRC jupyter-stata
+xtcointtest westerlund ltrate housing_capgain, allpanels
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+Westerlund test for cointegration
+---------------------------------
+Ho: No cointegration                        Number of panels       =     17
+Ha: All panels are cointegrated             Avg. number of periods = 119.65
+
+Cointegrating vector: Panel specific
+Panel means:          Included
+Time trend:           Not included
+AR parameter:         Same
+------------------------------------------------------------------------------
+                                            Statistic         p-value
+------------------------------------------------------------------------------
+ Variance ratio                              -2.8506          0.0022
+------------------------------------------------------------------------------
+#+end_example
+
+
+
+* Regression
+
+** OLS
+
+#+BEGIN_SRC jupyter-stata
+estimates store fe_test
+xtreg mortgaging housing_capgain ltrate own, fe
+hausman . fe_test
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+
+
+Fixed-effects (within) regression               Number of obs     =      1,892
+Group variable: ifs                             Number of groups  =         17
+
+R-sq:                                           Obs per group:
+     within  = 0.0122                                         min =         79
+     between = 0.0353                                         avg =      111.3
+     overall = 0.0091                                         max =        145
+
+                                                F(3,1872)         =       7.74
+corr(u_i, Xb)  = 0.0247                         Prob > F          =     0.0000
+
+-------------------------------------------------------------------------------
+   mortgaging |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+housing_cap~n |  -.1236879   .0359974    -3.44   0.001    -.1942872   -.0530886
+       ltrate |   .0118048   .0068973     1.71   0.087    -.0017225    .0253321
+          own |  -.9781048    .747183    -1.31   0.191    -2.443504    .4872944
+        _cons |   .3800042   .0070017    54.27   0.000     .3662721    .3937362
+--------------+----------------------------------------------------------------
+      sigma_u |  .13768257
+      sigma_e |  .12971122
+          rho |   .5297848   (fraction of variance due to u_i)
+-------------------------------------------------------------------------------
+F test that all u_i=0: F(16, 1872) = 125.70                  Prob > F = 0.0000
+
+
+                 ---- Coefficients ----
+             |      (b)          (B)            (b-B)     sqrt(diag(V_b-V_B))
+             |       .         fe_test       Difference          S.E.
+-------------+----------------------------------------------------------------
+housing_ca~n |   -.1236879    -.0856511       -.0380368        .0290537
+      ltrate |    .0118048     .0028746        .0089302        .0068219
+------------------------------------------------------------------------------
+                           b = consistent under Ho and Ha; obtained from xtreg
+            B = inconsistent under Ha, efficient under Ho; obtained from xtreg
+
+    Test:  Ho:  difference in coefficients not systematic
+
+                  chi2(2) = (b-B)'[(V_b-V_B)^(-1)](b-B)
+                          =        1.71
+                Prob>chi2 =      0.4245
+                (V_b-V_B is not positive definite)
+#+end_example
+
+
+** PVAR
+
+#+BEGIN_SRC jupyter-stata
+pvar iy mortgaging housing_capgain, exog(ltrate own crisisJST)
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+Panel vector autoregresssion
+
+
+
+GMM Estimation
+
+Final GMM Criterion Q(b) =  1.73e-31
+Initial weight matrix: Identity
+GMM weight matrix:     Robust
+                                                   No. of obs      =      1737
+                                                   No. of panels   =        17
+                                                   Ave. no. of T   =   102.176
+
+
+-------------------------------------------------------------------------------
+              |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+iy            |
+           iy |
+          L1. |   .9170535   .0233978    39.19   0.000     .8711946    .9629125
+              |
+   mortgaging |
+          L1. |   .0084955   .0063263     1.34   0.179    -.0039038    .0208948
+              |
+housing_cap~n |
+          L1. |   .0090765   .0061856     1.47   0.142     -.003047    .0212001
+              |
+       ltrate |   .0049049   .0008235     5.96   0.000     .0032908     .006519
+          own |  -.5663627    .090729    -6.24   0.000    -.7441883   -.3885372
+    crisisJST |  -.0068512   .0023883    -2.87   0.004    -.0115321   -.0021702
+--------------+----------------------------------------------------------------
+mortgaging    |
+           iy |
+          L1. |   .0376997   .0353842     1.07   0.287    -.0316521    .1070514
+              |
+   mortgaging |
+          L1. |   1.008087   .0055495   181.65   0.000     .9972099    1.018964
+              |
+housing_cap~n |
+          L1. |  -.0048582   .0037289    -1.30   0.193    -.0121667    .0024504
+              |
+       ltrate |  -.0028423   .0009403    -3.02   0.003    -.0046853   -.0009993
+          own |   .3124557   .1090634     2.86   0.004     .0986954     .526216
+    crisisJST |   .0042721   .0034307     1.25   0.213    -.0024519    .0109962
+--------------+----------------------------------------------------------------
+housing_cap~n |
+           iy |
+          L1. |  -.0976679   .0943192    -1.04   0.300    -.2825301    .0871942
+              |
+   mortgaging |
+          L1. |  -.0217277   .0169889    -1.28   0.201    -.0550254      .01157
+              |
+housing_cap~n |
+          L1. |   .2737664   .0846605     3.23   0.001     .1078349    .4396979
+              |
+       ltrate |   .1323442   .0118222    11.19   0.000     .1091732    .1555153
+          own |   -14.4516   1.271682   -11.36   0.000    -16.94405   -11.95915
+    crisisJST |  -.0031072   .0080323    -0.39   0.699    -.0188503    .0126358
+-------------------------------------------------------------------------------
+Instruments : l(1/1).(iy mortgaging housing_capgain) ltrate own crisisJST
+#+end_example
+

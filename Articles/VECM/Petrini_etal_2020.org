@@ -2,8 +2,12 @@
 #+AUTHOR: Gabriel Petrini, Lucas Teixeira
 #+EMAIL: gpetrinidasilveira@gmail.com, lucas.teixeira@unicamp.br
 #+OPTIONS: toc:nil
-#+LATEX_HEADER: \addbibresource{refs.bib}
-#+LATEX_HEADER: \usepackage{svg, caption, multirow, booktabs}
+#+LATEX_HEADER: \addbibresource{ref.bib}
+#+LATEX_HEADER: \usepackage{svg, caption, multirow, booktabs, tabularx, lscape, tablefootnote, threeparttable}
+#+LATEX_HEADER: \newcolumntype{b}{>{\hsize=2.3\hsize}X}
+#+LATEX_HEADER: \newcolumntype{s}{>{\hsize=.45\hsize}X}
+#+LATEX_HEADER: \newcolumntype{m}{>{\hsize=.9\hsize}X}
+
 #+LATEX_HEADER: \usepackage[english]{babel}
 #+PROPERTY: header-args:python :python /usr/bin/python3 :exports none :eval never-export
 #+BIND: org-latex-prefer-user-labels t
@@ -22,12 +26,14 @@ while the other way round does not occur.
 * General TODOs                                                    :noexport:
 
 * Introduction
-#+LATEX: \label{sec:introduction}
+#+LATEX: \label{sec:Introduction}
 #+INCLUDE: "Introduction.org"
 
 
 
 * Housing Dynamics and Business Cycle in the US Economy
+#+LATEX: \label{sec:empirical_review}
+#+INCLUDE: "Empirical_Review.org"
 
 * Review of the Macroeconometric Literature
 

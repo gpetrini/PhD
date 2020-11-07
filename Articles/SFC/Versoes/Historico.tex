@@ -1,4 +1,4 @@
-% Created 2020-10-15 qui 18:33
+% Created 2020-11-06 sex 14:53
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -29,43 +29,41 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \usepackage{attachfile}
 \usepackage{setspace}
 \usepackage{tikz}
+\addbibresource{../refs.bib}
 \author{Gabriel Petrini}
 \date{2020}
 \title{Histórico de versões artigo SFC}
 \begin{document}
 
 \maketitle
-\tableofcontents
 
+\section*{Versão \textit{<2020-10-16 sex>}}
+\label{sec:org46f2227}
 
-
-\section{Versão \textit{<2020-10-16 sex>}}
-\label{sec:org47be807}
-
-\subsection{Introdução}
-\label{sec:orgf1e2461}
+\subsection*{Introdução}
+\label{sec:org8032bd2}
 
 Não alterei nada do texto que estava na versão anterior. Apenas adicionei dois parágrafos (preliminares) em que tenho fazer uma mini revisão da literatura. Acho que não é muito interessante aumentar mais ainda a introdução. Digo isso porque a maioria dos textos citados na antiga revisão da literatura não eram sobre investimento residencial, mas sim sobre gastos autônomos. A discussão sobre investimento residencial ali era minúscula.
 
-\subsection{Seção dos fatos estilizados}
-\label{sec:org8eb5a30}
+\subsection*{Seção dos fatos estilizados}
+\label{sec:orgf26951b}
 
 Não alterei nada do texto. Apenas substitui o gráfico do preço dos imóveis x endividamento (em número índice) pela curva de concentração. Estou pensando em como deixar esse gráfico mais \emph{printer-friendly} (talvez deixar os as curvas como linhas cheias e tracejadas).
 
-\subsection{Revisão da literatura}
-\label{sec:org43fd6a2}
+\subsection*{Revisão da literatura}
+\label{sec:orga5e1f7d}
 
 Não alterei nada dessa seção. Apenas pedi para não compilar (dado que optamos por tirá-la).
 
-\subsection{Modelo}
-\label{sec:org5155526}
+\subsection*{Modelo}
+\label{sec:org2d8c6b9}
 
 Não houve nenhuma mudança radical. Fiz as correções que sugeriu. Mais no fim dessa seção reorganizei a ordem das equações de um jeito que fizesse mais sentido. Para isso fiz pequenas adaptações no texto. Também removi (comentei) a parte que igualava a oferta à demanda por imóveis. Não parecem ser equações essenciais. Se achar necessário, desfaço isso. De todo modo, achei que estavam jogadas ali. Seria o caso de repensar onde incluí-las.
 
 Dentre as perfumarias (estão nas minhas respostas aos seus comentários), ainda estou pensando em qual letra usar no lugar de taxa de lucro bruta e líquida.
 
-\subsection{Solução analítica}
-\label{sec:orge62f0c0}
+\subsection*{Solução analítica}
+\label{sec:org8976773}
 
 Fiz um meio termo entre as suas equações e as minhas anteriores. Em um primeiro momento, priorizei aquelas equações que me enviou no PDF. Apenas rearranjei a posição de algumas variáveis. Se achar melhor, deixo da forma que me enviou. Corrigi e atualizei a equação do \(k\). Estava faltando o termo \((1-R)\).
 
@@ -73,10 +71,10 @@ Adicionei a discussão da \emph{traverse} partindo relação entre \(g\) e \(g_K
 
 Na subseção da \emph{fully-adjusted position}, apenas retirei as equações desnecessárias e adaptei para ficar de uma forma mais elegante que o \emph{output} do \emph{python}. Deixei registrado as etapas até chegar nos \emph{stock-flow ratio} porque pensamos em mudar isso para o apêndice. Nesta versão, as variáveis ainda estão normalizadas pelo estoque de capital das firmas ou de casas. Ainda não alterei para a normalização pela renda porque não sei se aquelas notas que te envie estavam certas.
 
-\subsection{Simulações}
-\label{sec:org8497d01}
+\subsection*{Simulações}
+\label{sec:org559ac42}
 
-Essa foi a seção que teve mais mudança no texto. Acho que a principal coisa para nos preocuparmos aqui é se faz sentido aquele "novo paradoxo" sumir a partir do valor dos parâmetros. Ainda acho que esse resultado pode ter sumido antes e eu não vi por conta do efeito de escala no gráfico anterior. O mais estranho é que os parâmetros que estão diferentes em relação à dissertação não aparecem nas derivadas parciais do documento que te enviei. Outro possível problema é que esse paradoxo era bem pequeno na dissertação. Ainda assim, acho estranho mudar de direção.
+Essa foi a seção que teve mais mudança no texto. Acho que a principal coisa para nos preocuparmos aqui é se faz sentido aquele ``novo paradoxo'' sumir a partir do valor dos parâmetros. Ainda acho que esse resultado pode ter sumido antes e eu não vi por conta do efeito de escala no gráfico anterior. O mais estranho é que os parâmetros que estão diferentes em relação à dissertação não aparecem nas derivadas parciais do documento que te enviei. Outro possível problema é que esse paradoxo era bem pequeno na dissertação. Ainda assim, acho estranho mudar de direção.
 
 Algumas observações em relação aos gráficos: 
 \begin{itemize}
@@ -90,21 +88,213 @@ Algumas observações em relação aos gráficos:
 \end{itemize}
 \end{itemize}
 \end{itemize}
-\subsection{Conclusões}
-\label{sec:org81a9bbe}
+\subsection*{Conclusões}
+\label{sec:org6f24854}
 Não alterei nada
-\subsection{Apêndice A}
-\label{sec:org3a83492}
+\subsection*{Apêndice A}
+\label{sec:org060a2f4}
 
 Vi nos seus comentários que a nossa diferença com Freitas e Serrano não é tão importante. Dito isso, optei por comentar toda aquela discussão da estabilidade (é a mesma que a deles com a diferença de que \(own < \frac{\phi_0}{\phi_1}\)). Comecei esse apêndice a partir do trecho em que você indicou ser outro apêndice. Nesta nova versão, existem várias equações tal como saídas do \emph{python}. Não comecei a melhorá-las porque está em aberto se vamos priorizar a normalização pelo capital ou pela renda. De todo modo, imagino que as derivadas do \(k\) não devem mudar muito (já está com o \(k\) corrigido). Também achei melhor tirar as derivadas do estoque de moeda (uma vez que é resíduo, não tem muita importância para nós).
 
-\subsection{Apêndice B}
-\label{sec:orgea96fff}
+\subsection*{Apêndice B}
+\label{sec:org6c2d5f7}
 
 Talvez essa tabela mude na medida que forem usados outros valores dos parâmetros. Uma vez encerradas as alterações no modelo, rodo o comando para gerar essa tabela. Ainda não descobri como formatar melhor pelo python. Essa é uma das poucas coisas que acho melhor manter o mais próximo do \emph{output} do computador. Se um parecerista pedir o \emph{script}, ele deve chegar nesse mesmo lugar. Além disso, imagino que esse processo de formatação seja função do journal e não nossa.
 
-\subsection{Apêndice C (em construção)}
-\label{sec:org172efcf}
+\subsection*{Apêndice C (em construção)}
+\label{sec:org606f57f}
 
-Eu tinha iniciado (faz um tempo) um código para retornar uma tabela de análise de sensibilidade similar à do Fazzari. Esse é um código que leva um certo tempo para rodar porque faço vários \emph{nested for loops} (a.k.a simulo um porrilhão de cenários rs). No final das contas acabei deixando de lado. Havendo tempo, penso em retornar a isso. Imagino que se desse certo, seria bastante interessante mas também acho que não esta entre as nossas prioridades. Talvez pudesse trabalhar nisso enquanto o artigo estivesse sendo revisado na expectativa de que algum parecerista peça. Por fim, esse apêndice inexistente é um dos motivos de ter tantos \emph{hashs} ("lixos") no fim do apêndice B.
+Eu tinha iniciado (faz um tempo) um código para retornar uma tabela de análise de sensibilidade similar à do Fazzari. Esse é um código que leva um certo tempo para rodar porque faço vários \emph{nested for loops} (a.k.a simulo um porrilhão de cenários rs). No final das contas acabei deixando de lado. Havendo tempo, penso em retornar a isso. Imagino que se desse certo, seria bastante interessante mas também acho que não esta entre as nossas prioridades. Talvez pudesse trabalhar nisso enquanto o artigo estivesse sendo revisado na expectativa de que algum parecerista peça. Por fim, esse apêndice inexistente é um dos motivos de ter tantos \emph{hashs} (``lixos'') no fim do apêndice B.
+
+\section*{Versão \textit{<2020-11-03 ter>}}
+\label{sec:orgab58e68}
+
+\subsection*{Seção empírica}
+\label{sec:org8dadf41}
+
+\begin{itemize}
+\item Feitas algumas pequenas correções no inglês
+\item Incluídas discussões empíricas (Green, Leamer e Fiebiger)
+\begin{itemize}
+\item O mesmo foi feito para artigos econometricos
+\end{itemize}
+\item Dividida em duas subseções
+\item Ajustadas proporções e qualidade dos gráficos
+\item Gráficos foram adaptados para escala de cinza
+\item Foram incluídas algumas referências empíricas
+\item Foram deixadas marcas de edição para inclusão posterior da taxa própria (sugestão)
+\item Incluída explicação da curva de concentração
+\item Testado gráfico das curvas de concentração em diferentes axis
+\item Algumas padronizações dos gráficos (tamanho da legenda e dos eixos)
+\end{itemize}
+
+
+\subsection*{Modelo}
+\label{sec:org10a4d3d}
+
+\begin{itemize}
+\item[{$\square$}] Corrigidas referências quebradas (estavam com ??) desta seção
+\end{itemize}
+
+\subsection*{Analítica}
+\label{sec:orgf58b9ec}
+
+\begin{itemize}
+\item[{$\square$}] Corrigidas referências quebradas (estavam com ??) desta seção
+\end{itemize}
+
+\subsection*{Simulações}
+\label{sec:org2bd1549}
+
+\begin{itemize}
+\item Gráficos foram adaptados para escala de cinza
+\item Foram adicionados identificadores aos gráficos (A, B, C e D)
+\item Correções de legenda nos gráficos
+\item Gráfico das simulações com dados reais corrigido
+\item Corrigida exportação para latex no Apêndice B
+\item Retomado apêndice C
+\item Corrigidas referências quebradas (estavam com ??) desta seção
+\item[{$\square$}] Reduzido espaçamento entre título e o gráfico
+\item Valor de \(\alpha\) alterado para 1.0 e \(\omega = 0.25\) (igual a \(\alpha\cdot \omega\) do Fazzari)
+\end{itemize}
+
+\section*{Versão \textit{<2020-11-06 sex>}}
+\label{sec:orgb84a0be}
+
+\subsection*{Introdução}
+\label{sec:org416cc64}
+
+Inalterada em relação à versão anterior
+
+\subsection*{Seção Empírica}
+\label{sec:orgd976cbe}
+
+Inalterada em relação à versão anterior
+
+\subsection*{Modelo}
+\label{sec:orgb989c45}
+
+\subsubsection*{Equações gerais}
+\label{sec:org6b51c65}
+
+\begin{itemize}
+\item Feitas as correções sugeridas. Cabe pontuar
+\begin{itemize}
+\item Sraffian Strands \(\Rightarrow\) Sraffian literature
+\item \emph{while capitalists earn what they expend} mantido
+\end{itemize}
+\end{itemize}
+
+\subsubsection*{Firmas}
+\label{sec:org1ede4f6}
+\begin{itemize}
+\item Feitas as correções sugeridas. Vale pontuar
+\begin{itemize}
+\item Não foram incluídas as equações da taxa de crescimento do investimento das firmas
+\begin{itemize}
+\item Conforme discutido via Telegram
+\end{itemize}
+\item \emph{To do so} (p. 9) \(\Rightarrow\) \emph{For this mechanism to take place}
+\end{itemize}
+\end{itemize}
+\subsubsection*{Bancos}
+\label{sec:org30180f1}
+\begin{itemize}
+\item Feitas as correções sugeridas. Vale pontuar
+\begin{itemize}
+\item Não foi alterada a letra que representa taxa de juros
+\begin{itemize}
+\item \textbf{Motivo:} Falta de ideias/pragmatismo (rs)
+\end{itemize}
+\item Concordo que as duas frases sobre ter taxas de juros específicas estavam contraditórias (p. 10 do pdf comentado). Alterei para
+\end{itemize}
+\end{itemize}
+
+\begin{quote}
+For simplicity, we assume null bank spreads (\(\sigma_{mo} = \sigma_l = 0\)) so interest rate on mortgages (\(r_{mo}\)) and on loans (\(r_{l}\))
+are the same as on deposits (\(r_{m}\)) which is  exogenously determined by banks.
+\end{quote}
+
+
+\subsubsection*{Trabalhadores}
+\label{sec:orge21c1d0}
+\begin{itemize}
+\item Feitas as correções sugeridas. Nada a comentar
+\end{itemize}
+\subsubsection*{Capitalistas}
+\label{sec:orgd6e6b75}
+\begin{itemize}
+\item Feitas as correções sugeridas. Vale pontuar
+\begin{itemize}
+\item Dívida total dos capitalistas (\(D\)) definida
+\item Funções da taxa própria movidas para a seção empírica. Função da taxa de crescimento to investimento residencial mantida
+\item Adicionadas referências sobre tendência do mercado imobiliário e institucionalidade das hipotecas (ao descrever \(\phi_0\))
+\begin{itemize}
+\item Citar orientando do Lavoie? \cite{gowans_introducing_2014}
+\begin{itemize}
+\item Discussão sobre determinantes demográficos da taxa de crescimento do investimento residencial. Resumidamente, argumenta por ai do porquê investimento residencial é NCC.
+\item \href{https://ruor.uottawa.ca/bitstream/10393/32013/1/Gowans\_Dylan\_2014\_researchpaper.pdf}{Link}
+\end{itemize}
+\end{itemize}
+\item Trecho sobre \(\phi_1\) na equação da taxa de crescimento do investimento residencial alterado para
+\end{itemize}
+\end{itemize}
+
+\begin{quote}
+\(\phi_1\) captures the demand for housing arising from expectations of capital gains resulting from speculation with flow of new houses. 
+\end{quote}
+
+\subsection*{Solução analítica}
+\label{sec:org60cbd59}
+\subsubsection*{Short-run}
+\label{sec:orga77f569}
+
+\begin{itemize}
+\item Feitas correções sugeridas. Vale pontuar
+\begin{itemize}
+\item Não foi adicionada discussão sobre os efeitos de mudanças na taxa de crescimento do investimento residencial em \(k\)
+\begin{itemize}
+\item Anteriormente estava no fim da seção seguinte
+\end{itemize}
+\end{itemize}
+\end{itemize}
+
+\subsubsection*{Analitical Traverse}
+\label{sec:orgc5b55b8}
+
+\begin{itemize}
+\item Unida com a subseção seguinte e renomeada para \emph{Traverse and long-run Equilibrium}
+\begin{itemize}
+\item Nota de rodapé pontuando a diferença com \textcite{freitas_growth_2015} esta ok?
+\end{itemize}
+\item Mantidas etapas para obter os \emph{stock ratios}
+\begin{itemize}
+\item \textbf{Motivo:} Caso fossem movidas para um apêndice, faria sentido apresentar as etapas em maiores detalhes. Acho que não temos tanto espaço sobrando assim
+\end{itemize}
+\item Conforme mencionado, parágrafo final que tratada dos impactos de \(g_{I_h}\) em \(k\) foi removido
+\end{itemize}
+\subsection*{Simulações}
+\label{sec:org04813b0}
+Inalterada em relação à versão anterior
+\subsection*{Conclusão}
+\label{sec:org2e330ba}
+Inalterada em relação à versão anterior
+\subsection*{Apêndice A}
+\label{sec:org5a4a2ac}
+
+\begin{itemize}
+\item Resultados do python para \(k^\star\) e \(\ell_f^\star\) foram rearranjados
+\begin{itemize}
+\item Mantidas versões antigas para comparação
+\end{itemize}
+\item Documento Endividamentos.pdf corrigido em \textit{<2020-11-04 qua>}
+\begin{itemize}
+\item Já enviado
+\end{itemize}
+\end{itemize}
+
+
+\section*{Referências}
+\label{sec:orgd24d272}
+\printbibliography[heading=none]
 \end{document}

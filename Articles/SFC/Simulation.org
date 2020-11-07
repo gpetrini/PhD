@@ -338,6 +338,13 @@ def other_plots(shock, df):
     sns.despine()
     #plt.show()
     plt.clf()
+
+    fig, ax = plt.subplots()  
+    ((shock['MO'] + shock['Lk'])/(shock['K'])).plot(title="Capitalistas debt as % of total capital stock", ax=ax)
+    sns.despine()
+    #plt.show()
+    plt.clf()
+
     
     fig, ax = plt.subplots()
     (shock['FT']/shock['K_f']).plot(ax=ax, label='Gross profit rate')
@@ -464,6 +471,7 @@ print(shock2.to_latex())
 
 #+RESULTS:
 :results:
+(python3.8:109259): Gtk-[1;33mWARNING[0m **: [34m18:11:27.585[0m: Theme parsing error: gtk.css:1:117: Failed to import: Erro ao abrir arquivo /home/gpetrini/.local/share/gnome-shell/extensions/unite@hardpixel.eu/styles/buttons-right-always.css: Arquivo ou diretório não encontrado
 \begin{tabular}{lr}
 \toprule
 {} &  \$\textbackslash Delta \textbackslash omega\$ \\
