@@ -412,6 +412,7 @@ print(shock1.to_latex())
 
 #+RESULTS:
 :results:
+(python3.8:9033): Gtk-[1;33mWARNING[0m **: [34m10:18:48.301[0m: Theme parsing error: gtk.css:1:117: Failed to import: Erro ao abrir arquivo /home/gpetrini/.local/share/gnome-shell/extensions/unite@hardpixel.eu/styles/buttons-right-always.css: Arquivo ou diretório não encontrado
 \begin{tabular}{lr}
 \toprule
 {} &  \$\textbackslash Delta \textbackslash phi\_0\$ \\
@@ -455,7 +456,7 @@ gY        &     2.900000e-02 \\
 
 ** Wage-share decrease ($\Downarrow \omega$)
    
-#+BEGIN_SRC python :results raw drawer table
+#+BEGIN_SRC python :results raw drawer table latex
 base = model()
 df = SolveSFC(base, time=1000)
 shock = ShockModel(base_model=base, create_function=model(), variable='omega', increase=-0.01, time = 1000)
@@ -471,7 +472,6 @@ print(shock2.to_latex())
 
 #+RESULTS:
 :results:
-(python3.8:109259): Gtk-[1;33mWARNING[0m **: [34m18:11:27.585[0m: Theme parsing error: gtk.css:1:117: Failed to import: Erro ao abrir arquivo /home/gpetrini/.local/share/gnome-shell/extensions/unite@hardpixel.eu/styles/buttons-right-always.css: Arquivo ou diretório não encontrado
 \begin{tabular}{lr}
 \toprule
 {} &  \$\textbackslash Delta \textbackslash omega\$ \\
@@ -514,7 +514,7 @@ gY        &     2.400000e-02 \\
 
 ** Increase in mortgage interest rate
    
-#+BEGIN_SRC python :results raw table drawer
+#+BEGIN_SRC python :results raw table drawer latex
 base = model()
 df = SolveSFC(base, time=1000)
 shock = ShockModel(base_model=base, create_function=model(), variable='rm', increase=0.0025, time = 1000)
@@ -529,7 +529,7 @@ print(shock3.to_latex())
 #+END_SRC
 
 #+RESULTS:
-:results:
+#+begin_export latex
 \begin{tabular}{lr}
 \toprule
 {} &   \$\textbackslash Delta rm\$ \\
@@ -563,11 +563,11 @@ real\_data &  0.000000e+00 \\
 \_ph\_\_1    &  1.000000e+00 \\
 \bottomrule
 \end{tabular}
-:end:
+#+end_export
 
 ** TODO Decrease in mortgage interest rate
 
-#+BEGIN_SRC python :results raw drawer table
+#+BEGIN_SRC python :results raw drawer table latex
 base = model()
 df = SolveSFC(base, time=1000)
 shock = ShockModel(base_model=base, create_function=model(), variable='rm', increase=-0.005, time = 1000)
@@ -582,7 +582,7 @@ print(shock3b.to_latex())
 #+END_SRC
 
 #+RESULTS:
-:results:
+#+begin_export latex
 \begin{tabular}{lr}
 \toprule
 {} &  \$\textbackslash Downarrow rm\$ \\
@@ -616,11 +616,11 @@ real\_data &     0.000000e+00 \\
 \_ph\_\_1    &     1.000000e+00 \\
 \bottomrule
 \end{tabular}
-:end:
+#+end_export
 
 ** Increase in house inflation
-
-#+BEGIN_SRC python :results raw drawer table
+   
+#+BEGIN_SRC python :results raw drawer table latex
 base = model()
 df = SolveSFC(base, time=1000)
 shock = ShockModel(base_model=base, create_function=model(), variable='infla', increase=0.05, time = 1000)
@@ -636,7 +636,7 @@ print(shock4.to_latex())
 #+END_SRC
 
 #+RESULTS:
-:results:
+#+begin_export latex
 \begin{tabular}{lr}
 \toprule
 {} &         \$\textbackslash pi\$ \\
@@ -675,7 +675,7 @@ Z/Y       &  7.070000e-01 \\
 gY        &  2.900000e-02 \\
 \bottomrule
 \end{tabular}
-:end:
+#+end_export
 
 
 ** Merging tables and results                                        :ignore:
@@ -716,13 +716,6 @@ table.to_latex(
     float_format="{:0.4f}".format,
 )
 
-table.to_latex(
-    "./tabs/parameters.tex",
-    #column_format = 'cccccc',
-    escape=False, 
-    float_format="{:0.4f}".format,
-)
-
 print(table.to_latex(
     escape=False, 
     float_format="{:0.4f}".format,
@@ -754,7 +747,7 @@ $\pi$         &         0.0000 &           0.0000 &           0.0000 &       0.0
 
 *** Figure 1
 
-#+BEGIN_SRC python :results graphics file :file ./figs/Compared_Shocks_1.png
+#+BEGIN_SRC python :results graphics file :file ./figs/Compared_Shocks_1.png :cache no
 base = model()
 df = SolveSFC(base, time=1000)
 df["Z/Y"] = df["Z"]/df["Y"]
@@ -762,33 +755,79 @@ df_base = df
 
 fig, ax = plt.subplots(2,2, figsize=(19.20,10.80))
 
-df1['Y'].pct_change().plot(ls ='-', lw=3, color = "black", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[0,0])
-df2['Y'].pct_change().plot(ls ='-', lw=3, color = "darkgray", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[0,0])
-df3['Y'].pct_change().plot(ls ='-', lw=3, color = "gray", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[0,0])
+df1['Y'].pct_change().plot(ls ='-',lw=3, 
+                           #color = "black", 
+                           color = "tab:blue",
+                           label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[0,0]
+)
+df2['Y'].pct_change().plot(ls ='-', lw=3, 
+                           #color = "darkgray",
+                           color = "tab:red",
+                           label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[0,0])
+df3['Y'].pct_change().plot(ls ='-', lw=3, 
+                           #color = "gray", 
+                           color = "tab:green",
+                           label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[0,0])
 #df3b['Y'].pct_change().plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Downarrow r_m$ (Shock 3)", ax = ax[0,0])
-ax[0,0].axhline(y = df_base['g_Z'].iloc[-1], ls ='--', lw=1, color = "lightgray", label = "Baseline")
+ax[0,0].axhline(y = df_base['g_Z'].iloc[-1], ls ='--', lw=1, 
+                #color = "lightgray", 
+                color = "black",
+                label = "Baseline")
 ax[0,0].ticklabel_format(useOffset=False)
 ax[0,0].set_title('A GDP growth rate ($g$)')
 
-df1['Z/Y'].plot(ls ='-', lw=3, color = "black", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[0,1])
-df2['Z/Y'].plot(ls ='-', lw=3, color = "darkgray", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[0,1])
-df3['Z/Y'].plot(ls ='-', lw=3, color = "gray", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[0,1])
+df1['Z/Y'].plot(ls ='-', lw=3, 
+                #color = "black", 
+                color = "tab:blue",
+                label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[0,1])
+df2['Z/Y'].plot(ls ='-', lw=3, 
+                #color = "darkgray", 
+                color = "tab:red",
+                label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[0,1])
+df3['Z/Y'].plot(ls ='-', lw=3, 
+                #color = "gray", 
+                color = "tab:green",
+                label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[0,1])
 #df3b['Z/Y'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Downarrow r_m$ (Shock 3)", ax = ax[0,1])
-ax[0,1].axhline(y = df_base['Z/Y'].iloc[-1], ls ='--', lw=1.5, color = "lightgray", label = "Baseline")
+ax[0,1].axhline(y = df_base['Z/Y'].iloc[-1], ls ='--', lw=1.5, 
+                #color = "lightgray", 
+                color = "black",
+                label = "Baseline")
 ax[0,1].ticklabel_format(useOffset=False)
 ax[0,1].set_title('B Autonomous Expenditure\nShare on GDP ($Z/Y$)')
 
-df1['u'].plot(ls ='-', lw=3, color = "black", label = "$\\Downarrow \omega$ (Shock 3)", ax = ax[1,0])
-df2['u'].plot(ls ='-', lw=3, color = "darkgray", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,0])
-df3['u'].plot(ls ='-', lw=3, color = "gray", label = "$\\Uparrow r_m$ (Shock 4)", ax = ax[1,0])
+df1['u'].plot(ls ='-', lw=3, 
+              #color = "black", 
+              color = "tab:blue", 
+              label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[1,0])
+df2['u'].plot(ls ='-', lw=3, 
+              #color = "darkgray",
+              color = "tab:red",  
+              label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,0])
+df3['u'].plot(ls ='-', lw=3, 
+              #color = "gray", 
+              color = "tab:green", 
+              label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,0])
 #df3b['u'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Downarrow r_m$ (Shock 4)", ax = ax[1,0])
-ax[1,0].axhline(y = df_base['u'].iloc[-1], ls ='--', lw=1.5, color = "lightgray", label = "Baseline")
+ax[1,0].axhline(y = df_base['u'].iloc[-1], ls ='--', lw=1.5, 
+                #color = "lightgray",
+                color = "black",  
+                label = "Baseline")
 ax[1,0].ticklabel_format(useOffset=False)
 ax[1,0].set_title('C Capacity utilization rate ($u$)')
 
-df1['h'].plot(ls ='-', lw=3, color = "black", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[1,1])
-df2['h'].plot(ls ='-', lw=3, color = "darkgray", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,1])
-df3['h'].plot(ls ='-', lw=3, color = "gray", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,1])
+df1['h'].plot(ls ='-', lw=3, 
+              #color = "black", 
+              color = "tab:blue", 
+              label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[1,1])
+df2['h'].plot(ls ='-', lw=3, 
+              #color = "darkgray", 
+              color = "tab:red", 
+              label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,1])
+df3['h'].plot(ls ='-', lw=3, 
+              #color = "gray", 
+              color = "tab:green", 
+              label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,1])
 #df3b['h'].plot(ls ='-', lw=3, color = "darkgreen", label = "$\\Downarrow r_m$ (Shock 3)", ax = ax[1,1])
 ax[1,1].axhline(y = df_base['h'].iloc[-1], ls ='--', lw=1.5, color = "lightgray", label = "Baseline")
 ax[1,1].ticklabel_format(useOffset=False)
@@ -805,9 +844,12 @@ fig.savefig("./figs/Compared_Shocks_1.png", dpi = 300)
 #+RESULTS:
 [[file:./figs/Compared_Shocks_1.png]]
 
+
+[[file:./figs/Compared_Shocks_1.png]]
+
 *** Figure 2
     
-#+BEGIN_SRC python :results graphics file :file ./figs/Compared_Shocks_2.png
+#+BEGIN_SRC python :results graphics file :file ./figs/Compared_Shocks_2.png :cache no
 base = model()
 df = SolveSFC(base, time=1000)
 df["Z/Y"] = df["Z"]/df["Y"]
@@ -820,38 +862,38 @@ df3["TIME"] = [i+1 for i in range(len(df3.index))]
 
 fig, ax = plt.subplots(2,2, figsize=(19.20,10.80))
 
-sns.scatterplot(y = 'Z/Y', x='u', data=df1, size="TIME", sizes = (1,100), color = 'black', legend=False, ax=ax[0,0])
-sns.scatterplot(y = 'Z/Y', x='u', data=df2, size="TIME", sizes = (1,100), color = 'darkgray', legend=False, ax=ax[0,0])
-sns.scatterplot(y = 'Z/Y', x='u', data=df3, size="TIME", sizes = (1,100), color = 'gray', legend=False, ax=ax[0,0])
-#sns.scatterplot(y = 'Z/Y', x='u', data=df3b, size="TIME", sizes = (1,100), color = 'gray', legend=False, ax=ax[0,0])
+sns.scatterplot(y = 'Z/Y', x='u', data=df1, size="TIME", sizes = (1,100), color = 'tab:blue', legend=False, ax=ax[0,0])
+sns.scatterplot(y = 'Z/Y', x='u', data=df2, size="TIME", sizes = (1,100), color = 'tab:red', legend=False, ax=ax[0,0])
+sns.scatterplot(y = 'Z/Y', x='u', data=df3, size="TIME", sizes = (1,100), color = 'tab:green', legend=False, ax=ax[0,0])
+#sns.scatterplot(y = 'Z/Y', x='u', data=df3b, size="TIME", sizes = (1,100), color = 'tab:green', legend=False, ax=ax[0,0])
 
-sns.lineplot(y = 'Z/Y', x='u', data=df1, sort=False, color = 'black', ax=ax[0,0])
-sns.lineplot(y = 'Z/Y', x='u', data=df2, sort=False, color = 'darkgray', ax=ax[0,0])
-sns.lineplot(y = 'Z/Y', x='u', data=df3, sort=False, color = 'gray', ax=ax[0,0])
-#sns.lineplot(y = 'Z/Y', x='u', data=df3b, sort=False, color = 'gray', ax=ax[0,0])
-ax[0,0].set_title('A Share of residential investment and capacity utilization\n(Dots size grow in time)')
+sns.lineplot(y = 'Z/Y', x='u', data=df1, sort=False, color = 'tab:blue', ax=ax[0,0])
+sns.lineplot(y = 'Z/Y', x='u', data=df2, sort=False, color = 'tab:red', ax=ax[0,0])
+sns.lineplot(y = 'Z/Y', x='u', data=df3, sort=False, color = 'tab:green', ax=ax[0,0])
+#sns.lineplot(y = 'Z/Y', x='u', data=df3b, sort=False, color = 'tab:green', ax=ax[0,0])
+ax[0,0].set_title('A Share of NCC autonomous expenditures and capacity utilization\n(Dots size grow in time)')
 
-df1['K_k'].plot(ls ='-', lw=3, color = "black", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[0,1])
-df2['K_k'].plot(ls ='-', lw=3, color = "darkgray", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[0,1])
-df3['K_k'].plot(ls ='-', lw=3, color = "gray", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[0,1])
-#df3b['K_k'].plot(ls ='-', lw=3, color = "gray", label = "$\\Downarrow r_m$ (Shock 3)", ax = ax[0,1])
-ax[0,1].axhline(y = df_base['K_k'].iloc[-1], ls ='--', lw=1.5, color = "lightgray", label = "Baseline")
+df1['K_k'].plot(ls ='-', lw=3, color = "tab:blue", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[0,1])
+df2['K_k'].plot(ls ='-', lw=3, color = "tab:red", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[0,1])
+df3['K_k'].plot(ls ='-', lw=3, color = "tab:green", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[0,1])
+#df3b['K_k'].plot(ls ='-', lw=3, color = "tab:green", label = "$\\Downarrow r_m$ (Shock 3)", ax = ax[0,1])
+ax[0,1].axhline(y = df_base['K_k'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
 ax[0,1].ticklabel_format(useOffset=False)
 ax[0,1].set_title('B Houses share on\nReal Assets ($K_k$)')
 
-((df1["DN"][1:]*df1["rm"][2:])/df1['YDk'][2:]).plot(ls ='-', lw=3, color = "black", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[1,0])
-((df2["DN"][1:]*df2["rm"][2:])/df2['YDk'][2:]).plot(ls ='-', lw=3, color = "darkgray", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,0])
-((df3["DN"]*df3["rm"])[1:]/df3['YDk'][1:]).plot(ls ='-', lw=3, color = "gray", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,0])
-#((df3b["MO"]*df3b["rmo"][1:] + df3b["Lk"]*df3b["rl"][1:] - df3b["M"]*df3b["rl"][1:])/df3b['YDk'][1:]).plot(ls ='-', lw=3, color = "gray", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,0])
-ax[1,0].axhline(y = ((df_base["DN"].iloc[-1]*df_base["rm"].iloc[-1])/df_base['YDk'].iloc[-1]), ls ='--', lw=1.5, color = "lightgray", label = "Baseline")
+((df1["DN"][1:]*df1["rm"][2:])/df1['K_HD'][2:]).plot(ls ='-', lw=3, color = "tab:blue", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[1,0])
+((df2["DN"][1:]*df2["rm"][2:])/df2['K_HD'][2:]).plot(ls ='-', lw=3, color = "tab:red", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,0])
+((df3["DN"]*df3["rm"])[1:]/df3['K_f'][1:]).plot(ls ='-', lw=3, color = "tab:green", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,0])
+#((df3b["MO"]*df3b["rmo"][1:] + df3b["Lk"]*df3b["rl"][1:] - df3b["M"]*df3b["rl"][1:])/df3b['K_HD'][1:]).plot(ls ='-', lw=3, color = "tab:green", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,0])
+ax[1,0].axhline(y = ((df_base["DN"].iloc[-1]*df_base["rm"].iloc[-1])/df_base['K_HD'].iloc[-1]), ls ='--', lw=1.5, color = "black", label = "Baseline")
 ax[1,0].ticklabel_format(useOffset=False)
-ax[1,0].set_title('C Capitalist Indebtedness\n(as % $YD_k$)')
+ax[1,0].set_title('C Capitalist Indebtedness\n(as % $K_{HD}$)')
 
-(df1['Fn']/df1['K_f']).plot(ls ='-', lw=3, color = "black", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[1,1])
-(df2['Fn']/df2['K_f']).plot(ls ='-', lw=3, color = "darkgray", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,1])
-(df3['Fn']/df3['K_f']).plot(ls ='-', lw=3, color = "gray", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,1])
-#(df3b['Fn']/df3b['K_f']).plot(ls ='-', lw=3, color = "gray", label = "$\\Downarrow r_m$ (Shock 3)", ax = ax[1,1])
-ax[1,1].axhline(y = (df_base['Fn']/df_base['K_f']).iloc[-1], ls ='--', lw=1.5, color = "lightgray", label = "Baseline")
+(df1['Fn']/df1['K_f']).plot(ls ='-', lw=3, color = "tab:blue", label = "$\\Downarrow \omega$ (Shock 1)", ax = ax[1,1])
+(df2['Fn']/df2['K_f']).plot(ls ='-', lw=3, color = "tab:red", label = "$\\Uparrow \pi$ (Shock 2)", ax = ax[1,1])
+(df3['Fn']/df3['K_f']).plot(ls ='-', lw=3, color = "tab:green", label = "$\\Uparrow r_m$ (Shock 3)", ax = ax[1,1])
+#(df3b['Fn']/df3b['K_f']).plot(ls ='-', lw=3, color = "tab:green", label = "$\\Downarrow r_m$ (Shock 3)", ax = ax[1,1])
+ax[1,1].axhline(y = (df_base['Fn']/df_base['K_f']).iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
 ax[1,1].ticklabel_format(useOffset=False)
 ax[1,1].set_title('D Net profit rate')
 
@@ -862,7 +904,9 @@ ax[1,1].legend(loc='center left', bbox_to_anchor=(1.0, 1.25))
 fig.savefig("./figs/Compared_Shocks_2.png", dpi = 600)
 #+END_SRC
 
-#+RESULTS:
+
+
+
 [[file:./figs/Compared_Shocks_2.png]]
 
 
@@ -877,7 +921,7 @@ shock_duration=int(10) ## Warning 10
 gCk = data["1992-01-01":]["$g_{I_h}$"].mean().round(3)
 
 
-df = SolveSFC(model(real=1, gC=0.03, R = 0.0), time=initial)
+df = SolveSFC(model(real=1, gC=gCk, R = 0.0), time=initial)
 base = model()
 SolveSFC(base, time=initial, table=False)
 
@@ -923,8 +967,8 @@ fig, ax = plt.subplots(2,2, figsize=(19.20,10.80))
 shock["$I_{h}$"] = shock["I_h"]
 shock["$I_{f}$"] = shock["I_f"]
 
-shock[['Y', '$I_{h}$', '$I_{f}$']].pct_change().plot(ls ='-', lw=3, ax = ax[0,0], color=("black", "darkgray", "gray"))
-ax[0,0].axhline(y = df_base['g_Z'].iloc[-1], ls ='--', lw=1, color = "lightgray", label = "Baseline")
+shock[['Y', '$I_{h}$', '$I_{f}$']].pct_change().plot(ls ='-', lw=3, ax = ax[0,0], color=("tab:blue", "tab:red", "tab:green"))
+ax[0,0].axhline(y = df_base['g_Z'].iloc[-1], ls ='--', lw=1, color = "black", label = "Baseline")
 ax[0,0].ticklabel_format(useOffset=False)
 ax[0,0].set_title('A Selected growth rates')
 
@@ -993,23 +1037,23 @@ fig.savefig("./figs/Real_Shocks_2.png", dpi = 600)
 * Numerical Simulations                                              :ignore:
   #+LATEX: \label{sec:Experiments}
 
+** Introduction                                                      :ignore:
 
 In this Section, we present the results of the following experiments: 
     (i) wage-share decrease;
     (ii) real estate inflation and;
     (iii) deposits interest rate increase.
 In order to evaluate if our model is able to reproduce some stylized facts, we introduce U.S. houses own rate of interest observed data (from 1992 to 2019) into our numerical simulation.
-Before we move foward, it worth mentioning that we use \citeauthor*{fazzari-2020-deman-led}'s  citeyear:fazzari-2020-deman-led parameter values callibrated for the U.S. economy for a similar time range (from 1980 to 2016).
-Our first experiment assess if income distribution affects fully-adjusted position growth rates temporal --- as in textcite:mandarino-2020-worker-debt --- or persistently ---  as in textcite:brochier_supermultiplier_2018.
+Before we move foward, it worth mentioning that we use \citeauthor*{fazzari-2020-deman-led}'s  citeyear:fazzari-2020-deman-led parameter values calibrated for the U.S. economy for a similar time range (from 1980 to 2016).
+Our first experiment assess if income distribution has a level effect on output — as in cite:mandarino-2020-worker-debt — or growth rate effect — as in cite:brochier_supermultiplier_2018.
 Real estate inflation increase experiment is motivated by recent US experience (from 1992 to 2019) as discussed in Section ref:sec:empirical while the last simulation aims to evaluate indebtedness stability.
 Table \ref{tab:param} in Appendix ref:append:Data presents the parameters of simulation and Table \ref{ResumoChoques} compare each result to baseline.
 
-
+#+BEGIN_COMMENT
+Finally, Appendix \ref{Appen:Sensibility} presents a primer parameters sensibility analysis.
 
 [fn:5] Simulation scripts are available under request. It worth noting that our experiments are simulated using /pysolve3/ package available at [[https://github.com/gpetrini/pysolve3]]. Implementation and improvement requests are welcome.
 
-#+BEGIN_COMMENT
-Finally, Appendix \ref{Appen:Sensibility} presents a primer parameters sensibility analysis.
 #+END_COMMENT
 
 
@@ -1019,28 +1063,28 @@ Finally, Appendix \ref{Appen:Sensibility} presents a primer parameters sensibili
 :end:
 
 ** Wage-share decrease
-#+LATEX: \label{sec:Exp1}
+   #+LATEX: \label{sec:Exp1}
 
-A wage-share decrease has a temporary negative impact both in GDP level and capacity utilization rate due to changes on the supermultiplier (see Figure ref:fig:results_1).
-So, aggregate demand growth level is temporarily lower than baseline as a result of the lower supermultiplier.
+A wage-share decrease has permanent negative impact on output level --- due to changes on the supermultiplier --- and temporary negative effects on degree of capacity utilization (see Figure ref:fig:results_1 A).
+So, aggregate demand growth level is temporarily smaller than baseline as a result of the lower supermultiplier.
 As a consequence of this negative level effect, both accumulation growth rate and marginal propensity to invest temporaly decline while NCC autonomous expenditures share on GDP increases.
-Since NCC autonomous expenditure growth rate remains unchanged and its share on GDP increases, aggregate demand grows faster than accumulation rate.
-As a result, capacity utilization is higher than the normal one.
+Since NCC autonomous expenditures growth rate remains unchanged and its share on GDP increases, aggregate demand grows faster than accumulation rate.
+As a result, degree of capacity utilization is higher than the normal one.
 During the traverse, marginal propensity to invest endogenously adjust to discrepancies between actual and normal utilization rates.
 Consequently, non-residential investment growth rate increases faster than aggregate demand.
 This endogenous adjustment process continues as long as actual capacity utilization rate is different from the normal one.
 In summary, we report standards SSM model results:
     (i) marginal propensity to invest decrease is temporally and returns to baseline level;
     (ii) utilization rate moves towards normal one;
-    (iii) supermultiplier decreases and autonomous expenditure share increases due to GDP decline and; 
-    (iv) since autonomous expenditure growth rate does not change, distribution effects on growth rates are temporary. 
+    (iii) supermultiplier decreases and autonomous expenditures share increases due to GDP decline and; 
+    (iv) since autonomous expenditures growth rate does not change, distribution effects on growth rates are temporary. 
 
 
-Despite temporary effects in growth rate, wage-share decrease has a permanent effect in house share on total capital stock (see Equation ref:k_long and Figure ref:fig:results_2).
+Despite temporary effects in growth rate, wage-share decrease has a permanent effect in house share on total capital stock (see Equation ref:k_long and Figure ref:fig:results_2 B).
 As a consequence of the initially lower accumulation rate, total capital stock also grows at a temporarily lower rate.
 However, since residencial investment growth rate remains unchanged, its share on total capital stock increases.
 Another persistent effect is the higher capitalists' indebtedness compared to baseline despite the profit-share increase.
-This result stems from the negative level effect on profits as a consequence of the negative effect on GDP and subsequent decrease in capitalists' disposable income.
+This result is explained by the negative level effect on profits as a consequence of the negative effect on GDP and subsequent decrease in capitalists' disposable income.
 In other words, we report a paradox in capitalists attempt to increase their profit share which results a negative effect both on net profits and capitalists' disposable income.
 
 Finally, we also report a persistent effect on firms' balance sheet due to wage-share decrease.

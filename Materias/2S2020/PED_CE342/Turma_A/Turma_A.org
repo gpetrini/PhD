@@ -90,6 +90,9 @@ df = min_df.reset_index().merge(
     ).join(
         importar_ext(Turma=Turma, data="2020-10-26"),
         how='left', on='Nome'
+    ).join(
+        importar_ext(Turma=Turma, data="2020-11-09"),
+        how='left', on='Nome'
     ).set_index('RA')
 
 df["Email"] = [df["Nome"][i][0] + df.index[i] + "@dac.unicamp.br" for i in range(len(df.index))]
@@ -219,6 +222,145 @@ plt.show()
 [[file:./figs/monetaristas.png]]
 
 #+BEGIN_SRC python :results graphics file :file ./figs/monetaristas_presenca.png
+tmp = df.copy()
+
+tmp["Média presença"] = tmp[["2020-10-19", "2020-10-26"]].mean(axis=1)
+
+resenha = "Monetaristas"
+
+fig, ax = plt.subplots()
+
+sns.regplot(x="Média presença", y=f"Resenha {resenha}", data=tmp, ax=ax, y_jitter=.05);
+
+ax.set_title(f"Nota x Presença\nResenha {resenha} - Turma {Turma}")
+
+fig.savefig('./figs/monetaristas_presenca.png')
+
+plt.show()
+
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/monetaristas_presenca.png]]
+
+* Novos Clássicos
+
+** Pendências                                                        :ignore:
+
+** Notas                                                             :ignore:
+
+#+NAME:Monetaristas
+#+BEGIN_SRC python :results table latex :eval no
+print('\\begin{center}')
+print(
+    df[["Resenha Monetaristas"]].to_latex(
+        caption=f"Notas das resenhas - {Resenhas[0]}",
+        bold_rows=True,
+        longtable=True,
+        na_rep='-',
+    ),end='')
+print('\end{center}')
+#+END_SRC
+
+#+RESULTS: Monetaristas
+#+begin_export latex
+\begin{center}
+\begin{longtable}{lr}
+\caption{Notas das resenhas - Monetaristas}\\
+\toprule
+{} &  Resenha Monetaristas \\
+\textbf{RA    } &                       \\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+\textbf{212883} &                  50.0 \\
+\textbf{212900} &                  50.0 \\
+\textbf{231302} &                  70.0 \\
+\textbf{231732} &                   0.0 \\
+\textbf{213360} &                  70.0 \\
+\textbf{231898} &                  70.0 \\
+\textbf{213731} &                  70.0 \\
+\textbf{232395} &                  30.0 \\
+\textbf{232796} &                  70.0 \\
+\textbf{233335} &                  50.0 \\
+\textbf{233747} &                  70.0 \\
+\textbf{255207} &                  50.0 \\
+\textbf{216459} &                   0.0 \\
+\textbf{235951} &                  30.0 \\
+\textbf{236276} &                   0.0 \\
+\textbf{218090} &                  70.0 \\
+\textbf{255241} &                  50.0 \\
+\textbf{237618} &                  70.0 \\
+\textbf{199735} &                  50.0 \\
+\textbf{218975} &                  70.0 \\
+\textbf{238414} &                  70.0 \\
+\textbf{219613} &                  50.0 \\
+\textbf{219907} &                 100.0 \\
+\textbf{239052} &                  70.0 \\
+\textbf{220194} &                  70.0 \\
+\textbf{201326} &                  50.0 \\
+\textbf{156242} &                   0.0 \\
+\textbf{240317} &                  30.0 \\
+\textbf{240409} &                  70.0 \\
+\textbf{221515} &                  50.0 \\
+\textbf{255293} &                  30.0 \\
+\textbf{241430} &                  50.0 \\
+\textbf{222315} &                  50.0 \\
+\textbf{184528} &                  50.0 \\
+\textbf{222615} &                  70.0 \\
+\textbf{186966} &                   0.0 \\
+\textbf{244321} &                  50.0 \\
+\textbf{244379} &                  50.0 \\
+\textbf{187323} &                 100.0 \\
+\textbf{206194} &                  50.0 \\
+\textbf{245212} &                 100.0 \\
+\textbf{206883} &                   0.0 \\
+\textbf{245459} &                  70.0 \\
+\end{longtable}
+\end{center}
+#+end_export
+
+** Gráficos                                                          :ignore:
+
+#+BEGIN_SRC python :results graphics file :file ./figs/novosclassicos.png :eval no
+fig, ax = plt.subplots(1,2, figsize=(8,5), sharey=True)
+
+sns.distplot(df['Resenha Monetaristas'], hist=True, kde=True, 
+             bins=int(10), color = 'darkblue', 
+             hist_kws={'edgecolor':'black'}, ax=ax[0],
+             kde_kws={'linewidth': 4, 'shade': True})
+
+ax[0].set_title(f'Nota das resenhas\nTurma {Turma}')
+ax[0].text(90, 0.03, f'$\mu = ${df["Resenha Monetaristas"].mean().round(1)/10}', fontsize=12)
+ax[0].text(90, 0.027, f'$\sigma = ${df["Resenha Monetaristas"].std().round(1)/10}', fontsize=12)
+
+
+sns.distplot(df[df['Resenha Monetaristas']>0]['Resenha Monetaristas'], hist=True, kde=True, 
+             bins=int(10), color = 'darkblue', 
+             hist_kws={'edgecolor':'black'}, ax=ax[1],
+             kde_kws={'linewidth': 4, 'shade': True})
+
+ax[1].set_title('Nota das resenhas\n(Exceto não entregues)')
+ax[1].text(90, 0.03, f"$\mu = ${df[df['Resenha Monetaristas']>0]['Resenha Monetaristas'].mean().round(1)/10}", fontsize=12)
+ax[1].text(90, 0.027, f"$\sigma = ${round(df[df['Resenha Monetaristas']>0]['Resenha Monetaristas'].std())/10}", fontsize=12)
+ax[1].set_ylabel('Densidade')
+
+plt.tight_layout()
+fig.savefig('./figs/monetaristas.png')
+
+plt.show()
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/monetaristas.png]]
+
+#+BEGIN_SRC python :results graphics file :file ./figs/novosclassicos_presenca.png :eval no
 tmp = df.copy()
 
 tmp["Média presença"] = tmp[["2020-10-19", "2020-10-26"]].mean(axis=1)
