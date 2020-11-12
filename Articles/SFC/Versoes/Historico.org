@@ -188,7 +188,59 @@ Não alterado.
 
 Não alterado.
 
+** Solução analítica
+
+- Algumas correções pequenas
+  - $l_f^\star \Rightarrow \ell_f^\star$
+  - $l^\star \Rightarrow \ell_k^\star$
+- Razão $\ell_f^\star$ rearranjada. Passos
+
+#+BEGIN_EXPORT latex
+  \begin{equation}
+    \tag{Original}
+    \ell_f^\star = \frac{g^\star\cdot v - \gamma_F\cdot u^\star (1-\omega)}{v\cdot (g^\star - \gamma_F\cdot r_m)}
+  \end{equation}
+#+END_EXPORT
+
+Lembrando a definição de taxa de lucro bruta e simplificando por $v$:
+
+#+BEGIN_EXPORT latex
+  \begin{equation}
+    \ell_f^\star = \frac{g^\star - \gamma_Fr_g^\star}{g^\star - \gamma_F\cdot r_m}
+  \end{equation}
+#+END_EXPORT
+
+
+Somando e subtraindo $\gamma_F\cdot r_m$ do numerador e simplificando
+
+#+BEGIN_EXPORT latex
+  \begin{equation}
+    \ell_f^\star = 1 - \gamma_F\frac{r_g^\star - r_m}{g^\star - \gamma_F\cdot r_m}
+  \end{equation}
+#+END_EXPORT
+
+
+Relembrando a equação da taxa de lucro líquida e fazendo $r_l = r_m$,
+
+#+BEGIN_EXPORT latex
+  \begin{equation}
+    r_n^\star = r_g - r_m\cdot \ell_f^\star
+  \end{equation}
+#+END_EXPORT
+
+
+Desse modo, se $\ell_f^\star$ reduz, taxa de lucro bruta e líquida se aproximam.
+
+Deixei a equação original enquanto etapa para chegar nessa nova equação e adicionei uma para a taxa de lucro líquida em função de $\ell_f^\star$ para referenciar nas simulações.
+
 ** Simulações
+
+- Para manter consistência entre as equações e simulações, será plotada a razão dívida dos capitalistas/imóveis. O que acha?
+- Tabela com resumo dos resultados corrigida
+  - $k \Rightarrow K_k$
+  - Ajustada equação endividamento
+
+
 
 *** Introdução
 
@@ -207,14 +259,50 @@ A wage-share decrease has permanent negative impact on output level --- due to c
 - This result stem from the $\Rightarrow$ This result is explained by
 - Figuras das simulações (e a primeira com dados reais) voltaram a ser coloridas
   - Tanto da seção dos fatos estilizados quanto os demais graficos da simulação com dados reais continuam em escala de cinza
-- [ ] Decidir se plota riqueza em função da renda disponível ou estoque de capital
-  - [ ] Ajustar tabela resumo dos resultados
-  - [ ] Ajustar texto
-  - [ ] Ajustar equação
-- [ ] Corrigir tabela resumo dos resultados
-  - [ ] Letra K
-  - [ ] equação endividamento
+- Conforme falei por menssagem, não temos mais o paradoxo nessa seção. Em função disso, comentei as frases que descrevem esse resultado.
+- Corrigi /oan-to-profit ratio/ para /loan-to-capital ratio/
+*** Aumento da inflação de imóveis
 
+Feitas as correções sugeridas. Vale destacar que o último parágrafo foi alterado para
+
+#+BEGIN_QUOTE
+The most distinct result is real houses share decreases on total capital stock as a result of residential investment growth rate increase.
+Although counterintuitive, this result is similar to the conventional paradox of debt.
+This is the case since houses are always equivalent to  mortgage debt.
+Additionally, this result is in line with SSM literature.
+Firms investment follows capital stock adjustment principle, so a higher firms investment growth rate implies that
+GDP grows faster than residential investment.
+Thus, both residential investment share on GDP and degree of capacity  utilization decrease.
+In other words, both autonomous expenditures share on GDP and houses share on real assets (see Equation X)[fn::Não consigo referenciar as equações do paper nesse documento.] decline as a result of the already described non-residential investment positive reaction.
+#+END_QUOTE
+
+
+A seguinte frase foi removida: Besides the usual SSM results, we report some particularities regarding real assets composition.
+
+- Pareceu muito genérica e pouco descritiva.
+
+
+*** Aumento da taxa de juros
+- This result stem from the $\Rightarrow$ This effect is a result of the
+
+*** Dados reais
+
+- Mencionei a seção dos fatos estilizados
+- Deixei explícito que a taxa de crescimento do consumo dos capitalistas passou a ser
+
+#+BEGIN_EXPORT latex
+  \begin{equation}
+    \label{gck_real}
+    g_{C_k} = \frac{1}{N} \sum_{t=1992}^{2019} g_{I_{h_{t}}}
+  \end{equation}
+#+END_EXPORT
+
+- Não alterei os fatos estilizados itemizados porque a seção de motivação empírica ainda está em aberto
+- Deixei a marca de edição que não replicamos a maior volatilidade do investimento residencial
+- Primeiro gráfico desta simulação passou a ser colorido
+  - Note que o investimento das firmas é o mais volátil
+- Removi a seguinte frase: /Since the analyzed period does not correspond to the fully-adjusted position, discrepancies between actual and normal capacity utilization rate are adjusted through changes in marginal propensity to invest/
+  - Além de estar confusa (como apontado), o texto pareceu mais fluido depois que tirei.
 
 * Referências
   :PROPERTIES:

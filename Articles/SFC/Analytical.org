@@ -746,11 +746,21 @@ $$
 \Delta \left(\frac{L_{f}}{K_{f}}\right) = \frac{I_{f} - FU}{K_{f}} - \ell^{\star}_{f}\cdot g^{\star}  = 0
 $$
 
+$$
+    \ell_f^\star = \frac{g^\star\cdot v - \gamma_F\cdot u^\star (1-\omega)}{v\cdot (g^\star - \gamma_F\cdot r_m)}
+$$
 
 \begin{equation}
 \label{firm_ratio}
-l^\star_f = \frac{g^\star\cdot v - \gamma_F\cdot u^\star \cdot (1-\omega)}{v\cdot (g^\star - \gamma_F\cdot r_m)}
+\ell_f^\star = 1 - \gamma_F\left(\frac{r_g^\star - r_m}{g^\star - \gamma_F\cdot r_m}\right)
 \end{equation}
+Thus, replacing equation ref:firm_ratio into ref:_rn to obtain net profit rate in the fully-adjusted position (see Equation ref:Long_netprofit_ratio)
+\begin{equation}
+\label{Long_netprofit_ratio}
+r_n^\star = r_g^\star - r_m\cdot \left(1 - \gamma_F\left(\frac{r_g^\star - r_m}{g^\star - \gamma_F\cdot r_m}\right)\right)
+\end{equation}
+
+
 
 Next, we rewrite capitalists autonomous expenditure in terms of residential investment (see Equation ref:C_kZ). 
 Then, we  present capitalists' loans to houses stock ratio (Equation ref:capitalist_ratio):
@@ -761,7 +771,7 @@ $$
 
 \begin{equation}
 \label{capitalist_ratio}
-l^\star = \frac{R}{1-R}
+\ell^\star = \frac{R}{1-R}
 \end{equation}
 
 The same procedure can be applied to find mortgage to house stock ratio ($mo^{\star}$, Equation ref:mortgage_ratio):

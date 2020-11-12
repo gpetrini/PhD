@@ -1083,25 +1083,25 @@ In summary, we report standards SSM model results:
 Despite temporary effects in growth rate, wage-share decrease has a permanent effect in house share on total capital stock (see Equation ref:k_long and Figure ref:fig:results_2 B).
 As a consequence of the initially lower accumulation rate, total capital stock also grows at a temporarily lower rate.
 However, since residencial investment growth rate remains unchanged, its share on total capital stock increases.
-Another persistent effect is the higher capitalists' indebtedness compared to baseline despite the profit-share increase.
-This result is explained by the negative level effect on profits as a consequence of the negative effect on GDP and subsequent decrease in capitalists' disposable income.
-In other words, we report a paradox in capitalists attempt to increase their profit share which results a negative effect both on net profits and capitalists' disposable income.
+#+LATEX:%Another persistent effect is the higher capitalists' indebtedness compared to baseline despite the profit-share increase.
+#+LATEX:This result is explained by the negative level effect on profits as a consequence of the negative effect on GDP and subsequent decrease in capitalists' disposable income.
+#+LATEX:In other words, we report a paradox in capitalists attempt to increase their profit share which results a negative effect both on net profits and capitalists' disposable income.
 
 Finally, we also report a persistent effect on firms' balance sheet due to wage-share decrease.
 The negative level effect on GDP implies an already mentioned temporally decrease in marginal propensity to invest.
-As a consequence of the initially lower accumulation rate and higher profit share, firms' loan-to-profit ratio decrease.
-Thus, according to Equation NUMBER, gross and net profit rate remain persistently close to each other (see Figure ref:fig:results_2 D).
+As a consequence of the initially lower accumulation rate and higher profit share, firms' loan-to-capital ratio decrease.
+Thus, according to Equation ref:Long_netprofit_ratio, gross and net profit rate remain persistently close to each other (see Figure ref:fig:results_2 D).
 Therefore, as profits distribution policy remains the same, firms require less external funding so its indebtedness decreases.
 
 *Nota:* Farei referência às equações stock/flow quando terminar esta seção
 
-** Real estate inflation
+** Real estate inflation increase
 #+LATEX: \label{sec:Exp2}
 
 
-Real estate inflation implies a higher residential investment growth due to houses own rate of interest decrease.
-As a result, both GDP growth rate and capacity utilization rate increase as well.
-Since firms react to discrepancies between actual and normal utilization rates, non-residential investment growth rate 
+An increase of real estate inflation implies a higher residential investment growth due to houses own rate of interest decrease.
+As a result, both GDP growth rate and degree of capacity utilization increase as well.
+Since firms react to discrepancies between actual and normal degree of capacity utilization rate, non-residential investment growth rate 
 is temporally higher than GDP growth rate due to marginal propensity to invest adjustment.
 Furthermore, capitalists' disposable income also increases as a result of the already mentioned higher GDP growth rate.
 Since loans interest remains unchanged, capitalists' indebtedness ratio decreases.
@@ -1113,22 +1113,25 @@ In summary, we report SSM standard fully-adjusted position results:
     (ii) marginal propensity to invest remains persistently higher compared to baseline and;
     (iii) utilization rate moves gradually towards the normal one.
 As mentioned before, our model distinctiveness is the existence of two types of capital stocks since households invest as well.
-Besides the usual SSM results, we report some particularities regarding real assets composition.
+
+
 The most distinct result is real houses share decreases on total capital stock as a result of residential investment growth rate increase.
 Although counterintuitive, this result is similar to the conventional paradox of debt.
 This is the case since houses are always equivalent to  mortgage debt.
-
-
 Additionally, this result is in line with SSM literature.
 Firms investment follows capital stock adjustment principle, so a higher firms investment growth rate implies that
-GDP grows faster than residential investment, reducing both the latter share on GDP and
-also the utilization rate.
-In other words, both autonomous expenditures share on GDP --- higher supermultiplier --- and houses share on real assets (see Equation ref:partial_pi) decline as a result of the already described non-residential investment positive reaction.
-#+LATEX: %Finally, it worth noting that real estate inflation also has permanent effects over real stock/flow ratios due to capital gains.
+GDP grows faster than residential investment.
+Thus, both residential investment share on GDP and degree of capacity  utilization decrease.
+In other words, both autonomous expenditures share on GDP and houses share on real assets (see Equation ref:partial_pi) decline as a result of the already described non-residential investment positive reaction.
+
 
 
 #+BEGIN_COMMENT
 Figure \ref{fig:shock_4norm} in Appendix \ref{appen:Simulation} shows that capitalists' nominal net wealth grows faster than disposable income, so the ratio between both converges to zero.
+
+Finally, it worth noting that real estate inflation also has permanent effects over real stock/flow ratios due to capital gains.
+
+Besides the usual SSM results, we report some particularities regarding real assets composition.
 #+END_COMMENT
 ** Interest rate increase
 #+LATEX: \label{sec:Exp3}
@@ -1142,7 +1145,7 @@ Compared to the previous experiments, this shock has opposite effects on long-ru
 
 
 In particular, we report a stronger negative effect over both capitalists' and firms' balance sheet than wage-share decrease (see figures ref:fig:results_1 and ref:fig:results_2).
-This result stems from the temporarily stronger decline of GDP growth rate compared to NCC autonomous expenditure growth rate.
+This effect is a result of the temporarily stronger decline of GDP growth rate compared to NCC autonomous expenditure growth rate.
 As a consequence of lower GDP growth rate, mass of profits also decreases.
 Thus, capitalists' disposable income decreases more than debt-financed consumption growth rate.
 Interest rate increase alone is enough to capitalists' indebtedness level to increase, however it is followed by GDP growth rate decrease, so the overall effect is stronger than wage-share decrease experiment (Section ref:sec:Exp1).
@@ -1152,6 +1155,8 @@ Therefore, we find a stable debt dynamics for both capitalists and firms (other 
 
 *Nota:* Atualizar resultado do endividamento capitalista na tabela assim que for revisado.
 
+** Summary                                                     :ignore:
+*** Table                                                            :ignore:
 #+BEGIN_SRC latex :tangle ./tabs/Summary_tab.tex
 \begin{table}[H]
 	\centering
@@ -1166,9 +1171,9 @@ Therefore, we find a stable debt dynamics for both capitalists and firms (other 
 			\textbf{$g_Z$}  & 0 & + & -  & 0 & + & - \\ \hline
 			\textbf{$u$}  & - & + & -  & 0 & 0 & 0 \\ \hline
 			\textbf{$h$}  & - & + & -  & 0 & + & - \\ \hline
-			\textbf{$k$}  & + & * & +  & + & - & + \\ \hline
+			\textbf{$k$}  & + & - & +  & + & - & + \\ \hline
 			\textbf{$\frac{Z}{Y}$}  & + & - & +  & + & - & + \\ \hline
-			\textit{$\frac{(r_{mo}\cdot DN)}{YD_k}$}  & - & - & +  & - & - & + \\ \hline\hline
+			\textit{$r_m\frac{(D - M)}{K_{HD}}$}  & - & - & +  & - & - & + \\ \hline\hline
 		\end{tabular}%
 	%}
 	\caption*{\textbf{Source:} Authors' Elaboration}
@@ -1190,9 +1195,9 @@ Therefore, we find a stable debt dynamics for both capitalists and firms (other 
 			\textbf{$g_Z$}  & 0 & + & -  & 0 & + & - \\ \hline
 			\textbf{$u$}  & - & + & -  & 0 & 0 & 0 \\ \hline
 			\textbf{$h$}  & - & + & -  & 0 & + & - \\ \hline
-			\textbf{$k$}  & + & * & +  & + & - & + \\ \hline
+			\textbf{$k$}  & + & - & +  & + & - & + \\ \hline
 			\textbf{$\frac{Z}{Y}$}  & + & - & +  & + & - & + \\ \hline
-			\textit{$\frac{(r_{mo}\cdot DN)}{YD_k}$}  & - & - & +  & - & - & + \\ \hline\hline
+			\textit{$r_m\frac{(D - M)}{K_{HD}}$}  & - & - & +  & - & - & + \\ \hline\hline
 		\end{tabular}%
 	%}
 	\caption*{\textbf{Source:} Authors' Elaboration}
@@ -1200,7 +1205,7 @@ Therefore, we find a stable debt dynamics for both capitalists and firms (other 
 #+end_export
 
 
-
+*** Figure I                                                         :ignore:
 #+BEGIN_SRC latex
 \begin{figure}[htb]
 	\centering
@@ -1222,7 +1227,7 @@ Therefore, we find a stable debt dynamics for both capitalists and firms (other 
 \end{figure}
 #+end_export
 
-
+*** Figure II                                                        :ignore:
 #+BEGIN_SRC latex
 \begin{figure}[htb]
 	\centering
@@ -1243,14 +1248,26 @@ Therefore, we find a stable debt dynamics for both capitalists and firms (other 
 	\caption*{\textbf{Source:} Authors' elaboration}
 \end{figure}
 #+end_export
+
 
 
 ** Plugging real data
 #+LATEX: \label{real_sim}
 
-Finally, we include houses own interest rate data into our model (see Figure ref:propria_investo).
+Finally, we include houses own interest rate data into our model as discussed in section ref:sec:empirical (see Figure ref:propria_investo).
 To do so, each year corresponds to ten simulated periods for visualization reasons.
-Although rudimentary, this procedure allows us to investigate whether or not our model reports the following stylized facts:
+Additionally, we abandoned the fixed share between NCC autonomous expenditures (parameter $R$).
+In order to include capitalists consumption without running into asymptotic paths, we defined its growth rate ($g_{C_k}$) as the mean of residential investment growth rate from 1992 to 2019 (Equation ref:gck_real):
+
+#+BEGIN_EXPORT latex
+  \begin{equation}
+    \label{gck_real}
+    g_{C_k} = \frac{1}{N} \sum_{t=1992}^{2019} g_{I_{h_{t}}}
+  \end{equation}
+#+END_EXPORT
+
+
+Although rudimentary, this procedure allows us to investigate whether or not our model reports some of the stylized facts presented in section ref:sec:empirical:
 (i) positive relationship between non-residential investment share and GDP growth rate; (ii) capacity utilization towards the normal one, although quite volatile; (iii) NCC autonomous expenditure lead the business cycle and accumulation growth rate; (iv) residential investment is more volatile than others expenditures.
 Finally, all results are presented in Figure ref:fig:Realresults_1.
 
