@@ -22,6 +22,7 @@ import sympy as sp
 np.random.seed(3421)
 Turma = "A"
 full_path = './Materias/2S2020/PED_CE342/Turma_' + Turma
+num_grupos = 12
 Resenhas = ["Monetaristas", "Novos Clássicos", "Novos Keynesianos", "Novo Consenso"]
 #+END_SRC
 
@@ -267,9 +268,9 @@ plt.close()
 * Novos Clássicos
 
 ** Pendências                                                        :ignore:
-- [ ] Checar resenha Juliana Florentina
+
 - [ ] Identificar respostas das questões (forms)
-- [ ] Computar notas
+- [ ] Computar notas 
 - [ ] Preencher presenhas na tabela da Ana Rosa
 ** Notas                                                             :ignore:
 
@@ -418,6 +419,7 @@ amostra = round(alunos*sample)
 bad_df = df.index.isin(pre_selecionados)
 elegivies = df.loc[~bad_df].query('`Resenha Novos Clássicos` > 0')["Resenha Novos Clássicos"].index.tolist()
 
+
 resultado = np.sort(np.random.choice(
     a = elegivies,
     size = amostra,
@@ -447,12 +449,58 @@ RA Sorteados
 12       244379
 13       245459
 #+end_example
-
-
-
-
-
 *** Resultado Turnitin
+
+#+CAPTION: Resumo relatório de origilidadade
+#+NAME:TurnitinNvC
+|--------+--------------------|
+|     RA | Grau de semelhança |
+|--------+--------------------|
+| 156242 |                15% |
+| 187323 |                20% |
+| 212900 |                 1% |
+| 219613 |                 0% |
+| 219907 |                 8% |
+| 222615 |                 0% |
+| 231302 |                 2% |
+| 232795 |                11% |
+| 238414 |                 2% |
+| 239052 |                 8% |
+| 240409 |                 0% |
+| 244321 |                 1% |
+| 244379 |                 1% |
+| 245459 |                    |
+|--------+--------------------|
+
+**** Gráfico
+#+BEGIN_SRC python :var turnitin=TurnitinNvC :results file graphics :file ./figs/turintin_NvC_fig.png
+turnitin = pd.DataFrame(
+    turnitin[1:],
+    columns=["RA", "Grau de Semelhança"],
+)
+turnitin["Grau de Semelhança"] = [int(grau[:-1])/100 for grau in turnitin["Grau de Semelhança"]]
+turnitin.set_index("RA", inplace=True)
+
+fig, ax = plt.subplots(1,1, figsize=(8,5), sharey=True)
+sns.distplot(turnitin, hist=True, kde=True, 
+             bins=int(10), color = 'darkblue', 
+             hist_kws={'edgecolor':'black'}, ax=ax,
+             kde_kws={'linewidth': 4, 'shade': True})
+mu = round(turnitin["Grau de Semelhança"].mean()*100)
+
+sigma = turnitin["Grau de Semelhança"].std().round(1)*100
+
+ax.set_title(f'Checagem de plágio\nTurma {Turma}')
+ax.text(-0.1, 10, f'$\mu = ${mu}', fontsize=12)
+ax.text(-0.1, 8, f'$\sigma = ${sigma}', fontsize=12)
+
+sns.despine()
+plt.savefig('./figs/turintin_NvC_fig.png')
+plt.close()
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/turintin_NvC_fig.png]]
 
 * Lista de presença e notas
 ** Lista de chamada com nota das resenhas                            :ignore:
@@ -537,3 +585,7 @@ print('\end{landscape}\end{center}')
 \end{longtable}
 \end{landscape}\end{center}
 #+end_export
+
+
+* Seminários
+

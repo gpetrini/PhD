@@ -19,7 +19,7 @@ import seaborn as sns
 import datetime
 import numpy as np
 np.random.seed(3421)
-
+num_grupos = 12
 Turma = "C"
 full_path = './Materias/2S2020/PED_CE342/Turma_' + Turma
 Resenhas = ["Monetaristas", "Novos Clássicos", "Novos Keynesianos", "Novo Consenso"]
@@ -260,8 +260,8 @@ plt.close()
 * Novos Clássicos
 
 ** Pendências                                                        :ignore:
-- [ ] Checar resenha Gabriel Pereira e Gabriel Sila Gonçalvez
-- [ ] Computar notas
+
+- [ ] Computar notas Forms
 - [ ] Preencher presenhas na tabela da Ana Rosa
 ** Notas                                                             :ignore:
 
@@ -435,7 +435,58 @@ RA Sorteados
 
 
 
-*** Resultado Turnitin
+*** Resultado Turnitin <2020-11-14 sáb>
+
+#+CAPTION: Resumo relatório de origilidadade
+#+NAME:TurnitinNvC
+|--------+--------------------|
+|     RA | Grau de semelhança |
+|--------+--------------------|
+| 103034 |                11% |
+| 199967 |                 1% |
+| 205151 |                11% |
+| 213549 |                 5% |
+| 216397 |                 0% |
+| 230645 |                 0% |
+| 232568 |                 0% |
+| 233566 |                 0% |
+| 235042 |                25% |
+| 237856 |                 1% |
+| 242328 |                 7% |
+| 245099 |                 2% |
+| 257876 |                 3% |
+|--------+--------------------|
+
+**** Gráfico
+#+BEGIN_SRC python :var turnitin=TurnitinNvC :results file graphics :file ./figs/turintin_NvC_fig.png
+turnitin = pd.DataFrame(
+    turnitin[1:],
+    columns=["RA", "Grau de Semelhança"],
+)
+turnitin["Grau de Semelhança"] = [int(grau[:-1])/100 for grau in turnitin["Grau de Semelhança"]]
+turnitin.set_index("RA", inplace=True)
+
+fig, ax = plt.subplots(1,1, figsize=(8,5), sharey=True)
+sns.distplot(turnitin, hist=True, kde=True, 
+             bins=int(10), color = 'darkblue', 
+             hist_kws={'edgecolor':'black'}, ax=ax,
+             kde_kws={'linewidth': 4, 'shade': True})
+mu = round(turnitin["Grau de Semelhança"].mean()*100)
+
+sigma = turnitin["Grau de Semelhança"].std().round(1)*100
+
+ax.set_title(f'Checagem de plágio\nTurma {Turma}')
+ax.text(-0.1, 10, f'$\mu = ${mu}', fontsize=12)
+ax.text(-0.1, 8, f'$\sigma = ${sigma}', fontsize=12)
+
+sns.despine()
+plt.savefig('./figs/turintin_NvC_fig.png')
+plt.close()
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/turintin_NvC_fig.png]]
+
 
 * Lista de presença e notas
 ** Lista de chamada com nota das resenhas                            :ignore:
@@ -516,3 +567,42 @@ print('\end{landscape}\end{center}')
 
 
 
+* Seminários
+** Sorteio
+#+BEGIN_SRC python :results table latex
+atas = [f"Ata {i}" for i in np.random.choice(a=[i for i in range(1,num_grupos+1)], size=num_grupos, replace=False)]
+grupos = {f"Grupo {i+1}":atas[i] for i in range(num_grupos)}
+grupos = pd.DataFrame(grupos, index=[0]).transpose()
+grupos.columns=['Resultado']
+grupos.index.name='Grupos'
+print(grupos.to_latex(caption="Resultado sorteio das atas - Seminários"))
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{table}
+\centering
+\caption{Resultado sorteio das atas - Seminários}
+\begin{tabular}{ll}
+\toprule
+{} & Resultado \\
+Grupos   &           \\
+\midrule
+Grupo 1  &    Ata 10 \\
+Grupo 2  &     Ata 8 \\
+Grupo 3  &    Ata 12 \\
+Grupo 4  &     Ata 2 \\
+Grupo 5  &     Ata 3 \\
+Grupo 6  &     Ata 1 \\
+Grupo 7  &    Ata 11 \\
+Grupo 8  &     Ata 4 \\
+Grupo 9  &     Ata 9 \\
+Grupo 10 &     Ata 7 \\
+Grupo 11 &     Ata 6 \\
+Grupo 12 &     Ata 5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+#+end_export
+
+*** TODO Selecionar Atas e criar map para substituição

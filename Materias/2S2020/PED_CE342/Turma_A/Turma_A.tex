@@ -1,4 +1,4 @@
-% Created 2020-11-13 sex 18:18
+% Created 2020-11-14 sáb 16:38
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -38,7 +38,7 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \maketitle
 
 \section{Monetaristas}
-\label{sec:org0a83caa}
+\label{sec:org03e197f}
 
 \begin{center}
 \begin{longtable}{lr}
@@ -102,23 +102,22 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \end{center}
 
 \subsection{Notas}
-\label{sec:orgdb474ab}
+\label{sec:org7f24a7d}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./figs/monetaristas.png}
 \end{center}
 
 \subsection{Notas e presença}
-\label{sec:orgc352a85}
+\label{sec:org8499f55}
 
 \begin{center}
 \includegraphics[width=.9\linewidth]{./figs/monetaristas_presenca.png}
 \end{center}
 
 \section{Novos Clássicos}
-\label{sec:org97765ae}
+\label{sec:org8437e40}
 
 \begin{itemize}
-\item[{$\square$}] Checar resenha Juliana Florentina
 \item[{$\square$}] Identificar respostas das questões (forms)
 \item[{$\square$}] Computar notas
 \item[{$\square$}] Preencher presenhas na tabela da Ana Rosa
@@ -184,19 +183,19 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \end{longtable}
 \end{center}
 \subsection{Notas}
-\label{sec:orgabbf031}
+\label{sec:org36106b7}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./figs/novosclassicos.png}
 \end{center}
 \subsection{Notas e Presença}
-\label{sec:orgc36c268}
+\label{sec:org57670cf}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./figs/novosclassicos_presenca.png}
 \end{center}
 \subsection{Verificação de plágio por amostragem}
-\label{sec:orgd7ab561}
+\label{sec:orgf434315}
 \subsubsection{Sorteio}
-\label{sec:org0d01e91}
+\label{sec:org94be475}
 
 \begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{python}
 pre_selecionados = ["238414"]
@@ -205,6 +204,7 @@ sample = 0.3
 amostra = round(alunos*sample)
 bad_df = df.index.isin(pre_selecionados)
 elegivies = df.loc[~bad_df].query('`Resenha Novos Clássicos` > 0')["Resenha Novos Clássicos"].index.tolist()
+
 
 resultado = np.sort(np.random.choice(
     a = elegivies,
@@ -234,16 +234,44 @@ RA Sorteados
 12       244379
 13       245459
 \end{verbatim}
-
-
-
-
-
 \subsubsection{Resultado Turnitin}
-\label{sec:orgb063ebe}
+\label{sec:org5a73677}
+
+\begin{table}[htbp]
+\caption{\label{TurnitinNvC}Resumo relatório de origilidadade}
+\centering
+\begin{tabular}{rl}
+\hline
+RA & Grau de semelhança\\
+\hline
+156242 & 15\%\\
+187323 & 20\%\\
+212900 & 1\%\\
+219613 & 0\%\\
+219907 & 8\%\\
+222615 & 0\%\\
+231302 & 2\%\\
+232795 & 11\%\\
+238414 & 2\%\\
+239052 & 8\%\\
+240409 & 0\%\\
+244321 & 1\%\\
+244379 & 1\%\\
+245459 & \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{enumerate}
+\item Gráfico
+\label{sec:org4281882}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./figs/turintin_NvC_fig.png}
+\end{center}
+\end{enumerate}
 
 \section{Lista de presença e notas}
-\label{sec:org353af94}
+\label{sec:orgad5ff70}
 \begin{center}\begin{landscape}
 \small
 \setlength\LTleft{0pt}
@@ -307,4 +335,8 @@ RA Sorteados
 \textbf{245459} &                     vinicius venancio &                  70.0 &        4.84 &        1.10 &       13.91 &                      5.0 &  v245459@dac.unicamp.br \\
 \end{longtable}
 \end{landscape}\end{center}
+
+
+\section{Seminários}
+\label{sec:org658b33e}
 \end{document}
