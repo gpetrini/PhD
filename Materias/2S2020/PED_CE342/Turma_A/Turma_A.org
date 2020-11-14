@@ -588,4 +588,42 @@ print('\end{landscape}\end{center}')
 
 
 * Seminários
+** Sorteio
+#+BEGIN_SRC python :results table latex
+atas = [f"Ata {i}" for i in np.random.choice(a=[i for i in range(1,num_grupos+1)], size=num_grupos, replace=False)]
+grupos = {f"Grupo {i+1}":atas[i] for i in range(num_grupos)}
+grupos = pd.DataFrame(grupos, index=[0]).transpose()
+grupos.columns=['Resultado']
+grupos.index.name='Grupos'
+print(grupos.to_latex(caption="Resultado sorteio das atas - Seminários"))
+#+END_SRC
 
+#+RESULTS:
+#+begin_export latex
+\begin{table}
+\centering
+\caption{Resultado sorteio das atas - Seminários}
+\begin{tabular}{ll}
+\toprule
+{} & Resultado \\
+Grupos   &           \\
+\midrule
+Grupo 1  &     Ata 7 \\
+Grupo 2  &     Ata 5 \\
+Grupo 3  &     Ata 1 \\
+Grupo 4  &    Ata 11 \\
+Grupo 5  &     Ata 8 \\
+Grupo 6  &     Ata 9 \\
+Grupo 7  &    Ata 12 \\
+Grupo 8  &    Ata 10 \\
+Grupo 9  &     Ata 2 \\
+Grupo 10 &     Ata 4 \\
+Grupo 11 &     Ata 6 \\
+Grupo 12 &     Ata 3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+#+end_export
+
+
+*** TODO Selecionar Atas e criar map para substituir
