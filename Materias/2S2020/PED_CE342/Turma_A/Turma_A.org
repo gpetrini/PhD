@@ -6,9 +6,6 @@
 #+EXCLUDE_TAGS: private noexport
 #+PROPERTY: header-args:python  :session *Turma_A* :python /usr/bin/python3 :exports results
 #+LATEX_HEADER: \usepackage{longtable, pdflscape, booktabs}
-
-#+RESULTS:
-
 * Configuração                                                     :noexport:
 
 ** Pacotes
@@ -20,6 +17,8 @@ import datetime
 import numpy as np
 import sympy as sp
 np.random.seed(3421)
+import textdistance as td
+
 Turma = "A"
 full_path = './Materias/2S2020/PED_CE342/Turma_' + Turma
 num_grupos = 12
@@ -27,6 +26,10 @@ Resenhas = ["Monetaristas", "Novos Clássicos", "Novos Keynesianos", "Novo Conse
 #+END_SRC
 
 #+RESULTS:
+: Python 3.8.5 (default, Jul 28 2020, 12:59:40) 
+: [GCC 9.3.0] on linux
+: Type "help", "copyright", "credits" or "license" for more information.
+: python.el: native completion setup loaded
 
 ** Importando tabela Ana Rosa
 
@@ -116,9 +119,6 @@ df = min_df.reset_index().merge(
     ).set_index('RA')
 
 df["Email"] = [df["Nome"][i][0] + str(df.index[i]) + "@dac.unicamp.br" for i in range(len(df.index))]
-
-df.to_csv(f'./output/CE342_{Turma}.csv')
-df.to_excel(f'./output/CE342_{Turma}.xlsx')
 #+END_SRC
 
 #+RESULTS:
@@ -449,6 +449,7 @@ RA Sorteados
 12       244379
 13       245459
 #+end_example
+
 *** Resultado Turnitin
 
 #+CAPTION: Resumo relatório de origilidadade
@@ -469,7 +470,7 @@ RA Sorteados
 | 240409 |                 0% |
 | 244321 |                 1% |
 | 244379 |                 1% |
-| 245459 |                    |
+| 245459 |                53% |
 |--------+--------------------|
 
 **** Gráfico
@@ -491,8 +492,8 @@ mu = round(turnitin["Grau de Semelhança"].mean()*100)
 sigma = turnitin["Grau de Semelhança"].std().round(1)*100
 
 ax.set_title(f'Checagem de plágio\nTurma {Turma}')
-ax.text(-0.1, 10, f'$\mu = ${mu}', fontsize=12)
-ax.text(-0.1, 8, f'$\sigma = ${sigma}', fontsize=12)
+ax.text(-0.15, 10, f'$\mu = ${mu}', fontsize=12)
+ax.text(-0.15, 9.5, f'$\sigma = ${sigma}', fontsize=12)
 
 sns.despine()
 plt.savefig('./figs/turintin_NvC_fig.png')
@@ -501,6 +502,95 @@ plt.close()
 
 #+RESULTS:
 [[file:./figs/turintin_NvC_fig.png]]
+**** Atualização das notas
+
+#+BEGIN_SRC python
+df.loc["245459", "Resenha Novos Clássicos"] = 0.0
+
+df.loc["238414", "Resenha Novos Clássicos"] = 5.0 
+#+END_SRC
+
+#+RESULTS:
+** Questões
+
+*** Importando respostas                                             :ignore:
+
+#+BEGIN_SRC python
+questoes = pd.read_csv(
+    './Questoes/MonetaristasNovosClassicos.csv',
+    index_col=[0]
+)
+questoes.columns = ["Q1", "Q2", "Justificativa"]
+questoes["Nota_1"] = [int(res=="Falso") for res in questoes["Q1"]]
+questoes["Nota_2"] = [int(res=="Falso") for res in questoes["Q2"]]
+tmp_idx = pd.Index([i[:16] for i in questoes.index.tolist()])
+print(f"Sobreposição das respostas {sum(tmp_idx.duplicated())/len(tmp_idx)}%")
+#+END_SRC
+
+#+RESULTS:
+: Sobreposição das respostas 0.717948717948718%
+
+*** Importando pacotes e funções
+
+#+BEGIN_SRC python :results graphics file :file ./figs/similarity_forms_1.png
+import string
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.feature_extraction.text import CountVectorizer
+from nltk.corpus import stopwords
+stopwords = stopwords.words('portuguese')
+
+sentences = questoes["Justificativa"]
+
+def clean_string(text):
+    text = ''.join([word for word in text if word not in string.punctuation])
+    text = text.lower()
+    text = ' '.join([word for word in text.split() if word not in stopwords])
+
+    return text
+
+cleaned = list(map(clean_string, sentences))
+vectorizer = CountVectorizer().fit_transform(cleaned)
+vectors = vectorizer.toarray()
+csim = cosine_similarity(vectors)
+
+
+def coisine_sim_vectors(vec1, vec2):
+    vec1 = vec1.reshape(1,-1)
+    vec2 = vec2.reshape(1,-1)
+    return coisine_similarity(vec1, vec2)[0][0]
+
+
+plt.matshow(csim);
+plt.colorbar()
+plt.title(f'Matriz de similaridade das justificativas\n Turma {Turma}\n')
+plt.tight_layout()
+plt.savefig('./figs/similarity_forms_1.png')
+plt.close()
+
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/similarity_forms_1.png]]
+
+
+#+BEGIN_SRC python :results table latex
+triang  = np.triu(csim, k=0).tolist()
+subset = [i > 0.7 and i < 1.0 for i in triang[1]]
+print(questoes[subset].to_latex())
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{tabular}{llllrr}
+\toprule
+{} &     Q1 &     Q2 &                                      Justificativa &  Nota\_1 &  Nota\_2 \\
+Carimbo de data/hora         &        &        &                                                    &         &         \\
+\midrule
+2020/11/09 10:09:49 AM GMT-3 &  Falso &  Falso &  Se os agentes antecipam a expansão monetária, ... &       1 &       1 \\
+\bottomrule
+\end{tabular}
+#+end_export
+
 
 * Lista de presença e notas
 ** Lista de chamada com nota das resenhas                            :ignore:
@@ -559,7 +649,7 @@ print('\end{landscape}\end{center}')
 \textbf{237618} &           joão pedro de paula e silva &                  70.0 &        2.42 &        0.00 &        2.61 &                     10.0 &  j237618@dac.unicamp.br \\
 \textbf{199735} &                    joao pedro gabriel &                  50.0 &       11.29 &        0.00 &       89.57 &                      0.0 &  j199735@dac.unicamp.br \\
 \textbf{218975} &                joão vitor santos melo &                  70.0 &       22.58 &        8.79 &       96.52 &                      5.0 &  j218975@dac.unicamp.br \\
-\textbf{238414} &     juliana florentina fernandes leão &                  70.0 &       16.94 &       40.66 &       19.13 &                      0.0 &  j238414@dac.unicamp.br \\
+\textbf{238414} &     juliana florentina fernandes leão &                  70.0 &       16.94 &       40.66 &       19.13 &                      5.0 &  j238414@dac.unicamp.br \\
 \textbf{219613} &  keivan de castro almeida g. de souza &                  50.0 &        6.45 &        0.00 &       15.65 &                      5.0 &  k219613@dac.unicamp.br \\
 \textbf{219907} &           laura maria alves de mattos &                 100.0 &        2.42 &        0.00 &       40.87 &                      7.0 &  l219907@dac.unicamp.br \\
 \textbf{239052} &        lavínia dias de oliveira roman &                  70.0 &       11.29 &        0.00 &       81.74 &                      7.0 &  l239052@dac.unicamp.br \\
@@ -581,7 +671,7 @@ print('\end{landscape}\end{center}')
 \textbf{206194} &       thiago alexandre ramos dos reis &                  50.0 &       46.77 &        1.10 &       93.91 &                      5.0 &  t206194@dac.unicamp.br \\
 \textbf{245212} &          victoria silva torres santos &                 100.0 &           - &           - &           - &                     10.0 &  v245212@dac.unicamp.br \\
 \textbf{206883} &       vinicius santos bering da silva &                   0.0 &       16.94 &        0.00 &       99.13 &                      3.0 &  v206883@dac.unicamp.br \\
-\textbf{245459} &                     vinicius venancio &                  70.0 &        4.84 &        1.10 &       13.91 &                      5.0 &  v245459@dac.unicamp.br \\
+\textbf{245459} &                     vinicius venancio &                  70.0 &        4.84 &        1.10 &       13.91 &                      0.0 &  v245459@dac.unicamp.br \\
 \end{longtable}
 \end{landscape}\end{center}
 #+end_export
@@ -608,18 +698,18 @@ print(grupos.to_latex(caption="Resultado sorteio das atas - Seminários"))
 {} & Resultado \\
 Grupos   &           \\
 \midrule
-Grupo 1  &     Ata 7 \\
-Grupo 2  &     Ata 5 \\
-Grupo 3  &     Ata 1 \\
-Grupo 4  &    Ata 11 \\
-Grupo 5  &     Ata 8 \\
-Grupo 6  &     Ata 9 \\
-Grupo 7  &    Ata 12 \\
-Grupo 8  &    Ata 10 \\
-Grupo 9  &     Ata 2 \\
-Grupo 10 &     Ata 4 \\
-Grupo 11 &     Ata 6 \\
-Grupo 12 &     Ata 3 \\
+Grupo 1  &     Ata 3 \\
+Grupo 2  &     Ata 6 \\
+Grupo 3  &     Ata 7 \\
+Grupo 4  &    Ata 12 \\
+Grupo 5  &    Ata 11 \\
+Grupo 6  &     Ata 5 \\
+Grupo 7  &     Ata 2 \\
+Grupo 8  &     Ata 1 \\
+Grupo 9  &     Ata 4 \\
+Grupo 10 &    Ata 10 \\
+Grupo 11 &     Ata 9 \\
+Grupo 12 &     Ata 8 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -627,3 +717,11 @@ Grupo 12 &     Ata 3 \\
 
 
 *** TODO Selecionar Atas e criar map para substituir
+* Exportando notas                                                 :noexport:
+
+#+BEGIN_SRC python
+df.to_csv(f'./output/CE342_{Turma}.csv')
+df.to_excel(f'./output/CE342_{Turma}.xlsx')
+#+END_SRC
+
+#+RESULTS:

@@ -73,7 +73,7 @@ def importar_ext(Turma=Turma, data="2020-10-19", prefix='.'):
 
 #+RESULTS:
 
-** Merge e exportação
+** Merge
    
 #+BEGIN_SRC python
 monetaristas = pd.read_csv(
@@ -115,9 +115,6 @@ df = min_df.reset_index().merge(
     ).set_index('RA')
 
 df["Email"] = [df["Nome"][i][0] + str(df.index[i]) + "@dac.unicamp.br" for i in range(len(df.index))]
-
-df.to_csv(f'./output/CE342_{Turma}.csv')
-df.to_excel(f'./output/CE342_{Turma}.xlsx')
 #+END_SRC
 
 #+RESULTS:
@@ -487,6 +484,84 @@ plt.close()
 #+RESULTS:
 [[file:./figs/turintin_NvC_fig.png]]
 
+**** Atualizando notas
+
+#+BEGIN_SRC python
+df.loc["235042","Resenha Novos Clássicos"] = 5.0
+df.loc["216397","Resenha Novos Clássicos"] = 3.0
+#+END_SRC
+
+#+RESULTS:
+
+** Questões
+
+*** Importando respostas                                             :ignore:
+
+#+BEGIN_SRC python
+questoes = pd.read_csv(
+    './Questoes/MonetaristasNovosClassicos.csv',
+    index_col=[0]
+)
+questoes.columns = [
+    "E-mail", "Total", "RA", "Nota RA (não utilizado)", "RA feedback (não utilizado)",
+    "Q1", "Nota_1", "Feedback_1",
+    "Q2", "Nota_2", "Feedback_2",
+    "Justificativa", "Nota_3", "Feedback_3"
+]
+
+tmp_idx = pd.Index([i[:16] for i in questoes.index.tolist()])
+
+questoes = questoes[["E-mail", "RA", "Q1", "Q2", "Justificativa"]]
+questoes["Nota_1"] = [int(res=="Falso") for res in questoes["Q1"]]
+questoes["Nota_2"] = [int(res=="Falso") for res in questoes["Q2"]]
+#+END_SRC
+
+#+RESULTS:
+
+*** Importando pacotes e funções
+
+#+BEGIN_SRC python :results graphics file :file ./figs/similarity_forms_1.png
+import string
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.feature_extraction.text import CountVectorizer
+from nltk.corpus import stopwords
+stopwords = stopwords.words('portuguese')
+
+sentences = questoes["Justificativa"]
+
+def clean_string(text):
+    text = ''.join([word for word in text if word not in string.punctuation])
+    text = text.lower()
+    text = ' '.join([word for word in text.split() if word not in stopwords])
+
+    return text
+
+cleaned = list(map(clean_string, sentences))
+vectorizer = CountVectorizer().fit_transform(cleaned)
+vectors = vectorizer.toarray()
+csim = cosine_similarity(vectors)
+
+
+def coisine_sim_vectors(vec1, vec2):
+    vec1 = vec1.reshape(1,-1)
+    vec2 = vec2.reshape(1,-1)
+    return coisine_similarity(vec1, vec2)[0][0]
+
+
+plt.matshow(csim);
+plt.colorbar()
+plt.title(f'Matriz de similaridade das justificativas\n Turma {Turma}\n')
+plt.tight_layout()
+plt.savefig('./figs/similarity_forms_1.png')
+plt.close()
+
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/similarity_forms_1.png]]
+
+
+
 
 * Lista de presença e notas
 ** Lista de chamada com nota das resenhas                            :ignore:
@@ -533,10 +608,10 @@ print('\end{landscape}\end{center}')
 \textbf{215626} &                felipe barbosa de souza &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &  f215626@dac.unicamp.br \\
 \textbf{91108 } &                 felipe eboli sotorilli &                     - &        1.79 &        0.00 &       77.88 &                        - &   f91108@dac.unicamp.br \\
 \textbf{234311} &                  felipe rubbo aguilera &                  50.0 &       33.93 &        1.77 &       92.92 &                      5.0 &  f234311@dac.unicamp.br \\
-\textbf{216397} &                        gabriel pereira &                  30.0 &        0.00 &        0.88 &       76.11 &                      0.0 &  g216397@dac.unicamp.br \\
+\textbf{216397} &                        gabriel pereira &                  30.0 &        0.00 &        0.88 &       76.11 &                      3.0 &  g216397@dac.unicamp.br \\
 \textbf{197474} &                gabriel pereira jovetta &                  50.0 &        0.00 &        4.42 &       51.33 &                      5.0 &  g197474@dac.unicamp.br \\
 \textbf{234982} &                 gabriel pereira santos &                   0.0 &           - &       13.27 &        0.00 &                      0.0 &  g234982@dac.unicamp.br \\
-\textbf{235042} &                gabriel silva gonçalves &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &  g235042@dac.unicamp.br \\
+\textbf{235042} &                gabriel silva gonçalves &                   0.0 &        0.00 &        0.00 &        0.00 &                      5.0 &  g235042@dac.unicamp.br \\
 \textbf{197724} &           gabriela santana das virgens &                  50.0 &        0.00 &        0.88 &       74.34 &                      5.0 &  g197724@dac.unicamp.br \\
 \textbf{217350} &       guilherme yoshio agata domingues &                  30.0 &           - &           - &           - &                      0.0 &  g217350@dac.unicamp.br \\
 \textbf{174154} &               gustavo josé lara campos &                  30.0 &        0.00 &        4.42 &       16.81 &                      0.0 &  g174154@dac.unicamp.br \\
@@ -588,21 +663,30 @@ print(grupos.to_latex(caption="Resultado sorteio das atas - Seminários"))
 {} & Resultado \\
 Grupos   &           \\
 \midrule
-Grupo 1  &    Ata 10 \\
-Grupo 2  &     Ata 8 \\
-Grupo 3  &    Ata 12 \\
-Grupo 4  &     Ata 2 \\
-Grupo 5  &     Ata 3 \\
-Grupo 6  &     Ata 1 \\
-Grupo 7  &    Ata 11 \\
-Grupo 8  &     Ata 4 \\
-Grupo 9  &     Ata 9 \\
-Grupo 10 &     Ata 7 \\
-Grupo 11 &     Ata 6 \\
-Grupo 12 &     Ata 5 \\
+Grupo 1  &     Ata 6 \\
+Grupo 2  &     Ata 3 \\
+Grupo 3  &    Ata 10 \\
+Grupo 4  &    Ata 12 \\
+Grupo 5  &     Ata 8 \\
+Grupo 6  &    Ata 11 \\
+Grupo 7  &     Ata 5 \\
+Grupo 8  &     Ata 1 \\
+Grupo 9  &     Ata 2 \\
+Grupo 10 &     Ata 9 \\
+Grupo 11 &     Ata 7 \\
+Grupo 12 &     Ata 4 \\
 \bottomrule
 \end{tabular}
 \end{table}
 #+end_export
 
 *** TODO Selecionar Atas e criar map para substituição
+
+* Exportando notas                                                 :noexport:
+
+#+BEGIN_SRC python
+df.to_csv(f'./output/CE342_{Turma}.csv')
+df.to_excel(f'./output/CE342_{Turma}.xlsx')
+#+END_SRC
+
+#+RESULTS:
