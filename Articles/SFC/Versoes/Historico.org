@@ -281,7 +281,7 @@ A seguinte frase foi removida: Besides the usual SSM results, we report some par
 
 - Pareceu muito genérica e pouco descritiva.
 
-
+  
 *** Aumento da taxa de juros
 - This result stem from the $\Rightarrow$ This effect is a result of the
 
@@ -303,6 +303,72 @@ A seguinte frase foi removida: Besides the usual SSM results, we report some par
   - Note que o investimento das firmas é o mais volátil
 - Removi a seguinte frase: /Since the analyzed period does not correspond to the fully-adjusted position, discrepancies between actual and normal capacity utilization rate are adjusted through changes in marginal propensity to invest/
   - Além de estar confusa (como apontado), o texto pareceu mais fluido depois que tirei.
+
+* Versão <2020-11-20 sex>
+
+** Introdução
+
+- /try/ removido
+- demand-led agenda $\Rightarrow$ demand-led growth theory research agenda
+- Trecho sobre taxa própria alterado para
+
+#+BEGIN_QUOTE
+One way to do this is through houses' own rate of interest.
+Originally introduced by textcite:Sraffa_Own_1932 and applied to the US case by textcite:teixeira_crescimento_2015, this concept allows to connect asset bubble with residential investment.
+#+END_QUOTE
+
+
+** Seção empírica
+
+- Corrigido problema com as aspas
+- Trecho mencionando paper econométrico que testa o cite:leamer_housing_2007 logo após cite:fiebiger_semi-autonomous_2018 e cite:fiebiger_trend_2017
+
+#+BEGIN_QUOTE
+Alternatively, textcite:huang_is_2020 estimate a Structural Vector Autoregressive (SVEC) model in a time-scale framework for the OECD countries to assess both prediction and causality relations stated by textcite:leamer_housing_2007.
+They report that residential investment predicts the US  macroeconomic fluctuation and housing related variables (house prices, real mortgage rate --- deflated by a general price index --- and bank spread) lead the business cycle in all G7 countries.
+#+END_QUOTE
+
+- /In this paper, we argue that besides this growing body of literature that recognizes the macroeconomic importance of residential investment, little progress has been made in understanding its theoretical determinants./ $\Rightarrow$ /In this paper, we argue that besides this growing body of literature that recognizes the macroeconomic importance of residential investment, little progress has been made in connecting asset bubbles with its macroeconomics consequences./
+- Na página 4, alterei: /higher growth rate/ $\Rightarrow$ /higher residential investment growth rate/
+- Alterei a frase seguinte de /Following the Sraffian supermultiplier growth model, we conclude that increase of non-residential investment is the result of capital stock adjustment principle/ $\Rightarrow$ /Accordingly to the Sraffian Supermultiplier model, we can interpret subsequent non-residential investment increase as a result of capital stock adjustment principle/
+  - Não entendi muito bem a sua sugestão. Fiquei em dúvida se era para alterar apenas a frase em amarelo ou juntar com a seguinte
+- Após as curvas de concentração: /suggests an increase in the demand for properties in the expectation of capital gains/ $\Rightarrow$ /suggests other purposes, such as rental income, speculation, etc/
+  - O que achou da explicação das curvas de concentração? sugestões?
+- Iniciei subseção da taxa própria da seguinte forma:
+
+#+BEGIN_QUOTE
+Housing macroeconometric literature usually defines real mortgage interest rate as the nominal one deflated by a general prince index.
+For example, this is the case for textcites:goodhart_house_2008,arestis_economic_2019,huang_is_2020.
+In a prominent econometric model for the US economy, textcite:fair_macroeconometric_2013 reports that conventional real mortgage interest rate is statistically insignificant to describe residential investment and starts using mortgage rate in nominal terms.
+
+[Achei melhor parar o parágrafo anterior ai e iniciar a discussão da taxa própria no próximo]
+
+Alternatively, textcite:teixeira_crescimento_2015 proposes the so-called houses own rate of interest ($own$) in order to analyze the relation between residential investment, real estate inflation and interest rates during the U.S. housing bubble episode.
+#+END_QUOTE
+
+
+Segui sua sugestão e achei que essa forma de organizar o argumento ficou melhor e menos repetitiva. Porém, acho que falta explicar melhor o porquê usar uma taxa de juros real das hipotecas diferente. Digo isso porque o parecerista pode achar estranho irmos nessa direção sendo que a literatura empírica aponta o oposto. Resumindo, acho que precisamos conectar melhor a discussão do Fair com a da sua tese. Sugestões?
+
+
+
+** Modelo
+
+Nenhuma alteração
+
+** Solução analítica
+
+Nenhuma alteração
+** Simulações
+
+Nenhuma alteração
+
+** Conclusão
+
+Nenhuma alteração
+
+** Apêndices
+
+Nenhuma alteração
 
 * Referências
   :PROPERTIES:

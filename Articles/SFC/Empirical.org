@@ -922,9 +922,11 @@ However, there still is a lack of studies on the role of residential investment 
 What is commonly  discussed about this NCC autonomous expenditure is largely based on textcite:green_follow_1997 pioneer work.
 Based on Granger Causality and cointegration tests for the US from 1959-1992, this is one of the first papers to indicates that residential investment leads the business cycle.
 Subsequently, textcite:leamer_housing_2007 concludes that this pattern occurs at least since the post-war period.
-More precisely,  \textcite[p.~8]{leamer_housing_2007} describes US business cycles as follows: ''[f]irst homes, then cars,
-and last business equipment''.
+More precisely,  \textcite[p.~8]{leamer_housing_2007} describes US business cycles as follows: "[f]irst homes, then cars,
+and last business equipment".
 Recently, textcites:fiebiger_semi-autonomous_2018,fiebiger_trend_2017 also report residential investment as an important determinant of business cycles for the US based on causal narratives.
+Alternatively, textcite:huang_is_2020 estimate a Structural Vector Autoregressive (SVEC) model in a time-scale framework for the OECD countries to assess both prediction and causality relations stated by textcite:leamer_housing_2007.
+They report that residential investment predicts the US  macroeconomic fluctuation and housing related variables (house prices, real mortgage rate --- deflated by a general price index --- and bank spread) lead the business cycle in all G7 countries.
 
 #+LATEX:\\
 
@@ -944,7 +946,7 @@ Although those approaches are interesting, it fails to take into account the con
 *** Section structure                                                :ignore:
 
 From this review of recent empirical literature, it is noticeable that few macroeconometric studies have investigated residential investment in any systematic way.
-In this paper, we argue that besides this growing body of literature that recognizes the macroeconomic importance of residential investment, little progress has been made in understanding its theoretical determinants.
+In this paper, we argue that besides this growing body of literature that recognizes the macroeconomic importance of residential investment, little progress has been made in connecting asset bubbles with its macroeconomics consequences.
 On the following subsection, we present some residential investment-related stylized facts in order to highlight its relevance for the US business cycle which will be compared to the theoretical model in Section ref:real_sim.
 Next, we analyze the connection between residential investment, real estate inflation and mortgage interest rate during the U.S. housing bubble episode.
 
@@ -973,8 +975,9 @@ Figure ref:Investo_Resid_GDP shows how residential investment movements help to 
 
 In order to depict the relation between housing and business cycle, we present Figure ref:fig:cycles in which each cycle is represented in a different panel[fn::Similar reasoning can be found in textcite:fiebiger_trend_2017. Unlike them, we plot only residential investment without including other households expenses financed by credit.].
 Residential investment-GDP ratio and capacity utilization --- as a proxy for business cycle --- are presented on vertical and horizontal axis respectively.
-Economic recovery is generally characterized by residential investment growing faster than GDP[fn::It worth noting that 1991-2000 period is a particular case.]. Both residential investment share on GDP and capacity utilization increase as a consequence of higher growth rate.
-Following the Sraffian supermultiplier growth model, we conclude that increase of non-residential investment is the result of capital stock adjustment principle. This increase implies GDP to grow faster than residential investment, therefore reducing both its share on GDP and capacity utilization ratio. Finally, as a result of economic burst, capacity utilization ratio falls and the cycle ends.
+Economic recovery is generally characterized by residential investment growing faster than GDP[fn::It worth noting that 1991-2000 period is a particular case.]. Both residential investment share on GDP and capacity utilization increase as a consequence of higher residential investment growth rate.
+Accordingly to the Sraffian Supermultiplier model, we can interpret subsequent non-residential investment increase as a result of capital stock adjustment principle. 
+This increase implies GDP to grow faster than residential investment, therefore reducing both its share on GDP and capacity utilization ratio. Finally, as a result of economic burst, capacity utilization ratio falls and the cycle ends.
 
 
 
@@ -1018,7 +1021,7 @@ More specifically, there has been little discussion on popularization of primary
 
 
 A brief inspection of Figure ref:fig:concentration reveals that the years leading up to the Great Recession were characterized by the deconcentration of primary houses. In other words, poorer strata of the population now have a larger accumulated share of primary houses. 
-Since this asset is mainly acquired for non-speculative reasons, there is a general increase in the demand for properties as final good. The same cannot be said about secondary houses whose concentration/distribution movement is not as marked as in the previous case. Since this type of property is not intended for regular use by its owner, deconcentration of this asset suggests an increase in the demand for properties in the expectation of capital gains[fn::This increase in demand for secondary houses may indicate --- but is not limited to --- an increase for speculative reasons. A vacation or rental home, for example, are non-speculative uses of a secondary house. Nevertheless, it is argued that there is a connection between secondary houses and speculation with real estate. It worth noting that the wealthiest households are not the main holders of this secoundary houses. According to Figure ref:fig:concentration, they accumulate less than 50% of these properties over the analyzed period (see vertical axis).].
+Since this asset is mainly acquired for non-speculative reasons, there is a general increase in the demand for properties as final good. The same cannot be said about secondary houses whose concentration/distribution movement is not as marked as in the previous case. Since this type of property is not intended for regular use by its owner, deconcentration of this asset suggests other purposes, such as rental income, speculation, etc[fn::This increase in demand for secondary houses may indicate --- but is not limited to --- an increase for speculative reasons. A vacation or rental home, for example, are non-speculative uses of a secondary house. Nevertheless, it is argued that there is a connection between secondary houses and speculation with real estate. It worth noting that the wealthiest households are not the main holders of this secoundary houses. According to Figure ref:fig:concentration, they accumulate less than 50% of these properties over the analyzed period (see vertical axis).].
 
 *** Conexão com a subseção seguinte
 
@@ -1027,13 +1030,14 @@ Since this asset is mainly acquired for non-speculative reasons, there is a gene
 
 ** Housing bubble and residential investment
 
+Housing macroeconometric literature usually defines real mortgage interest rate as the nominal one deflated by a general prince index.
+For example, this is the case for textcites:goodhart_house_2008,arestis_economic_2019,huang_is_2020.
+In a prominent econometric model for the US economy, textcite:fair_macroeconometric_2013 reports that conventional real mortgage interest rate is statistically insignificant to describe residential investment and starts using mortgage rate in nominal terms.
 
-After the Great Recession, the literature have analyzed the macroeconomic relevance of residential investment cites:leamer_housing_2015,fiebiger_semi-autonomous_2018.
-However, little progress has been made in understanding its theoretical determinants.
-textcite:teixeira_crescimento_2015 proposes the so-called houses own interest rate ($own$) in order to analyze the relation between residential investment, real estate inflation and interest rates during the U.S. housing bubble episode.
+Alternatively, textcite:teixeira_crescimento_2015 proposes the so-called houses own rate of interest ($own$) in order to analyze the relation between residential investment, real estate inflation and interest rates during the U.S. housing bubble episode.
 Estimated by deflating mortgages interest rate real estate inflation, this particular real interest rate is the most relevant for households since it is the real cost in real estate from buying real estate  \cite[p.~53]{teixeira_crescimento_2015}.
 In short, this is the real interest rate that is relevant for house investors.
-Figure ref:propria_investo shows how this  procedure is more adequate than a general price index deflation --- as \textcite[p.~143--6]{fair_macroeconometric_2013} does --- to describe residential investment growth rate[fn::It is worth noting that during a housing bubble period, it is real estate inflation that governs own's interest rate dynamics. Therefore, the lower this rate is, the greater the capital gains (in real estate) for speculating with real estate will be. This negative relation between houses own interest rate and residential investment is shown in Figure \ref{propria_investo} in which this particular real interest rate has been gradually decreased over the real estate boom (2002-5).].
+Figure ref:propria_investo illustrates how this  procedure is more adequate than a general price index deflation --- as \textcite[p.~143--6]{fair_macroeconometric_2013} does --- to describe residential investment growth rate[fn::It is worth noting that during a housing bubble period, it is real estate inflation that governs own's interest rate dynamics. Therefore, the lower this rate is, the greater the capital gains (in real estate) for speculating with real estate will be. This negative relation between houses own interest rate and residential investment is shown in Figure \ref{propria_investo} in which this particular real interest rate has been gradually decreased over the real estate boom (2002-5).].
 Based on this concept, textcite:petrini_demanda_2019 estimated an econometric model for the U.S. (1992 to 2019) and presents empirical evidence that the residential investment growth rate and houses own interest rate share a common negative long-run trend.
 Furthermore, textcite:petrini_demanda_2019 also reports a unidirectional long-run causality from houses own interest rate to residential investment growth rate.
 
@@ -1061,16 +1065,7 @@ EXPLICAR TAXA PRÓPRIA
 \end{figure}
 #+end_export
 
-
-
-
-
 In summary, what we intended to show is that one cannot analyze the U.S. business cycle properly without considering residential investment and asset bubbles together.
-
-
-
-
-
 #+BEGIN_EXPORT latex
 \begin{equation}
 \label{_own}
@@ -1081,3 +1076,8 @@ $$
 $$
 #+END_EXPORT
 where $\pi$ stands for house price inflation
+
+#+BEGIN_COMMENT
+After the Great Recession, the literature have analyzed the macroeconomic relevance of residential investment cites:leamer_housing_2015,fiebiger_semi-autonomous_2018.
+However, little progress has been made in understanding its theoretical determinants.
+#+END_COMMENT

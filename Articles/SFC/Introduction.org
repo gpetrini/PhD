@@ -1,9 +1,13 @@
+* Configs                                                            :noexport:
+bibliography:refs.bib
+
+* Introduction                                                       :ignore:
 
 @@comment: Investimento residencial é pouco investigado pela literatura. O SSM é uma forma de incluir este gasto. comment@@
 Non-residential investment is the most scrutinized variable in demand-led growth models so that others expenditures play a secondary role cite:brochier_macroeconomics_2017.
 A decade after the Great Recession, this is still the case for residential investment which continues to receive sparse and unsystematic attention by the literature cites:caverzasi_stock-flow_2013,nikolaidi_minsky_2017.
 Despite its absence in theoretical models, there is a growing empirical literature highlighting its macrodynamic relevance cites:leamer_housing_2007,jorda_great_2014,fiebiger_semi-autonomous_2018,fiebiger_trend_2017.
-In this paper, we try to fill this gap in demand-led growth agenda.
+In this paper, we to fill this gap in demand-led growth theory research agenda.
 
 
 Sraffian supermultiplier growth model (SSM) establishes an important role to non-capacity creating (NCC) autonomous expenditures.
@@ -16,25 +20,22 @@ Different NCC autonomous expenditures have been included in this framework.
 For instance, some scholars have investigated the macroeconomic implications of both debt-financed cites:pariboni_autonomous_2015,fagundes_role_2017,mandarino-2020-worker-debt and financial wealth-financed consumption cite:brochier_supermultiplier_2018.
 The same applies to government expenditures cites:allain_tackling_2015,bougrine_autonomous_2020 and exports cite:nah_long-run_2017.
 
-*Nota:* Os dois parágrafos seguintes não estavam na versão anterior.
-
 Even though these works emphasize the relevance of some NCC autonomous expenditures, residential investment has been systematically neglected.
 To be fair, textcites:zezza_u.s._2008,nikolaidi_securitisation_2015 include residential investment in a SFC growth model.
-However, as a result of neo-Kaleckian non-residential investment function specification, residential investment does not lead the business cycle and plays a secondary role.
+However, as a result of neo-Kaleckian non-residential investment function specification, residential investment plays a secondary role.
 In a recent contribution, textcite:dejuan_supermultiplier-cum-finance_2018 presents an SSM model with residential investment in order to analyze household over-indebtedness.
 In summary, we report an increasing attention to the macroeconomic implications of residential investment.
 #+LATEX: %However, there has been little discussion about the connection between housing bubble and aggregate demand.
 
 Despite the importance of the recent housing bubble episode, little attention has been paid to the connection between asset bubbles and aggregate demand.
 This paper attempts to fill this gap. 
-One way to do this is through houses' own rate of interest proposed by textcite:teixeira_crescimento_2015.
-Originally introduced by textcite:Sraffa_Own_1932, this concept DESCREVER TAXA PRÓPRIA.
+One way to do this is through houses' own rate of interest.
+Originally introduced by textcite:Sraffa_Own_1932 and applied to the US case by textcite:teixeira_crescimento_2015, this concept allows to connect asset bubble with residential investment.
 In summary, this particular real interest rate is the relevant one for house investors (households). 
 
-Based on this concept, this paper attempts to connect asset bubble and aggregate demand within a Sraffian Supermultiplier Stock-Flow Consistent framework. 
+Based on this concept, this paper attempts to connect asset bubble and aggregate demand within a Sraffian Supermultiplier Stock-Flow Consistent (SSM-SFC) framework. 
 The remainder of this paper is organized as follows.
 Section ref:sec:empirical introduces the so-called houses own rate of interest and some residential investment related stylized facts for the US economy.
-#+LATEX: %Section ref:sec:Review reviews heterodox growth models with NCC autonomous expenditures and highlights the lack of residential investment as an autonomous expenditure.
 Section ref:sec:Model presents a SSM-SFC model  with asset bubbles and two real assets: firms' capital and household' real estate. 
 Section ref:sec:runs evaluates short-run, traverse and fully-adjusted position equilibria in order to access the consequences of residential investment inclusion on stock-flow consistent ratios.
 Next, in Section ref:sec:Experiments, both traverse and steady-state dynamics are evaluated through numerical simulations.

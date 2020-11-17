@@ -1,4 +1,4 @@
-% Created 2020-11-02 seg 11:24
+% Created 2020-11-17 ter 10:36
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -42,13 +42,21 @@ A growing body of empirical demand-led literature has evaluated the role of NCC 
 \textcite{haluska_growth_2019} employ Granger-causality tests to assess the stability of the SSM for the US (1987-2017) and report a causality from NCC autonomous expenditures to the marginal propensity to invest, as expected.
 Finally, \textcite{girardi_autonomous_2018} bring evidence that those expenditures determine investment share on GDP for twenty OECD countries.
 
+\\
+
 However, there still is a lack of studies on the role of residential investment specifically.
 What is commonly  discussed about this NCC autonomous expenditure is largely based on \textcite{green_follow_1997} pioneer work.
 Based on Granger Causality and cointegration tests for the US from 1959-1992, this is one of the first papers to indicates that residential investment leads the business cycle.
 Subsequently, \textcite{leamer_housing_2007} concludes that this pattern occurs at least since the post-war period.
-More precisely,  \textcite[p.~8]{leamer_housing_2007} describes US business cycles as follows: ''[f]irst homes, then cars,
+More precisely,  \textcite[p.~8]{leamer_housing_2007} describes US business cycles as follows: ``[f]irst homes, then cars,
 and last business equipment''.
 Recently, \textcites{fiebiger_semi-autonomous_2018}{fiebiger_trend_2017} also report residential investment as an important determinant of business cycles for the US based on causal narratives.
+Alternatively, \textcite{huang_is_2020} estimate a Structural Vector Autoregressive (SVEC) model in a time-scale framework for the OECD countries to assess both prediction and causality relations stated by \textcite{leamer_housing_2007}.
+They report that residential investment predicts the US  macroeconomic fluctuation and housing related variables (house prices, real mortgage rate --- deflated by a general price index --- and bank spread) lead the business cycle in all G7 countries.
+
+\\
+
+
 
 After the Great Recession (2008-2009), there has been growing macroeconometric studies on housing.
 However, most of them have emphasized house prices and not its volume (residential investment).
@@ -58,6 +66,8 @@ However, both studies do not include residential investment.
 \textcite{arestis_residential_2015}, on the other side, include residential investment. Using a ARDL model for 17 OECD countries from 1970 to 2013, the authors report that banking credit and real house prices are the most statistically significant variables for real residential investment in the US.
 Although those approaches are interesting, it fails to take into account the connection between asset bubbles and aggregate demand which is relevant for describe the recent housing burst event.
 
+\\
+
 From this review of recent empirical literature, it is noticeable that few macroeconometric studies have investigated residential investment in any systematic way.
 In this paper, we argue that besides this growing body of literature that recognizes the macroeconomic importance of residential investment, little progress has been made in understanding its theoretical determinants.
 On the following subsection, we present some residential investment-related stylized facts in order to highlight its relevance for the US business cycle which will be compared to the theoretical model in Section \ref{real_sim}.
@@ -66,7 +76,7 @@ Next, we analyze the connection between residential investment, real estate infl
 
 
 \section{Residential investment stylized facts}
-\label{sec:orge149a9d}
+\label{sec:org99a4519}
 
 As discussed before, both \textcites{green_follow_1997}{leamer_housing_2007} made it clear how important this particular expenditure is to USA business cycle. In this subsection, we show some residential investment stylized facts for the US in more detail.
 
@@ -117,7 +127,7 @@ A brief inspection of Figure \ref{fig:concentration} reveals that the years lead
 Since this asset is mainly acquired for non-speculative reasons, there is a general increase in the demand for properties as final good. The same cannot be said about secondary houses whose concentration/distribution movement is not as marked as in the previous case. Since this type of property is not intended for regular use by its owner, deconcentration of this asset suggests an increase in the demand for properties in the expectation of capital gains\footnote{This increase in demand for secondary houses may indicate --- but is not limited to --- an increase for speculative reasons. A vacation or rental home, for example, are non-speculative uses of a secondary house. Nevertheless, it is argued that there is a connection between secondary houses and speculation with real estate. It worth noting that the wealthiest households are not the main holders of this secoundary houses. According to Figure \ref{fig:concentration}, they accumulate less than 50\% of these properties over the analyzed period (see vertical axis).}.
 
 \subsection{Conexão com a subseção seguinte}
-\label{sec:org873e117}
+\label{sec:org3e4b6bb}
 
 
 \begin{itemize}
@@ -125,7 +135,7 @@ Since this asset is mainly acquired for non-speculative reasons, there is a gene
 \end{itemize}
 
 \section{Housing bubble and residential investment}
-\label{sec:orgfe7bcac}
+\label{sec:orgbef6065}
 
 
 After the Great Recession, the literature have analyzed the macroeconomic relevance of residential investment \cites{leamer_housing_2015}{fiebiger_semi-autonomous_2018}.
@@ -153,4 +163,17 @@ EXPLICAR TAXA PRÓPRIA
 
 
 In summary, what we intended to show is that one cannot analyze the U.S. business cycle properly without considering residential investment and asset bubbles together.
+
+
+
+
+
+\begin{equation}
+\label{_own}
+own = \left(\frac{1+r_{mo}}{1+\pi}\right) -1
+\end{equation}
+$$
+\pi = \frac{\Delta p_h}{p_{h_{t-1}}}
+$$
+where \(\pi\) stands for house price inflation
 \end{document}
