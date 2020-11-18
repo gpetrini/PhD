@@ -1,4 +1,4 @@
-% Created 2020-11-17 ter 12:06
+% Created 2020-11-18 qua 09:52
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -38,32 +38,32 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \maketitle
 
 \section*{Versão \textit{<2020-10-16 sex>}}
-\label{sec:org40aeff9}
+\label{sec:orgd62a78a}
 
 \subsection*{Introdução}
-\label{sec:org8a3fc5c}
+\label{sec:org8579405}
 
 Não alterei nada do texto que estava na versão anterior. Apenas adicionei dois parágrafos (preliminares) em que tenho fazer uma mini revisão da literatura. Acho que não é muito interessante aumentar mais ainda a introdução. Digo isso porque a maioria dos textos citados na antiga revisão da literatura não eram sobre investimento residencial, mas sim sobre gastos autônomos. A discussão sobre investimento residencial ali era minúscula.
 
 \subsection*{Seção dos fatos estilizados}
-\label{sec:org3bcd871}
+\label{sec:org541eec7}
 
 Não alterei nada do texto. Apenas substitui o gráfico do preço dos imóveis x endividamento (em número índice) pela curva de concentração. Estou pensando em como deixar esse gráfico mais \emph{printer-friendly} (talvez deixar os as curvas como linhas cheias e tracejadas).
 
 \subsection*{Revisão da literatura}
-\label{sec:org70d9600}
+\label{sec:org99ff651}
 
 Não alterei nada dessa seção. Apenas pedi para não compilar (dado que optamos por tirá-la).
 
 \subsection*{Modelo}
-\label{sec:org5e73e5e}
+\label{sec:orgb0f4dce}
 
 Não houve nenhuma mudança radical. Fiz as correções que sugeriu. Mais no fim dessa seção reorganizei a ordem das equações de um jeito que fizesse mais sentido. Para isso fiz pequenas adaptações no texto. Também removi (comentei) a parte que igualava a oferta à demanda por imóveis. Não parecem ser equações essenciais. Se achar necessário, desfaço isso. De todo modo, achei que estavam jogadas ali. Seria o caso de repensar onde incluí-las.
 
 Dentre as perfumarias (estão nas minhas respostas aos seus comentários), ainda estou pensando em qual letra usar no lugar de taxa de lucro bruta e líquida.
 
 \subsection*{Solução analítica}
-\label{sec:org41ed78b}
+\label{sec:org4bc9f9e}
 
 Fiz um meio termo entre as suas equações e as minhas anteriores. Em um primeiro momento, priorizei aquelas equações que me enviou no PDF. Apenas rearranjei a posição de algumas variáveis. Se achar melhor, deixo da forma que me enviou. Corrigi e atualizei a equação do \(k\). Estava faltando o termo \((1-R)\).
 
@@ -72,7 +72,7 @@ Adicionei a discussão da \emph{traverse} partindo relação entre \(g\) e \(g_K
 Na subseção da \emph{fully-adjusted position}, apenas retirei as equações desnecessárias e adaptei para ficar de uma forma mais elegante que o \emph{output} do \emph{python}. Deixei registrado as etapas até chegar nos \emph{stock-flow ratio} porque pensamos em mudar isso para o apêndice. Nesta versão, as variáveis ainda estão normalizadas pelo estoque de capital das firmas ou de casas. Ainda não alterei para a normalização pela renda porque não sei se aquelas notas que te envie estavam certas.
 
 \subsection*{Simulações}
-\label{sec:org366abcf}
+\label{sec:org895f789}
 
 Essa foi a seção que teve mais mudança no texto. Acho que a principal coisa para nos preocuparmos aqui é se faz sentido aquele ``novo paradoxo'' sumir a partir do valor dos parâmetros. Ainda acho que esse resultado pode ter sumido antes e eu não vi por conta do efeito de escala no gráfico anterior. O mais estranho é que os parâmetros que estão diferentes em relação à dissertação não aparecem nas derivadas parciais do documento que te enviei. Outro possível problema é que esse paradoxo era bem pequeno na dissertação. Ainda assim, acho estranho mudar de direção.
 
@@ -89,28 +89,28 @@ Algumas observações em relação aos gráficos:
 \end{itemize}
 \end{itemize}
 \subsection*{Conclusões}
-\label{sec:orgb9b4960}
+\label{sec:orge6c1f0f}
 Não alterei nada
 \subsection*{Apêndice A}
-\label{sec:org6110b5c}
+\label{sec:orga10cae5}
 
 Vi nos seus comentários que a nossa diferença com Freitas e Serrano não é tão importante. Dito isso, optei por comentar toda aquela discussão da estabilidade (é a mesma que a deles com a diferença de que \(own < \frac{\phi_0}{\phi_1}\)). Comecei esse apêndice a partir do trecho em que você indicou ser outro apêndice. Nesta nova versão, existem várias equações tal como saídas do \emph{python}. Não comecei a melhorá-las porque está em aberto se vamos priorizar a normalização pelo capital ou pela renda. De todo modo, imagino que as derivadas do \(k\) não devem mudar muito (já está com o \(k\) corrigido). Também achei melhor tirar as derivadas do estoque de moeda (uma vez que é resíduo, não tem muita importância para nós).
 
 \subsection*{Apêndice B}
-\label{sec:org9d216e2}
+\label{sec:org3c9a87c}
 
 Talvez essa tabela mude na medida que forem usados outros valores dos parâmetros. Uma vez encerradas as alterações no modelo, rodo o comando para gerar essa tabela. Ainda não descobri como formatar melhor pelo python. Essa é uma das poucas coisas que acho melhor manter o mais próximo do \emph{output} do computador. Se um parecerista pedir o \emph{script}, ele deve chegar nesse mesmo lugar. Além disso, imagino que esse processo de formatação seja função do journal e não nossa.
 
 \subsection*{Apêndice C (em construção)}
-\label{sec:orgb0e1b8d}
+\label{sec:org7a749c7}
 
 Eu tinha iniciado (faz um tempo) um código para retornar uma tabela de análise de sensibilidade similar à do Fazzari. Esse é um código que leva um certo tempo para rodar porque faço vários \emph{nested for loops} (a.k.a simulo um porrilhão de cenários rs). No final das contas acabei deixando de lado. Havendo tempo, penso em retornar a isso. Imagino que se desse certo, seria bastante interessante mas também acho que não esta entre as nossas prioridades. Talvez pudesse trabalhar nisso enquanto o artigo estivesse sendo revisado na expectativa de que algum parecerista peça. Por fim, esse apêndice inexistente é um dos motivos de ter tantos \emph{hashs} (``lixos'') no fim do apêndice B.
 
 \section*{Versão \textit{<2020-11-03 ter>}}
-\label{sec:org02587d1}
+\label{sec:org4be3924}
 
 \subsection*{Seção empírica}
-\label{sec:org3554551}
+\label{sec:org71bdbef}
 
 \begin{itemize}
 \item Feitas algumas pequenas correções no inglês
@@ -130,21 +130,21 @@ Eu tinha iniciado (faz um tempo) um código para retornar uma tabela de análise
 
 
 \subsection*{Modelo}
-\label{sec:org26c027c}
+\label{sec:org04a9399}
 
 \begin{itemize}
 \item[{$\square$}] Corrigidas referências quebradas (estavam com ??) desta seção
 \end{itemize}
 
 \subsection*{Analítica}
-\label{sec:org58dc784}
+\label{sec:orgb6b3f35}
 
 \begin{itemize}
 \item[{$\square$}] Corrigidas referências quebradas (estavam com ??) desta seção
 \end{itemize}
 
 \subsection*{Simulações}
-\label{sec:orgc1b7e12}
+\label{sec:org8155311}
 
 \begin{itemize}
 \item Gráficos foram adaptados para escala de cinza
@@ -159,23 +159,23 @@ Eu tinha iniciado (faz um tempo) um código para retornar uma tabela de análise
 \end{itemize}
 
 \section*{Versão \textit{<2020-11-06 sex>}}
-\label{sec:orga309887}
+\label{sec:org1ddd03d}
 
 \subsection*{Introdução}
-\label{sec:org674fe8a}
+\label{sec:org39a0145}
 
 Inalterada em relação à versão anterior
 
 \subsection*{Seção Empírica}
-\label{sec:org9afaaa2}
+\label{sec:org9171531}
 
 Inalterada em relação à versão anterior
 
 \subsection*{Modelo}
-\label{sec:orgbcd031d}
+\label{sec:org4b13287}
 
 \subsubsection*{Equações gerais}
-\label{sec:org1ca3185}
+\label{sec:orgb71ec49}
 
 \begin{itemize}
 \item Feitas as correções sugeridas. Cabe pontuar
@@ -186,7 +186,7 @@ Inalterada em relação à versão anterior
 \end{itemize}
 
 \subsubsection*{Firmas}
-\label{sec:org1b99122}
+\label{sec:orgb912f82}
 \begin{itemize}
 \item Feitas as correções sugeridas. Vale pontuar
 \begin{itemize}
@@ -198,7 +198,7 @@ Inalterada em relação à versão anterior
 \end{itemize}
 \end{itemize}
 \subsubsection*{Bancos}
-\label{sec:org77cc9bf}
+\label{sec:org0936eb8}
 \begin{itemize}
 \item Feitas as correções sugeridas. Vale pontuar
 \begin{itemize}
@@ -217,12 +217,12 @@ are the same as on deposits (\(r_{m}\)) which is  exogenously determined by bank
 
 
 \subsubsection*{Trabalhadores}
-\label{sec:org5b80a4d}
+\label{sec:orge7bb427}
 \begin{itemize}
 \item Feitas as correções sugeridas. Nada a comentar
 \end{itemize}
 \subsubsection*{Capitalistas}
-\label{sec:orgc311a31}
+\label{sec:org209e320}
 \begin{itemize}
 \item Feitas as correções sugeridas. Vale pontuar
 \begin{itemize}
@@ -245,9 +245,9 @@ are the same as on deposits (\(r_{m}\)) which is  exogenously determined by bank
 \end{quote}
 
 \subsection*{Solução analítica}
-\label{sec:org9d47f63}
+\label{sec:org98daff7}
 \subsubsection*{Short-run}
-\label{sec:orgb322a1c}
+\label{sec:orgfc07cda}
 
 \begin{itemize}
 \item Feitas correções sugeridas. Vale pontuar
@@ -260,7 +260,7 @@ are the same as on deposits (\(r_{m}\)) which is  exogenously determined by bank
 \end{itemize}
 
 \subsubsection*{Analitical Traverse}
-\label{sec:orgb6f555c}
+\label{sec:org9425d60}
 
 \begin{itemize}
 \item Unida com a subseção seguinte e renomeada para \emph{Traverse and long-run Equilibrium}
@@ -274,13 +274,13 @@ are the same as on deposits (\(r_{m}\)) which is  exogenously determined by bank
 \item Conforme mencionado, parágrafo final que tratada dos impactos de \(g_{I_h}\) em \(k\) foi removido
 \end{itemize}
 \subsection*{Simulações}
-\label{sec:org7b5ca00}
+\label{sec:org015dbbc}
 Inalterada em relação à versão anterior
 \subsection*{Conclusão}
-\label{sec:org50b9274}
+\label{sec:org2dd264b}
 Inalterada em relação à versão anterior
 \subsection*{Apêndice A}
-\label{sec:org237654a}
+\label{sec:org02bd6da}
 
 \begin{itemize}
 \item Resultados do python para \(k^\star\) e \(\ell_f^\star\) foram rearranjados
@@ -294,25 +294,25 @@ Inalterada em relação à versão anterior
 \end{itemize}
 
 \section*{Versão \textit{<2020-11-11 qua>}}
-\label{sec:org3fae121}
+\label{sec:org909ebad}
 
 \subsection*{Introdução}
-\label{sec:orgc0e0645}
+\label{sec:orgb1f702f}
 
 Não alterado.
 
 \subsection*{Fatos estilizados}
-\label{sec:org21715a0}
+\label{sec:org4ebaa41}
 
 Não alterado.
 
 \subsection*{Modelo}
-\label{sec:orgb635250}
+\label{sec:org421cb86}
 
 Não alterado.
 
 \subsection*{Solução analítica}
-\label{sec:org0f66870}
+\label{sec:org41e013b}
 
 \begin{itemize}
 \item Algumas correções pequenas
@@ -354,7 +354,7 @@ Desse modo, se \(\ell_f^\star\) reduz, taxa de lucro bruta e líquida se aproxim
 Deixei a equação original enquanto etapa para chegar nessa nova equação e adicionei uma para a taxa de lucro líquida em função de \(\ell_f^\star\) para referenciar nas simulações.
 
 \subsection*{Simulações}
-\label{sec:org7629949}
+\label{sec:org4aff3fb}
 
 \begin{itemize}
 \item Para manter consistência entre as equações e simulações, será plotada a razão dívida dos capitalistas/imóveis. O que acha?
@@ -368,12 +368,12 @@ Deixei a equação original enquanto etapa para chegar nessa nova equação e ad
 
 
 \subsubsection*{Introdução}
-\label{sec:org4ebab31}
+\label{sec:orga1ec7e6}
 
 Feitas as correções sugeridas.
 
 \subsubsection*{Choque na taxa de salários}
-\label{sec:org75b181b}
+\label{sec:orgf8d6031}
 
 \begin{itemize}
 \item Primeira frase alterada para
@@ -395,7 +395,7 @@ A wage-share decrease has permanent negative impact on output level --- due to c
 \item Corrigi \emph{oan-to-profit ratio} para \emph{loan-to-capital ratio}
 \end{itemize}
 \subsubsection*{Aumento da inflação de imóveis}
-\label{sec:org0096c09}
+\label{sec:org920ff1b}
 
 Feitas as correções sugeridas. Vale destacar que o último parágrafo foi alterado para
 
@@ -419,13 +419,13 @@ A seguinte frase foi removida: Besides the usual SSM results, we report some par
 
 
 \subsubsection*{Aumento da taxa de juros}
-\label{sec:orgf59f8ae}
+\label{sec:orgbb6354d}
 \begin{itemize}
 \item This result stem from the \(\Rightarrow\) This effect is a result of the
 \end{itemize}
 
 \subsubsection*{Dados reais}
-\label{sec:org2e8007e}
+\label{sec:org5ca06da}
 
 \begin{itemize}
 \item Mencionei a seção dos fatos estilizados
@@ -450,11 +450,11 @@ A seguinte frase foi removida: Besides the usual SSM results, we report some par
 \end{itemize}
 \end{itemize}
 
-\section*{Versão \textit{<2020-11-20 sex>}}
-\label{sec:orgb7bddb7}
+\section*{Versão \textit{<2020-11-18 qua>}}
+\label{sec:org3393dea}
 
 \subsection*{Introdução}
-\label{sec:orgd5800e8}
+\label{sec:orgb6001f5}
 
 \begin{itemize}
 \item \emph{try} removido
@@ -467,9 +467,15 @@ One way to do this is through houses' own rate of interest.
 Originally introduced by \textcite{Sraffa_Own_1932} and applied to the US case by \textcite{teixeira_crescimento_2015}, this concept allows to connect asset bubble with residential investment.
 \end{quote}
 
+\begin{itemize}
+\item Ainda não entendi o porquê do trecho estar sublinhado. Imagino que possa parecer jogado. Deixei inalterado porque não consegui pensar uma forma de reescrever sem deixar de citar o Serrano e o Freitas
+\begin{itemize}
+\item A princípio pensei em apagar, mas aí sairia essas citações.
+\end{itemize}
+\end{itemize}
 
 \subsection*{Seção empírica}
-\label{sec:org3233df3}
+\label{sec:org7d66f27}
 
 \begin{itemize}
 \item Corrigido problema com as aspas
@@ -488,6 +494,7 @@ They report that residential investment predicts the US  macroeconomic fluctuati
 \begin{itemize}
 \item Não entendi muito bem a sua sugestão. Fiquei em dúvida se era para alterar apenas a frase em amarelo ou juntar com a seguinte
 \end{itemize}
+\item Supondo que o seguinte trecho sublinhado estava jogdo (p.4): \emph{Additionally, some key aspects of recent housing developments have not been dealt with in depth. More specifically, there has been little discussion on popularization of primary houses and concentration of secondary ones}, alterei para \emph{Turning now to some key aspects of housing distribution, we point out that  there has been little discussion on popularization of primary houses and concentration of secondary ones}
 \item Após as curvas de concentração: \emph{suggests an increase in the demand for properties in the expectation of capital gains} \(\Rightarrow\) \emph{suggests other purposes, such as rental income, speculation, etc}
 \begin{itemize}
 \item O que achou da explicação das curvas de concentração? sugestões?
@@ -511,30 +518,30 @@ Segui sua sugestão e achei que essa forma de organizar o argumento ficou melhor
 
 
 \subsection*{Modelo}
-\label{sec:org068bbb3}
+\label{sec:org2496398}
 
 Nenhuma alteração
 
 \subsection*{Solução analítica}
-\label{sec:orged9a6d4}
+\label{sec:orgdcf3490}
 
 Nenhuma alteração
 \subsection*{Simulações}
-\label{sec:org3d9944f}
+\label{sec:orgee97bb4}
 
 Nenhuma alteração
 
 \subsection*{Conclusão}
-\label{sec:org75b66c4}
+\label{sec:org3cc059d}
 
 Nenhuma alteração
 
 \subsection*{Apêndices}
-\label{sec:orge6149de}
+\label{sec:org0416abe}
 
 Nenhuma alteração
 
 \section*{Referências}
-\label{sec:org0ff9ec7}
+\label{sec:orgefd8e39}
 \printbibliography[heading=none]
 \end{document}
