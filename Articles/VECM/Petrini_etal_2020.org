@@ -3,7 +3,7 @@
 #+EMAIL: gpetrinidasilveira@gmail.com, lucas.teixeira@unicamp.br
 #+OPTIONS: toc:nil
 #+LATEX_HEADER: \addbibresource{ref.bib}
-#+LATEX_HEADER: \usepackage{svg, caption, multirow, booktabs, tabularx, lscape, tablefootnote, threeparttable}
+#+LATEX_HEADER: \usepackage{svg, caption, multirow, booktabs, tabularx, subfigure, subcaption, lscape, tablefootnote, threeparttable}
 #+LATEX_HEADER: \newcolumntype{b}{>{\hsize=2.3\hsize}X}
 #+LATEX_HEADER: \newcolumntype{s}{>{\hsize=.45\hsize}X}
 #+LATEX_HEADER: \newcolumntype{m}{>{\hsize=.9\hsize}X}
@@ -32,20 +32,15 @@ while the other way round does not occur.
 
 
 * Housing Dynamics and Business Cycle in the US Economy
+#+LATEX: \label{sec:Stylized_Facts}
+#+INCLUDE: "Stylized_Facts.org"
+* Review of the Macroeconometric Literature
 #+LATEX: \label{sec:empirical_review}
 #+INCLUDE: "Empirical_Review.org"
 
-* Review of the Macroeconometric Literature
-
 * Macroeconometric analysis
-
-** Houses’ own interest rate and residential investment growth rate in the US Economy
-
-** Data and estimation strategy
-
-** Estimation results
-
-
+#+LATEX: \label{sec:VECM}
+#+INCLUDE: "VECM.org"
 
 * Concluding Remarks
 #+LATEX: \label{sec:Conclusion}
@@ -75,4 +70,22 @@ No potential conflict of interest was reported by the authors.
 
 
 #+Latex: \appendix
+* Statistical Appendix
+#+LATEX: \label{appen:A}
+
+In this appendix we report several tests: unit root tests on our variables of interest, Structural break test, Johansen procedure and hypothesis tests on residuals. 
+The time-series of residential investment growth rate, mortgage interest rate and real estate inflation are all taken using textcite:yeo_new_2000 transformation.  
+As shown in Table ref:unitroot, the null hypothesis of a unit root in the first differences of the series is overwhelmingly rejected.
+As mentioned, we found structural breaks related to institutional changes and our series are co-integrated (see Tables ref:structbreak and ref:Johansen).
+Our estimation order selection was based both on statistical and theoretical reasoning with homoscedasticity residuals (see Tables ref:criterios and ref:testes_resduos).
+All expected results are statistically significant and most of them are not restrict to model specification (see Table ref:tab:robust).
+
+#+begin_export latex
+\input{./tabs/UnitRoot.tex}
+\input{./tabs/StructBreak.tex}
+\input{./tabs/Johansen.tex}
+\input{./tabs/lag_order.tex}
+\input{./tabs/H0_Residuals.tex}
+\input{./tabs/robust.tex}
+#+end_export
 

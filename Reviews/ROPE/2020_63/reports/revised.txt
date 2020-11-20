@@ -1,0 +1,1600 @@
+Housing is NOT ONLY the Business Cycle: A Luxemburg-Kalecki
+External Market Empirical Investigation for the United States
+
+Abstract: We study the residential investment-economic activity nexus in the United
+States during the period 1960–2020. We find evidence of symmetric and asymmetric
+frequency-domain Granger causality running unidirectionally from residential investment
+(RES) to output. This unidirectional causal relationship is both permanent and transitory:
+transitory shocks in RES have transitory effects on GDP, while permanent shocks in RES
+have permanent effects on GDP. Our results validate the hypothesis of Fiebiger (2018)
+and Fiebiger and Lavoie (2019), who state that housing investment in the US can be
+analogous to a Luxemburg-Kalecki external market. Our findings can also be read
+through the lenses of the recent autonomous demand-led growth literature. In particular,
+we single out a specific component of autonomous demand and describe its prominent
+role in the US variety of capitalism Thus, we conclude that residential investment, despite
+constituting a small overall share of GDP, is not only the cycle but is also the trend of the
+US economy.
+Keywords: Effective demand; Growth; Residential investment; Autonomous demand; US
+economy
+JEL Codes: B51; E11; E12; O41; O47; O51
+
+1. Introduction
+In the title of his famous article, Leamer (2007) stated that “Housing IS the
+Business Cycle.” He documented that the dynamics of residential investment (RES from
+now on) has played and is still playing a central role in explaining the business cycles in
+the United States during the post-WWII era. Leamer also suggested that, with very few
+exceptions, recessions can be predicted by analyzing the dynamics of RES. Thus, a
+reduction of the RES/GDP ratio would always precede a recession, while the growth of
+the RES/GDP ratio would always precede a recovery in the United States (see Figure 1).
+
+1
+
+Figure 1. Residential Investment as percentage of Gross Domestic Product 1960-2015
+
+Source: Federal Reserve Bank of St. Louis. The percentage of RES on GDP is indicated
+on the Y-Axis; while the X-Axis displays the span of time (1960:Q1-2015:Q1).
+In recent years, and especially in the aftermath of the global economic crisis of
+2008, several research projects have studied the influence of RES on macroeconomic
+performance. Most of these works are mainly empirical and are consistent with the
+neoclassical approach to the determination of prices and output. However, some recent
+works have studied the interaction between RES and growth from a demand-led, i.e.,
+Keynesian, perspective. We argue that, in this framework, those models that focus on the
+role played by the autonomous components of demand (more on this later) in driving
+growth—such as the Sraffian supermultiplier (SSM) developed by Serrano (1995), Bortis
+(1997), and Dejuan (2005), and some recent versions1 of the neo-Kaleckian model—are
+a promising benchmark for studying the relationship between RES, economic activity,
+and growth.
+
+1
+
+See for example Allain (2015, 2019), Lavoie (2016) and Fiebiger and Lavoie (2019).
+2
+
+If, following an endogenous credit money approach—as in Palley (1997), Fontana
+and Setterfield (2009), Cesaratto (2016), and Deleidi and Fontana (2020), among others—
+one considers that RES is mostly funded through external sources of finance, such as the
+extension of credit through the creation of new money, it follows that RES’s course is not
+mechanically linked to the pace of production income and of capital accumulation, as
+Serrano (1995) anticipated.2 Thus, the banking system creates ex nihilo purchasing power
+that requires no abstinence on the part of other agents (Fiebiger and Lavoie, 2019: 256).
+This allows us to establish a link also with the Luxemburg-Kalecki external market
+(Luxemburg 1913; Kalecki, 1968, 1971) concept and the literature stemming from it, such
+as Fiebiger (2018) and Fiebiger and Lavoie (2019). As it has been recently recalled in
+Cesaratto (2015), to which we refer for a deeper discussion, in his 1967 article Kalecki
+draws on a prescient Rosa Luxemburg’s intuition according to which consumption and
+investment are not sufficient to absorb an economy’s surplus and external (to the circuit
+of production income) markets 3 are needed for this purpose. On this basis, Kalecki comes
+to argue that external markets can be considered as the engine of growth, an engine that
+also drives the evolution of investment in capital goods.
+The main aim of this work is to go a step beyond Leamer (2007, 2015) and show
+that RES dynamics can be considered a driver of both cycles and long-run growth in the
+United States, as predicted by theoretical models such as the SSM and some recent
+contributions in the neo-Kaleckian tradition. In terms of a time-series empirical analysis,
+this assertion suggests the existence of both short- and long-run Granger causality running
+unidirectionally from RES to output. We investigate whether these Granger causal
+relationships exist. As we will explain, however, this article is not meant to provide a
+complete and thorough test of autonomous demand-led growth models; instead, we only
+test if and to what extent the dynamics of RES influences (in the Granger sense) the
+dynamics of production income and whether the former is autonomous (in the Granger
+sense) with respect to the latter.
+
+2
+
+According to Serrano (1995) and the following literature, autonomous demand comprises and is
+constituted by “All those expenditures that are not financed by wage income generated by production
+decisions, nor affect (directly) the productive capacity of the economy” (Serrano, 1995: 71).
+3
+Among the external markets we can include exports, government spending and all those expenditures
+financed by changes in the position of agents' net financial assets (expenditure of money previously
+obtained or creation of new credits) and not by current income, such as residential investment.
+3
+
+The article is organized as follows. In Section 2, we review the works that test the
+relationship between RES and economic activity. In Section 3, we briefly introduce a class
+of models that stress the role of autonomous demand as a driver of economic growth,
+which will provide the analytical interpretative tool for our empirical findings. In Section
+4, we explain the econometrics methodology used in this research. We also explain its
+benefits: (i) it allows testing symmetric and asymmetric relationships between the
+variables; (ii) it allows testing permanent and transitory Granger causality relationships;
+and (iii) it is robust to structural changes and parameter instability in the relationships
+among the variables. Finally, Section 5 presents our empirical results, while Section 6
+concludes the article.
+2. Empirical Literature on the Housing-Economic Activity Nexus
+Several works have analyzed whether the strong affirmations of Leamer (2007)
+(“Housing IS the Business Cycle”) and Leamer (2015) (“Housing Really Is the Business
+Cycle”) find empirical support. Some papers seem to empirically validate Leamer’s
+assertions, while others seem to refute them. However, most of the literature does not
+focus directly on RES; instead, it uses proxies of housing activity, such as housing starts,
+housing permits, and housing prices (see Huang et al., 2020). In general, these works
+consider housing supply indicators and analyze how they affect macroeconomic
+variables. To avoid spurious causality between housing and economic activity, they
+control for supply factors (user costs, borrowing constraints, etc.) and other elements
+generally related to monetary shocks (interest rate).
+Goodhart and Hofmann (2008) find evidence of a multidirectional link between
+house prices, monetary variables, and the macroeconomic activity for 17 industrialized
+countries. Ghent and Owyang (2010) assess the relationship between housing variables
+and employment over the business cycle in a set of 51 US cities, finding no evidence that
+housing permits or housing prices influence the business cycle. Musso et al. (2011) state
+that housing demand has a strong role in transmitting monetary policy shocks in the US.
+Similarly, Cesa-Bianchi (2013) suggests that house price shocks are quickly transmitted
+to the domestic real economy, leading to a short-run expansion of real GDP and consumer
+prices in the world economy. Jordà et al. (2016) show that contemporary business cycles
+are increasingly shaped by the dynamics of mortgage credit for 17 advanced economies
+since 1870, which supports the growing importance of housing and housing finance for
+4
+
+the overall economy. Huang et al. (2018) point out that housing factors, such as housing
+starts and housing prices, autonomously drive the business cycle in the US. Similarly,
+Ren and Yuan (2014) focus on the leading role of housing indicators on macroeconomic
+activity for the US.
+Research on the macroeconomic implications of residential investment in terms
+of volume—the housing output produced for the market—is much scarcer (Kohlscheen
+et al., 2018: 2). Most of these works are generally informed by the neoclassical approach
+to growth and distribution and, thus, consider economic growth to be supply-led. Just to
+mention few examples, Kydland et al. (2016) state that RES leads output, whereas
+nonresidential investment lags output in the US; nevertheless, these authors emphasize
+that RES by itself is not capable of driving business cycles, since it is determined by
+changes in nominal interest rates. Thus, housing variables are simply channels through
+which monetary policy propagates. Similarly, Kohlscheen et al. (2018) find that
+information on residential investment growth consistently improves the performance of
+the yield curve as a predictor of recessions across nine OECD countries.
+On the other hand, also authors in the Keynesian tradition have dealt with similar
+research questions. Within Marxian strands (but with Keynesian longings), Sherman
+(2010), suggests that housing investment is the leading indicator of United States’ real
+economy activity. Arestis and González-Martínez (2015) study the forces that interact in
+the real estate market of OECD countries, indicating that real disposable income is a key
+element of the affordability of housing and act as the major determinant of real residential
+investment (Arestis and González-Martínez 2015: 465); while Arestis and Zhang (2020)
+suggest that, in China, the real estate sector is the main field of fixed investment and the
+key driver of the nation’s GDP growth.4
+The strand of works that investigate the housing-economic growth nexus in terms
+of volume is more relevant to our research because we work under the hypothesis that
+economies tend to be demand-led and that RES can be considered a potentially
+autonomous component of final aggregate demand, as suggested by Fiebiger and Lavoie
+(2019). For this reason, the class of Keynesian models that emphasize autonomous
+
+4
+
+On the other hand, Arestis and Gonzalez-Martinez (2019) study the relationship between housing and the
+labour markets, focusing on the role of labor precariousness.
+5
+
+demand as the main driver of long-run growth will be the interpretative tool upon which
+we will base our empirical analysis.
+On the other hand, and rather unsurprisingly, most of the mainstream literature,
+even when considering RES in terms of volume and as an exogenous component of
+demand, maintain that its dynamics can only explain the cycle, not the secular tendency
+of output.5 We offer a different theoretical point of view. Our main hypothesis is that a
+non-wage source of effective demand such as RES, which is based on mortgage and
+credit, can play a key role in inducing capacity investment and driving growth in the long
+run. Thus, we do not narrow our attention to the short run but consider also the long-run
+nexus between the dynamics of RES and output in the US.
+Inspired by Fiebiger (2018), Fiebiger and Lavoie (2019), and Petrini and Teixeira
+(2020)—and by the autonomous demand-led growth literature in general—in the
+following sections we investigate the role of residential investment not only in the US
+business cycles, but also as a driver of long-run growth, in a context where the borrowing
+capacity of households has been relatively autonomous with respect to income in the long
+run.
+3. Autonomous Demand-Led Growth Models as a Tool for Studying the Nexus
+between RES and GDP Growth
+In recent years, (broadly speaking) Keynesian growth theory has yielded a class
+of models that point to the role of autonomous demand in driving economic growth.6
+Since we believe that these analytical constructs are a promising tool for studying the
+RES-economic activity nexus, we provide a brief overview.7 The starting point can be
+found in the Sraffian supermultiplier (SSM), inaugurated by Serrano (1995). In his
+attempt to develop an alternative theory of production and long-run accumulation,
+Serrano builds upon two main staples: (i) the validity of the Keynesian-Kaleckian
+principle of effective demand in the long run; and (ii) the compatibility of this approach
+
+5
+
+Huang et al. (2018) is an exception.
+The autonomous demand-led growth literature is in line with several non-mainstream economics strands,
+such as Duesenberry’s (1949) relative income hypothesis, the endogenous money approach and the
+Luxemburg-Kalecki external markets literature (Fiebiger and Lavoie, 2019: 247).
+7
+The interested reader can refer to Freitas and Serrano (2015) and Lavoie (2016) for in-depth treatments of
+the issue.
+6
+
+6
+
+to the determination of quantities with the Classical Surplus approach to the theory of
+value and distribution, revived by Sraffa (1960) (Serrano, 1995: 67), which implies
+considering income distribution an exogenous variable and, therefore, rejecting any
+mechanical link between distribution and economic growth.
+The main message of the SSM is that long-run output growth tends to be driven
+by the evolution of the non-capacity-generating autonomous components of demand. In
+the long run, effective demand determines normal productive capacity, while autonomous
+demand generates induced consumption (through the multiplier) and induced (capacitycreating) investment (through the accelerator) (Serrano, 1995: 67). Indeed, in this model,
+firms continuously and gradually attempt to reach the normal (cost-minimizing) rate of
+capacity utilization, so the system is in equilibrium and reaches its fully-adjusted position
+when capacity is utilized normally. This mechanism operates through a flexible
+accelerator mechanism, in which investment is treated as induced by the dynamics of
+output. Very similar conclusions can be drawn from more recent amended versions of the
+neo-Kaleckian model, such as Allain (2015) and Lavoie (2016),8 where in the long-run
+the growth rate of the economy converges to the autonomous demand growth rate and
+capacity utilization tends to its normal rate. 9
+The expenditures that should be considered non-capacity-creating autonomous
+demand, according to the SSM approach, include: “the consumption of capitalists; the
+discretionary consumption of richer workers that have some accumulated wealth and
+access to credit; residential “investment” by households; firms discretionary expenditures
+that do not include the purchase of produced means of production such as consultancy
+services, research & development, publicity, executive jets, etc.; government expenditure
+(both consumption and investment); and total exports (both of consumption and of capital
+goods since the latter do not create capacity within the domestic economy)” (Serrano,
+1995: 71).
+
+8
+
+See Palley (2019) and Fazzari, et al. (2020), which introduce into this framework an explicit consideration
+of labor market dynamics. See also Hein (2018) for a model depicting an economy whose growth is driven
+by the evolution of autonomous government expenditures, but without convergence to normal utilization.
+9
+Fiebiger and Lavoie (2019) and Petrini and Teixeira (2020) explicitly explain how the SSM adjustment
+mechanism can give insight into how cycles and secular trends are determined by the dynamics of
+dwellings.
+7
+
+Since autonomous demand represents financial dis-saving and is financed to a
+large extent through debt, the SSM approach ties in with the endogenous money approach
+and the credit-creating powers of banks (Cesaratto, 2016, 2017). Thus, as highlighted by
+Cesaratto (2015) and Fiebiger (2018), debt-financed expenditures, while internal to the
+dynamics of a private capitalist economy, are analogous to an external market, as defined
+by Rosa Luxemburg and Michał Kalecki (Fiebiger and Lavoie, 2019: 254).
+If one considers that RES, being mostly financed out of credit, evolves largely
+independently from production income10 and, at the same time, it is not destined to
+increase productive capacity (Freitas and Serrano, 2015: 261), then RES can be treated as
+a non-capacity-creating autonomous component of demand that drives long-run growth.
+Indeed, we work under the hypothesis, which will be submitted to empirical scrutiny in
+the next section, that this demand component affects the evolution of output without being
+mechanically influenced by the latter. These two characteristics make RES suitable for
+the inclusion among the possible determinant of long-run growth in a SSM framework.11
+Although the SSM approach explicitly considers residential investment as
+potential driver of growth (see also Cesaratto et al., 2003, p. 42), according to Petrini &
+Teixeira (2020) this feature has not yet been incorporated into a demand-led growth
+model. The aim of our research is to fill this gap. In this sense, our work complements
+other attempts such as Nah and Lavoie (2017), Deleidi and Mazzucato (2019), Deleidi
+and Mazzucato (2019), Deleidi et al. (2020), and Mandarino et al. (2020), where the
+authors single out and study the contribution of specific components of autonomous
+demand.12
+With this in mind, we analyze the short- and long-run relationship between RES
+and output in the US. To consistently analyze the RES- GDP nexus within the
+“autonomous demand-led growth” approach, we consider a multivariate setting and
+control for the variables that, according to the related literature, constitute other potential
+
+10
+
+See also Duesenberry (1958) on this. The American economist also emphasizes the role played by
+speculative investment in disconnecting the dynamics of residential investment from that of production
+income. This provides a possible theoretical explanation for the non-linear nature of the relationship
+between the two variables, a feature confirmed by our empirical findings in section 5.
+11
+A supermultiplier mechanism is capable of giving insight into the effects of secular trends in dwelling
+investment on the secular growth rate (Fiebiger and Lavoie, 2019: 248).
+12
+The first article of the list deals with exports, the three following papers focus on government innovation
+expenditures, while the last one considers a growth model led by debt-financed consumption of workers.
+8
+
+components of autonomous demand, such as public expenditure, G; exports, E; and
+research and development expenditures, RD (see Médici, 2011; Girardi and Pariboni,
+2016; Perez-Montiel & Manera, 2020a, b; and Deleidi and Mazzucato, 2019). The
+working hypothesis, based on the theoretical insights that can be derived from the
+literature reviewed in this section, is that we expect to find confirmation of a positive
+influence of RES growth on the dynamics of aggregate output. In terms of the empirical
+analysis we develop in the next sections, this amounts to positive and significant
+coefficients for the independent variable (RES) in the cointegrating equation.
+A final, important, comment is in order. Pedagogically, the class of models we
+briefly referred to in this section provides an accessible and coherent story on how
+expenditures originating in the household, government, or foreign sectors can stabilize as
+well as drive growth processes (see Fiebiger and Lavoie, 2019). However, the canonical
+versions of these models do not consider explicit financial relations and constraints; thus,
+few would defend their strict empirical realism (See Skott (2017a, b) for a critique of the
+empirical validity of these models, together with Lavoie's (2017) reply).
+The consideration of debt-financed expenditure is undoubtedly complex, since it
+constitutes a non-wage and non-profit source of effective demand that carries numerous
+complexities from debt servicing (Setterfield and Kim, 2016). Hence, we do not try to
+provide a complete and thorough validation of autonomous demand-led growth models
+here. We do not deal with the very important issue of how residential investment is
+financed either, even though we recognize that the investigation of financial dynamics is
+the necessary complement of non-capacity creating autonomous demand-led growth
+models, as recently and persuasively claimed in Hein and Woodgate (2020). The aim of
+this paper is more modest: we investigate only whether RES can empirically be considered
+an autonomous driver of final demand, both in the short and in the long run.
+4. Data and Methodology
+In the next sections, we empirically analyze the relationship between the dynamics
+of RES and GDP within a SSM-inspired approach. To this end, we apply the nonlinear
+auto-regressive distributive lag model (NARDL) of Shin et al. (2014), together with the
+Granger causality in the frequency domain test of Breitung and Candelon (2006). As we
+explain in Section 4.4, we adopt this methodology in order to overcome several
+9
+
+weaknesses of standard Granger causality tests, so that the results of our analysis, given
+the asymmetric framework we use, are not affected by parameter instability or undetected
+structural breaks. Moreover, the frequency-domain Granger causality approach also
+allows us to discriminate between short- and long-run Granger causality relationships
+among our variables of interest.
+4.1. Data
+We employ quarterly series between 1960:Q1 and 2019:Q2. We choose the period
+1960-2019 because, as Girardi and Pariboni (2016) show, the supermultiplier was broadly
+stable in the US from the sixties onwards. For the proxy variable for output, we use the
+evolution of the gross domestic product, GDP. For the proxy variable for residential
+investment, we use fixed residential investment, RES. Additionally, we consider other
+potential components of autonomous demand, such as public expenditure, G; exports, E;
+and research and development expenditures, RD.13 For G, we use the variable real
+government consumption expenditures and gross investment. To represent E, we employ
+the variable real exports of goods and services. As a proxy for RD, we use the variable
+research and development expenditures (see Table 1 for the summary statistics of them).
+We work with the variables in real terms (measured in billions of chained 2012 dollars,
+seasonally adjusted annual rate) and transform them into logarithms for consistent and
+reliable
+
+empirical
+
+results.
+
+All
+
+data
+
+come
+
+from
+
+the
+
+Federal
+
+Reserve
+
+(https://fred.stlouisfed.org/).
+4.2. Unit Root Test
+To apply the asymmetric-spectral Granger causality test employed in this
+research, we first need to know the degree of integration of the variables (mainly to make
+sure that none of them is a I(2) process). Thus, we first check for the stationarity of the
+variables GDP, RES, G, E, and RD. A non-stationary series that needs to be differenced d
+times to become stationary is integrated of order d, i.e., is a I(d) process. We apply the
+Breakpoint Unit Root test of Perron (1997), which is robust to an unknown structural
+change. The test considers various methods of selecting the break points and the
+
+13
+
+We do not include in this list consumer credit-financed expenditures. In doing this, we follow Girardi
+and Pariboni (2016), who find consumer credit to be influenced by the economic cycle and hence not
+suitable for consideration as an autonomous component of demand.
+10
+
+asymptotic and finite sample distributions of the corresponding statistics (Perron, 1997:
+355). The methodology of the Perron (1997) unit root test with breakpoint is widely
+known; therefore, for reasons of space, we do not describe it here.
+4.3. The Asymmetric Relationship between Output and Residential
+Investment
+In this section, we consider the relationship between GDP and RES in a nonlinear
+framework. Since the literature has widely recognized that macroeconomic variables and
+processes have nonlinear structures, the information obtained from linear models might
+not be enough to make reliable predictions (see Kahneman and Tversky, 1979; Bliss and
+Shiller, 1995; and Cooper and Shiller, 2000, among others). This is likely to be the case
+in the relationship between GDP and RES, highly governed by the financial environment.
+Shin et al. (2014) warn that the assumption of linear adjustments may be too restrictive
+in many economically interesting situations, especially where transaction costs are
+important and where policy interventions are observed in-sample, stressing that
+nonlinearities are endemic in the social sciences and that asymmetry is fundamental to
+the human condition. Keynes (1936: 314) himself stated that “the substitution of a
+downward for an upward tendency often takes place suddenly and violently, whereas
+there is, as a rule, no such sharp turning point when an upward is substituted for a
+downward tendency.”
+In this section, we employ the nonlinear auto-regressive distributive lag model
+(NARDL) of Shin et al. (2014) to investigate the presence of a relationship between GDP
+and RES in the US. The nonlinear ARDL model of Shin et al. (2014) is preferred to other
+nonlinear methods, since this model allows us to simultaneously consider both short- and
+long-run asymmetries. Indeed, the Markov-switching vector error correction model (MSVECM), developed by Hamilton (1989) and continued by Krolzig (1997) and Psaradakis
+et al. (2004), and the smooth transition regression error correction model, developed by
+Kapetanios et al. (2006), do not allow detection of asymmetry in the long run. On the
+other hand, the threshold framework, developed by Enders and Siklos (2001), accounts
+only for long-run asymmetry.
+The NARDL, developed by Shin et al. (2014), has been discussed in recent works
+such as Alsamara et al. (2017), Ivanovski and Churchill (2019), Al-mulali et al. (2019),
+11
+
+and Bahmani-Oskooee and Gelan (2019), among others; thus, we only display the basic
+details of the method. As stated, Shin et al. (2014) propose a nonlinear ARDL model that
+considers asymmetries, developing a flexible dynamic parametric framework to model
+relationships that exhibit combined long- and short-run asymmetries. This implies that
+the explicative variable, 𝑥, is decomposed into its positive and negative partial sums:
+𝑥𝑡 = 𝑥0 + 𝑥𝑡+ + 𝑥𝑡− ,
+
+(1)
+
+where 𝑥𝑡+ = ∑𝑡𝑗=1 ∆𝑥𝑗+ = ∑𝑡𝑗=1 max (∆𝑥𝑗 , 0) and 𝑥𝑡− = ∑𝑡𝑗=1 ∆𝑥𝑗− = ∑𝑡𝑗=1 min (∆𝑥𝑗 , 0)
+are the partial sum processes that accumulate positive and negative changes in 𝑥𝑡
+(Granger and Yoon, 2002; Shahzad et al., 2017). Thus, the model considers the following
+asymmetric long-run regression:
+𝑦𝑡 = 𝛽+ 𝑥𝑡+ + 𝛽 − 𝑥𝑡− + 𝑢𝑡 ,
+
+(2)
+
+where 𝛽 + and 𝛽− are the asymmetric long-run parameters associated with positive and
+negative changes in 𝑥𝑡 . If 𝛽 + = 𝛽 −, there is a symmetric effect of 𝑥 on 𝑦. If 𝛽 + > 0 and
+𝛽 − > 0, this implies that an increase in 𝑥 increases 𝑦, and a decrease in 𝑥 decreases 𝑦.
+This means that there are two possible scenarios: either 𝛽 + > 𝛽− or 𝛽− > 𝛽+ . The former
+suggests that there is a positive effect on 𝑦 caused by an increase in 𝑥, which exceeds the
+negative impact on 𝑦 caused by a comparable decline in 𝑥. The latter situation indicates
+that a decrease in 𝑥 has a larger negative effect on 𝑦 than the positive effect from an
+increase in 𝑥. Shin et al. (2014) combined Equation (2) with the conventional ARDL(p,q)
+approach of Pesaran et al. (2001), obtaining the following nonlinear ARDL model:
+𝑝
+
+𝑞
+
++
+−
+𝑦𝑡 = ∑ 𝜃𝑗 𝑦𝑗−𝑖 + ∑(𝜇𝑗+′ 𝑥𝑡−𝑗
++ 𝜇𝑗−′ 𝑥𝑡−𝑗
+) + 𝜀𝑡
+𝑗=1
+
+(3)
+
+𝑗=0
+
+where 𝑥𝑡 is a k×1 vector of multiple regressors, defined so that 𝑥𝑡 = 𝑥0 + 𝑥𝑡+ + 𝑥𝑡−, 𝜃𝑗 is
+the autoregressive parameter, 𝜇𝑗+′ and 𝜇𝑗−′ are the asymmetric distributed-lag parameters,
+and 𝜀𝑡 is an independent and identically distributed process with zero mean and constant
+variance, 𝜎𝜀2 . Following Pesaran et al. (2001), Equation (3) can be represented by the
+following asymmetric error correction model:
+
+12
+
+𝑝−1
+
+∆𝑦𝑡 = 𝛿𝑦𝑡−1 +
+
++
+𝜑𝑥+ 𝑥𝑡−1
+
++
+
+−
+𝜑𝑥− 𝑥𝑡−1
+
+𝑞−1
+
++
+−
++ ∑ 𝛾𝑗 ∆𝑦𝑗−𝑖 + ∑(𝛼𝑗+ ∆𝑥𝑡−𝑗
++ 𝛼𝑗− ∆𝑥𝑡−𝑗
+) + εt ,
+𝑗=1
+
+𝑝−1
+
+𝑗=0
+𝑞−1
+
+(4)
+
++
+−
+∆𝑦𝑡 = 𝛿ECT𝑡−1 + ∑ 𝛾𝑗 ∆𝑦𝑗−𝑖 + ∑(𝛼𝑗+ ∆𝑥𝑡−𝑗
++ 𝛼𝑗− ∆xt−j
+) + 𝜀𝑡 ,
+𝑗=1
+
+𝑗=0
+
+where 𝛿 = ∑𝑝𝑗=1 𝜃𝑗 − 1; 𝛾𝑗 = ∑𝑝𝑖=𝑗+1 𝜃𝑖 for 𝑗 = 1, … , 𝑝 − 1; 𝜑𝑥+ = ∑𝑞𝑗=0 𝜇𝑗+ ; 𝜑𝑥− =
+∑𝑞𝑗=0 𝜇𝑗− ; 𝛼0+ = 𝜇0+ ; 𝛼𝑗+ = − ∑𝑞𝑖=𝑗+1 𝜇𝑗+ for 𝑖 = 1, … , 𝑞 − 1; 𝛼0− = 𝜇0− ; 𝛼𝑗− = − ∑𝑞𝑖=𝑗+1 𝜇𝑗−
+for 𝑖 = 1, … , 𝑞 − 1; and ECT𝑡 = 𝑦𝑡 − 𝛽+ 𝑥𝑡+ − 𝛽 − 𝑥𝑡− is the nonlinear error correction
+term where 𝛽 + = − 𝜑𝑥+ /𝜑𝑦 and 𝛽 − = − 𝜑𝑥− /𝜑𝑦 are the asymmetric long-run
+coefficients. The long-run asymmetry is represented by 𝜑 + and 𝜑 − . The short-run
+asymmetry is represented by 𝛼𝑗+ and 𝛼𝑗− . We test the long-run asymmetry through a Wald
+test with the null hypothesis that 𝜑 + = 𝜑 − . We test the short-run symmetry through a
+Wald test of the null hypothesis that 𝛼𝑗+ = α−
+j ∀𝑖.
+4.4. Frequency-Domain Granger Causality Test
+As stated in Section 4.3, economic events, such as changes in the economic
+environment, changes in monetary and/or fiscal policy, etc., can create room for a
+nonlinear (rather than linear) relationship between RES and GDP. This nonlinearity may
+also arise due to frictions in the economy and/or asymmetric information flow, which
+leads to market inefficiency (Tiwari, 2012: 1573). In fact, it is important to note that one
+of the key assumptions of Granger causality tests, both in time and in frequency-domains,
+is that of parameter stability, i.e., the parameters in equations relating the variables do not
+change over the sample under consideration (Gupta et al., 2015: 803). Since we consider
+a relatively long span of time (1960:Q1-2019:Q2), it is likely that the relationship between
+GDP, RES, G, E, and RD suffers from structural breaks. However, unlike with symmetric
+causality testing, the results of the asymmetric causality tests are not affected by
+parameter instability/structural breaks, since they control for any bias that parameter
+instability would cause (Ranjbar et al., 2017: 27). Thus, we analyze the issue of Granger
+causality between RES and GDP in an asymmetric framework.
+With insights from Hatemi-J (2012), Toumi and Toumi (2019), and Kumar et al.
+(2019), we investigate asymmetric causality relationships between RES and GDP by
+incorporating the partial sum decompositions of Equation (1) (𝑥𝑡+ and 𝑥𝑡− ) using the
+13
+
+augmented vector autoregression (VAR) in level approach developed by Toda and
+Yamamoto (1995). However, instead of implementing the single test statistic in the time
+domain, which assumes that the causal relationship holds for all points in the frequency
+distribution, we use the frequency-domain Granger causality test of Breitung and
+Candelon (2006). Thus, with insights from Ranjbar et al. (2017), Chang et al. (2017), and
+Saliminezhad and Bahramian (2020), we combine the time-domain-asymmetric Granger
+causality framework with the symmetric-frequency-domain Granger causality approach.
+Since spectral causality is defined by the spectral density of the “effect” variable,
+frequency-wise measures are nonlinear functions of the parameters of the vector
+autoregressive regression (VAR) model. However, Breitung and Candelon (2006)
+developed a spectral Granger causality test that is easier to implement. The test can
+identify whether a particular component of the “cause” variable at frequency 𝜔 is useful
+for predicting the component of the “effect” variable at the same frequency one period
+ahead (Tastan, 2015: 1158).
+The details of the methodology developed by Breitung and Candelon (2006) have
+recently been applied and discussed in regard to studying Granger causal relationships
+between macroeconomic variables in works such as Krätschell and Schmidt (2017),
+Fromentin and Tadjeddine (2019), Bouri et al. (2019), and Manera et al. (2020). Thus,
+we only display the primary conclusions of the method in the Appendix, stating that
+Granger causality between RES and GDP can be tested at any frequency 𝜔 between 0 and
+𝜋.
+Breitung and Candelon (2006) suggest that the Toda and Yamamoto (1995)
+approach can also be used for the frequency domain test (see the Appendix). The Toda
+and Yamamoto (1995) approach to causality is considered an upgraded version of the
+Wald test. The method obtains efficient and consistent estimates even when the variables
+have different orders of integration. The Toda and Yamamoto (1995) model is constructed
+through a VAR in levels. In our research, the VAR specification would be as follows:
+
+14
+
+𝐺𝐷𝑃𝑡−𝑘
+𝐺𝐷𝑃𝑡−1
+𝐺𝐷𝑃𝑡
+𝑒𝐺𝐷𝑃
++
++
++
+RES𝑡−𝑘
+RES𝑡−1
+RES𝑡
+𝑒𝑅𝐸𝑆 +
+−
+−
+RES𝑡−𝑘
+RES𝑡−1
+RES𝑡−
+𝑒𝑅𝐸𝑆 −
++
++
++
+𝑒𝐺 +
+G
+G𝑡
+G𝑡−1
+𝑡−𝑘
+−
+−
+−
+G𝑡−1
+G𝑡−𝑘
+G𝑡
+= 𝐴0 + 𝐴1
++ ⋯ + 𝐴𝑘
++ 𝑒𝐺− ,
++
++
++
+𝑒𝐸 +
+E𝑡
+E𝑡−1
+E𝑡−𝑘
+−
+−
+𝑒𝐸−
+E𝑡−
+E𝑡−1
+E𝑡−𝑘
+𝑒
+𝑅𝐷+
+RD+
+RD+
+RD+
+𝑡
+𝑡−1
+𝑡−𝑘
+( 𝑒𝑅𝐷− )
+( RD−
+( RD−
+( RD−
+𝑡 )
+𝑡−1 )
+𝑡−𝑘 )
+
+(5)
+
+where 𝐴1 - 𝐴𝑘 are 9x9 matrices of coefficients with 𝐴0 as an identity matrix, 𝑒𝑠 are the
+disturbance terms (assumed to have zero mean and constant variance), and 𝑘 = 𝑝 + 𝑑max ,
+where 𝑝 is the lag length of the system and 𝑑max is the maximum order of integration that
+the variables need to become stationary. The null hypothesis of no Granger causality
+running from RES+ to GDP at a frequency ω (MRES+→GDP (𝜔)) involves only 𝛾𝑖 , 𝑖 =
+1, . . . , 𝑝 (where 𝛾𝑖 are the coefficients of RES + in Equation 5), which implies that the
+coefficients of the additional lagged variables are not included in the computation of the
+Wald statistic. The H0 can be tested by means of the F-test, which follows an F(𝑝, T −
+2𝑝) distribution for every 𝜔 between 0 and 𝜋.
+5. Empirical Results
+In this section, we present the empirical results of our research. We implement the
+nonlinear ARDL test of Shin et al. (2014) and the symmetric- and asymmetric-frequencydomain Granger causality test of Breitung and Candelon (2006), using the modified Wald
+test of Toda and Yamamoto (1995).
+Table 1. Summary statistics
+GDP
+Mean
+9.07
+Std. Dev.
+0.51
+Skewness
+–0.22
+Kurtosis
+1.84
+
+RES
+5.94
+0.48
+–0.07
+2.14
+
+G
+7.67
+0.32
+–0.28
+1.83
+
+E
+6.41
+0.99
+–0.13
+1.69
+
+RD
+5.44
+0.58
+–0.26
+1.96
+
+Notes: This table shows the descriptive statistics of the series GDP, RES, G, E, and RD. The data cover the period
+between 1960:Q1 and 2019:Q2. We dispose of a total of 238 quarterly observations for each variable.
+
+15
+
+The first step of our research is to investigate the degree of integration of the
+variables through the Breakpoint Unit Root test of Perron (1997). The test suggests that
+the variables are integrated of order one (Table 2).
+Table 2. Breakpoint Unit Root tests. Exogenous variables: individual effects and
+individual linear trends.
+Tests
+Variables
+GDP ∆GDP RES ∆RES
+G
+∆G
+E
+∆E
+RD
+∆RD
+Test –4.32 –11.80*** –4.84 –8.95*** –3.91 –5.39** –3.04 –19.99*** –4.71 –5.13*
+Statistic
+0.00
+0.11
+0.00
+0.58
+0.03
+0.95
+0.00
+0.15
+0.05
+P-value 0.32
+Notes: This table presents the Perron (1997) unit root test statistics. ∆ denotes first difference. The asterisks *, **, and
+*** denote rejection of the null hypothesis of a unit root process at the 10%, 5%, and 1% significance level,
+respectively. The break specification is intercept and trend, and the type of break is an innovational outlier. The lag
+length is selected by the Bayesian information criterion (BIC) of Schwarz (1978).
+
+Tables 3 and 4 report the results of the nonlinear ARDL test of Shin et al. (2014).
+The lag selection is carried out following the Akaike’s information criterion (AIC) of
+Akaike (1974) and the Bayesian information criterion (BIC) of Schwarz (1978). The lag
+length of the ARDL specification is validated by the absence of serial correlation in the
+residuals through the Breusch-Godfrey Lagrange multiplier test, which tests the null
+hypothesis that the errors are serially independent (see Breusch, 1978 and Godfrey, 1998).
+Additionally, the diagnostic tests reveal that there is no misspecification in the short- and
+long-run estimates, the non-normality of the error term, the serial correlation, and
+heteroscedasticity.
+
+16
+
+Table 3. Vector error correction model derived from the NARDL(6, 7, 7, 3, 0, 0, 1, 0, 1).
+Dependent variable: ∆GDPt
+Regressor
+Coefficient
+Std. Error
+t-Statistic
+P-value
+∆GDPt−1
+∆GDPt−2
+∆GDPt−3
+∆GDPt−4
+∆GDPt−5
+∆RESt+
++
+∆RESt−1
++
+∆RESt−2
++
+∆RESt−3
++
+∆RESt−4
++
+∆RESt−5
++
+∆RESt−6
+∆RESt−
+−
+∆RESt−1
+−
+∆RESt−2
+−
+∆RESt−3
+−
+∆RESt−4
+−
+∆RESt−5
+−
+∆RESt−6
++
+∆Gt
++
+∆Gt−1
++
+∆Gt−2
+∆Gt−
+∆Et+
+∆Et−
+∆RD+
+t
+∆RD−
+t
+ECTt−1
+
+–0.06
+0.08
+0.09
+0.07
+–0.10
+0.04***
+0.04***
+0.02
+0.01
+0.02
+0.02
+0.04
+0.11***
+0.06***
+–0.02
+–0.03
+0.04***
+–0.04
+–0.03
+0.32***
+0.11
+0.09
+0.09
+0.09***
+0.00
+0.12***
+0.12
+–0.28***
+
+Asymmetric short-run coefficients
+
+0.06
+0.06
+0.05
+0.05
+0.05
+0.02
+0.02
+0.02
+0.02
+0.02
+0.02
+0.01
+0.02
+0.02
+0.02
+0.02
+0.02
+0.02
+0.02
+0.05
+0.05
+0.05
+0.09
+0.01
+0.02
+0.04
+0.09
+0.03
+
+–1.06
+1.44
+1.72
+1.28
+–1.98
+2.99
+2.68
+1.01
+0.40
+1.02
+1.39
+2.54
+7.13
+3.43
+–1.07
+–2.12
+2.67
+–2.10
+–1.82
+6.37
+2.04
+1.72
+1.01
+6.32
+0.27
+2.72
+1.36
+–8.65
+
+F-Statistic
+13.47***
+
+P-value
+0.00
+
+0.29
+0.15
+0.09
+0.20
+0.05
+0.00
+0.01
+0.31
+0.69
+0.31
+0.17
+0.01
+0.00
+0.00
+0.29
+0.04
+0.01
+0.04
+0.07
+0.00
+0.04
+0.09
+0.32
+0.00
+0.79
+0.01
+0.18
+0.00
+
+Notes: This table display the results of the vector error correction model derived from the NARDL of Shin et al. (2014)
+(Equation (4)). ∆ denotes first difference. The asterisks *** indicate statistical significance at the 1% significance level. The
+lag order specification is adopted by the AIC and BIC. We also present the results of the short-run asymmetry test between
+the effects of ∆RES + and ∆RES − . The asterisks *** indicate rejection of the null hypothesis of symmetry at the 1% level.
+
+On the other hand, in Table 4 we see that the long-run coefficients of RES + and
+RES − carry their theoretically expected positive and significant coefficients, but we are
+not sure if the coefficients are significantly different from each other. To determine if this
+difference is statistically significant, we apply the standard F-test on the null hypothesis
+that 𝛽 + = 𝛽− , while the null hypothesis of short-run asymmetry is described by
+∑𝑞𝑖=0 𝛼𝑗+ = ∑𝑟𝑖=0 𝛼𝑗−. In Tables 3 and 4 we see that the F-tests are significant, which
+17
+
+implies rejecting the null hypothesis of symmetry both in the short and in the long run.
+Thus, RES has asymmetric short- and long-run effects on GDP. Asymmetries are
+important, since, in our case, they indicate that cyclical upturns and downturns in RES
+have asymmetrical effects on economic activity. For example, Table 4 shows that the
+estimated long-run coefficients of RES − are higher than those of RES +. It implies that, in
+the long run, a decrease in RES has a stronger impact on economic activity than a
+proportionally equal increase in RES.
+Table 4. Long-run coefficients. Dependent variable: GDP𝑡
+Variable
+Coefficient
+Std. Error
+RES +
+RES −
+G+
+G−
+E+
+E−
+RD+
+RD−
+Constant
+
+0.09***
+0.13***
+0.02
+0.43***
+0.30***
+0.16***
+0.32***
+–0.03
+8.05***
+
+Asymmetric long-run coefficients
+
+t-Statistic
+
+P-value
+
+0.01
+0.01
+0.08
+0.16
+0.03
+0.02
+0.03
+0.08
+0.01
+
+6.42
+15.88
+0.22
+2.63
+12.20
+8.78
+10.27
+-0.37
+651.86
+
+0.00
+0.00
+0.83
+0.01
+0.00
+0.00
+0.00
+0.71
+0.00
+
+F-statistic
+8.99***
+
+p-value
+0.00
+
+Notes: This table presents the coefficients of the long-run equilibrium relationship among the variables under study
+(Equation 2). The asterisks *** indicate statistical significance the 1% significance level. We also present the results
+of the long-run asymmetry test between the effects of RES + and RES −. The asterisks *** indicate rejection of the
+null hypothesis of symmetry at the 1% level.
+
+The calculated long-run effects are only meaningful in the presence of
+cointegration. In Table 3 we observe that the coefficient of the lagged error correction
+term (ECT𝑡−1 ) is negative and statistically significant. Thus, following the Engle and
+Granger (1987) approach, we conclude that a significant and negative coefficient for
+ECT𝑡−1 supports the existence of cointegration between GDP, RES, G, E, and RD. A
+significant and negative coefficient for ECT𝑡−1 does not only indicate convergence, but
+also the speed of adjustment to equilibrium. Thus, there is a nonlinear cointegrating
+relationship between the variables at the 1% significance level.
+The existence of cointegration indicates that our proposed model is analytically
+valid, since, if there exists a cointegrating relationship between a set of nonstationary
+variables, the same cointegrating relationship also exists in an extended variable space
+(Johansen, 2000). The presence of cointegration avoid finding spurious Granger causality
+
+18
+
+relationships and justifies the non-inclusion of additional variables, which would
+unnecessarily increase the number of cointegrating equations that would have to be
+identified and estimated (Herzer and Nunnenkamp, 2012: 253; Perez-Montiel and
+Manera, 2020a: 227).
+Once we have confirmed that the variables follow a long-run equilibrium
+relationship, we implement the Breitung and Candelon (2006) frequency-domain Granger
+causality test using the modified Wald test of Toda and Yamamoto (1995). Since the unit
+root tests suggest that the variables are I(1) processes, we establish 𝑑max =1. Following
+Toda and Yamamoto (1995) and Breitung and Candelon (2006), we fit a
+VAR(p+𝑑max ) model in levels, but implement the test using 𝑝 lags. We also include a
+time trend in the VAR system.
+We test for symmetric and asymmetric Granger causality by also considering the
+partial sum decompositions specified in Equation (2) in the Toda Yamamoto-Breitung
+Candelon approach. Thus, we test for Granger symmetric causality relationships between
+RES and GDP conditioning on G, E, and RD; for asymmetric Granger causality
+relationships between RES + and GDP conditional on G+ , E +, RD+, RES −, G− , E − and
+RD−; and, finally, for asymmetric Granger causality relationships between RES − and GDP
+conditional on G+ , E +, RD+, RES +, G− , E − and RD−.
+Following Ciner (2011), we test for Granger causality at high (𝜔=2.5) and low
+(𝜔=0.05) frequencies. According to Ciner (2011), the causality test at high and low
+frequency levels is equivalent to temporary (short-run) and permanent (long-run)
+causality test, respectively. We run the test using different lag orders, 𝑝 (from 3 to 6, since
+3 is the minimum number of lags necessary to get a sufficient dynamic structure in the
+model to perform the frequency decomposition). 14 We run the frequency-domain Granger
+causality tests using the Stata command bcgcausality developed by Tastan (2015).
+Table 5 displays the results of the frequency-domain Granger causality tests. The
+presence of Granger causality is examined at frequencies 0.05 and 2.5. Since long-run
+dynamics or the secular trend are represented by lower spectral frequency components
+and short-run linkages are represented by higher spectral frequency components, we
+
+14
+
+We are thankful to Jörg Breitung for this suggestion.
+19
+
+define these frequencies as long (0.05) and short (2.5) periodicities. Thus, despite relying
+on a VAR in levels, the Toda Yamamoto-Breitung Candelon test can be used to study
+whether the evolution of RES acts as a determinant of the secular trend of growth (see
+Bodart and Candelon, 2009; Ranjbar et al., 2017; and Aluko et al., 2020, among others).
+Table 5 shows that we cannot reject the null hypothesis of no symmetric Granger
+causality running from GDP to RES, conditional on G, E, and RD, at any significance level
+for frequencies 0.05 and 2.5. However, we reject the null hypothesis of no Granger
+causality running from RES to GDP at the 1% significance level for frequency 0.05. It
+implies that the lower spectral components of RES (which represent the secular trend of
+RES) unidirectionally Granger cause the lower spectral components of GDP. We also
+reject the null hypothesis of no Granger causality running from RES to GDP at the 1%
+significance level for frequency 2.5. It suggests that the higher spectral components of
+RES (which represent the short-run dynamics of RES) unidirectionally Granger cause the
+lower spectral components of GDP. Overall, we conclude that permanent (transient)
+shocks in RES Granger-cause permanent (transient) shocks in GDP; but not the other way
+around. Thus, these results suggest both transitory and permanent symmetric Granger
+causality running unidirectionally from RES to GDP.
+In Table 5, we also present the results of the asymmetric-frequency-domain
+Granger causality tests. In line with the symmetric Granger causality results, we observe
+that the positive and negative decompositions have a unidirectional Granger causal effect
+on output growth: Permanent (transient) positive (negative) shocks in RES Granger cause
+permanent (transient) positive (negative) shocks in GDP; while shocks in GDP do not
+Granger cause shocks in RES. The results presented in Table 5 indicate that there is
+enough statistical information to confirm the existence of short- and long-run Granger
+causality running unidirectionally from RES to GDP, suggesting that the dynamics of RES
+leads the evolution of GDP both in the short and in the long run.
+Overall, our results suggest that RES can be considered a driver of the secular
+growth rate of the US economy; at the same time, RES has determined the business cycle
+in the US since the sixties. Our results are in accordance with those papers that conclude
+that housing determines the business cycle (despite, as described in Section 2, most of
+these papers does not consider residential investment in volumes) and with those of
+
+20
+
+Arestis and Zhang (2020). On the other hand, our results differ from those of Huang et al.
+(2020), who also employ a frequency-domain framework but in orthodox strands.
+Table 5. Frequency-domain causality between GDP and RES, conditional on G, E, and RD.
+Symmetric model: GDP = 𝑓(RES, G, E, RD);
+Asymmetric model: GDP = 𝑓(RES + , G+ , E + , RD+ , RES −, G− , E − , RD− )
+
+𝜔 = 0.05
+
+𝜔 = 2.5
+
+𝜔 = 0.05
+
+𝜔 = 2.5
+
+Asymmetric causality
+RES − (GDP) →
+GDP(RES− )
+𝜔 = 0.05 𝜔 = 2.5
+
+RES → GDP
+
+3
+4
+5
+6
+
+0.00***
+0.00***
+0.00***
+0.00***
+
+0.00***
+0.00***
+0.00***
+0.00***
+
+0.00***
+0.00***
+0.00***
+0.00***
+
+0.00***
+0.02**
+0.37
+0.25
+
+0.00***
+0.00***
+0.01**
+0.02**
+
+0.00***
+0.00***
+0.00***
+0.00***
+
+GDP → RES
+
+3
+4
+5
+6
+
+0.75
+0.75
+0.34
+0.38
+
+0.77
+0.64
+0.22
+0.34
+
+0.56
+0.21
+0.69
+0.96
+
+0.41
+0.09
+0.09
+0.13
+
+0.13
+0.06
+0.47
+0.51
+
+0.16
+0.20
+0.23
+0.17
+
+Lags
+
+Symmetric causality
+
+Asymmetric causality
+RES + (GDP) → GDP(RES + )
+
+This table shows the results of the frequency-domain Granger causality tests. We report the p-values corresponding to
+the estimated Wald test statistic for the null hypothesis of no symmetric Granger causality running from RES(GDP) to
+GDP(RES), conditional on G, E, and RD (first column). We also report the results of asymmetric-frequency-domain
+Granger causality running from RES +(GDP) to GDP(RES +), conditional on G + , E + , RD+ , RES −, G−, E −, and RD−
+(second column); and from RES −(GDP) to GDP(RES −), conditional on G+, E + , RD+ , RES + , G− , E − , and RD− (third
+column). We employ different lag lengths, p, (from 3 to 6). We test Granger causality at frequency ω=0.05 and ω=2.5.
+The asterisks *** and ** denote rejection of the null hypothesis of no Granger causality at the 1% and 5% significance
+level.
+
+As a side result, the data in Tables 4 and 5 allow us to relate our findings with the
+autonomous demand-led growth literature. According to this literature, at the theoretical
+level, the whole of autonomous demand is the driving force of output in the long run. In
+this paper, we have shown that in the US during the time span considered, a prominent
+role has been played by a specific component of autonomous demand: residential
+investment. It does not seem too far-fetched to interpret this as a specific feature of
+American capitalism and its growth process, which are heavily based on credit to
+households.
+6. Concluding Remarks
+A growing body of Keynesian literature sees autonomous demand as the main
+driver of long-run growth, as prescribed by models such as the Sraffian supermultiplier
+and some variants of the neo-Kaleckian model. Our contribution belongs to this line of
+research, inasmuch we single out a specific component of autonomous demand and
+investigate its prominent role in the US variety of capitalism.
+21
+
+In this article, we have highlighted the role of residential investment as a driver
+of both the cycle and secular growth in the US. The main methodological novelty of our
+contribution is the combination of the asymmetric time-domain Granger causality
+approach with the spectral Granger causality framework, which provides an empirical
+strategy that allows testing for asymmetric frequency-domain Granger causality
+relationships between the variables. We found that the lower spectral components of RES
+(which represent long-run dynamics of RES) and the higher spectral components of RES
+(which represent short-run dynamics of RES) unidirectionally Granger cause the lower
+and the higher spectral components of GDP. Thus, we have found evidence of symmetric
+and asymmetric Granger causality running unidirectionally from residential investment
+to GDP, both in the short and in the long run. This implies that the dynamics of RES
+predict the dynamics of output both in the short and in the long run.
+According to Cesaratto (2015) and Fiebiger (2018), residential investment, while
+internal to the dynamics of a private capitalist economy, can be analogous to a
+Luxemburg-Kalecki external market. Our research provides an empirical validation for
+this assertion for the US economy, since we find evidence that the dynamics of residential
+investment drive the evolution of output, while the output does not exert any significant
+influence on the evolution of the residential investment. Thus, we conclude that
+residential investment, despite constituting a small overall share of GDP, is not only the
+cycle but is also the trend of the US economy.
+Appendix. Breitung and Candelonʼs (2006) methodology
+Following Breitung and Candelonʼs (2006) notation, let us consider 𝐘t = (𝑥𝑡 , 𝑦𝑡 )′
+a time series vector with stationary covariance. It can be described by a VAR(p) process
+such as
+
+𝚯(L)𝐘t = 𝜺𝑡 ,
+
+(1)
+
+where 𝚯(L) = 𝐈2 − 𝚯1 L − 𝚯2 L2 − … − 𝚯p Lp is a 2×2 lag polynomial with the backshift
+operator Li 𝐘t = 𝐘t−i ; 𝐈2 represents a 2×2 identity matrix; 𝚯i with i =1 ,2,...,p denotes a
+2×2 coeﬃcient matrix associated with lag i; and 𝜺𝑡 is a vector white-noise process with
+E(𝜀𝑡 )=0 and positive-deﬁnite covariance matrix 𝚺 = E(𝜺𝒕 𝜺𝒕 ′). After Cholesky
+22
+
+factorization, 𝐆′𝐆 = 𝚺 −1 (where 𝐆 is a lower-triangular matrix), a moving-average
+representation of the system in (5) can be represented as
+Φ (L) Φ𝟏𝟐 (L) 𝜀𝟏𝒕
+Ψ (L)
+𝐘𝑡 = 𝚽(L)𝜺𝑡 = [ 𝟏𝟏
+] [𝜀 ] = 𝞇(L)𝞰𝒕 = [ 𝟏𝟏
+Φ𝟐𝟏 (L) Φ𝟐𝟐 (L) 𝟐𝒕
+Ψ𝟐𝟏 (L)
+
+Ψ𝟏𝟐 (L) 𝜂𝟏𝒕
+] [ ],
+Ψ𝟐𝟐 (L) 𝜂𝟐𝒕
+
+where 𝞰𝒕 = 𝐆𝜺𝑡 ; E(𝞰𝒕 , 𝞰′𝒕 ) = I; 𝚽(L) = Θ(L)−1; and 𝞇(L) = 𝚽(L)G−1.
+The causality running from 𝑥 to y at frequency 𝜔 can be measured, following
+Geweke (1982), as
+
+M𝑥→𝑦 (𝜔) = log [1 +
+
+|Ψ12 (𝑒 −𝑖𝜔)|
+
+2
+
+|Ψ11 (𝑒 −𝑖𝜔)|
+
+2
+
+].
+
+(2)
+
+The condition Ψ12 (𝑒 −𝑖𝜔 ) = 0 implies no Granger causality from 𝑥 to 𝑦 at frequency .
+Breitung and Candelon (2006) show that this condition is satisfied if the condition
+𝑝
+
+𝑝
+
+|Θ12 (𝑒 −𝑖𝜔 )| = |∑ 𝜃𝑘,12 cos(𝑘𝜔) − 𝑖 ∑ 𝜃𝑘,12 sin(𝑘𝜔)| = 0
+𝑘=1
+
+(3)
+
+𝑘=1
+
+is also satisfied, where 𝜃𝑘,12 is the (1,2) element of 𝚯𝑘 . In this framework, the necessary
+and sufficient conditions for no causality are
+𝑝
+
+∑ 𝜃𝑘,12 cos(𝑘𝜔) = 0,
+
+(4)
+
+𝑘=1
+
+and
+𝑝
+
+∑ 𝜃𝑘,12 sin(𝑘𝜔) = 0.
+
+(5)
+
+𝑘=1
+
+To simplify the notation, following Breitung and Candelon (2006), let’s denote
+𝛾𝑘 = 𝜃𝑘,11 and 𝛽𝑘 = 𝜃𝑘,12, and write the following VAR equation:
+
+𝑦𝑡 = γ1 𝑦𝑡−1 +. . . +γ𝑝 𝑦𝑡−𝑝 + 𝛽1 𝑥𝑡−1 +. . . +𝛽𝑝 𝑥𝑡−p + 𝑒1𝑡 .
+
+23
+
+(6)
+
+The null hypothesis of no causality M𝑥→𝑦 (𝜔) = 0 is equivalent to the linear restriction
+′
+cos(𝜔)
+H0 : R(𝜔)𝛽 = 0, where 𝛽 is [𝛽1 , . . . , 𝛽𝑝 ] and R(𝜔) is [
+sin(𝜔)
+
+cos(2𝜔) … cos(p𝜔)
+].
+sin(2𝜔) … sin(p𝜔)
+
+According to Breitung and Candelon (2006), in a cointegrating system such as
+𝑝−1
+
+∆𝐘𝑡 = Π𝐘𝑡−1 + ∑ Г𝑖 ∆𝐘𝑡−i + 𝑒𝑡 ,
+𝑖=1
+
+testing the null of no causality at frequency zero is interesting, since in this special case
+Θ(𝑒 0 ) = Θ1 − I + Θ2 +. . . +Θp = Π, which is called the impact matrix. Testing the null
+of no causality at frequency zero in a cointegrating system would imply testing 𝜇12 =
+0 in the following regression:
+𝑝−1
+
+𝑝−1
+
+∆𝑥𝑡 = 𝜇11 𝑥𝑡−1 + 𝜇12 𝑦𝑡−1 + ∑ 𝛾11𝑖 ∆𝑥𝑡−𝑖 + ∑ 𝛾12𝑖 ∆𝑦𝑡−𝑖 + 𝑒1𝑡 ,
+𝑖=1
+
+(7)
+
+𝑖=1
+
+where 𝜇 and 𝛾 denote the (𝑖, 𝑗) element of Π and Г𝑘 , respectively. Testing 𝜇12 = 0 is
+equivalent to testing long-run causality (Pittis, 1999).
+If in the bivariate cointegrating system 𝑥 is integrated of order 0 and 𝑦 is integrated
+of order 1, the Wald test for the hypothesis 𝜇12 = 0 does not have a standard limiting
+distribution (Sims et al., 1990). Similar problems are faced in higher-dimensional systems
+if a block of the matrix Π is singular (Breitung and Candelon, 2006: 368). Breitung and
+Candelon (2006) suggested that the Toda and Yamamoto (1995) method can be used to
+overcome this difficulty.
+
+References
+Akaike, Hirotugu. 1974. “A New Look at the Statistical Model Identification.” Pp. 215–
+22 in. Springer, New York, NY.
+Al-mulali, Usama, Sakiru Adebola Solarin, and Ilhan Ozturk. 2019. “Examining the
+Asymmetric Effects of Stock Markets on Malaysia’s Air Pollution: A Nonlinear
+ARDL Approach.” Environmental Science and Pollution Research 26(34):34977–
+24
+
+82.
+Allain, Olivier. 2015. “Tackling the Instability of Growth: A Kaleckian-Harrodian
+Model with an Autonomous Expenditure Component.” Cambridge Journal of
+Economics 39(5):1351–71.
+Allain, Olivier. 2019. “Demographic Growth, Harrodian (in)Stability and the
+Supermultiplier.” Cambridge Journal of Economics 43(1):85–106.
+Alsamara, Mouyad, Zouhair Mrabet, Michel Dombrecht, and Karim Barkat. 2017.
+“Asymmetric Responses of Money Demand to Oil Price Shocks in Saudi Arabia:
+A Non-Linear ARDL Approach.” Applied Economics 49(37):3758–69.
+Aluko, O. A., & Adeyeye, P. O. 2020. “Imports and economic growth in Africa: Testing
+for granger causality in the frequency domain.” The Journal of International Trade
+& Economic Development: 1-15.
+Arestis, Philip, and Ana Rosa González-Martínez. 2015. “Residential Construction
+Activity in OECD Economies.” The Manchester School 83(4):451–74.
+Arestis, Philip, and Sixia Zhang. 2020. “Are There Irrational Bubbles under the High
+Residential Housing Prices in China’s Major Cities?” Panoeconomicus 67(1):1–26.
+Bahmani-Oskooee, Mohsen, and Abera Gelan. 2019. “Asymmetric Effects of Exchange
+Rate Changes on the Demand for Money in Africa.” Applied Economics
+51(31):3365–75.
+Bodart, Vincent, and Bertrand Candelon. 2009. “Evidence of Interdependence and
+Contagion Using a Frequency Domain Framework.” Emerging Markets Review
+10(2):140–50.
+Bortis, Heinrich. 1997. Institutions, Behaviour, and Economic Theory : A Contribution
+to Classical-Keynesian Political Economy. Cambridge University Press.
+Bouri, Elie, Brian Lucey, and David Roubaud. 2019. “The Volatility Surprise of
+Leading Cryptocurrencies: Transitory and Permanent Linkages.” Finance Research
+Letters.
+Breitung, Jörg, and Bertrand Candelon. 2006. “Testing for Short- and Long-Run
+Causality: A Frequency-Domain Approach.” Journal of Econometrics 132(2):363–
+78.
+Breusch, T. S. 1978. “Testing for Autocorrelation in Dynamic Models.” Australian
+25
+
+Economic Papers 17(31):334–55.
+Cesa-Bianchi, Ambrogio. 2013. “Housing Cycles and Macroeconomic Fluctuations: A
+Global Perspective.” Journal of International Money and Finance 37:215–38.
+Cesaratto, Sergio, Franklin Serrano, and Antonella Stirati. 2003. “Technical Change,
+Effective Demand and Employment.” Review of Political Economy 15(1):33–52.
+Cesaratto, Sergio. 2015. “Neo-Kaleckian and Sraffian Controversies on the Theory of
+Accumulation.” Review of Political Economy 27(2):154–82.
+Cesaratto, Sergio. 2016. “The State Spends First: Logic, Facts, Fictions, Open
+Questions.” Journal of Post Keynesian Economics 39(1):44–71.
+Cesaratto, Sergio. 2017. Beyond the Traditional Monetary Circuit: Endogenous Money,
+Finance and the Theory of Long-Period Effective Demand. Department of
+Economics, University of Siena.
+Chang, Tsangyao, Omid Ranjbar, and Charl Jooste. 2017. “Stock Market Interactions
+between the BRICS and the United States: Evidence from Asymmetric Granger
+Causality Tests in the Frequency Domain.” Iranian Economic Review 21(2):297–
+320.
+Ciner, C.2011. “Commodity Prices and Inflation: Testing in the Frequency Domain.”
+Research in International Business and Finance 25 (3):229–237.
+Dejuan, Óscar. 2005. “Paths of Accumulation and Growth: Towards a Keynesian LongPeriod Theory of Output.” Review of Political Economy 17(2):231–52.
+Deleidi, M, and M. Mazzucato. 2019. Mission-Oriented Innovation Policies: A
+Theoretical and Empirical Assessment for the US Economy. Roma.
+Deleidi, Matteo, and Giuseppe Fontana. 2020. “Money Creation in the Eurozone: An
+Empirical Assessment of the Endogenous and the Exogenous Money Theories.”
+Review of Political Economy 1–23.
+Deleidi, Matteo, and Mariana Mazzucato. 2019. “Putting Austerity to Bed: Technical
+Progress, Aggregate Demand and the Supermultiplier.” Review of Political
+Economy 31(3):315–35.
+Deleidi, Matteo, Mariana Mazzucato, and Gregor Semieniuk. 2020. “Neither Crowding
+in nor out: Public Direct Investment Mobilising Private Investment into Renewable
+Electricity Projects.” Energy Policy 140:111195.
+26
+
+Duesenberry, J. S. (1949). Income, saving and the theory of consumer behavior.
+Cambridge: Harvard University Press.
+Duesenberry, J. S. (1958). Business cycles and economic growth.
+Enders, Walter, and Pierre L. Siklos. 2001. “Cointegration and Threshold Adjustment.”
+Journal of Business and Economic Statistics 19(2):166–76.
+Engle, Robert F., and C. W. J. Granger. 1987. “Co-Integration and Error Correction:
+Representation, Estimation, and Testing.” Econometrica 55(2):251.
+Fazzari, S., P. Ferri, and A. Variato. 2020. “Demand-Led Growth and Accommodating
+Supply.” Cambridge Journal of Economics 31(6):583–605.
+Fiebiger, Brett. 2018. “Semi-Autonomous Household Expenditures as the Causa
+Causans of Postwar US Business Cycles: The Stability and Instability of
+Luxemburg-Type External Markets.” Cambridge Journal of Economics 42(1):155–
+75.
+Fiebiger, Brett, and Marc Lavoie. 2019. “Trend and Business Cycles with External
+Markets: Non‐capacity Generating Semi‐autonomous Expenditures and Effective
+Demand.” Metroeconomica 70(2):247–62.
+Fontana, Giuseppe, and Mark Setterfield. 2009. “Macroeconomics, Endogenous Money
+and the Contemporary Financial Crisis: A Teaching Model.” International Journal
+of Pluralism and Economics Education 1(1–2):130–47.
+Freitas, Fabio, and Franklin Serrano. 2015. “Growth Rate and Level Effects, the
+Stability of the Adjustment of Capacity to Demand and the Sraffian
+Supermultiplier.” Review of Political Economy 27(3):258–81.
+Fromentin, Vincent, and Yamina Tadjeddine. 2019. “Cross-Border Workers and
+Financial Instability: A Frequency Domain Causality Analysis Applied to the
+Luxembourg Financial Centre.” Applied Economics Letters.
+Geweke, John. 1982. “Measurement of Linear Dependence and Feedback between
+Multiple Time Series.” Journal of the American Statistical Association
+77(378):304–13.
+Ghent, Andra C., and Michael T. Owyang. 2010. “Is Housing the Business Cycle?
+Evidence from US Cities.” Journal of Urban Economics 67(3):336–51.
+Girardi, Daniele, and Riccardo Pariboni. 2016. “Long-Run Effective Demand in the US
+27
+
+Economy: An Empirical Test of the Sraffian Supermultiplier Model.” Review of
+Political Economy 28(4):523–44.
+Godfrey, Leslie G. 1998. “Hausman Tests for Autocorrelation in the Presence of
+Lagged Dependent Variables: Some Further Results.” Journal of Econometrics
+82(2):197–207.
+Goodhart, C., and B. Hofmann. 2008. “House Prices, Money, Credit, and the
+Macroeconomy.” Oxford Review of Economic Policy 24(1):180–205.
+Granger, C. W. J. 1969. “Investigating Causal Relations by Econometric Models and
+Cross-Spectral Methods.” Econometrica 37(3):424.
+Granger, Clive W. J., and Gawon Yoon. 2002. “Hidden Cointegration.” SSRN
+Electronic Journal.
+Gupta, Rangan, Luis A. Gil-Alana, and Olaoluwa S. Yaya. 2015. “Do Sunspot Numbers
+Cause Global Temperatures? Evidence from a Frequency Domain Causality Test.”
+Applied Economics 47(8):798–808.
+Hamilton, James D. 1989. “A New Approach to the Economic Analysis of
+Nonstationary Time Series and the Business Cycle.” Econometrica 57(2):357.
+Hatemi-J, Abdulnasser. 2012. “Asymmetric Causality Tests with an Application.”
+Empirical Economics 43(1):447–56.
+Hein, Eckhard. 2018. “Autonomous Government Expenditure Growth, Deficits, Debt,
+and Distribution in a Neo-Kaleckian Growth Model.” Journal of Post Keynesian
+Economics 41(2):316–38.
+Herzer, Dierk, and Peter Nunnenkamp. 2012. “The Effect of Foreign Aid on Income
+Inequality: Evidence from Panel Cointegration.” Structural Change and Economic
+Dynamics 23(3):245–55.
+Hosoya, Yuzo. 1991. “The Decomposition and Measurement of the Interdependency
+between Second-Order Stationary Processes.” Probability Theory and Related
+Fields 88(4):429–44.
+Huang, Yuting, Qiang Li, Kim Hiang Liow, and Xiaoxia Zhou. 2018. Is Housing the
+Business Cycle? A Multi-Resolution Analysis for OECD Countries.
+Huang, Yuting, Qiang Li, Kim Hiang Liow, and Xiaoxia Zhou (2020). Is Housing the
+Business Cycle? A Multiresolution Analysis for OECD Countries. Journal of
+28
+
+Housing Economics, 101692.
+Ivanovski, Kris, and Sefa Awaworyi Churchill. 2019. “Economic Policy Uncertainty
+and Demand for Money in Australia.” Applied Economics 51(41):4516–26.
+Johansen, Søren. 2000. “Modelling of Cointegration in the Vector Autoregressive
+Model.” Economic Modelling 17(3):359–73.
+Jordà, Òscar, Moritz Schularick, and Alan M. Taylor. 2016. “The Great Mortgaging:
+Housing Finance, Crises and Business Cycles.” Economic Policy 31(85):107–52.
+Kalecki, M. 1967. “The Problem of Effective Demand with Tugan-Baranowski and
+Rosa Luxemburg”, in Selected Essays on the Dynamics of the Capitalist Economy
+1933–1970, 146–155.
+Kalecki, M. 1968. “Trend and Business Cycles Reconsidered.” The Economic Journal
+78(310):263.
+Kalecki, M. 1971. Selected Essays on the Dynamics of the Capitalist Economy 19331970.
+Kapetanios, George, Yongcheol Shin, and Andy Snell. 2006. “Testing for Cointegration
+in Nonlinear Smooth Transition Error Correction Models.” Econometric Theory
+22(2):279–303.
+Keynes, John Maynard. 1936. The General Theory of Employment, Interest, and Money.
+Macmillan: London.
+Kohlscheen, Emanuel, Aaron N. Mehrotra, and Dubravko Mihaljek. n.d. Residential
+Investment and Economic Activity: Evidence from the Past Five Decades. 726.
+Krätschell, Karoline, and Torsten Schmidt. 2017. “Long-Run Waves or Short-Run
+Fluctuations–What Establishes the Correlation between Oil and Food Prices?”
+Applied Economics 49(54):5535–46.
+Krolzig, HM. 1997. “Markov-Switching Vector Autoregressions: Modelling, Statistical
+Inference, and Application to Business Cycle Analysis.” in Lecture notes in
+economics and mathematical systems (vol 454). New York: Springer.
+Kumar, Nikeel, Ronald Ravinesh Kumar, Radika Kumar, and Peter Josef Stauvermann.
+2019. “Is the Tourism–Growth Relationship Asymmetric in the Cook Islands?
+Evidence from NARDL Cointegration and Causality Tests.” Tourism Economics
+29
+
+135481661985971.
+Kydland, Finn E., Peter Rupert, and Roman Šustek. 2016. “Housing Dynamics over the
+Busness Cycle.” International Economic Review 57(4):1149–77.
+Lavoie, Marc. 2016. “Convergence towards the Normal Rate of Capacity Utilization in
+Neo-Kaleckian Models: The Role of Non-Capacity Creating Autonomous
+Expenditures.” Metroeconomica 67(1):172–201.
+Lavoie, Marc. 2017. “Prototypes, Reality and the Growth Rate of Autonomous
+Consumption Expenditures: A Rejoinder.” Metroeconomica 68(1):194–99.
+Leamer, Edward. 2007. Housing IS the Business Cycle. Cambridge, MA.
+Leamer, Edward E. 2015. “Housing Really Is the Business Cycle: What Survives the
+Lessons of 2008-09?” Journal of Money, Credit and Banking 47(S1):43–50.
+Luxemburg, Rosa. 1913. The Accumulation of Capital. New York: Monthly Review
+Press.
+Mandarino, G. V., Dos Santos, C. H., & e Silva, A. C. M. (2020). Workers' debtfinanced consumption: a supermultiplier stock–flow consistent model. Review of
+Keynesian Economics, 8(3), 339-364.
+Manera, Carles, Ferran Navines, Jose Antonio Perez-Montiel, and Javier Franconetti.
+2020. Capital Productivity and the Profit Share in the United States: A Keynesian
+Approach. Palma de Mallorca.
+Médici, Florencia. 2011. “Un Análisis de Cointegración Del Principio de La Demanda
+Efectiva En Argentina (1980-2007).” Bcra.Gov.Ar 104(3):013–137.
+Musso, Alberto, Stefano Neri, and Livio Stracca. 2011. “Housing, Consumption and
+Monetary Policy: How Different Are the US and the Euro Area?” Journal of
+Banking and Finance 35(11):3019–41.
+Nah, Won Jun, and Marc Lavoie. 2017. “Long-Run Convergence in a Neo-Kaleckian
+Open-Economy Model with Autonomous Export Growth.” Journal of Post
+Keynesian Economics 40(2):223–38.
+Palley, Thomas. 2019. “The Economics of the Super‐multiplier: A Comprehensive
+Treatment with Labor Markets.” Metroeconomica 70(2):325–40.
+Palley, Thomas I. 1997. “Endogenous Money and the Business Cycle.” Journal of
+Economics/ Zeitschrift Fur Nationalokonomie 65(2):133–49.
+30
+
+Perez-Montiel, José A., and Carles Manera. 2020. “Autonomous Expenditures and
+Induced Investment: A Panel Test of the Sraffian Supermultiplier Model in
+European Countries.” Review of Keynesian Economics 8(2):220–39.
+Perez-Montiel, Jose, and Carles Manera. 2020. “Permanent Demand and Induced
+Investment in the General Theory: An Empirical Investigation.” Revista de
+Economía Mundial 54:109–30.
+Perron, Pierre. 1997. “Further Evidence on Breaking Trend Functions in
+Macroeconomic Variables.” Journal of Econometrics 80(2):355–85.
+Pesaran, M. Hashem, Yongcheol Shin, and Richard J. Smith. 2001. “Bounds Testing
+Approaches to the Analysis of Level Relationships.” Journal of Applied
+Econometrics 16(3):289–326.
+Petrini, Gabriel, and Lucas Teixeira. 2020. Long Run Effective Demand: Introducing
+Residential Investment in a Sraffian Supermultiplier Stock-Flow Consistent Model.
+Pittis, Nikitas. 1999. “Efficient Estimation Of Cointegrating Vectors and Testing for
+Causality in Vector Autoregressions.” Journal of Economic Surveys 13(1):1–35.
+Psaradakis, Zacharias, Martin Sola, and Fabio Spagnolo. 2004. “On Markov ErrorCorrection Models, with an Application to Stock Prices and Dividends.” Journal of
+Applied Econometrics 19(1):69–88.
+Ranjbar, O., T. Chang, E. Nel, and R. Gupta. 2017. “Energy Consumption and
+Economic Growth Nexus in South Africa: Asymmetric Frequency Domain
+Approach.” Energy Sources, Part B: Economics, Planning and Policy 12(1):24–
+31.
+Ren, Yu, and Yufei Yuan. 2014. “Why the Housing Sector Leads the Whole Economy:
+The Importance of Collateral Constraints and News Shocks.” Journal of Real
+Estate Finance and Economics 48(2):323–41.
+Saliminezhad, Andisheh, and Pejman Bahramian. 2020. “Clean Energy Consumption
+and Economic Growth Nexus: Asymmetric Time and Frequency Domain Causality
+Testing in China.” Energy Sources, Part B: Economics, Planning and Policy.
+Schwarz, Gideon. 1978. “Estimating the Dimension of a Model.” The Annals of
+Statistics 6(2):461–64.
+Serrano, Franklin. 1995. “Long Period Effective Demand and the Sraffian
+31
+
+Supermultiplier.” Contributions to Political Economy 14(1):67–90.
+Setterfield, Mark, and Yun K. Kim. 2016. “Debt Servicing, Aggregate Consumption,
+and Growth.” Structural Change and Economic Dynamics 36:22–33.
+Shahzad, Syed Jawad Hussain, Safwan Mohd Nor, Roman Ferrer, and Shawkat
+Hammoudeh. 2017. “Asymmetric Determinants of CDS Spreads: U.S. IndustryLevel Evidence through the NARDL Approach.” Economic Modelling 60:211–30.
+Sherman, H. J. (2010). The roller coaster economy: Financial crisis, great recession and
+the public option. Armonk: M.E. Sharpe.
+Shin, Yongcheol, Byungchul Yu, and Matthew Greenwood-Nimmo. 2014. “Modelling
+Asymmetric Cointegration and Dynamic Multipliers in a Nonlinear ARDL
+Framework.” Pp. 281–314 in Festschrift in Honor of Peter Schmidt. Springer New
+York.
+Sims, Christopher A., James H. Stock, and Mark W. Watson. 1990. “Inference in Linear
+Time Series Models with Some Unit Roots.” Econometrica 58(1):113.
+Skott, Peter. 2017a. “Autonomous Demand, Harrodian Instability and the Supply Side.”
+Metroeconomica.
+Skott, Peter. 2017b. “Autonomous Demand and the Harrodian Criticisms of the
+Kaleckian Model.” Metroeconomica 68(1):185–93.
+Sraffa, Piero. 1960. Production of Commodities by Means of Commodities; Prelude to a
+Critique of Economic Theory. University Press.
+Tastan, Hüseyin. 2015. “Testing for Spectral Granger Causality.” The Stata Journal
+15(4):1157–66.
+Tiwari, Aviral Kumar. 2012. “An Empirical Investigation of Causality between
+Producers’ Price and Consumers’ Price Indices in Australia in Frequency
+Domain.” Economic Modelling 29(5):1571–78.
+Toda, Hiro Y., and Taku Yamamoto. 1995. “Statistical Inference in Vector
+Autoregressions with Possibly Integrated Processes.” Journal of Econometrics
+66(1–2):225–50.
+Toumi, Saïd, and Hassen Toumi. 2019. “Asymmetric Causality among Renewable
+Energy Consumption, CO2 Emissions, and Economic Growth in KSA: Evidence
+from a Non-Linear ARDL Model.” Environmental Science and Pollution Research
+32
+
+26(16):16145–56.
+
+33
+
+

@@ -31,6 +31,8 @@ Emacs is compiled from source with the following configuration
   sudo make install
 #+END_SRC
 
+*Update:* Added ~--with-nativecomp~ flag as suggested for performance increase ([[https://www.emacswiki.org/emacs/GccEmacs#toc1][Instructions]])
+
 the following configs was added to emacs init file
 
 #+BEGIN_SRC elisp :eval no

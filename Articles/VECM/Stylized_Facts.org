@@ -1,0 +1,581 @@
+* Configs :noexport:
+bibliography:ref.bib
+#+PROPERTY: header-args:python :results output drawer :session empirical :exports none :tangle ./Stylized_Facts.py :eval never-export :python /usr/bin/python3
+
+** Packages
+#+begin_src python
+from datetime import datetime as dt
+
+t1 = dt.now()
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+plt.rc('axes', titlesize=22)     # fontsize of the axes title
+plt.rcParams.update({"font.size": 15})
+import pandas_datareader.data as web
+
+from scipy.interpolate import make_interp_spline, BSpline  # Smooth plot
+
+sns.set(style="whitegrid")
+sns.set_context("paper")
+#+end_src
+
+#+RESULTS:
+:results:
+:end:
+
+
+** Functions and variables
+
+#+begin_src python
+plt.rc('legend', fontsize=14)    # legend fontsize
+def crise_subprime(axes, alpha=0.4):
+    axes.axvspan(
+        xmin="2007-12-01",
+        xmax="2009-06-01",
+        color="gray",
+        label="subprime crisis",
+        zorder=0,
+        alpha=alpha,
+    )
+
+
+def crises(axes, color="lightgray", alpha=0.4):
+    axes.axvspan(
+        xmin="1953-07", xmax="1954-04", color=color, alpha=alpha, label="Recession"
+    )
+    axes.axvspan(xmin="1957-08", xmax="1958-05", color=color, alpha=alpha, label="")
+    axes.axvspan(xmin="1960-05", xmax="1961-02", color=color, alpha=alpha, label="")
+    axes.axvspan(xmin="1969-12", xmax="1970-11", color=color, alpha=alpha, label="")
+    axes.axvspan(xmin="1973-11", xmax="1975-03", color=color, alpha=alpha, label="")
+    axes.axvspan(xmin="1980-01", xmax="1980-07", color=color, alpha=alpha, label="")
+    axes.axvspan(xmin="1981-07", xmax="1982-01", color=color, alpha=alpha, label="")
+    axes.axvspan(xmin="1990-07", xmax="1991-03", color=color, alpha=alpha, label="")
+    axes.axvspan(xmin="2001-03", xmax="2001-11", color=color, alpha=alpha, label="")
+
+
+start = dt(1949, 1, 1)
+end = dt(2019, 1, 1)
+recessions = web.get_data_fred("USRECM", start, end)
+recessions.columns = ["Recessions"]
+recessions["xmin"] = False
+recessions["xmax"] = False
+for i in range(len(recessions["Recessions"]) - 1):
+    recessions.iscopy = True
+    if (
+        recessions["Recessions"].iloc[i] == 0
+        and recessions["Recessions"].iloc[i + 1] == 1
+    ):
+        recessions["xmin"].iloc[i + 1] = True
+    elif (
+        recessions["Recessions"].iloc[i] == 1
+        and recessions["Recessions"].iloc[i + 1] == 0
+    ):
+        recessions["xmax"].iloc[i + 1] = True
+
+
+def recessions_bars(ax):
+    import matplotlib.pyplot as plt
+
+    xmin = recessions[recessions["xmin"] == True]["xmin"]
+    xmax = recessions[recessions["xmax"] == True]["xmax"]
+
+    for i in range(len(xmax)):
+        ax.axvspan(xmin=xmin.index[i], xmax=xmax.index[i], alpha=0.3, color="k")
+
+
+def default_plot():
+    plt.xlabel("")
+    sns.set_context("talk")
+    plt.rcParams["axes.edgecolor"] = "#333F4B"
+    plt.rcParams["axes.linewidth"] = 0.8
+    plt.rcParams["xtick.color"] = "#333F4B"
+    plt.rcParams["ytick.color"] = "#333F4B"
+    ax.grid(False)
+    ax.spines["top"].set_color("none")
+    ax.spines["right"].set_color("none")
+    ax.spines["left"].set_smart_bounds(True)
+    ax.spines["bottom"].set_smart_bounds(True)
+    sns.despine()
+
+
+def salvar_grafico(file_name, extension="png", pasta="./figs/"):
+    fig.savefig(
+        pasta + file_name + "." + extension,
+        dpi=600,
+        bbox_inches="tight",
+        format=extension,
+        pad_inches=0.2,
+        transparent=False,
+    )
+#+end_src
+
+#+RESULTS:
+:results:
+/home/gpetrini/.local/lib/python3.8/site-packages/pandas/core/indexing.py:670: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  iloc._setitem_with_indexer(indexer, value)
+:end:
+
+** Endividamento das famílias e preço dos imóveis
+
+
+#+begin_src python :results graphics file :file ./figs/Divida_PrecoImoveis.png
+start = dt(1947, 1, 1)
+end = dt(2015, 1, 1)
+
+df = web.DataReader(
+    [
+        "CMDEBT",  # debt securities and loans; liability, Level
+        "CSUSHPINSA",  # S&P/Case-Shiller U.S. National Home Price Index
+    ],
+    "fred",
+    start,
+    end,
+)
+
+df.columns = [
+    "Household debt",
+    "House prices",
+]
+
+for i in df.columns:
+    df[i] = (df[i] / df[i]["2000-01-01"]) * 100
+
+df.index.name = ""
+df = df.resample("QS").mean().dropna()
+
+fig, ax = plt.subplots(figsize=(19.2, 10.8))
+
+df.iloc[df.index >= "1970-01", :].plot(
+    ax=ax,
+    color=("darkred", "darkblue"),
+    linewidth=2.5,
+)
+
+crise_subprime(ax)
+crises(ax)
+ax.legend()
+ax.tick_params(axis="both", which="major", labelsize=15)
+ax.set_title("Jan/2000 = 100", fontsize=22)
+plt.close()
+salvar_grafico(file_name="Divida_PrecoImoveis")
+#+end_src
+
+#+RESULTS:
+[[file:./figs/Divida_PrecoImoveis.png]]
+
+** Household credit
+
+#+begin_src python :results graphics file :file ./figs/FIDCIA.png
+start = dt(1945, 1, 1)
+end = dt(2015, 1, 1)
+
+df = web.DataReader(
+    [
+        'BOGZ1FL154104015Q', # home mortgages and consumer credit; liability, Level
+        'HHMSDODNS', # home mortgages; liability, Level
+    ],
+    'fred',
+    start,
+    end
+)
+
+df.columns = [
+    'Household credit',
+    'Mortgages'
+]
+
+df.index.name = ''
+df = df.pct_change(4).dropna()
+
+
+fig, ax = plt.subplots(figsize=(19.2, 10.8))
+
+df.iloc[df.index>='1978-01',:].plot(
+    ax=ax,
+    linewidth=2.5,
+    color=('darkred', 'darkblue')
+)
+
+crise_subprime(ax)
+crises(ax)
+ax.axvline(
+    x="1991-12-19",
+    label='FDICIA',
+    color='black',
+    ls='-',
+    linewidth=1.75
+)
+ax.axvline(
+    x="1989-02-06",
+    label='FIRREA',
+    color='black',
+    ls='--',
+    linewidth=1.75
+)
+
+ax.legend(fontsize=14)
+
+ax.text(
+    s = "Fed. Deposit Insurance \nCorp. Improvement Act \n(FDICIA)",
+    y = 0.17,
+    x="1992-06-01",
+    fontsize=12,
+       )
+
+ax.text(
+    s = "Fin. Instit. Reform, Recovery, \nand Enactment Act (FIRREA)",
+    y = 0.,
+    x="1988-08-01",
+    fontsize=12,
+    horizontalalignment='right'
+       )
+
+ax.tick_params(axis="both", which="major", labelsize=15)
+
+sns.despine()
+plt.close()
+salvar_grafico(file_name="FDICIA")
+#+end_src
+
+#+RESULTS:
+:results:
+:end:
+
+** Volatilidade e participação
+
+#+begin_src python :results graphics file :file ./figs/subplots.png
+start = dt(1947, 1, 1)
+end = dt(2015, 1, 1)
+
+df = web.DataReader(
+    [
+        "PRFI",  # Domestic business
+        "PNFI",  # Households and institutions
+        "GDP",  # Gross Domestic Product
+    ],
+    "fred",
+    start,
+    end,
+)
+
+df.columns = ["Residential", "Non-Residential", "GDP"]
+df.index.name = ""
+df = df.pct_change(4).dropna()
+df = df.dropna()
+
+df["Great Recession"] = [
+    "Pre Crisis" if i < dt(2009, 1, 1) else "Post Crisis" for i in df.index
+]
+df["Great Recession"] = df["Great Recession"].astype("category")
+df = pd.melt(
+    df, value_vars=["Residential", "Non-Residential", "GDP"], id_vars="Great Recession"
+)
+
+
+share = web.get_data_fred(
+    ["GDP", "EXPGS", "GCE", "PRFI", "HCCSDODNS", "PRFI", "PCEC", "IMPGS"],  #'TOTALSL',
+    start,
+    end,
+)
+
+share.columns = [
+    "GDP",
+    "Exports",
+    "Gov. expenditures",
+    "Residential investment",
+    "Consumer credit",
+    "Non-residential investment",
+    "Consumption",
+    "Importações",
+]
+
+Z = ["Exports", "Gov. expenditures", "Residential investment", "Consumer credit"]
+
+share["Autonomos"] = share[Z].sum(axis=1)
+
+share = share.resample("QS").mean()
+share = share["1979":]
+share.index.name = ""
+
+fig, ax = plt.subplots(1, 2, figsize=(19.2, 10.8))
+
+sns.violinplot(
+    x="variable",
+    y="value",
+    # hue="Great Recession",
+    palette="Greens",
+    ax=ax[0],
+    lw=2,
+    data=df,
+    split=True,
+    scale="area",
+)
+
+
+ax[0].axhline(y=0, ls="--", color="black", zorder=0)
+ax[0].set_xlabel("")
+ax[0].set_ylabel("Growth rate", fontsize=15)
+ax[0].set_title("A - Selected growth rate\ndistribution (1947-2019)", fontsize=22)
+ax[0].tick_params(axis="both", which="major", labelsize=15)
+
+share[Z].apply(lambda x: x / share["GDP"]).plot(
+    kind="area",
+    stacked=True,
+    ax=ax[1],
+    legend=False,
+    color=(
+        "black",
+        "grey",
+        "darkred",
+        "lightgrey",
+    ),
+)
+
+share[Z].apply(lambda x: x / share["GDP"]).plot(
+    kind="line", stacked=True, ax=ax[1], legend=False, color="black", label=None
+)
+
+handles, labels = ax[1].get_legend_handles_labels()
+ax[1].legend(
+    handles[:3:-1],
+    labels[:3:-1],
+    #             loc='center left', bbox_to_anchor=(1, 0.5)
+)
+ax[1].set_ylim(0, 1)
+ax[1].set_xlabel("")
+ax[1].set_title(
+    "B - Autonomous expenditures\nshare on GDP (US, 1979-2019)", fontsize=22
+)
+ax[1].tick_params(axis="both", which="major", labelsize=15)
+
+sns.despine()
+plt.tight_layout()
+plt.close()
+plt.subplots_adjust(wspace=0.2)
+salvar_grafico(file_name="Volatility_share")
+#+end_src
+
+#+RESULTS:
+[[file:./figs/subplots.png]]
+
+** Passivos por percentil de riqueza
+
+#+begin_src python  :results graphics file :file ./figs/Distribuicao_Passivos.png
+def concentracao_df(df):
+    colunas = ['Top 1%', 'Top 10%', 'Top 50-90%', 'Bottom 50%']
+    df.columns = colunas
+    df = df/100
+    df.index.name = ''
+    df = df/df.iloc[0,:]
+    return df
+
+start = dt(1947, 1, 1)
+end = dt(2015, 1, 1)
+url = 'https://fred.stlouisfed.org/release/tables?rid=453&eid=813804#snid=813936'
+
+passivos = web.DataReader(
+    [
+        'WFRBST01127', # Share of Total Liabilities Held by the Top 1% (99th to 100th Wealth Percentiles)
+        'WFRBSN09154', # Share of Total Liabilities Held by the 90th to 99th Wealth Percentiles
+        'WFRBSN40181', # Share of Total Liabilities Held by the 50th to 90th Wealth Percentiles
+        'WFRBSB50208', # Share of Total Liabilities Held by the Bottom 50% (1st to 50th Wealth Percentiles)
+    ],
+    'fred',
+    start,
+    end
+)
+passivos = concentracao_df(passivos)
+
+emprestimo = web.DataReader(
+    [
+        'WFRBST01128', # Share of Loans (Liabilities) Held by the Top 1% (99th to 100th Wealth Percentiles)
+        'WFRBSN09155', # Share of Loans (Liabilities) Held by the 90th to 99th Wealth Percentiles
+        'WFRBSN40182', # Share of Loans (Liabilities) Held by the 50th to 90th Wealth Percentiles
+        'WFRBSB50209', # Share of Loans (Liabilities) Held by the Bottom 50% (1st to 50th Wealth Percentiles)
+    ],
+    'fred',
+    start,
+    end
+)
+emprestimo = concentracao_df(emprestimo)
+
+Mortgages = web.DataReader(
+    [
+        'WFRBST01129', # Share of Home mortgages Held by the Top 1% (99th to 100th Wealth Percentiles)
+        'WFRBSN09156', # Share of Home mortgages Held by the 90th to 99th Wealth Percentiles
+        'WFRBSN40183', # Share of Home mortgages Held by the 50th to 90th Wealth Percentiles
+        'WFRBSB50210', # Share of Home mortgages Held by the Bottom 50% (1st to 50th Wealth Percentiles)
+    ],
+    'fred',
+    start,
+    end
+)
+Mortgages = concentracao_df(Mortgages)
+
+patrimonio_liq = web.DataReader(
+    [
+        'WFRBST01134', # Share of Total Net Worth Held by the Top 1% (99th to 100th Wealth Percentiles)
+        'WFRBSN09161', # Share of Total Net Worth Held by the 90th to 99th Wealth Percentiles
+        'WFRBSN40188', # Share of Total Net Worth Held by the 50th to 90th Wealth Percentiles
+        'WFRBSB50215', # Share of Total Net Worth Held by the Bottom 50% (1st to 50th Wealth Percentiles)
+    ],
+    'fred',
+    start,
+    end
+)
+patrimonio_liq = concentracao_df(patrimonio_liq)
+
+fig, ax = plt.subplots(2, 2, figsize=(19.2, 10.80), sharey=True)
+
+passivos.plot(title='A - Total Liabilities', ax=ax[0,0], legend=False, lw=3)
+emprestimo.plot(title='B - Loans', ax=ax[0,1], legend=False, lw=3)
+Mortgages.plot(title='C - Mortgages', ax=ax[1,0], legend=False, lw=3)
+patrimonio_liq.plot(title='D - Net Worth', ax=ax[1,1], legend=False, lw=3)
+
+crise_subprime(axes=ax[0,1])
+crises(axes=ax[0,1])
+ax[0,1].legend(loc='center left', bbox_to_anchor=(1.1, 0.), fontsize=18)
+
+crise_subprime(axes=ax[0,0])
+crise_subprime(axes=ax[1,0])
+crise_subprime(axes=ax[1,1])
+crises(axes=ax[0,0])
+crises(axes=ax[1,0])
+crises(axes=ax[1,1])
+
+ax[0,0].set_title('A - Total Liabilities', fontsize=18)
+ax[0,1].set_title('B - Loans', fontsize=18)
+ax[1,0].set_title('C - Mortgages', fontsize=18)
+ax[1,1].set_title('D - Net Worth', fontsize=18)
+
+ax[0,0].tick_params(axis="both", which="major", labelsize=15)
+ax[0,1].tick_params(axis="both", which="major", labelsize=15)
+ax[1,0].tick_params(axis="both", which="major", labelsize=15)
+ax[1,1].tick_params(axis="both", which="major", labelsize=15)
+
+sns.despine()
+plt.tight_layout()
+plt.close()
+salvar_grafico(file_name="Distribuicao_Passivos")
+#+end_src
+
+#+RESULTS:
+[[file:./figs/Distribuicao_Passivos.png]]
+
+*  Housing Dynamics and Business Cycle in the US Economy :ignore:
+
+After the Great Recession, the literature has analyzed the relevance of housing at macroeconomic level cites:leamer_housing_2015,teixeira_crescimento_2015,fiebiger_semi-autonomous_2018.
+Despite some authors had highlighted the empirical importance of this expenditure in determining economic cycles since the post-war period cites:grebler_capital_1956,green_follow_1997,leamer_housing_2007, only a few macroeconomists have given due attention to this regularity.
+textcite:duesenberry_investment_1958 was an exception and reported the relevance of residential investment and real estate inflation in
+determining the economic cycle long before the Great Recession.
+textcite:keynes_collected_1978 is another example and --- despite dedicating himself to the firms' investment --- wrote to President Roosevelt about the relevance of real estate for economic recovery in the context of the Great Depression:
+
+#+begin_quote
+    ``[...] Housing is by far the best aid to recovery because of the large and continuing scale
+of potential demand; because of the wide geographical distribution of this demand; and
+because the sources of its finance are largely independent of the stock exchanges. I should
+advise putting most of your eggs in this basket, caring about this more than about anything,
+and making absolutely sure that they are being hatched without delay. In this country we
+partly depended for many years on direct subsidies. There are few more proper objects for
+such than working-class houses. If a direct subsidy is required to get a move on (we gave
+our subsidies through the local authorities), it should be given without delay or hesitation.''
+\cite[p.~436]{keynes_collected_1978}
+#+end_quote
+
+As the above excerpt suggests, the relevance of housing is not restricted to the Great Recession nor the USA case.
+Moreover, however small its share on GDP is (see Figure ref:FigAutonomos), it does not imply that it has negligible effects on the business cycle or low volatility (see Figure ref:FigVolatilidade).
+
+#+begin_export latex
+\begin{figure}[H]
+	\caption{Housing's Particular Stylized Facts}
+	\label{fig:figs}
+	\begin{subfigure}[t]{.45\textwidth}
+		\centering
+		\caption{Selected growth rate distribution (1947-2019)}
+		\label{FigVolatilidade}
+		\includegraphics[width=.8\linewidth]{./figs/Volatilidade.eps}
+	\end{subfigure}
+	\begin{subfigure}[t]{.45\textwidth}
+		\centering
+		\caption{Autonomous expenditures share on GDP (US, 1979-2019)}
+		\label{FigAutonomos}
+		\includegraphics[width=.8\linewidth]{./figs/Gastos_autonomos.eps}  
+	\end{subfigure}
+	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' Elaboration}
+\end{figure}
+#+end_export
+
+
+
+In order to depict the relation between housing and business cycle, we present Figure ref:FigIh_u  in which each cycle is represented in a different panel[fn::This similar reasoning can be found in textcites:fiebiger_trend_2017. Unlike them, we plot only residential investment without including other households expenses financed by credit.]. 
+The vertical axis represents residential investment-GDP ratio and the horizontal
+axis represents the rate of capacity utilization as a proxy for business cycle.
+Economic recovery is generally characterized residential investment growing faster than GDP --- with the 1991-2000 period being a particular case. 
+As a consequence of this higher growth rate, is the increase of both residential investment share on GDP and capacity utilization. 
+Following the Sraffian supermultiplier growth model, we conclude that increase of non-residential investment is the result of capital stock adjustment principle.
+This increase implies GDP to grow faster than residential investment, therefore reducing both its share on GDP and capacity utilization ratio. 
+Finally, as a result of economic burst, capacity utilization ratio falls and the cycle.
+
+#+begin_export latex
+\begin{figure}[H]
+	\centering
+	\caption{Residential investment share on GDP VS. capacity utilization during recessions}
+	\label{FigIh_u}
+	\includegraphics[width=\textwidth]{./figs/Ciclo_Ih_u.eps}
+	\caption*{\textbf{Source:} Authors' Elaboration}
+\end{figure}
+#+end_export
+
+We also report an indirect relation between housing and aggregate demand. 
+Real estate constitutes a significant portion of household wealth so houses serves as collateral to borrowing cite:teixeira_uma_2011. 
+As a consequence of US institutional arrangement, households --- especially the poorest ones --- could increase their indebtedness as houses prices went up (see Figure ref:FigDividaPreco) as a way to ``make'' capital gains without 
+selling their homes during house bubble of the 2000s cite:teixeira_crescimento_2015.
+Therefore, real estate inflation and durable goods consumption are connected and has relevant consequences for business cycle.
+textcites:zezza_u.s._2008,barba_rising_2009, for example, report that credit-financed consumption was one of the main drivers of economic growth before the Great Recession.
+
+
+In this paper, we argue that this relation between households indebtedness and real estate inflation has other relevant implications.
+The first one is the increasing gap between assets and liabilities in the course of the Great Recession.
+This dynamic is due both to the housing prices burst (post-2005) and to the insensitivity of households' financial commitments.
+In other words, real estate (assets) has a market value while debt (liabilities) has a contractual one, thus, households net worth decreases onset of the subprime crisis.
+Therefore, the second implication is the sharp reduction in the net worth of the poorest households in absolute and relative terms (see Figure ref:FigDistPassivos).
+
+#+begin_export latex
+\begin{figure}[H]
+	\centering
+	\caption{Household indebtedness and house prices dynamics (jan/2000=100)}
+	\label{FigDividaPreco}
+	\includegraphics[width=\textwidth]{./figs/Divida_PrecoImoveis.eps}
+	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\caption{Liabilities evolution by wealth percentile (1989/07=1)}
+	\label{FigDistPassivos}
+	\includegraphics[width=.8\textwidth]{./figs/Distribuicao_Passivos.eps}
+	\caption*{\textbf{Source:} \textcite{us_census_bureau_characteristics_2017}, Authors' Elaboration}
+\end{figure}
+#+end_export
+
+
+
+Before we move forward, it is worth mentioning that the relevance of housing is not restricted to its growth effects. 
+For example, textcite:jorda_great_2016 report that credit and financial sector growth has been led mainly by mortgages. 
+As a consequence, banking activities were redirected towards granting credit majorly to households and not towards productive investment cites:erturk_banks_2007,kohl_more_2018.
+Other studies have shown that real estate inflation is the main determinant of household indebtedness, distribution of wealth and that it has implications for macroeconomic stability cites:ryoo_household_2015,stockhammer_debt-driven_2016,barnes_private_2016,johnston_global_2017,mian_household_2017,anderson_politics_2020,fuller_housing_2020. 
+In summary, what we intended to show is that one cannot analyze the US business cycle without considering housing dynamics.
+On the following section, we analyze how econometric literature has dealt with this topic.
+
+* Residuals :noexport:
+
+#+begin_comment
+It is worth mentioning the novelty of \textcite{green_follow_1997} and \textcite{leamer_housing_2007} --- revisited in \textcite{leamer_housing_2015} and by \textcite{fiebiger_trend_2017} --- when shedding light on the relevance of residential investment even before of the Great Recession. CITAÇÃO KEYNES DO PROJETO + DUESEMBERRY
+#+end_comment
