@@ -4,7 +4,7 @@
 #+DATE: 2020/2S
 #+PROPERTY: COLUMNS %RA %TAREFA(Tarefa) %NOTA(Nota)
 #+EXCLUDE_TAGS: private noexport
-#+PROPERTY: header-args:python :exports results :session
+#+PROPERTY: header-args:python  :session *Turma_C* :exports results :results output :python /usr/bin/python3  
 #+LATEX_HEADER: \usepackage{longtable, pdflscape, booktabs}
 
 #+RESULTS:
@@ -26,7 +26,6 @@ Resenhas = ["Monetaristas", "Novos Clássicos", "Novos Keynesianos", "Novo Conse
 #+END_SRC
 
 #+RESULTS:
-: None
 
 ** Importando tabela Ana Rosa
 
@@ -75,47 +74,54 @@ def importar_ext(Turma=Turma, data="2020-10-19", prefix='.'):
 #+RESULTS:
 
 ** Merge
-   
+
 #+BEGIN_SRC python
 monetaristas = pd.read_csv(
-#    full_path +
-    '.' + 
-    '/Notas/Monetaristas.csv'
+    #    full_path +
+    "."
+    + "/Notas/Monetaristas.csv"
 )[["Endereço de e-mail", "Nota", "Status da atividade"]]
-monetaristas["RA"] = [i[1:7] for i in  monetaristas["Endereço de e-mail"]]
-monetaristas.drop(["Endereço de e-mail", "Status da atividade"], axis="columns", inplace=True)
+monetaristas["RA"] = [i[1:7] for i in monetaristas["Endereço de e-mail"]]
+monetaristas.drop(
+    ["Endereço de e-mail", "Status da atividade"], axis="columns", inplace=True
+)
 monetaristas.set_index("RA", inplace=True)
 monetaristas.columns = ["Resenha Monetaristas"]
 
 nv_classicos = pd.read_csv(
-#    full_path +
-    '.' + 
-    '/Notas/NovosClassicos.csv'
+    #    full_path +
+    "."
+    + "/Notas/NovosClassicos.csv"
 )[["Endereço de e-mail", "Nota"]]
-nv_classicos["RA"] = [i[1:7] for i in  nv_classicos["Endereço de e-mail"]]
+nv_classicos["RA"] = [i[1:7] for i in nv_classicos["Endereço de e-mail"]]
 nv_classicos.drop(["Endereço de e-mail"], axis="columns", inplace=True)
 nv_classicos.set_index("RA", inplace=True)
 nv_classicos.columns = ["Resenha Novos Clássicos"]
 
 
-df = min_df.reset_index().merge(
-    monetaristas.reset_index(),
-    how='left',
-    ).join(
-    importar_ext(Turma=Turma, data="2020-10-19"),
-    how='left', on='Nome'
-    ).join(
-        importar_ext(Turma=Turma, data="2020-10-26"),
-        how='left', on='Nome'
-    ).set_index('RA').join(
-        importar_ext(Turma=Turma, data="2020-11-09"),
-        how='left', on='Nome'
-     ).reset_index().merge(
-    nv_classicos.reset_index(),
-    how='left',
-    ).set_index('RA')
-
-df["Email"] = [df["Nome"][i][0] + str(df.index[i]) + "@dac.unicamp.br" for i in range(len(df.index))]
+df = (
+    min_df.reset_index()
+    .merge(
+        monetaristas.reset_index(),
+        how="left",
+    )
+    .join(importar_ext(Turma=Turma, data="2020-10-19"), how="left", on="Nome")
+    .join(importar_ext(Turma=Turma, data="2020-10-26"), how="left", on="Nome")
+    .set_index("RA")
+    .join(importar_ext(Turma=Turma, data="2020-11-09"), how="left", on="Nome")
+    .reset_index()
+    .merge(
+        nv_classicos.reset_index(),
+        how="left",
+    )
+    .set_index("RA")
+    .join(importar_ext(Turma=Turma, data="2020-11-16"), how="left", on="Nome")
+    # .join(importar_ext(Turma=Turma, data="2020-11-23"), how="left", on="Nome")
+)
+df["Email"] = [
+    df["Nome"][i][0] + str(df.index[i]) + "@dac.unicamp.br"
+    for i in range(len(df.index))
+]
 #+END_SRC
 
 #+RESULTS:
@@ -129,7 +135,7 @@ df["Email"] = [df["Nome"][i][0] + str(df.index[i]) + "@dac.unicamp.br" for i in 
 ** Notas                                                             :ignore:
 
 #+NAME:Monetaristas
-#+BEGIN_SRC python
+#+BEGIN_SRC python :results latex table
 print('\\begin{center}')
 print(
     df[["Resenha Monetaristas"]].to_latex(
@@ -142,6 +148,84 @@ print('\end{center}')
 #+END_SRC
 
 #+RESULTS: Monetaristas
+#+begin_export latex
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/tmp/pyKsXA9f", line 3, in <module>
+  File "/tmp/babel-PivwdH/python-lK4jCY", line 41, in <module>
+    .join(importar_ext(Turma=Turma, data="2020-11-23"), how="left", on="Nome")
+  File "/tmp/babel-PivwdH/python-Zbarut", line 2, in importar_ext
+    tmp = pd.read_csv(
+  File "/home/gpetrini/.local/lib/python3.8/site-packages/pandas/io/parsers.py", line 686, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "/home/gpetrini/.local/lib/python3.8/site-packages/pandas/io/parsers.py", line 452, in _read
+    parser = TextFileReader(fp_or_buf, **kwds)
+  File "/home/gpetrini/.local/lib/python3.8/site-packages/pandas/io/parsers.py", line 946, in __init__
+    self._make_engine(self.engine)
+  File "/home/gpetrini/.local/lib/python3.8/site-packages/pandas/io/parsers.py", line 1178, in _make_engine
+    self._engine = CParserWrapper(self.f, **self.options)
+  File "/home/gpetrini/.local/lib/python3.8/site-packages/pandas/io/parsers.py", line 2008, in __init__
+    self._reader = parsers.TextReader(src, **kwds)
+  File "pandas/_libs/parsers.pyx", line 382, in pandas._libs.parsers.TextReader.__cinit__
+  File "pandas/_libs/parsers.pyx", line 674, in pandas._libs.parsers.TextReader._setup_parser_source
+FileNotFoundError: [Errno 2] No such file or directory: './Presença/Turma_C (2020-11-23).csv'
+>>> \begin{center}
+#+end_export
+#+begin_example
+\begin{center}
+\begin{longtable}{lr}
+\caption{Notas das resenhas - Monetaristas}\\
+\toprule
+{} &  Resenha Monetaristas \\
+\textbf{RA    } &                       \\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+\textbf{230645} &                  50.0 \\
+\textbf{213549} &                  30.0 \\
+\textbf{257748} &                  50.0 \\
+\textbf{232568} &                  70.0 \\
+\textbf{233566} &                  30.0 \\
+\textbf{215626} &                   0.0 \\
+\textbf{91108 } &                     - \\
+\textbf{234311} &                  50.0 \\
+\textbf{216397} &                  30.0 \\
+\textbf{197474} &                  50.0 \\
+\textbf{234982} &                   0.0 \\
+\textbf{235042} &                   0.0 \\
+\textbf{197724} &                  50.0 \\
+\textbf{217350} &                  30.0 \\
+\textbf{174154} &                  30.0 \\
+\textbf{237534} &                  30.0 \\
+\textbf{237856} &                  50.0 \\
+\textbf{199967} &                  70.0 \\
+\textbf{103034} &                  50.0 \\
+\textbf{172577} &                  50.0 \\
+\textbf{159866} &                  50.0 \\
+\textbf{221896} &                  70.0 \\
+\textbf{257876} &                 100.0 \\
+\textbf{242087} &                   0.0 \\
+\textbf{242328} &                  50.0 \\
+\textbf{147614} &                   0.0 \\
+\textbf{176104} &                   0.0 \\
+\textbf{205149} &                 100.0 \\
+\textbf{205151} &                   0.0 \\
+\textbf{244207} &                  70.0 \\
+\textbf{158425} &                  50.0 \\
+\textbf{257932} &                 100.0 \\
+\textbf{177964} &                  70.0 \\
+\textbf{245099} &                  50.0 \\
+\textbf{206806} &                  50.0 \\
+\textbf{225851} &                  50.0 \\
+\end{longtable}
+\end{center}
+#+end_example
 
 ** Gráficos                                                          :ignore:
 *** Notas
@@ -176,6 +260,7 @@ plt.close()
 
 #+RESULTS:
 [[file:./figs/monetaristas.png]]
+[[file:./figs/monetaristas.png]]
 
 *** Notas e presença
 
@@ -198,6 +283,7 @@ plt.close()
 #+END_SRC
 
 #+RESULTS:
+[[file:./figs/monetaristas_presenca.png]]
 [[file:./figs/monetaristas_presenca.png]]
 
 * Novos Clássicos
@@ -223,7 +309,62 @@ print('\end{center}')
 
 #+RESULTS: NovosCla
 #+begin_export latex
-| None |
+\begin{center}
+#+end_export
+#+begin_export latex
+\begin{center}
+\begin{longtable}{lr}
+\caption{Notas das resenhas - Novos Clássicos}\\
+\toprule
+{} &  Resenha Novos Clássicos \\
+\textbf{RA    } &                          \\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+\textbf{230645} &                      5.0 \\
+\textbf{213549} &                      5.0 \\
+\textbf{257748} &                      7.0 \\
+\textbf{232568} &                      5.0 \\
+\textbf{233566} &                      7.0 \\
+\textbf{215626} &                      0.0 \\
+\textbf{91108 } &                        - \\
+\textbf{234311} &                      5.0 \\
+\textbf{216397} &                      0.0 \\
+\textbf{197474} &                      5.0 \\
+\textbf{234982} &                      0.0 \\
+\textbf{235042} &                      0.0 \\
+\textbf{197724} &                      5.0 \\
+\textbf{217350} &                      0.0 \\
+\textbf{174154} &                      0.0 \\
+\textbf{237534} &                      3.0 \\
+\textbf{237856} &                      5.0 \\
+\textbf{199967} &                      7.0 \\
+\textbf{103034} &                      5.0 \\
+\textbf{172577} &                      7.0 \\
+\textbf{159866} &                      5.0 \\
+\textbf{221896} &                     10.0 \\
+\textbf{257876} &                     10.0 \\
+\textbf{242087} &                        - \\
+\textbf{242328} &                      7.0 \\
+\textbf{147614} &                      0.0 \\
+\textbf{176104} &                        - \\
+\textbf{205149} &                      0.0 \\
+\textbf{205151} &                      7.0 \\
+\textbf{244207} &                      7.0 \\
+\textbf{158425} &                      7.0 \\
+\textbf{257932} &                      7.0 \\
+\textbf{177964} &                      5.0 \\
+\textbf{245099} &                      7.0 \\
+\textbf{206806} &                      0.0 \\
+\textbf{225851} &                      0.0 \\
+\end{longtable}
+\end{center}
 #+end_export
 
 ** Gráficos                                                          :ignore:
@@ -261,6 +402,7 @@ plt.close()
 
 #+RESULTS:
 [[file:./figs/novosclassicos.png]]
+[[file:./figs/novosclassicos.png]]
 *** Notas e Presença
 #+BEGIN_SRC python :results graphics file :file ./figs/novosclassicos_presenca.png
 tmp = df.copy()
@@ -281,6 +423,7 @@ plt.close()
 #+END_SRC
 
 #+RESULTS:
+[[file:./figs/novosclassicos_presenca.png]]
 [[file:./figs/novosclassicos_presenca.png]]
 
 ** Verificação de plágio por amostragem
@@ -377,6 +520,7 @@ plt.close()
 
 #+RESULTS:
 [[file:./figs/turintin_NvC_fig.png]]
+[[file:./figs/turintin_NvC_fig.png]]
 
 **** Atualizando notas
 
@@ -453,9 +597,358 @@ plt.close()
 
 #+RESULTS:
 [[file:./figs/similarity_forms_1.png]]
+[[file:./figs/similarity_forms_1.png]]
 
 
 
+
+* Novos Keynesianos
+
+** Pendências                                                        :ignore:
+
+- [ ] Computar notas 
+- [ ] Preencher presenhas na tabela da Ana Rosa 
+- [ ] Sortear turnitin
+** Notas                                                             :ignore:
+
+#+NAME:NovosKey
+#+BEGIN_SRC python :results table latex :eval no
+print('\\begin{center}')
+print(
+    df[["Resenha Novos Keynesianos"]].to_latex(
+        caption=f"Notas das resenhas - {Resenhas[2]}",
+        bold_rows=True,
+        longtable=True,
+        na_rep='-',
+    ),end='')
+print('\end{center}')
+#+END_SRC
+
+#+RESULTS: NovosCla
+#+begin_export latex
+\begin{center}
+\begin{longtable}{lr}
+\caption{Notas das resenhas - Novos Clássicos}\\
+\toprule
+{} &  Resenha Novos Clássicos \\
+\textbf{RA    } &                          \\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+\textbf{212883} &                      5.0 \\
+\textbf{212900} &                     10.0 \\
+\textbf{231302} &                      5.0 \\
+\textbf{231732} &                        - \\
+\textbf{213360} &                     10.0 \\
+\textbf{231898} &                      5.0 \\
+\textbf{213731} &                     10.0 \\
+\textbf{232395} &                      7.0 \\
+\textbf{232796} &                      5.0 \\
+\textbf{233335} &                      5.0 \\
+\textbf{233747} &                     10.0 \\
+\textbf{255207} &                      0.0 \\
+\textbf{216459} &                        - \\
+\textbf{235951} &                        - \\
+\textbf{236276} &                        - \\
+\textbf{218090} &                     10.0 \\
+\textbf{255241} &                      7.0 \\
+\textbf{237618} &                     10.0 \\
+\textbf{199735} &                      0.0 \\
+\textbf{218975} &                      5.0 \\
+\textbf{238414} &                      0.0 \\
+\textbf{219613} &                      5.0 \\
+\textbf{219907} &                      7.0 \\
+\textbf{239052} &                      7.0 \\
+\textbf{220194} &                      5.0 \\
+\textbf{201326} &                     10.0 \\
+\textbf{156242} &                      5.0 \\
+\textbf{240317} &                      5.0 \\
+\textbf{240409} &                      7.0 \\
+\textbf{221515} &                      5.0 \\
+\textbf{255293} &                      0.0 \\
+\textbf{241430} &                      5.0 \\
+\textbf{222315} &                     10.0 \\
+\textbf{184528} &                      0.0 \\
+\textbf{222615} &                      3.0 \\
+\textbf{186966} &                      0.0 \\
+\textbf{244321} &                      5.0 \\
+\textbf{244379} &                      5.0 \\
+\textbf{187323} &                      7.0 \\
+\textbf{206194} &                      5.0 \\
+\textbf{245212} &                     10.0 \\
+\textbf{206883} &                      3.0 \\
+\textbf{245459} &                      5.0 \\
+\end{longtable}
+\end{center}
+#+end_export
+
+** Gráficos                                                          :ignore:
+*** Notas   
+#+BEGIN_SRC python :results graphics file :file ./figs/novoskeynesianos.png :eval no
+fig, ax = plt.subplots(1,2, figsize=(8,5), sharey=True)
+sns.distplot(df['Resenha Novos Keynesianos'], hist=True, kde=True, 
+             bins=int(10), color = 'darkblue', 
+             hist_kws={'edgecolor':'black'}, ax=ax[0],
+             kde_kws={'linewidth': 4, 'shade': True})
+mu = round(df["Resenha Novos Keynesianos"].mean())
+
+sigma = df["Resenha Novos Keynesianos"].std().round(1)/10
+
+ax[0].set_title(f'Nota das resenhas\nTurma {Turma}')
+ax[0].text(10, 0.5, f'$\mu = ${mu}', fontsize=12)
+ax[0].text(10, 0.47, f'$\sigma = ${sigma}', fontsize=12)
+
+
+sns.distplot(df[df['Resenha Novos Keynesianos']>0]['Resenha Novos Keynesianos'], hist=True, kde=True, 
+             bins=int(10), color = 'darkblue', 
+             hist_kws={'edgecolor':'black'}, ax=ax[1],
+             kde_kws={'linewidth': 4, 'shade': True})
+
+ax[1].set_title('Nota das resenhas\n(Exceto não entregues)')
+ax[1].text(10, 0.5, f"$\mu = ${df[df['Resenha Novos Keynesianos']>0]['Resenha Novos Keynesianos'].mean().round(1)}", fontsize=12)
+ax[1].text(10, 0.47, f"$\sigma = ${round(df[df['Resenha Novos Keynesianos']>0]['Resenha Novos Keynesianos'].std())/10}", fontsize=12)
+ax[1].set_ylabel('Densidade')
+
+plt.tight_layout()
+fig.savefig('./figs/novoskeynesianos.png')
+
+plt.close()
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/novosclassicos.png]]
+*** Notas e Presença
+#+BEGIN_SRC python :results graphics file :file ./figs/novoskeynesianos_presenca.png :eval no
+tmp = df.copy()
+
+tmp["Média presença"] = tmp[["2020-10-19", "2020-10-26", "2020-11-09"]].mean(axis=1)
+
+resenha = "Novos Keynesianos"
+
+fig, ax = plt.subplots()
+
+sns.regplot(x="Média presença", y=f"Resenha {resenha}", data=tmp, ax=ax, y_jitter=.05);
+
+ax.set_title(f"Nota x Presença\nResenha {resenha} - Turma {Turma}")
+
+fig.savefig('./figs/novoskeynesianos_presenca.png')
+
+plt.close()
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/novosclassicos_presenca.png]]
+
+** Verificação de plágio por amostragem
+*** Sorteio
+    
+#+BEGIN_SRC python :results output :exports both :eval no
+pre_selecionados = []
+alunos = df.shape[0]
+sample = 0.3
+amostra = round(alunos*sample)
+bad_df = df.index.isin(pre_selecionados)
+elegivies = df.loc[~bad_df].query('`Resenha Novos Keynesianos` > 0')["Resenha Novos Keynesianos"].index.tolist()
+
+
+resultado = np.sort(np.random.choice(
+    a = elegivies,
+    size = amostra,
+    replace = False # Sem repetição
+))
+resultado = pd.DataFrame(resultado)
+resultado.columns = ["RA Sorteados"]
+resultado.index = [i + 1 for i in resultado.index]
+print(resultado)
+resultado
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+   RA Sorteados
+1        156242
+2        187323
+3        212900
+4        219613
+5        219907
+6        222615
+7        231302
+8        232796
+9        239052
+10       240409
+11       244321
+12       244379
+13       245459
+#+end_example
+
+*** Resultado Turnitin
+
+#+CAPTION: Resumo relatório de origilidadade
+#+NAME:TurnitinNvC
+|--------+--------------------|
+|     RA | Grau de semelhança |
+|--------+--------------------|
+| 156242 |                15% |
+| 187323 |                20% |
+| 212900 |                 1% |
+| 219613 |                 0% |
+| 219907 |                 8% |
+| 222615 |                 0% |
+| 231302 |                 2% |
+| 232795 |                11% |
+| 238414 |                 2% |
+| 239052 |                 8% |
+| 240409 |                 0% |
+| 244321 |                 1% |
+| 244379 |                 1% |
+| 245459 |                53% |
+|--------+--------------------|
+
+**** Gráfico
+#+BEGIN_SRC python :var turnitin=TurnitinNvC :results file graphics :file ./figs/turintin_NvC_fig.png
+turnitin = pd.DataFrame(
+    turnitin[1:],
+    columns=["RA", "Grau de Semelhança"],
+)
+turnitin["Grau de Semelhança"] = [int(grau[:-1])/100 for grau in turnitin["Grau de Semelhança"]]
+turnitin.set_index("RA", inplace=True)
+
+fig, ax = plt.subplots(1,1, figsize=(8,5), sharey=True)
+sns.distplot(turnitin, hist=True, kde=True, 
+             bins=int(10), color = 'darkblue', 
+             hist_kws={'edgecolor':'black'}, ax=ax,
+             kde_kws={'linewidth': 4, 'shade': True})
+mu = round(turnitin["Grau de Semelhança"].mean()*100)
+
+sigma = turnitin["Grau de Semelhança"].std().round(1)*100
+
+ax.set_title(f'Checagem de plágio\nTurma {Turma}')
+ax.text(-0.15, 10, f'$\mu = ${mu}', fontsize=12)
+ax.text(-0.15, 9.5, f'$\sigma = ${sigma}', fontsize=12)
+
+sns.despine()
+plt.savefig('./figs/turintin_NvC_fig.png')
+plt.close()
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/turintin_NvC_fig.png]]
+[[file:./figs/turintin_NvC_fig.png]]
+[[file:./figs/turintin_NvC_fig.png]]
+**** Atualização das notas
+
+#+BEGIN_SRC python
+df.loc["245459", "Resenha Novos Clássicos"] = 0.0
+
+df.loc["238414", "Resenha Novos Clássicos"] = 5.0 
+#+END_SRC
+
+#+RESULTS:
+** Questões
+
+*** Importando respostas                                             :ignore:
+
+#+BEGIN_SRC python :eval no
+questoes = pd.read_csv(
+    './Questoes/NovosClassicosNCM.csv',
+    index_col=[0]
+)
+questoes.columns = ["Q1", "Q2", "Justificativa"]
+questoes["Nota_1"] = [int(res=="Falso") for res in questoes["Q1"]]
+questoes["Nota_2"] = [int(res=="Falso") for res in questoes["Q2"]]
+tmp_idx = pd.Index([i[:16] for i in questoes.index.tolist()])
+print(f"Sobreposição das respostas {sum(tmp_idx.duplicated())/len(tmp_idx)}%")
+#+END_SRC
+
+#+RESULTS:
+: Sobreposição das respostas 0.717948717948718%
+
+*** Importando pacotes e funções
+
+#+BEGIN_SRC python :results graphics file :file ./figs/similarity_forms_1.png :eval no
+import string
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.feature_extraction.text import CountVectorizer
+from nltk.corpus import stopwords
+stopwords = stopwords.words('portuguese')
+
+sentences = questoes["Justificativa"]
+
+def clean_string(text):
+    text = ''.join([word for word in text if word not in string.punctuation])
+    text = text.lower()
+    text = ' '.join([word for word in text.split() if word not in stopwords])
+
+    return text
+
+cleaned = list(map(clean_string, sentences))
+vectorizer = CountVectorizer().fit_transform(cleaned)
+vectors = vectorizer.toarray()
+csim = cosine_similarity(vectors)
+
+
+def coisine_sim_vectors(vec1, vec2):
+    vec1 = vec1.reshape(1,-1)
+    vec2 = vec2.reshape(1,-1)
+    return coisine_similarity(vec1, vec2)[0][0]
+
+
+plt.matshow(csim);
+plt.colorbar()
+plt.title(f'Matriz de similaridade das justificativas\n Turma {Turma}\n')
+plt.tight_layout()
+plt.savefig('./figs/similarity_forms_2.png')
+plt.close()
+
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/similarity_forms_1.png]]
+
+
+#+BEGIN_SRC python :results table latex
+triang  = np.triu(csim, k=0).tolist()
+subset = [i > 0.7 and i < 1.0 for i in triang[1]]
+print(questoes[subset].to_latex())
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{tabular}{llrlllrr}
+\toprule
+{} &                  E-mail &      RA &     Q1 &          Q2 &                                      Justificativa &  Nota\_1 &  Nota\_2 \\
+Carimbo de data/hora        &                         &         &        &             &                                                    &         &         \\
+\midrule
+2020/11/09 7:16:47 PM GMT-3 &  b257748@dac.unicamp.br &  257748 &  Falso &  Verdadeiro &  se a redução da demanda for por vias de mercad... &       1 &       0 \\
+\bottomrule
+\end{tabular}
+#+end_export
+#+begin_export latex
+\begin{tabular}{llllrr}
+\toprule
+{} &     Q1 &     Q2 &                                      Justificativa &  Nota\_1 &  Nota\_2 \\
+Carimbo de data/hora         &        &        &                                                    &         &         \\
+\midrule
+2020/11/09 10:09:49 AM GMT-3 &  Falso &  Falso &  Se os agentes antecipam a expansão monetária, ... &       1 &       1 \\
+\bottomrule
+\end{tabular}
+#+end_export
+#+begin_export latex
+\begin{tabular}{llllrr}
+\toprule
+{} &     Q1 &     Q2 &                                      Justificativa &  Nota\_1 &  Nota\_2 \\
+Carimbo de data/hora         &        &        &                                                    &         &         \\
+\midrule
+2020/11/09 10:09:49 AM GMT-3 &  Falso &  Falso &  Se os agentes antecipam a expansão monetária, ... &       1 &       1 \\
+\bottomrule
+\end{tabular}
+#+end_export
 
 * Lista de presença e notas
 ** Lista de chamada com nota das resenhas                            :ignore:
@@ -476,7 +969,476 @@ print('\end{landscape}\end{center}')
 
 #+RESULTS: Lista
 #+begin_export latex
-| None |
+\begin{center}\begin{landscape}
+\small
+\setlength\LTleft{0pt}
+\setlength\LTright{0pt}
+\begin{longtable}{llrrrrrrl}
+\caption{Lista de presença e de notas}\label{lista}\\
+\toprule
+{} &                                   Nome &  Resenha Monetaristas &  2020-10-19 &  2020-10-26 &  2020-11-09 &  Resenha Novos Clássicos &  2020-11-16 &                   Email \\
+\textbf{RA    } &                                        &                       &             &             &             &                          &             &                         \\
+\midrule
+\endhead
+\midrule
+\multicolumn{9}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+\textbf{230645} &                    alice pereira dario &                  50.0 &       17.86 &        0.00 &       19.47 &                      5.0 &       57.50 &  a230645@dac.unicamp.br \\
+\textbf{213549} &           beatriz helena toledo pastre &                  30.0 &        0.00 &        0.00 &        6.19 &                      5.0 &           - &  b213549@dac.unicamp.br \\
+\textbf{257748} &             breno rivelino fima castro &                  50.0 &        7.14 &        5.31 &       93.81 &                      7.0 &       28.33 &  b257748@dac.unicamp.br \\
+\textbf{232568} &                 caio cimino de almeida &                  70.0 &           - &        2.65 &       54.87 &                      5.0 &       70.00 &  c232568@dac.unicamp.br \\
+\textbf{233566} &                 diego tabacof labriola &                  30.0 &        0.00 &        0.00 &       91.15 &                      7.0 &           - &  d233566@dac.unicamp.br \\
+\textbf{215626} &                felipe barbosa de souza &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &       18.33 &  f215626@dac.unicamp.br \\
+\textbf{91108 } &                 felipe eboli sotorilli &                     - &        1.79 &        0.00 &       77.88 &                        - &       29.17 &   f91108@dac.unicamp.br \\
+\textbf{234311} &                  felipe rubbo aguilera &                  50.0 &       33.93 &        1.77 &       92.92 &                      5.0 &           - &  f234311@dac.unicamp.br \\
+\textbf{216397} &                        gabriel pereira &                  30.0 &        0.00 &        0.88 &       76.11 &                      0.0 &        0.83 &  g216397@dac.unicamp.br \\
+\textbf{197474} &                gabriel pereira jovetta &                  50.0 &        0.00 &        4.42 &       51.33 &                      5.0 &       46.67 &  g197474@dac.unicamp.br \\
+\textbf{234982} &                 gabriel pereira santos &                   0.0 &           - &       13.27 &        0.00 &                      0.0 &           - &  g234982@dac.unicamp.br \\
+\textbf{235042} &                gabriel silva gonçalves &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &           - &  g235042@dac.unicamp.br \\
+\textbf{197724} &           gabriela santana das virgens &                  50.0 &        0.00 &        0.88 &       74.34 &                      5.0 &       30.00 &  g197724@dac.unicamp.br \\
+\textbf{217350} &       guilherme yoshio agata domingues &                  30.0 &           - &           - &           - &                      0.0 &           - &  g217350@dac.unicamp.br \\
+\textbf{174154} &               gustavo josé lara campos &                  30.0 &        0.00 &        4.42 &       16.81 &                      0.0 &           - &  g174154@dac.unicamp.br \\
+\textbf{237534} &         joao mateus rodrigues da silva &                  30.0 &           - &           - &           - &                      3.0 &           - &  j237534@dac.unicamp.br \\
+\textbf{237856} &        joão vitor dos santos rodrigues &                  50.0 &        1.79 &        0.00 &       91.15 &                      5.0 &       90.83 &  j237856@dac.unicamp.br \\
+\textbf{199967} &                   jonas pereira cintra &                  70.0 &        0.00 &        3.54 &       82.30 &                      7.0 &       50.83 &  j199967@dac.unicamp.br \\
+\textbf{103034} &  leonardo augusto de oliveira piovesan &                  50.0 &        0.00 &        0.00 &       93.81 &                      5.0 &       93.33 &  l103034@dac.unicamp.br \\
+\textbf{172577} &                   lucas azevedo soares &                  50.0 &        2.68 &        5.31 &       14.16 &                      7.0 &       75.00 &  l172577@dac.unicamp.br \\
+\textbf{159866} &              marcela chenfel dos anjos &                  50.0 &        0.89 &        0.00 &       91.15 &                      5.0 &       50.83 &  m159866@dac.unicamp.br \\
+\textbf{221896} &               mariana sayuri silva doi &                  70.0 &       34.82 &        0.88 &       18.58 &                     10.0 &       37.50 &  m221896@dac.unicamp.br \\
+\textbf{257876} &    maryana beatriz ventura de carvalho &                 100.0 &       67.86 &        0.88 &       93.81 &                     10.0 &       83.33 &  m257876@dac.unicamp.br \\
+\textbf{242087} &                          miguel razera &                   0.0 &        0.89 &        1.77 &        0.00 &                        - &           - &  m242087@dac.unicamp.br \\
+\textbf{242328} &    natalia kimberlle tavares imperiano &                  50.0 &           - &           - &        0.88 &                      7.0 &           - &  n242328@dac.unicamp.br \\
+\textbf{147614} &          pedro augusto de almeida rosa &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &       93.33 &  p147614@dac.unicamp.br \\
+\textbf{176104} &              rafael da silva tomasella &                   0.0 &           - &           - &           - &                        - &           - &  r176104@dac.unicamp.br \\
+\textbf{205149} &                 raphaela freitas souza &                 100.0 &           - &           - &           - &                      0.0 &           - &  r205149@dac.unicamp.br \\
+\textbf{205151} &               raphaela prado francisco &                   0.0 &        0.89 &       47.79 &        4.42 &                      7.0 &           - &  r205151@dac.unicamp.br \\
+\textbf{244207} &                 sanny alves dos santos &                  70.0 &        0.89 &        0.00 &        0.00 &                      7.0 &           - &  s244207@dac.unicamp.br \\
+\textbf{158425} &                           tales alonso &                  50.0 &        0.89 &       61.95 &       61.06 &                      7.0 &       29.17 &  t158425@dac.unicamp.br \\
+\textbf{257932} &              thaís monello de oliveira &                 100.0 &        0.89 &        0.00 &       30.09 &                      7.0 &       24.17 &  t257932@dac.unicamp.br \\
+\textbf{177964} &               victor hugo alves duarte &                  70.0 &        0.00 &        0.00 &        0.00 &                      5.0 &           - &  v177964@dac.unicamp.br \\
+\textbf{245099} &                            victor maia &                  50.0 &       16.07 &       53.98 &       70.80 &                      7.0 &       25.00 &  v245099@dac.unicamp.br \\
+\textbf{206806} &            vinicius jeronimo capodalio &                  50.0 &        0.00 &        7.08 &        2.65 &                      0.0 &       29.17 &  v206806@dac.unicamp.br \\
+\textbf{225851} &                william de sousa rabelo &                  50.0 &           - &           - &           - &                      0.0 &           - &  w225851@dac.unicamp.br \\
+\end{longtable}
+\end{landscape}\end{center}
+#+end_export
+#+begin_export latex
+\begin{center}\begin{landscape}
+\small
+\setlength\LTleft{0pt}
+\setlength\LTright{0pt}
+\begin{longtable}{llrrrrrl}
+\caption{Lista de presença e de notas}\label{lista}\\
+\toprule
+{} &                                   Nome &  Resenha Monetaristas &  2020-10-19 &  2020-10-26 &  2020-11-09 &  Resenha Novos Clássicos &                   Email \\
+\textbf{RA    } &                                        &                       &             &             &             &                          &                         \\
+\midrule
+\endhead
+\midrule
+\multicolumn{8}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+\textbf{230645} &                    alice pereira dario &                  50.0 &       17.86 &        0.00 &       19.47 &                      5.0 &  a230645@dac.unicamp.br \\
+\textbf{213549} &           beatriz helena toledo pastre &                  30.0 &        0.00 &        0.00 &        6.19 &                      5.0 &  b213549@dac.unicamp.br \\
+\textbf{257748} &             breno rivelino fima castro &                  50.0 &        7.14 &        5.31 &       93.81 &                      7.0 &  b257748@dac.unicamp.br \\
+\textbf{232568} &                 caio cimino de almeida &                  70.0 &           - &        2.65 &       54.87 &                      5.0 &  c232568@dac.unicamp.br \\
+\textbf{233566} &                 diego tabacof labriola &                  30.0 &        0.00 &        0.00 &       91.15 &                      7.0 &  d233566@dac.unicamp.br \\
+\textbf{215626} &                felipe barbosa de souza &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &  f215626@dac.unicamp.br \\
+\textbf{91108 } &                 felipe eboli sotorilli &                     - &        1.79 &        0.00 &       77.88 &                        - &   f91108@dac.unicamp.br \\
+\textbf{234311} &                  felipe rubbo aguilera &                  50.0 &       33.93 &        1.77 &       92.92 &                      5.0 &  f234311@dac.unicamp.br \\
+\textbf{216397} &                        gabriel pereira &                  30.0 &        0.00 &        0.88 &       76.11 &                      0.0 &  g216397@dac.unicamp.br \\
+\textbf{197474} &                gabriel pereira jovetta &                  50.0 &        0.00 &        4.42 &       51.33 &                      5.0 &  g197474@dac.unicamp.br \\
+\textbf{234982} &                 gabriel pereira santos &                   0.0 &           - &       13.27 &        0.00 &                      0.0 &  g234982@dac.unicamp.br \\
+\textbf{235042} &                gabriel silva gonçalves &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &  g235042@dac.unicamp.br \\
+\textbf{197724} &           gabriela santana das virgens &                  50.0 &        0.00 &        0.88 &       74.34 &                      5.0 &  g197724@dac.unicamp.br \\
+\textbf{217350} &       guilherme yoshio agata domingues &                  30.0 &           - &           - &           - &                      0.0 &  g217350@dac.unicamp.br \\
+\textbf{174154} &               gustavo josé lara campos &                  30.0 &        0.00 &        4.42 &       16.81 &                      0.0 &  g174154@dac.unicamp.br \\
+\textbf{237534} &         joao mateus rodrigues da silva &                  30.0 &           - &           - &           - &                      3.0 &  j237534@dac.unicamp.br \\
+\textbf{237856} &        joão vitor dos santos rodrigues &                  50.0 &        1.79 &        0.00 &       91.15 &                      5.0 &  j237856@dac.unicamp.br \\
+\textbf{199967} &                   jonas pereira cintra &                  70.0 &        0.00 &        3.54 &       82.30 &                      7.0 &  j199967@dac.unicamp.br \\
+\textbf{103034} &  leonardo augusto de oliveira piovesan &                  50.0 &        0.00 &        0.00 &       93.81 &                      5.0 &  l103034@dac.unicamp.br \\
+\textbf{172577} &                   lucas azevedo soares &                  50.0 &        2.68 &        5.31 &       14.16 &                      7.0 &  l172577@dac.unicamp.br \\
+\textbf{159866} &              marcela chenfel dos anjos &                  50.0 &        0.89 &        0.00 &       91.15 &                      5.0 &  m159866@dac.unicamp.br \\
+\textbf{221896} &               mariana sayuri silva doi &                  70.0 &       34.82 &        0.88 &       18.58 &                     10.0 &  m221896@dac.unicamp.br \\
+\textbf{257876} &    maryana beatriz ventura de carvalho &                 100.0 &       67.86 &        0.88 &       93.81 &                     10.0 &  m257876@dac.unicamp.br \\
+\textbf{242087} &                          miguel razera &                   0.0 &        0.89 &        1.77 &        0.00 &                        - &  m242087@dac.unicamp.br \\
+\textbf{242328} &    natalia kimberlle tavares imperiano &                  50.0 &           - &           - &        0.88 &                      7.0 &  n242328@dac.unicamp.br \\
+\textbf{147614} &          pedro augusto de almeida rosa &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &  p147614@dac.unicamp.br \\
+\textbf{176104} &              rafael da silva tomasella &                   0.0 &           - &           - &           - &                        - &  r176104@dac.unicamp.br \\
+\textbf{205149} &                 raphaela freitas souza &                 100.0 &           - &           - &           - &                      0.0 &  r205149@dac.unicamp.br \\
+\textbf{205151} &               raphaela prado francisco &                   0.0 &        0.89 &       47.79 &        4.42 &                      7.0 &  r205151@dac.unicamp.br \\
+\textbf{244207} &                 sanny alves dos santos &                  70.0 &        0.89 &        0.00 &        0.00 &                      7.0 &  s244207@dac.unicamp.br \\
+\textbf{158425} &                           tales alonso &                  50.0 &        0.89 &       61.95 &       61.06 &                      7.0 &  t158425@dac.unicamp.br \\
+\textbf{257932} &              thaís monello de oliveira &                 100.0 &        0.89 &        0.00 &       30.09 &                      7.0 &  t257932@dac.unicamp.br \\
+\textbf{177964} &               victor hugo alves duarte &                  70.0 &        0.00 &        0.00 &        0.00 &                      5.0 &  v177964@dac.unicamp.br \\
+\textbf{245099} &                            victor maia &                  50.0 &       16.07 &       53.98 &       70.80 &                      7.0 &  v245099@dac.unicamp.br \\
+\textbf{206806} &            vinicius jeronimo capodalio &                  50.0 &        0.00 &        7.08 &        2.65 &                      0.0 &  v206806@dac.unicamp.br \\
+\textbf{225851} &                william de sousa rabelo &                  50.0 &           - &           - &           - &                      0.0 &  w225851@dac.unicamp.br \\
+\end{longtable}
+\end{landscape}\end{center}
+#+end_export
+#+begin_export latex
+\begin{center}\begin{landscape}
+\small
+\setlength\LTleft{0pt}
+\setlength\LTright{0pt}
+\begin{longtable}{llrrrrrl}
+\caption{Lista de presença e de notas}\label{lista}\\
+\toprule
+{} &                                   Nome &  Resenha Monetaristas &  2020-10-19 &  2020-10-26 &  2020-11-09 &  Resenha Novos Clássicos &                   Email \\
+\textbf{RA    } &                                        &                       &             &             &             &                          &                         \\
+\midrule
+\endhead
+\midrule
+\multicolumn{8}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+\textbf{230645} &                    alice pereira dario &                  50.0 &       17.86 &        0.00 &       19.47 &                      5.0 &  a230645@dac.unicamp.br \\
+\textbf{213549} &           beatriz helena toledo pastre &                  30.0 &        0.00 &        0.00 &        6.19 &                      5.0 &  b213549@dac.unicamp.br \\
+\textbf{257748} &             breno rivelino fima castro &                  50.0 &        7.14 &        5.31 &       93.81 &                      7.0 &  b257748@dac.unicamp.br \\
+\textbf{232568} &                 caio cimino de almeida &                  70.0 &           - &        2.65 &       54.87 &                      5.0 &  c232568@dac.unicamp.br \\
+\textbf{233566} &                 diego tabacof labriola &                  30.0 &        0.00 &        0.00 &       91.15 &                      7.0 &  d233566@dac.unicamp.br \\
+\textbf{215626} &                felipe barbosa de souza &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &  f215626@dac.unicamp.br \\
+\textbf{91108 } &                 felipe eboli sotorilli &                     - &        1.79 &        0.00 &       77.88 &                        - &   f91108@dac.unicamp.br \\
+\textbf{234311} &                  felipe rubbo aguilera &                  50.0 &       33.93 &        1.77 &       92.92 &                      5.0 &  f234311@dac.unicamp.br \\
+\textbf{216397} &                        gabriel pereira &                  30.0 &        0.00 &        0.88 &       76.11 &                      0.0 &  g216397@dac.unicamp.br \\
+\textbf{197474} &                gabriel pereira jovetta &                  50.0 &        0.00 &        4.42 &       51.33 &                      5.0 &  g197474@dac.unicamp.br \\
+\textbf{234982} &                 gabriel pereira santos &                   0.0 &           - &       13.27 &        0.00 &                      0.0 &  g234982@dac.unicamp.br \\
+\textbf{235042} &                gabriel silva gonçalves &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &  g235042@dac.unicamp.br \\
+\textbf{197724} &           gabriela santana das virgens &                  50.0 &        0.00 &        0.88 &       74.34 &                      5.0 &  g197724@dac.unicamp.br \\
+\textbf{217350} &       guilherme yoshio agata domingues &                  30.0 &           - &           - &           - &                      0.0 &  g217350@dac.unicamp.br \\
+\textbf{174154} &               gustavo josé lara campos &                  30.0 &        0.00 &        4.42 &       16.81 &                      0.0 &  g174154@dac.unicamp.br \\
+\textbf{237534} &         joao mateus rodrigues da silva &                  30.0 &           - &           - &           - &                      3.0 &  j237534@dac.unicamp.br \\
+\textbf{237856} &        joão vitor dos santos rodrigues &                  50.0 &        1.79 &        0.00 &       91.15 &                      5.0 &  j237856@dac.unicamp.br \\
+\textbf{199967} &                   jonas pereira cintra &                  70.0 &        0.00 &        3.54 &       82.30 &                      7.0 &  j199967@dac.unicamp.br \\
+\textbf{103034} &  leonardo augusto de oliveira piovesan &                  50.0 &        0.00 &        0.00 &       93.81 &                      5.0 &  l103034@dac.unicamp.br \\
+\textbf{172577} &                   lucas azevedo soares &                  50.0 &        2.68 &        5.31 &       14.16 &                      7.0 &  l172577@dac.unicamp.br \\
+\textbf{159866} &              marcela chenfel dos anjos &                  50.0 &        0.89 &        0.00 &       91.15 &                      5.0 &  m159866@dac.unicamp.br \\
+\textbf{221896} &               mariana sayuri silva doi &                  70.0 &       34.82 &        0.88 &       18.58 &                     10.0 &  m221896@dac.unicamp.br \\
+\textbf{257876} &    maryana beatriz ventura de carvalho &                 100.0 &       67.86 &        0.88 &       93.81 &                     10.0 &  m257876@dac.unicamp.br \\
+\textbf{242087} &                          miguel razera &                   0.0 &        0.89 &        1.77 &        0.00 &                        - &  m242087@dac.unicamp.br \\
+\textbf{242328} &    natalia kimberlle tavares imperiano &                  50.0 &           - &           - &        0.88 &                      7.0 &  n242328@dac.unicamp.br \\
+\textbf{147614} &          pedro augusto de almeida rosa &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &  p147614@dac.unicamp.br \\
+\textbf{176104} &              rafael da silva tomasella &                   0.0 &           - &           - &           - &                        - &  r176104@dac.unicamp.br \\
+\textbf{205149} &                 raphaela freitas souza &                 100.0 &           - &           - &           - &                      0.0 &  r205149@dac.unicamp.br \\
+\textbf{205151} &               raphaela prado francisco &                   0.0 &        0.89 &       47.79 &        4.42 &                      7.0 &  r205151@dac.unicamp.br \\
+\textbf{244207} &                 sanny alves dos santos &                  70.0 &        0.89 &        0.00 &        0.00 &                      7.0 &  s244207@dac.unicamp.br \\
+\textbf{158425} &                           tales alonso &                  50.0 &        0.89 &       61.95 &       61.06 &                      7.0 &  t158425@dac.unicamp.br \\
+\textbf{257932} &              thaís monello de oliveira &                 100.0 &        0.89 &        0.00 &       30.09 &                      7.0 &  t257932@dac.unicamp.br \\
+\textbf{177964} &               victor hugo alves duarte &                  70.0 &        0.00 &        0.00 &        0.00 &                      5.0 &  v177964@dac.unicamp.br \\
+\textbf{245099} &                            victor maia &                  50.0 &       16.07 &       53.98 &       70.80 &                      7.0 &  v245099@dac.unicamp.br \\
+\textbf{206806} &            vinicius jeronimo capodalio &                  50.0 &        0.00 &        7.08 &        2.65 &                      0.0 &  v206806@dac.unicamp.br \\
+\textbf{225851} &                william de sousa rabelo &                  50.0 &           - &           - &           - &                      0.0 &  w225851@dac.unicamp.br \\
+\end{longtable}
+\end{landscape}\end{center}
+#+end_export
+#+begin_export latex
+\begin{center}\begin{landscape}
+\small
+\setlength\LTleft{0pt}
+\setlength\LTright{0pt}
+\begin{longtable}{llrrrrrl}
+\caption{Lista de presença e de notas}\label{lista}\\
+\toprule
+{} &                                   Nome &  Resenha Monetaristas &  2020-10-19 &  2020-10-26 &  2020-11-09 &  Resenha Novos Clássicos &                   Email \\
+\textbf{RA    } &                                        &                       &             &             &             &                          &                         \\
+\midrule
+\endhead
+\midrule
+\multicolumn{8}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+\textbf{230645} &                    alice pereira dario &                  50.0 &       17.86 &        0.00 &       19.47 &                      5.0 &  a230645@dac.unicamp.br \\
+\textbf{213549} &           beatriz helena toledo pastre &                  30.0 &        0.00 &        0.00 &        6.19 &                      5.0 &  b213549@dac.unicamp.br \\
+\textbf{257748} &             breno rivelino fima castro &                  50.0 &        7.14 &        5.31 &       93.81 &                      7.0 &  b257748@dac.unicamp.br \\
+\textbf{232568} &                 caio cimino de almeida &                  70.0 &           - &        2.65 &       54.87 &                      5.0 &  c232568@dac.unicamp.br \\
+\textbf{233566} &                 diego tabacof labriola &                  30.0 &        0.00 &        0.00 &       91.15 &                      7.0 &  d233566@dac.unicamp.br \\
+\textbf{215626} &                felipe barbosa de souza &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &  f215626@dac.unicamp.br \\
+\textbf{91108 } &                 felipe eboli sotorilli &                     - &        1.79 &        0.00 &       77.88 &                        - &   f91108@dac.unicamp.br \\
+\textbf{234311} &                  felipe rubbo aguilera &                  50.0 &       33.93 &        1.77 &       92.92 &                      5.0 &  f234311@dac.unicamp.br \\
+\textbf{216397} &                        gabriel pereira &                  30.0 &        0.00 &        0.88 &       76.11 &                      0.0 &  g216397@dac.unicamp.br \\
+\textbf{197474} &                gabriel pereira jovetta &                  50.0 &        0.00 &        4.42 &       51.33 &                      5.0 &  g197474@dac.unicamp.br \\
+\textbf{234982} &                 gabriel pereira santos &                   0.0 &           - &       13.27 &        0.00 &                      0.0 &  g234982@dac.unicamp.br \\
+\textbf{235042} &                gabriel silva gonçalves &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &  g235042@dac.unicamp.br \\
+\textbf{197724} &           gabriela santana das virgens &                  50.0 &        0.00 &        0.88 &       74.34 &                      5.0 &  g197724@dac.unicamp.br \\
+\textbf{217350} &       guilherme yoshio agata domingues &                  30.0 &           - &           - &           - &                      0.0 &  g217350@dac.unicamp.br \\
+\textbf{174154} &               gustavo josé lara campos &                  30.0 &        0.00 &        4.42 &       16.81 &                      0.0 &  g174154@dac.unicamp.br \\
+\textbf{237534} &         joao mateus rodrigues da silva &                  30.0 &           - &           - &           - &                      3.0 &  j237534@dac.unicamp.br \\
+\textbf{237856} &        joão vitor dos santos rodrigues &                  50.0 &        1.79 &        0.00 &       91.15 &                      5.0 &  j237856@dac.unicamp.br \\
+\textbf{199967} &                   jonas pereira cintra &                  70.0 &        0.00 &        3.54 &       82.30 &                      7.0 &  j199967@dac.unicamp.br \\
+\textbf{103034} &  leonardo augusto de oliveira piovesan &                  50.0 &        0.00 &        0.00 &       93.81 &                      5.0 &  l103034@dac.unicamp.br \\
+\textbf{172577} &                   lucas azevedo soares &                  50.0 &        2.68 &        5.31 &       14.16 &                      7.0 &  l172577@dac.unicamp.br \\
+\textbf{159866} &              marcela chenfel dos anjos &                  50.0 &        0.89 &        0.00 &       91.15 &                      5.0 &  m159866@dac.unicamp.br \\
+\textbf{221896} &               mariana sayuri silva doi &                  70.0 &       34.82 &        0.88 &       18.58 &                     10.0 &  m221896@dac.unicamp.br \\
+\textbf{257876} &    maryana beatriz ventura de carvalho &                 100.0 &       67.86 &        0.88 &       93.81 &                     10.0 &  m257876@dac.unicamp.br \\
+\textbf{242087} &                          miguel razera &                   0.0 &        0.89 &        1.77 &        0.00 &                        - &  m242087@dac.unicamp.br \\
+\textbf{242328} &    natalia kimberlle tavares imperiano &                  50.0 &           - &           - &        0.88 &                      7.0 &  n242328@dac.unicamp.br \\
+\textbf{147614} &          pedro augusto de almeida rosa &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &  p147614@dac.unicamp.br \\
+\textbf{176104} &              rafael da silva tomasella &                   0.0 &           - &           - &           - &                        - &  r176104@dac.unicamp.br \\
+\textbf{205149} &                 raphaela freitas souza &                 100.0 &           - &           - &           - &                      0.0 &  r205149@dac.unicamp.br \\
+\textbf{205151} &               raphaela prado francisco &                   0.0 &        0.89 &       47.79 &        4.42 &                      7.0 &  r205151@dac.unicamp.br \\
+\textbf{244207} &                 sanny alves dos santos &                  70.0 &        0.89 &        0.00 &        0.00 &                      7.0 &  s244207@dac.unicamp.br \\
+\textbf{158425} &                           tales alonso &                  50.0 &        0.89 &       61.95 &       61.06 &                      7.0 &  t158425@dac.unicamp.br \\
+\textbf{257932} &              thaís monello de oliveira &                 100.0 &        0.89 &        0.00 &       30.09 &                      7.0 &  t257932@dac.unicamp.br \\
+\textbf{177964} &               victor hugo alves duarte &                  70.0 &        0.00 &        0.00 &        0.00 &                      5.0 &  v177964@dac.unicamp.br \\
+\textbf{245099} &                            victor maia &                  50.0 &       16.07 &       53.98 &       70.80 &                      7.0 &  v245099@dac.unicamp.br \\
+\textbf{206806} &            vinicius jeronimo capodalio &                  50.0 &        0.00 &        7.08 &        2.65 &                      0.0 &  v206806@dac.unicamp.br \\
+\textbf{225851} &                william de sousa rabelo &                  50.0 &           - &           - &           - &                      0.0 &  w225851@dac.unicamp.br \\
+\end{longtable}
+\end{landscape}\end{center}
+#+end_export
+#+begin_export latex
+\begin{center}\begin{landscape}
+\small
+\setlength\LTleft{0pt}
+\setlength\LTright{0pt}
+\begin{longtable}{llrrrrrl}
+\caption{Lista de presença e de notas}\label{lista}\\
+\toprule
+{} &                                   Nome &  Resenha Monetaristas &  2020-10-19 &  2020-10-26 &  2020-11-09 &  Resenha Novos Clássicos &                   Email \\
+\textbf{RA    } &                                        &                       &             &             &             &                          &                         \\
+\midrule
+\endhead
+\midrule
+\multicolumn{8}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+\textbf{230645} &                    alice pereira dario &                  50.0 &       17.86 &        0.00 &       19.47 &                      5.0 &  a230645@dac.unicamp.br \\
+\textbf{213549} &           beatriz helena toledo pastre &                  30.0 &        0.00 &        0.00 &        6.19 &                      5.0 &  b213549@dac.unicamp.br \\
+\textbf{257748} &             breno rivelino fima castro &                  50.0 &        7.14 &        5.31 &       93.81 &                      7.0 &  b257748@dac.unicamp.br \\
+\textbf{232568} &                 caio cimino de almeida &                  70.0 &           - &        2.65 &       54.87 &                      5.0 &  c232568@dac.unicamp.br \\
+\textbf{233566} &                 diego tabacof labriola &                  30.0 &        0.00 &        0.00 &       91.15 &                      7.0 &  d233566@dac.unicamp.br \\
+\textbf{215626} &                felipe barbosa de souza &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &  f215626@dac.unicamp.br \\
+\textbf{91108 } &                 felipe eboli sotorilli &                     - &        1.79 &        0.00 &       77.88 &                        - &   f91108@dac.unicamp.br \\
+\textbf{234311} &                  felipe rubbo aguilera &                  50.0 &       33.93 &        1.77 &       92.92 &                      5.0 &  f234311@dac.unicamp.br \\
+\textbf{216397} &                        gabriel pereira &                  30.0 &        0.00 &        0.88 &       76.11 &                      0.0 &  g216397@dac.unicamp.br \\
+\textbf{197474} &                gabriel pereira jovetta &                  50.0 &        0.00 &        4.42 &       51.33 &                      5.0 &  g197474@dac.unicamp.br \\
+\textbf{234982} &                 gabriel pereira santos &                   0.0 &           - &       13.27 &        0.00 &                      0.0 &  g234982@dac.unicamp.br \\
+\textbf{235042} &                gabriel silva gonçalves &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &  g235042@dac.unicamp.br \\
+\textbf{197724} &           gabriela santana das virgens &                  50.0 &        0.00 &        0.88 &       74.34 &                      5.0 &  g197724@dac.unicamp.br \\
+\textbf{217350} &       guilherme yoshio agata domingues &                  30.0 &           - &           - &           - &                      0.0 &  g217350@dac.unicamp.br \\
+\textbf{174154} &               gustavo josé lara campos &                  30.0 &        0.00 &        4.42 &       16.81 &                      0.0 &  g174154@dac.unicamp.br \\
+\textbf{237534} &         joao mateus rodrigues da silva &                  30.0 &           - &           - &           - &                      3.0 &  j237534@dac.unicamp.br \\
+\textbf{237856} &        joão vitor dos santos rodrigues &                  50.0 &        1.79 &        0.00 &       91.15 &                      5.0 &  j237856@dac.unicamp.br \\
+\textbf{199967} &                   jonas pereira cintra &                  70.0 &        0.00 &        3.54 &       82.30 &                      7.0 &  j199967@dac.unicamp.br \\
+\textbf{103034} &  leonardo augusto de oliveira piovesan &                  50.0 &        0.00 &        0.00 &       93.81 &                      5.0 &  l103034@dac.unicamp.br \\
+\textbf{172577} &                   lucas azevedo soares &                  50.0 &        2.68 &        5.31 &       14.16 &                      7.0 &  l172577@dac.unicamp.br \\
+\textbf{159866} &              marcela chenfel dos anjos &                  50.0 &        0.89 &        0.00 &       91.15 &                      5.0 &  m159866@dac.unicamp.br \\
+\textbf{221896} &               mariana sayuri silva doi &                  70.0 &       34.82 &        0.88 &       18.58 &                     10.0 &  m221896@dac.unicamp.br \\
+\textbf{257876} &    maryana beatriz ventura de carvalho &                 100.0 &       67.86 &        0.88 &       93.81 &                     10.0 &  m257876@dac.unicamp.br \\
+\textbf{242087} &                          miguel razera &                   0.0 &        0.89 &        1.77 &        0.00 &                        - &  m242087@dac.unicamp.br \\
+\textbf{242328} &    natalia kimberlle tavares imperiano &                  50.0 &           - &           - &        0.88 &                      7.0 &  n242328@dac.unicamp.br \\
+\textbf{147614} &          pedro augusto de almeida rosa &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &  p147614@dac.unicamp.br \\
+\textbf{176104} &              rafael da silva tomasella &                   0.0 &           - &           - &           - &                        - &  r176104@dac.unicamp.br \\
+\textbf{205149} &                 raphaela freitas souza &                 100.0 &           - &           - &           - &                      0.0 &  r205149@dac.unicamp.br \\
+\textbf{205151} &               raphaela prado francisco &                   0.0 &        0.89 &       47.79 &        4.42 &                      7.0 &  r205151@dac.unicamp.br \\
+\textbf{244207} &                 sanny alves dos santos &                  70.0 &        0.89 &        0.00 &        0.00 &                      7.0 &  s244207@dac.unicamp.br \\
+\textbf{158425} &                           tales alonso &                  50.0 &        0.89 &       61.95 &       61.06 &                      7.0 &  t158425@dac.unicamp.br \\
+\textbf{257932} &              thaís monello de oliveira &                 100.0 &        0.89 &        0.00 &       30.09 &                      7.0 &  t257932@dac.unicamp.br \\
+\textbf{177964} &               victor hugo alves duarte &                  70.0 &        0.00 &        0.00 &        0.00 &                      5.0 &  v177964@dac.unicamp.br \\
+\textbf{245099} &                            victor maia &                  50.0 &       16.07 &       53.98 &       70.80 &                      7.0 &  v245099@dac.unicamp.br \\
+\textbf{206806} &            vinicius jeronimo capodalio &                  50.0 &        0.00 &        7.08 &        2.65 &                      0.0 &  v206806@dac.unicamp.br \\
+\textbf{225851} &                william de sousa rabelo &                  50.0 &           - &           - &           - &                      0.0 &  w225851@dac.unicamp.br \\
+\end{longtable}
+\end{landscape}\end{center}
+#+end_export
+#+begin_export latex
+\begin{center}\begin{landscape}
+\small
+\setlength\LTleft{0pt}
+\setlength\LTright{0pt}
+\begin{longtable}{lrrrrllrrrrrrrrrrlr}
+\caption{Lista de presença e de notas}\label{lista}\\
+\toprule
+{} &        RA &  2020-09-21 00:00:00 &  2020-09-28 00:00:00 &  2020-10-05 00:00:00 & 2020-10-19 00:00:00 & 2020-10-26 00:00:00 &  2020-11-09 00:00:00 &  2020-11-16 00:00:00 &  2020-11-23 00:00:00 &  2020-11-30 00:00:00 &  2020-12-14 00:00:00 &  2020-12-21 00:00:00 &  2020-01-04 00:00:00 &  2020-01-11 00:00:00 &  2020-01-18 00:00:00 &  2020-01-25 00:00:00 &                   Email &  Resenha Novos Clássicos \\
+\textbf{Nome                                 } &           &                      &                      &                      &                     &                     &                      &                      &                      &                      &                      &                      &                      &                      &                      &                      &                         &                          \\
+\midrule
+\endhead
+\midrule
+\multicolumn{19}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+\textbf{alice pereira dario                  } &  230645.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  f091108@dac.unicamp.br &                        - \\
+\textbf{beatriz helena toledo pastre         } &  213549.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  l103034@dac.unicamp.br &                        - \\
+\textbf{breno rivelino fima castro           } &  257748.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  p147614@dac.unicamp.br &                        - \\
+\textbf{caio cimino de almeida               } &  232568.0 &                    - &                    - &                    - &                   p &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  t158425@dac.unicamp.br &                        - \\
+\textbf{diego tabacof labriola               } &  233566.0 &                    - &                    - &                    - &                   - &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  m159866@dac.unicamp.br &                        - \\
+\textbf{felipe barbosa de souza              } &  215626.0 &                    - &                    - &                    - &                   - &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  l172577@dac.unicamp.br &                        - \\
+\textbf{felipe eboli sotorilli               } &   91108.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  g174154@dac.unicamp.br &                        - \\
+\textbf{felipe rubbo aguilera                } &  234311.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  r176104@dac.unicamp.br &                        - \\
+\textbf{gabriel pereira                      } &  216397.0 &                    - &                    - &                    - &                   p &           p (55 mi) &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  v177964@dac.unicamp.br &                        - \\
+\textbf{gabriel pereira jovetta              } &  197474.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  g197474@dac.unicamp.br &                        - \\
+\textbf{gabriel pereira santos               } &  234982.0 &                    - &                    - &                    - &                   p &           p (14 mi) &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  g197724@dac.unicamp.br &                        - \\
+\textbf{gabriel silva gonçalves              } &  235042.0 &                    - &                    - &                    - &                   - &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  j199967@dac.unicamp.br &                        - \\
+\textbf{gabriela santana das virgens         } &  197724.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  r205149@dac.unicamp.br &                        - \\
+\textbf{guilherme yoshio agata domingues     } &  217350.0 &                    - &                    - &                    - &                   - &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  r205151@dac.unicamp.br &                        - \\
+\textbf{gustavo josé lara campos             } &  174154.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  v206806@dac.unicamp.br &                        - \\
+\textbf{joao mateus rodrigues da silva       } &  237534.0 &                    - &                    - &                    - &                   - &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  b213549@dac.unicamp.br &                        - \\
+\textbf{joão vitor dos santos rodrigues      } &  237856.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  f215626@dac.unicamp.br &                        - \\
+\textbf{jonas pereira cintra                 } &  199967.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  g216397@dac.unicamp.br &                        - \\
+\textbf{leonardo augusto de oliveira piovesan} &  103034.0 &                    - &                    - &                    - &                   p &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  g217350@dac.unicamp.br &                        - \\
+\textbf{lucas azevedo soares                 } &  172577.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  m221896@dac.unicamp.br &                        - \\
+\textbf{marcela chenfel dos anjos            } &  159866.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  w225851@dac.unicamp.br &                        - \\
+\textbf{mariana sayuri silva doi             } &  221896.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  a230645@dac.unicamp.br &                        - \\
+\textbf{maryana beatriz ventura de carvalho  } &  257876.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  c232568@dac.unicamp.br &                        - \\
+\textbf{miguel razera                        } &  242087.0 &                    - &                    - &                    - &                   p &            p (6 mi) &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  d233566@dac.unicamp.br &                        - \\
+\textbf{natalia kimberlle tavares imperiano  } &  242328.0 &                    - &                    - &                    - &                   - &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  f234311@dac.unicamp.br &                        - \\
+\textbf{pedro augusto de almeida rosa        } &  147614.0 &                    - &                    - &                    - &                   - &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  g234982@dac.unicamp.br &                        - \\
+\textbf{rafael da silva tomasella            } &  176104.0 &                    - &                    - &                    - &                   - &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  g235042@dac.unicamp.br &                        - \\
+\textbf{raphaela freitas souza               } &  205149.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  j237534@dac.unicamp.br &                        - \\
+\textbf{raphaela prado francisco             } &  205151.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  j237856@dac.unicamp.br &                        - \\
+\textbf{sanny alves dos santos               } &  244207.0 &                    - &                    - &                    - &                   p &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  m242087@dac.unicamp.br &                        - \\
+\textbf{tales alonso                         } &  158425.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  n242328@dac.unicamp.br &                        - \\
+\textbf{thaís monello de oliveira            } &  257932.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  s244207@dac.unicamp.br &                        - \\
+\textbf{victor hugo alves duarte             } &  177964.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  v245099@dac.unicamp.br &                        - \\
+\textbf{victor maia                          } &  245099.0 &                    - &                    - &                    - &           p (17 mi) &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  b257748@dac.unicamp.br &                        - \\
+\textbf{vinicius jeronimo capodalio          } &  206806.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  m257876@dac.unicamp.br &                        - \\
+\textbf{william de sousa rabelo              } &  225851.0 &                    - &                    - &                    - &                   p &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  t257932@dac.unicamp.br &                        - \\
+\textbf{235042                               } &         - &                    - &                    - &                    - &                   - &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                       - &                      5.0 \\
+\textbf{216397                               } &         - &                    - &                    - &                    - &                   - &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                       - &                      3.0 \\
+\textbf{245459                               } &         - &                    - &                    - &                    - &                   - &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                       - &                      0.0 \\
+\textbf{238414                               } &         - &                    - &                    - &                    - &                   - &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                       - &                      5.0 \\
+\end{longtable}
+\end{landscape}\end{center}
+#+end_export
+#+begin_export latex
+\begin{center}\begin{landscape}
+\small
+\setlength\LTleft{0pt}
+\setlength\LTright{0pt}
+\begin{longtable}{lrrrrllrrrrrrrrrrlr}
+\caption{Lista de presença e de notas}\label{lista}\\
+\toprule
+{} &        RA &  2020-09-21 00:00:00 &  2020-09-28 00:00:00 &  2020-10-05 00:00:00 & 2020-10-19 00:00:00 & 2020-10-26 00:00:00 &  2020-11-09 00:00:00 &  2020-11-16 00:00:00 &  2020-11-23 00:00:00 &  2020-11-30 00:00:00 &  2020-12-14 00:00:00 &  2020-12-21 00:00:00 &  2020-01-04 00:00:00 &  2020-01-11 00:00:00 &  2020-01-18 00:00:00 &  2020-01-25 00:00:00 &                   Email &  Resenha Novos Clássicos \\
+\textbf{Nome                                 } &           &                      &                      &                      &                     &                     &                      &                      &                      &                      &                      &                      &                      &                      &                      &                      &                         &                          \\
+\midrule
+\endhead
+\midrule
+\multicolumn{19}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+\textbf{alice pereira dario                  } &  230645.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  f091108@dac.unicamp.br &                        - \\
+\textbf{beatriz helena toledo pastre         } &  213549.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  l103034@dac.unicamp.br &                        - \\
+\textbf{breno rivelino fima castro           } &  257748.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  p147614@dac.unicamp.br &                        - \\
+\textbf{caio cimino de almeida               } &  232568.0 &                    - &                    - &                    - &                   p &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  t158425@dac.unicamp.br &                        - \\
+\textbf{diego tabacof labriola               } &  233566.0 &                    - &                    - &                    - &                   - &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  m159866@dac.unicamp.br &                        - \\
+\textbf{felipe barbosa de souza              } &  215626.0 &                    - &                    - &                    - &                   - &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  l172577@dac.unicamp.br &                        - \\
+\textbf{felipe eboli sotorilli               } &   91108.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  g174154@dac.unicamp.br &                        - \\
+\textbf{felipe rubbo aguilera                } &  234311.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  r176104@dac.unicamp.br &                        - \\
+\textbf{gabriel pereira                      } &  216397.0 &                    - &                    - &                    - &                   p &           p (55 mi) &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  v177964@dac.unicamp.br &                        - \\
+\textbf{gabriel pereira jovetta              } &  197474.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  g197474@dac.unicamp.br &                        - \\
+\textbf{gabriel pereira santos               } &  234982.0 &                    - &                    - &                    - &                   p &           p (14 mi) &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  g197724@dac.unicamp.br &                        - \\
+\textbf{gabriel silva gonçalves              } &  235042.0 &                    - &                    - &                    - &                   - &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  j199967@dac.unicamp.br &                        - \\
+\textbf{gabriela santana das virgens         } &  197724.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  r205149@dac.unicamp.br &                        - \\
+\textbf{guilherme yoshio agata domingues     } &  217350.0 &                    - &                    - &                    - &                   - &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  r205151@dac.unicamp.br &                        - \\
+\textbf{gustavo josé lara campos             } &  174154.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  v206806@dac.unicamp.br &                        - \\
+\textbf{joao mateus rodrigues da silva       } &  237534.0 &                    - &                    - &                    - &                   - &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  b213549@dac.unicamp.br &                        - \\
+\textbf{joão vitor dos santos rodrigues      } &  237856.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  f215626@dac.unicamp.br &                        - \\
+\textbf{jonas pereira cintra                 } &  199967.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  g216397@dac.unicamp.br &                        - \\
+\textbf{leonardo augusto de oliveira piovesan} &  103034.0 &                    - &                    - &                    - &                   p &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  g217350@dac.unicamp.br &                        - \\
+\textbf{lucas azevedo soares                 } &  172577.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  m221896@dac.unicamp.br &                        - \\
+\textbf{marcela chenfel dos anjos            } &  159866.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  w225851@dac.unicamp.br &                        - \\
+\textbf{mariana sayuri silva doi             } &  221896.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  a230645@dac.unicamp.br &                        - \\
+\textbf{maryana beatriz ventura de carvalho  } &  257876.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  c232568@dac.unicamp.br &                        - \\
+\textbf{miguel razera                        } &  242087.0 &                    - &                    - &                    - &                   p &            p (6 mi) &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  d233566@dac.unicamp.br &                        - \\
+\textbf{natalia kimberlle tavares imperiano  } &  242328.0 &                    - &                    - &                    - &                   - &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  f234311@dac.unicamp.br &                        - \\
+\textbf{pedro augusto de almeida rosa        } &  147614.0 &                    - &                    - &                    - &                   - &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  g234982@dac.unicamp.br &                        - \\
+\textbf{rafael da silva tomasella            } &  176104.0 &                    - &                    - &                    - &                   - &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  g235042@dac.unicamp.br &                        - \\
+\textbf{raphaela freitas souza               } &  205149.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  j237534@dac.unicamp.br &                        - \\
+\textbf{raphaela prado francisco             } &  205151.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  j237856@dac.unicamp.br &                        - \\
+\textbf{sanny alves dos santos               } &  244207.0 &                    - &                    - &                    - &                   p &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  m242087@dac.unicamp.br &                        - \\
+\textbf{tales alonso                         } &  158425.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  n242328@dac.unicamp.br &                        - \\
+\textbf{thaís monello de oliveira            } &  257932.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  s244207@dac.unicamp.br &                        - \\
+\textbf{victor hugo alves duarte             } &  177964.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  v245099@dac.unicamp.br &                        - \\
+\textbf{victor maia                          } &  245099.0 &                    - &                    - &                    - &           p (17 mi) &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  b257748@dac.unicamp.br &                        - \\
+\textbf{vinicius jeronimo capodalio          } &  206806.0 &                    - &                    - &                    - &                   p &                   p &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  m257876@dac.unicamp.br &                        - \\
+\textbf{william de sousa rabelo              } &  225851.0 &                    - &                    - &                    - &                   p &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &  t257932@dac.unicamp.br &                        - \\
+\textbf{235042                               } &         - &                    - &                    - &                    - &                   - &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                       - &                      5.0 \\
+\textbf{216397                               } &         - &                    - &                    - &                    - &                   - &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                       - &                      3.0 \\
+\textbf{245459                               } &         - &                    - &                    - &                    - &                   - &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                       - &                      0.0 \\
+\textbf{238414                               } &         - &                    - &                    - &                    - &                   - &                   - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                    - &                       - &                      5.0 \\
+\end{longtable}
+\end{landscape}\end{center}
+#+end_export
+#+begin_export latex
+\begin{center}\begin{landscape}
+\small
+\setlength\LTleft{0pt}
+\setlength\LTright{0pt}
+\begin{longtable}{llrrrrrl}
+\caption{Lista de presença e de notas}\label{lista}\\
+\toprule
+{} &                                   Nome &  Resenha Monetaristas &  2020-10-19 &  2020-10-26 &  2020-11-09 &  Resenha Novos Clássicos &                   Email \\
+\textbf{RA    } &                                        &                       &             &             &             &                          &                         \\
+\midrule
+\endhead
+\midrule
+\multicolumn{8}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+\textbf{230645} &                    alice pereira dario &                  50.0 &       17.86 &        0.00 &       19.47 &                      5.0 &  a230645@dac.unicamp.br \\
+\textbf{213549} &           beatriz helena toledo pastre &                  30.0 &        0.00 &        0.00 &        6.19 &                      5.0 &  b213549@dac.unicamp.br \\
+\textbf{257748} &             breno rivelino fima castro &                  50.0 &        7.14 &        5.31 &       93.81 &                      7.0 &  b257748@dac.unicamp.br \\
+\textbf{232568} &                 caio cimino de almeida &                  70.0 &           - &        2.65 &       54.87 &                      5.0 &  c232568@dac.unicamp.br \\
+\textbf{233566} &                 diego tabacof labriola &                  30.0 &        0.00 &        0.00 &       91.15 &                      7.0 &  d233566@dac.unicamp.br \\
+\textbf{215626} &                felipe barbosa de souza &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &  f215626@dac.unicamp.br \\
+\textbf{91108 } &                 felipe eboli sotorilli &                     - &        1.79 &        0.00 &       77.88 &                        - &   f91108@dac.unicamp.br \\
+\textbf{234311} &                  felipe rubbo aguilera &                  50.0 &       33.93 &        1.77 &       92.92 &                      5.0 &  f234311@dac.unicamp.br \\
+\textbf{216397} &                        gabriel pereira &                  30.0 &        0.00 &        0.88 &       76.11 &                      3.0 &  g216397@dac.unicamp.br \\
+\textbf{197474} &                gabriel pereira jovetta &                  50.0 &        0.00 &        4.42 &       51.33 &                      5.0 &  g197474@dac.unicamp.br \\
+\textbf{234982} &                 gabriel pereira santos &                   0.0 &           - &       13.27 &        0.00 &                      0.0 &  g234982@dac.unicamp.br \\
+\textbf{235042} &                gabriel silva gonçalves &                   0.0 &        0.00 &        0.00 &        0.00 &                      5.0 &  g235042@dac.unicamp.br \\
+\textbf{197724} &           gabriela santana das virgens &                  50.0 &        0.00 &        0.88 &       74.34 &                      5.0 &  g197724@dac.unicamp.br \\
+\textbf{217350} &       guilherme yoshio agata domingues &                  30.0 &           - &           - &           - &                      0.0 &  g217350@dac.unicamp.br \\
+\textbf{174154} &               gustavo josé lara campos &                  30.0 &        0.00 &        4.42 &       16.81 &                      0.0 &  g174154@dac.unicamp.br \\
+\textbf{237534} &         joao mateus rodrigues da silva &                  30.0 &           - &           - &           - &                      3.0 &  j237534@dac.unicamp.br \\
+\textbf{237856} &        joão vitor dos santos rodrigues &                  50.0 &        1.79 &        0.00 &       91.15 &                      5.0 &  j237856@dac.unicamp.br \\
+\textbf{199967} &                   jonas pereira cintra &                  70.0 &        0.00 &        3.54 &       82.30 &                      7.0 &  j199967@dac.unicamp.br \\
+\textbf{103034} &  leonardo augusto de oliveira piovesan &                  50.0 &        0.00 &        0.00 &       93.81 &                      5.0 &  l103034@dac.unicamp.br \\
+\textbf{172577} &                   lucas azevedo soares &                  50.0 &        2.68 &        5.31 &       14.16 &                      7.0 &  l172577@dac.unicamp.br \\
+\textbf{159866} &              marcela chenfel dos anjos &                  50.0 &        0.89 &        0.00 &       91.15 &                      5.0 &  m159866@dac.unicamp.br \\
+\textbf{221896} &               mariana sayuri silva doi &                  70.0 &       34.82 &        0.88 &       18.58 &                     10.0 &  m221896@dac.unicamp.br \\
+\textbf{257876} &    maryana beatriz ventura de carvalho &                 100.0 &       67.86 &        0.88 &       93.81 &                     10.0 &  m257876@dac.unicamp.br \\
+\textbf{242087} &                          miguel razera &                   0.0 &        0.89 &        1.77 &        0.00 &                        - &  m242087@dac.unicamp.br \\
+\textbf{242328} &    natalia kimberlle tavares imperiano &                  50.0 &           - &           - &        0.88 &                      7.0 &  n242328@dac.unicamp.br \\
+\textbf{147614} &          pedro augusto de almeida rosa &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &  p147614@dac.unicamp.br \\
+\textbf{176104} &              rafael da silva tomasella &                   0.0 &           - &           - &           - &                        - &  r176104@dac.unicamp.br \\
+\textbf{205149} &                 raphaela freitas souza &                 100.0 &           - &           - &           - &                      0.0 &  r205149@dac.unicamp.br \\
+\textbf{205151} &               raphaela prado francisco &                   0.0 &        0.89 &       47.79 &        4.42 &                      7.0 &  r205151@dac.unicamp.br \\
+\textbf{244207} &                 sanny alves dos santos &                  70.0 &        0.89 &        0.00 &        0.00 &                      7.0 &  s244207@dac.unicamp.br \\
+\textbf{158425} &                           tales alonso &                  50.0 &        0.89 &       61.95 &       61.06 &                      7.0 &  t158425@dac.unicamp.br \\
+\textbf{257932} &              thaís monello de oliveira &                 100.0 &        0.89 &        0.00 &       30.09 &                      7.0 &  t257932@dac.unicamp.br \\
+\textbf{177964} &               victor hugo alves duarte &                  70.0 &        0.00 &        0.00 &        0.00 &                      5.0 &  v177964@dac.unicamp.br \\
+\textbf{245099} &                            victor maia &                  50.0 &       16.07 &       53.98 &       70.80 &                      7.0 &  v245099@dac.unicamp.br \\
+\textbf{206806} &            vinicius jeronimo capodalio &                  50.0 &        0.00 &        7.08 &        2.65 &                      0.0 &  v206806@dac.unicamp.br \\
+\textbf{225851} &                william de sousa rabelo &                  50.0 &           - &           - &           - &                      0.0 &  w225851@dac.unicamp.br \\
+\end{longtable}
+\end{landscape}\end{center}
 #+end_export
 
 
@@ -494,7 +1456,54 @@ print(grupos.to_latex(caption="Resultado sorteio das atas - Seminários"))
 
 #+RESULTS:
 #+begin_export latex
-| None |
+\begin{table}
+\centering
+\caption{Resultado sorteio das atas - Seminários}
+\begin{tabular}{ll}
+\toprule
+{} & Resultado \\
+Grupos   &           \\
+\midrule
+Grupo 1  &     Ata 2 \\
+Grupo 2  &     Ata 3 \\
+Grupo 3  &     Ata 5 \\
+Grupo 4  &     Ata 6 \\
+Grupo 5  &     Ata 8 \\
+Grupo 6  &    Ata 11 \\
+Grupo 7  &    Ata 10 \\
+Grupo 8  &    Ata 12 \\
+Grupo 9  &     Ata 9 \\
+Grupo 10 &     Ata 1 \\
+Grupo 11 &     Ata 4 \\
+Grupo 12 &     Ata 7 \\
+\bottomrule
+\end{tabular}
+\end{table}
+#+end_export
+#+begin_export latex
+\begin{table}
+\centering
+\caption{Resultado sorteio das atas - Seminários}
+\begin{tabular}{ll}
+\toprule
+{} & Resultado \\
+Grupos   &           \\
+\midrule
+Grupo 1  &     Ata 6 \\
+Grupo 2  &     Ata 3 \\
+Grupo 3  &    Ata 10 \\
+Grupo 4  &    Ata 12 \\
+Grupo 5  &     Ata 8 \\
+Grupo 6  &    Ata 11 \\
+Grupo 7  &     Ata 5 \\
+Grupo 8  &     Ata 1 \\
+Grupo 9  &     Ata 2 \\
+Grupo 10 &     Ata 9 \\
+Grupo 11 &     Ata 7 \\
+Grupo 12 &     Ata 4 \\
+\bottomrule
+\end{tabular}
+\end{table}
 #+end_export
 
 *** TODO Selecionar Atas e criar map para substituição
@@ -507,4 +1516,3 @@ df.to_excel(f'./output/CE342_{Turma}.xlsx')
 #+END_SRC
 
 #+RESULTS:
-: None
