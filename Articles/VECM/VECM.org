@@ -1,9 +1,4023 @@
-* Configs :noexport:
+* Configs and codes :noexport:
+#+PROPERTY: header-args:python :results output drawer replace :session *VECM* :exports none :tangle ./code/VECM.py :eval never-export
+
 bibliography:ref.bib
 
 ** TODOs
 
 **** TODO Separar os dados da estratégia empírica
+
+** Loading packages 
+#+BEGIN_SRC python
+from datetime import datetime as dt
+
+t1 = dt.now()
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+import matplotlib.ticker as plticker
+
+import pandas_datareader.data as web
+
+from scipy.interpolate import make_interp_spline, BSpline  # Smooth plot
+
+
+sns.set(style="whitegrid")
+sns.set_context("paper")
+
+plt.rc("axes", titlesize=22)  # fontsize of the axes title
+plt.rcParams.update({"font.size": 15})
+plt.rc("legend", fontsize=14)  # legend fontsize
+#+END_SRC
+
+#+RESULTS:
+:results:
+:end:
+
+** Save plot
+
+#+BEGIN_SRC python
+def salvar_grafico(file_name, extension="png", pasta="./figs/"):
+    fig.savefig(pasta + file_name + '.' + extension, dpi = 600, bbox_inches = 'tight', format=extension,
+    pad_inches = 0.2, transparent = False,)
+#+END_SRC
+
+#+RESULTS:
+:results:
+:end:
+
+** Plots
+*** Own houses rate of interest
+
+#+BEGIN_SRC python :results graphics file :file ./figs/TxPropria_Investo.png
+start=dt(1987,1,1)
+end=dt(2019,10,1)
+
+df = web.DataReader(
+    [
+        "PRFI",
+        "CSUSHPISA",
+        "MORTGAGE30US",
+        "CPIAUCSL"
+    ], 
+    'fred', 
+    start, 
+    end
+)
+
+df.columns = [
+    "Residential Investment", 
+    "House Prices", 
+    "Interest rate",
+    "Prices"
+]
+df.index.name = ""
+
+
+df['Interest rate'] = df['Interest rate'].divide(100)
+df = df.resample('M').last()
+
+df['House Prices'] = df['House Prices']/df['House Prices'][0]
+df = df.resample('Q').last()
+df["Inflation"]= df["House Prices"].pct_change()
+df["General inflation"] = df["Prices"].pct_change()
+df["Own interest rate"] = ((1+df["Interest rate"])/(1+df["Inflation"])) -1
+df["Real mortgages interest rate"] = ((1+df["Interest rate"])/(1+df["General inflation"])) -1
+
+df['$g_{I_h}$'] = df["Residential Investment"].pct_change()
+
+    
+fig, ax = plt.subplots(figsize=(19.2,10.8))
+
+df[['Real mortgages interest rate', "Own interest rate", '$g_{I_h}$']].plot(ax=ax, lw=3)
+
+ax.tick_params(axis="both", which="major", labelsize=15)
+sns.despine()
+salvar_grafico("TxPropria_Investo") 
+plt.close('all')
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/TxPropria_Investo.png]]
+
+*** textcite:yeo_new_2000 transformation
+
+#+BEGIN_SRC python :results graphics file :file ./figs/YeoJohnson_All.png
+df = pd.read_csv("./data/Data_yeojohnson.csv", index_col=[0], parse_dates=True)
+
+fig, ax = plt.subplots(figsize=(19.2,10.8), sharey=True)
+
+df[[
+    'Interest rate', 
+    "Inflation", 
+    "gIh", 
+    "Own Interest rate"
+]].plot(
+    ax=ax, 
+    subplots=True, layout=(2,2),
+    #subplots=False, 
+    lw = 3,
+)
+
+ax.tick_params(axis="both", which="major", labelsize=15)
+plt.tight_layout()
+sns.despine()
+
+salvar_grafico("YeoJohnson_All")
+plt.close('all')
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/YeoJohnson_All.png]]
+
+*** Construction 
+**** Download
+#+begin_src shell 
+cd /HDD/PhD/Articles/VECM/data/
+
+wget -N https://www.census.gov/construction/nrc/xls/avg_authtostart_cust.xls
+mv avg_authtostart_cust.xls construcao_autorizacao.xls
+
+wget -N https://www.census.gov/construction/nrc/xls/avg_starttocomp_cust.xls
+mv avg_starttocomp_cust.xls construcao_tempo.xls
+cd /HDD/PhD/Articles/VECM/
+#+end_src
+
+#+RESULTS:
+#+begin_example
+
+$ --2020-11-27 15:11:53--  https://www.census.gov/construction/nrc/xls/avg_authtostart_cust.xls
+Resolvendo www.census.gov (www.census.gov)... 2600:1403:7400:3a1::208c, 2600:1403:7400:3a2::208c, 104.97.106.142
+Conectando-se a www.census.gov (www.census.gov)|2600:1403:7400:3a1::208c|:443... conectado.
+A requisição HTTP foi enviada, aguardando resposta... 200 OK
+Tamanho: 70656 (69K) [application/vnd.ms-excel]
+Salvando em: “avg_authtostart_cust.xls”
+[                                                                               ]       0  --.-KB/s               avg_authtostart_cust.xls                100%[==============================================================================>]  69,00K   344KB/s               avg_authtostart_cust.xls                100%[==============================================================================>]  69,00K   344KB/s    em 0,2s    
+
+2020-11-27 15:11:55 (344 KB/s) - “avg_authtostart_cust.xls” salvo [70656/70656]
+$ $ --2020-11-27 15:11:55--  https://www.census.gov/construction/nrc/xls/avg_starttocomp_cust.xls
+Resolvendo www.census.gov (www.census.gov)... 2600:1403:7400:3a1::208c, 2600:1403:7400:3a2::208c, 104.97.106.142
+Conectando-se a www.census.gov (www.census.gov)|2600:1403:7400:3a1::208c|:443... conectado.
+A requisição HTTP foi enviada, aguardando resposta... 200 OK
+Tamanho: 73728 (72K) [application/vnd.ms-excel]
+Salvando em: “avg_starttocomp_cust.xls”
+[                                                                               ]       0  --.-KB/s               avg_starttocomp_cust.xls                 97%[===========================================================================>   ]  70,07K   294KB/s               avg_starttocomp_cust.xls                100%[==============================================================================>]  72,00K   302KB/s    em 0,2s    
+
+2020-11-27 15:11:56 (302 KB/s) - “avg_starttocomp_cust.xls” salvo [73728/73728]
+#+end_example
+
+**** Plot
+#+BEGIN_SRC python :results graphics file :file ./figs/Meses_contrucao.png
+df_autorizacao = pd.read_excel(
+    "./data/construcao_autorizacao.xls", skiprows=11, index_col=[0], parse_dates=True
+)
+df_autorizacao.index.name = "Ano"
+df_autorizacao.columns = [
+    "Total",
+    "Venda",
+    "Contratado",
+    "Proprietário",
+    "Total (2 ou mais unidade)",
+    "2 a 4",
+    "5 a 9",
+    "10 a 19",
+    "20 ou mais",
+]
+df_autorizacao = df_autorizacao.apply(pd.to_numeric, errors="coerce")
+numero_linhas = int((dt(2018, 1, 1) - dt(1976, 1, 1)).days / 365.25 + 1)
+df_autorizacao = df_autorizacao.iloc[:numero_linhas, :]
+
+df_start = pd.read_excel(
+    "./data/construction.xls", skiprows=11, index_col=[0], parse_dates=True
+)
+df_start.index.name = "Ano"
+df_start.columns = [
+    "Total",
+    "Venda",
+    "Contratado",
+    "Proprietário",
+    "Total (2 ou mais unidade)",
+    "2 a 4",
+    "5 a 9",
+    "10 a 19",
+    "20 ou mais",
+]
+df_start = df_start.apply(pd.to_numeric, errors="coerce")
+numero_linhas = int((dt(2018, 1, 1) - dt(1971, 1, 1)).days / 365.25 + 1)
+df_start = df_start.iloc[:numero_linhas, :]
+df = df_autorizacao + df_start
+df = df.dropna()
+
+
+fig, ax = plt.subplots(figsize=(19.2, 10.8))
+
+sns.kdeplot(df["Total"], shade=True, color="darkred", ax=ax, label="Mean")
+sns.kdeplot(df["Venda"], shade=True, color="darkgreen", ax=ax, label="For Sale")
+sns.kdeplot(df["Contratado"], shade=True, color="orange", ax=ax, label="By contract")
+sns.kdeplot(df["Proprietário"], shade=True, color="purple", ax=ax, label="By the owner")
+
+# ax.xaxis.set_ticks(np.arange(0, 16, 3))
+loc = plticker.MultipleLocator(base=3.0)  # this locator puts ticks at regular intervals
+ax.xaxis.set_major_locator(loc)
+
+
+ax.tick_params(axis="both", which="major", labelsize=15)
+ax.set_xlabel("Months")
+ax.set_ylabel("Probability density")
+
+# ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+ax.legend()
+
+sns.despine()
+plt.tight_layout()
+salvar_grafico("Meses_construcao")
+plt.close('all')
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/Meses_contrucao.png]]
+
+*** Cycles
+
+#+BEGIN_SRC python :results graphics file :file ./figs/Ciclo_Ih_u.png
+start = dt(1951, 12, 1)
+end = dt(2019, 1, 1)
+df = web.DataReader(
+    [
+        'GDP',
+        'PRFI',
+        'PNFI',
+        'TCU',
+        'PCDG',
+    ], 
+    'fred', 
+    start, end
+)
+
+df.columns = [
+    "GDP",
+    "Residential investment",
+    "Non-residential investment",
+    "Capacity utilization",
+    "Duráveis"
+]
+
+df['Capacity utilization'] = df['Capacity utilization']/100
+df['Ih/GDP'] = df['Residential investment']/df['GDP']
+df['If/GDP'] = df['Non-residential investment']/df['GDP']
+df['Duráveis/GDP'] = df['Duráveis']/df['GDP']
+df['Ano'] = df.index.year
+df = df.resample('Q').last()
+df['gY'] = df['GDP'].pct_change(4)
+
+df.index.name = ''
+df = df.dropna()
+
+sns.set_context('talk')
+fig, ax = plt.subplots(2,
+                       3,
+                       sharex=True,
+                       sharey=True,
+                       squeeze=False,
+                       figsize=(19.2, 10.8))
+
+sns.scatterplot(y='Ih/GDP',
+                x='Capacity utilization',
+                data=df["1970-12":"1975-01"],
+                ax=ax[0, 0],
+                size='Ano',
+                sizes=(5, 300),
+                color='black',
+                legend=False)
+sns.lineplot(y='Ih/GDP',
+             x='Capacity utilization',
+             data=df["1970-12":"1975-01"],
+             ax=ax[0, 0],
+             sort=False,
+             color='black',
+             lw=4,
+            )
+ax[0, 0].set_title("1970 (IV) - 1975 (I)", fontsize=18)
+
+sns.scatterplot(y='Ih/GDP',
+                x='Capacity utilization',
+                data=df["1975-01":"1980-10"],
+                ax=ax[0, 1],
+                size='Ano',
+                sizes=(5, 300),
+                color='black',
+                legend=False)
+sns.lineplot(y='Ih/GDP',
+             x='Capacity utilization',
+             data=df["1975-01":"1980-10"],
+             ax=ax[0, 1],
+             sort=False,
+             color='black',
+             lw=4,)
+ax[0, 1].set_title("1975 (I) - 1980 (III)", fontsize=18)
+
+sns.scatterplot(y='Ih/GDP',
+                x='Capacity utilization',
+                data=df["1980-10":"1982-12"],
+                ax=ax[0, 2],
+                size='Ano',
+                sizes=(5, 300),
+                color='black',
+                legend=False)
+sns.lineplot(y='Ih/GDP',
+             x='Capacity utilization',
+             data=df["1980-10":"1982-12"],
+             ax=ax[0, 2],
+             sort=False,
+             color='black',
+             lw=4,)
+ax[0, 2].set_title("1980 (III) - 1982 (IV)", fontsize=18)
+
+sns.scatterplot(y='Ih/GDP',
+                x='Capacity utilization',
+                data=df["1982-12":"1991-01"],
+                ax=ax[1, 0],
+                size='Ano',
+                sizes=(5, 300),
+                color='black',
+                legend=False)
+sns.lineplot(y='Ih/GDP',
+             x='Capacity utilization',
+             data=df["1982-12":"1991-01"],
+             ax=ax[1, 0],
+             sort=False,
+             color='black',
+             lw=4,)
+ax[1, 0].set_title("1982 (IV) - 1991 (I)")
+
+sns.scatterplot(y='Ih/GDP',
+                x='Capacity utilization',
+                data=df["1991-01":"2001-12"],
+                ax=ax[1, 1],
+                size='Ano',
+                sizes=(5, 300),
+                color='black',
+                legend=False)
+sns.lineplot(y='Ih/GDP',
+             x='Capacity utilization',
+             data=df["1991-01":"2001-12"],
+             ax=ax[1, 1],
+             sort=False,
+             color='black',
+             lw=4,)
+ax[1, 1].set_title("1991 (I) - 2001 (IV)", fontsize=18)
+
+sns.scatterplot(y='Ih/GDP',
+                x='Capacity utilization',
+                data=df["2001-12":"2009-07"],
+                ax=ax[1, 2],
+                size='Ano',
+                sizes=(5, 300),
+                color='black',
+                legend=False)
+sns.lineplot(y='Ih/GDP',
+             x='Capacity utilization',
+             data=df["2001-12":"2009-07"],
+             ax=ax[1, 2],
+             sort=False,
+             color='black',
+             lw=4,)
+ax[1, 2].set_title("2001 (IV) - 2009 (II)", fontsize=18)
+
+sns.despine()
+ax[0, 0].set_ylabel("")
+ax[1, 0].set_xlabel('')
+ax[1, 0].set_ylabel("")
+ax[1, 1].set_xlabel('')
+ax[1, 2].set_xlabel('')
+
+fig.tight_layout(rect=[0, 0.03, 1, 0.90])
+fig.text(0.5,
+         0.03,
+         'Capacity utilization (Total industry)',
+         ha='center',
+         fontsize=20)
+fig.text(-0.01,
+         0.5,
+         'Residential investment/GDP',
+         va='center',
+         rotation='vertical',
+         fontsize=20)
+plt.suptitle(
+    "(Markers sizes increases over time)"
+)
+
+salvar_grafico(file_name="Ciclo_Ih_u")
+plt.close('all')
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/Ciclo_Ih_u.png]]
+
+
+** Model related 
+#+BEGIN_SRC python
+from statsmodels.tsa.vector_ar.var_model import VAR
+from statsmodels.tsa.api import SVAR
+from statsmodels.tsa.vector_ar.vecm import coint_johansen, CointRankResults, VECM, select_coint_rank
+
+from statsmodels.stats.diagnostic import acorr_breusch_godfrey, acorr_ljungbox, het_arch, het_breuschpagan, het_white
+from statsmodels.tsa.stattools import adfuller, kpss, grangercausalitytests, q_stat, coint
+from arch.unitroot import PhillipsPerron, ZivotAndrews, DFGLS, KPSS, ADF
+
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+
+
+import pandas_datareader.data as web
+from scipy.stats import yeojohnson
+
+start = dt(1987, 1, 1)
+end = dt(2019, 7, 1)
+#+END_SRC
+
+#+RESULTS:
+:results:
+:end:
+ 
+** Loading data
+
+#+BEGIN_SRC python
+df = web.DataReader(
+    [
+        "PRFI",
+        "CSUSHPISA",
+        "MORTGAGE30US",
+    ], 
+    'fred', 
+    start, 
+    end
+)
+
+df.columns = [
+    "Residential Investment", 
+    "House Prices", 
+    "Interest rate",
+]
+df.index.name = ""
+
+df['Interest rate'] = df['Interest rate'].divide(100)
+df = df.resample('M').last()
+df['House Prices'] = df['House Prices']/df['House Prices'][0]
+df = df.resample('Q').last()
+
+df["Inflation"] = df["House Prices"].pct_change() # Warning: 4
+df['gIh'] = df["Residential Investment"].pct_change() # Warning: 4
+df["Own Interest rate"] = ((1+df["Interest rate"])/(1+df["Inflation"])) -1
+
+df['Own Interest rate'], *_ = yeojohnson(df['Own Interest rate'])
+#df['Inflation'], *_ = yeojohnson(df['Inflation'])
+df['gIh'], *_ = yeojohnson(df['gIh'])
+
+df[["Inflation", "gIh", "Own Interest rate", "Interest rate"]].to_csv("./data/Complete_Data")
+
+df["Crisis"] = [0 for i in range(len(df["gIh"]))]
+for i in range(len(df["Crisis"])):
+    if df.index[i] > dt(2007,12,1) and df.index[i] < dt(2009,7,1):
+        df["Crisis"][i] = 1
+
+df = df[["Interest rate", "Inflation", "gIh", "Crisis", "Own Interest rate"]]
+
+df["d_Own Interest rate"] = df["Own Interest rate"].diff()
+df["d_gIh"] = df["gIh"].diff()
+df["d_Inflation"] = df["Inflation"].diff()
+df["d_Interest rate"] = df['Interest rate'].diff()
+df = df.dropna()
+#+END_SRC
+
+#+RESULTS:
+:results:
+/home/gpetrini/.local/lib/python3.8/site-packages/scipy/stats/morestats.py:1371: RuntimeWarning: invalid value encountered in greater_equal
+  pos = x >= 0  # binary mask
+/tmp/babel-c6MFcw/python-mr7gTE:37: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  df["Crisis"][i] = 1
+:end:
+
+** Functions
+*** Unit root test
+#+BEGIN_SRC python
+def testes_raiz(df=df["gIh"], original_trend='c', diff_trend='c'):
+    """
+    serie: Nome da coluna do df
+    orignal_trend: 'c', 'ct', 'ctt'
+    diff_trend: 'c', 'ct', 'ctt'
+    
+    Plota série o original e em diferenta e retorna testes de raíz unitária
+    """
+    fig, ax = plt.subplots(1,2)
+
+    df.plot(ax=ax[0], title='Original series')
+    df.diff().plot(ax=ax[1], title='First differences')
+
+    plt.tight_layout()
+    sns.despine()
+    plt.close('all')
+    
+    fig, ax = plt.subplots(2,2)
+    
+    plot_acf(df, ax=ax[0,0], title='ACF: serie original') 
+    plot_pacf(df, ax=ax[0,1], title='PACF: serie original')
+    
+    plot_acf(df.diff().dropna(), ax=ax[1,0], title='ACF: serie em diferença') 
+    plot_pacf(df.diff().dropna(), ax=ax[1,1], title='PACF: serie em diferença')
+    
+    plt.tight_layout()
+    sns.despine() 
+    plt.close('all')
+
+    
+    # Zivot Andrews
+    print('\nZIVOT ANDREWS level series')
+    print(ZivotAndrews(df, trend = original_trend).summary(),"\n")
+    print('\nZIVOT ANDREWS First differences')
+    print(ZivotAndrews(df.diff().dropna(), trend = diff_trend).summary(),"\n")
+    
+    print('\nADF level series')
+    print(ADF(df, trend=original_trend).summary(),"\n")
+    print('\nADF First differences')
+    print(ADF(df.diff().dropna(), trend=diff_trend).summary(),"\n")
+    
+    print('\nDFGLS level series')
+    print(DFGLS(df, trend=original_trend).summary(),"\n")
+    print('\nDFGLS First differences')
+    print(DFGLS(df.diff().dropna(), trend=diff_trend).summary(),"\n")
+    
+    print('\nKPSS em nível')
+    print(KPSS(df, trend = original_trend).summary(),"\n")
+    print('\nKPSS em primeira diferença')
+    print(KPSS(df.diff().dropna(), trend = diff_trend).summary(),"\n")
+    
+    print('\nPhillips Perron em nível')
+    print(PhillipsPerron(df, trend=original_trend).summary(),"\n")
+    print('\nPhillips Perron em primeira diferença')
+    print(PhillipsPerron(df.diff().dropna(), trend=diff_trend).summary(),"\n")
+#+END_SRC
+
+#+RESULTS:
+:results:
+>>>
+:end:
+
+
+*** Engel-Granger and Johansen conintegration test
+
+
+#+BEGIN_SRC python
+# Teste de cointegração
+
+def cointegracao(ts0, ts1, signif = 0.05, lag=1):
+  trends = ['nc', 'c', 'ct', 'ctt']
+  for trend in trends:
+    print(f"\nTestando para lag = {lag} e trend = {trend}")
+    result = coint(ts0, ts1, trend = trend, maxlag=lag)
+    print('Null Hypothesis: there is NO cointegration')
+    print('Alternative Hypothesis: there IS cointegration')
+    print('t Statistic: %f' % result[0])
+    print('p-value: %f' % result[1])
+    if result[1] < signif:
+      print('CONCLUSION: REJECT null Hypothesis: there IS cointegration\n')
+    else:
+      print('CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration\n')
+    
+def testes_coint(series, maxlag=6, signif = 0.05,):
+    for i in range(1, maxlag):
+        print(50*'=')
+        cointegracao(
+            ts0=series.iloc[:, 0],
+            ts1=series.iloc[:, 1:],
+            signif=signif,
+            lag=i
+        )
+        print("\nTESTE DE JOHANSEN\n")
+        print("Teste SEM constante")
+        result = select_coint_rank(endog=series, k_ar_diff=i, det_order=-1, signif=signif) ## Warning: 1
+        print(result.summary())
+        print(f'Para lag = {i} e significância = {signif*100}%, Rank = {result.rank}')
+        print("\nTeste COM constante\n")
+        result = select_coint_rank(endog=series, k_ar_diff=i, det_order=0, signif=signif) ## Warning: 1
+        print(result.summary())
+        print(f'Para lag = {i} e significância = {signif*100}%, Rank = {result.rank}')
+        print("\nTeste COM constante E tendência\n")
+        result = select_coint_rank(endog=series, k_ar_diff=i, det_order=1, signif=signif) ## Warning: 1
+        print(result.summary())
+        print(f'Para lag = {i} e significância = {signif*100}%, Rank = {result.rank}')
+        print(10*'=')
+#+END_SRC
+
+#+RESULTS:
+:results:
+:end:
+
+*** Residuals analysis: Ljung-Box and Box-Pierce
+
+#+BEGIN_SRC python
+### Resíduos
+
+def LjungBox_Pierce(resid, signif = 0.05, boxpierce = False, k = 4):
+  """
+  resid = residuals df
+  signif = signif. level
+  """
+  var = len(resid.columns)
+  print("H0: autocorrelations up to lag k equal zero")
+  print('H1: autocorrelations up to lag k not zero')
+  print("Box-Pierce: ", boxpierce)
+  
+  for i in range(var):
+    print("Testing for ", resid.columns[i].upper(), ". Considering a significance level of",  signif*100,"%")
+    result = acorr_ljungbox(x = resid.iloc[:,i-1], lags = k, boxpierce = boxpierce)[i-1]
+    conclusion = result < signif
+    for j in range(k):
+      print(f'p-value = {result[j]}')
+      print("Reject H0 on lag " ,j+1,"? ", conclusion[j], "\n")
+    print("\n")
+    
+def ARCH_LM(resid, signif = 0.05, autolag = 'bic'):
+  """
+  df = residuals df
+  signif = signif. level
+  """
+  var = len(resid.columns)
+  print("H0: Residuals are homoscedastic")
+  print('H1: Residuals are heteroskedastic')
+  
+  for i in range(var):
+    print("Testing for ", resid.columns[i].upper())
+    result = het_arch(resid = resid.iloc[:,i], autolag = autolag)
+    print('LM statistic: ', result[0])
+    print('LM p-value: ', result[1])
+    print("Reject H0? ", result[1] < signif)
+    print('F statistic: ', result[2])
+    print('F p-value: ', result[3])
+    print("Reject H0? ", result[3] < signif)
+    print('\n')
+    
+
+def analise_residuos(results, nmax=15):
+    
+    residuals = pd.DataFrame(results.resid, columns = results.names)
+    
+    residuals.plot()
+    sns.despine()
+    
+    plt.close('all')
+    
+    for serie in residuals.columns:
+        sns.set_context('talk')
+        fig, ax = plt.subplots(1,2, figsize=(10,8))
+
+        plot_acf(residuals[serie], ax=ax[0], title=f'ACF Resíduo de {serie}', zero=False) 
+        plot_pacf(residuals[serie], ax=ax[1], title=f'PACF Resíduo de {serie}', zero=False)
+        
+        plt.tight_layout()
+        sns.despine() 
+        
+        plt.close('all')
+
+    print('AUTOCORRELAÇÃO RESIDUAL: PORTMANTEAU\n')
+    print(results.test_whiteness(nlags=nmax).summary())
+    print('\nAUTOCORRELAÇÃO RESIDUAL: PORTMANTEAU AJUSTADO\n')
+    print(results.test_whiteness(nlags=nmax, adjusted=True).summary())
+    print('\nLJUNGBOX\n')
+    LjungBox_Pierce(residuals, k = 12, boxpierce=False)
+    print('\nBOXPIERCE\n')
+    LjungBox_Pierce(residuals, k = 12, boxpierce=True)
+    print('\nNORMALIDADE\n')
+    print(results.test_normality().summary())
+    print('\nHOMOCEDASTICIDADE\n')
+    ARCH_LM(residuals)
+    
+    return residuals
+results = []
+def plot_lags(results = results, trimestres=[2, 5]):
+    series = results.names
+    sns.set_context('talk')
+    fig, ax = plt.subplots(len(trimestres),2, figsize = (16,10))
+    
+    for i in range(len(trimestres)):
+        sns.regplot(y = df[series[0]], x = df[series[1]].shift(-trimestres[i]), color = 'black', ax = ax[i,0], order = 2)
+        ax[i,0].set_xlabel(f'{series[1]} lagged in {trimestres[i]} quarters')
+
+        sns.regplot(x = df[series[0]].shift(-trimestres[i]), y = df[series[1]], color = 'black', ax = ax[i,1], order = 2)
+        ax[i,1].set_xlabel(f'{series[0]} lagged in {trimestres[i]} quarters')
+        
+    plt.tight_layout()
+    plt.close('all')
+    
+    return fig
+#+END_SRC
+
+#+RESULTS:
+:results:
+:end:
+
+
+*** FEVD for VECM
+
+#+BEGIN_SRC python
+from statsmodels.compat.python import lrange, iteritems
+from statsmodels.tsa.vector_ar import output, plotting, util
+def fmse(self, steps):
+        r"""
+        Compute theoretical forecast error variance matrices
+
+        Parameters
+        ----------
+        steps : int
+            Number of steps ahead
+
+        Notes
+        -----
+        .. math:: \mathrm{MSE}(h) = \sum_{i=0}^{h-1} \Phi \Sigma_u \Phi^T
+
+        Returns
+        -------
+        forc_covs : ndarray (steps x neqs x neqs)
+        """
+        ma_coefs = self.ma_rep(steps)
+
+        k = len(self.sigma_u)
+        forc_covs = np.zeros((steps, k, k))
+
+        prior = np.zeros((k, k))
+        for h in range(steps):
+            # Sigma(h) = Sigma(h-1) + Phi Sig_u Phi'
+            phi = ma_coefs[h]
+            var = phi @ self.sigma_u @ phi.T
+            forc_covs[h] = prior = prior + var
+
+        return forc_covs
+
+class FEVD(object):
+    """
+    Compute and plot Forecast error variance decomposition and asymptotic
+    standard errors
+    """
+    def __init__(self, model, P=None, periods=None):
+
+        self.periods = periods
+
+        self.model = model
+        self.neqs = model.neqs
+        self.names = model.model.endog_names
+
+        self.irfobj = model.irf(periods=periods)
+        self.orth_irfs = self.irfobj.orth_irfs
+
+        # cumulative impulse responses
+        irfs = (self.orth_irfs[:periods] ** 2).cumsum(axis=0)
+
+        rng = lrange(self.neqs)
+        mse = fmse(self.model, periods)[:, rng, rng]
+
+        # lag x equation x component
+        fevd = np.empty_like(irfs)
+
+        for i in range(periods):
+            fevd[i] = (irfs[i].T / mse[i]).T
+
+        # switch to equation x lag x component
+        self.decomp = fevd.swapaxes(0, 1)
+
+    def summary(self):
+        buf = StringIO()
+
+        rng = lrange(self.periods)
+        for i in range(self.neqs):
+            ppm = output.pprint_matrix(self.decomp[i], rng, self.names)
+
+            buf.write('FEVD for %s\n' % self.names[i])
+            buf.write(ppm + '\n')
+
+        print(buf.getvalue())
+
+
+    def plot(self, periods=None, figsize=(10, 10), **plot_kwds):
+        """Plot graphical display of FEVD
+
+        Parameters
+        ----------
+        periods : int, default None
+            Defaults to number originally specified. Can be at most that number
+        """
+        import matplotlib.pyplot as plt
+
+        k = self.neqs
+        periods = periods or self.periods
+
+        fig, axes = plt.subplots(nrows=k, figsize=figsize)
+
+        #fig.suptitle('Forecast error variance decomposition (FEVD)')
+
+        colors = ["black", "lightgray"]
+        ticks = np.arange(periods)
+
+        limits = self.decomp.cumsum(2)
+
+        for i in range(k):
+            ax = axes[i]
+
+            this_limits = limits[i].T
+
+            handles = []
+
+            for j in range(k):
+                lower = this_limits[j - 1] if j > 0 else 0
+                upper = this_limits[j]
+                handle = ax.bar(ticks, upper - lower, bottom=lower,
+                                color=colors[j], label=self.names[j],
+                                **plot_kwds)
+
+                handles.append(handle)
+            ax.axhline(y=0.5, color = 'red', ls = '--', lw=3)
+            
+            ax.set_title(self.names[i])
+
+        # just use the last axis to get handles for plotting
+        handles, labels = ax.get_legend_handles_labels()
+        fig.legend(handles, labels, loc='upper right')
+        plotting.adjust_subplots(right=0.85)
+        sns.despine()
+        return fig
+#+END_SRC
+
+#+RESULTS:
+:results:
+:end:
+
+*** Structural break test
+
+#+begin_src ess-r :eval no :tangle ./code/strucchange.R
+library(strucchange)
+library(urca)
+library(dplyr)
+
+df <- read.csv(
+  "./data/Complete_Data.csv",
+  encoding="UTF-8", 
+  stringsAsFactors=FALSE
+  )
+df <- ts(data = df, start = c(1987,01), frequency = 4)
+df <- zoo::na.locf0(df)
+colnames(df) <- c("X", "Infla", "gIh", "Own", "Interest rate")
+
+## Taxa de crescimento do Residential investment
+
+
+result = breakpoints(gIh~1, data=df)
+result$breakpoints %>% unique() %>% na.omit() %>% c() -> breaks
+
+for(i in breaks){
+  print(paste0("Testando para i = ", index(df)[i]))
+  strucchange::sctest(gIh~1, data=df, point=i, type="Chow") %>% print()
+}
+
+
+## Own Interest rate
+
+
+result = breakpoints(Own~1, data=df)
+result$breakpoints %>% unique() %>% na.omit() %>% c() -> breaks
+
+for(i in breaks){
+  print(paste0("Testando para i = ", index(df)[i]))
+  strucchange::sctest(Own~1, data=df, point=i, type="Chow") %>% print()
+}
+
+
+## Interest rate
+
+
+result = breakpoints(Interest rate~1, data=df)
+result$breakpoints %>% unique() %>% na.omit() %>% c() -> breaks
+
+for(i in breaks){
+  print(paste0("Testando para i = ", index(df)[i]))
+  strucchange::sctest(Interest rate~1, data=df, point=i, type="Chow") %>% print()
+}
+
+
+## Inflation
+
+
+result = breakpoints(Infla~1, data=df)
+result$breakpoints %>% unique() %>% na.omit() %>% c() -> breaks
+
+for(i in breaks){
+  print(paste0("Testando para i = ", index(df)[i]))
+  strucchange::sctest(Infla~1, data=df, point=i, type="Chow") %>% print()
+}
+#+end_src
+
+** Subseting
+
+#+BEGIN_SRC python
+df = df["1992-01-01":]
+df[["Inflation", "gIh", "Own Interest rate", "Interest rate"]].to_csv(
+    "../data/Data_yeojohnson.csv"
+)
+
+
+df[["Inflation", "gIh", "Own Interest rate", "Interest rate"]].to_csv(
+    "../data/Data_yeojohnson_ascii.csv",
+    encoding="ascii",
+    header=[
+        "infla",
+        "gIh",
+        "Own",
+        "Interest rate",
+    ],
+)
+df = df.dropna()
+#+END_SRC
+
+#+RESULTS:
+:results:
+:end:
+
+** Unit root test 
+
+*** Housing growth rate
+
+#+BEGIN_SRC python
+testes_raiz(df=df['gIh'])
+#+END_SRC
+
+#+RESULTS:
+:results:
+  File "/tmp/pyZisri9", line 3, in <module>
+  File "/tmp/babel-c6MFcw/python-LoBXK5", line 2, in <module>
+    df[["Inflation", "gIh", "Own Interest rate", "Interest rate"]].to_csv(
+  File "/home/gpetrini/.local/lib/python3.8/site-packages/pandas/core/generic.py", line 3170, in to_csv
+    formatter.save()
+  File "/home/gpetrini/.local/lib/python3.8/site-packages/pandas/io/formats/csvs.py", line 185, in save
+    f, handles = get_handle(
+  File "/home/gpetrini/.local/lib/python3.8/site-packages/pandas/io/common.py", line 493, in get_handle
+    f = open(path_or_buf, mode, encoding=encoding, errors=errors, newline="")
+FileNotFoundError: [Errno 2] Arquivo ou diretório não encontrado: '../data/Data_yeojohnson.csv'
+>>> 
+ZIVOT ANDREWS level series
+        Zivot-Andrews Results        
+=====================================
+Test Statistic                 -4.461
+P-value                         0.132
+Lags                               11
+-------------------------------------
+
+Trend: Constant
+Critical Values: -5.28 (1%), -4.81 (5%), -4.57 (10%)
+Null Hypothesis: The process contains a unit root with a single structural break.
+Alternative Hypothesis: The process is trend and break stationary. 
+
+
+ZIVOT ANDREWS First differences
+        Zivot-Andrews Results        
+=====================================
+Test Statistic                 -7.793
+P-value                         0.000
+Lags                                3
+-------------------------------------
+
+Trend: Constant
+Critical Values: -5.28 (1%), -4.81 (5%), -4.57 (10%)
+Null Hypothesis: The process contains a unit root with a single structural break.
+Alternative Hypothesis: The process is trend and break stationary. 
+
+
+ADF level series
+   Augmented Dickey-Fuller Results   
+=====================================
+Test Statistic                 -3.342
+P-value                         0.013
+Lags                               11
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.50 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+ADF First differences
+   Augmented Dickey-Fuller Results   
+=====================================
+Test Statistic                 -7.204
+P-value                         0.000
+Lags                                3
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+DFGLS level series
+      Dickey-Fuller GLS Results      
+=====================================
+Test Statistic                 -1.325
+P-value                         0.177
+Lags                                4
+-------------------------------------
+
+Trend: Constant
+Critical Values: -2.75 (1%), -2.13 (5%), -1.82 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+DFGLS First differences
+      Dickey-Fuller GLS Results      
+=====================================
+Test Statistic                 -0.967
+P-value                         0.306
+Lags                               10
+-------------------------------------
+
+Trend: Constant
+Critical Values: -2.76 (1%), -2.14 (5%), -1.83 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+KPSS em nível
+    KPSS Stationarity Test Results   
+=====================================
+Test Statistic                  0.178
+P-value                         0.315
+Lags                                5
+-------------------------------------
+
+Trend: Constant
+Critical Values: 0.74 (1%), 0.46 (5%), 0.35 (10%)
+Null Hypothesis: The process is weakly stationary.
+Alternative Hypothesis: The process contains a unit root. 
+
+
+KPSS em primeira diferença
+    KPSS Stationarity Test Results   
+=====================================
+Test Statistic                  0.097
+P-value                         0.601
+Lags                               21
+-------------------------------------
+
+Trend: Constant
+Critical Values: 0.74 (1%), 0.46 (5%), 0.35 (10%)
+Null Hypothesis: The process is weakly stationary.
+Alternative Hypothesis: The process contains a unit root. 
+
+
+Phillips Perron em nível
+     Phillips-Perron Test (Z-tau)    
+=====================================
+Test Statistic                 -6.136
+P-value                         0.000
+Lags                               13
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+Phillips Perron em primeira diferença
+     Phillips-Perron Test (Z-tau)    
+=====================================
+Test Statistic                -20.273
+P-value                         0.000
+Lags                               13
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary.
+:end:
+
+*** Own rate of interest
+
+#+BEGIN_SRC python
+testes_raiz(df['Own Interest rate'])
+#+END_SRC
+
+#+RESULTS:
+:results:
+
+ZIVOT ANDREWS level series
+        Zivot-Andrews Results        
+=====================================
+Test Statistic                 -4.218
+P-value                         0.230
+Lags                                0
+-------------------------------------
+
+Trend: Constant
+Critical Values: -5.28 (1%), -4.81 (5%), -4.57 (10%)
+Null Hypothesis: The process contains a unit root with a single structural break.
+Alternative Hypothesis: The process is trend and break stationary. 
+
+
+ZIVOT ANDREWS First differences
+        Zivot-Andrews Results        
+=====================================
+Test Statistic                 -6.345
+P-value                         0.000
+Lags                                4
+-------------------------------------
+
+Trend: Constant
+Critical Values: -5.28 (1%), -4.81 (5%), -4.57 (10%)
+Null Hypothesis: The process contains a unit root with a single structural break.
+Alternative Hypothesis: The process is trend and break stationary. 
+
+
+ADF level series
+   Augmented Dickey-Fuller Results   
+=====================================
+Test Statistic                 -2.318
+P-value                         0.166
+Lags                                0
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+ADF First differences
+   Augmented Dickey-Fuller Results   
+=====================================
+Test Statistic                 -5.097
+P-value                         0.000
+Lags                                4
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+DFGLS level series
+      Dickey-Fuller GLS Results      
+=====================================
+Test Statistic                 -1.041
+P-value                         0.277
+Lags                                0
+-------------------------------------
+
+Trend: Constant
+Critical Values: -2.74 (1%), -2.12 (5%), -1.81 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+DFGLS First differences
+      Dickey-Fuller GLS Results      
+=====================================
+Test Statistic                 -3.793
+P-value                         0.000
+Lags                                3
+-------------------------------------
+
+Trend: Constant
+Critical Values: -2.75 (1%), -2.13 (5%), -1.82 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+KPSS em nível
+    KPSS Stationarity Test Results   
+=====================================
+Test Statistic                  0.690
+P-value                         0.014
+Lags                                6
+-------------------------------------
+
+Trend: Constant
+Critical Values: 0.74 (1%), 0.46 (5%), 0.35 (10%)
+Null Hypothesis: The process is weakly stationary.
+Alternative Hypothesis: The process contains a unit root. 
+
+
+KPSS em primeira diferença
+    KPSS Stationarity Test Results   
+=====================================
+Test Statistic                  0.060
+P-value                         0.812
+Lags                                3
+-------------------------------------
+
+Trend: Constant
+Critical Values: 0.74 (1%), 0.46 (5%), 0.35 (10%)
+Null Hypothesis: The process is weakly stationary.
+Alternative Hypothesis: The process contains a unit root. 
+
+
+Phillips Perron em nível
+     Phillips-Perron Test (Z-tau)    
+=====================================
+Test Statistic                 -2.413
+P-value                         0.138
+Lags                               13
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+Phillips Perron em primeira diferença
+     Phillips-Perron Test (Z-tau)    
+=====================================
+Test Statistic                -10.392
+P-value                         0.000
+Lags                               13
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary.
+:end:
+
+*** Inflation
+
+#+BEGIN_SRC python
+testes_raiz(df['Inflation'])
+#+END_SRC
+
+#+RESULTS:
+:results:
+
+ZIVOT ANDREWS level series
+        Zivot-Andrews Results        
+=====================================
+Test Statistic                 -4.891
+P-value                         0.041
+Lags                                4
+-------------------------------------
+
+Trend: Constant
+Critical Values: -5.28 (1%), -4.81 (5%), -4.57 (10%)
+Null Hypothesis: The process contains a unit root with a single structural break.
+Alternative Hypothesis: The process is trend and break stationary. 
+
+
+ZIVOT ANDREWS First differences
+        Zivot-Andrews Results        
+=====================================
+Test Statistic                 -6.142
+P-value                         0.001
+Lags                                4
+-------------------------------------
+
+Trend: Constant
+Critical Values: -5.28 (1%), -4.81 (5%), -4.57 (10%)
+Null Hypothesis: The process contains a unit root with a single structural break.
+Alternative Hypothesis: The process is trend and break stationary. 
+
+
+ADF level series
+   Augmented Dickey-Fuller Results   
+=====================================
+Test Statistic                 -2.673
+P-value                         0.079
+Lags                                4
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+ADF First differences
+   Augmented Dickey-Fuller Results   
+=====================================
+Test Statistic                 -4.702
+P-value                         0.000
+Lags                                4
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+DFGLS level series
+      Dickey-Fuller GLS Results      
+=====================================
+Test Statistic                 -2.535
+P-value                         0.011
+Lags                                4
+-------------------------------------
+
+Trend: Constant
+Critical Values: -2.75 (1%), -2.13 (5%), -1.82 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+DFGLS First differences
+      Dickey-Fuller GLS Results      
+=====================================
+Test Statistic                 -3.929
+P-value                         0.000
+Lags                                3
+-------------------------------------
+
+Trend: Constant
+Critical Values: -2.75 (1%), -2.13 (5%), -1.82 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+KPSS em nível
+    KPSS Stationarity Test Results   
+=====================================
+Test Statistic                  0.148
+P-value                         0.395
+Lags                                5
+-------------------------------------
+
+Trend: Constant
+Critical Values: 0.74 (1%), 0.46 (5%), 0.35 (10%)
+Null Hypothesis: The process is weakly stationary.
+Alternative Hypothesis: The process contains a unit root. 
+
+
+KPSS em primeira diferença
+    KPSS Stationarity Test Results   
+=====================================
+Test Statistic                  0.058
+P-value                         0.824
+Lags                                6
+-------------------------------------
+
+Trend: Constant
+Critical Values: 0.74 (1%), 0.46 (5%), 0.35 (10%)
+Null Hypothesis: The process is weakly stationary.
+Alternative Hypothesis: The process contains a unit root. 
+
+
+Phillips Perron em nível
+     Phillips-Perron Test (Z-tau)    
+=====================================
+Test Statistic                 -2.702
+P-value                         0.074
+Lags                               13
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+Phillips Perron em primeira diferença
+     Phillips-Perron Test (Z-tau)    
+=====================================
+Test Statistic                -11.341
+P-value                         0.000
+Lags                               13
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary.
+:end:
+
+*** Mortgage interest rate
+
+#+BEGIN_SRC python
+testes_raiz(df['Interest rate'], original_trend='ct')
+#+END_SRC
+
+#+RESULTS:
+:results:
+
+ZIVOT ANDREWS level series
+        Zivot-Andrews Results        
+=====================================
+Test Statistic                 -4.494
+P-value                         0.215
+Lags                                0
+-------------------------------------
+
+Trend: Constant and Linear Time Trend
+Critical Values: -5.58 (1%), -5.07 (5%), -4.83 (10%)
+Null Hypothesis: The process contains a unit root with a single structural break.
+Alternative Hypothesis: The process is trend and break stationary. 
+
+
+ZIVOT ANDREWS First differences
+        Zivot-Andrews Results        
+=====================================
+Test Statistic                 -8.144
+P-value                         0.000
+Lags                                1
+-------------------------------------
+
+Trend: Constant
+Critical Values: -5.28 (1%), -4.81 (5%), -4.57 (10%)
+Null Hypothesis: The process contains a unit root with a single structural break.
+Alternative Hypothesis: The process is trend and break stationary. 
+
+
+ADF level series
+   Augmented Dickey-Fuller Results   
+=====================================
+Test Statistic                 -3.638
+P-value                         0.027
+Lags                                0
+-------------------------------------
+
+Trend: Constant and Linear Time Trend
+Critical Values: -4.04 (1%), -3.45 (5%), -3.15 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+ADF First differences
+   Augmented Dickey-Fuller Results   
+=====================================
+Test Statistic                 -8.050
+P-value                         0.000
+Lags                                1
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+DFGLS level series
+      Dickey-Fuller GLS Results      
+=====================================
+Test Statistic                 -3.445
+P-value                         0.009
+Lags                                0
+-------------------------------------
+
+Trend: Constant and Linear Time Trend
+Critical Values: -3.60 (1%), -3.02 (5%), -2.73 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+DFGLS First differences
+      Dickey-Fuller GLS Results      
+=====================================
+Test Statistic                 -1.074
+P-value                         0.264
+Lags                                9
+-------------------------------------
+
+Trend: Constant
+Critical Values: -2.76 (1%), -2.14 (5%), -1.83 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+KPSS em nível
+    KPSS Stationarity Test Results   
+=====================================
+Test Statistic                  0.081
+P-value                         0.264
+Lags                                5
+-------------------------------------
+
+Trend: Constant and Linear Time Trend
+Critical Values: 0.22 (1%), 0.15 (5%), 0.12 (10%)
+Null Hypothesis: The process is weakly stationary.
+Alternative Hypothesis: The process contains a unit root. 
+
+
+KPSS em primeira diferença
+    KPSS Stationarity Test Results   
+=====================================
+Test Statistic                  0.034
+P-value                         0.962
+Lags                                3
+-------------------------------------
+
+Trend: Constant
+Critical Values: 0.74 (1%), 0.46 (5%), 0.35 (10%)
+Null Hypothesis: The process is weakly stationary.
+Alternative Hypothesis: The process contains a unit root. 
+
+
+Phillips Perron em nível
+     Phillips-Perron Test (Z-tau)    
+=====================================
+Test Statistic                 -3.604
+P-value                         0.030
+Lags                               13
+-------------------------------------
+
+Trend: Constant and Linear Time Trend
+Critical Values: -4.04 (1%), -3.45 (5%), -3.15 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+Phillips Perron em primeira diferença
+     Phillips-Perron Test (Z-tau)    
+=====================================
+Test Statistic                -11.127
+P-value                         0.000
+Lags                               13
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary.
+:end:
+
+** Cointegration
+
+*** $g_{I_{h}}$ and own rate of interest
+
+
+
+
+#+BEGIN_SRC python
+print("VAR Order\n")
+
+model = VAR(
+    df[["gIh", 'Own Interest rate']])
+print(model.select_order(maxlags=15, trend='ct').summary())
+
+testes_coint(series=df[['gIh', 'Own Interest rate']], maxlag=9)
+#+END_SRC
+
+#+RESULTS:
+:results:
+VAR Order
+
+ VAR Order Selection (* highlights the minimums)  
+==================================================
+       AIC         BIC         FPE         HQIC   
+--------------------------------------------------
+0       -14.83      -14.72   3.633e-07      -14.78
+1       -16.33     -16.11*   8.092e-08      -16.24
+2       -16.30      -15.98   8.330e-08      -16.17
+3       -16.42      -15.99   7.376e-08      -16.25
+4       -16.47      -15.93   7.066e-08      -16.25
+5      -16.57*      -15.92  6.383e-08*     -16.31*
+6       -16.50      -15.75   6.829e-08      -16.20
+7       -16.46      -15.60   7.156e-08      -16.11
+8       -16.40      -15.43   7.636e-08      -16.01
+9       -16.40      -15.33   7.631e-08      -15.97
+10      -16.34      -15.15   8.171e-08      -15.86
+11      -16.33      -15.04   8.299e-08      -15.81
+12      -16.55      -15.15   6.670e-08      -15.99
+13      -16.49      -14.99   7.135e-08      -15.88
+14      -16.48      -14.86   7.313e-08      -15.82
+15      -16.43      -14.71   7.744e-08      -15.73
+--------------------------------------------------
+==================================================
+
+Testando para lag = 1 e trend = nc
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -3.167555
+p-value: 0.016920
+CONCLUSION: REJECT null Hypothesis: there IS cointegration
+
+
+Testando para lag = 1 e trend = c
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -4.367042
+p-value: 0.002008
+CONCLUSION: REJECT null Hypothesis: there IS cointegration
+
+
+Testando para lag = 1 e trend = ct
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -9.115776
+p-value: 0.000000
+CONCLUSION: REJECT null Hypothesis: there IS cointegration
+
+
+Testando para lag = 1 e trend = ctt
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -9.991066
+p-value: 0.000000
+CONCLUSION: REJECT null Hypothesis: there IS cointegration
+
+
+TESTE DE JOHANSEN
+
+Teste SEM constante
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          13.16          12.32
+  1   2          3.015          4.130
+-------------------------------------
+Para lag = 1 e significância = 5.0%, Rank = 1
+
+Teste COM constante
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          23.58          15.49
+  1   2          5.128          3.841
+-------------------------------------
+Para lag = 1 e significância = 5.0%, Rank = 2
+
+Teste COM constante E tendência
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          48.53          18.40
+  1   2          6.029          3.841
+-------------------------------------
+Para lag = 1 e significância = 5.0%, Rank = 2
+==========
+==================================================
+
+Testando para lag = 2 e trend = nc
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.430518
+p-value: 0.106308
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 2 e trend = c
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.821608
+p-value: 0.158906
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 2 e trend = ct
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -4.404967
+p-value: 0.007756
+CONCLUSION: REJECT null Hypothesis: there IS cointegration
+
+
+Testando para lag = 2 e trend = ctt
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -9.991066
+p-value: 0.000000
+CONCLUSION: REJECT null Hypothesis: there IS cointegration
+
+
+TESTE DE JOHANSEN
+
+Teste SEM constante
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          12.61          12.32
+  1   2          3.015          4.130
+-------------------------------------
+Para lag = 2 e significância = 5.0%, Rank = 1
+
+Teste COM constante
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          15.57          15.49
+  1   2          4.526          3.841
+-------------------------------------
+Para lag = 2 e significância = 5.0%, Rank = 2
+
+Teste COM constante E tendência
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          26.12          18.40
+  1   2          6.671          3.841
+-------------------------------------
+Para lag = 2 e significância = 5.0%, Rank = 2
+==========
+==================================================
+
+Testando para lag = 3 e trend = nc
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.829661
+p-value: 0.042233
+CONCLUSION: REJECT null Hypothesis: there IS cointegration
+
+
+Testando para lag = 3 e trend = c
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.821608
+p-value: 0.158906
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 3 e trend = ct
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -4.404967
+p-value: 0.007756
+CONCLUSION: REJECT null Hypothesis: there IS cointegration
+
+
+Testando para lag = 3 e trend = ctt
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -9.991066
+p-value: 0.000000
+CONCLUSION: REJECT null Hypothesis: there IS cointegration
+
+
+TESTE DE JOHANSEN
+
+Teste SEM constante
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          17.18          12.32
+  1   2          2.496          4.130
+-------------------------------------
+Para lag = 3 e significância = 5.0%, Rank = 1
+
+Teste COM constante
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          20.93          15.49
+  1   2          3.957          3.841
+-------------------------------------
+Para lag = 3 e significância = 5.0%, Rank = 2
+
+Teste COM constante E tendência
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          33.42          18.40
+  1   2          7.556          3.841
+-------------------------------------
+Para lag = 3 e significância = 5.0%, Rank = 2
+==========
+==================================================
+
+Testando para lag = 4 e trend = nc
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.243963
+p-value: 0.154173
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 4 e trend = c
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.166083
+p-value: 0.441917
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 4 e trend = ct
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -3.129087
+p-value: 0.211399
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 4 e trend = ctt
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -9.991066
+p-value: 0.000000
+CONCLUSION: REJECT null Hypothesis: there IS cointegration
+
+
+TESTE DE JOHANSEN
+
+Teste SEM constante
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          18.70          12.32
+  1   2          2.384          4.130
+-------------------------------------
+Para lag = 4 e significância = 5.0%, Rank = 1
+
+Teste COM constante
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          19.05          15.49
+  1   2          3.737          3.841
+-------------------------------------
+Para lag = 4 e significância = 5.0%, Rank = 1
+
+Teste COM constante E tendência
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          27.91          18.40
+  1   2          13.26          3.841
+-------------------------------------
+Para lag = 4 e significância = 5.0%, Rank = 2
+==========
+==================================================
+
+Testando para lag = 5 e trend = nc
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.243963
+p-value: 0.154173
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 5 e trend = c
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.166083
+p-value: 0.441917
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 5 e trend = ct
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -3.129087
+p-value: 0.211399
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 5 e trend = ctt
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -9.991066
+p-value: 0.000000
+CONCLUSION: REJECT null Hypothesis: there IS cointegration
+
+
+TESTE DE JOHANSEN
+
+Teste SEM constante
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          15.47          12.32
+  1   2          2.637          4.130
+-------------------------------------
+Para lag = 5 e significância = 5.0%, Rank = 1
+
+Teste COM constante
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          14.69          15.49
+-------------------------------------
+Para lag = 5 e significância = 5.0%, Rank = 0
+
+Teste COM constante E tendência
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          21.19          18.40
+  1   2          9.598          3.841
+-------------------------------------
+Para lag = 5 e significância = 5.0%, Rank = 2
+==========
+==================================================
+
+Testando para lag = 6 e trend = nc
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.243963
+p-value: 0.154173
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 6 e trend = c
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.166083
+p-value: 0.441917
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 6 e trend = ct
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.215402
+p-value: 0.672462
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 6 e trend = ctt
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -9.991066
+p-value: 0.000000
+CONCLUSION: REJECT null Hypothesis: there IS cointegration
+
+
+TESTE DE JOHANSEN
+
+Teste SEM constante
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          13.57          12.32
+  1   2          2.443          4.130
+-------------------------------------
+Para lag = 6 e significância = 5.0%, Rank = 1
+
+Teste COM constante
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          11.86          15.49
+-------------------------------------
+Para lag = 6 e significância = 5.0%, Rank = 0
+
+Teste COM constante E tendência
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          17.39          18.40
+-------------------------------------
+Para lag = 6 e significância = 5.0%, Rank = 0
+==========
+==================================================
+
+Testando para lag = 7 e trend = nc
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.243963
+p-value: 0.154173
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 7 e trend = c
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.166083
+p-value: 0.441917
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 7 e trend = ct
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -3.129087
+p-value: 0.211399
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 7 e trend = ctt
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -3.520285
+p-value: 0.207698
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+TESTE DE JOHANSEN
+
+Teste SEM constante
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          15.35          12.32
+  1   2          3.340          4.130
+-------------------------------------
+Para lag = 7 e significância = 5.0%, Rank = 1
+
+Teste COM constante
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          13.85          15.49
+-------------------------------------
+Para lag = 7 e significância = 5.0%, Rank = 0
+
+Teste COM constante E tendência
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          17.57          18.40
+-------------------------------------
+Para lag = 7 e significância = 5.0%, Rank = 0
+==========
+==================================================
+
+Testando para lag = 8 e trend = nc
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.243963
+p-value: 0.154173
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 8 e trend = c
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.166083
+p-value: 0.441917
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 8 e trend = ct
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -3.129087
+p-value: 0.211399
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 8 e trend = ctt
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -3.520285
+p-value: 0.207698
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+TESTE DE JOHANSEN
+
+Teste SEM constante
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          18.23          12.32
+  1   2          4.181          4.130
+-------------------------------------
+Para lag = 8 e significância = 5.0%, Rank = 2
+
+Teste COM constante
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          14.37          15.49
+-------------------------------------
+Para lag = 8 e significância = 5.0%, Rank = 0
+
+Teste COM constante E tendência
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          15.66          18.40
+-------------------------------------
+Para lag = 8 e significância = 5.0%, Rank = 0
+==========
+:end:
+
+*** $g_{I_{h}}$ and inflation
+
+#+BEGIN_SRC python
+testes_coint(series=df[['gIh', 'Inflation']])
+#+END_SRC
+
+#+RESULTS:
+:results:
+==================================================
+
+Testando para lag = 1 e trend = nc
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -5.116818
+p-value: 0.000011
+CONCLUSION: REJECT null Hypothesis: there IS cointegration
+
+
+Testando para lag = 1 e trend = c
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -5.073539
+p-value: 0.000120
+CONCLUSION: REJECT null Hypothesis: there IS cointegration
+
+
+Testando para lag = 1 e trend = ct
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -5.040023
+p-value: 0.000734
+CONCLUSION: REJECT null Hypothesis: there IS cointegration
+
+
+Testando para lag = 1 e trend = ctt
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -5.208155
+p-value: 0.001545
+CONCLUSION: REJECT null Hypothesis: there IS cointegration
+
+
+TESTE DE JOHANSEN
+
+Teste SEM constante
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          32.24          12.32
+  1   2          4.398          4.130
+-------------------------------------
+Para lag = 1 e significância = 5.0%, Rank = 2
+
+Teste COM constante
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          33.72          15.49
+  1   2          6.006          3.841
+-------------------------------------
+Para lag = 1 e significância = 5.0%, Rank = 2
+
+Teste COM constante E tendência
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          33.38          18.40
+  1   2          6.055          3.841
+-------------------------------------
+Para lag = 1 e significância = 5.0%, Rank = 2
+==========
+==================================================
+
+Testando para lag = 2 e trend = nc
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -3.438914
+p-value: 0.007452
+CONCLUSION: REJECT null Hypothesis: there IS cointegration
+
+
+Testando para lag = 2 e trend = c
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -3.399321
+p-value: 0.042426
+CONCLUSION: REJECT null Hypothesis: there IS cointegration
+
+
+Testando para lag = 2 e trend = ct
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -3.374278
+p-value: 0.130674
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 2 e trend = ctt
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -3.445250
+p-value: 0.237699
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+TESTE DE JOHANSEN
+
+Teste SEM constante
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          24.95          12.32
+  1   2          5.168          4.130
+-------------------------------------
+Para lag = 2 e significância = 5.0%, Rank = 2
+
+Teste COM constante
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          26.75          15.49
+  1   2          7.050          3.841
+-------------------------------------
+Para lag = 2 e significância = 5.0%, Rank = 2
+
+Teste COM constante E tendência
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          26.27          18.40
+  1   2          7.105          3.841
+-------------------------------------
+Para lag = 2 e significância = 5.0%, Rank = 2
+==========
+==================================================
+
+Testando para lag = 3 e trend = nc
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -3.438914
+p-value: 0.007452
+CONCLUSION: REJECT null Hypothesis: there IS cointegration
+
+
+Testando para lag = 3 e trend = c
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -3.399321
+p-value: 0.042426
+CONCLUSION: REJECT null Hypothesis: there IS cointegration
+
+
+Testando para lag = 3 e trend = ct
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -3.374278
+p-value: 0.130674
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 3 e trend = ctt
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -3.445250
+p-value: 0.237699
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+TESTE DE JOHANSEN
+
+Teste SEM constante
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          29.93          12.32
+  1   2          4.803          4.130
+-------------------------------------
+Para lag = 3 e significância = 5.0%, Rank = 2
+
+Teste COM constante
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          31.66          15.49
+  1   2          6.487          3.841
+-------------------------------------
+Para lag = 3 e significância = 5.0%, Rank = 2
+
+Teste COM constante E tendência
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          30.67          18.40
+  1   2          6.514          3.841
+-------------------------------------
+Para lag = 3 e significância = 5.0%, Rank = 2
+==========
+==================================================
+
+Testando para lag = 4 e trend = nc
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.884861
+p-value: 0.036672
+CONCLUSION: REJECT null Hypothesis: there IS cointegration
+
+
+Testando para lag = 4 e trend = c
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.832877
+p-value: 0.155448
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 4 e trend = ct
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.783071
+p-value: 0.367140
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 4 e trend = ctt
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.815732
+p-value: 0.562725
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+TESTE DE JOHANSEN
+
+Teste SEM constante
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          24.79          12.32
+  1   2          8.458          4.130
+-------------------------------------
+Para lag = 4 e significância = 5.0%, Rank = 2
+
+Teste COM constante
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          27.58          15.49
+  1   2          11.37          3.841
+-------------------------------------
+Para lag = 4 e significância = 5.0%, Rank = 2
+
+Teste COM constante E tendência
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          26.75          18.40
+  1   2          11.42          3.841
+-------------------------------------
+Para lag = 4 e significância = 5.0%, Rank = 2
+==========
+==================================================
+
+Testando para lag = 5 e trend = nc
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.884861
+p-value: 0.036672
+CONCLUSION: REJECT null Hypothesis: there IS cointegration
+
+
+Testando para lag = 5 e trend = c
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.832877
+p-value: 0.155448
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 5 e trend = ct
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.783071
+p-value: 0.367140
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+Testando para lag = 5 e trend = ctt
+Null Hypothesis: there is NO cointegration
+Alternative Hypothesis: there IS cointegration
+t Statistic: -2.815732
+p-value: 0.562725
+CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
+
+
+TESTE DE JOHANSEN
+
+Teste SEM constante
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          19.00          12.32
+  1   2          5.154          4.130
+-------------------------------------
+Para lag = 5 e significância = 5.0%, Rank = 2
+
+Teste COM constante
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          20.91          15.49
+  1   2          7.216          3.841
+-------------------------------------
+Para lag = 5 e significância = 5.0%, Rank = 2
+
+Teste COM constante E tendência
+
+Johansen cointegration test using trace test statistic with 5% significance level
+=====================================
+r_0 r_1 test statistic critical value
+-------------------------------------
+  0   2          19.92          18.40
+  1   2          7.250          3.841
+-------------------------------------
+Para lag = 5 e significância = 5.0%, Rank = 2
+==========
+:end:
+
+** VECM Estimation
+
+VECM: $g_Z$, Inflation e Interest rate exogenous
+
+*** Model order selection
+
+#+BEGIN_SRC python :results latex table
+from statsmodels.tsa.vector_ar.vecm import select_order
+
+#det = 'cili'
+#det = 'coli'
+#det = 'colo'
+det = 'cilo'
+#det = 'ci'
+#det = 'nc'
+#det= 'co'
+
+order_vec = select_order(
+    df[[
+        #"Inflation", 
+        "Own Interest rate", 
+        "gIh"
+    ]], 
+    #exog=df[["Interest rate"]],
+    #seasons=4,
+    maxlags=15, deterministic=det)
+order_sel = order_vec.summary().as_latex_tabular(tile = "Selação ordem do VECM") 
+with open('./tabs/VECM_lag_order.tex','w') as fh:
+    fh.write(order_sel)
+
+print(order_sel)
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{center}
+\begin{tabular}{lcccc}
+\toprule
+            & \textbf{AIC} & \textbf{BIC} & \textbf{FPE} & \textbf{HQIC}  \\
+\midrule
+\textbf{0}  &      -16.27  &     -16.00*  &   8.620e-08  &       -16.16   \\
+\textbf{1}  &      -16.24  &      -15.86  &   8.861e-08  &       -16.09   \\
+\textbf{2}  &      -16.36  &      -15.87  &   7.872e-08  &       -16.16   \\
+\textbf{3}  &      -16.40  &      -15.81  &   7.550e-08  &       -16.16   \\
+\textbf{4}  &     -16.50*  &      -15.80  &  6.821e-08*  &      -16.22*   \\
+\textbf{5}  &      -16.44  &      -15.63  &   7.301e-08  &       -16.11   \\
+\textbf{6}  &      -16.39  &      -15.47  &   7.675e-08  &       -16.02   \\
+\textbf{7}  &      -16.33  &      -15.30  &   8.184e-08  &       -15.91   \\
+\textbf{8}  &      -16.33  &      -15.20  &   8.183e-08  &       -15.87   \\
+\textbf{9}  &      -16.27  &      -15.03  &   8.767e-08  &       -15.77   \\
+\textbf{10} &      -16.26  &      -14.90  &   8.942e-08  &       -15.71   \\
+\textbf{11} &      -16.49  &      -15.03  &   7.107e-08  &       -15.90   \\
+\textbf{12} &      -16.43  &      -14.86  &   7.635e-08  &       -15.80   \\
+\textbf{13} &      -16.41  &      -14.73  &   7.842e-08  &       -15.73   \\
+\textbf{14} &      -16.37  &      -14.58  &   8.309e-08  &       -15.64   \\
+\textbf{15} &      -16.32  &      -14.42  &   8.853e-08  &       -15.55   \\
+\bottomrule
+\end{tabular}
+%\caption{VECM Order Selection (* highlights the minimums)}
+\end{center}
+#+end_export
+
+*** Estimation
+
+#+BEGIN_SRC python :results latex table
+model = VECM(
+    endog = df[[
+        #"Inflation", 
+        "Own Interest rate", 
+        "gIh"
+    ]], 
+    #exog=df[["Interest rate"]],
+    #k_ar_diff=0,
+    #k_ar_diff=1,
+    #k_ar_diff=2,
+    #k_ar_diff=3,
+    k_ar_diff=4,
+    #k_ar_diff=5,
+    #k_ar_diff=6,
+    #k_ar_diff=7,
+    #k_ar_diff=8,
+    deterministic=det, 
+    #seasons=4,
+)
+results = model.fit()
+adjust = results.summary().as_latex() 
+with open('./tabs/VECM_ajuste.tex','w') as fh:
+    fh.write(adjust)
+
+print(adjust)
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{center}
+\begin{tabular}{lcccccc}
+\toprule
+                              & \textbf{coef} & \textbf{std err} & \textbf{z} & \textbf{P$> |$z$|$} & \textbf{[0.025} & \textbf{0.975]}  \\
+\midrule
+\textbf{lin\_trend}           &   -1.032e-05  &     4.15e-05     &    -0.248  &         0.804        &    -9.17e-05    &     7.11e-05     \\
+\textbf{L1.Own Interest rate} &       0.0334  &        0.111     &     0.301  &         0.763        &       -0.184    &        0.251     \\
+\textbf{L1.gIh}               &       0.0664  &        0.082     &     0.808  &         0.419        &       -0.095    &        0.227     \\
+\textbf{L2.Own Interest rate} &      -0.0074  &        0.109     &    -0.067  &         0.946        &       -0.222    &        0.207     \\
+\textbf{L2.gIh}               &       0.1075  &        0.081     &     1.328  &         0.184        &       -0.051    &        0.266     \\
+\textbf{L3.Own Interest rate} &       0.0807  &        0.118     &     0.683  &         0.495        &       -0.151    &        0.312     \\
+\textbf{L3.gIh}               &       0.1073  &        0.069     &     1.561  &         0.119        &       -0.027    &        0.242     \\
+\textbf{L4.Own Interest rate} &       0.2700  &        0.119     &     2.265  &         0.023        &        0.036    &        0.504     \\
+                              & \textbf{coef} & \textbf{std err} & \textbf{z} & \textbf{P$> |$z$|$} & \textbf{[0.025} & \textbf{0.975]}  \\
+\midrule
+\textbf{lin\_trend}           &      -0.0003  &     6.53e-05     &    -3.899  &         0.000        &       -0.000    &       -0.000     \\
+\textbf{L1.Own Interest rate} &      -0.1844  &        0.174     &    -1.058  &         0.290        &       -0.526    &        0.157     \\
+\textbf{L1.gIh}               &      -0.4239  &        0.129     &    -3.280  &         0.001        &       -0.677    &       -0.171     \\
+\textbf{L2.Own Interest rate} &      -1.0133  &        0.172     &    -5.891  &         0.000        &       -1.350    &       -0.676     \\
+\textbf{L2.gIh}               &      -0.4643  &        0.127     &    -3.644  &         0.000        &       -0.714    &       -0.215     \\
+\textbf{L3.Own Interest rate} &      -0.6058  &        0.186     &    -3.259  &         0.001        &       -0.970    &       -0.241     \\
+\textbf{L3.gIh}               &      -0.2084  &        0.108     &    -1.927  &         0.054        &       -0.420    &        0.004     \\
+\textbf{L4.Own Interest rate} &      -0.5458  &        0.187     &    -2.913  &         0.004        &       -0.913    &       -0.179     \\
+\textbf{L4.gIh}               &      -0.2525  &        0.084     &    -3.008  &         0.003        &       -0.417    &       -0.088     \\
+             & \textbf{coef} & \textbf{std err} & \textbf{z} & \textbf{P$> |$z$|$} & \textbf{[0.025} & \textbf{0.975]}  \\
+\midrule
+\textbf{ec1} &      -0.0126  &        0.068     &    -0.186  &         0.853        &       -0.146    &        0.121     \\
+             & \textbf{coef} & \textbf{std err} & \textbf{z} & \textbf{P$> |$z$|$} & \textbf{[0.025} & \textbf{0.975]}  \\
+\midrule
+\textbf{ec1} &      -0.4126  &        0.107     &    -3.858  &         0.000        &       -0.622    &       -0.203     \\
+                & \textbf{coef} & \textbf{std err} & \textbf{z} & \textbf{P$> |$z$|$} & \textbf{[0.025} & \textbf{0.975]}  \\
+\midrule
+\textbf{beta.1} &       1.0000  &            0     &         0  &         0.000        &        1.000    &        1.000     \\
+\textbf{beta.2} &       1.3143  &        0.156     &     8.445  &         0.000        &        1.009    &        1.619     \\
+\textbf{const}  &      -0.1127  &        0.009     &   -11.982  &         0.000        &       -0.131    &       -0.094     \\
+\bottomrule
+\end{tabular}
+%\caption{Det. terms outside the coint. relation & lagged endog. parameters for equation Own Interest rate}
+\end{center}
+#+end_export
+
+*** Impsulse respose
+
+**** Orthoganalized
+
+#+BEGIN_SRC python :results graphics file :file ./figs/Impulse_VECMOrth.png
+p = results.irf(20).plot(orth=True)
+p.suptitle("")
+sns.despine()
+
+
+p.savefig("./figs/Impulse_VECMOrth.png", dpi = 300, bbox_inches = 'tight',
+    pad_inches = 0.0, transparent = False,)
+plt.close('all')
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/Impulse_VECMOrth.png]]
+
+**** Non-Orthoganalized
+
+#+BEGIN_SRC python :results graphics file :file ./figs/Impulse_VECM.png
+p = results.irf(20).plot(orth=False)
+p.suptitle("")
+sns.despine()
+
+
+p.savefig("./figs/Impulse_VECM.png", dpi = 300, bbox_inches = 'tight',
+    pad_inches = 0.0, transparent = False,)
+plt.close('all')
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/Impulse_VECM.png]]
+
+*** FEVD
+**** Python version
+#+BEGIN_SRC python :results graphics file :file ./figs/FEVD_VECMpython_TxPropria.png
+fig = FEVD(results, periods=21).plot()
+fig.savefig("./figs/FEVD_VECMpython_TxPropria.png", dpi = 300, bbox_inches = 'tight',
+    pad_inches = 0.2, transparent = False,)
+plt.close('all')
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/FEVD_VECMpython_TxPropria.png]]
+**** R version
+#+begin_src ess-r :eval no
+library(tsDyn)
+library(readr)
+df <- read.csv("../data/Data_yeojohnson.csv", encoding="UTF-8")
+#df <- df[,c(4:7)]
+names(df) <- c("Time","Infla", "gIh", "Own", "Interest rate")
+df <- na.omit(df[,c("Time","Infla", "gIh", "Own", "Interest rate")])
+df <- ts(data = df, start = c(1992,03), frequency = 4)
+model <- tsDyn::VECM(data = df[,c("Own","gIh")], lag = 4, r = 1, estim = "ML", LRinclude="both", include="none")
+fevd_gIh = data.frame(tsDyn::fevd(model, 20)$gIh)
+fevd_tx = data.frame(tsDyn::fevd(model, 20)$Own)
+#+end_src
+
+*** Granger-Causality test 
+#+BEGIN_SRC python
+series = residuals.columns
+print(results.test_granger_causality(causing=series[0], caused=series[1]).summary())
+print(results.test_inst_causality(causing=series[0]).summary())
+#+END_SRC
+
+#+RESULTS:
+:results:
+Granger causality F-test. H_0: Own Interest rate does not Granger-cause gIh. Conclusion: reject H_0 at 5% significance level.
+==============================================
+Test statistic Critical value p-value    df   
+----------------------------------------------
+         12.59          2.264   0.000 (5, 180)
+----------------------------------------------
+Instantaneous causality Wald-test. H_0: Own Interest rate does not instantaneously cause gIh. Conclusion: reject H_0 at 5% significance level.
+========================================
+Test statistic Critical value p-value df
+----------------------------------------
+         15.30          3.841   0.000  1
+----------------------------------------
+:end:
+
+
+*** Post estimation
+#+BEGIN_SRC python
+residuals = analise_residuos(results=results)
+#+END_SRC
+
+#+RESULTS:
+:results:
+AUTOCORRELAÇÃO RESIDUAL: PORTMANTEAU
+
+Portmanteau-test for residual autocorrelation. H_0: residual autocorrelation up to lag 15 is zero. Conclusion: fail to reject H_0 at 5% significance level.
+========================================
+Test statistic Critical value p-value df
+----------------------------------------
+         50.46          58.12   0.174 42
+----------------------------------------
+
+AUTOCORRELAÇÃO RESIDUAL: PORTMANTEAU AJUSTADO
+
+Adjusted Portmanteau-test for residual autocorrelation. H_0: residual autocorrelation up to lag 15 is zero. Conclusion: fail to reject H_0 at 5% significance level.
+========================================
+Test statistic Critical value p-value df
+----------------------------------------
+         55.48          58.12   0.079 42
+----------------------------------------
+
+LJUNGBOX
+
+H0: autocorrelations up to lag k equal zero
+H1: autocorrelations up to lag k not zero
+Box-Pierce:  False
+Testing for  OWN INTEREST RATE . Considering a significance level of 5.0 %
+/home/gpetrini/.local/lib/python3.8/site-packages/statsmodels/stats/diagnostic.py:524: FutureWarning: The value returned will change to a single DataFrame after 0.12 is released.  Set return_df to True to use to return a DataFrame now.  Set return_df to False to silence this warning.
+  warnings.warn(msg, FutureWarning)
+p-value = 0.919346931041904
+Reject H0 on lag  1 ?  False 
+
+p-value = 0.9881449567576145
+Reject H0 on lag  2 ?  False 
+
+p-value = 0.9396577164732645
+Reject H0 on lag  3 ?  False 
+
+p-value = 0.8967557846545766
+Reject H0 on lag  4 ?  False 
+
+p-value = 0.9552334738758612
+Reject H0 on lag  5 ?  False 
+
+p-value = 0.9359262369750372
+Reject H0 on lag  6 ?  False 
+
+p-value = 0.905045259046189
+Reject H0 on lag  7 ?  False 
+
+p-value = 0.7040537484217253
+Reject H0 on lag  8 ?  False 
+
+p-value = 0.641141925462047
+Reject H0 on lag  9 ?  False 
+
+p-value = 0.5278408664870271
+Reject H0 on lag  10 ?  False 
+
+p-value = 0.5569073814850647
+Reject H0 on lag  11 ?  False 
+
+p-value = 0.6334852827037996
+Reject H0 on lag  12 ?  False 
+
+
+
+Testing for  GIH . Considering a significance level of 5.0 %
+p-value = 0.28909862574238
+Reject H0 on lag  1 ?  False 
+
+p-value = 0.31921806415473675
+Reject H0 on lag  2 ?  False 
+
+p-value = 0.3519330150139808
+Reject H0 on lag  3 ?  False 
+
+p-value = 0.6920189261591801
+Reject H0 on lag  4 ?  False 
+
+p-value = 2.670082732541718
+Reject H0 on lag  5 ?  False 
+
+p-value = 2.6980230801906524
+Reject H0 on lag  6 ?  False 
+
+p-value = 2.7327165032591885
+Reject H0 on lag  7 ?  False 
+
+p-value = 4.196927271441555
+Reject H0 on lag  8 ?  False 
+
+p-value = 4.344143019641999
+Reject H0 on lag  9 ?  False 
+
+p-value = 4.437897428554239
+Reject H0 on lag  10 ?  False 
+
+p-value = 8.42243121724339
+Reject H0 on lag  11 ?  False 
+
+p-value = 9.989704617420374
+Reject H0 on lag  12 ?  False 
+
+
+
+
+BOXPIERCE
+
+H0: autocorrelations up to lag k equal zero
+H1: autocorrelations up to lag k not zero
+Box-Pierce:  True
+Testing for  OWN INTEREST RATE . Considering a significance level of 5.0 %
+p-value = 0.920481815211182
+Reject H0 on lag  1 ?  False 
+
+p-value = 0.9885382342214828
+Reject H0 on lag  2 ?  False 
+
+p-value = 0.9434616493861518
+Reject H0 on lag  3 ?  False 
+
+p-value = 0.9055858851663222
+Reject H0 on lag  4 ?  False 
+
+p-value = 0.9600884465470501
+Reject H0 on lag  5 ?  False 
+
+p-value = 0.9448575691085225
+Reject H0 on lag  6 ?  False 
+
+p-value = 0.9207562038482776
+Reject H0 on lag  7 ?  False 
+
+p-value = 0.752760921431044
+Reject H0 on lag  8 ?  False 
+
+p-value = 0.7029766063606916
+Reject H0 on lag  9 ?  False 
+
+p-value = 0.6079203608738268
+Reject H0 on lag  10 ?  False 
+
+p-value = 0.6407218759907987
+Reject H0 on lag  11 ?  False 
+
+p-value = 0.7134145470151916
+Reject H0 on lag  12 ?  False 
+
+
+
+Testing for  GIH . Considering a significance level of 5.0 %
+p-value = 0.28909862574238
+Reject H0 on lag  1 ?  False 
+
+p-value = 0.31921806415473675
+Reject H0 on lag  2 ?  False 
+
+p-value = 0.3519330150139808
+Reject H0 on lag  3 ?  False 
+
+p-value = 0.6920189261591801
+Reject H0 on lag  4 ?  False 
+
+p-value = 2.670082732541718
+Reject H0 on lag  5 ?  False 
+
+p-value = 2.6980230801906524
+Reject H0 on lag  6 ?  False 
+
+p-value = 2.7327165032591885
+Reject H0 on lag  7 ?  False 
+
+p-value = 4.196927271441555
+Reject H0 on lag  8 ?  False 
+
+p-value = 4.344143019641999
+Reject H0 on lag  9 ?  False 
+
+p-value = 4.437897428554239
+Reject H0 on lag  10 ?  False 
+
+p-value = 8.42243121724339
+Reject H0 on lag  11 ?  False 
+
+p-value = 9.989704617420374
+Reject H0 on lag  12 ?  False 
+
+
+
+
+NORMALIDADE
+
+normality (skew and kurtosis) test. H_0: data generated by normally-distributed process. Conclusion: reject H_0 at 5% significance level.
+========================================
+Test statistic Critical value p-value df
+----------------------------------------
+         46.59          9.488   0.000  4
+----------------------------------------
+
+HOMOCEDASTICIDADE
+
+H0: Residuals are homoscedastic
+H1: Residuals are heteroskedastic
+Testing for  OWN INTEREST RATE
+/home/gpetrini/.local/lib/python3.8/site-packages/statsmodels/stats/diagnostic.py:622: FutureWarning: The default value of nlags is changing.  After 0.12, this value will become min(10, nobs//5). Directly setmaxlags or period to silence this warning.
+  warnings.warn("The default value of nlags is changing.  After 0.12, "
+/home/gpetrini/.local/lib/python3.8/site-packages/statsmodels/stats/diagnostic.py:645: FutureWarning: autolag is deprecated and will be removed after 0.12. Model selection before testing fails to control test size. Set autolag to False to silence this warning.
+  warnings.warn("autolag is deprecated and will be removed after 0.12. "
+LM statistic:  1.8079911613574682
+LM p-value:  0.17874939696182496
+Reject H0?  False
+F statistic:  1.8045941219302788
+F p-value:  0.18213924316065838
+Reject H0?  False
+
+
+Testing for  GIH
+LM statistic:  3.6139463536603493
+LM p-value:  0.05729700527800871
+Reject H0?  False
+F statistic:  3.6720492008981083
+F p-value:  0.05813146032480175
+Reject H0?  False
+:end:
+
+**** Visual inspection
+
+#+BEGIN_SRC python
+series = results.names
+for serie in series:
+    sns.scatterplot(x = residuals[serie], y = residuals[serie]**2)
+    plt.ylabel(f"{serie}^2")
+    sns.despine()
+    
+    plt.close('all')
+    sns.scatterplot(
+    y = residuals[serie], 
+    x = residuals[serie].shift(-1), 
+    color = 'darkred' 
+    )
+    sns.despine()
+    plt.xlabel(f"{serie}(-1)")
+    
+    plt.close('all')
+#+END_SRC
+
+#+RESULTS:
+:results:
+:end:
+***** All residuals
+#+BEGIN_SRC python :results graphics file :file ./figs/Residuals_4VECM.png
+plt.tight_layout()
+g.savefig("./figs/Residuals_4VECM.png", dpi = 300, bbox_inches = 'tight',
+    pad_inches = 0.2, transparent = False,)
+plt.close(g)
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/Residuals_4VECM.png]]
+***** Residuals vs Residuals
+#+BEGIN_SRC python
+series = results.names
+ax = sns.jointplot(
+    x = series[0], 
+    y = series[1], 
+    data = residuals, color = 'darkred', kind="reg", 
+)
+plt.close('all')
+#+END_SRC
+
+#+RESULTS:
+:results:
+    raise TypeError("close() argument must be a Figure, an int, a string, "
+TypeError: close() argument must be a Figure, an int, a string, or None, not '%s'
+>>>
+:end:
+***** Lags vs Lags
+#+BEGIN_SRC python :results graphics file :file ./figs/VEC_Defasagens.png
+fig = plot_lags(results=results, trimestres=[1,4])
+fig.savefig("./figs/VEC_Defasagens.png", dpi = 300, bbox_inches = 'tight',
+    pad_inches = 0.2, transparent = False,)
+plt.close(fig)
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/VEC_Defasagens.png]]
+
+**** Residuals stationarity
+***** $g_{_{h}}$
+#+BEGIN_SRC python
+testes_raiz(residuals['gIh'])
+#+END_SRC
+
+#+RESULTS:
+:results:
+
+ZIVOT ANDREWS level series
+        Zivot-Andrews Results        
+=====================================
+Test Statistic                -10.642
+P-value                         0.000
+Lags                                0
+-------------------------------------
+
+Trend: Constant
+Critical Values: -5.28 (1%), -4.81 (5%), -4.57 (10%)
+Null Hypothesis: The process contains a unit root with a single structural break.
+Alternative Hypothesis: The process is trend and break stationary. 
+
+
+ZIVOT ANDREWS First differences
+        Zivot-Andrews Results        
+=====================================
+Test Statistic                 -6.360
+P-value                         0.000
+Lags                                9
+-------------------------------------
+
+Trend: Constant
+Critical Values: -5.28 (1%), -4.81 (5%), -4.57 (10%)
+Null Hypothesis: The process contains a unit root with a single structural break.
+Alternative Hypothesis: The process is trend and break stationary. 
+
+
+ADF level series
+   Augmented Dickey-Fuller Results   
+=====================================
+Test Statistic                -10.015
+P-value                         0.000
+Lags                                0
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+ADF First differences
+   Augmented Dickey-Fuller Results   
+=====================================
+Test Statistic                 -5.953
+P-value                         0.000
+Lags                                9
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.50 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+DFGLS level series
+      Dickey-Fuller GLS Results      
+=====================================
+Test Statistic                 -9.035
+P-value                         0.000
+Lags                                0
+-------------------------------------
+
+Trend: Constant
+Critical Values: -2.75 (1%), -2.13 (5%), -1.82 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+DFGLS First differences
+      Dickey-Fuller GLS Results      
+=====================================
+Test Statistic                 -0.612
+P-value                         0.468
+Lags                               11
+-------------------------------------
+
+Trend: Constant
+Critical Values: -2.77 (1%), -2.15 (5%), -1.84 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+KPSS em nível
+    KPSS Stationarity Test Results   
+=====================================
+Test Statistic                  0.095
+P-value                         0.611
+Lags                                0
+-------------------------------------
+
+Trend: Constant
+Critical Values: 0.74 (1%), 0.46 (5%), 0.35 (10%)
+Null Hypothesis: The process is weakly stationary.
+Alternative Hypothesis: The process contains a unit root. 
+
+
+KPSS em primeira diferença
+:end:
+
+***** own interest rate
+
+#+BEGIN_SRC python
+testes_raiz(residuals['Own Interest rate'])
+#+END_SRC
+
+#+RESULTS:
+:results:
+  File "/tmp/babel-c6MFcw/python-EkLOZ4", line 1, in <module>
+    testes_raiz(residuals['gIh'])
+  File "/tmp/babel-c6MFcw/python-JhYUZM", line 50, in testes_raiz
+    print(KPSS(df.diff().dropna(), trend = diff_trend).summary(),"\n")
+  File "/home/gpetrini/.local/lib/python3.8/site-packages/arch/unitroot/unitroot.py", line 567, in summary
+    ("Test Statistic", "{0:0.3f}".format(self.stat)),
+  File "/home/gpetrini/.local/lib/python3.8/site-packages/arch/unitroot/unitroot.py", line 551, in stat
+    self._compute_if_needed()
+  File "/home/gpetrini/.local/lib/python3.8/site-packages/arch/unitroot/unitroot.py", line 514, in _compute_if_needed
+    self._compute_statistic()
+  File "/home/gpetrini/.local/lib/python3.8/site-packages/arch/unitroot/unitroot.py", line 1303, in _compute_statistic
+    self._autolag()
+  File "/home/gpetrini/.local/lib/python3.8/site-packages/arch/unitroot/unitroot.py", line 1343, in _autolag
+    raise InfeasibleTestException(
+arch.utility.exceptions.InfeasibleTestException: Residuals are all zero and so automatic bandwidth selection cannot be used. This is usually an indication that the series being testes is too small or have constant values.
+>>> 
+ZIVOT ANDREWS level series
+        Zivot-Andrews Results        
+=====================================
+Test Statistic                -10.063
+P-value                         0.000
+Lags                                0
+-------------------------------------
+
+Trend: Constant
+Critical Values: -5.28 (1%), -4.81 (5%), -4.57 (10%)
+Null Hypothesis: The process contains a unit root with a single structural break.
+Alternative Hypothesis: The process is trend and break stationary. 
+
+
+ZIVOT ANDREWS First differences
+        Zivot-Andrews Results        
+=====================================
+Test Statistic                 -6.780
+P-value                         0.000
+Lags                                9
+-------------------------------------
+
+Trend: Constant
+Critical Values: -5.28 (1%), -4.81 (5%), -4.57 (10%)
+Null Hypothesis: The process contains a unit root with a single structural break.
+Alternative Hypothesis: The process is trend and break stationary. 
+
+
+ADF level series
+   Augmented Dickey-Fuller Results   
+=====================================
+Test Statistic                 -9.581
+P-value                         0.000
+Lags                                0
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+ADF First differences
+   Augmented Dickey-Fuller Results   
+=====================================
+Test Statistic                 -6.186
+P-value                         0.000
+Lags                                9
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.50 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+DFGLS level series
+      Dickey-Fuller GLS Results      
+=====================================
+Test Statistic                 -9.501
+P-value                         0.000
+Lags                                0
+-------------------------------------
+
+Trend: Constant
+Critical Values: -2.75 (1%), -2.13 (5%), -1.82 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+DFGLS First differences
+      Dickey-Fuller GLS Results      
+=====================================
+Test Statistic                 -0.962
+P-value                         0.309
+Lags                               12
+-------------------------------------
+
+Trend: Constant
+Critical Values: -2.77 (1%), -2.15 (5%), -1.84 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+KPSS em nível
+    KPSS Stationarity Test Results   
+=====================================
+Test Statistic                  0.047
+P-value                         0.897
+Lags                                1
+-------------------------------------
+
+Trend: Constant
+Critical Values: 0.74 (1%), 0.46 (5%), 0.35 (10%)
+Null Hypothesis: The process is weakly stationary.
+Alternative Hypothesis: The process contains a unit root. 
+
+
+KPSS em primeira diferença
+    KPSS Stationarity Test Results   
+=====================================
+Test Statistic                  0.253
+P-value                         0.185
+Lags                               46
+-------------------------------------
+
+Trend: Constant
+Critical Values: 0.74 (1%), 0.46 (5%), 0.35 (10%)
+Null Hypothesis: The process is weakly stationary.
+Alternative Hypothesis: The process contains a unit root. 
+
+
+Phillips Perron em nível
+     Phillips-Perron Test (Z-tau)    
+=====================================
+Test Statistic                 -9.562
+P-value                         0.000
+Lags                               13
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+Phillips Perron em primeira diferença
+     Phillips-Perron Test (Z-tau)    
+=====================================
+Test Statistic                -34.204
+P-value                         0.000
+Lags                               13
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.50 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary.
+:end:
+
+** VAR Estimation
+
+VAR: $\Delta \text{own} \sim \Delta g_{I_{h}}$
+
+*** Order selection
+
+#+BEGIN_SRC python 
+model = VAR(
+    df[["d_Own Interest rate", 'd_gIh']],
+)
+print(model.select_order(maxlags=15, trend='ct').summary())
+#+END_SRC
+
+#+RESULTS:
+:results:
+ VAR Order Selection (* highlights the minimums)  
+==================================================
+       AIC         BIC         FPE         HQIC   
+--------------------------------------------------
+0       -15.75      -15.64   1.451e-07      -15.70
+1       -15.90      -15.69   1.238e-07      -15.82
+2       -16.24     -15.92*   8.852e-08      -16.11
+3       -16.20      -15.77   9.188e-08      -16.03
+4       -16.35      -15.81  7.975e-08*     -16.13*
+5       -16.34      -15.69   8.041e-08      -16.08
+6       -16.31      -15.56   8.278e-08      -16.01
+7       -16.25      -15.39   8.833e-08      -15.90
+8       -16.29      -15.32   8.539e-08      -15.89
+9       -16.24      -15.17   8.922e-08      -15.81
+10      -16.25      -15.07   8.901e-08      -15.77
+11     -16.36*      -15.07   7.995e-08      -15.84
+12      -16.34      -14.95   8.204e-08      -15.78
+13      -16.33      -14.82   8.408e-08      -15.72
+14      -16.25      -14.64   9.156e-08      -15.60
+15      -16.18      -14.46   9.907e-08      -15.49
+--------------------------------------------------
+:end:
+
+*** Estimation
+
+#+BEGIN_SRC python
+results = model.fit(maxlags=4)
+print(results.summary())
+#+END_SRC
+
+#+RESULTS:
+:results:
+  Summary of Regression Results   
+==================================
+Model:                         VAR
+Method:                        OLS
+Date:           sex, 27, nov, 2020
+Time:                     15:16:05
+--------------------------------------------------------------------
+No. of Equations:         2.00000    BIC:                   -15.9312
+Nobs:                     106.000    HQIC:                  -16.2002
+Log likelihood:           585.509    FPE:                7.67545e-08
+AIC:                     -16.3835    Det(Omega_mle):     6.52109e-08
+--------------------------------------------------------------------
+Results for equation d_Own Interest rate
+=========================================================================================
+                            coefficient       std. error           t-stat            prob
+-----------------------------------------------------------------------------------------
+const                         -0.000226         0.001274           -0.177           0.859
+L1.d_Own Interest rate         0.028207         0.107963            0.261           0.794
+L1.d_gIh                       0.054699         0.060778            0.900           0.368
+L2.d_Own Interest rate        -0.010616         0.110360           -0.096           0.923
+L2.d_gIh                       0.102515         0.074314            1.379           0.168
+L3.d_Own Interest rate         0.082806         0.123640            0.670           0.503
+L3.d_gIh                       0.103790         0.067768            1.532           0.126
+L4.d_Own Interest rate         0.273487         0.123097            2.222           0.026
+L4.d_gIh                       0.053917         0.053699            1.004           0.315
+=========================================================================================
+
+Results for equation d_gIh
+=========================================================================================
+                            coefficient       std. error           t-stat            prob
+-----------------------------------------------------------------------------------------
+const                         -0.003139         0.002157           -1.455           0.146
+L1.d_Own Interest rate        -0.415223         0.182858           -2.271           0.023
+L1.d_gIh                      -0.791650         0.102940           -7.690           0.000
+L2.d_Own Interest rate        -1.180624         0.186919           -6.316           0.000
+L2.d_gIh                      -0.693364         0.125868           -5.509           0.000
+L3.d_Own Interest rate        -0.580756         0.209412           -2.773           0.006
+L3.d_gIh                      -0.352439         0.114780           -3.071           0.002
+L4.d_Own Interest rate        -0.443281         0.208491           -2.126           0.033
+L4.d_gIh                      -0.355362         0.090951           -3.907           0.000
+=========================================================================================
+
+Correlation matrix of residuals
+                       d_Own Interest rate     d_gIh
+d_Own Interest rate               1.000000 -0.395305
+d_gIh                            -0.395305  1.000000
+:end:
+
+
+*** Impsulse respose
+
+**** Orthoganalized
+
+#+BEGIN_SRC python :results graphics file :file ./figs/Impulse_VAROrth.png
+p = results.irf(20).plot(orth=True)
+sns.despine()
+
+p.savefig("./figs/Impulse_VAROrth.png", dpi = 300, bbox_inches = 'tight',
+    pad_inches = 0.0, transparent = False,)
+
+plt.close('all')
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/Impulse_VAROrth.png]]
+
+**** Non-Orthoganalized
+
+#+BEGIN_SRC python :results graphics file :file ./figs/Impulse_VAR.png
+p = results.irf(20).plot(orth=False)
+p.suptitle("")
+sns.despine()
+
+
+p.savefig("./figs/Impulse_VAR.png", dpi = 300, bbox_inches = 'tight',
+    pad_inches = 0.0, transparent = False,)
+plt.close('all')
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/Impulse_VAR.png]]
+
+**** Cumulative effect
+
+#+BEGIN_SRC python :results graphics file :file ./figs/Impulse_Cum.png
+p = results.irf(20).plot_cum_effects(orth=True)
+sns.despine()
+p.savefig("./figs/Impulse_Cum.png", dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/Impulse_Cum.png]]
+
+
+*** FEVD
+#+BEGIN_SRC python :results graphics file :file ./figs/FEVD_VAR.png
+p = results.fevd(20).plot()
+sns.despine()
+p.savefig("./figs/FEVD_VAR.png", dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/FEVD_VAR.png]]
+*** Granger-Causality test 
+#+BEGIN_SRC python
+series = residuals.columns
+print(results.test_causality(causing = series[0], caused=series[1]).summary())
+print(results.test_causality(causing = series[1], caused=series[0]).summary())
+#+END_SRC
+
+#+RESULTS:
+:results:
+Granger causality F-test. H_0: d_Own Interest rate does not Granger-cause d_gIh. Conclusion: reject H_0 at 5% significance level.
+==============================================
+Test statistic Critical value p-value    df   
+----------------------------------------------
+         11.16          2.418   0.000 (4, 194)
+----------------------------------------------
+Granger causality F-test. H_0: d_gIh does not Granger-cause d_Own Interest rate. Conclusion: fail to reject H_0 at 5% significance level.
+==============================================
+Test statistic Critical value p-value    df   
+----------------------------------------------
+        0.6402          2.418   0.634 (4, 194)
+----------------------------------------------
+:end:
+
+
+*** Post estimation
+**** Residuals auto-correlation
+#+BEGIN_SRC python
+results.plot_acorr(nlags = 20)
+sns.despine()
+plt.show()
+plt.close()
+#+END_SRC
+
+#+RESULTS:
+:results:
+:end:
+**** Model stability
+#+BEGIN_SRC python
+print("Estável:", results.is_stable(verbose=True))
+#+END_SRC
+
+#+RESULTS:
+:results:
+Eigenvalues of VAR(1) rep
+0.6030770195516473
+0.7070302095101552
+0.7070302095101552
+0.7459966582741206
+0.7459966582741206
+0.6595823624924511
+0.8137970573299262
+0.8137970573299262
+Estável: True
+:end:
+
+
+**** Visual inspection
+#+BEGIN_SRC python
+residuals = analise_residuos(results=results)
+#+END_SRC
+
+#+RESULTS:
+:results:
+AUTOCORRELAÇÃO RESIDUAL: PORTMANTEAU
+
+Portmanteau-test for residual autocorrelation. H_0: residual autocorrelation up to lag 15 is zero. Conclusion: fail to reject H_0 at 5% significance level.
+========================================
+Test statistic Critical value p-value df
+----------------------------------------
+         51.19          60.48   0.212 44
+----------------------------------------
+
+AUTOCORRELAÇÃO RESIDUAL: PORTMANTEAU AJUSTADO
+
+Adjusted Portmanteau-test for residual autocorrelation. H_0: residual autocorrelation up to lag 15 is zero. Conclusion: fail to reject H_0 at 5% significance level.
+========================================
+Test statistic Critical value p-value df
+----------------------------------------
+         55.84          60.48   0.109 44
+----------------------------------------
+
+LJUNGBOX
+
+H0: autocorrelations up to lag k equal zero
+H1: autocorrelations up to lag k not zero
+Box-Pierce:  False
+Testing for  D_OWN INTEREST RATE . Considering a significance level of 5.0 %
+/home/gpetrini/.local/lib/python3.8/site-packages/statsmodels/stats/diagnostic.py:524: FutureWarning: The value returned will change to a single DataFrame after 0.12 is released.  Set return_df to True to use to return a DataFrame now.  Set return_df to False to silence this warning.
+  warnings.warn(msg, FutureWarning)
+p-value = 0.9966698426042584
+Reject H0 on lag  1 ?  False 
+
+p-value = 0.9521144354585951
+Reject H0 on lag  2 ?  False 
+
+p-value = 0.9365969780635497
+Reject H0 on lag  3 ?  False 
+
+p-value = 0.9470513116055402
+Reject H0 on lag  4 ?  False 
+
+p-value = 0.9237470337279254
+Reject H0 on lag  5 ?  False 
+
+p-value = 0.9426816626153887
+Reject H0 on lag  6 ?  False 
+
+p-value = 0.7636787104754204
+Reject H0 on lag  7 ?  False 
+
+p-value = 0.6881100929014605
+Reject H0 on lag  8 ?  False 
+
+p-value = 0.6654904754553743
+Reject H0 on lag  9 ?  False 
+
+p-value = 0.6167701575341682
+Reject H0 on lag  10 ?  False 
+
+p-value = 0.6914712060597138
+Reject H0 on lag  11 ?  False 
+
+p-value = 0.6461709019271069
+Reject H0 on lag  12 ?  False 
+
+
+
+Testing for  D_GIH . Considering a significance level of 5.0 %
+p-value = 0.26088114993884254
+Reject H0 on lag  1 ?  False 
+
+p-value = 0.29602879727691844
+Reject H0 on lag  2 ?  False 
+
+p-value = 0.35018485314231645
+Reject H0 on lag  3 ?  False 
+
+p-value = 0.6468867296190853
+Reject H0 on lag  4 ?  False 
+
+p-value = 2.6259058354130267
+Reject H0 on lag  5 ?  False 
+
+p-value = 2.6700392485421154
+Reject H0 on lag  6 ?  False 
+
+p-value = 2.690528143907467
+Reject H0 on lag  7 ?  False 
+
+p-value = 4.11664894634454
+Reject H0 on lag  8 ?  False 
+
+p-value = 4.245341016293362
+Reject H0 on lag  9 ?  False 
+
+p-value = 4.343779996931503
+Reject H0 on lag  10 ?  False 
+
+p-value = 8.468888971863404
+Reject H0 on lag  11 ?  False 
+
+p-value = 10.069182861586095
+Reject H0 on lag  12 ?  False 
+
+
+
+
+BOXPIERCE
+
+H0: autocorrelations up to lag k equal zero
+H1: autocorrelations up to lag k not zero
+Box-Pierce:  True
+Testing for  D_OWN INTEREST RATE . Considering a significance level of 5.0 %
+p-value = 0.9967164202612693
+Reject H0 on lag  1 ?  False 
+
+p-value = 0.953846313343891
+Reject H0 on lag  2 ?  False 
+
+p-value = 0.940425701103225
+Reject H0 on lag  3 ?  False 
+
+p-value = 0.9515578770946106
+Reject H0 on lag  4 ?  False 
+
+p-value = 0.9322686775702409
+Reject H0 on lag  5 ?  False 
+
+p-value = 0.9505718057262724
+Reject H0 on lag  6 ?  False 
+
+p-value = 0.7986463300129473
+Reject H0 on lag  7 ?  False 
+
+p-value = 0.7369132850067694
+Reject H0 on lag  8 ?  False 
+
+p-value = 0.7224674897934527
+Reject H0 on lag  9 ?  False 
+
+p-value = 0.6858359817755248
+Reject H0 on lag  10 ?  False 
+
+p-value = 0.7556701059166152
+Reject H0 on lag  11 ?  False 
+
+p-value = 0.7242379596074693
+Reject H0 on lag  12 ?  False 
+
+
+
+Testing for  D_GIH . Considering a significance level of 5.0 %
+p-value = 0.26088114993884254
+Reject H0 on lag  1 ?  False 
+
+p-value = 0.29602879727691844
+Reject H0 on lag  2 ?  False 
+
+p-value = 0.35018485314231645
+Reject H0 on lag  3 ?  False 
+
+p-value = 0.6468867296190853
+Reject H0 on lag  4 ?  False 
+
+p-value = 2.6259058354130267
+Reject H0 on lag  5 ?  False 
+
+p-value = 2.6700392485421154
+Reject H0 on lag  6 ?  False 
+
+p-value = 2.690528143907467
+Reject H0 on lag  7 ?  False 
+
+p-value = 4.11664894634454
+Reject H0 on lag  8 ?  False 
+
+p-value = 4.245341016293362
+Reject H0 on lag  9 ?  False 
+
+p-value = 4.343779996931503
+Reject H0 on lag  10 ?  False 
+
+p-value = 8.468888971863404
+Reject H0 on lag  11 ?  False 
+
+p-value = 10.069182861586095
+Reject H0 on lag  12 ?  False 
+
+
+
+
+NORMALIDADE
+
+normality (skew and kurtosis) test. H_0: data generated by normally-distributed process. Conclusion: reject H_0 at 5% significance level.
+========================================
+Test statistic Critical value p-value df
+----------------------------------------
+         49.87          9.488   0.000  4
+----------------------------------------
+
+HOMOCEDASTICIDADE
+
+H0: Residuals are homoscedastic
+H1: Residuals are heteroskedastic
+Testing for  D_OWN INTEREST RATE
+/home/gpetrini/.local/lib/python3.8/site-packages/statsmodels/stats/diagnostic.py:622: FutureWarning: The default value of nlags is changing.  After 0.12, this value will become min(10, nobs//5). Directly setmaxlags or period to silence this warning.
+  warnings.warn("The default value of nlags is changing.  After 0.12, "
+/home/gpetrini/.local/lib/python3.8/site-packages/statsmodels/stats/diagnostic.py:645: FutureWarning: autolag is deprecated and will be removed after 0.12. Model selection before testing fails to control test size. Set autolag to False to silence this warning.
+  warnings.warn("autolag is deprecated and will be removed after 0.12. "
+LM statistic:  1.7801576734683304
+LM p-value:  0.18212996623664712
+Reject H0?  False
+F statistic:  1.7763662124884665
+F p-value:  0.18553695638512102
+Reject H0?  False
+
+
+Testing for  D_GIH
+LM statistic:  1.0658767725752667
+LM p-value:  0.3018786459660585
+Reject H0?  False
+F statistic:  1.056297048227595
+F p-value:  0.3064688077421782
+Reject H0?  False
+:end:
+
+#+BEGIN_SRC python
+series = results.names
+sns.set_context('talk')
+ax = sns.jointplot(
+    x = series[0], 
+    y = series[1], 
+    data = residuals, color = 'darkred', kind="reg", 
+)
+plt.show()
+plt.close('all')
+#+END_SRC
+
+#+RESULTS:
+:results:
+:end:
+
+***** All residuals
+#+BEGIN_SRC python :results graphics file :file ./figs/Residuals_4VAR.png
+g = sns.PairGrid(residuals, diag_sharey=False, height = 5, aspect=(8/5))
+g.map_lower(sns.kdeplot, color = 'darkred')
+g.map_upper(sns.scatterplot, color = 'darkred')
+g.map_diag(sns.kdeplot, lw=3, color = 'darkred')
+g.savefig("./figs/Residuals_4VAR.png", dpi = 600, )
+plt.close('all')
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/Residuals_4VAR.png]]
+***** Residuals vs Residuals
+#+BEGIN_SRC python :results graphics
+series = results.names
+for serie in series:
+    sns.scatterplot(x = residuals[serie], y = residuals[serie]**2)
+    sns.despine()
+    
+    sns.scatterplot(
+    y = residuals[serie], 
+    x = residuals[serie].shift(-1), 
+    color = 'darkred' 
+    )
+    sns.despine()
+    plt.xlabel(f"{serie}(-1)")
+
+plt.close('all')
+#+END_SRC
+
+#+RESULTS:
+***** Lags vs Lags
+#+BEGIN_SRC python :results graphics file :file ./figs/VEC_Defasagens.png
+plot_lags(results=results)
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/VEC_Defasagens.png]]
+
+**** Residuals stationarity
+***** $g_{_{h}}$
+#+BEGIN_SRC python
+testes_raiz(residuals['d_gIh'])
+#+END_SRC
+
+#+RESULTS:
+:results:
+
+ZIVOT ANDREWS level series
+        Zivot-Andrews Results        
+=====================================
+Test Statistic                -10.740
+P-value                         0.000
+Lags                                0
+-------------------------------------
+
+Trend: Constant
+Critical Values: -5.28 (1%), -4.81 (5%), -4.57 (10%)
+Null Hypothesis: The process contains a unit root with a single structural break.
+Alternative Hypothesis: The process is trend and break stationary. 
+
+
+ZIVOT ANDREWS First differences
+        Zivot-Andrews Results        
+=====================================
+Test Statistic                 -6.183
+P-value                         0.001
+Lags                                9
+-------------------------------------
+
+Trend: Constant
+Critical Values: -5.28 (1%), -4.81 (5%), -4.57 (10%)
+Null Hypothesis: The process contains a unit root with a single structural break.
+Alternative Hypothesis: The process is trend and break stationary. 
+
+
+ADF level series
+   Augmented Dickey-Fuller Results   
+=====================================
+Test Statistic                -10.283
+P-value                         0.000
+Lags                                0
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+ADF First differences
+   Augmented Dickey-Fuller Results   
+=====================================
+Test Statistic                 -5.692
+P-value                         0.000
+Lags                                9
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.50 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+DFGLS level series
+      Dickey-Fuller GLS Results      
+=====================================
+Test Statistic                 -0.925
+P-value                         0.324
+Lags                                6
+-------------------------------------
+
+Trend: Constant
+Critical Values: -2.76 (1%), -2.14 (5%), -1.83 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+DFGLS First differences
+      Dickey-Fuller GLS Results      
+=====================================
+Test Statistic                 -0.776
+P-value                         0.390
+Lags                               11
+-------------------------------------
+
+Trend: Constant
+Critical Values: -2.77 (1%), -2.15 (5%), -1.84 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+KPSS em nível
+    KPSS Stationarity Test Results   
+=====================================
+Test Statistic                  0.143
+P-value                         0.413
+Lags                                1
+-------------------------------------
+
+Trend: Constant
+Critical Values: 0.74 (1%), 0.46 (5%), 0.35 (10%)
+Null Hypothesis: The process is weakly stationary.
+Alternative Hypothesis: The process contains a unit root. 
+
+
+KPSS em primeira diferença
+:end:
+
+***** own interest rate
+
+#+BEGIN_SRC python
+testes_raiz(residuals['d_Own Interest rate'])
+#+END_SRC
+
+#+RESULTS:
+:results:
+
+ZIVOT ANDREWS level series
+        Zivot-Andrews Results        
+=====================================
+Test Statistic                -10.178
+P-value                         0.000
+Lags                                0
+-------------------------------------
+
+Trend: Constant
+Critical Values: -5.28 (1%), -4.81 (5%), -4.57 (10%)
+Null Hypothesis: The process contains a unit root with a single structural break.
+Alternative Hypothesis: The process is trend and break stationary. 
+
+
+ZIVOT ANDREWS First differences
+        Zivot-Andrews Results        
+=====================================
+Test Statistic                 -6.836
+P-value                         0.000
+Lags                                9
+-------------------------------------
+
+Trend: Constant
+Critical Values: -5.28 (1%), -4.81 (5%), -4.57 (10%)
+Null Hypothesis: The process contains a unit root with a single structural break.
+Alternative Hypothesis: The process is trend and break stationary. 
+
+
+ADF level series
+   Augmented Dickey-Fuller Results   
+=====================================
+Test Statistic                 -9.660
+P-value                         0.000
+Lags                                0
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+ADF First differences
+   Augmented Dickey-Fuller Results   
+=====================================
+Test Statistic                 -6.192
+P-value                         0.000
+Lags                                9
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.50 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+DFGLS level series
+      Dickey-Fuller GLS Results      
+=====================================
+Test Statistic                 -9.201
+P-value                         0.000
+Lags                                0
+-------------------------------------
+
+Trend: Constant
+Critical Values: -2.75 (1%), -2.13 (5%), -1.82 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+DFGLS First differences
+      Dickey-Fuller GLS Results      
+=====================================
+Test Statistic                 -9.736
+P-value                         0.000
+Lags                                2
+-------------------------------------
+
+Trend: Constant
+Critical Values: -2.75 (1%), -2.13 (5%), -1.82 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+KPSS em nível
+    KPSS Stationarity Test Results   
+=====================================
+Test Statistic                  0.045
+P-value                         0.904
+Lags                                1
+-------------------------------------
+
+Trend: Constant
+Critical Values: 0.74 (1%), 0.46 (5%), 0.35 (10%)
+Null Hypothesis: The process is weakly stationary.
+Alternative Hypothesis: The process contains a unit root. 
+
+
+KPSS em primeira diferença
+    KPSS Stationarity Test Results   
+=====================================
+Test Statistic                  0.231
+P-value                         0.215
+Lags                               43
+-------------------------------------
+
+Trend: Constant
+Critical Values: 0.74 (1%), 0.46 (5%), 0.35 (10%)
+Null Hypothesis: The process is weakly stationary.
+Alternative Hypothesis: The process contains a unit root. 
+
+
+Phillips Perron em nível
+     Phillips-Perron Test (Z-tau)    
+=====================================
+Test Statistic                 -9.645
+P-value                         0.000
+Lags                               13
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary. 
+
+
+Phillips Perron em primeira diferença
+     Phillips-Perron Test (Z-tau)    
+=====================================
+Test Statistic                -34.827
+P-value                         0.000
+Lags                               13
+-------------------------------------
+
+Trend: Constant
+Critical Values: -3.49 (1%), -2.89 (5%), -2.58 (10%)
+Null Hypothesis: The process contains a unit root.
+Alternative Hypothesis: The process is weakly stationary.
+:end:
+
 
 * VECM :ignore:
 
@@ -72,7 +4086,7 @@ We rely on the following  quarterly seasonally adjusted data: (i) 30-Year fixed 
 	\centering
 	\caption{Residential investment growth rate vs. Houses Own interest rate}
 	\label{propria_investo}
-	\includegraphics[width=\textwidth]{./figs/TxPropria_Investo}
+	\includegraphics[width=\textwidth]{./figs/TxPropria_Investo.png}
 	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' elaboration}
 \end{figure}
 #+end_export
@@ -87,7 +4101,7 @@ Our series are co-integrated at 5\% significance level which allows us to estima
 	\centering
 	\caption{Time-series with \textcite{yeo_new_2000} transformation}
 	\label{YeoJhonson}
-	\includegraphics[width=\textwidth]{./figs/YeoJohnson_All}
+	\includegraphics[width=\textwidth]{./figs/YeoJohnson_All.png}
 	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' elaboration}
 \end{figure}
 #+end_export
@@ -103,8 +4117,8 @@ Considering the average construction time (from approval to completion), we shou
 \begin{figure}[H]
 	\centering
 	\caption{Average construction time (approval to completion) of properties for a family unit by construction purposes except manufactured houses (1976-2018)}
-	\label{meses}
-	\includegraphics[height=.4\textheight]{./figs/Meses_contrucao.eps}
+    \label{meses}
+	\includegraphics[width=\textwidth]{./figs/Meses_construcao.png}
 	\caption*{\textbf{Source:} Survey of Construction (SOC), Authors' elaboration}
 \end{figure}
 #+end_export
@@ -135,7 +4149,7 @@ In summary, speculation with the dwellings stock generates inflation of these as
 	\centering
 	\caption{Dispersion between houses' own interest rate and residential investment growth: lags selected based on information criteria}
 	\label{defasagens}
-	\includegraphics[height=.4\textheight]{./figs/VEC_Defasagens.eps}
+	\includegraphics[height=.4\textheight]{./figs/VEC_Defasagens.png}
 	\caption*{\textbf{Source:} Authors' elaboration}
 \end{figure}
 #+end_export
@@ -171,7 +4185,7 @@ In conclusion, our estimation results are in line with the hypothesis presented 
 	\centering
 	\caption{Inspection of estimation residuals}
 	\label{residuos}
-	\includegraphics[height=.4\textheight]{./figs/Residuals_4VECM.eps}
+	\includegraphics[height=.4\textheight]{./figs/Residuals_4VECM.png}
 	\caption*{\textbf{Source:} Authors' elaboration}
 \end{figure}
 #+end_export
@@ -186,7 +4200,7 @@ Therefore, houses' own interest rate is explained mainly by itself and explains 
 	\centering
 	\caption{Forecast error variance decomposition (FEVD)}
 	\label{fevd}
-	\includegraphics[height=.4\textheight]{./figs/FEVD_VECMpython_TxPropria.eps}
+	\includegraphics[height=.4\textheight]{./figs/FEVD_VECMpython_TxPropria.png}
 	\caption*{\textbf{Source:} Authors' elaboration}
 \end{figure}
 #+end_export
@@ -201,7 +4215,7 @@ In short, our results shows that an increase in mortgage interest rate (equivale
 	\centering
 	\caption{Orthogonalized Impulse Response Function}
 	\label{irf}
-	\includegraphics[height=.4\textheight]{./figs/Impulse_VECM.eps}
+	\includegraphics[height=.4\textheight]{./figs/Impulse_VECM.png}
 	\caption*{\textbf{Source:} Authors' elaboration}
 \end{figure}
 #+end_export

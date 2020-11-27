@@ -1,4 +1,4 @@
-% Created 2020-11-20 sex 15:46
+% Created 2020-11-27 sex 16:12
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -54,7 +54,7 @@ while the other way round does not occur.
 
 
 \section{Introduction}
-\label{sec:org6df620d}
+\label{sec:org788a852}
 \label{sec:Introduction}
 Among aggregate demand expenditures, non-residential investment is the most examined  one between (at least) heterodox macroeconomists.
 As a consequence, the relevance of others (autonomous) expenditures on macroeconomic dynamics has been underestimated \cite{brochier_macroeconomics_2017}.
@@ -72,7 +72,7 @@ The results for all statistical tests are provided in Appendix \ref{appen:A}.
 
 
 \section{Housing Dynamics and Business Cycle in the US Economy}
-\label{sec:org239d45e}
+\label{sec:org417b9cb}
 \label{sec:Stylized_Facts}
 After the Great Recession, the literature has analyzed the relevance of housing at macroeconomic level \cites{leamer_housing_2015}{teixeira_crescimento_2015}{fiebiger_semi-autonomous_2018}.
 Despite some authors had highlighted the empirical importance of this expenditure in determining economic cycles since the post-war period \cites{grebler_capital_1956}{green_follow_1997}{leamer_housing_2007}, only a few macroeconomists have given due attention to this regularity.
@@ -96,20 +96,12 @@ As the above excerpt suggests, the relevance of housing is not restricted to the
 Moreover, however small its share on GDP is (see Figure \ref{FigAutonomos}), it does not imply that it has negligible effects on the business cycle or low volatility (see Figure \ref{FigVolatilidade}).
 
 \begin{figure}[H]
+    \centering
 	\caption{Housing's Particular Stylized Facts}
-	\label{fig:figs}
-	\begin{subfigure}[t]{.45\textwidth}
-		\centering
-		\caption{Selected growth rate distribution (1947-2019)}
-		\label{FigVolatilidade}
-		\includegraphics[width=.8\linewidth]{./figs/Volatilidade.eps}
-	\end{subfigure}
-	\begin{subfigure}[t]{.45\textwidth}
-		\centering
-		\caption{Autonomous expenditures share on GDP (US, 1979-2019)}
-		\label{FigAutonomos}
-		\includegraphics[width=.8\linewidth]{./figs/Gastos_autonomos.eps}  
-	\end{subfigure}
+	\label{fig:vol+share}
+\begin{figure}[htb]
+    \includegraphics[width = \textwidth]{./figs/Volatility_share.png}
+    \end{figure}
 	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' Elaboration}
 \end{figure}
 
@@ -128,13 +120,13 @@ Finally, as a result of economic burst, capacity utilization ratio falls and the
 	\centering
 	\caption{Residential investment share on GDP VS. capacity utilization during recessions}
 	\label{FigIh_u}
-	\includegraphics[width=\textwidth]{./figs/Ciclo_Ih_u.eps}
+	\includegraphics[width=\textwidth]{./figs/Ciclo_Ih_u.png}
 	\caption*{\textbf{Source:} Authors' Elaboration}
 \end{figure}
 
 We also report an indirect relation between housing and aggregate demand. 
 Real estate constitutes a significant portion of household wealth so houses serves as collateral to borrowing \cite{teixeira_uma_2011}. 
-As a consequence of US institutional arrangement, households --- especially the poorest ones --- could increase their indebtedness as houses prices went up (see Figure \ref{FigDividaPreco}) as a way to ``make'' capital gains without \% Realize é um falso cognato, não?
+As a consequence of US institutional arrangement, households --- especially the poorest ones --- could increase their indebtedness as houses prices went up (see Figure \ref{FigDividaPreco}) as a way to ``make'' capital gains without 
 selling their homes during house bubble of the 2000s \cite{teixeira_crescimento_2015}.
 Therefore, real estate inflation and durable goods consumption are connected and has relevant consequences for business cycle.
 \textcites{zezza_u.s._2008}{barba_rising_2009}, for example, report that credit-financed consumption was one of the main drivers of economic growth before the Great Recession.
@@ -150,7 +142,7 @@ Therefore, the second implication is the sharp reduction in the net worth of the
 	\centering
 	\caption{Household indebtedness and house prices dynamics (jan/2000=100)}
 	\label{FigDividaPreco}
-	\includegraphics[width=\textwidth]{./figs/Divida_PrecoImoveis.eps}
+	\includegraphics[width=\textwidth]{./figs/Divida_PrecoImoveis.png}
 	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' Elaboration}
 \end{figure}
 
@@ -158,7 +150,7 @@ Therefore, the second implication is the sharp reduction in the net worth of the
 	\centering
 	\caption{Liabilities evolution by wealth percentile (1989/07=1)}
 	\label{FigDistPassivos}
-	\includegraphics[width=.8\textwidth]{./figs/Distribuicao_Passivos.eps}
+	\includegraphics[width=.8\textwidth]{./figs/Distribuicao_Passivos.png}
 	\caption*{\textbf{Source:} \textcite{us_census_bureau_characteristics_2017}, Authors' Elaboration}
 \end{figure}
 
@@ -169,16 +161,14 @@ For example, \textcite{jorda_great_2016} report that credit and financial sector
 As a consequence, banking activities were redirected towards granting credit majorly to households and not towards productive investment \cites{erturk_banks_2007}{kohl_more_2018}.
 Other studies have shown that real estate inflation is the main determinant of household indebtedness, distribution of wealth and that it has implications for macroeconomic stability \cites{ryoo_household_2015}{stockhammer_debt-driven_2016}{barnes_private_2016}{johnston_global_2017}{mian_household_2017}{anderson_politics_2020}{fuller_housing_2020}. 
 In summary, what we intended to show is that one cannot analyze the US business cycle without considering housing dynamics.
-\%we conclude that housing is relevant to understand the specificity of US business cycle.
 On the following section, we analyze how econometric literature has dealt with this topic.
 \section{Review of the Macroeconometric Literature}
-\label{sec:orga3ff370}
+\label{sec:org8be4de5}
 \label{sec:empirical_review}
 After the US housing bubble burst, there have been a growing attention in the macroeconomic implications of residential investment.
 It worth noting that most econometric papers that includes residential investment has failed to treat it macroeconomically, restricting it to microeconomic and regional issues \cite{arestis_u.s._2008}.
 Although the macroeconometric relevance of residential investment is not restricted to the US, most scholars have examined this specific case.
 In this context, we analyze the macroeconometric literature that explicitly includes housing to evaluate the determinants of its growth rate.
-\%Each model will be analyzed according to the compatibility with demand-led growth agenda as well as the possibility of including asset bubbles.
 
 In this sense, \citeauthor{poterba_tax_1984}'s \citeyear{poterba_tax_1984} contribution stands out once it does not assume instantly convergence of real estate supply to the desired level.
 Furthermore, this theoretical prcedure considers residential investment as induced positively by house prices.
@@ -270,10 +260,10 @@ On the following section, we discuss this proposal in further details and evalua
 \input{tabs/EmpiricalMotivation}
 
 \section{Macroeconometric analysis}
-\label{sec:org28ac4a6}
+\label{sec:orga34e92a}
 \label{sec:VECM}
 \subsection{Houses' own interest rate and residential investment growth rate in the US	Economy}
-\label{sec:org1e8f43f}
+\label{sec:org2219cf0}
 \label{sc:own}
 
 In this subsection, we describe the relationship between residential investment growth rate (\(g_{I_h}\)) and houses' own interest rate (\(own\)) as proposed by \textcite{teixeira_crescimento_2015}. 
@@ -318,7 +308,7 @@ According to \textcite{teixeira_crescimento_2015}, the expected results are depi
 \input{./tabs/hypothesis.tex}
 
 \subsection{Data and estimation strategy}
-\label{sec:orge68820c}
+\label{sec:orga0d5bd1}
 \label{sec:estimation}
 
 
@@ -332,7 +322,7 @@ We rely on the following  quarterly seasonally adjusted data: (i) 30-Year fixed 
 	\centering
 	\caption{Residential investment growth rate vs. Houses Own interest rate}
 	\label{propria_investo}
-	\includegraphics[width=\textwidth]{./figs/TxPropria_Investo}
+	\includegraphics[width=\textwidth]{./figs/TxPropria_Investo.png}
 	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' elaboration}
 \end{figure}
 
@@ -345,7 +335,7 @@ Our series are co-integrated at 5$\backslash$% significance level which allows u
 	\centering
 	\caption{Time-series with \textcite{yeo_new_2000} transformation}
 	\label{YeoJhonson}
-	\includegraphics[width=\textwidth]{./figs/YeoJohnson_All}
+	\includegraphics[width=\textwidth]{./figs/YeoJohnson_All.png}
 	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' elaboration}
 \end{figure}
 
@@ -359,8 +349,8 @@ Considering the average construction time (from approval to completion), we shou
 \begin{figure}[H]
 	\centering
 	\caption{Average construction time (approval to completion) of properties for a family unit by construction purposes except manufactured houses (1976-2018)}
-	\label{meses}
-	\includegraphics[height=.4\textheight]{./figs/Meses_contrucao.eps}
+    \label{meses}
+	\includegraphics[width=\textwidth]{./figs/Meses_construcao.png}
 	\caption*{\textbf{Source:} Survey of Construction (SOC), Authors' elaboration}
 \end{figure}
 
@@ -388,7 +378,7 @@ In summary, speculation with the dwellings stock generates inflation of these as
 	\centering
 	\caption{Dispersion between houses' own interest rate and residential investment growth: lags selected based on information criteria}
 	\label{defasagens}
-	\includegraphics[height=.4\textheight]{./figs/VEC_Defasagens.eps}
+	\includegraphics[height=.4\textheight]{./figs/VEC_Defasagens.png}
 	\caption*{\textbf{Source:} Authors' elaboration}
 \end{figure}
 
@@ -400,7 +390,7 @@ On the following subsection, we analyze the results and compare with the theoret
 
 
 \subsection{Estimation results}
-\label{sec:org647fd9b}
+\label{sec:org2cb6f16}
 \label{sec:results}
 
 According to parameters presented in Table \ref{Estimacao}, we find statistically significant co-integration  coefficients for both equations. 
@@ -423,7 +413,7 @@ In conclusion, our estimation results are in line with the hypothesis presented 
 	\centering
 	\caption{Inspection of estimation residuals}
 	\label{residuos}
-	\includegraphics[height=.4\textheight]{./figs/Residuals_4VECM.eps}
+	\includegraphics[height=.4\textheight]{./figs/Residuals_4VECM.png}
 	\caption*{\textbf{Source:} Authors' elaboration}
 \end{figure}
 
@@ -436,7 +426,7 @@ Therefore, houses' own interest rate is explained mainly by itself and explains 
 	\centering
 	\caption{Forecast error variance decomposition (FEVD)}
 	\label{fevd}
-	\includegraphics[height=.4\textheight]{./figs/FEVD_VECMpython_TxPropria.eps}
+	\includegraphics[height=.4\textheight]{./figs/FEVD_VECMpython_TxPropria.png}
 	\caption*{\textbf{Source:} Authors' elaboration}
 \end{figure}
 
@@ -449,7 +439,7 @@ In short, our results shows that an increase in mortgage interest rate (equivale
 	\centering
 	\caption{Orthogonalized Impulse Response Function}
 	\label{irf}
-	\includegraphics[height=.4\textheight]{./figs/Impulse_VECM.eps}
+	\includegraphics[height=.4\textheight]{./figs/Impulse_VECM.png}
 	\caption*{\textbf{Source:} Authors' elaboration}
 \end{figure}
 
@@ -464,7 +454,7 @@ However, they report insignificant coefficients for mortgages nominal interest r
 On the following section we present some concluding remarks.
 
 \section{Concluding Remarks}
-\label{sec:orga2ec76a}
+\label{sec:org7b55e27}
 \label{sec:Conclusion}
 In this article, we present a residential investment growth rate specification compatible with the Srrafian supermultiplier model.
 To do so, we estimate a bi-dimension VEC evaluate \textcite{teixeira_crescimento_2015}
@@ -491,22 +481,22 @@ Thus, our  proposal differs from the usual empirical literature by:
 
 
 \section*{Acknowledgments}
-\label{sec:org2e50caa}
+\label{sec:orgff81c19}
 \noindent We are grateful to Rosângela Ballini, Carolina Baltar, Júlia Braga, Ítalo Pedrosa, Cecon/Unicamp and UFRJ Macroeconomic discussion groups for useful comments and suggestions on earlier drafts of this article. All remaining errors are, of course, our own.
 
 
 \section*{Disclosure statement}
-\label{sec:orgbc26f07}
+\label{sec:orgf2d9257}
 No potential conflict of interest was reported by the authors.
 
 \section*{References}
-\label{sec:org179641c}
+\label{sec:org13b3757}
 \printbibliography[heading=none]
 
 
 \appendix
 \section{Statistical Appendix}
-\label{sec:org43b6350}
+\label{sec:orgdb67843}
 \label{appen:A}
 
 In this appendix we report several tests: unit root tests on our variables of interest, Structural break test, Johansen procedure and hypothesis tests on residuals. 

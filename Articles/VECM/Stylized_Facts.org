@@ -494,20 +494,12 @@ Moreover, however small its share on GDP is (see Figure ref:FigAutonomos), it do
 
 #+begin_export latex
 \begin{figure}[H]
+    \centering
 	\caption{Housing's Particular Stylized Facts}
-	\label{fig:figs}
-	\begin{subfigure}[t]{.45\textwidth}
-		\centering
-		\caption{Selected growth rate distribution (1947-2019)}
-		\label{FigVolatilidade}
-		\includegraphics[width=.8\linewidth]{./figs/Volatilidade.eps}
-	\end{subfigure}
-	\begin{subfigure}[t]{.45\textwidth}
-		\centering
-		\caption{Autonomous expenditures share on GDP (US, 1979-2019)}
-		\label{FigAutonomos}
-		\includegraphics[width=.8\linewidth]{./figs/Gastos_autonomos.eps}  
-	\end{subfigure}
+	\label{fig:vol+share}
+\begin{figure}[htb]
+    \includegraphics[width = \textwidth]{./figs/Volatility_share.png}
+    \end{figure}
 	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' Elaboration}
 \end{figure}
 #+end_export
@@ -528,7 +520,7 @@ Finally, as a result of economic burst, capacity utilization ratio falls and the
 	\centering
 	\caption{Residential investment share on GDP VS. capacity utilization during recessions}
 	\label{FigIh_u}
-	\includegraphics[width=\textwidth]{./figs/Ciclo_Ih_u.eps}
+	\includegraphics[width=\textwidth]{./figs/Ciclo_Ih_u.png}
 	\caption*{\textbf{Source:} Authors' Elaboration}
 \end{figure}
 #+end_export
@@ -552,7 +544,7 @@ Therefore, the second implication is the sharp reduction in the net worth of the
 	\centering
 	\caption{Household indebtedness and house prices dynamics (jan/2000=100)}
 	\label{FigDividaPreco}
-	\includegraphics[width=\textwidth]{./figs/Divida_PrecoImoveis.eps}
+	\includegraphics[width=\textwidth]{./figs/Divida_PrecoImoveis.png}
 	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' Elaboration}
 \end{figure}
 
@@ -560,7 +552,7 @@ Therefore, the second implication is the sharp reduction in the net worth of the
 	\centering
 	\caption{Liabilities evolution by wealth percentile (1989/07=1)}
 	\label{FigDistPassivos}
-	\includegraphics[width=.8\textwidth]{./figs/Distribuicao_Passivos.eps}
+	\includegraphics[width=.8\textwidth]{./figs/Distribuicao_Passivos.png}
 	\caption*{\textbf{Source:} \textcite{us_census_bureau_characteristics_2017}, Authors' Elaboration}
 \end{figure}
 #+end_export
