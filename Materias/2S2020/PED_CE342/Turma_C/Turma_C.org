@@ -4,7 +4,7 @@
 #+DATE: 2020/2S
 #+PROPERTY: COLUMNS %RA %TAREFA(Tarefa) %NOTA(Nota)
 #+EXCLUDE_TAGS: private noexport
-#+PROPERTY: header-args:python  :session *Turma_C* :exports results :results output :python /usr/bin/python3  :eval never-export
+#+PROPERTY: header-args:python  :session *Turma_C* :exports results :results output replace :eval never-export
 #+LATEX_HEADER: \usepackage{longtable, pdflscape, booktabs}
 
 #+RESULTS:
@@ -215,116 +215,6 @@ print('\end{center}')
 \end{longtable}
 \end{center}
 #+end_export
-#+begin_export latex
-\begin{center}
-\begin{longtable}{lr}
-\caption{Notas das resenhas - Monetaristas}\\
-\toprule
-{} &  Resenha Monetaristas \\
-\textbf{RA    } &                       \\
-\midrule
-\endhead
-\midrule
-\multicolumn{2}{r}{{Continued on next page}} \\
-\midrule
-\endfoot
-
-\bottomrule
-\endlastfoot
-\textbf{230645} &                  50.0 \\
-\textbf{213549} &                  30.0 \\
-\textbf{257748} &                  50.0 \\
-\textbf{232568} &                  70.0 \\
-\textbf{233566} &                  30.0 \\
-\textbf{215626} &                   0.0 \\
-\textbf{91108 } &                     - \\
-\textbf{234311} &                  50.0 \\
-\textbf{216397} &                  30.0 \\
-\textbf{197474} &                  50.0 \\
-\textbf{234982} &                   0.0 \\
-\textbf{235042} &                   0.0 \\
-\textbf{197724} &                  50.0 \\
-\textbf{217350} &                  30.0 \\
-\textbf{174154} &                  30.0 \\
-\textbf{237534} &                  30.0 \\
-\textbf{237856} &                  50.0 \\
-\textbf{199967} &                  70.0 \\
-\textbf{103034} &                  50.0 \\
-\textbf{172577} &                  50.0 \\
-\textbf{159866} &                  50.0 \\
-\textbf{221896} &                  70.0 \\
-\textbf{257876} &                 100.0 \\
-\textbf{242087} &                   0.0 \\
-\textbf{242328} &                  50.0 \\
-\textbf{147614} &                   0.0 \\
-\textbf{176104} &                   0.0 \\
-\textbf{205149} &                 100.0 \\
-\textbf{205151} &                   0.0 \\
-\textbf{244207} &                  70.0 \\
-\textbf{158425} &                  50.0 \\
-\textbf{257932} &                 100.0 \\
-\textbf{177964} &                  70.0 \\
-\textbf{245099} &                  50.0 \\
-\textbf{206806} &                  50.0 \\
-\textbf{225851} &                  50.0 \\
-\end{longtable}
-\end{center}
-#+end_export
-#+begin_export latex
-\begin{center}
-\begin{longtable}{lr}
-\caption{Notas das resenhas - Monetaristas}\\
-\toprule
-{} &  Resenha Monetaristas \\
-\textbf{RA    } &                       \\
-\midrule
-\endhead
-\midrule
-\multicolumn{2}{r}{{Continued on next page}} \\
-\midrule
-\endfoot
-
-\bottomrule
-\endlastfoot
-\textbf{230645} &                  50.0 \\
-\textbf{213549} &                  30.0 \\
-\textbf{257748} &                  50.0 \\
-\textbf{232568} &                  70.0 \\
-\textbf{233566} &                  30.0 \\
-\textbf{215626} &                   0.0 \\
-\textbf{91108 } &                     - \\
-\textbf{234311} &                  50.0 \\
-\textbf{216397} &                  30.0 \\
-\textbf{197474} &                  50.0 \\
-\textbf{234982} &                   0.0 \\
-\textbf{235042} &                   0.0 \\
-\textbf{197724} &                  50.0 \\
-\textbf{217350} &                  30.0 \\
-\textbf{174154} &                  30.0 \\
-\textbf{237534} &                  30.0 \\
-\textbf{237856} &                  50.0 \\
-\textbf{199967} &                  70.0 \\
-\textbf{103034} &                  50.0 \\
-\textbf{172577} &                  50.0 \\
-\textbf{159866} &                  50.0 \\
-\textbf{221896} &                  70.0 \\
-\textbf{257876} &                 100.0 \\
-\textbf{242087} &                   0.0 \\
-\textbf{242328} &                  50.0 \\
-\textbf{147614} &                   0.0 \\
-\textbf{176104} &                   0.0 \\
-\textbf{205149} &                 100.0 \\
-\textbf{205151} &                   0.0 \\
-\textbf{244207} &                  70.0 \\
-\textbf{158425} &                  50.0 \\
-\textbf{257932} &                 100.0 \\
-\textbf{177964} &                  70.0 \\
-\textbf{245099} &                  50.0 \\
-\textbf{206806} &                  50.0 \\
-\textbf{225851} &                  50.0 \\
-\end{longtable}
-\end{center}
-#+end_export
 
 
 
@@ -362,9 +252,6 @@ plt.close()
 
 #+RESULTS:
 [[file:./figs/monetaristas.png]]
-[[file:./figs/monetaristas.png]]
-[[file:./figs/monetaristas.png]]
-
 
 
 *** Notas e presença
@@ -389,10 +276,6 @@ plt.close()
 
 #+RESULTS:
 [[file:./figs/monetaristas_presenca.png]]
-[[file:./figs/monetaristas_presenca.png]]
-[[file:./figs/monetaristas_presenca.png]]
-[[file:./figs/monetaristas_presenca.png]]
-
 
 * Novos Clássicos
 
@@ -416,116 +299,6 @@ print('\end{center}')
 #+END_SRC
 
 #+RESULTS: NovosCla
-#+begin_export latex
-\begin{center}
-\begin{longtable}{lr}
-\caption{Notas das resenhas - Novos Clássicos}\\
-\toprule
-{} &  Resenha Novos Clássicos \\
-\textbf{RA    } &                          \\
-\midrule
-\endhead
-\midrule
-\multicolumn{2}{r}{{Continued on next page}} \\
-\midrule
-\endfoot
-
-\bottomrule
-\endlastfoot
-\textbf{230645} &                      5.0 \\
-\textbf{213549} &                      5.0 \\
-\textbf{257748} &                      7.0 \\
-\textbf{232568} &                      5.0 \\
-\textbf{233566} &                      7.0 \\
-\textbf{215626} &                      0.0 \\
-\textbf{91108 } &                        - \\
-\textbf{234311} &                      5.0 \\
-\textbf{216397} &                      0.0 \\
-\textbf{197474} &                      5.0 \\
-\textbf{234982} &                      0.0 \\
-\textbf{235042} &                      0.0 \\
-\textbf{197724} &                      5.0 \\
-\textbf{217350} &                      0.0 \\
-\textbf{174154} &                      0.0 \\
-\textbf{237534} &                      3.0 \\
-\textbf{237856} &                      5.0 \\
-\textbf{199967} &                      7.0 \\
-\textbf{103034} &                      5.0 \\
-\textbf{172577} &                      7.0 \\
-\textbf{159866} &                      5.0 \\
-\textbf{221896} &                     10.0 \\
-\textbf{257876} &                     10.0 \\
-\textbf{242087} &                        - \\
-\textbf{242328} &                      7.0 \\
-\textbf{147614} &                      0.0 \\
-\textbf{176104} &                        - \\
-\textbf{205149} &                      0.0 \\
-\textbf{205151} &                      7.0 \\
-\textbf{244207} &                      7.0 \\
-\textbf{158425} &                      7.0 \\
-\textbf{257932} &                      7.0 \\
-\textbf{177964} &                      5.0 \\
-\textbf{245099} &                      7.0 \\
-\textbf{206806} &                      0.0 \\
-\textbf{225851} &                      0.0 \\
-\end{longtable}
-\end{center}
-#+end_export
-#+begin_export latex
-\begin{center}
-\begin{longtable}{lr}
-\caption{Notas das resenhas - Novos Clássicos}\\
-\toprule
-{} &  Resenha Novos Clássicos \\
-\textbf{RA    } &                          \\
-\midrule
-\endhead
-\midrule
-\multicolumn{2}{r}{{Continued on next page}} \\
-\midrule
-\endfoot
-
-\bottomrule
-\endlastfoot
-\textbf{230645} &                      5.0 \\
-\textbf{213549} &                      5.0 \\
-\textbf{257748} &                      7.0 \\
-\textbf{232568} &                      5.0 \\
-\textbf{233566} &                      7.0 \\
-\textbf{215626} &                      0.0 \\
-\textbf{91108 } &                        - \\
-\textbf{234311} &                      5.0 \\
-\textbf{216397} &                      0.0 \\
-\textbf{197474} &                      5.0 \\
-\textbf{234982} &                      0.0 \\
-\textbf{235042} &                      0.0 \\
-\textbf{197724} &                      5.0 \\
-\textbf{217350} &                      0.0 \\
-\textbf{174154} &                      0.0 \\
-\textbf{237534} &                      3.0 \\
-\textbf{237856} &                      5.0 \\
-\textbf{199967} &                      7.0 \\
-\textbf{103034} &                      5.0 \\
-\textbf{172577} &                      7.0 \\
-\textbf{159866} &                      5.0 \\
-\textbf{221896} &                     10.0 \\
-\textbf{257876} &                     10.0 \\
-\textbf{242087} &                        - \\
-\textbf{242328} &                      7.0 \\
-\textbf{147614} &                      0.0 \\
-\textbf{176104} &                        - \\
-\textbf{205149} &                      0.0 \\
-\textbf{205151} &                      7.0 \\
-\textbf{244207} &                      7.0 \\
-\textbf{158425} &                      7.0 \\
-\textbf{257932} &                      7.0 \\
-\textbf{177964} &                      5.0 \\
-\textbf{245099} &                      7.0 \\
-\textbf{206806} &                      0.0 \\
-\textbf{225851} &                      0.0 \\
-\end{longtable}
-\end{center}
-#+end_export
 #+begin_export latex
 \begin{center}
 \begin{longtable}{lr}
@@ -618,8 +391,7 @@ plt.close()
 
 #+RESULTS:
 [[file:./figs/novosclassicos.png]]
-[[file:./figs/novosclassicos.png]]
-[[file:./figs/novosclassicos.png]]
+
 
 
 *** Notas e Presença
@@ -642,8 +414,6 @@ plt.close()
 #+END_SRC
 
 #+RESULTS:
-[[file:./figs/novosclassicos_presenca.png]]
-[[file:./figs/novosclassicos_presenca.png]]
 [[file:./figs/novosclassicos_presenca.png]]
 
 
@@ -768,12 +538,6 @@ plt.close()
 
 #+RESULTS:
 [[file:./figs/turintin_NvC_fig.png]]
-[[file:./figs/turintin_NvC_fig.png]]
-[[file:./figs/turintin_NvC_fig.png]]
-[[file:./figs/turintin_NvC_fig.png]]
-[[file:./figs/turintin_NvC_fig.png]]
-[[file:./figs/turintin_NvC_fig.png]]
-[[file:./figs/turintin_NvC_fig.png]]
 
 **** Atualizando notas
 
@@ -813,40 +577,6 @@ questoes["Nota_2"] = [int(res=="Falso") for res in questoes["Q2"]]
 *** Importando pacotes e funções
 
 #+BEGIN_SRC python :results graphics file :file ./figs/similarity_forms_1.png
-import string
-from sklearn.metrics.pairwise import cosine_similarity
-from sklearn.feature_extraction.text import CountVectorizer
-from nltk.corpus import stopwords
-stopwords = stopwords.words('portuguese')
-
-sentences = questoes["Justificativa"]
-
-def clean_string(text):
-    text = ''.join([word for word in text if word not in string.punctuation])
-    text = text.lower()
-    text = ' '.join([word for word in text.split() if word not in stopwords])
-
-    return text
-
-cleaned = list(map(clean_string, sentences))
-vectorizer = CountVectorizer().fit_transform(cleaned)
-vectors = vectorizer.toarray()
-csim = cosine_similarity(vectors)
-
-
-def coisine_sim_vectors(vec1, vec2):
-    vec1 = vec1.reshape(1,-1)
-    vec2 = vec2.reshape(1,-1)
-    return coisine_similarity(vec1, vec2)[0][0]
-
-
-plt.matshow(csim);
-plt.colorbar()
-plt.title(f'Matriz de similaridade das justificativas\n Turma {Turma}\n')
-plt.tight_layout()
-plt.savefig('./figs/similarity_forms_1.png')
-plt.close()
-
 #+END_SRC
 
 #+RESULTS:
@@ -938,6 +668,7 @@ print('\end{center}')
 #+end_export
 
 
+
 ** Gráficos                                                          :ignore:
 *** Notas   
 #+BEGIN_SRC python :results graphics file :file ./figs/novoskeynesianos.png
@@ -973,7 +704,6 @@ plt.close()
 
 #+RESULTS:
 [[file:./figs/novoskeynesianos.png]]
-
 
 
 
@@ -1013,6 +743,7 @@ Como foram entregues aproximadamente 30% de resenhas, todos os alunos foram subm
 |--------+--------------------|
 |     RA | Grau de semelhança |
 |--------+--------------------|
+| 091108 |                 2% |
 | 158425 |                 3% |
 | 197724 |                 0% |
 | 199667 |                 3% |
@@ -1021,6 +752,7 @@ Como foram entregues aproximadamente 30% de resenhas, todos os alunos foram subm
 | 230645 |                 0% |
 | 234311 |                 0% |
 | 235042 |                29% |
+| 242328 |                 2% |
 | 244207 |                52% |
 | 257748 |                 0% |
 | 257876 |                 7% |
@@ -1038,7 +770,7 @@ turnitin.set_index("RA", inplace=True)
 
 fig, ax = plt.subplots(1,1, figsize=(8,5), sharey=True)
 sns.distplot(turnitin, hist=True, kde=True, 
-             bins=int(10), color = 'darkblue', 
+             bins=int(20), color = 'darkblue', 
              hist_kws={'edgecolor':'black'}, ax=ax,
              kde_kws={'linewidth': 4, 'shade': True})
 mu = round(turnitin["Grau de Semelhança"].mean()*100)
@@ -1047,15 +779,15 @@ sigma = turnitin["Grau de Semelhança"].std().round(1)*100
 
 ax.set_title(f'Checagem de plágio\nTurma {Turma}')
 ax.text(-0.15, 10, f'$\mu = ${mu}', fontsize=12)
-ax.text(-0.15, 9.5, f'$\sigma = ${sigma}', fontsize=12)
-
+ax.text(-0.15, 9.0, f'$\sigma = ${sigma}', fontsize=12)
+ax.axvline(x=0.5, color='black', label="Corte para zerar")
+ax.legend()
 sns.despine()
 plt.savefig('./figs/turintin_NvK_fig.png')
 plt.close()
 #+END_SRC
 
 #+RESULTS:
-[[file:./figs/turintin_NvK_fig.png]]
 [[file:./figs/turintin_NvK_fig.png]]
 
 
@@ -1146,9 +878,6 @@ print('\end{landscape}\end{center}')
 #+end_export
 
 
-
-
-
 * Seminários
 ** Sorteio
 #+BEGIN_SRC python :results table latex
@@ -1182,56 +911,6 @@ Grupo 9  &     Ata 2 \\
 Grupo 10 &     Ata 4 \\
 Grupo 11 &     Ata 6 \\
 Grupo 12 &     Ata 3 \\
-\bottomrule
-\end{tabular}
-\end{table}
-#+end_export
-#+begin_export latex
-\begin{table}
-\centering
-\caption{Resultado sorteio das atas - Seminários}
-\begin{tabular}{ll}
-\toprule
-{} & Resultado \\
-Grupos   &           \\
-\midrule
-Grupo 1  &     Ata 6 \\
-Grupo 2  &     Ata 3 \\
-Grupo 3  &    Ata 10 \\
-Grupo 4  &    Ata 12 \\
-Grupo 5  &     Ata 8 \\
-Grupo 6  &    Ata 11 \\
-Grupo 7  &     Ata 5 \\
-Grupo 8  &     Ata 1 \\
-Grupo 9  &     Ata 2 \\
-Grupo 10 &     Ata 9 \\
-Grupo 11 &     Ata 7 \\
-Grupo 12 &     Ata 4 \\
-\bottomrule
-\end{tabular}
-\end{table}
-#+end_export
-#+begin_export latex
-\begin{table}
-\centering
-\caption{Resultado sorteio das atas - Seminários}
-\begin{tabular}{ll}
-\toprule
-{} & Resultado \\
-Grupos   &           \\
-\midrule
-Grupo 1  &     Ata 6 \\
-Grupo 2  &     Ata 3 \\
-Grupo 3  &    Ata 10 \\
-Grupo 4  &    Ata 12 \\
-Grupo 5  &     Ata 8 \\
-Grupo 6  &    Ata 11 \\
-Grupo 7  &     Ata 5 \\
-Grupo 8  &     Ata 1 \\
-Grupo 9  &     Ata 2 \\
-Grupo 10 &     Ata 9 \\
-Grupo 11 &     Ata 7 \\
-Grupo 12 &     Ata 4 \\
 \bottomrule
 \end{tabular}
 \end{table}
