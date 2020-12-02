@@ -109,6 +109,16 @@ nv_keynesianos.drop(["Endereço de e-mail"], axis="columns", inplace=True)
 nv_keynesianos.set_index("RA", inplace=True)
 nv_keynesianos.columns = ["Resenha Novos Keynesianos"]
 
+ncm = pd.read_csv(
+    #    full_path +
+    "."
+    + "/Notas/NCM.csv"
+)[["Endereço de e-mail", "Nota"]]
+ncm["RA"] = [i[1:7] for i in ncm["Endereço de e-mail"]]
+ncm.drop(["Endereço de e-mail"], axis="columns", inplace=True)
+ncm.set_index("RA", inplace=True)
+ncm.columns = ["Resenha Regime de Metas"]
+
 df = (
     min_df.reset_index()
     .merge(
@@ -129,6 +139,9 @@ df = (
     .join(importar_ext(Turma=Turma, data="2020-11-23"), how="left", on="Nome")
     .reset_index()
     .merge(nv_keynesianos.reset_index(), how="left")
+    .set_index("RA")
+    .join(importar_ext(Turma=Turma, data="2020-11-30"), how="left", on="Nome")
+    .merge(ncm.reset_index(), how="left")
     .set_index("RA")
 )
 df["Email"] = [
@@ -861,6 +874,186 @@ plt.close()
 
 #+RESULTS:
 [[file:./figs/turintin_NvK_fig.png]]
+
+* Regime de Metas
+
+** Pendências                                                        :ignore:
+
+- [ ] Preencher presenhas na tabela da Ana Rosa
+- [ ] Sortear turnitin
+** Notas                                                             :ignore:
+
+#+NAME:NCM
+#+BEGIN_SRC python :results table latex
+print('\\begin{center}')
+print(
+    df[["Resenha Regime de Metas"]].to_latex(
+        caption=f"Notas das resenhas - {Resenhas[3]}",
+        bold_rows=True,
+        longtable=True,
+        na_rep='-',
+    ),end='')
+print('\end{center}')
+#+END_SRC
+
+
+** Gráficos                                                          :ignore:
+*** Notas
+#+BEGIN_SRC python :results graphics file :file ./figs/ncm.png
+fig, ax = plt.subplots(1,2, figsize=(8,5), sharey=True)
+sns.distplot(df['Resenha Regime de Metas'], hist=True, kde=True,
+             bins=int(10), color = 'darkblue',
+             hist_kws={'edgecolor':'black'}, ax=ax[0],
+             kde_kws={'linewidth': 4, 'shade': True})
+mu = round(df["Resenha Regime de Metas"].mean())
+
+sigma = df["Resenha Regime de Metas"].std().round(1)/10
+
+ax[0].set_title(f'Nota das resenhas\nTurma {Turma}')
+ax[0].text(10, 0.5, f'$\mu = ${mu}', fontsize=12)
+ax[0].text(10, 0.47, f'$\sigma = ${sigma}', fontsize=12)
+
+
+sns.distplot(df[df['Resenha Regime de Metas']>0]['Resenha Regime de Metas'], hist=True, kde=True,
+             bins=int(10), color = 'darkblue',
+             hist_kws={'edgecolor':'black'}, ax=ax[1],
+             kde_kws={'linewidth': 4, 'shade': True})
+
+ax[1].set_title('Nota das resenhas\n(Exceto não entregues)')
+ax[1].text(10, 0.5, f"$\mu = ${df[df['Resenha Regime de Metas']>0]['Resenha Regime de Metas'].mean().round(1)}", fontsize=12)
+ax[1].text(10, 0.47, f"$\sigma = ${round(df[df['Resenha Regime de Metas']>0]['Resenha Regime de Metas'].std())/10}", fontsize=12)
+ax[1].set_ylabel('Densidade')
+
+plt.tight_layout()
+fig.savefig('./figs/ncm.png')
+
+plt.close()
+#+END_SRC
+
+
+*** Notas e Presença
+#+BEGIN_SRC python :results graphics file :file ./figs/ncm_presenca.png
+tmp = df.copy()
+
+tmp["Média presença"] = tmp[
+    ["2020-10-19", "2020-10-26", "2020-11-09", "2020-11-23", "2020-11-30"]
+].mean(axis=1)
+
+resenha = "Regime de Metas"
+
+fig, ax = plt.subplots()
+
+sns.regplot(x="Média presença", y=f"Resenha {resenha}", data=tmp, ax=ax, y_jitter=0.05)
+
+ax.set_title(f"Nota x Presença\nResenha {resenha} - Turma {Turma}")
+
+fig.savefig("./figs/ncm_presenca.png")
+
+plt.close()
+#+END_SRC
+
+
+
+
+** Verificação de plágio por amostragem
+*** Sorteio
+
+#+BEGIN_SRC python :results table latex :exports both :eval no
+pre_selecionados = [""]
+alunos = df.shape[0]
+sample = 0.3
+amostra = round(alunos * sample) - len(pre_selecionados)
+bad_df = df.index.isin(pre_selecionados)
+elegivies = (
+    df.loc[~bad_df]
+    .query("`Resenha Regime de Metas` > 0")["Resenha Regime de Metas"]
+    .index.tolist()
+)
+
+resultado = np.random.choice(
+    a=elegivies, size=amostra, replace=False
+).tolist()  # Sem repetição
+resultado = pre_selecionados + resultado
+resultado = np.sort(resultado)
+resultado = pd.DataFrame(resultado)
+resultado.columns = ["RA Sorteados"]
+resultado.index = [i + 1 for i in resultado.index]
+print(resultado.to_latex())
+resultado
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{tabular}{ll}
+\toprule
+{} & RA Sorteados \\
+\midrule
+1  &       199735 \\
+2  &       206194 \\
+3  &       206883 \\
+4  &       212883 \\
+5  &       212900 \\
+6  &       218090 \\
+7  &       219613 \\
+8  &       231898 \\
+9  &       232395 \\
+10 &       232796 \\
+11 &       233335 \\
+12 &       238414 \\
+13 &       241430 \\
+\bottomrule
+\end{tabular}
+#+end_export
+
+*** Resultado Turnitin
+
+#+CAPTION: Resumo relatório de origilidadade
+#+NAME:TurnitinNCM
+|--------+--------------------|
+|     RA | Grau de semelhança |
+|--------+--------------------|
+| 199735 |                 3% |
+| 206194 |                 0% |
+| 206883 |                 5% |
+| 212883 |                21% |
+| 212900 |                 0% |
+| 218090 |                 7% |
+| 219613 |                14% |
+| 231898 |                 1% |
+| 232395 |                 8% |
+| 232796 |                 5% |
+| 233335 |                 2% |
+| 238414 |                 4% |
+| 241430 |                 0% |
+|--------+--------------------|
+**** Gráfico
+#+BEGIN_SRC python :var turnitin=TurnitinNCM :results file graphics :file ./figs/turintin_NCM_fig.png :eval no
+turnitin = pd.DataFrame(
+    turnitin[1:],
+    columns=["RA", "Grau de Semelhança"],
+)
+turnitin["Grau de Semelhança"] = [int(grau[:-1])/100 for grau in turnitin["Grau de Semelhança"]]
+turnitin.set_index("RA", inplace=True)
+
+fig, ax = plt.subplots(1,1, figsize=(8,5), sharey=True)
+sns.distplot(turnitin, hist=True, kde=True,
+             bins=int(10), color = 'darkblue',
+             hist_kws={'edgecolor':'black'}, ax=ax,
+             kde_kws={'linewidth': 4, 'shade': True})
+mu = round(turnitin["Grau de Semelhança"].mean()*100)
+
+sigma = turnitin["Grau de Semelhança"].std().round(1)*100
+
+ax.set_title(f'Checagem de plágio\nTurma {Turma}')
+ax.text(-0.1, 10, f'$\mu = ${mu}', fontsize=12)
+ax.text(-0.1, 9.0, f'$\sigma = ${sigma}', fontsize=12)
+ax.axvline(x=0.5, color='black', ls = "-", label="Corte para zerar")
+ax.legend()
+sns.despine()
+plt.savefig('./figs/turintin_NvK_fig.png')
+plt.close()
+#+END_SRC
+
 
 * Lista de presença e notas
 ** Lista de chamada com nota das resenhas                            :ignore:
