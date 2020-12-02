@@ -1,4 +1,4 @@
-% Created 2020-11-24 ter 20:55
+% Created 2020-11-30 seg 16:06
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -38,7 +38,7 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \maketitle
 
 \section{Monetaristas}
-\label{sec:orgad487bf}
+\label{sec:org3fac83b}
 
 \begin{center}
 \begin{longtable}{lr}
@@ -103,14 +103,14 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 
 
 \subsection{Notas}
-\label{sec:org6325671}
+\label{sec:org6f7767d}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./figs/monetaristas.png}
 \end{center}
 
 
 \subsection{Notas e presença}
-\label{sec:org294a45e}
+\label{sec:org20b0a76}
 
 \begin{center}
 \includegraphics[width=.9\linewidth]{./figs/monetaristas_presenca.png}
@@ -118,7 +118,7 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 
 
 \section{Novos Clássicos}
-\label{sec:orgd9adff0}
+\label{sec:org760fee6}
 
 \begin{itemize}
 \item[{$\square$}] Identificar respostas das questões (forms)
@@ -186,20 +186,20 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \end{longtable}
 \end{center}
 \subsection{Notas}
-\label{sec:orgae0f853}
+\label{sec:org78e8f6b}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./figs/novosclassicos.png}
 \end{center}
 
 \subsection{Notas e Presença}
-\label{sec:org4171c4d}
+\label{sec:orgfd99a7e}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./figs/novosclassicos_presenca.png}
 \end{center}
 \subsection{Verificação de plágio por amostragem}
-\label{sec:orgd5f2cdf}
+\label{sec:orga92f1df}
 \subsubsection{Sorteio}
-\label{sec:org626b920}
+\label{sec:org0fdbbfd}
 
 \begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{python}
 pre_selecionados = ["238414"]
@@ -240,7 +240,7 @@ resultado
 \end{verbatim}
 
 \subsubsection{Resultado Turnitin}
-\label{sec:org743b3ae}
+\label{sec:org147abef}
 
 \begin{table}[htbp]
 \caption{\label{TurnitinNvC}Resumo relatório de origilidadade}
@@ -269,17 +269,17 @@ RA & Grau de semelhança\\
 
 \begin{enumerate}
 \item Gráfico
-\label{sec:org3b1e30b}
+\label{sec:org973942a}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./figs/turintin_NvC_fig.png}
 \end{center}
 
 \item Atualização das notas
-\label{sec:orga8ff3b0}
+\label{sec:org5454473}
 \end{enumerate}
 
 \subsection{Questões}
-\label{sec:org5a18f7f}
+\label{sec:orgeab2b7c}
 
 \begin{verbatim}
 Sobreposição das respostas 0.717948717948718%
@@ -287,7 +287,7 @@ Sobreposição das respostas 0.717948717948718%
 
 
 \subsubsection{Importando pacotes e funções}
-\label{sec:orgc557415}
+\label{sec:org8154f58}
 
 \begin{center}
 \includegraphics[width=.9\linewidth]{./figs/similarity_forms_1.png}
@@ -305,7 +305,7 @@ Carimbo de data/hora         &        &        &                                
 \end{tabular}
 
 \section{Novos Keynesianos}
-\label{sec:org8462d2c}
+\label{sec:org686024f}
 
 \begin{itemize}
 \item[{$\square$}] Computar notas
@@ -373,26 +373,26 @@ Carimbo de data/hora         &        &        &                                
 \end{longtable}
 \end{center}
 \subsection{Notas}
-\label{sec:orgda6b48c}
+\label{sec:org33a571b}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./figs/novoskeynesianos.png}
 \end{center}
 
 \subsection{Notas e Presença}
-\label{sec:org26e9cde}
+\label{sec:org38bfdf0}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./figs/novoskeynesianos_presenca.png}
 \end{center}
 \subsection{Verificação de plágio por amostragem}
-\label{sec:org36ddb2f}
+\label{sec:org88f1a7b}
 \subsubsection{Sorteio}
-\label{sec:org2302dae}
+\label{sec:org3afe139}
 
 \begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{python}
 pre_selecionados = ["212883", "231898", "232796", "233335", "206194"]
 alunos = df.shape[0]
 sample = 0.3
-amostra = round(alunos * sample)
+amostra = round(alunos * sample) - len(pre_selecionados)
 bad_df = df.index.isin(pre_selecionados)
 elegivies = (
     df.loc[~bad_df]
@@ -400,36 +400,38 @@ elegivies = (
     .index.tolist()
 )
 
-
-resultado = np.sort(
-    np.random.choice(a=elegivies, size=amostra, replace=False)  # Sem repetição
-)
+resultado = np.random.choice(a=elegivies, size=amostra, replace=False).tolist()  # Sem repetição
+resultado = pre_selecionados + resultado
+resultado = np.sort(resultado) 
 resultado = pd.DataFrame(resultado)
 resultado.columns = ["RA Sorteados"]
 resultado.index = [i + 1 for i in resultado.index]
-print(resultado)
+print(resultado.to_latex())
 resultado
 \end{minted}
 
-\begin{verbatim}
-   RA Sorteados
-1        156242
-2        199735
-3        206883
-4        212900
-5        213731
-6        218090
-7        219613
-8        222615
-9        232395
-10       237618
-11       238414
-12       240409
-13       241430
-\end{verbatim}
+\begin{tabular}{ll}
+\toprule
+{} & RA Sorteados \\
+\midrule
+1  &       199735 \\
+2  &       206194 \\
+3  &       206883 \\
+4  &       212883 \\
+5  &       212900 \\
+6  &       218090 \\
+7  &       219613 \\
+8  &       231898 \\
+9  &       232395 \\
+10 &       232796 \\
+11 &       233335 \\
+12 &       238414 \\
+13 &       241430 \\
+\bottomrule
+\end{tabular}
 
 \subsubsection{Resultado Turnitin}
-\label{sec:org9991caa}
+\label{sec:orgd3c4da6}
 
 \begin{table}[htbp]
 \caption{\label{TurnitinNvK}Resumo relatório de origilidadade}
@@ -438,36 +440,32 @@ resultado
 \hline
 RA & Grau de semelhança\\
 \hline
-156242 & 15\%\\
-187323 & 20\%\\
-212900 & 1\%\\
-219613 & 0\%\\
-219907 & 8\%\\
-222615 & 0\%\\
-231302 & 2\%\\
-232795 & 11\%\\
-238414 & 2\%\\
-239052 & 8\%\\
-240409 & 0\%\\
-244321 & 1\%\\
-244379 & 1\%\\
-245459 & 53\%\\
+199735 & 3\%\\
+206194 & 0\%\\
+206883 & 5\%\\
+212883 & 21\%\\
+212900 & 0\%\\
+218090 & 7\%\\
+219613 & 14\%\\
+231898 & 1\%\\
+232395 & 8\%\\
+232796 & 5\%\\
+233335 & 2\%\\
+238414 & 4\%\\
+241430 & 0\%\\
 \hline
 \end{tabular}
 \end{table}
-
 \begin{enumerate}
 \item Gráfico
-\label{sec:org42437ec}
+\label{sec:orgb99ed4f}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./figs/turintin_NvK_fig.png}
 \end{center}
-
-\item Atualização das notas
-\label{sec:org66a7bce}
 \end{enumerate}
+
 \section{Lista de presença e notas}
-\label{sec:orge14cc5f}
+\label{sec:org1de0421}
 \begin{center}\begin{landscape}
 \small
 \setlength\LTleft{0pt}
@@ -534,9 +532,9 @@ RA & Grau de semelhança\\
 
 
 \section{Seminários}
-\label{sec:orgd228ae4}
+\label{sec:org91d6b7c}
 \subsection{Sorteio}
-\label{sec:orgb636509}
+\label{sec:org6edee68}
 
 \begin{table}
 \centering
@@ -565,5 +563,5 @@ Grupo 12 &     Ata 2 \\
 
 
 \subsubsection{{\bfseries\sffamily TODO} Selecionar Atas e criar map para substituir}
-\label{sec:org0f27abe}
+\label{sec:org971901c}
 \end{document}
