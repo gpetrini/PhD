@@ -108,15 +108,15 @@ nv_keynesianos.drop(["Endereço de e-mail"], axis="columns", inplace=True)
 nv_keynesianos.set_index("RA", inplace=True)
 nv_keynesianos.columns = ["Resenha Novos Keynesianos"]
 
-# ncm = pd.read_csv(
-#     #    full_path +
-#     "."
-#     + "/Notas/NCM.csv"
-# )[["Endereço de e-mail", "Nota"]]
-# ncm["RA"] = [i[1:7] for i in ncm["Endereço de e-mail"]]
-# ncm.drop(["Endereço de e-mail"], axis="columns", inplace=True)
-# ncm.set_index("RA", inplace=True)
-# ncm.columns = ["Resenha Regime de Metas"]
+ncm = pd.read_csv(
+    #    full_path +
+    "."
+    + "/Notas/NCM.csv"
+)[["Endereço de e-mail", "Nota"]]
+ncm["RA"] = [i[1:7] for i in ncm["Endereço de e-mail"]]
+ncm.drop(["Endereço de e-mail"], axis="columns", inplace=True)
+ncm.set_index("RA", inplace=True)
+ncm.columns = ["Resenha Regime de Metas"]
 
 df = (
     min_df.reset_index()
@@ -140,14 +140,17 @@ df = (
     .merge(nv_keynesianos.reset_index(), how="left")
     .set_index("RA")
     .join(importar_ext(Turma=Turma, data="2020-11-30"), how="left", on="Nome")
-    # .merge(ncm.reset_index(), how="left")
-    # .set_index("RA")
+    .reset_index()
+    .merge(ncm.reset_index(), how="left")
+   .set_index("RA")
 )
 df["Email"] = [
     df["Nome"][i][0] + str(df.index[i]) + "@dac.unicamp.br"
     for i in range(len(df.index))
 ]
 #+END_SRC
+
+#+RESULTS:
 
 
 
@@ -467,20 +470,6 @@ resultado
 10       245099
 11       257876
 #+end_example
-#+begin_example
-   RA Sorteados
-1        103034
-2        199967
-3        205151
-4        213549
-5        230645
-6        232568
-7        233566
-8        237856
-9        242328
-10       245099
-11       257876
-#+end_example
 
 
 
@@ -578,8 +567,7 @@ questoes["Nota_2"] = [int(res=="Falso") for res in questoes["Q2"]]
 
 #+RESULTS:
 [[file:./figs/similarity_forms_1.png]]
-[[file:./figs/similarity_forms_1.png]]
-[[file:./figs/similarity_forms_1.png]]
+
 
 
 
@@ -806,7 +794,7 @@ df.loc["244207", "Resenha Novos Keynesianos"] = 0.0
 ** Notas                                                             :ignore:
 
 #+NAME:NCM
-#+BEGIN_SRC python :results table latex :eval no
+#+BEGIN_SRC python :results table latex 
 print('\\begin{center}')
 print(
     df[["Resenha Regime de Metas"]].to_latex(
@@ -818,10 +806,67 @@ print(
 print('\end{center}')
 #+END_SRC
 
+#+RESULTS: NCM
+#+begin_export latex
+\begin{center}
+\begin{longtable}{lr}
+\caption{Notas das resenhas - Novo Consenso}\\
+\toprule
+{} &  Resenha Regime de Metas \\
+\textbf{RA    } &                          \\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{{Continued on next page}} \\
+\midrule
+\endfoot
+
+\bottomrule
+\endlastfoot
+\textbf{230645} &                      0.0 \\
+\textbf{213549} &                      0.0 \\
+\textbf{257748} &                      7.0 \\
+\textbf{232568} &                      7.0 \\
+\textbf{233566} &                      0.0 \\
+\textbf{215626} &                      0.0 \\
+\textbf{91108 } &                        - \\
+\textbf{234311} &                      7.0 \\
+\textbf{216397} &                      7.0 \\
+\textbf{197474} &                      0.0 \\
+\textbf{234982} &                        - \\
+\textbf{235042} &                      5.0 \\
+\textbf{197724} &                      5.0 \\
+\textbf{217350} &                        - \\
+\textbf{174154} &                      0.0 \\
+\textbf{237534} &                      0.0 \\
+\textbf{237856} &                      7.0 \\
+\textbf{199967} &                     10.0 \\
+\textbf{103034} &                      0.0 \\
+\textbf{172577} &                      0.0 \\
+\textbf{159866} &                      7.0 \\
+\textbf{221896} &                      0.0 \\
+\textbf{257876} &                      0.0 \\
+\textbf{242087} &                        - \\
+\textbf{242328} &                      0.0 \\
+\textbf{147614} &                      0.0 \\
+\textbf{176104} &                        - \\
+\textbf{205149} &                      0.0 \\
+\textbf{205151} &                      0.0 \\
+\textbf{244207} &                      7.0 \\
+\textbf{158425} &                     10.0 \\
+\textbf{257932} &                      7.0 \\
+\textbf{177964} &                     10.0 \\
+\textbf{245099} &                      7.0 \\
+\textbf{206806} &                      3.0 \\
+\textbf{225851} &                      0.0 \\
+\end{longtable}
+\end{center}
+#+end_export
+
 
 ** Gráficos                                                          :ignore:
 *** Notas
-#+BEGIN_SRC python :results graphics file :file ./figs/ncm.png :eval no
+#+BEGIN_SRC python :results graphics file :file ./figs/ncm.png 
 fig, ax = plt.subplots(1,2, figsize=(8,5), sharey=True)
 sns.distplot(df['Resenha Regime de Metas'], hist=True, kde=True,
              bins=int(10), color = 'darkblue',
@@ -833,7 +878,7 @@ sigma = df["Resenha Regime de Metas"].std().round(1)/10
 
 ax[0].set_title(f'Nota das resenhas\nTurma {Turma}')
 ax[0].text(10, 0.5, f'$\mu = ${mu}', fontsize=12)
-ax[0].text(10, 0.47, f'$\sigma = ${sigma}', fontsize=12)
+ax[0].text(10, 0.46, f'$\sigma = ${sigma}', fontsize=12)
 
 
 sns.distplot(df[df['Resenha Regime de Metas']>0]['Resenha Regime de Metas'], hist=True, kde=True,
@@ -843,7 +888,7 @@ sns.distplot(df[df['Resenha Regime de Metas']>0]['Resenha Regime de Metas'], his
 
 ax[1].set_title('Nota das resenhas\n(Exceto não entregues)')
 ax[1].text(10, 0.5, f"$\mu = ${df[df['Resenha Regime de Metas']>0]['Resenha Regime de Metas'].mean().round(1)}", fontsize=12)
-ax[1].text(10, 0.47, f"$\sigma = ${round(df[df['Resenha Regime de Metas']>0]['Resenha Regime de Metas'].std())/10}", fontsize=12)
+ax[1].text(10, 0.466, f"$\sigma = ${round(df[df['Resenha Regime de Metas']>0]['Resenha Regime de Metas'].std())/10}", fontsize=12)
 ax[1].set_ylabel('Densidade')
 
 plt.tight_layout()
@@ -852,9 +897,14 @@ fig.savefig('./figs/ncm.png')
 plt.close()
 #+END_SRC
 
+#+RESULTS:
+[[file:./figs/ncm.png]]
+
+#+RESULTS:6[[file:./figs/ncm.png]]6
+
 
 *** Notas e Presença
-#+BEGIN_SRC python :results graphics file :file ./figs/ncm_presenca.png :eval no
+#+BEGIN_SRC python :results graphics file :file ./figs/ncm_presenca.png 
 tmp = df.copy()
 
 tmp["Média presença"] = tmp[
@@ -874,14 +924,17 @@ fig.savefig("./figs/ncm_presenca.png")
 plt.close()
 #+END_SRC
 
+#+RESULTS:
+[[file:./figs/ncm_presenca.png]]
+
 
 
 
 ** Verificação de plágio por amostragem
 *** Sorteio
 
-#+BEGIN_SRC python :results table latex :exports both :eval no
-pre_selecionados = [""]
+#+BEGIN_SRC python :results table latex :exports both 
+pre_selecionados = ["216397", "206806"]
 alunos = df.shape[0]
 sample = 0.3
 amostra = round(alunos * sample) - len(pre_selecionados)
@@ -904,6 +957,27 @@ print(resultado.to_latex())
 resultado
 #+END_SRC
 
+#+RESULTS:
+#+begin_export latex
+\begin{tabular}{ll}
+\toprule
+{} & RA Sorteados \\
+\midrule
+1  &       158425 \\
+2  &       159866 \\
+3  &       197724 \\
+4  &       199967 \\
+5  &       206806 \\
+6  &       216397 \\
+7  &       234311 \\
+8  &       244207 \\
+9  &       245099 \\
+10 &       257748 \\
+11 &       257932 \\
+\bottomrule
+\end{tabular}
+#+end_export
+
 
 *** Resultado Turnitin
 
@@ -912,47 +986,55 @@ resultado
 |--------+--------------------|
 |     RA | Grau de semelhança |
 |--------+--------------------|
-| 199735 |                 3% |
-| 206194 |                 0% |
-| 206883 |                 5% |
-| 212883 |                21% |
-| 212900 |                 0% |
-| 218090 |                 7% |
-| 219613 |                14% |
-| 231898 |                 1% |
-| 232395 |                 8% |
-| 232796 |                 5% |
-| 233335 |                 2% |
-| 238414 |                 4% |
-| 241430 |                 0% |
+| 158425 |                31% |
+| 159866 |                11% |
+| 199967 |                17% |
+| 206806 |                40% |
+| 216397 |                19% |
+| 234311 |                 0% |
+| 244207 |                55% |
+| 245099 |                 1% |
+| 257748 |                15% |
+| 257932 |                15% |
 |--------+--------------------|
 **** Gráfico
-#+BEGIN_SRC python :var turnitin=TurnitinNCM :results file graphics :file ./figs/turintin_NCM_fig.png :eval no
+#+BEGIN_SRC python :var turnitin=TurnitinNCM :results file graphics :file ./figs/turintin_NCM_fig.png 
 turnitin = pd.DataFrame(
     turnitin[1:],
     columns=["RA", "Grau de Semelhança"],
 )
-turnitin["Grau de Semelhança"] = [int(grau[:-1])/100 for grau in turnitin["Grau de Semelhança"]]
+turnitin["Grau de Semelhança"] = [
+    int(grau[:-1]) / 100 for grau in turnitin["Grau de Semelhança"]
+]
 turnitin.set_index("RA", inplace=True)
 
-fig, ax = plt.subplots(1,1, figsize=(8,5), sharey=True)
-sns.distplot(turnitin, hist=True, kde=True,
-             bins=int(10), color = 'darkblue',
-             hist_kws={'edgecolor':'black'}, ax=ax,
-             kde_kws={'linewidth': 4, 'shade': True})
-mu = round(turnitin["Grau de Semelhança"].mean()*100)
+fig, ax = plt.subplots(1, 1, figsize=(8, 5), sharey=True)
+sns.distplot(
+    turnitin,
+    hist=True,
+    kde=True,
+    bins=int(10),
+    color="darkblue",
+    hist_kws={"edgecolor": "black"},
+    ax=ax,
+    kde_kws={"linewidth": 4, "shade": True},
+)
+mu = round(turnitin["Grau de Semelhança"].mean() * 100)
 
-sigma = turnitin["Grau de Semelhança"].std().round(1)*100
+sigma = turnitin["Grau de Semelhança"].std().round(1) * 100
 
-ax.set_title(f'Checagem de plágio\nTurma {Turma}')
-ax.text(-0.1, 10, f'$\mu = ${mu}', fontsize=12)
-ax.text(-0.1, 9.0, f'$\sigma = ${sigma}', fontsize=12)
-ax.axvline(x=0.5, color='black', ls = "-", label="Corte para zerar")
+ax.set_title(f"Checagem de plágio\nTurma {Turma}")
+ax.text(-0.1, 10, f"$\mu = ${mu}", fontsize=12)
+ax.text(-0.1, 9.0, f"$\sigma = ${sigma}", fontsize=12)
+ax.axvline(x=0.5, color="black", ls="-", label="Corte para zerar")
 ax.legend()
 sns.despine()
-plt.savefig('./figs/turintin_NvK_fig.png')
+plt.savefig("./figs/turintin_NCM_fig.png")
 plt.close()
 #+END_SRC
+
+#+RESULTS:
+[[file:./figs/turintin_NCM_fig.png]]
 
 * Lista de presença e notas
 ** Lista de chamada com nota das resenhas                            :ignore:
@@ -971,103 +1053,62 @@ print('\end{landscape}\end{center}')
 
 #+RESULTS: Lista
 #+begin_export latex
-\begin{longtable}{llrrrrrrrrrl}
+\begin{longtable}{llrrrrrrrrrrl}
 \caption{Lista de presença e de notas}\label{lista}\\
 \toprule
-{} &                                   Nome &  Resenha Monetaristas &  2020-10-19 &  2020-10-26 &  2020-11-09 &  Resenha Novos Clássicos &  2020-11-16 &  2020-11-23 &  Resenha Novos Keynesianos &  2020-11-30 &                   Email \\
-\textbf{RA    } &                                        &                       &             &             &             &                          &             &             &                            &             &                         \\
+{} &                                   Nome &  Resenha Monetaristas &  2020-10-19 &  2020-10-26 &  2020-11-09 &  Resenha Novos Clássicos &  2020-11-16 &  2020-11-23 &  Resenha Novos Keynesianos &  2020-11-30 &  Resenha Regime de Metas &                   Email \\
+\textbf{RA    } &                                        &                       &             &             &             &                          &             &             &                            &             &                          &                         \\
 \midrule
 \endhead
 \midrule
-\multicolumn{12}{r}{{Continued on next page}} \\
+\multicolumn{13}{r}{{Continued on next page}} \\
 \midrule
 \endfoot
 
 \bottomrule
 \endlastfoot
-\textbf{230645} &                    alice pereira dario &                  50.0 &       17.86 &        0.00 &       19.47 &                      5.0 &       57.50 &        0.00 &                        5.0 &        4.76 &  a230645@dac.unicamp.br \\
-\textbf{213549} &           beatriz helena toledo pastre &                  30.0 &        0.00 &        0.00 &        6.19 &                      5.0 &           - &        5.88 &                        0.0 &       80.95 &  b213549@dac.unicamp.br \\
-\textbf{257748} &             breno rivelino fima castro &                  50.0 &        7.14 &        5.31 &       93.81 &                      7.0 &       28.33 &       70.59 &                        5.0 &       80.00 &  b257748@dac.unicamp.br \\
-\textbf{232568} &                 caio cimino de almeida &                  70.0 &           - &        2.65 &       54.87 &                      5.0 &       70.00 &        0.00 &                        0.0 &       48.57 &  c232568@dac.unicamp.br \\
-\textbf{233566} &                 diego tabacof labriola &                  30.0 &        0.00 &        0.00 &       91.15 &                      7.0 &           - &           - &                        0.0 &           - &  d233566@dac.unicamp.br \\
-\textbf{215626} &                felipe barbosa de souza &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &       18.33 &       11.76 &                        0.0 &       13.33 &  f215626@dac.unicamp.br \\
-\textbf{91108 } &                 felipe eboli sotorilli &                     - &        1.79 &        0.00 &       77.88 &                        - &       29.17 &       76.47 &                          - &       11.43 &   f91108@dac.unicamp.br \\
-\textbf{234311} &                  felipe rubbo aguilera &                  50.0 &       33.93 &        1.77 &       92.92 &                      5.0 &           - &       76.47 &                        5.0 &       42.86 &  f234311@dac.unicamp.br \\
-\textbf{216397} &                        gabriel pereira &                  30.0 &        0.00 &        0.88 &       76.11 &                      3.0 &        0.83 &        0.00 &                        0.0 &       28.57 &  g216397@dac.unicamp.br \\
-\textbf{197474} &                gabriel pereira jovetta &                  50.0 &        0.00 &        4.42 &       51.33 &                      5.0 &       46.67 &       47.06 &                        0.0 &        0.00 &  g197474@dac.unicamp.br \\
-\textbf{234982} &                 gabriel pereira santos &                   0.0 &           - &       13.27 &        0.00 &                      0.0 &           - &           - &                          - &           - &  g234982@dac.unicamp.br \\
-\textbf{235042} &                gabriel silva gonçalves &                   0.0 &        0.00 &        0.00 &        0.00 &                      5.0 &           - &       17.65 &                        5.0 &       82.86 &  g235042@dac.unicamp.br \\
-\textbf{197724} &           gabriela santana das virgens &                  50.0 &        0.00 &        0.88 &       74.34 &                      5.0 &       30.00 &       82.35 &                        5.0 &       82.86 &  g197724@dac.unicamp.br \\
-\textbf{217350} &       guilherme yoshio agata domingues &                  30.0 &           - &           - &           - &                      0.0 &           - &           - &                          - &           - &  g217350@dac.unicamp.br \\
-\textbf{174154} &               gustavo josé lara campos &                  30.0 &        0.00 &        4.42 &       16.81 &                      0.0 &           - &           - &                        0.0 &           - &  g174154@dac.unicamp.br \\
-\textbf{237534} &         joao mateus rodrigues da silva &                  30.0 &           - &           - &           - &                      3.0 &           - &           - &                        0.0 &       11.43 &  j237534@dac.unicamp.br \\
-\textbf{237856} &        joão vitor dos santos rodrigues &                  50.0 &        1.79 &        0.00 &       91.15 &                      5.0 &       90.83 &        0.00 &                        0.0 &        0.00 &  j237856@dac.unicamp.br \\
-\textbf{199967} &                   jonas pereira cintra &                  70.0 &        0.00 &        3.54 &       82.30 &                      7.0 &       50.83 &        0.00 &                        7.0 &       82.86 &  j199967@dac.unicamp.br \\
-\textbf{103034} &  leonardo augusto de oliveira piovesan &                  50.0 &        0.00 &        0.00 &       93.81 &                      5.0 &       93.33 &       70.59 &                        0.0 &       89.52 &  l103034@dac.unicamp.br \\
-\textbf{172577} &                   lucas azevedo soares &                  50.0 &        2.68 &        5.31 &       14.16 &                      7.0 &       75.00 &       76.47 &                        0.0 &       87.62 &  l172577@dac.unicamp.br \\
-\textbf{159866} &              marcela chenfel dos anjos &                  50.0 &        0.89 &        0.00 &       91.15 &                      5.0 &       50.83 &       76.47 &                        0.0 &       33.33 &  m159866@dac.unicamp.br \\
-\textbf{221896} &               mariana sayuri silva doi &                  70.0 &       34.82 &        0.88 &       18.58 &                     10.0 &       37.50 &        0.00 &                       10.0 &        0.00 &  m221896@dac.unicamp.br \\
-\textbf{257876} &    maryana beatriz ventura de carvalho &                 100.0 &       67.86 &        0.88 &       93.81 &                     10.0 &       83.33 &       70.59 &                       10.0 &       81.90 &  m257876@dac.unicamp.br \\
-\textbf{242087} &                          miguel razera &                   0.0 &        0.89 &        1.77 &        0.00 &                        - &           - &           - &                          - &           - &  m242087@dac.unicamp.br \\
-\textbf{242328} &    natalia kimberlle tavares imperiano &                  50.0 &           - &           - &        0.88 &                      7.0 &           - &           - &                        5.0 &           - &  n242328@dac.unicamp.br \\
-\textbf{147614} &          pedro augusto de almeida rosa &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &       93.33 &       76.47 &                        0.0 &        0.00 &  p147614@dac.unicamp.br \\
-\textbf{176104} &              rafael da silva tomasella &                   0.0 &           - &           - &           - &                        - &           - &           - &                          - &           - &  r176104@dac.unicamp.br \\
-\textbf{205149} &                 raphaela freitas souza &                 100.0 &           - &           - &           - &                      0.0 &           - &           - &                        0.0 &           - &  r205149@dac.unicamp.br \\
-\textbf{205151} &               raphaela prado francisco &                   0.0 &        0.89 &       47.79 &        4.42 &                      7.0 &           - &       76.47 &                        0.0 &       63.81 &  r205151@dac.unicamp.br \\
-\textbf{244207} &                 sanny alves dos santos &                  70.0 &        0.89 &        0.00 &        0.00 &                      7.0 &           - &       64.71 &                        0.0 &       85.71 &  s244207@dac.unicamp.br \\
-\textbf{158425} &                           tales alonso &                  50.0 &        0.89 &       61.95 &       61.06 &                      7.0 &       29.17 &       70.59 &                        5.0 &       19.05 &  t158425@dac.unicamp.br \\
-\textbf{257932} &              thaís monello de oliveira &                 100.0 &        0.89 &        0.00 &       30.09 &                      7.0 &       24.17 &       64.71 &                        0.0 &       86.67 &  t257932@dac.unicamp.br \\
-\textbf{177964} &               victor hugo alves duarte &                  70.0 &        0.00 &        0.00 &        0.00 &                      5.0 &           - &           - &                        0.0 &           - &  v177964@dac.unicamp.br \\
-\textbf{245099} &                            victor maia &                  50.0 &       16.07 &       53.98 &       70.80 &                      7.0 &       25.00 &        0.00 &                        0.0 &       43.81 &  v245099@dac.unicamp.br \\
-\textbf{206806} &            vinicius jeronimo capodalio &                  50.0 &        0.00 &        7.08 &        2.65 &                      0.0 &       29.17 &        0.00 &                        0.0 &       80.00 &  v206806@dac.unicamp.br \\
-\textbf{225851} &                william de sousa rabelo &                  50.0 &           - &           - &           - &                      0.0 &           - &      100.00 &                        0.0 &        0.00 &  w225851@dac.unicamp.br \\
+\textbf{230645} &                    alice pereira dario &                  50.0 &       17.86 &        0.00 &       19.47 &                      5.0 &       57.50 &        0.00 &                        5.0 &        4.76 &                      0.0 &  a230645@dac.unicamp.br \\
+\textbf{213549} &           beatriz helena toledo pastre &                  30.0 &        0.00 &        0.00 &        6.19 &                      5.0 &           - &        5.88 &                        0.0 &       80.95 &                      0.0 &  b213549@dac.unicamp.br \\
+\textbf{257748} &             breno rivelino fima castro &                  50.0 &        7.14 &        5.31 &       93.81 &                      7.0 &       28.33 &       70.59 &                        5.0 &       80.00 &                      7.0 &  b257748@dac.unicamp.br \\
+\textbf{232568} &                 caio cimino de almeida &                  70.0 &           - &        2.65 &       54.87 &                      5.0 &       70.00 &        0.00 &                        0.0 &       48.57 &                      7.0 &  c232568@dac.unicamp.br \\
+\textbf{233566} &                 diego tabacof labriola &                  30.0 &        0.00 &        0.00 &       91.15 &                      7.0 &           - &           - &                        0.0 &           - &                      0.0 &  d233566@dac.unicamp.br \\
+\textbf{215626} &                felipe barbosa de souza &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &       18.33 &       11.76 &                        0.0 &       13.33 &                      0.0 &  f215626@dac.unicamp.br \\
+\textbf{91108 } &                 felipe eboli sotorilli &                     - &        1.79 &        0.00 &       77.88 &                        - &       29.17 &       76.47 &                          - &       11.43 &                        - &   f91108@dac.unicamp.br \\
+\textbf{234311} &                  felipe rubbo aguilera &                  50.0 &       33.93 &        1.77 &       92.92 &                      5.0 &           - &       76.47 &                        5.0 &       42.86 &                      7.0 &  f234311@dac.unicamp.br \\
+\textbf{216397} &                        gabriel pereira &                  30.0 &        0.00 &        0.88 &       76.11 &                      3.0 &        0.83 &        0.00 &                        0.0 &       28.57 &                      7.0 &  g216397@dac.unicamp.br \\
+\textbf{197474} &                gabriel pereira jovetta &                  50.0 &        0.00 &        4.42 &       51.33 &                      5.0 &       46.67 &       47.06 &                        0.0 &        0.00 &                      0.0 &  g197474@dac.unicamp.br \\
+\textbf{234982} &                 gabriel pereira santos &                   0.0 &           - &       13.27 &        0.00 &                      0.0 &           - &           - &                          - &           - &                        - &  g234982@dac.unicamp.br \\
+\textbf{235042} &                gabriel silva gonçalves &                   0.0 &        0.00 &        0.00 &        0.00 &                      5.0 &           - &       17.65 &                        5.0 &       82.86 &                      5.0 &  g235042@dac.unicamp.br \\
+\textbf{197724} &           gabriela santana das virgens &                  50.0 &        0.00 &        0.88 &       74.34 &                      5.0 &       30.00 &       82.35 &                        5.0 &       82.86 &                      5.0 &  g197724@dac.unicamp.br \\
+\textbf{217350} &       guilherme yoshio agata domingues &                  30.0 &           - &           - &           - &                      0.0 &           - &           - &                          - &           - &                        - &  g217350@dac.unicamp.br \\
+\textbf{174154} &               gustavo josé lara campos &                  30.0 &        0.00 &        4.42 &       16.81 &                      0.0 &           - &           - &                        0.0 &           - &                      0.0 &  g174154@dac.unicamp.br \\
+\textbf{237534} &         joao mateus rodrigues da silva &                  30.0 &           - &           - &           - &                      3.0 &           - &           - &                        0.0 &       11.43 &                      0.0 &  j237534@dac.unicamp.br \\
+\textbf{237856} &        joão vitor dos santos rodrigues &                  50.0 &        1.79 &        0.00 &       91.15 &                      5.0 &       90.83 &        0.00 &                        0.0 &        0.00 &                      7.0 &  j237856@dac.unicamp.br \\
+\textbf{199967} &                   jonas pereira cintra &                  70.0 &        0.00 &        3.54 &       82.30 &                      7.0 &       50.83 &        0.00 &                        7.0 &       82.86 &                     10.0 &  j199967@dac.unicamp.br \\
+\textbf{103034} &  leonardo augusto de oliveira piovesan &                  50.0 &        0.00 &        0.00 &       93.81 &                      5.0 &       93.33 &       70.59 &                        0.0 &       89.52 &                      0.0 &  l103034@dac.unicamp.br \\
+\textbf{172577} &                   lucas azevedo soares &                  50.0 &        2.68 &        5.31 &       14.16 &                      7.0 &       75.00 &       76.47 &                        0.0 &       87.62 &                      0.0 &  l172577@dac.unicamp.br \\
+\textbf{159866} &              marcela chenfel dos anjos &                  50.0 &        0.89 &        0.00 &       91.15 &                      5.0 &       50.83 &       76.47 &                        0.0 &       33.33 &                      7.0 &  m159866@dac.unicamp.br \\
+\textbf{221896} &               mariana sayuri silva doi &                  70.0 &       34.82 &        0.88 &       18.58 &                     10.0 &       37.50 &        0.00 &                       10.0 &        0.00 &                      0.0 &  m221896@dac.unicamp.br \\
+\textbf{257876} &    maryana beatriz ventura de carvalho &                 100.0 &       67.86 &        0.88 &       93.81 &                     10.0 &       83.33 &       70.59 &                       10.0 &       81.90 &                      0.0 &  m257876@dac.unicamp.br \\
+\textbf{242087} &                          miguel razera &                   0.0 &        0.89 &        1.77 &        0.00 &                        - &           - &           - &                          - &           - &                        - &  m242087@dac.unicamp.br \\
+\textbf{242328} &    natalia kimberlle tavares imperiano &                  50.0 &           - &           - &        0.88 &                      7.0 &           - &           - &                        5.0 &           - &                      0.0 &  n242328@dac.unicamp.br \\
+\textbf{147614} &          pedro augusto de almeida rosa &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &       93.33 &       76.47 &                        0.0 &        0.00 &                      0.0 &  p147614@dac.unicamp.br \\
+\textbf{176104} &              rafael da silva tomasella &                   0.0 &           - &           - &           - &                        - &           - &           - &                          - &           - &                        - &  r176104@dac.unicamp.br \\
+\textbf{205149} &                 raphaela freitas souza &                 100.0 &           - &           - &           - &                      0.0 &           - &           - &                        0.0 &           - &                      0.0 &  r205149@dac.unicamp.br \\
+\textbf{205151} &               raphaela prado francisco &                   0.0 &        0.89 &       47.79 &        4.42 &                      7.0 &           - &       76.47 &                        0.0 &       63.81 &                      0.0 &  r205151@dac.unicamp.br \\
+\textbf{244207} &                 sanny alves dos santos &                  70.0 &        0.89 &        0.00 &        0.00 &                      7.0 &           - &       64.71 &                        0.0 &       85.71 &                      7.0 &  s244207@dac.unicamp.br \\
+\textbf{158425} &                           tales alonso &                  50.0 &        0.89 &       61.95 &       61.06 &                      7.0 &       29.17 &       70.59 &                        5.0 &       19.05 &                     10.0 &  t158425@dac.unicamp.br \\
+\textbf{257932} &              thaís monello de oliveira &                 100.0 &        0.89 &        0.00 &       30.09 &                      7.0 &       24.17 &       64.71 &                        0.0 &       86.67 &                      7.0 &  t257932@dac.unicamp.br \\
+\textbf{177964} &               victor hugo alves duarte &                  70.0 &        0.00 &        0.00 &        0.00 &                      5.0 &           - &           - &                        0.0 &           - &                     10.0 &  v177964@dac.unicamp.br \\
+\textbf{245099} &                            victor maia &                  50.0 &       16.07 &       53.98 &       70.80 &                      7.0 &       25.00 &        0.00 &                        0.0 &       43.81 &                      7.0 &  v245099@dac.unicamp.br \\
+\textbf{206806} &            vinicius jeronimo capodalio &                  50.0 &        0.00 &        7.08 &        2.65 &                      0.0 &       29.17 &        0.00 &                        0.0 &       80.00 &                      3.0 &  v206806@dac.unicamp.br \\
+\textbf{225851} &                william de sousa rabelo &                  50.0 &           - &           - &           - &                      0.0 &           - &      100.00 &                        0.0 &        0.00 &                      0.0 &  w225851@dac.unicamp.br \\
 \end{longtable}
 \end{landscape}\end{center}
 #+end_export
 
 
-* Seminários
-** Sorteio
-#+BEGIN_SRC python :results table latex
-atas = [f"Ata {i}" for i in np.random.choice(a=[i for i in range(1,num_grupos+1)], size=num_grupos, replace=False)]
-grupos = {f"Grupo {i+1}":atas[i] for i in range(num_grupos)}
-grupos = pd.DataFrame(grupos, index=[0]).transpose()
-grupos.columns=['Resultado']
-grupos.index.name='Grupos'
-print(grupos.to_latex(caption="Resultado sorteio das atas - Seminários"))
-#+END_SRC
-
-#+RESULTS:
-#+begin_export latex
-\begin{table}
-\centering
-\caption{Resultado sorteio das atas - Seminários}
-\begin{tabular}{ll}
-\toprule
-{} & Resultado \\
-Grupos   &           \\
-\midrule
-Grupo 1  &     Ata 7 \\
-Grupo 2  &     Ata 5 \\
-Grupo 3  &     Ata 1 \\
-Grupo 4  &    Ata 11 \\
-Grupo 5  &     Ata 8 \\
-Grupo 6  &     Ata 9 \\
-Grupo 7  &    Ata 12 \\
-Grupo 8  &    Ata 10 \\
-Grupo 9  &     Ata 2 \\
-Grupo 10 &     Ata 4 \\
-Grupo 11 &     Ata 6 \\
-Grupo 12 &     Ata 3 \\
-\bottomrule
-\end{tabular}
-\end{table}
-#+end_export
-
-
-*** TODO Selecionar Atas e criar map para substituição
-
-* Exportando notas                                                 :noexport:
+* Exportando notas :noexport:
 
 #+BEGIN_SRC python
 df.to_csv(f'./output/CE342_{Turma}.csv')
