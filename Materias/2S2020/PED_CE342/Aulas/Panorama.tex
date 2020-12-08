@@ -1,10 +1,11 @@
-% Created 2020-11-07 sáb 18:01
+% Created 2020-12-08 ter 19:41
 % Intended LaTeX compiler: pdflatex
 \documentclass[presentation]{beamer}
   \usepackage{csquotes, caption}
 \usepackage[brazilian, ]{babel}
 \usepackage[style=abnt,noslsn,extrayear,uniquename=init,giveninits,justify,sccite, scbib,repeattitles,doi=false,isbn=false,url=false,maxcitenames=2, natbib=true,backend=biber]{biblatex}
 \addbibresource{refs.bib}
+\addbibresource{/HDD/Org/all_my_refs.bib}
 \usetheme{default}
 \author{PED: Gabriel Petrini}
 \date{04 de Janeiro de 2021}
@@ -16,37 +17,88 @@
 \tableofcontents
 \end{frame}
 
-
 \section{Introdução}
-\label{sec:org321f570}
+\label{sec:orgba5f31e}
 
-\begin{frame}[label={sec:org5d3e50a}]{Estrutura de tópicos e convenções}
+\begin{frame}[label={sec:org7c3b14f}]{Estrutura das aulas}
 A aula terá a seguinte estrutura
-
 \begin{itemize}
-\item Apresentação dos movimentos gerais
-\item Apresentação dos dados
+\item \alert{Teórico:} Conjuntura pré-Regime de Metas e revisão teórica
+\begin{itemize}
+\item Diagrama analítico
+\item Estrutura das atas do COPOM
+\item Exemplificando com uma ata
 \end{itemize}
-
-\alert{Convenções (exceto quando especificado o contrário):}
+\item \alert{Macroeconômico:} Apresentação dos dados e dos movimentos gerais
 \begin{itemize}
-\item As taxas de crescimento são todas em relação ao mesmo período do ano anterior
-\item As séries são desazonalizadas e em termos reais
+\item Parte I: 2002-2011
+\item Parte II: 2011-2020
 \end{itemize}
-\end{frame}
-
-\section{O cenário internacional, o setor externo e a herança maldita}
-\label{sec:org21a7b8a}
-
-\begin{frame}[label={sec:orgbb5df1c}]{Panorama Internacional}
-\begin{itemize}
-\item Crise Mexicana (1994/5)
-\item Brasileira (1998/9)
-\item Argentina (2001/2002)
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:org24d7137}]{Crescimento e desequilíbrios globais}
+
+\section{Preâmbulo: Cenário internacional adverso, Implementação do RMI e a herança maldita}
+\label{sec:orgd34d33f}
+
+\begin{frame}[label={sec:orgf7f3202}]{A Herança Maldita \cite{belluzzoDepoisQuedaEconomia2002}}
+\begin{itemize}
+\item Crise Russa, Mexicana, Argentina \(\Rightarrow\) \emph{flight to quality}
+\item Instabilidade macroeconômica \(\Rightarrow\) \emph{stop and go}
+\item Dívida pública
+\begin{itemize}
+\item Relação dívida/PIB em expansão
+\item Elevação do gasto com juros
+\item Concentrada em títulos selic e indexados ao câmbio
+\end{itemize}
+\item Choque inflacionário \(\Rightarrow\) Câmbio e energia
+\end{itemize}
+
+\begin{block}{1999: Implementação do RMI}
+\end{block}
+\end{frame}
+
+\section{RMI: Esquema analítico}
+\label{sec:orgeb518e1}
+
+\begin{frame}[label={sec:org772e10c}]{Diagrama}
+\begin{figure}[htb]
+\centering
+\caption{Representação do Modelo do regime de Metas para inflação} 
+\includegraphics[width = 0.9\textwidth]{./figs/RMI.png}
+\label{fig:ibcbr}
+\caption*{\textbf{Fonte:} Elaboração própria}
+\end{figure}
+\end{frame}
+\begin{frame}[label={sec:org926d2d4}]{Estrutura das Atas do Copom}
+\begin{itemize}
+\item Evolução recente da economia \(\Rightarrow\) \(h_{t-m}, h_{t}, (\pi_{t} - \pi^{\star}), \varepsilon^{D}, \varepsilon^{S}\)
+\item Avaliação prospectiva das tendências de inflação \(\Rightarrow\) \(\pi^{e}\)
+\item Implementação da política monetária \(\Rightarrow\) \(i_{t}, (\pi_{t} - \pi^{\star}), \pi^{e}_{t+n}\)
+\item Inflação \(\Rightarrow\) Componentes de \(\pi\)
+\item Atividade econômica \(\Rightarrow\) crédito, produção, NUCI, etc
+\item Expectativas e sondagens \(\Rightarrow\) \(\pi^{e}\)
+\item Mercado de trabalho \(\Rightarrow\) redimentos, taxa de desemprego
+\item Crédito e inadimplência
+\item Ambiente externo \(\Rightarrow\) \(\Delta e, \Delta p^{F}, \Delta i^{F}, \Delta x, \varepsilon^{F}\)
+\item Comércio exterior e reservas internacionais
+\begin{itemize}
+\item Componentes do BP, fluxo de capitais e etc
+\end{itemize}
+\item Mercado monetário e operações de mercado aberto
+\begin{itemize}
+\item \alert{Memo:} Quantidade de moeda endógena
+\item \(i_{t}\), spread bancário, oferta de títulos públicos (LTN, LFT, etc)
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:orgfe34296}]{Exemplo: Ata}
+\end{frame}
+\section{Governos Lula e suas fases}
+\label{sec:org5e26f66}
+
+\begin{frame}[label={sec:org1afcf8f}]{Crescimento e desequilíbrios globais \cite{carneiroSupremaciaDosMercados2006}}
 Após fase conturbada de 1997/2002, a economia global consolida um arrajno dinâmico e desequiblibrado entre 2002/3 a 2007/8
 
 \alert{Engrenagem comercial com 3 elos}
@@ -61,35 +113,9 @@ Após fase conturbada de 1997/2002, a economia global consolida um arrajno dinâ
 \end{itemize}
 \item Impactos nas commodities
 \end{itemize}
-
-\alert{Superávits em conta corrente nos países emeergentes}
-\begin{itemize}
-\item Fluxos líquidos oficiais de Capital
-\item Financiamento do déficit americano, conundrun nas taxas de juros
-\end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:orgd03904f}]{A Herança Maldita}
-\begin{itemize}
-\item Instabilidade macroeconômica
-\begin{itemize}
-\item Baixo ritmo de crescimento
-\end{itemize}
-\item Dívida pública
-\begin{itemize}
-\item Relação dívida/PIB em expansão
-\item Elevação do gasto com juros
-\item Concentrada em títulos selic e indexados ao câmbio
-\end{itemize}
-\item Inflação
-\end{itemize}
-\end{frame}
-
-
-\section{Governos Lula e suas fases}
-\label{sec:orgbc2224d}
-
-\begin{frame}[label={sec:orgef645e7}]{Primeira Fase}
+\begin{frame}[label={sec:org5528e8f}]{Primeira Fase}
 Experimento desenvolvimentista junto de uma política macroeconômica conservadora:
 \begin{itemize}
 \item Continuidade do tripé
@@ -107,7 +133,7 @@ Experimento desenvolvimentista junto de uma política macroeconômica conservado
 \alert{Contexto de transição complexa:} desconfiança dos credores e pressões financeiras
 \end{frame}
 
-\begin{frame}[label={sec:orgabca9ad}]{Segunda fase}
+\begin{frame}[label={sec:org5c45f1e}]{Segunda fase}
 \begin{itemize}
 \item Retomada do Estado como elemento condutor do Crescimento
 \item Desenho da política fiscal no centro de proposta do desenvolvimento
@@ -118,49 +144,21 @@ Experimento desenvolvimentista junto de uma política macroeconômica conservado
 \end{frame}
 
 
-\begin{frame}[label={sec:org60859ec}]{Fatores determinantes}
+\begin{frame}[label={sec:org18bf49b}]{Dificuldades em aberto \cite{melloIndustrialismoAusteridadePolitica}}
 \begin{itemize}
-\item Impulsos externos favoráveis
+\item Limites do crescimento com expansão da demanda de consumo via crédito e políticas sociais
+\item Retomada da taxa de investimento, mas nível baixo
 \begin{itemize}
-\item Melhora no setor externo pelo lado comercial (commodities) e financiero
-\begin{itemize}
-\item Ajudam retomada em 2004, mas não puxam o crescimento
+\item Dificuldade de retomada do investimento público
+\item Crise mundial e investimento privado
 \end{itemize}
-\end{itemize}
-\item Motores do crescimento (expansão do mercado interno)
-\begin{itemize}
-\item Distribuição de renda e cŕedito
-\begin{itemize}
-\item Aumento do saldo total de crédito
-\end{itemize}
-\item Investimento induzido
-\end{itemize}
-\item Investimento público a partir de 2007 com o PAC
+\item Estrutura produtiva
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:orgd48a646}]{Alguns resultados}
-\begin{itemize}
-\item Queda da taxa de desemprego aberta
-\item Valorização real do salário mínimo
-\item Expansão do gasto federal total
-\item Formação Bruta de Capital Fixo cresce bastante pós-07 em taxa
-\begin{itemize}
-\item Apesar do nível Baixo
-\item Maior que a taxa de crescimento do consumo
-\item Não é um crescimento puxado pelo consumo, mas o consumo puxa o Investimento
-\end{itemize}
-\item Aumento do consumo das famílias, mas menor que o investimento
-\end{itemize}
-\end{frame}
-
-
-
-
-\section{(Des)Continuidades e dificuldades}
-\label{sec:org898854b}
-
-\begin{frame}[label={sec:org991c66f}]{Continuidades}
+\section{Dados 2002-2011}
+\label{sec:org8b69459}
+\begin{frame}[label={sec:org4af0acd}]{Continuidades}
 \begin{block}{Política cambial}
 Pouco mudou ao longo do tempo
 
@@ -192,7 +190,7 @@ Não foi alterado o regime fiscal definido na era FHC
 \end{frame}
 
 
-\begin{frame}[label={sec:org269ea9e}]{Descontinuidades}
+\begin{frame}[label={sec:orge9a33e0}]{Descontinuidades}
 Conjugação de políticas de incentivo à renda e ao mercado interno
 
 \begin{itemize}
@@ -212,26 +210,176 @@ Conjugação de políticas de incentivo à renda e ao mercado interno
 \end{frame}
 
 
-\begin{frame}[label={sec:orgc2d4734}]{Dificuldades}
+\begin{frame}[label={sec:orgd4788de}]{Alguns resultados}
 \begin{itemize}
-\item Limites do crescimento com expansão da demanda de consumo via crédito e políticas sociais
-\item Retomada da taxa de investimento, mas nível baixo
-\begin{itemize}
-\item Dificuldade de retomada do investimento público
-\item Crise mundial e investimento privado
-\end{itemize}
-\item Estrutura produtiva
+\item Queda da taxa de desemprego aberta
+\item Valorização real do salário mínimo
+\item Expansão do gasto federal total
+\item Taxa crescimento da FBCF cresce pós-07
+\item Aumento do consumo das famílias, mas menor que o investimento
 \end{itemize}
 \end{frame}
+
+
+
+\begin{frame}[label={sec:org3b56542}]{Fatores determinantes}
+\begin{itemize}
+\item Impulsos externos favoráveis
+\begin{itemize}
+\item Melhora no setor externo pelo lado comercial (commodities) e financiero
+\begin{itemize}
+\item Ajudam retomada em 2004, mas não puxam o crescimento
+\end{itemize}
+\end{itemize}
+\item Motores do crescimento (expansão do mercado interno)
+\begin{itemize}
+\item Distribuição de renda e cŕedito
+\begin{itemize}
+\item Aumento do saldo total de crédito
+\end{itemize}
+\item Investimento induzido
+\end{itemize}
+\item Investimento público a partir de 2007 com o PAC
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[label={sec:orgdc61fbf}]{PIB puxado pelo mercado doméstico}
+\begin{figure}[htb]
+\centering
+\caption{Decomposição da taxa de crescimento do produto - Domésticos e externos} 
+\includegraphics[width = 0.9\textwidth]{./figs/PIB_Decomp_I.png}
+\label{fig:cycles}
+\caption*{\textbf{Fonte:} BCB}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}[label={sec:org5e7cc8e}]{Crescimento e o investimento induzido}
+\begin{figure}[htb]
+\centering
+\caption{Taxa de crescimento do produto - decomposição total} 
+\includegraphics[width = 0.9\textwidth]{./figs/PIB_Decomp_Total_I.png}
+\label{fig:PIB_Decomp_Total}
+\caption*{\textbf{Fonte:} BCB}
+\end{figure}
+\end{frame}
+
+
+
+
+\begin{frame}[label={sec:org30f1f94}]{Investimento público em recuperação \cite{orair_investimento_2016}}
+\begin{table}[htbp]
+\caption{Taxa de crescimento do investimentos públicos (1994-2015)}
+\centering
+\begin{tabular}{rrrrr}
+\hline
+Ano & Gov. Central & Gov. Geral & Setor Público & PIB\\
+\hline
+1994-1998 & -5.1 & -2.7 & -0.9 & 2.6\\
+1998-2002 & -1.2 & -2.0 & -1.9 & 2.3\\
+2002-2006 & -0.6 & 0.6 & 0.4 & 3.5\\
+2006-2010 & 25.4 & 13.5 & 17.0 & 4.6\\
+2010-2014 & -0.4 & -0.1 & -0.1 & 2.2\\
+2014-2015 & -6.2 & -4.0 & -5.2 & 0.3\\
+\hline
+\end{tabular}
+\end{table}
+\end{frame}
+
+
+
+\begin{frame}[label={sec:org22998d6}]{Emprego}
+\begin{figure}[htb]
+\centering
+\caption{Índice do Emprego Formal} 
+\includegraphics[width = 0.9\textwidth]{./figs/EmpregoFormal_I.png}
+\label{fig:EmpFormal}
+\caption*{\textbf{Fonte:} MTb}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}[label={sec:org636c4ad}]{Taxa de câmbio nominal}
+\begin{figure}[htb]
+\centering
+\caption{ Índice da taxa de câmbio efetiva nominal\\Jun/1994=100 } 
+\includegraphics[width = 0.9\textwidth]{./figs/CambioNominal_I.png}
+\label{fig:cambio}
+\caption*{\textbf{Fonte:} BCB-DSTAT}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}[label={sec:orgaca690e}]{Taxa de juros selic}
+\begin{figure}[htb]
+\centering
+\caption{Taxa de juros selic a.a. (efetivo x meta)\\Anualizada base 252} 
+\includegraphics[width = 0.9\textwidth]{./figs/Selic_I.png}
+\label{fig:Selic}
+\caption*{\textbf{Fonte:} Copom e BCB-Demab}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}[label={sec:org24e2c88}]{Finalmente, inflação (ops, IPCA)}
+\begin{figure}[htb]
+\centering
+\caption{IPCA e Metas para Inflação} 
+\includegraphics[width = 0.9\textwidth]{./figs/IPCA_I.png}
+\label{fig:IPCA}
+\caption*{\textbf{Fonte:} BCB}
+\end{figure}
+\end{frame}
+\begin{frame}[label={sec:org34db6da}]{Composição do IPCA \cite{bcb_2019_Atualizacoes}}
+\begin{table}[htbp]
+\caption{IPCA: estruturas de ponderação – janeiro de 2018}
+\centering
+\begin{tabular}{lrrr}
+\hline
+Grupo & POF 2008-2009 & POF 2017-2018 & Diferença (p.p.)\\
+\hline
+Alimentação e bebidas & 24.58 & 18.99 & -5.59\\
+Habitação & 15.72 & 15.16 & -0.56\\
+Artigos de residência & 3.98 & 4.02 & 0.04\\
+Vestuário & 5.96 & 4.8 & -1.16\\
+Transporte & 18.28 & 20.84 & 2.55\\
+Saúde e cuidados pessoais & 12.04 & 13.46 & 1.41\\
+Despesas pessoais & 10.96 & 10.60 & -0.36\\
+Educação & 4.83 & 5.95 & 1.13\\
+Comunicação & 3.65 & 6.19 & 2.54\\
+\hline
+\end{tabular}
+\end{table}
+\end{frame}
+\begin{frame}[label={sec:org0b5621e}]{Preços livres, monitorados, serviços}
+\begin{figure}[htb]
+\centering
+\caption{IPCA e seus componentes: preços livres, monitorados e serviços} 
+\includegraphics[width = 0.65\textwidth]{./figs/Livres_Administrados_I.png}
+\label{fig:livres_adm}
+\caption*{\textbf{Fonte:} BCB}
+\end{figure}
+\end{frame}
+
 
 \section{Governo(s?) Dilma}
-\label{sec:orgbb9768b}
+\label{sec:orgb533564}
 
-\begin{frame}[label={sec:orgf872440}]{Os três tenores}
+\begin{frame}[label={sec:org8278899}]{Os três "motores" \cite{serrano_demanda_2015}}
+\begin{figure}[htb]
+\centering
+\caption{Os três motores do crescimento} 
+\includegraphics[width = 0.9\textwidth]{./figs/Tenores.png}
+\label{fig:tenores}
+\caption*{\textbf{Fonte:} Elaboração própria}
+\end{figure}
+
+\alert{Principal mudança:} do incentivo à demanda agregada ao incetivo ao investimento privado.
 \end{frame}
 
-\begin{frame}[label={sec:orgad2fd69}]{Medidas macroprudenciais}
-\alert{Medidas macroprudenciais:*} Redução do crescimento do crédito.
+\begin{frame}[label={sec:orga8bc420}]{Medidas macroprudenciais}
+\alert{Medidas macroprudenciais:} Redução do crescimento do crédito.
 
 \begin{itemize}
 \item Redução da taxa de crescimento da renda disponível real
@@ -240,19 +388,21 @@ Conjugação de políticas de incentivo à renda e ao mercado interno
 \item Aumento do percentual mínimo de pagamento de cartões de crédito
 \end{itemize}
 
-\alert{\alert{Implicações:}}
-
+\begin{block}{Implicações}
 \begin{itemize}
 \item Aumento do spread do crédito ao consumo final
 \item Diminuição dos prazos
 \item Elimina \alert{boom} de consumo
 \item Aumento da inadimplência
 \end{itemize}
+\end{block}
 \end{frame}
 
 
-\begin{frame}[label={sec:org7387632}]{Desaceleração rudimentar I}
-\begin{center}
+\begin{frame}[label={sec:orga3cb664}]{Desaceleração rudimentar I}
+\begin{table}[htbp]
+\caption{Comparação das taxas de crescimento}
+\centering
 \begin{tabular}{lll}
 \hline
  & 2004-2010 & 2011-2014\\
@@ -261,12 +411,11 @@ Produção industrial & 3.6\% & -0.9\%\\
 Taxa de desemprego & 9.0\% & 5.4\%\\
 \hline
 \end{tabular}
-\end{center}
-
-\alert{Principal mudança:} do incentivo à demanda agregada ao incetivo ao investimento privado.
+\end{table}
 \end{frame}
 
-\begin{frame}[label={sec:orgb7b260b}]{Desaceleração rudimentar II}
+
+\begin{frame}[label={sec:org36ec198}]{Desaceleração rudimentar II}
 \begin{table}[htbp]
 \caption{Consumo das famílias}
 \centering
@@ -282,7 +431,7 @@ Renda disponível das famílias & 5,3\% & 1,2\%\\
 \end{table}
 \end{frame}
 
-\begin{frame}[label={sec:org1b657b3}]{Desaceleração rudimentar III}
+\begin{frame}[label={sec:org0d3102e}]{Desaceleração rudimentar III}
 \begin{table}[htbp]
 \caption{Política fiscal}
 \centering
@@ -300,7 +449,7 @@ Investimento Adm, Pública & 14,0\% & -1,0\%\\
 \end{frame}
 
 
-\begin{frame}[label={sec:org48299b2}]{\href{https://www.causaoperaria.org.br/brasil-o-golpe-a-opera-do-fim-do-mundo-artista-retrata-o-golpe-de-estado-no-pais/}{Prêambulo para a ópera do fim do mundo}}
+\begin{frame}[label={sec:org634d435}]{\href{https://www.causaoperaria.org.br/brasil-o-golpe-a-opera-do-fim-do-mundo-artista-retrata-o-golpe-de-estado-no-pais/}{Prêambulo para a ópera do fim do mundo}}
 \begin{figure}[htb]
 \centering
 \caption{Brasil, O Golpe: A Ópera do fim do mundo} 
@@ -309,64 +458,17 @@ Investimento Adm, Pública & 14,0\% & -1,0\%\\
 \end{figure}
 \end{frame}
 
+\section{Governos (?) Temer e Início Bolsonaro}
+\label{sec:org64e7e08}
 
-\section{Dados}
-\label{sec:org64934fc}
-
-\begin{frame}[label={sec:org81774a0}]{Índice EMBI Brasil (Fim de período)}
-\begin{figure}[htb]
-\centering
-\caption{Spread Soberano = EMBI+} 
-\includegraphics[width = 0.9\textwidth]{./figs/EMBI.png}
-\label{fig:embi}
-\caption*{\textbf{Fonte:} IPEADATA}
-\end{figure}
-\end{frame}
-
-\begin{frame}[label={sec:org8b8b50b}]{O ciclo das commodities}
-\begin{figure}[htb]
-\centering
-\caption{Índice de Commodities - Brasil\\Média móvel 12 meses} 
-\includegraphics[width = .9\textwidth]{./figs/Commodities.png}
-\caption*{\textbf{Fonte:} BCB-Depec}
-\end{figure}
-\end{frame}
+\section{Corona-crise}
+\label{sec:org8030c3b}
+\section{Dados 2011-2020}
+\label{sec:org59ed6e2}
 
 
-\begin{frame}[label={sec:org7150dae}]{Fluxos de capital}
-\begin{figure}[htb]
-\centering
-\caption{Balanço de Bagamentos - Conta financeira e seus componentes} 
-\includegraphics[width = 0.9\textwidth]{./figs/FluxosInternacionais.png}
-\label{fig:financeira}
-\caption*{\textbf{Fonte:} BCB}
-\end{figure}
-\end{frame}
 
-
-\begin{frame}[label={sec:orgea96eee}]{Evolução das reservas internacionais líquidas}
-\begin{figure}[htb]
-\centering
-\caption{Reservas Internacionais} 
-\includegraphics[width = 0.9\textwidth]{./figs/Reservas_Internacionais.png}
-\label{fig:reservas}
-\caption*{\textbf{Fonte:} BCB-DSTAT}
-\end{figure}
-\end{frame}
-
-
-\begin{frame}[label={sec:orgcf89228}]{Taxa de crescimento e IBC-Br}
-\begin{figure}[htb]
-\centering
-\caption{Taxa de crescimento do PIB: Efetiva x IBCBr} 
-\includegraphics[width = 0.9\textwidth]{./figs/PIB_IBCBr.png}
-\label{fig:ibcbr}
-\caption*{\textbf{Fonte:} }
-\end{figure}
-\end{frame}
-
-
-\begin{frame}[label={sec:org99b05a4}]{PIB puxado pelo mercado doméstico}
+\begin{frame}[label={sec:orgc0b5249}]{PIB puxado pelo mercado doméstico}
 \begin{figure}[htb]
 \centering
 \caption{Decomposição da taxa de crescimento do produto - Domésticos e externos} 
@@ -377,7 +479,7 @@ Investimento Adm, Pública & 14,0\% & -1,0\%\\
 \end{frame}
 
 
-\begin{frame}[label={sec:org75795d7}]{Crescimento e o investimento induzido}
+\begin{frame}[label={sec:org02fee50}]{Crescimento e o investimento induzido}
 \begin{figure}[htb]
 \centering
 \caption{Taxa de crescimento do produto - decomposição total} 
@@ -388,18 +490,8 @@ Investimento Adm, Pública & 14,0\% & -1,0\%\\
 \end{frame}
 
 
-\begin{frame}[label={sec:orgaedab3e}]{Saldo de Crédito}
-\begin{figure}[htb]
-\centering
-\caption{Saldo de Crédito\\em \% do PIB} 
-\includegraphics[width = 0.9\textwidth]{./figs/Credito.png}
-\label{fig:Credito}
-\caption*{\textbf{Fonte:} BCB-DSTAT}
-\end{figure}
-\end{frame}
 
-
-\begin{frame}[label={sec:orgf533a74}]{Emprego}
+\begin{frame}[label={sec:org747bf3b}]{Emprego}
 \begin{figure}[htb]
 \centering
 \caption{Índice do Emprego Formal} 
@@ -410,115 +502,10 @@ Investimento Adm, Pública & 14,0\% & -1,0\%\\
 \end{frame}
 
 
-\begin{frame}[label={sec:orgb3d18c2}]{Evolução dos rendimentos (I)}
-\begin{figure}[htb]
-\centering
-\caption{Rendimento médio real efetivo das pessoas ocupadas\\ Não desazonalizada} 
-\includegraphics[width = 0.9\textwidth]{./figs/RendimentoEfetivo.png}
-\label{fig:RendimentoE}
-\caption*{\textbf{Fonte:} IBGE}
-\end{figure}
-
-\alert{Nota:} Esta séria foi descontinuada
-\end{frame}
-
-
-\begin{frame}[label={sec:org6d93ff4}]{Evolução dos rendimentos (II)}
-\begin{figure}[htb]
-\centering
-\caption{Massa de rendimento real habitual de todos os trabalhos} 
-\includegraphics[width = 0.9\textwidth]{./figs/RendimentoHabitual.png}
-\label{fig:RendimentoH}
-\caption*{\textbf{Fonte:} IBGE}
-\end{figure}
-
-\alert{Memo:} Série anterior descontinuada
-\end{frame}
-
-\begin{frame}[label={sec:org2e01eff}]{Consumo das famílias}
-\begin{figure}[htb]
-\centering
-\caption{Consumo das famílias\\Jan/1995=100} 
-\includegraphics[width = 0.9\textwidth]{./figs/ConsumoFamilias.png}
-\label{fig:Consumo}
-\caption*{\textbf{Fonte:} IBGE}
-\end{figure}
-\end{frame}
-
-\begin{frame}[label={sec:orgff1a273}]{Endividamento das famílias}
-\begin{figure}[htb]
-\centering
-\caption{Endividamento das famílias\\em \% do PIB} 
-\includegraphics[width = 0.65\textwidth]{./figs/EndividamentoFam.png}
-\label{fig:Endiv}
-\caption*{\textbf{Fonte:} BCB}
-\end{figure}
-\end{frame}
-
-
-\begin{frame}[label={sec:orga931a48}]{Investimento público em recuperação}
-\begin{table}[htbp]
-\caption{Taxa de crescimento do investimentos públicos (1994-2015) \cite{orair_investimento_2016}}
-\centering
-\begin{tabular}{rrrrr}
-\hline
-Ano & Gov. Central & Gov. Geral & Setor Público & PIB\\
-\hline
-1994-1998 & -5.1 & -2.7 & -0.9 & 2.6\\
-1998-2002 & -1.2 & -2.0 & -1.9 & 2.3\\
-2002-2006 & -0.6 & 0.6 & 0.4 & 3.5\\
-2006-2010 & 25.4 & 13.5 & 17.0 & 4.6\\
-2010-2014 & -0.4 & -0.1 & -0.1 & 2.2\\
-2014-2015 & -6.2 & -4.0 & -5.2 & 0.3\\
-\hline
-\end{tabular}
-\end{table}
-\end{frame}
-
-\begin{frame}[label={sec:org367f2cc}]{A evolução favorável da dívida pública}
-\alert{Dado:} Evolução da dívida bruta e líquida (\%PIB)
-\end{frame}
-
-\begin{frame}[label={sec:orgffab23d}]{Resultado primário do Governo Central}
-\begin{table}[htbp]
-\caption{Metas e valores realizados do superavit primário do setor público (2003-2016) - \cite{orair_investimento_2016}}
-\centering
-\begin{tabular}{rrrrrr}
-\hline
-Ano & Meta & Dedução & Pós-dedução & Efetivo & Excedente\\
-\hline
-2003 & 4.25 & - & 4.25 & 4.37 & 0.12\\
-2004 & 4.25 & - & 4.25 & 4.58 & 0.33\\
-2005 & 4.25 & 0.14 & 4.11 & 4.83 & 0.72\\
-2006 & 4.25 & 0.15 & 4.10 & 4.37 & 0.27\\
-2007 & 4.25 & 0.2 & 4.05 & 4.50 & 0.45\\
-2008 & 3.80 & 0.48 & 3.32 & 4.56 & 1.24\\
-2009 & 2.50 & 0.90 & 1.60 & 2.05 & 0.45\\
-2010 & 3.30 & 0.67 & 2.63 & 2.07 & -0.57\\
-2011 & 3.30 & 0.84 & 2.46 & 3.38 & 0.93\\
-2012 & 3.10 & 0.90 & 2.20 & 2.05 & -0.15\\
-2013 & 3.10 & 0.88 & 2.22 & 1.82 & -0.40\\
-2014 & 3.10 & 1.07 & 2.03 & -0.6 & -2.63\\
-2015 & -0.85 & - & -0.85 & -1.92 & -1.07\\
-\hline
-\end{tabular}
-\end{table}
-\end{frame}
-
-
-\begin{frame}[label={sec:org2d0dc66}]{Dívida líquida do setor público}
-\begin{figure}[htb]
-\centering
-\caption{Dívida líquida do Governo Federal e Banco Central\\em \% do PIB} 
-\includegraphics[width = 0.9\textwidth]{./figs/DividaLiquida.png}
-\label{fig:divliq}
-\caption*{\textbf{Fonte:} BCB-DSTAT}
-\end{figure}
-\end{frame}
 
 
 
-\begin{frame}[label={sec:orgd44b769}]{Taxa de câmbio nominal}
+\begin{frame}[label={sec:org80f4cba}]{Taxa de câmbio nominal}
 \begin{figure}[htb]
 \centering
 \caption{ Índice da taxa de câmbio efetiva nominal\\Jun/1994=100 } 
@@ -529,7 +516,7 @@ Ano & Meta & Dedução & Pós-dedução & Efetivo & Excedente\\
 \end{frame}
 
 
-\begin{frame}[label={sec:orgbc21a0e}]{Taxa de juros selic}
+\begin{frame}[label={sec:org0fce1f8}]{Taxa de juros selic}
 \begin{figure}[htb]
 \centering
 \caption{Taxa de juros selic a.a. (efetivo x meta)\\Anualizada base 252} 
@@ -540,7 +527,7 @@ Ano & Meta & Dedução & Pós-dedução & Efetivo & Excedente\\
 \end{frame}
 
 
-\begin{frame}[label={sec:org79bd496}]{Finalmente, inflação (ops, IPCA)}
+\begin{frame}[label={sec:org6b2ad99}]{Finalmente, inflação (ops, IPCA)}
 \begin{figure}[htb]
 \centering
 \caption{IPCA e Metas para Inflação} 
@@ -549,7 +536,7 @@ Ano & Meta & Dedução & Pós-dedução & Efetivo & Excedente\\
 \caption*{\textbf{Fonte:} BCB}
 \end{figure}
 \end{frame}
-\begin{frame}[label={sec:org8af81e1}]{Preços livres, monitorados, serviços}
+\begin{frame}[label={sec:org836ad54}]{Preços livres, monitorados, serviços}
 \begin{figure}[htb]
 \centering
 \caption{IPCA e seus componentes: preços livres, monitorados e serviços} 
@@ -562,9 +549,9 @@ Ano & Meta & Dedução & Pós-dedução & Efetivo & Excedente\\
 
 
 \section{Referências}
-\label{sec:org6982f99}
+\label{sec:org97121ac}
 
-\begin{frame}[label={sec:orgf560a11}]{Referências}
+\begin{frame}[label={sec:org912bf33}]{Referências}
 
 \printbibliography
 \end{frame}
