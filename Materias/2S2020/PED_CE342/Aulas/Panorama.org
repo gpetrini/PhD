@@ -1,6 +1,6 @@
 #+OPTIONS: H:2 toc:t
 #+Title: Panorama Macroeconômico e a relação com a Inflação
-#+Author: PED: Gabriel Petrini
+#+Author: PEDs: Gabriel Petrini e Marília Cubero
 #+Email: gpetrinidasilveira@gmail.com
 #+DATE: 04 de Janeiro de 2021
 #+LANGUAGE: pt_Br
@@ -178,15 +178,9 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-/tmp/babel-3DJZ6P/python-pymSWI:1: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).
-  fig, ax = plt.subplots(figsize=(19.2, 10.8))
+
+(python3:38957): Gtk-[1;33mWARNING[0m **: [34m17:58:18.110[0m: Theme parsing error: gtk.css:1:117: Failed to import: Erro ao abrir arquivo /home/gpetrini/.local/share/gnome-shell/extensions/unite@hardpixel.eu/styles/buttons-right-always.css: Arquivo ou diretório não encontrado
 :end:
-
-
-
-
-
-
 
 #+begin_export latex
 \begin{figure}[htb]
@@ -213,7 +207,139 @@ fig.savefig(
   + *Memo:* Quantidade de moeda endógena
   + $i_{t}$, spread bancário, oferta de títulos públicos (LTN, LFT, etc)
 
-** Exemplo: Ata
+** Exemplo: [[https://www.bcb.gov.br/publicacoes/atascopom/28102020][Ata Nº234]]
+
+- *Setor externo:* $\Downarrow$ retomada de alguns setores ($\varepsilon^{F}$)
+- Moderação da volatilidade dos ativos financeiros $\Rightarrow$ favorece economias emergentes
+- *Mercado doméstico:* Recuperação desigual
+  + $\Uparrow$ incerteza sobre a retomada $\Leftrightarrow \Downarrow Y_{\text{Emerg.}}$
+- $\Uparrow$ projeção da inflação ($\pi^{e}$)
+  + $\Uparrow p_{\text{Alimentos}}, p_{\text{Bens ind.}} \Leftrightarrow$ depreciação do Real e das /commodities/ ($\Delta e, \Delta p^{F}$)
+  + Perspectiva de normalização de preços com aumento extraordinário $\Rightarrow \Downarrow$ produção e $\Uparrow$ demanda ($\varepsilon^{S}, \varepsilon^{D}$)
+- Ociosidade no setor de serviços ($h_{t}_{\text{Serv}}$)
+- $Y_{\text{Emerg.}}$ e adiamento de reformas $\Rightarrow$ $\Uparrow$ prêmio de risco ($\Delta x$)
+- $\Downarrow \Downarrow$ taxas de juros $\Rightarrow$ instabilidade $p_{\text{ativos}}$
+  + Proximidade à ZLB ($i_{t} \to 0$)
+- Projeções de inflação abaixo da meta ($\pi_{t} < \pi^{\star}$)
+  + Expectativas de longo prazo ancoradas ($\pi^{e} \to \pi^{\star}$)
+
+** Exemplo: [[https://www.bcb.gov.br/publicacoes/atascopom/28102020][Ata Nº234 03/Nov/2020]]
+#+BEGIN_SRC python
+fig, ax = plt.subplots(figsize=(19.2, 10.8))
+
+G = nx.DiGraph()
+G.add_edges_from(
+    [
+        ("$h_{t-n}$", "$h_{t}$"),
+        ("$r_{t-m}$", "$h_{t}$"),
+        ("$\\varepsilon^{D}$", "$h_{t}$"),  # IS
+        ("$\pi_{t-n}$", "$\pi_{t}$"),
+        ("$\pi^{e}_{t+n}$", "$\pi_{t}$"),
+        ("$h_{t-n}$", "$\pi_{t}$"),
+        ("$\Delta p^{F}$", "$\pi_{t}$"),
+        ("$\Delta e$", "$\pi_{t}$"),
+        ("$\\varepsilon^{S}$", "$\pi_{t}$"),  # Phillips
+        ("$\Delta i^{F}_{t}$", "$\Delta e$"),
+        ("$\Delta x_{t}$", "$\Delta e$"),
+        ("$\Delta i_{t}$", "$\Delta e$"),
+        ("$\\varepsilon^{F}_{t}$", "$\Delta e$"),  # Câmbio
+        ("$i_{t-n}$", "$i_{t}$"),
+        ("$\pi_{t} - \pi^{\star}$", "$i_{t}$"),
+        ("$h_{t}$", "$i_{t}$"),  # Regra PM
+        ("$\pi_{t}$", "$r_{t}$"),
+        ("$r_{t-m}$", "$r_{t}$"),
+        ("$i_{t}$", "$r_{t}$"),  # Juros real
+        ("$r_{t}$", "$h_{t}$"),
+        ("$\pi_{t}$", "$\pi_{t} - \pi^{\star}$"),
+        ("$i_{t}$", "$\Delta i_{t}$"),
+    ]
+)
+
+
+# Specify the edges you want here
+red_edges = []
+edge_colours = ["black" if not edge in red_edges else "red" for edge in G.edges()]
+black_edges = [edge for edge in G.edges() if edge not in red_edges]
+
+highlights = [
+    "$h_{t}$",
+    "$\pi_{t} - \pi^{\star}$",
+    "$\Delta e$",
+    "$i_{t-n}$",
+    "$\Delta x_{t}$",
+    "$\Delta p^{F}$",
+    "$\\varepsilon^{F}_{t}$",
+    "$\\varepsilon^{S}$",
+    "$\\varepsilon^{D}$",
+    "$\pi^{e}_{t+n}$"
+]
+red_nodes = [node for node in G.nodes() if node in highlights]
+white_nodes = [node for node in G.nodes() if node not in highlights]
+
+
+# Need to create a layout when doing
+# separate calls to draw nodes and edges
+pos = nx.shell_layout(
+    G,
+)
+nx.draw_networkx_nodes(
+    G,
+    pos,
+    node_size=3200,
+    ax=ax,
+    node_color="white",
+    edgecolors="black",
+    nodelist=white_nodes,
+)
+nx.draw_networkx_nodes(
+    G,
+    pos,
+    node_size=3200,
+    ax=ax,
+    node_color="yellow",
+    edgecolors="black",
+    nodelist=red_nodes,
+)
+nx.draw_networkx_labels(G, pos, font_size=20)
+nx.draw_networkx_edges(
+    G,
+    pos,
+    edgelist=red_edges,
+    edge_color="darkred",
+    arrows=True,
+    arrowsize=30,
+    min_target_margin=25,
+    width=3.0,
+)
+nx.draw_networkx_edges(
+    G,
+    pos,
+    edgelist=black_edges,
+    arrows=True,
+    arrowsize=30,
+    min_target_margin=25,
+)
+
+
+sns.despine(left=True, bottom=True)
+fig.savefig(
+    "./figs/RMI_234.png", transparent=True, dpi=600, bbox_inches="tight", pad_inches=0
+)
+#+END_SRC
+
+#+RESULTS:
+:results:
+:end:
+
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{Representação de Análise de uma ata do COPOM}
+\includegraphics[width = 0.9\textwidth]{./figs/RMI_234.png}
+\label{fig:ata234}
+\caption*{\textbf{Fonte:} Elaboração própria}
+\end{figure}
+#+end_export
 * Governos Lula e suas fases
 
 ** Crescimento e desequilíbrios globais cite:carneiroSupremaciaDosMercados2006
@@ -665,19 +791,19 @@ fig.savefig("./figs/IPCA_I.png", transparent = True, dpi = 300)
 ** Composição do IPCA cite:bcb_2019_Atualizacoes
 
 #+CAPTION: IPCA: estruturas de ponderação – janeiro de 2018
-|---------------------------+---------------+---------------+------------------|
-| Grupo                     | POF 2008-2009 | POF 2017-2018 | Diferença (p.p.) |
-|---------------------------+---------------+---------------+------------------|
-| Alimentação e bebidas     |         24.58 |         18.99 |            -5.59 |
-| Habitação                 |         15.72 |         15.16 |            -0.56 |
-| Artigos de residência     |          3.98 |          4.02 |             0.04 |
-| Vestuário                 |          5.96 |           4.8 |            -1.16 |
-| Transporte                |         18.28 |         20.84 |             2.55 |
-| Saúde e cuidados pessoais |         12.04 |         13.46 |             1.41 |
-| Despesas pessoais         |         10.96 |         10.60 |            -0.36 |
-| Educação                  |          4.83 |          5.95 |             1.13 |
-| Comunicação               |          3.65 |          6.19 |             2.54 |
-|---------------------------+---------------+---------------+------------------|
+|---------------------------+-----------+-----------+----------|
+| Grupo                     | 2008-2009 | 2017-2018 | $\Delta$ |
+|---------------------------+-----------+-----------+----------|
+| Alimentação e bebidas     |     24.58 |     18.99 |    -5.59 |
+| Habitação                 |     15.72 |     15.16 |    -0.56 |
+| Artigos de residência     |      3.98 |      4.02 |     0.04 |
+| Vestuário                 |      5.96 |       4.8 |    -1.16 |
+| Transporte                |     18.28 |     20.84 |     2.55 |
+| Saúde e cuidados pessoais |     12.04 |     13.46 |     1.41 |
+| Despesas pessoais         |     10.96 |     10.60 |    -0.36 |
+| Educação                  |      4.83 |      5.95 |     1.13 |
+| Comunicação               |      3.65 |      6.19 |     2.54 |
+|---------------------------+-----------+-----------+----------|
 ** Preços livres, monitorados, serviços
 
 #+BEGIN_SRC python
@@ -754,12 +880,12 @@ fig.savefig("./figs/Livres_Administrados_I.png", transparent = True, dpi = 300)
 
 * Governo(s?) Dilma
 
-** Os três "motores" cite:serrano_demanda_2015
+** Os três motores cite:serrano_demanda_2015
 #+begin_export latex
 \begin{figure}[htb]
 \centering
 \caption{Os três motores do crescimento} 
-\includegraphics[width = 0.9\textwidth]{./figs/Tenores.png}
+\includegraphics[width = 0.75\textwidth]{./figs/Tenores.png}
 \label{fig:tenores}
 \caption*{\textbf{Fonte:} Elaboração própria}
 \end{figure}
@@ -786,26 +912,20 @@ fig.savefig("./figs/Livres_Administrados_I.png", transparent = True, dpi = 300)
 ** Desaceleração rudimentar I
 
 #+CAPTION: Comparação das taxas de crescimento
-|---------------------+-----------+-----------|
-|                     | 2004-2010 | 2011-2014 |
-| PIB                 |      4.4% |      2.1% |
-| Produção industrial |      3.6% |     -0.9% |
-| Taxa de desemprego  |      9.0% |      5.4% |
-|---------------------+-----------+-----------|
+|----------------------------+-----------+-----------|
+|                            | 2004-2010 | 2011-2014 |
+|----------------------------+-----------+-----------|
+| PIB                        |      4.4% |      2.1% |
+| Produção industrial        |      3.6% |     -0.9% |
+| Taxa de desemprego         |      9.0% |      5.4% |
+| Crédito para habitação     |     21,5% |      4,6% |
+| Hipotecas                  |     20,1% |     29,3% |
+| Salário real (emp. formal) |      2,9% |      2,9% |
+| Renda disp. (Famílias)     |      5,3% |      1,2% |
+|----------------------------+-----------+-----------|
 
 
 ** Desaceleração rudimentar II
-
-#+CAPTION: Consumo das famílias
-|-------------------------------+-----------+-----------|
-|                               | 2004-2010 | 2011-2014 |
-| Crédito para habitação        | 21,5%     | 4,6%      |
-| Hipotecas                     | 20,1%     | 29,3%     |
-| Salário real (emp, formal)    | 2,9%      | 2,9%      |
-| Renda disponível das famílias | 5,3%      | 1,2%      |
-|-------------------------------+-----------+-----------|
-
-** Desaceleração rudimentar III
 
 #+CAPTION: Política fiscal
 |-----------------------------------+-----------+-----------|
@@ -1149,12 +1269,6 @@ sns.despine()
 fig.savefig("./figs/IPCA.png", transparent = True, dpi = 300)
 #+END_SRC
 
-#+RESULTS:
-:results:
-/tmp/babel-3DJZ6P/python-tdCDms:16: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).
-  fig, ax = plt.subplots(figsize=(19.20,10.80))
-:end:
-
 #+begin_export latex
 \begin{figure}[htb]
 \centering
@@ -1219,6 +1333,7 @@ ax.legend()
 sns.despine()
 
 fig.savefig("./figs/Livres_Administrados.png", transparent = True, dpi = 300)
+plt.cla()
 #+END_SRC
 
 #+RESULTS:

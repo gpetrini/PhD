@@ -1033,8 +1033,11 @@ plt.savefig("./figs/turintin_NCM_fig.png")
 plt.close()
 #+END_SRC
 
-#+RESULTS:
-[[file:./figs/turintin_NCM_fig.png]]
+**** Atualização das notas
+
+#+BEGIN_SRC python
+df.loc["244207", "Resenha Regime de Metas"] = 0
+#+END_SRC
 
 * Lista de presença e notas
 ** Lista de chamada com nota das resenhas                            :ignore:
