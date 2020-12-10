@@ -13,6 +13,7 @@
 #+LATEX_HEADER: \usepackage[style=abnt,noslsn,extrayear,uniquename=init,giveninits,justify,sccite, scbib,repeattitles,doi=false,isbn=false,url=false,maxcitenames=2, natbib=true,backend=biber]{biblatex}
 #+LATEX_HEADER: \addbibresource{refs.bib}
 #+LATEX_HEADER: \addbibresource{/HDD/Org/all_my_refs.bib}
+#+latex_header: \AtBeginSection[]{\begin{frame}<beamer>\frametitle{Tópicos}\tableofcontents[currentsection]\end{frame}}
 
 The first line enables the Beamer specific commands for org-mode (more on this below); the next two tell the LaTeX exporter to use the Beamer class and to use the larger font settings
 
@@ -71,13 +72,17 @@ A aula terá a seguinte estrutura
 
 ** A Herança Maldita cite:belluzzoDepoisQuedaEconomia2002
 
+- Desmonte ossatura Estado Desenvolvimentista
 - Crise Russa, Mexicana, Argentina $\Rightarrow$ /flight to quality/
 - Instabilidade macroeconômica $\Rightarrow$ /stop and go/
-- Dívida pública
-  - Relação dívida/PIB em expansão
-  - Elevação do gasto com juros
-  - Concentrada em títulos selic e indexados ao câmbio
+- $\Uparrow$ Dívida/PIB
 - Choque inflacionário $\Rightarrow$ Câmbio e energia
+
+*Herança Maldita:*
+
+- Instabilidade macroeconômica $\Leftrightarrow \Uparrow r, \Downarrow e$ 
+- Desemprego elevado
+- Crises bancárias e do Balanço de Pagamentos
 
 *** 1999: Implementação do RMI
 
@@ -353,7 +358,7 @@ Após fase conturbada de 1997/2002, a economia global consolida um arrajno dinâ
     - Superávit comercial chinês com os EUA
   - Impactos nas commodities
 
-** Primeira Fase
+** Primeira Fase (2002-2006)
 
 
 Experimento desenvolvimentista junto de uma política macroeconômica conservadora:
@@ -368,7 +373,7 @@ Experimento desenvolvimentista junto de uma política macroeconômica conservado
 
 *Contexto de transição complexa:* desconfiança dos credores e pressões financeiras
 
-** Segunda fase
+** Segunda fase (2006-2010)
 
 - Retomada do Estado como elemento condutor do Crescimento
 - Desenho da política fiscal no centro de proposta do desenvolvimento
@@ -376,16 +381,6 @@ Experimento desenvolvimentista junto de uma política macroeconômica conservado
 - Não desmonta aparato regulatório do modelo anterior
 - Investimento de apoio às atividades privadas
 
-
-** Dificuldades em aberto cite:melloIndustrialismoAusteridadePolitica
-
-- Limites do crescimento com expansão da demanda de consumo via crédito e políticas sociais
-- Retomada da taxa de investimento, mas nível baixo
-  - Dificuldade de retomada do investimento público
-  - Crise mundial e investimento privado
-- Estrutura produtiva
-    
-* Dados 2002-2011
 ** Continuidades
 
 *** Política cambial
@@ -411,7 +406,6 @@ Não foi alterado o regime fiscal definido na era FHC
 - Lei de Responsabilidade Fiscal sem mudanças
 - Não alterou mercado de dívida pública
 
-
 ** Descontinuidades
 
 Conjugação de políticas de incentivo à renda e ao mercado interno
@@ -425,7 +419,6 @@ Conjugação de políticas de incentivo à renda e ao mercado interno
   - Gasto público como estratégia para elevar o crescimento
   - Política de fortalecimento dos Bancos Públicos e das empresas estatais
 
-
 ** Alguns resultados
 - Queda da taxa de desemprego aberta
 - Valorização real do salário mínimo
@@ -433,8 +426,6 @@ Conjugação de políticas de incentivo à renda e ao mercado interno
 - Taxa crescimento da FBCF cresce pós-07
 - Aumento do consumo das famílias, mas menor que o investimento
 
-
- 
 ** Fatores determinantes
 
 - Impulsos externos favoráveis
@@ -446,6 +437,7 @@ Conjugação de políticas de incentivo à renda e ao mercado interno
   - Investimento induzido
 - Investimento público a partir de 2007 com o PAC
 
+* Dados 2002-2011
 
 ** PIB puxado pelo mercado doméstico
 
@@ -453,61 +445,50 @@ Conjugação de políticas de incentivo à renda e ao mercado interno
 import matplotlib.ticker as mticker
 
 
-df = pd.concat([
-    consulta_bc(22109,["PIB"]),
-    consulta_bc(22110,["Consumo das famílias"]),
-    consulta_bc(22111,["Consumo do governo"]),
-    consulta_bc(22113,["FBCF"]),
-    consulta_bc(22114,["Exportação"]),
-    consulta_bc(22115,["Importação"])
-], axis=1)
-
-df["Mercado doméstico"] = df[["Consumo das famílias", "Consumo do governo", "FBCF"]].sum(axis=1)
-df["Setor Externo"] = df["Exportação"] - df["Importação"]
-
-fig, ax = plt.subplots(figsize=(19.20,10.80))
-
-df[["Mercado doméstico", "Setor Externo"]]["2001-01-01":"2011-12-31"].diff(4).apply(lambda x: x/(df["PIB"].shift(4))).dropna().plot(ax=ax,
-                                                lw=1.5,
-                                                kind='bar',
-                                                stacked=True,
-                                                                                                width = 0.75,
-                                                edgecolor='black'
-                                                
+df = pd.concat(
+    [
+        consulta_bc(22109, ["PIB"]),
+        consulta_bc(22110, ["Consumo das famílias"]),
+        consulta_bc(22111, ["Consumo do governo"]),
+        consulta_bc(22113, ["FBCF"]),
+        consulta_bc(22114, ["Exportação"]),
+        consulta_bc(22115, ["Importação"]),
+    ],
+    axis=1,
 )
-#ax.set_xticklabels(df.index.strftime('%Y-%m')[::8])
-#ax.set_xticklabels(ax.get_xticklabels(), rotation=0)
 
-ticklabels = ['']*len(df)
-skip = len(df)//12
-ticklabels[4::skip] = df.index[4::skip].strftime('%Y')
+df["Mercado doméstico"] = df[
+    ["Consumo das famílias", "Consumo do governo", "FBCF"]
+].sum(axis=1)
+df["Setor Externo"] = df["Exportação"] - df["Importação"]
+df = df["2001-01-01":"2011-12-31"]
+fig, ax = plt.subplots(figsize=(19.20, 10.80))
+
+df[["Mercado doméstico", "Setor Externo"]].diff(4).apply(
+    lambda x: x / (df["PIB"].shift(4))
+).dropna().plot(ax=ax, lw=2.5, kind="bar", stacked=True, width=0.75, edgecolor="black")
+# ax.set_xticklabels(df.index.strftime('%Y-%m')[::8])
+# ax.set_xticklabels(ax.get_xticklabels(), rotation=0)
+ticklabels = [""] * len(df)
+skip = len(df) // 12
+ticklabels[4::skip] = df.index[4::skip].strftime("%Y")
 ax.xaxis.set_major_formatter(mticker.FixedFormatter(ticklabels))
 fig.autofmt_xdate()
 
-ax.text(
-	0.95, -0.12,
-	f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
-        verticalalignment='bottom', horizontalalignment='right',
-        transform=ax.transAxes,
-        color='black', fontsize=15)
-
-
 sns.despine()
-fig.savefig("./figs/PIB_Decomp_I.png", transparent = True, dpi = 300)
+fig.savefig("./figs/PIB_Decomp_I.png", transparent=True, dpi=300)
 plt.cla()
 #+END_SRC
 
 #+RESULTS:
 :results:
-/tmp/babel-3DJZ6P/python-LogcxR:16: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).
-  fig, ax = plt.subplots(figsize=(19.20,10.80))
 :end:
 
 #+begin_export latex
 \begin{figure}[htb]
 \centering
-\caption{Decomposição da taxa de crescimento do produto - Domésticos e externos} 
-\includegraphics[width = 0.9\textwidth]{./figs/PIB_Decomp_I.png}
+\caption{Decomp. tx de crescimento do produto - Domésticos e externos} 
+\includegraphics[width = 0.95\textwidth]{./figs/PIB_Decomp_I.png}
 \label{fig:cycles}
 \caption*{\textbf{Fonte:} BCB}
 \end{figure}
@@ -518,50 +499,44 @@ plt.cla()
 
 
 #+BEGIN_SRC python
-fig, ax = plt.subplots(figsize=(19.20,10.80))
-df = df["2001-01-01":"2011-12-31"]
-df[["Consumo das famílias", "Consumo do governo", "FBCF",
-    "Setor Externo"
-]].diff(4).apply(lambda x: x/(df["PIB"].shift(4))).dropna().plot(ax=ax,
-                                                                 lw=1.5,
-                                                                 kind='bar',
-                                                                 stacked=True,
-                                                                 width = 0.75,
-                                                                 color = ("darkred", "darkblue", "darkorange", "darkgreen",),
-                                                                 edgecolor='black'
-                                                
+fig, ax = plt.subplots(figsize=(19.20, 10.80))
+df[["Consumo das famílias", "Consumo do governo", "FBCF", "Setor Externo"]].diff(
+    4
+).apply(lambda x: x / (df["PIB"].shift(4))).dropna().plot(
+    ax=ax,
+    lw=2.5,
+    kind="bar",
+    stacked=True,
+    width=0.75,
+    color=(
+        "darkred",
+        "darkblue",
+        "darkorange",
+        "darkgreen",
+    ),
+    edgecolor="black",
 )
-ticklabels = ['']*len(df)
-skip = len(df)//12
-ticklabels[4::skip] = df.index[4::skip].strftime('%Y')
+ticklabels = [""] * len(df)
+skip = len(df) // 12
+ticklabels[4::skip] = df.index[4::skip].strftime("%Y")
 ax.xaxis.set_major_formatter(mticker.FixedFormatter(ticklabels))
 fig.autofmt_xdate()
 
-ax.text(
-	0.95, -0.12,
-	f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
-        verticalalignment='bottom', horizontalalignment='right',
-        transform=ax.transAxes,
-        color='black', fontsize=15)
-
-
 sns.despine()
 
-fig.savefig("./figs/PIB_Decomp_Total_I.png", transparent = True, dpi = 300)
+fig.savefig("./figs/PIB_Decomp_Total_I.png", transparent=True, dpi=300)
 plt.cla()
 #+END_SRC
 
 #+RESULTS:
 :results:
-/tmp/babel-3DJZ6P/python-TtIfNc:1: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).
-  fig, ax = plt.subplots(figsize=(19.20,10.80))
 :end:
 
 #+begin_export latex
 \begin{figure}[htb]
 \centering
 \caption{Taxa de crescimento do produto - decomposição total} 
-\includegraphics[width = 0.9\textwidth]{./figs/PIB_Decomp_Total_I.png}
+\includegraphics[width = 0.95\textwidth]{./figs/PIB_Decomp_Total_I.png}
 \label{fig:PIB_Decomp_Total}
 \caption*{\textbf{Fonte:} BCB}
 \end{figure}
@@ -592,31 +567,21 @@ plt.cla()
 #+BEGIN_SRC python
 df = consulta_bc(28512, ["Emprego Formal"])
 df = df["2001-01-01":"2011-12-31"]
-fig, ax = plt.subplots(figsize=(19.20,10.80))
+fig, ax = plt.subplots(figsize=(19.20, 10.80))
 
-df.plot(ax=ax,
-lw=2.5,
-color='black',
-ls='-',
+df.plot(
+    ax=ax,
+    lw=2.5,
+    color="black",
+    ls="-",
 )
-
-ax.text(
-0.95, -0.15,
-f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
-verticalalignment='bottom', horizontalalignment='right',
-transform=ax.transAxes,
-color='black', fontsize=10)
-
-
 sns.despine()
 
-fig.savefig("./figs/EmpregoFormal_I.png", transparent = True, dpi = 300)
+fig.savefig("./figs/EmpregoFormal_I.png", transparent=True, dpi=300)
 #+END_SRC
 
 #+RESULTS:
 :results:
-/tmp/babel-3DJZ6P/python-BdKJNV:3: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).
-  fig, ax = plt.subplots(figsize=(19.20,10.80))
 :end:
 
 #+begin_export latex
@@ -643,15 +608,6 @@ df.plot(ax=ax,
 	ls='-',
         label=False,
 )
-
-ax.text(
-	0.95, -0.2,
-	f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
-        verticalalignment='bottom', horizontalalignment='right',
-        transform=ax.transAxes,
-        color='black', fontsize=10)
-
-
 sns.despine()
 
 fig.savefig("./figs/CambioNominal_I.png", transparent = True, dpi = 300)
@@ -659,15 +615,13 @@ fig.savefig("./figs/CambioNominal_I.png", transparent = True, dpi = 300)
 
 #+RESULTS:
 :results:
-/tmp/babel-3DJZ6P/python-5IIMxs:3: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).
-  fig, ax = plt.subplots(figsize=(19.20,10.80))
 :end:
 
 #+begin_export latex
 \begin{figure}[htb]
 \centering
 \caption{ Índice da taxa de câmbio efetiva nominal\\Jun/1994=100 } 
-\includegraphics[width = 0.9\textwidth]{./figs/CambioNominal_I.png}
+\includegraphics[width = 0.95\textwidth]{./figs/CambioNominal_I.png}
 \label{fig:cambio}
 \caption*{\textbf{Fonte:} BCB-DSTAT}
 \end{figure}
@@ -675,7 +629,6 @@ fig.savefig("./figs/CambioNominal_I.png", transparent = True, dpi = 300)
 
 
 ** Taxa de juros selic
-
 
 #+BEGIN_SRC python
 fig, ax = plt.subplots(1,1, figsize=(19.20,10.80))
@@ -687,17 +640,6 @@ df["Desvio"] = df["Meta"] - df["Efetiva"]
 df["1999-01-01":"2011-12-31"].plot(ax=ax, color=('black', 'red', 'gray'))
 
 ax.set_yticklabels(['{:,.2%}'.format(x/100) for x in ax.get_yticks()])
-
-
-
-ax.text(
-0.95, -0.2,
-f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
-verticalalignment='bottom', horizontalalignment='right',
-transform=ax.transAxes,
-color='black', fontsize=10)
-
-
 sns.despine()
 
 fig.savefig("./figs/Selic_I.png", transparent = True, dpi = 300)
@@ -705,15 +647,13 @@ fig.savefig("./figs/Selic_I.png", transparent = True, dpi = 300)
 
 #+RESULTS:
 :results:
-/tmp/babel-3DJZ6P/python-5Gxo7r:1: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).
-  fig, ax = plt.subplots(1,1, figsize=(19.20,10.80))
 :end:
 
 #+begin_export latex
 \begin{figure}[htb]
 \centering
 \caption{Taxa de juros selic a.a. (efetivo x meta)\\Anualizada base 252} 
-\includegraphics[width = 0.9\textwidth]{./figs/Selic_I.png}
+\includegraphics[width = 0.95\textwidth]{./figs/Selic_I.png}
 \label{fig:Selic}
 \caption*{\textbf{Fonte:} Copom e BCB-Demab}
 \end{figure}
@@ -723,7 +663,6 @@ fig.savefig("./figs/Selic_I.png", transparent = True, dpi = 300)
 ** Finalmente, inflação (ops, IPCA)
 
 #+BEGIN_SRC python
-
 df = consulta_bc(13521, ["Meta"])
 df = df.resample('MS').ffill()#.bfill()
 
@@ -747,13 +686,6 @@ ls='-',
 color = 'red',                  
 )
 
-ax.text(
-0.95, -0.15,
-f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
-verticalalignment='bottom', horizontalalignment='right',
-transform=ax.transAxes,
-color='black', fontsize=10)
-
 ax.pcolorfast(ax.get_xlim(), ax.get_ylim(),
               (df['IPCA'] > df["Teto"]).values[np.newaxis],
               cmap='Reds', alpha=0.3, label="Acima do Teto",
@@ -775,15 +707,13 @@ fig.savefig("./figs/IPCA_I.png", transparent = True, dpi = 300)
 
 #+RESULTS:
 :results:
-/tmp/babel-3DJZ6P/python-VAnDE8:17: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).
-  fig, ax = plt.subplots(figsize=(19.20,10.80))
 :end:
 
 #+begin_export latex
 \begin{figure}[htb]
 \centering
 \caption{IPCA e Metas para Inflação} 
-\includegraphics[width = 0.9\textwidth]{./figs/IPCA_I.png}
+\includegraphics[width = 0.975\textwidth]{./figs/IPCA_I.png}
 \label{fig:IPCA}
 \caption*{\textbf{Fonte:} BCB}
 \end{figure}
@@ -829,28 +759,21 @@ df["Monitorados"] = (1+ df["Monitorados"]).rolling(window=12).agg(lambda x : x.p
 df["Serviços"] = (1+ df["Serviços"]).rolling(window=12).agg(lambda x : x.prod()) -1
 fig, ax = plt.subplots(figsize=(19.20,10.80))
 
-df[["Livres", "Monitorados", "Serviços", "IPCA"]].plot(ax=ax,
+df[["Livres", "Monitorados", "Serviços", "IPCA"]].dropna().plot(ax=ax,
 lw=2,
 ls='-',
 color = ('blue','red','green', 'black'),                  
 )
 
-ax.text(
-0.95, -0.15,
-f'\nAtualizado em {datetime.datetime.now():%Y-%m-%d %H:%M}',
-verticalalignment='bottom', horizontalalignment='right',
-transform=ax.transAxes,
-color='black', fontsize=10)
-
 ax.pcolorfast(ax.get_xlim(), ax.get_ylim(),
               (df['IPCA'] > df["Teto"]).values[np.newaxis],
-              cmap='Blues', alpha=0.3, label="Acima do Teto",
+              cmap='Reds', alpha=0.3, label="Acima do Teto",
               zorder=-1,
 )
 
 ax.pcolorfast(ax.get_xlim(), ax.get_ylim(),
               (df['IPCA'] < df["Piso"]).values[np.newaxis],
-              cmap='Reds', alpha=0.3, label="Abaixo do Piso",
+              cmap='Blues', alpha=0.3, label="Abaixo do Piso",
               zorder=-1,
 )
 
@@ -863,15 +786,13 @@ fig.savefig("./figs/Livres_Administrados_I.png", transparent = True, dpi = 300)
 
 #+RESULTS:
 :results:
-/tmp/babel-3DJZ6P/python-BOd5nQ:21: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).
-  fig, ax = plt.subplots(figsize=(19.20,10.80))
 :end:
 
 #+begin_export latex
 \begin{figure}[htb]
 \centering
 \caption{IPCA e seus componentes: preços livres, monitorados e serviços} 
-\includegraphics[width = 0.65\textwidth]{./figs/Livres_Administrados_I.png}
+\includegraphics[width = 0.975\textwidth]{./figs/Livres_Administrados_I.png}
 \label{fig:livres_adm}
 \caption*{\textbf{Fonte:} BCB}
 \end{figure}
@@ -893,6 +814,14 @@ fig.savefig("./figs/Livres_Administrados_I.png", transparent = True, dpi = 300)
 
 *Principal mudança:* do incentivo à demanda agregada ao incetivo ao investimento privado.
 
+** Dificuldades em aberto cite:mello_2017_industrialismo
+
+- Limites do crescimento com expansão da demanda de consumo via crédito e políticas sociais
+- Retomada da taxa de investimento, mas nível baixo
+  - Dificuldade de retomada do investimento público
+  - Crise mundial e investimento privado
+- Estrutura produtiva
+    
 ** Medidas macroprudenciais
 
 *Medidas macroprudenciais:* Redução do crescimento do crédito.
@@ -937,6 +866,7 @@ fig.savefig("./figs/Livres_Administrados_I.png", transparent = True, dpi = 300)
 | Investimento Adm, Pública         | 14,0%     | -1,0%     |
 |-----------------------------------+-----------+-----------|
 
+*Principal mudança:* do industrialismo à austeridade
 
 ** [[https://www.causaoperaria.org.br/brasil-o-golpe-a-opera-do-fim-do-mundo-artista-retrata-o-golpe-de-estado-no-pais/][Prêambulo para a ópera do fim do mundo]]
 
