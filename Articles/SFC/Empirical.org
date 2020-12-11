@@ -133,10 +133,6 @@ df['$g_{I_h}$'] = df["Residential investment"].pct_change()
 df.to_csv("./data/OwnInterestRate_data.csv")
 #+END_SRC
 
-#+RESULTS:
-:results:
-:end:
-
 ** Residuals
 Code and text not used anymore
 
@@ -1002,7 +998,7 @@ This increase implies GDP to grow faster than residential investment, therefore 
 \end{figure}
 #+end_export
 
-*** Curva de Concentração                                            :ignore:
+*** Curva de Concentração :noexport:
 
 Turning now to some key aspects of housing distribution, we point out that  there has been little discussion on popularization of primary houses and concentration of secondary ones[fn::According to textcite:us_census_bureau_characteristics_2017, a primary property is one that the owner has regular access to and, in the case of having more than one (secondary) property, it is the one that enjoys most of the time throughout the year. Secondary properties are those where:
 (i) the owners reside part of the year only; (ii) it is at least 50 miles from the primary property and; (iii) cannot be subject to a rental agreement.]. The expansion of primary houses can be seen in Figure ref:fig:concentration, which shows concentration curves from 1989 to 2010 by different types of properties (primary and secondary)[fn::Concentration curves are drawn from the cumulative ordering of two distinct variables. The horizontal axis of Figure ref:fig:concentration contains the cumulative proportion of wealthy households while the vertical axis shows the accumulated proportion of a portion of this wealth (in this case, primary and secondary houses). Finally, to build the concentration curves, both axes are ordered by total wealth. Thus, unlikely the Lorenz curve, concentration curves are non-decreasing. As a consequence, it can cross the perfect equality line. For more details, see textcite:Jann_Concentration_2016.]. Based on these curves, it is possible to assess how concentrated a certain asset is by comparing it with perfect equality line[fn::In 2010, for example,  up to 25% of wealthy households owned 21.80% of all primary houses. Moving on, households up to 50%, 75% and 90% owned 61.30%, 90.10% and  95.30% respectively while 2.9% was not in the possession of any households.][fn::The higher and to the left a concentration curve is compared to the Lorenz curve, the less concentrated the asset is. In this case, the asset  is distributed in favor of the poorest strata of wealth. A concentration curve more to the right and below compared to the Lorenz curve indicates the opposite.].
@@ -1021,38 +1017,37 @@ Turning now to some key aspects of housing distribution, we point out that  ther
 A brief inspection of Figure ref:fig:concentration reveals that the years leading up to the Great Recession were characterized by the deconcentration of primary houses. In other words, poorer strata of the population now have a larger accumulated share of primary houses. 
 Since this asset is mainly acquired for non-speculative reasons, there is a general increase in the demand for properties as final good. The same cannot be said about secondary houses whose concentration/distribution movement is not as marked as in the previous case. Since this type of property is not intended for regular use by its owner, deconcentration of this asset suggests other purposes, such as rental income, speculation, etc[fn::This increase in demand for secondary houses may indicate --- but is not limited to --- an increase for speculative reasons. A vacation or rental home, for example, are non-speculative uses of a secondary house. Nevertheless, it is argued that there is a connection between secondary houses and speculation with real estate. It worth noting that the wealthiest households are not the main holders of this secoundary houses. According to Figure ref:fig:concentration, they accumulate less than 50% of these properties over the analyzed period (see vertical axis).].
 
-*** Conexão com a subseção seguinte
+*** Participação Imóveis e hipotecas :noexport:
 
-
-- [ ] Explicitar que os fatos estilizados apresentados até então serão comparados com o modelo teórico
+One of key aspects of is the role of the richest on the 2000s housing cycle.
+Their real assets value increased first and faster than the rest of the population as shown in Figure FIGURE.
+EXPLICAR FIGURA.
+The same could be said about the growth of the richest mortgage value.
 
 ** Housing bubble and residential investment
+Once residential investment is relevant to describe the U.S. business cycle, it is important to understand its determinants.
+There are at some key variables to assess the residential investment behavior.
+The first variable is the mortgage interest rate, which determines the financial cost of buying houses and the weight of debt-service on house investors' income.
+The other is rate of change house prices.
+The one who owns a house or is willing to buy one takes into consideration the change of the asset price.
+This happens because of speculative reasons or just to prevent capital loss and reductions of net worth.
 
-Housing macroeconometric literature usually defines real mortgage interest rate as the nominal one deflated by a general prince index.
-For example, this is the case for textcites:goodhart_house_2008,arestis_economic_2019,huang_is_2020.
-In a prominent econometric model for the US economy, textcite:fair_macroeconometric_2013 reports that conventional real mortgage interest rate is statistically insignificant to describe residential investment and starts using mortgage rate in nominal terms.
-
-Alternatively, textcite:teixeira_crescimento_2015 proposes the so-called houses own rate of interest ($own$) in order to analyze the relation between residential investment, real estate inflation and interest rates during the U.S. housing bubble episode.
-Estimated by deflating mortgages interest rate real estate inflation, this particular real interest rate is the most relevant for households since it is the real cost in real estate from buying real estate  \cite[p.~53]{teixeira_crescimento_2015}.
-In short, this is the real interest rate that is relevant for house investors.
-Figure ref:propria_investo illustrates how this  procedure is more adequate than a general price index deflation --- as \textcite[p.~143--6]{fair_macroeconometric_2013} does --- to describe residential investment growth rate[fn::It is worth noting that during a housing bubble period, it is real estate inflation that governs own's interest rate dynamics. Therefore, the lower this rate is, the greater the capital gains (in real estate) for speculating with real estate will be. This negative relation between houses own interest rate and residential investment is shown in Figure \ref{propria_investo} in which this particular real interest rate has been gradually decreased over the real estate boom (2002-5).].
-Based on this concept, textcite:petrini_demanda_2019 estimated an econometric model for the U.S. (1992 to 2019) and presents empirical evidence that the residential investment growth rate and houses own interest rate share a common negative long-run trend.
-Furthermore, textcite:petrini_demanda_2019 also reports a unidirectional long-run causality from houses own interest rate to residential investment growth rate.
-
-EXPLICAR TAXA PRÓPRIA
+Based on \citeauthor*{Sraffa_Own_1932}'s \citeyear{Sraffa_Own_1932} commodity rate of interest, textcite:teixeira_crescimento_2015 proposes the so-called houses own rate of interest.
+Estimated by deflating mortgages interest rate real estate inflation, this particular real interest rate is the most relevant for house buyers since it is the real cost in real estate from buying real estate  \cite[p.~53]{teixeira_crescimento_2015}.
+This particular interest rate is shown in Equation ref:_own in which $own$ stands for houses own rate of interst, $r_{mo}$ for mortgage interest rate and $\pi$ for house price inflation.
 
 
-#+BEGIN_SRC latex
-\begin{figure}[htb]
-	\centering
-	\caption{Residential investment growth rate vs. Houses Own interest rate}
-	\label{propria_investo}
-	\includegraphics[width=.8\textwidth]{./figs/Own_gI}
-	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' elaboration}
-\end{figure}
-#+END_SRC
+#+BEGIN_EXPORT latex
+\begin{equation}
+\label{_own}
+own = \left(\frac{1+r_{mo}}{1+\pi}\right) -1
+\end{equation}
+#+END_EXPORT
 
-#+RESULTS:
+During a housing bubble period, it is real estate inflation that governs own's interest rate movements. Therefore, the lower this rate is, the greater the capital gains (in real estate) for speculating with real estate will be. This negative relation between houses own interest rate and residential investment is shown in Figure \ref{propria_investo} in which this particular real interest rate has been gradually decreased over the real estate boom (2002-5).
+Additionally, Figure ref:propria_investo illustrates how this  procedure is more adequate than a consumer price index deflation --- as \textcite[p.~143--6]{fair_macroeconometric_2013} does --- to describe residential investment growth rate[fn:: Based on this concept, textcite:petrini_demanda_2019 estimated time series econometric model for the U.S. (1992 to 2019) and presents empirical evidence that residential investment growth rate and houses own rate of interest hare a common negative long-run trend.  Furthermore, textcite:petrini_demanda_2019 also reports a unidirectional long-run causality from houses own rate of interest to residential investment growth rate.].
+
+
 #+begin_export latex
 \begin{figure}[htb]
 	\centering
@@ -1063,19 +1058,22 @@ EXPLICAR TAXA PRÓPRIA
 \end{figure}
 #+end_export
 
-In summary, what we intended to show is that one cannot analyze the U.S. business cycle properly without considering residential investment and asset bubbles together.
-#+BEGIN_EXPORT latex
-\begin{equation}
-\label{_own}
-own = \left(\frac{1+r_{mo}}{1+\pi}\right) -1
-\end{equation}
-$$
-\pi = \frac{\Delta p_h}{p_{h_{t-1}}}
-$$
-#+END_EXPORT
-where $\pi$ stands for house price inflation
 
-#+BEGIN_COMMENT
-After the Great Recession, the literature have analyzed the macroeconomic relevance of residential investment cites:leamer_housing_2015,fiebiger_semi-autonomous_2018.
-However, little progress has been made in understanding its theoretical determinants.
-#+END_COMMENT
+In summary, we presented some stylized facts that highlights the relevance of residential investment for the U.S. business cycle and the relevance of house bubbles to the residential investment.
+In the next section, we build a fully specified parsimonious Sraffian supermultiplier stock-flow consistent model (SSM-SFC) to deal with these stylized facts.
+
+** Residuals :noexport:
+
+
+Housing macroeconometric literature usually defines real mortgage interest rate as the nominal one deflated by a consumer prince index.
+For example, this is the case for textcites:goodhart_house_2008,arestis_economic_2019,huang_is_2020.
+In a prominent econometric model for the US economy, textcite:fair_macroeconometric_2013 reports that real mortgage interest rate is statistically insignificant to estimate residential investment and suggests using mortgage rate in nominal terms[fn:: \textcite:fair_macroeconometric_2013 The reason for this result is the ].
+
+Alternatively, textcite:teixeira_crescimento_2015 proposes the so-called houses own rate of interest ($own$) in order to analyze the relation between residential investment, real estate inflation and interest rates during the U.S. housing bubble episode.
+Estimated by deflating mortgages interest rate real estate inflation, this particular real interest rate is the most relevant for households since it is the real cost in real estate from buying real estate  \cite[p.~53]{teixeira_crescimento_2015}.
+In short, this is the real interest rate that is relevant for house investors.
+Figure ref:propria_investo illustrates how this  procedure is more adequate than a general price index deflation --- as \textcite[p.~143--6]{fair_macroeconometric_2013} does --- to describe residential investment growth rate[fn::It is worth noting that during a housing bubble period, it is real estate inflation that governs own's interest rate dynamics. Therefore, the lower this rate is, the greater the capital gains (in real estate) for speculating with real estate will be. This negative relation between houses own interest rate and residential investment is shown in Figure \ref{propria_investo} in which this particular real interest rate has been gradually decreased over the real estate boom (2002-5).].
+Based on this concept, textcite:petrini_demanda_2019 estimated an econometric model for the U.S. (1992 to 2019) and presents empirical evidence that the residential investment growth rate and houses own interest rate share a common negative long-run trend.
+Furthermore, textcite:petrini_demanda_2019 also reports a unidirectional long-run causality from houses own interest rate to residential investment growth rate.
+
+EXPLICAR TAXA PRÓPRIA

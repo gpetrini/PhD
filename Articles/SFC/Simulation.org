@@ -914,11 +914,8 @@ fig.savefig("./figs/Compared_Shocks_2.png", dpi = 600)
 
 *** Simulation   
 #+BEGIN_SRC python :tangle ./codes/Simulation.py
-data = pd.read_csv('./data/OwnInterestRate_data.csv', index_col=[0], parse_dates=True)
-initial=int(1000) ## Warning 1000
-shock_duration=int(10) ## Warning 10
 
-gCk = data["1992-01-01":]["$g_{I_h}$"].mean().round(3)
+gCk = data["1992-01-01":]["$g_{I_h}$"].mean().round(3) # Média geométrica
 
 
 df = SolveSFC(model(real=1, gC=gCk, R = 0.0), time=initial)
@@ -948,8 +945,6 @@ for i in data.index:
 shock = SFCTable(base)[initial:]
 shock["Z/Y"] = shock["Z"]/shock["Y"]
 #+END_SRC
-
-#+RESULTS:
 
 *** Plots
 
@@ -1165,7 +1160,7 @@ Therefore, we find a stable debt dynamics for both capitalists and firms (other 
 	%\resizebox{\textwidth}{!}{%
 		\begin{tabular}{c|c|c|c||c|c|c}
 			\hline\hline
-			\multirow{2}{*}{} & \multicolumn{3}{c||}{\textbf{Medium-run ($h \neq h^\star$)}} & \multicolumn{3}{c}{\textbf{Long-run ($h = h^\star$)}} \\ \cline{2-7} 
+			\multirow{2}{*}{} & \multicolumn{3}{c||}{\textbf{traverse ($h \neq h^\star$)}} & \multicolumn{3}{c}{\textbf{Long-run ($h = h^\star$)}} \\ \cline{2-7} 
 			&  \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow \pi$} & \textbf{$\Uparrow rm$} &  \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow \pi$} & \textbf{$\Uparrow rm$} \\ \hline
 			\textbf{$g$}  & - & + & - & 0 & + & - \\ \hline
 			\textbf{$g_Z$}  & 0 & + & -  & 0 & + & - \\ \hline
@@ -1189,7 +1184,7 @@ Therefore, we find a stable debt dynamics for both capitalists and firms (other 
 	%\resizebox{\textwidth}{!}{%
 		\begin{tabular}{c|c|c|c||c|c|c}
 			\hline\hline
-			\multirow{2}{*}{} & \multicolumn{3}{c||}{\textbf{Medium-run ($h \neq h^\star$)}} & \multicolumn{3}{c}{\textbf{Long-run ($h = h^\star$)}} \\ \cline{2-7} 
+			\multirow{2}{*}{} & \multicolumn{3}{c||}{\textbf{traverse ($h \neq h^\star$)}} & \multicolumn{3}{c}{\textbf{Long-run ($h = h^\star$)}} \\ \cline{2-7} 
 			&  \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow \pi$} & \textbf{$\Uparrow rm$} &  \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow \pi$} & \textbf{$\Uparrow rm$} \\ \hline
 			\textbf{$g$}  & - & + & - & 0 & + & - \\ \hline
 			\textbf{$g_Z$}  & 0 & + & -  & 0 & + & - \\ \hline
@@ -1254,30 +1249,19 @@ Therefore, we find a stable debt dynamics for both capitalists and firms (other 
 ** Plugging real data
 #+LATEX: \label{real_sim}
 
-Finally, we include houses own interest rate data into our model as discussed in section ref:sec:empirical (see Figure ref:propria_investo).
-To do so, each year corresponds to ten simulated periods for visualization reasons.
-Additionally, we abandoned the fixed share between NCC autonomous expenditures (parameter $R$).
-In order to include capitalists consumption without running into asymptotic paths, we defined its growth rate ($g_{C_k}$) as the mean of residential investment growth rate from 1992 to 2019 (Equation ref:gck_real):
+Finally, we include houses own interest rate data  discussed in section ref:sec:empirical (see Figure ref:propria_investo) into our model.
+In order to do so, each year corresponds to ten simulated periods for visualization reasons.
+Additionally, we have abandoned the assumption of a fixed share ($R$) between residential investment and capitalist consumption.
+In order to include capitalists consumption without running into asymptotic paths, we defined its growth rate as the geometric average of residential investment growth rate from 1992 to 2019.
 
-#+BEGIN_EXPORT latex
-  \begin{equation}
-    \label{gck_real}
-    g_{C_k} = \frac{1}{N} \sum_{t=1992}^{2019} g_{I_{h_{t}}}
-  \end{equation}
-#+END_EXPORT
+Although rudimentary, this procedure allows us to replicate some stylized facts presented in section ref:sec:empirical and in the literature (see Figure ref:fig:Realresults_1).
+Similarly to Figure ref:fig:cycles, we report a clockwise relationship between autonomous expenditure share on GDP and capacity utilization rate.
+With due mediation, we also report a smooth gravitation of capacity utilization ratio towards the normal one.
+As expected, NCC autonomous expenditures (notably residential investment) describes accumulation and GDP growth rate. 
+Together these results provide a first step towards the connection between asset bubbles and aggregate demand within the Sraffian Supermultiplier framework.
 
 
-Although rudimentary, this procedure allows us to investigate whether or not our model reports some of the stylized facts presented in section ref:sec:empirical:
-(i) positive relationship between non-residential investment share and GDP growth rate; (ii) capacity utilization towards the normal one, although quite volatile; (iii) NCC autonomous expenditure lead the business cycle and accumulation growth rate; (iv) residential investment is more volatile than others expenditures.
-Finally, all results are presented in Figure ref:fig:Realresults_1.
 
-Simillarly to Figure ref:fig:cycles, we report a clockwise relationship between autonomous expenditure share on GDP and capacity utilization growth rate.
-Since the analyzed period does not correspond to the fully-adjusted position, discrepancies between actual and normal capacity utilization rate are adjusted through changes in marginal propensity to invest.
-So, with due mediation, we also report a smooth gravitation of capacity utilization ratio towards the normal one.
-As expected, accumulation and GDP growth rate are described by NCC autonomous expenditure, notably residential investment. 
-However, this model is not able to replicate the higher residential investment volatility compared to other expenditures.
-We argue that this result is somewhat related to the investment function employed. In order to reproduce this stylized fact it would be necessary to *O que seria necessário para replicar*.
-Together these results provide a first step towards the connection between asset bubbles and aggregate demand.
 
 
 

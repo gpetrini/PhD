@@ -9,14 +9,13 @@
 #+BIND: org-latex-prefer-user-labels t
 #+BEGIN_abstract
 In this paper, we build a fully specified parsimonious Sraffian supermultiplier stock-flow consistent model (SSM-SFC) with two non-capacity creating autonomous expenditure: residential investment and debt-financed consumption.
-Our model represents a closed and without government economy with workers and capitalist households and only the latter are not not credit constrained.
+Our model represents a closed and without government economy with workers and capitalist households and only the latter are not credit constrained.
 The introduction of residential investment implies that our SSM-SFC model has two real assets: firms' productive capital and households' real estate.
-The numerical simulation experiments report the main standard Sraffian supermultiplier growth models results: 
-    (i) income distribution affects growth rate only during the traverse;
-    (ii) autonomous expenditures alone affects long-term growth rate and;
-    (iii)  utilization rate moves towards the normal one.
+In our model, residential investment growth rate responds to changes of house price inflation.
+The numerical simulation experiments shows that our model keep the main standard Sraffian supermultiplier growth models results.
 As a particular result, an increase of residential investment growth rate increase implies a decrease of real estate share in total real assets.
-Therefore, this model introduces both housing and asset bubbles	on Sraffian supermultiplier agenda and extends the range of autonomous expenditures alternatives.
+Inspired by the recent U.S. bubble episode, we plug house price inflation data (1992-2019).
+Although simple, our numerical simulations are capable to reproduce some stylized facts such as residential investment leading the business cycle and capital accumulation and a clockwise pattern between non-capacity creating autonomous expenditures and capacity utilization rate.
 	
 #+LATEX: \noindent \textbf{Keywords:} Residential Investment; Sraffian supermultiplier; Asset bubble;  Stock-Flow Consistent approach.
 #+END_abstract
@@ -327,12 +326,13 @@ printer(symbol =  'm', equation = m, var = omega, replace_g = False)
 :end:
 
 
-* Analytical Solution
+
+* Analytical Solution :noexport:
 #+LATEX: \label{append:Solution}
 
 In this appendix, we present the partial derivatives of somes stock/flow ratios.
-Firt, we show that houses share on total capital stock depends positively on deposits interest rate (Eq. \ref{partial_rm}) and negatively both on autonomous component of residential investment growth rate (equation \ref{partial_phi0}), real estate inflation (equation \ref{partial_pi}) and wage-share (equation \ref{partial_omega}):
-
+First, we show that houses share on total capital stock depends positively on deposits interest rate (Eq. \ref{partial_rm}) and negatively both on autonomous component of residential investment growth rate (equation \ref{partial_phi0}), real estate inflation (equation \ref{partial_pi}) and wage-share (equation \ref{partial_omega}):
+#+BEGIN_COMMENT
 *Nota:* Resultado anterior. Não alterado para comparação e no aguardo da conferência do arquivo sobre endividamentos.
 
 \begin{equation}
@@ -362,6 +362,7 @@ Firt, we show that houses share on total capital stock depends positively on dep
 
 
 *Nota:* Output python rearranjado
+#+END_COMMENT
 
 \begin{equation}
 \frac{\partial k^{\star}}{\partial \omega} = \frac{-(1-R)(\phi_0 - \phi_1\cdot r_m)}{(R(\phi_0 - \phi_1\cdot r_m) + (1-R)(1-\omega))^2} < 0
@@ -383,6 +384,7 @@ Firt, we show that houses share on total capital stock depends positively on dep
 
 Since capitalists' loans and mortgage to house ratios ($\ell^{\star}_{k}$ and $mo^{\star}$, respectively) depend only on parameters not analyzed on our experiments, we repeat this  procedure to firms' loans to capacity generating capital stock ($\ell^{\star}_f$):
 
+#+BEGIN_COMMENT
 *Nota:* Output python. Ainda irei reorganizar
 
 \begin{equation}\frac{\partial \ell_f^{\star}}{\partial \omega} = \frac{\gamma_{F} u^{\star}}{v \left(g^\star - \gamma_{F} r_{m}\right)}\end{equation}
@@ -392,6 +394,7 @@ Since capitalists' loans and mortgage to house ratios ($\ell^{\star}_{k}$ and $m
 
 
 *Nota:* Output python rearranjado
+#+END_COMMENT
 
 \begin{equation}
 \frac{\partial \ell_f^{\star}}{\partial \omega} = \frac{\gamma_{F} u^{\star}}{v \left(g^\star - \gamma_{F} r_{m}\right)}

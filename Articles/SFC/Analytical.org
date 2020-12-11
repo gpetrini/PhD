@@ -602,36 +602,15 @@ When the latter accelerates, capacity utilization rate increases as shown by Equ
 \label{short_u}
 u_t = \frac{v}{(1-R)(1-h_t - \omega)}\frac{I_{h_{t-1}}}{K_{f_{t-2}}}\frac{(1 + g_{I_h})}{(1+g_{K_{t-1}})}
 \end{equation}
-
+Replacing equation ref:g_Z_own in Equation ref:short_u we make explicit the functional form of residential investment growth rate as one of the determinants of capacity utilization rate as shown in Equation ref:short_u_own:
 \begin{equation}
 \label{short_u_own}
 u_t = \frac{v}{(1-R)(1-h_t - \omega)}\frac{I_{h_{t-1}}}{K_{f_{t-2}}}\frac{(1 + \phi_0 - \phi_1\cdot own_t)}{(1+g_{K_{t-1}})}
 \end{equation}
 
-Before moving towards the traverse, we revisit Equation ref:short_u in order to present houses share on total capital stock ($k$)[fn::As we will see on section ref:long, this ratio guards a special relation with marginal propensity to invest in the fully-adjusted position.].  To do so, we express firms' capital in terms of houses. 
-$$
-u_t = \frac{I_h}{(1-R)(1-h_t - \omega)}\frac{v}{(1-k)\cdot K_{t-1}}
-$$
-Finally, dividing both sides of equation ref:short_u by houses and after some algebraic manipulations, we get firms' capital-to-houses ratio (Equation ref:k_short)[fn::The intermediate steps to obtain Equation ref:k_short are
-$$
-u_t = \frac{v}{(1-R)(1-h_t - \omega)}\frac{I_h}{K_{HD_{t-1}}}\frac{1}{(1-k)}\frac{K_{HD_{t-1}}}{K_{t-1}}
-$$
-$$
-u_t = \frac{v\cdot g_{I_h}}{(1-R)(1-h_t - \omega)}\frac{k}{(1-k)}
-$$
-$$
-1-k = \frac{v\cdot g_{I_h}}{(1-R)(1-h_t - \omega)}\frac{k}{u}
-$$
-then
-$$
-\frac{1-k}{k} = \frac{v\cdot g_{I_h}}{(1 - h_t - \omega)\cdot u_{t}}
-$$
-]
-
-$$
-u_t = \frac{I_h}{(1-R)(1-h_t - \omega)}\frac{v}{(1-k)\cdot K_{t-1}}\frac{K_{HD_{t-1}}}{K_{HD_{t-1}}}
-$$
-
+Next, we revisit Equation ref:short_u in order to present houses share on total capital stock ($k$).
+To do so, we express firms' capital in terms of houses. 
+Then, dividing both sides of equation ref:short_u by houses and after some algebraic manipulations, we get firms' capital-to-houses ratio (Equation ref:k_short)
 #+BEGIN_SRC ipython :exports none :session k
 import sympy as sp
 k, v, g, w, h, u, R = sp.symbols('k v g omega h u R')
@@ -656,9 +635,6 @@ k = ─────────────────────────�
 
 :end:
 
-$$
-k = \frac{u_t\cdot (1-R)\cdot (1-h_t - \omega)}{g\cdot v + u_t\cdot  (1-R)\cdot (1-h_t - \omega)}
-$$
 
 \begin{equation}
 \label{k_short}
@@ -675,8 +651,8 @@ However, it has permanent effects over capital stock composition as a result of 
 ** Traverse and long-run equilibrium
 #+LATEX: \label{long}
 
-In this subsection, we present medium and long-run equilibrium similar to  textcite:freitas_growth_2015[fn:: It is worth mentioning that we addopt a slightly different concept of medium-run from textcite:freitas_growth_2015. That is why we chose to refer to is as traverse as usual in SFC literature. textcite:freitas_growth_2015 describes medium-run as the theoretical moment when expenditures growth rates converges to the NCC growth rate ($g_{I_h}$ in our case). However, as we employ numerical simulations, that equality could not occur during the traverse. That been said, the medium-run is defined as the moment in which the capacity ratio is not equal to the normal one while the firms' investment is still adjusting according to changes in marginal propensity to invest ($h\neqh^\star$).].
-According to equation ref:short_u, when aggregate demand and capacity output growth at different rates, capacity utilization will change. 
+In this subsection, we present traverse and long-run equilibrium equations.
+According to equation ref:short_u, when aggregate demand and capacity output grow at different rates, capacity utilization will change. 
 This discrepancy triggers marginal propensity to invest adjustment mechanism (see Equation ref:_h). 
 During the adjustment process, both supermultiplier and NCC autonomous expenditure share on GDP changes.
 Equation ref:g_medium presents aggregate demand during the traverse:
@@ -698,6 +674,17 @@ and fully-adjusted position marginal propensity to invest will be:
 \begin{equation}
 \label{h_long}
 h^{\star} = g^{\star}\cdot \frac{v}{u^{\star}}
+\end{equation}
+Finally, replacing Equation ref:h_long into Equation ref:Y_nivel we obtain long-run GDP level as shown in Equation
+
+\begin{equation}
+\label{Y_lr}
+Y^{\star} = \frac{Z}{1 - \omega - g^{\star}\cdot \frac{v}{u^{\star}}}
+\end{equation}
+Once again, we can show the long-run position making the residential investment growth rate explicit as in Equation ref:Y_gIh
+\begin{equation}
+\label{Y_gIh}
+Y^{\star} = \frac{I_h}{(1-R)(1 - \omega - g_{I_h}^{\star}\cdot \frac{v}{u^{\star})}}
 \end{equation}
 
 Next, we move towards the analysis of the particularities of our model:  one of the NCC autonomous expenditures also contributes to total capital stock.  
@@ -744,10 +731,6 @@ Before moving on to the numerical simulations, we present some steady state stoc
 
 $$
 \Delta \left(\frac{L_{f}}{K_{f}}\right) = \frac{I_{f} - FU}{K_{f}} - \ell^{\star}_{f}\cdot g^{\star}  = 0
-$$
-
-$$
-    \ell_f^\star = \frac{g^\star\cdot v - \gamma_F\cdot u^\star (1-\omega)}{v\cdot (g^\star - \gamma_F\cdot r_m)}
 $$
 
 \begin{equation}
