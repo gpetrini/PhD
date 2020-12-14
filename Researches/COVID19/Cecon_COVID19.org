@@ -1,11 +1,11 @@
 #+TITLE: Impactos econômicos da COVID-19
 #+AUTHOR: Pedro Paulo Zahluth Bastos, Luiz Celso Gomes Jr, Lorena Salces Dourado, Gabriel Petrini, Paulo Robilloti, Antonio Ibarra
 #+DATE: September 1st, 2020
-#+PROPERTY: header-args :results output drawer :exports results :async t
+#+PROPERTY: header-args python :results output drawer replace :exports results :eval never-export
 
 * Initial setup                                                    :noexport:
 
-#+BEGIN_SRC ipython :tangle ./codes/setup.py
+#+BEGIN_SRC python :tangle ./codes/setup.py
 import pandas as pd
 import numpy as np
 from datetime import datetime as dt
@@ -61,15 +61,14 @@ def rebase(df, base=base):
 
 #+RESULTS:
 :results:
-# Out [8]: 
 :end:
 
 * Dados Granulares
 
 ** Energia
 
-#+BEGIN_SRC ipython :session Energia :tangle ./codes/Energia.py
-%config InlineBackend.figure_format = 'retina'
+#+BEGIN_SRC python :tangle ./codes/Energia.py
+
 
 import pandas as pd
 import numpy as np
@@ -154,18 +153,13 @@ def ploter(df, country, days=365, units="MWh"):
 
 #+RESULTS:
 :results:
-# Out [2]: 
-# output
-/home/gpetrini/.local/lib/python3.8/site-packages/pandas_datareader/compat/__init__.py:7: FutureWarning: pandas.util.testing is deprecated. Use the functions in the public API at pandas.testing instead.
-  from pandas.util.testing import assert_frame_equal
-
 :end:
 
 
 *** Brazil: BRA
 **** Energy share
     
-#+BEGIN_SRC ipython :session Energia :tangle ./codes/Energia.py
+#+BEGIN_SRC python :session Energia :tangle ./codes/Energia.py
 share = pd.read_excel(
     './raw/LCA/Consumo_Energia_EPE.xlsx',
     sheet_name='BR', 
@@ -220,17 +214,11 @@ share["Non-Residential"] = 1- share["Residential"]
 
 #+RESULTS:
 :results:
-# Out [3]: 
-# text/plain
-: <Figure size 2400x1500 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/b9bb93431770d5b32665b50dc4549f5f948c88a6.png]]
 :end:
 
 **** Consumo Diário
      
-#+BEGIN_SRC ipython :session Energia :tangle ./codes/Energia.py 
+#+BEGIN_SRC python :session Energia :tangle ./codes/Energia.py
 datelist = pd.date_range(
     start = "01/31/2018",
     end = str(dt.today().strftime("%m/%d/%Y")),
@@ -437,42 +425,6 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [4]: 
-# text/plain
-: <Figure size 2400x1500 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/7842ed75178c7e85bc72397985d10bb7c08c16b2.png]]
-
-# text/plain
-: <Figure size 2400x1500 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/644bc69ef009a28fef2b58b5d83a478f7e1a78d9.png]]
-
-# text/plain
-: <Figure size 2400x1500 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/074f94e05c64e283dd031070baceb58c8aabbe31.png]]
-
-# text/plain
-: <Figure size 2400x1500 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/141e7f82711e70af2d2957c58961222b23afedb2.png]]
-
-# text/plain
-: <Figure size 2400x1500 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/65596f3f9ad5ba0a8bcb61d9f262ec094485ec1c.png]]
-
-# text/plain
-: <Figure size 2400x1500 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/2d14c6fbb2fc52f703f623c27e1b033856529304.png]]
 :end:
 
 
@@ -480,7 +432,7 @@ fig.savefig(
 
 *** France: FRA
 
-#+BEGIN_SRC ipython :session Energia :tangle ./codes/Energia.py
+#+BEGIN_SRC python :session Energia :tangle ./codes/Energia.py
 url = 'https://www.data.gouv.fr/en/datasets/r/cfc27ff9-1871-4ee8-be64-b9a290c06935'
 fra = pd.read_csv(
     url,
@@ -520,23 +472,13 @@ infos['Link'].append(url)
 
 #+RESULTS:
 :results:
-# Out [5]: 
-# output
-<ipython-input-2-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
-  plt.tight_layout()
-
-# text/plain
-: <Figure size 2400x1500 with 4 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/325746abff053090d5f6fe9490ccdb4ba397472d.png]]
 :end:
 
 *** Spain: Spain
 
 *Corrigir*
 
-#+BEGIN_SRC ipython :eval never :session Energia :tangle ./codes/Energia.py
+#+BEGIN_SRC python :eval never :session Energia :tangle ./codes/Energia.py
 datelist = pd.date_range(
     start = "01/01/2020",
     end = str((dt.today()- timedelta(days=2)).strftime("%d/%m/%Y")),
@@ -588,7 +530,7 @@ infos['Link'].append(url)
 
 *** Austria: AUS
 
-#+BEGIN_SRC ipython :session Energia :tangle ./codes/Energia.py
+#+BEGIN_SRC python :session Energia :tangle ./codes/Energia.py
 aus = pd.read_csv(
     './raw/Energy/AUS.csv', 
     sep=';', 
@@ -632,27 +574,11 @@ ploter(
 
 #+RESULTS:
 :results:
-# Out [6]: 
-# output
-<ipython-input-2-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
-  plt.tight_layout()
-
-# text/plain
-: (<Figure size 2400x1500 with 4 Axes>,
-:  array([<matplotlib.axes._subplots.AxesSubplot object at 0x7f533d4bb130>,
-:         <matplotlib.axes._subplots.AxesSubplot object at 0x7f5340dc25e0>],
-:        dtype=object))
-
-# text/plain
-: <Figure size 2400x1500 with 4 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/9ef112a5872cc34e81a6bb8ef5d1a8c7b5fddf8e.png]]
 :end:
 
 *** Germany: GER
 
-#+BEGIN_SRC ipython :session Energia :tangle ./codes/Energia.py
+#+BEGIN_SRC python :session Energia :tangle ./codes/Energia.py
 ger = pd.read_csv(
     './raw/Energy/GER.csv', 
     sep=';', 
@@ -696,21 +622,11 @@ infos['Link'].append(np.NaN)
 
 #+RESULTS:
 :results:
-# Out [7]: 
-# output
-<ipython-input-2-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
-  plt.tight_layout()
-
-# text/plain
-: <Figure size 2400x1500 with 4 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/94b114813ade8f5d4312e2e75f5b997a956c4a44.png]]
 :end:
 
 *** Luxemburg: LUX
     
-#+BEGIN_SRC ipython :session Energia :tangle ./codes/Energia.py
+#+BEGIN_SRC python :session Energia :tangle ./codes/Energia.py
 lux = pd.read_csv(
     './raw/Energy/LUX.csv', 
     sep=';', 
@@ -744,40 +660,12 @@ infos['Link'].append(np.NaN)
 
 #+RESULTS:
 :results:
-# Out [8]: 
-# output
-<ipython-input-2-06392b792fc4>:74: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
-  plt.tight_layout()
-
-# text/plain
-: <Figure size 2400x1500 with 4 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/9106e308f42f1f76c029539778f3952a7f562f15.png]]
 :end:
 
 
 ** Aruoba-Diebold-Scotti Business Conditions Index
 
-#+BEGIN_SRC ipython :session ADS :tangle ./codes/ADS.py
-%config InlineBackend.figure_format = 'retina'
-
-import pandas as pd
-import numpy as np
-
-from datetime import datetime as dt
-from datetime import timedelta
-
-import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
-import matplotlib.image as image
-import matplotlib.dates as mdates
-import matplotlib.ticker as ticker
-import seaborn as sns
-
-logo = "./figs/Cecon_Logo.png"
-logo = image.imread(logo)
-
+#+BEGIN_SRC python :tangle ./codes/ADS.py
 file_path = './raw/USA/'
 image_path = './figs/USA/'
 corona = '2020-03-18' # More than 60 cases in Brazil
@@ -786,10 +674,9 @@ start_year = "2019-01-01"
 
 #+RESULTS:
 :results:
-# Out [5]: 
 :end:
 
-#+BEGIN_SRC ipython :session ADS :tangle ./codes/ADS.py
+#+BEGIN_SRC python :session ADS :tangle ./codes/ADS.py
 df = pd.read_excel(
     'https://www.philadelphiafed.org/-/media/research-and-data/real-time-center/business-conditions-index/ads_index_most_current_vintage.xlsx?la=en',
     index_col=[0], parse_dates = True
@@ -818,20 +705,14 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [6]: 
-# text/plain
-: <Figure size 2400x1500 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/62ce7f05bfc212f03c891e294656997d84c5d3d1.png]]
 :end:
 
 * Confiança, Indicadores de antecedentes e de Risco
 
 ** Confiança
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
-%config InlineBackend.figure_format = 'retina'
+#+BEGIN_SRC python :tangle ./codes/Confianca.py
+
 import sys
 
 sys.path.insert(1, './codes/')
@@ -846,12 +727,11 @@ image_path = './figs/Confianca/'
 
 #+RESULTS:
 :results:
-# Out [73]: 
 :end:
 
 *** Sondagem Conjuntural Mensal
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python :tangle ./codes/Confianca.py
 file_name = 'Sondagem_Conjuntural_Mensal_FGV'
 df = pd.read_excel(
     file_path + file_name + '.xlsx', 
@@ -892,17 +772,13 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [74]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
 
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/8a25efae9231056627de37bc9a8ba5ccbde9d524.png]]
+(python3:57604): Gtk-[1;33mWARNING[0m **: [34m18:12:45.030[0m: Theme parsing error: gtk.css:1:117: Failed to import: Erro ao abrir arquivo /home/gpetrini/.local/share/gnome-shell/extensions/unite@hardpixel.eu/styles/buttons-right-always.css: Arquivo ou diretório não encontrado
 :end:
 
 *** Sondagens de serviços
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python :tangle ./codes/Confianca.py
 file_name = 'Sondagem_Servicos_FGV'
 df = pd.read_excel(
     file_path + file_name + '.xlsx', 
@@ -939,18 +815,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [75]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/b8884fa0650b2c2def8988d527bbeadc933c5cac.png]]
 :end:
 
 
 *** Sondagem do comércio
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python :tangle ./codes/Confianca.py
 file_name = 'Sondagem_do_Comercio_FGV'
 df = pd.read_excel(
     file_path + file_name + '.xlsx', 
@@ -995,17 +865,11 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [76]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/3ff0b698bb29513242319b177af1c0a29f2409fb.png]]
 :end:
 
 *** Sondagem da construção
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python :tangle ./codes/Confianca.py
 file_name = 'Sondagem_Construcao_FGV'
 df = pd.read_excel(
     file_path + file_name + '.xlsx', 
@@ -1043,17 +907,11 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [77]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/3457739c82986a176433fecd8d1a1f246d2a7529.png]]
 :end:
 
 *** Sondagem industrial CNI
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python :tangle ./codes/Confianca.py
 agregadas = [
     'Total',
     'Ind. Extrativa',
@@ -1077,12 +935,11 @@ file_name = 'Sondagem_Industrial_CNI'
 
 #+RESULTS:
 :results:
-# Out [78]: 
 :end:
 
 **** Volume de produção
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python  :tangle ./codes/Confianca.py
 sheet='Volume Produção'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
@@ -1112,17 +969,11 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [79]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/190c8feb1adde26683c40b65c19eda8712bdf352.png]]
 :end:
 
 **** Evolução do Emprego
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python  :tangle ./codes/Confianca.py
 sheet='Evolução Empr'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
@@ -1152,18 +1003,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [80]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/433a12bb8c07cd8a313c63f9fd67450df4f145d1.png]]
 :end:
 
 
 **** NUCI
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python  :tangle ./codes/Confianca.py
 sheet='NUCI'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
@@ -1192,28 +1037,11 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [81]: 
-# output
----------------------------------------------------------------------------
-NameError                                 Traceback (most recent call last)
-<ipython-input-81-f5ad43e4d316> in <module>
-      9     lw = 2.5
-     10 )
----> 11 ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
-     12 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-     13 ax2 = plt.axes([0.135,0.135,0.2,0.2])
-
-NameError: name 'corona' is not defined
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/4f9cc42543a2d57e44823ebbc3883c2e481fd6ce.png]]
 :end:
 
 **** NUCI Efeito-Usual
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python  :tangle ./codes/Confianca.py
 sheet='NUCI Efetivo-Usual'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
@@ -1243,17 +1071,11 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [82]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/ab35061abeddc7db0e957552c2e5902ec47c321e.png]]
 :end:
 
 **** Evolução de estoques
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python  :tangle ./codes/Confianca.py
 sheet='Evolução Estoques'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
@@ -1282,28 +1104,11 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [83]: 
-# output
----------------------------------------------------------------------------
-NameError                                 Traceback (most recent call last)
-<ipython-input-83-bd6352613dfc> in <module>
-      9     lw = 2.5
-     10 )
----> 11 ax.axvline(x = corona, color='black', ls='--', lw=1, label='Início do isolamento em SP\n(24 de março)')
-     12 ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-     13 ax2 = plt.axes([0.135,0.135,0.2,0.2])
-
-NameError: name 'corona' is not defined
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/ee2e0ef4d86c219085ca9aa8eb1df02445fc4000.png]]
 :end:
 
 **** Estoques efetivos
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python  :tangle ./codes/Confianca.py
 sheet='Estoques Efetivos'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
@@ -1334,17 +1139,11 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [84]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/5af9aa5b5d2d37338f8964e8451506dc7e1e4c53.png]]
 :end:
 
 **** Expectativa de Demanda
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python  :tangle ./codes/Confianca.py
 sheet='Expec Demanda'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
@@ -1374,17 +1173,11 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [85]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/26cc0738ba131ee757deed5c9a90853d5ee9f94e.png]]
 :end:
 
 **** Expectativa de Exportação
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python  :tangle ./codes/Confianca.py
 sheet='Expec Exportação'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
@@ -1414,18 +1207,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [86]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/fb4b9ac7d589651ae78f9cb61d45452a1c20cffc.png]]
 :end:
 
 **** Expectativa de compra de matéria-prima
 
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python  :tangle ./codes/Confianca.py
 sheet='Expec Compra Mat. Prima'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
@@ -1455,17 +1242,11 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [87]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/1613740d59e200de1ed90cd00658aa98d76fccf5.png]]
 :end:
 
 **** Expectativa de emprego
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python  :tangle ./codes/Confianca.py
 sheet='Expec Emprego'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
@@ -1495,17 +1276,11 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [88]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/0a3e42b80d0eaee635069c6ee57ed7964c2109a5.png]]
 :end:
 
 **** Expectativa de investimento
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python  :tangle ./codes/Confianca.py
 sheet='Expec Investimento'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
@@ -1535,18 +1310,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [89]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/30862091e2f2a14c212ea33ba93271329494e654.png]]
 :end:
 
 **** Lucro Operacional
 
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python  :tangle ./codes/Confianca.py
 agregadas = [
     'Total',
     'Ind. Extrativa',
@@ -1572,11 +1341,10 @@ def importer(sheet='Lucro Operacional', skip_rows=10, initial=1):
 
 #+RESULTS:
 :results:
-# Out [90]: 
 :end:
 
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python  :tangle ./codes/Confianca.py
 sheet='Lucro Operacional'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
@@ -1606,17 +1374,11 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [91]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/e275139cf83d1eda006dc4b30dbadda64774133a.png]]
 :end:
 
 **** Situação Financeira
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python  :tangle ./codes/Confianca.py
 sheet='Situação Financeira'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
@@ -1646,18 +1408,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [92]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/22bcc5c077b1cb4dcefe2a59c9d0116b7de82c73.png]]
 :end:
 
 
 **** Acesso a Crédito
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python  :tangle ./codes/Confianca.py
 sheet='Acesso Crédito'
 df = importer(sheet=sheet, initial=1, skip_rows=11)
 df.columns = ['Total' if coluna == "Unnamed: 1" else coluna for coluna in df.columns]
@@ -1687,19 +1443,13 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [93]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/2ded59c6ca4da81dd78c570c38c84f405c7e65b6.png]]
 :end:
 
 ** Indicadores de antecedente
 
 *** Composite Leading index ([[https://stats.oecd.org/Index.aspx?DataSetCode=MEI_CLI][CLI]])
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python  :tangle ./codes/Confianca.py
 df = web.DataReader(
     'MEI_CLI', # https://stats.oecd.org/Index.aspx?DataSetCode=MEI_CLI
     'oecd', 
@@ -1754,29 +1504,12 @@ plt.show()
 
 #+RESULTS:
 :results:
-# Out [94]: 
-# output
-WARNING:root:OECD + Major Six NME not found in regex
-WARNING:root:Major Five Asia not found in regex
-WARNING:root:Four Big European not found in regex
-WARNING:root:G7 not found in ISO2
-WARNING:root:NAFTA not found in regex
-WARNING:root:OECD - Total not found in regex
-WARNING:root:OECD - Europe not found in regex
-WARNING:root:Euro area (19 countries) not found in regex
-WARNING:root:OECD total  not found in regex
-
-# text/plain
-: <Figure size 576x360 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/4e44c8c8a59b84764b8fc9762999b8d5972932ce.png]]
 :end:
 
 
 *** Consumer Confidence index ([[https://stats.oecd.org/Index.aspx?DataSetCode=MEI_CCI][CCI]])
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python  :tangle ./codes/Confianca.py
 df = web.DataReader(
     'MEI_CLI', # https://stats.oecd.org/Index.aspx?DataSetCode=MEI_CCI
     'oecd', 
@@ -1823,32 +1556,83 @@ plt.show()
 
 #+RESULTS:
 :results:
-# Out [95]: 
-# output
-/home/gpetrini/.local/lib/python3.8/site-packages/pandas/core/indexing.py:1762: PerformanceWarning: indexing past lexsort depth may impact performance.
-  return self._getitem_tuple(key)
-WARNING:root:OECD + Major Six NME not found in regex
-WARNING:root:Major Five Asia not found in regex
-WARNING:root:Four Big European not found in regex
-WARNING:root:G7 not found in ISO2
-WARNING:root:NAFTA not found in regex
-WARNING:root:OECD - Total not found in regex
-WARNING:root:OECD - Europe not found in regex
-WARNING:root:Euro area (19 countries) not found in regex
-WARNING:root:OECD total  not found in regex
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/urllib3/connectionpool.py", line 421, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 3, in raise_from
+  File "/usr/lib/python3/dist-packages/urllib3/connectionpool.py", line 416, in _make_request
+    httplib_response = conn.getresponse()
+  File "/usr/lib/python3.8/http/client.py", line 1347, in getresponse
+    response.begin()
+  File "/usr/lib/python3.8/http/client.py", line 307, in begin
+    version, status, reason = self._read_status()
+  File "/usr/lib/python3.8/http/client.py", line 268, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "/usr/lib/python3.8/socket.py", line 669, in readinto
+    return self._sock.recv_into(b)
+  File "/usr/lib/python3/dist-packages/urllib3/contrib/pyopenssl.py", line 326, in recv_into
+    raise timeout("The read operation timed out")
+socket.timeout: The read operation timed out
 
-# text/plain
-: <Figure size 576x360 with 1 Axes>
+During handling of the above exception, another exception occurred:
 
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/aad38e77e5fe7f43fff63b2c29856f549dc5dc3f.png]]
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/requests/adapters.py", line 439, in send
+    resp = conn.urlopen(
+  File "/usr/lib/python3/dist-packages/urllib3/connectionpool.py", line 719, in urlopen
+    retries = retries.increment(
+  File "/usr/lib/python3/dist-packages/urllib3/util/retry.py", line 400, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "/usr/lib/python3/dist-packages/six.py", line 703, in reraise
+    raise value
+  File "/usr/lib/python3/dist-packages/urllib3/connectionpool.py", line 665, in urlopen
+    httplib_response = self._make_request(
+  File "/usr/lib/python3/dist-packages/urllib3/connectionpool.py", line 423, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+  File "/usr/lib/python3/dist-packages/urllib3/connectionpool.py", line 330, in _raise_timeout
+    raise ReadTimeoutError(
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='stats.oecd.org', port=443): Read timed out. (read timeout=30)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/tmp/py8JslMY", line 3, in <module>
+  File "/tmp/babel-kmcfod/python-qvHd0C", line 1, in <module>
+    df = web.DataReader(
+  File "/home/gpetrini/.local/lib/python3.8/site-packages/pandas/util/_decorators.py", line 199, in wrapper
+    return func(*args, **kwargs)
+  File "/home/gpetrini/.local/lib/python3.8/site-packages/pandas_datareader/data.py", line 475, in DataReader
+    return OECDReader(
+  File "/home/gpetrini/.local/lib/python3.8/site-packages/pandas_datareader/base.py", line 100, in read
+    return self._read_one_data(self.url, self.params)
+  File "/home/gpetrini/.local/lib/python3.8/site-packages/pandas_datareader/base.py", line 109, in _read_one_data
+    out = self._get_response(url, params=params).json()
+  File "/home/gpetrini/.local/lib/python3.8/site-packages/pandas_datareader/base.py", line 155, in _get_response
+    response = self.session.get(
+  File "/usr/lib/python3/dist-packages/requests/sessions.py", line 546, in get
+    return self.request('GET', url, **kwargs)
+  File "/usr/lib/python3/dist-packages/requests/sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/usr/lib/python3/dist-packages/requests/sessions.py", line 668, in send
+    history = [resp for resp in gen] if allow_redirects else []
+  File "/usr/lib/python3/dist-packages/requests/sessions.py", line 668, in <listcomp>
+    history = [resp for resp in gen] if allow_redirects else []
+  File "/usr/lib/python3/dist-packages/requests/sessions.py", line 239, in resolve_redirects
+    resp = self.send(
+  File "/usr/lib/python3/dist-packages/requests/sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "/usr/lib/python3/dist-packages/requests/adapters.py", line 529, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='stats.oecd.org', port=443): Read timed out. (read timeout=30)
+>>>
 :end:
 
 ** Risco
    
 *** EMBI+ (JP Morgan)
 
-#+BEGIN_SRC ipython :session Confianca :tangle ./codes/Confianca.py
+#+BEGIN_SRC python  :tangle ./codes/Confianca.py
 file_name = 'embiplus'
 df = pd.read_excel(
     file_path + file_name + '.xlsx', 
@@ -1896,19 +1680,13 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [96]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/8b49720c67f868a07188ddeb0242c5bb3791d599.png]]
 :end:
 
 
 ** Incerteza
 
-#+BEGIN_SRC ipython :session Incerteza :tangle ./codes/Incerteza.py
-%config InlineBackend.figure_format = 'retina'
+#+BEGIN_SRC python  :tangle ./codes/Incerteza.py
+
 import sys
 
 sys.path.insert(1, './codes/')
@@ -1923,13 +1701,12 @@ image_path = './figs/Confianca/'
 
 #+RESULTS:
 :results:
-# Out [10]: 
 :end:
 
 
 *** Indicador de Incerteza (IIE-Br)
 
-#+BEGIN_SRC ipython :session Incerteza :tangle ./codes/Incerteza.py
+#+BEGIN_SRC python  :tangle ./codes/Incerteza.py
 file = "IIE-Br_FGV"
 df = pd.read_excel(
     f"{file_path + file}.xlsx",
@@ -1971,18 +1748,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [11]: 
-# text/plain
-: <Figure size 2400x1500 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/98ebb468eb299bda8f1859499b3331c18b937130.png]]
 :end:
 
 
 *** Indicador de Confiança Empresarial
 
-#+BEGIN_SRC ipython :session Incerteza :tangle ./codes/Incerteza.py
+#+BEGIN_SRC python  :tangle ./codes/Incerteza.py
 file = "ICE_FGV"
 df = pd.read_excel(
     f"{file_path + file}.xlsx",
@@ -2024,20 +1795,14 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [12]: 
-# text/plain
-: <Figure size 2400x1500 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/925a5b9efaef4a764499db16a51227974403bd49.png]]
 :end:
 
 * Atividade
   
 ** Crédito
 
-#+BEGIN_SRC ipython :session Credito :tangle ./codes/Credito.py
-%config InlineBackend.figure_format = 'retina'
+#+BEGIN_SRC python  :tangle ./codes/Credito.py
+
 import sys
 
 sys.path.insert(1, './codes/')
@@ -2062,14 +1827,13 @@ def line_format(label):
 
 #+RESULTS:
 :results:
-# Out [34]: 
 :end:
 
 *** Saldo
 
 **** Pessoa jurídica
      
-#+BEGIN_SRC ipython :session Credito :tangle ./codes/Credito.py
+#+BEGIN_SRC python  :tangle ./codes/Credito.py
 sheet = "SaldoPJ"
 titulo = "Saldo Pessoa jurídica"
 porcentagem=False
@@ -2126,16 +1890,10 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [35]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/feb0adea384d3519399baabeaaea53ffd62ea8b2.png]]
 :end:
 
 
-#+BEGIN_SRC ipython :session Credito :tangle ./codes/Credito.py
+#+BEGIN_SRC python  :tangle ./codes/Credito.py
 sheet = "SaldoPJ"
 titulo = "Saldo Pessoa jurídica"
 porcentagem=False
@@ -2185,17 +1943,11 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [36]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/814881da38842cb94f0fd6474ddd70e90bd352da.png]]
 :end:
 
 **** Pessoa física
 
-#+BEGIN_SRC ipython :session Credito :tangle ./codes/Credito.py
+#+BEGIN_SRC python  :tangle ./codes/Credito.py
 sheet = "SaldoPF"
 titulo = "Saldo Pessoa física"
 porcentagem=False
@@ -2252,15 +2004,9 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [37]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/631784503e9693a2f771311b1a337a6f61bd3bcb.png]]
 :end:
 
-#+BEGIN_SRC ipython :session Credito :tangle ./codes/Credito.py
+#+BEGIN_SRC python  :tangle ./codes/Credito.py
 sheet = "SaldoPF_%PIB"
 titulo = "Saldo Pessoa física\nem % PIB"
 porcentagem=True
@@ -2317,17 +2063,11 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [38]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/840ea262d5c525c19284dff3d45594fc372c02d1.png]]
 :end:
 
 **** Crédito ampliado
 
-#+BEGIN_SRC ipython :session Credito :tangle ./codes/Credito.py
+#+BEGIN_SRC python  :tangle ./codes/Credito.py
 sheet = "SaldoCréditoAmpliado"
 titulo = "Saldo Crédito Ampliado"
 porcentagem=True
@@ -2394,15 +2134,9 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [39]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/fc25f4901d8007b52b37c8cc10e4620bc37873f2.png]]
 :end:
 
-#+BEGIN_SRC ipython :session Credito :tangle ./codes/Credito.py
+#+BEGIN_SRC python  :tangle ./codes/Credito.py
 sheet = "SaldoCréditoAmpliado"
 titulo = "Saldo Crédito Ampliado"
 porcentagem=False
@@ -2469,16 +2203,10 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [40]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/d787c0b50fa6cabeff88eb82b75849ce6f26ce84.png]]
 :end:
 
 
-#+BEGIN_SRC ipython :session Credito :tangle ./codes/Credito.py
+#+BEGIN_SRC python  :tangle ./codes/Credito.py
 sheet = "SaldoCréditoAmpliado_%PIB"
 titulo = "Saldo Crédito Ampliado"
 porcentagem=True
@@ -2544,18 +2272,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [41]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/71e2f6f170d1eae4c7e08b6bb69381e2fc6bfa43.png]]
 :end:
 
 **** Crédito direcionado
 
 
-#+BEGIN_SRC ipython :session Credito :tangle ./codes/Credito.py
+#+BEGIN_SRC python  :tangle ./codes/Credito.py
 sheet = "SaldoDirecionado"
 titulo = "Saldo Crédito Direcionado"
 porcentagem=False
@@ -2621,15 +2343,9 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [42]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/ce90c1989329de9bd35e54499a49e998a229e167.png]]
 :end:
 
-#+BEGIN_SRC ipython :session Credito :tangle ./codes/Credito.py
+#+BEGIN_SRC python  :tangle ./codes/Credito.py
 sheet = "SaldoDirecionado"
 titulo = "Saldo Crédito Direcionado"
 porcentagem=True
@@ -2697,15 +2413,9 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [43]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/9a2b55ba48387fe773ae71f452b084dae90c5a91.png]]
 :end:
 
-#+BEGIN_SRC ipython :session Credito :tangle ./codes/Credito.py
+#+BEGIN_SRC python  :tangle ./codes/Credito.py
 sheet = "SaldoDirecionado_%PIB"
 titulo = "Saldo Crédito Direcionado"
 porcentagem=True
@@ -2775,20 +2485,14 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [44]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/120b087dfcc6ee8bca3227ec45868b7327bde212.png]]
 :end:
 
 
 
 ** IBCBr
 
-#+BEGIN_SRC ipython  :session ibcbr :tangle ./codes/ibcbr.py
-%config InlineBackend.figure_format = 'retina'
+#+BEGIN_SRC python   :tangle ./codes/ibcbr.py
+
 import sys
 
 sys.path.insert(1, './codes/')
@@ -2804,11 +2508,10 @@ image_path = './figs/Antecedente/'
 
 #+RESULTS:
 :results:
-# Out [7]: 
 :end:
 
 
-#+BEGIN_SRC ipython  :session ibcbr :tangle ./codes/ibcbr.py
+#+BEGIN_SRC python   :tangle ./codes/ibcbr.py
 df = pd.read_excel(
     file_path,
     sheet_name = "IBC-Br Dessaz",
@@ -2847,18 +2550,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [8]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/51df5d2fc00ebe923cd476edd2384c8734922982.png]]
 :end:
 
 ** PIB (Contas Nacionais)
 
-#+BEGIN_SRC ipython :session PIB :tangle ./codes/PIB.py
-%config InlineBackend.figure_format = 'retina'
+#+BEGIN_SRC python  :tangle ./codes/PIB.py
+
 
 import pandas as pd
 import numpy as np
@@ -2878,7 +2575,6 @@ logo = image.imread(logo)
 
 #+RESULTS:
 :results:
-# Out [31]: 
 :end:
 
 #+BEGIN_SRC sh :dir ./raw/ContasNacionais/
@@ -2889,11 +2585,26 @@ mv *.xls Tab_Compl_CNT.xlsx
 
 #+RESULTS:
 :results:
+--2020-12-14 18:17:03--  ftp://ftp.ibge.gov.br/Contas_Nacionais/Contas_Nacionais_Trimestrais/Tabelas_Completas/Tab_Compl_CNT.zip
+“.listing”
+Resolvendo ftp.ibge.gov.br (ftp.ibge.gov.br)... 170.84.40.44
+Conectando-se a ftp.ibge.gov.br (ftp.ibge.gov.br)|170.84.40.44|:21... conectado.
+Acessando como anonymous ... Acesso autorizado!
+SYST ... feito.    ==> PWD ... feito.
+TYPE I ... feito.  ==> CWD (1) /Contas_Nacionais/Contas_Nacionais_Trimestrais/Tabelas_Completas ... feito.
+PASV ... feito.    ==> LIST ... feito.
+Failed to rename .listing to .listing.1: (2) Arquivo ou diretório não encontrado
+]       0  --.-KB/s               .listing                [ <=>                ]     194  --.-KB/s    em 0,001s
+
+2020-12-14 18:17:04 (129 KB/s) - “.listing” salvo [194]
+
+Removeu “.listing”.
+O arquivo remoto não é mais novo que o local “Tab_Compl_CNT.zip” -- ignorando.
 Archive:  Tab_Compl_CNT.zip
-  inflating: Tab_Compl_CNT.xls       
+  inflating: Tab_Compl_CNT.xls
 :end:
 
-#+BEGIN_SRC ipython :session PIB :tangle ./codes/PIB.py
+#+BEGIN_SRC python  :tangle ./codes/PIB.py
 Colunas = [
     "Agropecuaria",
     "Industria Extrativa",
@@ -2962,12 +2673,11 @@ df["Importacao"] = -df["Importacao"]
 
 #+RESULTS:
 :results:
-# Out [32]: 
 :end:
 
 *** Trimestre Contra trimestre imediatamente anterior
 
-#+BEGIN_SRC ipython :session PIB :tangle ./codes/PIB.py
+#+BEGIN_SRC python  :tangle ./codes/PIB.py
 fig = plt.figure(figsize=(9,4))
 ax = plt.axes()
 ax2 = plt.axes([0.15,0.6,0.2,0.2])
@@ -3015,24 +2725,16 @@ print(df['PIB'].pct_change().tail(4))
 
 #+RESULTS:
 :results:
-# Out [33]: 
-# output
-2019Q3    0.000588
-2019Q4    0.005339
-2020Q1   -0.024549
-2020Q2   -0.096930
+2019Q4    0.002203
+2020Q1   -0.015459
+2020Q2   -0.095998
+2020Q3    0.077078
 Freq: Q-DEC, Name: PIB, dtype: float64
-
-# text/plain
-: <Figure size 648x288 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/9c59f5df2a1d798fc2f3361d06d39e748802980c.png]]
 :end:
 
 **** Agropecuária
 
-#+BEGIN_SRC ipython :session PIB :tangle ./codes/PIB.py
+#+BEGIN_SRC python  :tangle ./codes/PIB.py
 fig, ax = plt.subplots(figsize=(9,4))
 ax2 = fig.add_axes([0.15,0.6,0.2,0.2])
 
@@ -3073,17 +2775,11 @@ plt.show()
 
 #+RESULTS:
 :results:
-# Out [34]: 
-# text/plain
-: <Figure size 648x288 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/8c82528a54963f72680dc80334272720121e728d.png]]
 :end:
 
 **** Indústria
 
-#+BEGIN_SRC ipython :session PIB :tangle ./codes/PIB.py
+#+BEGIN_SRC python  :tangle ./codes/PIB.py
 fig, ax = plt.subplots(figsize=(9,4))
 ax2 = fig.add_axes([0.15,0.6,0.2,0.2])
 
@@ -3125,31 +2821,17 @@ print(df[Industria].pct_change().tail(4))
 
 #+RESULTS:
 :results:
-# Out [35]: 
-# output
-        Industria Extrativa  Industria de Transformacao  Eletricidade e agua  \
-2019Q3             0.126922                   -0.009143            -0.012028   
-2019Q4             0.007993                    0.001056            -0.001173   
-2020Q1            -0.047379                   -0.019497            -0.003147   
-2020Q2            -0.011218                   -0.175394            -0.043949   
-
-        Construcao  Total Industria  
-2019Q3    0.007231         0.005460  
-2019Q4   -0.030270         0.000602  
-2020Q1   -0.033302        -0.008139  
-2020Q2   -0.056655        -0.122893  
-
-# text/plain
-: <Figure size 648x288 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/176ed5c24348d0be70e4afbae6f3ebcc4591a5c8.png]]
+        Industria Extrativa  Industria de Transformacao  Eletricidade e agua  Construcao  Total Industria
+2019Q4             0.011824                    0.009037             0.004970   -0.037648         0.000580
+2020Q1            -0.024993                   -0.010860             0.002693   -0.017272        -0.008609
+2020Q2            -0.003373                   -0.191145            -0.050552   -0.080516        -0.130434
+2020Q3             0.025302                    0.236742             0.084899    0.056440         0.147658
 :end:
 
 
 **** Serviços
 
-#+BEGIN_SRC ipython :session PIB :tangle ./codes/PIB.py
+#+BEGIN_SRC python  :tangle ./codes/PIB.py
 fig, ax = plt.subplots(figsize=(9,4))
 ax2 = fig.add_axes([0.15,0.6,0.2,0.2])
 
@@ -3194,59 +2876,25 @@ print(df[Servicos].pct_change())
 
 #+RESULTS:
 :results:
-# Out [36]: 
-# output
-        Comercio  Transporte, armazenagem e correio  Informacao e comunicacao  \
-1996Q1       NaN                                NaN                       NaN   
-1996Q2  0.013930                          -0.022250                  0.014198   
-1996Q3  0.027921                           0.032652                  0.041464   
-1996Q4  0.013399                          -0.037413                 -0.024424   
-1997Q1  0.000426                           0.046895                  0.015430   
-...          ...                                ...                       ...   
-2019Q2  0.006191                          -0.001205                  0.014362   
-2019Q3  0.004430                          -0.001166                  0.008591   
-2019Q4 -0.002416                           0.012850                  0.010421   
-2020Q1 -0.014039                          -0.024127                 -0.019601   
-2020Q2 -0.130136                          -0.193399                 -0.029687   
+        Comercio  Transporte, armazenagem e correio  Informacao e comunicacao  ...  Outras atividades  ADM, defesa, etc  Total Servicos
+1996Q1       NaN                                NaN                       NaN  ...                NaN               NaN             NaN
+1996Q2  0.013911                          -0.022240                  0.015129  ...           0.003483          0.019968        0.006652
+1996Q3  0.027924                           0.032960                  0.022244  ...           0.003210          0.005066        0.013433
+1996Q4  0.013407                          -0.039419                 -0.001653  ...          -0.005327         -0.005696       -0.020232
+1997Q1  0.000391                           0.047790                  0.010417  ...           0.019057         -0.000411        0.019513
+...          ...                                ...                       ...  ...                ...               ...             ...
+2019Q3  0.005113                           0.004301                  0.009530  ...          -0.003471         -0.006701        0.002394
+2019Q4 -0.002298                           0.000091                  0.010576  ...           0.007904          0.007719        0.004045
+2020Q1 -0.010817                          -0.019667                 -0.021880  ...          -0.051438         -0.015975       -0.014847
+2020Q2 -0.137145                          -0.190152                 -0.031795  ...          -0.168683         -0.069736       -0.094417
+2020Q3  0.158514                           0.124804                  0.031199  ...           0.077815          0.025357        0.063183
 
-        Atividades Financeiras  Atividades Imobiliarias  Outras atividades  \
-1996Q1                     NaN                      NaN                NaN   
-1996Q2                0.001766                 0.006362           0.003576   
-1996Q3               -0.000033                 0.009057           0.003184   
-1996Q4               -0.087247                -0.024478          -0.005366   
-1997Q1                0.110797                 0.022929           0.019185   
-...                        ...                      ...                ...   
-2019Q2               -0.007478                 0.007306           0.000918   
-2019Q3                0.016924                 0.003003          -0.000463   
-2019Q4                0.008832                 0.002152           0.008042   
-2020Q1                0.002412                 0.003421          -0.053256   
-2020Q2                0.008441                 0.004705          -0.198343   
-
-        ADM, defesa, etc  Total Servicos  
-1996Q1               NaN             NaN  
-1996Q2          0.019224        0.012489  
-1996Q3          0.005550        0.014601  
-1996Q4         -0.005808       -0.020523  
-1997Q1         -0.000785        0.024352  
-...                  ...             ...  
-2019Q2         -0.005078       -0.000415  
-2019Q3         -0.006734        0.001378  
-2019Q4          0.010494        0.005582  
-2020Q1         -0.014418       -0.022358  
-2020Q2         -0.076251       -0.097166  
-
-[98 rows x 8 columns]
-
-# text/plain
-: <Figure size 648x288 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/b36716a8f621c4be345ff6778cf910c669398c18.png]]
+[99 rows x 8 columns]
 :end:
 
 **** Demanda
 
-#+BEGIN_SRC ipython :session PIB :tangle ./codes/PIB.py
+#+BEGIN_SRC python  :tangle ./codes/PIB.py
 fig, ax = plt.subplots(figsize=(9,4))
 ax2 = fig.add_axes([0.15,0.6,0.2,0.2])
 
@@ -3290,31 +2938,17 @@ print(df[Demanda + ['PIB']].pct_change().tail(4))
 
 #+RESULTS:
 :results:
-# Out [37]: 
-# output
-        Consumo das Familias  Consumo do Governo      FBCF  Exportacao  \
-2019Q3              0.005088           -0.003986  0.015347   -0.022088   
-2019Q4              0.003992            0.004443 -0.034854    0.023254   
-2020Q1             -0.019217            0.002193  0.022937   -0.013177   
-2020Q2             -0.125381           -0.088450 -0.154231    0.018445   
-
-        Importacao       PIB  
-2019Q3    0.001535  0.000588  
-2019Q4   -0.025791  0.005339  
-2020Q1    0.008115 -0.024549  
-2020Q2   -0.132437 -0.096930  
-
-# text/plain
-: <Figure size 648x288 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/7c327ff8eb33f8d12b7d6afbac964411bee5ec80.png]]
+        Consumo das Familias  Consumo do Governo      FBCF  Exportacao  Importacao       PIB
+2019Q4              0.004383           -0.002582 -0.026712    0.016505   -0.047445  0.002203
+2020Q1             -0.019767           -0.004895  0.024205   -0.018541   -0.005370 -0.015459
+2020Q2             -0.112740           -0.077315 -0.164762    0.015526   -0.124499 -0.095998
+2020Q3              0.076406            0.034854  0.110196   -0.021298   -0.095888  0.077078
 :end:
 
 **** Oferta
 
 
-#+BEGIN_SRC ipython :session PIB :tangle ./codes/PIB.py
+#+BEGIN_SRC python  :tangle ./codes/PIB.py
 fig, ax = plt.subplots(figsize=(9,4))
 ax2 = fig.add_axes([0.15,0.6,0.2,0.2])
 
@@ -3358,19 +2992,11 @@ print(df[Oferta + ['PIB']].pct_change().tail(4))
 
 #+RESULTS:
 :results:
-# Out [38]: 
-# output
         Agropecuaria  Total Industria  Total Servicos       PIB
-2019Q3      0.010857         0.005460        0.001378  0.000588
-2019Q4     -0.006840         0.000602        0.005582  0.005339
-2020Q1      0.005004        -0.008139       -0.022358 -0.024549
-2020Q2      0.004292        -0.122893       -0.097166 -0.096930
-
-# text/plain
-: <Figure size 648x288 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/3ca4b1a3528958dfe9791cb732725b96a282c3b3.png]]
+2019Q4     -0.017312         0.000580        0.004045  0.002203
+2020Q1      0.028747        -0.008609       -0.014847 -0.015459
+2020Q2     -0.001706        -0.130434       -0.094417 -0.095998
+2020Q3     -0.004647         0.147658        0.063183  0.077078
 :end:
 
 
@@ -3378,7 +3004,7 @@ print(df[Oferta + ['PIB']].pct_change().tail(4))
 
 **** Demanda
      
-#+BEGIN_SRC ipython :session PIB :tangle ./codes/PIB.py
+#+BEGIN_SRC python  :tangle ./codes/PIB.py
 fig = plt.Figure()
 ax = plt.gca()
 ax2 = fig.add_axes([0.15,0.7,0.2,0.2])
@@ -3436,38 +3062,20 @@ print(df[Demanda].diff().apply(lambda x: x/(df["PIB"].shift())).tail(8))
 
 #+RESULTS:
 :results:
-# Out [39]: 
-# output
-        Consumo das Familias  Consumo do Governo      FBCF  Exportacao  \
-2018Q3              0.003670            0.000547  0.008612    0.008489   
-2018Q4              0.001643           -0.002391 -0.002606    0.002801   
-2019Q1              0.005201            0.001083 -0.001710   -0.005277   
-2019Q2              0.002270           -0.000528  0.004948   -0.003653   
-2019Q3              0.003469           -0.000725  0.002711   -0.003011   
-2019Q4              0.002734            0.000805 -0.006249    0.003098   
-2020Q1             -0.013143            0.000397  0.003948   -0.001787   
-2020Q2             -0.086221           -0.016445 -0.027837    0.002530   
-
-        Importacao  
-2018Q3   -0.009075  
-2018Q4    0.005034  
-2019Q1    0.003006  
-2019Q2   -0.006682  
-2019Q3   -0.000221  
-2019Q4    0.003713  
-2020Q1   -0.001132  
-2020Q2    0.019092  
-
-# text/plain
-: <Figure size 432x288 with 1 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/e2105790570f9e49e7872b20e975495b01aa9d17.png]]
+        Consumo das Familias  Consumo do Governo      FBCF  Exportacao  Importacao
+2018Q4              0.001759           -0.002239 -0.000150    0.002336    0.008746
+2019Q1              0.007013            0.000322 -0.003797   -0.005622    0.003713
+2019Q2              0.002069            0.000217  0.005257   -0.003836   -0.007107
+2019Q3              0.003405           -0.000267  0.005346   -0.000924   -0.004419
+2019Q4              0.003002           -0.000469 -0.004901    0.002209    0.006893
+2020Q1             -0.013568           -0.000884  0.004313   -0.002516    0.000742
+2020Q2             -0.077046           -0.014113 -0.030542    0.002101    0.017368
+2020Q3              0.051249            0.006494  0.018873   -0.003237    0.012955
 :end:
 
 **** Oferta
 
-#+BEGIN_SRC ipython :session PIB :tangle ./codes/PIB.py
+#+BEGIN_SRC python  :tangle ./codes/PIB.py
 fig, ax = plt.subplots(1,1,figsize=(9,4))
 ax2 = fig.add_axes([0.15,0.6,0.2,0.2])
 
@@ -3526,27 +3134,19 @@ print(df[Oferta].diff().apply(lambda x: x/(df["VA"].shift())).tail(8))
 
 #+RESULTS:
 :results:
-# Out [40]: 
-# output
-/home/gpetrini/.local/lib/python3.8/site-packages/pandas/plotting/_matplotlib/core.py:218: UserWarning: 'color' and 'colormap' cannot be used simultaneously. Using 'color'
+/home/gpetrini/.local/lib/python3.8/site-packages/pandas/plotting/_matplotlib/core.py:226: UserWarning: 'color' and 'colormap' cannot be used simultaneously. Using 'color'
   warnings.warn(
 /home/gpetrini/.local/lib/python3.8/site-packages/pandas/plotting/_matplotlib/style.py:27: UserWarning: 'color' and 'colormap' cannot be used simultaneously. Using 'color'
   warnings.warn(
         Agropecuaria  Total Industria  Total Servicos
-2018Q3      0.000785         0.000917        0.003821
-2018Q4      0.000366        -0.001947       -0.001539
-2019Q1     -0.000803         0.000185        0.006582
-2019Q2      0.000890         0.001510       -0.000295
-2019Q3      0.000863         0.001174        0.000979
-2019Q4     -0.000548         0.000130        0.003963
-2020Q1      0.000396        -0.001746       -0.015865
-2020Q2      0.000349        -0.026782       -0.069045
-
-# text/plain
-: <Figure size 648x288 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/e51f3a05cd7cc553d133062ba14404ab5b055f1a.png]]
+2018Q4      0.000385        -0.002477        0.000941
+2019Q1     -0.001660         0.000468        0.005336
+2019Q2      0.000856         0.001882        0.001711
+2019Q3      0.001242        -0.000396        0.001705
+2019Q4     -0.001377         0.000124        0.002887
+2020Q1      0.002233        -0.001832       -0.010575
+2020Q2     -0.000139        -0.028106       -0.067661
+2020Q3     -0.000416         0.030392        0.045041
 :end:
 
 *** Carregamento estatístico
@@ -3557,8 +3157,8 @@ print(df[Oferta].diff().apply(lambda x: x/(df["VA"].shift())).tail(8))
 
 ** Balanço de Pagamentos
 
-#+BEGIN_SRC ipython :session BP :tangle ./codes/BP.py
-%config InlineBackend.figure_format = 'retina'
+#+BEGIN_SRC python  :tangle ./codes/BP.py
+
 import sys
 
 sys.path.insert(1, './codes/')
@@ -3573,13 +3173,12 @@ start_year = "2019-01-01"
 
 #+RESULTS:
 :results:
-# Out [34]: 
 :end:
 
 
 *** Balança comercial
 
-#+BEGIN_SRC ipython  :session BP :tangle ./codes/BP.py
+#+BEGIN_SRC python   :tangle ./codes/BP.py
 file_name = 'Balanca_Comercial_Total_MDIC'
 sheet = "Saldo Semanal"
 df = pd.read_excel(
@@ -3636,16 +3235,10 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [35]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/1e0d8385dd451046cdb0d2ba3d5177a8c0b66b09.png]]
 :end:
 
 
-#+BEGIN_SRC ipython  :session BP :tangle ./codes/BP.py
+#+BEGIN_SRC python   :tangle ./codes/BP.py
 file_name = 'Balanca_Comercial_Total_MDIC'
 sheet = "Saldo Mensal"
 df = pd.read_excel(
@@ -3693,16 +3286,10 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [36]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/5c8166f4bad84dd16ebefa571131cb142728daa5.png]]
 :end:
 
 
-#+BEGIN_SRC ipython  :session BP :tangle ./codes/BP.py
+#+BEGIN_SRC python   :tangle ./codes/BP.py
 file_name = 'Exportacao_Importacao_FUNCEX'
 sheet = "Funcex Dessaz"
 df = pd.read_excel(
@@ -3742,18 +3329,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [37]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/0c79e964de2ddd1cb6e026cbcf8475b6f5849d98.png]]
 :end:
 
 
 *** Conta corrente (%PIB)
 
-#+BEGIN_SRC ipython  :session BP :tangle ./codes/BP.py
+#+BEGIN_SRC python   :tangle ./codes/BP.py
 file_name = 'Conta_Corrente_pct_PIB_Bacen_BPM6'
 sheet = "Conta Corrente"
 df = pd.read_excel(
@@ -3804,17 +3385,11 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [38]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/1c5d34e0d8ec55b286fb4de024d0b7b11b8bcf58.png]]
 :end:
 
 *** Balança Comercial por país (mensal)
 
-#+BEGIN_SRC ipython  :session BP :tangle ./codes/BP.py
+#+BEGIN_SRC python   :tangle ./codes/BP.py
 file_name = 'Balanca_Comercial_por_Pais_Funcex'
 sheet = "Exportações Mensal"
 df = pd.read_excel(
@@ -3883,16 +3458,10 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [39]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/c3ff075133f390045c0fb620ae17d0d8ae93f0b8.png]]
 :end:
 
 
-#+BEGIN_SRC ipython  :session BP :tangle ./codes/BP.py
+#+BEGIN_SRC python   :tangle ./codes/BP.py
 file_name = 'Balanca_Comercial_por_Pais_Funcex'
 sheet = "Exportações Mensal"
 df = pd.read_excel(
@@ -3950,17 +3519,11 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [40]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/94e3a318f5fa3b548791774e379fcc93c0ac6151.png]]
 :end:
 
 **** Importações
 
-#+BEGIN_SRC ipython  :session BP :tangle ./codes/BP.py
+#+BEGIN_SRC python   :tangle ./codes/BP.py
 file_name = 'Balanca_Comercial_por_Pais_Funcex'
 sheet = "Importações Mensal"
 df = pd.read_excel(
@@ -4029,16 +3592,10 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [41]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/418cb4f4d4375891918713f399f1fd90e9c5c223.png]]
 :end:
 
 
-#+BEGIN_SRC ipython  :session BP :tangle ./codes/BP.py
+#+BEGIN_SRC python   :tangle ./codes/BP.py
 file_name = 'Balanca_Comercial_por_Pais_Funcex'
 sheet = "Importações Mensal"
 df = pd.read_excel(
@@ -4096,18 +3653,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [42]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/5deabc9a2c1ef0035dab475172a88f0cbcbb7efa.png]]
 :end:
 
 
 *** Saldo Comercial
 
-#+BEGIN_SRC ipython  :session BP :tangle ./codes/BP.py
+#+BEGIN_SRC python   :tangle ./codes/BP.py
 file_name = 'Balanca_Comercial_por_Pais_Funcex'
 sheet = "Saldo Comercial Mensal"
 df = pd.read_excel(
@@ -4177,16 +3728,10 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [43]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/45699a516d97feebeb7f7e04293a5e946ff61c4c.png]]
 :end:
 
 
-#+BEGIN_SRC ipython  :session BP :tangle ./codes/BP.py
+#+BEGIN_SRC python   :tangle ./codes/BP.py
 file_name = 'Balanca_Comercial_por_Pais_Funcex'
 sheet = "Saldo Comercial Mensal"
 df = pd.read_excel(
@@ -4245,18 +3790,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [44]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/21bc45cb0da9893e5fef8023e5101cfef69cdbcb.png]]
 :end:
 
 ** China
 
-#+BEGIN_SRC ipython :session China :tangle ./codes/China.py
-%config InlineBackend.figure_format = 'retina'
+#+BEGIN_SRC python :session China :tangle ./codes/China.py
+
 import sys
 
 sys.path.insert(1, './codes/')
@@ -4271,11 +3810,10 @@ start_year = "2019-01-01"
 
 #+RESULTS:
 :results:
-# Out [10]: 
 :end:
 
 
-#+BEGIN_SRC ipython  :session China :tangle ./codes/China.py
+#+BEGIN_SRC python  :session China :tangle ./codes/China.py
 
 file_name = 'China_Banco_dados'
 sheet = "Atividade Econômica"
@@ -4322,15 +3860,11 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [11]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
 
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/c74b91ccd85342cb8d46bc2adf505f782f53168c.png]]
+(python3:57653): Gtk-[1;33mWARNING[0m **: [34m18:17:44.140[0m: Theme parsing error: gtk.css:1:117: Failed to import: Erro ao abrir arquivo /home/gpetrini/.local/share/gnome-shell/extensions/unite@hardpixel.eu/styles/buttons-right-always.css: Arquivo ou diretório não encontrado
 :end:
 
-#+BEGIN_SRC ipython  :session China :tangle ./codes/China.py
+#+BEGIN_SRC python  :session China :tangle ./codes/China.py
 
 file_name = 'China_Banco_dados'
 sheet = "PIB Trimestral Dessaz"
@@ -4377,19 +3911,13 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [12]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/c8d7570e3a7e977e5c224522a2254ee152c9b730.png]]
 :end:
 
 
 * Índices de atividade setoriais
 
-#+BEGIN_SRC ipython :session setoriais :tangle ./codes/setoriais.py
-%config InlineBackend.figure_format = 'retina'
+#+BEGIN_SRC python  :tangle ./codes/setoriais.py
+
 import sys
 
 sys.path.insert(1, './codes/')
@@ -4405,13 +3933,12 @@ base = "2014-12-01"
 
 #+RESULTS:
 :results:
-# Out [5]: 
 :end:
 
 
 ** Pesquisa Industrial Mensal (PIM)
 
-#+BEGIN_SRC ipython :session setoriais :tangle ./codes/setoriais.py
+#+BEGIN_SRC python  :tangle ./codes/setoriais.py
 file_name = "PIM_IBGE"
 df = pd.read_excel(
     file_path + file_name + ".xlsx",
@@ -4452,18 +3979,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [6]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/d717735925d5d1c2f0e440c2e6c066139a4df3f4.png]]
 :end:
 
 
 ** Pesquisa Mensal do Comércio (PMC)
    
-#+BEGIN_SRC ipython :session setoriais :tangle ./codes/setoriais.py
+#+BEGIN_SRC python  :tangle ./codes/setoriais.py
 file_name = "PMC_IBGE"
 df = pd.read_excel(
     file_path + file_name + ".xlsx",
@@ -4527,18 +4048,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [7]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/b534b097cb3117627d0996f21cbf6e828f0327f9.png]]
 :end:
 
 
 ** Pesquisa Mensal de Serviços (PMS)
 
-#+BEGIN_SRC ipython :session setoriais :tangle ./codes/setoriais.py
+#+BEGIN_SRC python  :tangle ./codes/setoriais.py
 file_name = "PMS_IBGE"
 df = pd.read_excel(
     file_path + file_name + ".xlsx",
@@ -4588,18 +4103,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [8]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/d4ec944fdf0da4f21e1332a03a296d7dcb2c7cd7.png]]
 :end:
 
 * Emprego
 
-#+BEGIN_SRC ipython  :session pnad :tangle ./codes/pnad.py
-%config InlineBackend.figure_format = 'retina'
+#+BEGIN_SRC python   :tangle ./codes/pnad.py
+
 import sys
 
 sys.path.insert(1, './codes/')
@@ -4614,13 +4123,12 @@ start_year = "2019-01-01"
 
 #+RESULTS:
 :results:
-# Out [9]: 
 :end:
 
 
 ** Taxa de desocupação
 
-#+BEGIN_SRC ipython  :session pnad :tangle ./codes/pnad.py
+#+BEGIN_SRC python   :tangle ./codes/pnad.py
 var = "Taxa de desocupação"
 df = pd.read_excel(
     file_path,
@@ -4663,18 +4171,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [10]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/3e66e5d7c90078e7768d9ebdeb4b854b64554dc0.png]]
 :end:
 
 
 ** Massa de renda
 
-#+BEGIN_SRC ipython  :session pnad :tangle ./codes/pnad.py
+#+BEGIN_SRC python   :tangle ./codes/pnad.py
 var = "Massa de renda real efetiva"
 df = pd.read_excel(
     file_path,
@@ -4717,18 +4219,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [11]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/12f387dcc997a1e058ff9556ac8d26b3954897ca.png]]
 :end:
 
 
 ** Desalentados e subocupados
 
-#+BEGIN_SRC ipython  :session pnad :tangle ./codes/pnad.py
+#+BEGIN_SRC python   :tangle ./codes/pnad.py
 var = "Desalentados_Subocupados"
 df = pd.read_excel(
     file_path,
@@ -4775,18 +4271,12 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [12]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/f32bc3ff2934cd6e25217103bf3cc674577be1da.png]]
 :end:
 
 ** Rendimento habitual médio por atividade
 
 
-#+BEGIN_SRC ipython  :session pnad :tangle ./codes/pnad.py
+#+BEGIN_SRC python   :tangle ./codes/pnad.py
 df = pd.read_excel(
     file_path,
     sheet_name = "Brasil Mensal RHM Setor Real",
@@ -4823,17 +4313,11 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [13]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/7aaad0ee1869882066c6cd4e35e4b0fdd2c933bc.png]]
 :end:
 
 ** População ocupada por atividade
 
-#+BEGIN_SRC ipython  :session pnad :tangle ./codes/pnad.py
+#+BEGIN_SRC python   :tangle ./codes/pnad.py
 df = pd.read_excel(
     file_path,
     sheet_name = "Brasil Mensal PO Setor",
@@ -4876,19 +4360,13 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [14]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/18ae86fa0395bd8722bf758ae72aaa47ff7d9d15.png]]
 :end:
 
 
 
 ** Taxa de ocupação
 
-#+BEGIN_SRC ipython  :session pnad :tangle ./codes/pnad.py
+#+BEGIN_SRC python   :tangle ./codes/pnad.py
 var = "Taxa de ocupação"
 df = pd.read_excel(
     file_path,
@@ -4931,16 +4409,10 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [15]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/e57bbb759924a9cb6416ba0e9df75b2ce0d735dd.png]]
 :end:
 
 
-#+BEGIN_SRC ipython  :session pnad :tangle ./codes/pnad.py
+#+BEGIN_SRC python   :tangle ./codes/pnad.py
 df = pd.read_excel(
     file_path,
     sheet_name = "Brasil Mensal PO Setor",
@@ -4982,10 +4454,4 @@ fig.savefig(
 
 #+RESULTS:
 :results:
-# Out [16]: 
-# text/plain
-: <Figure size 576x360 with 2 Axes>
-
-# image/png
-[[file:obipy-resources/62e383af79e91b63c7fc98dd7fb55b3c3ececcb9/e61012cac93df689012036ff07e2747e523e77b1.png]]
 :end:
