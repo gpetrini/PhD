@@ -158,8 +158,8 @@ def ploter(df, country, days=365, units="MWh"):
 
 *** Brazil: BRA
 **** Energy share
-    
-#+BEGIN_SRC python :session Energia :tangle ./codes/Energia.py
+
+#+BEGIN_SRC python :tangle ./codes/Energia.py
 share = pd.read_excel(
     './raw/LCA/Consumo_Energia_EPE.xlsx',
     sheet_name='BR', 
@@ -207,7 +207,6 @@ ax.set_xticklabels(map(lambda x: line_format(x), share["2019":].index))
 
 
 sns.despine()
-plt.show()
 share["Non-Residential"] = 1- share["Residential"]
 
 #+END_SRC
@@ -216,9 +215,10 @@ share["Non-Residential"] = 1- share["Residential"]
 :results:
 :end:
 
+
 **** Consumo Diário
      
-#+BEGIN_SRC python :session Energia :tangle ./codes/Energia.py
+#+BEGIN_SRC python :tangle ./codes/Energia.py
 datelist = pd.date_range(
     start = "01/31/2018",
     end = str(dt.today().strftime("%m/%d/%Y")),
@@ -432,7 +432,7 @@ fig.savefig(
 
 *** France: FRA
 
-#+BEGIN_SRC python :session Energia :tangle ./codes/Energia.py
+#+BEGIN_SRC python :tangle ./codes/Energia.py
 url = 'https://www.data.gouv.fr/en/datasets/r/cfc27ff9-1871-4ee8-be64-b9a290c06935'
 fra = pd.read_csv(
     url,
@@ -478,7 +478,7 @@ infos['Link'].append(url)
 
 *Corrigir*
 
-#+BEGIN_SRC python :eval never :session Energia :tangle ./codes/Energia.py
+#+BEGIN_SRC python :eval never :tangle ./codes/Energia.py
 datelist = pd.date_range(
     start = "01/01/2020",
     end = str((dt.today()- timedelta(days=2)).strftime("%d/%m/%Y")),
@@ -530,7 +530,7 @@ infos['Link'].append(url)
 
 *** Austria: AUS
 
-#+BEGIN_SRC python :session Energia :tangle ./codes/Energia.py
+#+BEGIN_SRC python :tangle ./codes/Energia.py
 aus = pd.read_csv(
     './raw/Energy/AUS.csv', 
     sep=';', 
@@ -578,7 +578,7 @@ ploter(
 
 *** Germany: GER
 
-#+BEGIN_SRC python :session Energia :tangle ./codes/Energia.py
+#+BEGIN_SRC python :tangle ./codes/Energia.py
 ger = pd.read_csv(
     './raw/Energy/GER.csv', 
     sep=';', 
@@ -626,7 +626,7 @@ infos['Link'].append(np.NaN)
 
 *** Luxemburg: LUX
     
-#+BEGIN_SRC python :session Energia :tangle ./codes/Energia.py
+#+BEGIN_SRC python :tangle ./codes/Energia.py
 lux = pd.read_csv(
     './raw/Energy/LUX.csv', 
     sep=';', 

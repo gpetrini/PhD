@@ -708,16 +708,11 @@ plt.clf()
 *** Taxa própria e taxa de crescimento do investimento residencial
 
 #+BEGIN_SRC python :async t :results graphics file :file ./figs/Own_gI.png
-df = pd.read_csv(
-    './data/OwnInterestRate_data.csv',
-    index_col = [0],
-    parse_dates = True
-)
 
 sns.set_context('paper')
 fig, ax = plt.subplots(figsize=(19.20,10.80))
 
-df[['Real mortgage interest rate', "Own interest rate", '$g_{I_h}$']].plot(ax=ax, lw=3, color = ("gray", "black", "darkgray"))
+df[['Real mortgage interest rate', "Own interest rate", "$g_{I_h}$"]].plot(ax=ax, lw=3, color = ("darkgray", "black", "gray"), style=['--', '-', '-'])
 ax.legend(frameon=True, facecolor='white', framealpha=2, edgecolor='black', fontsize=15)
 ax.tick_params(axis='both', which='major', labelsize=15)
 sns.despine()
@@ -907,9 +902,9 @@ plt.clf()
 
 *** Literature state-of-art                                          :ignore:
 A growing body of empirical demand-led literature has evaluated the role of NCC autonomous expenditures.
-textcite:freitas_pattern_2013 present a growth accounting decomposition fro Brazil from 1970 to 2005 and report the relevance of those expenditures in describing Brazilian GDP growth. textcite:braga_investment_2018 shows evidence that economic growth and non-residential investment are explained by NCC autonomous expenditures in Brazilian economy from 1962 to 2015. For the U.S., textcite:girardi_long-run_2016 show that NCC autonomous expenditures have permanent effects on growth rate. 
-textcite:haluska_growth_2019 employ Granger-causality tests to assess the stability of the SSM for the US (1987-2017) and report a causality from NCC autonomous expenditures to the marginal propensity to invest, as expected.
-Finally, textcite:girardi_autonomous_2018 bring evidence that those expenditures determine investment share on GDP for twenty OECD countries.
+textcite:freitas_pattern_2013 present a growth accounting decomposition fro Brazil from 1970 to 2005 and report the relevance of those expenditures in describing Brazilian GDP growth. textcite:braga_investment_2020 shows evidence that economic growth and non-residential investment are explained by NCC autonomous expenditures in Brazilian economy from 1962 to 2015. For the U.S., textcite:girardi_long-run_2016 show that NCC autonomous expenditures have permanent effects on growth rate.
+textcite:haluska_growth_2020 employ Granger-causality tests to assess the stability of the SSM for the US (1987-2017) and report a causality from NCC autonomous expenditures to the marginal propensity to invest, as expected.
+Finally, textcite:girardi_autonomous_2020 bring evidence that those expenditures determine investment share on GDP for twenty OECD countries.
 
 #+LATEX:\\
 
@@ -934,7 +929,7 @@ However, most of them have emphasized house prices and not its volume (residenti
 textcite:goodhart_house_2008 for instance, estimate a time-series fixed effects panel data for 17 industrialized countries from 1970 to 2006. They report a multidirectional relation between money, credit, house prices and GDP growth and have found stronger effects during housing booms[fn::textcite:Arestis_Bank_2014 also found a  direct relationship between house prices and credit volume based on cointegration and error correction techniques for 9 OECD countries from 1970 to 2011.]. 
 textcite:wood_house_2020 report that house prices are relevant for describing household indebtedness from 1980 to 2017 in 18 advance economies.
 However, both studies do not include residential investment.
-textcite:arestis_residential_2015, on the other side, include residential investment. Using a ARDL model for 17 OECD countries from 1970 to 2013, the authors report that banking credit and real house prices are the most statistically significant variables for real residential investment in the US.
+textcite:Arestis_Residential_2014, on the other side, include residential investment. Using a ARDL model for 17 OECD countries from 1970 to 2013, the authors report that banking credit and real house prices are the most statistically significant variables for real residential investment in the US.
 Although those approaches are interesting, it fails to take into account the connection between asset bubbles and aggregate demand which is relevant for describe the recent housing burst event.
 
 #+LATEX:\\
@@ -953,9 +948,7 @@ Next, we analyze the connection between residential investment, real estate infl
 *** Investmento residencial e o ciclo econômico                      :ignore:
 As discussed before, both textcites:green_follow_1997,leamer_housing_2007 made it clear how important this particular expenditure is to USA business cycle. In this subsection, we show some residential investment stylized facts for the US in more detail.
 
-- [ ] Introdução mais alongada
-
-Figure ref:Investo_Resid_GDP shows how residential investment movements help to predict recessions. Recessions are anticipated by a reduction of residential investment share on GDP, while the expansion of those expenditures precedes economic recovery. The fall of dwellings expenditures in 1966-67 are an exception because the increase of military expenditures because of Vietnam War offset an eventual economic downturn \cite[p.~20]{leamer_housing_2007}. Another exception is the dot-com bubble 2000 crisis that was not caused by residential investment. The Great Recession 2008-2009 is the one in which this pattern is the most evident. 
+Figure ref:Investo_Resid_GDP shows how residential investment movements help to predict recessions. Recessions are anticipated by a reduction of residential investment share on GDP, while the expansion of those expenditures precedes economic recovery. The fall of dwellings expenditures in 1966-67 are an exception because the increase of military expenditures because of Vietnam War offset an eventual economic downturn \cite[p.~20]{leamer_housing_2007}. Another exception is the dot-com bubble 2000 crisis that was not caused by residential investment. The Great Recession 2008-2009 is the one in which this pattern is the most evident.
 
 
 

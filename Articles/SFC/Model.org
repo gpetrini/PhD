@@ -591,11 +591,11 @@ Next, we present residential investment growth rate ($g_{I_h}$) as determined by
 
 #+BEGIN_SRC latex
 \begin{equation}
-    I_h = (1 + g_{I_h})\cdot Ih_{-1}
+	I_h = (1 + g_{I_h})\cdot I_{h_{-1}}
 \end{equation}
 \begin{equation}
-\label{g_Z_own}
-g_{I_h} = \phi_0 - \phi_1\cdot own
+	\label{g_Z_own}
+	g_{I_h} = \phi_0 - \phi_1\cdot own
 \end{equation}
 
 

@@ -21,7 +21,7 @@ The following line specifies how org headlines translate to the Beamer document 
 
 * Python Configurações :noexport:
 
-#+PROPERTY: header-args:python :session *panorama* :results output drawer replace :exports none :eval never-export      
+#+PROPERTY: header-args:python :session *panorama* :results output drawer replace :exports none :eval never-export :tangle panorama.py
 
 #+BEGIN_SRC python
 import datetime
