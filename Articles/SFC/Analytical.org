@@ -576,9 +576,9 @@ print(
 :end:
 
 
-* Short and long-run equilibria                                      :ignore:
+* From short- to long-run equilibria
 
-In this Section, we show the implications residential investment inclusion into a SSM-SFC model. First, we present the short-run dynamics and then move to the fully-adjusted position (denoted by $\star$).
+In this Section, we show the implications of residential investment inclusion into a SSM-SFC model. First, we present the short-run dynamics and then move to the traverse and then to the long-run equilibrium (denoted by $\star$).
 
 ** Short-run good market equilibrium
 #+LATEX: \label{short}
@@ -595,14 +595,16 @@ and replacing Equation ref:Z_Ih in the previous one
 \label{Y_Ih}
 Y_t = \frac{I_h}{(1-R)(1 - h_t - \omega)}
 \end{equation}
+since $R$ is non-negative and lower than one, the Keynesian stability condition is $h_{t} + \omega < 1$.
+
 Next, dividing equation ref:Y_Ih by ref:_YFC,  replacing residential investment growth rate by Equation ref:g_Z_own  and rearranging, we get the short-run equilibrium utilization rate (Equation ref:short_u).
-In this model, GDP growth is determined by residential investment growth rate.
-When the latter accelerates, capacity utilization rate increases as shown by Equation ref:short_u:
+In this model, residential investment growth rate determines GDP growth rate.
+When the latter accelerates, rate of capacity utilization increases as shown by Equation ref:short_u:
 \begin{equation}
 \label{short_u}
 u_t = \frac{v}{(1-R)(1-h_t - \omega)}\frac{I_{h_{t-1}}}{K_{f_{t-2}}}\frac{(1 + g_{I_h})}{(1+g_{K_{t-1}})}
 \end{equation}
-Replacing equation ref:g_Z_own in Equation ref:short_u we make explicit the functional form of residential investment growth rate as one of the determinants of capacity utilization rate as shown in Equation ref:short_u_own:
+Replacing equation ref:g_Z_own in Equation ref:short_u we make explicit the functional form of residential investment growth rate as one of the determinants of rate of capacity utilization as shown in Equation ref:short_u_own:
 \begin{equation}
 \label{short_u_own}
 u_t = \frac{v}{(1-R)(1-h_t - \omega)}\frac{I_{h_{t-1}}}{K_{f_{t-2}}}\frac{(1 + \phi_0 - \phi_1\cdot own_t)}{(1+g_{K_{t-1}})}
@@ -610,7 +612,7 @@ u_t = \frac{v}{(1-R)(1-h_t - \omega)}\frac{I_{h_{t-1}}}{K_{f_{t-2}}}\frac{(1 + \
 
 Next, we revisit Equation ref:short_u in order to present houses share on total capital stock ($k$).
 To do so, we express firms' capital in terms of houses. 
-Then, dividing both sides of equation ref:short_u by houses and after some algebraic manipulations, we get firms' capital-to-houses ratio (Equation ref:k_short)
+Then, dividing both sides of equation ref:short_u by houses and after some algebraic manipulations, we get houses-to-capital ratio (Equation ref:k_short)
 #+BEGIN_SRC ipython :exports none :session k
 import sympy as sp
 k, v, g, w, h, u, R = sp.symbols('k v g omega h u R')
@@ -661,14 +663,14 @@ Equation ref:g_medium presents aggregate demand during the traverse:
 \label{g_medium}
 g_t = g_{Z} + \frac{\Delta h}{1 - \omega - h_{t}}
 \end{equation}
-This process continues as long as GDP growth rate moves towards NCC autonomous expenditure growth rate (in this case, residential investment and capitalist consumption). On the following subsection, we analyze the fully-adjusted positions values and steady state stock ratios.
+This process continues as long as GDP growth rate moves towards NCC autonomous expenditure growth rate (in this case, residential investment and capitalist consumption). Next, we analyze the long-run equilibrium values and steady growth stock ratios.
 
-As mentioned before, firms’ marginal propensity to invest reacts to discrepancies between the utilization rate and the normal one.  This adjustment process continues until actual a normal capacity utilization rate are equal:
+As mentioned before, firms’ marginal propensity to invest reacts to discrepancies between the rate of capacity utilization and the normal one.  This adjustment process continues until actual and normal rate of capacity utilization are equal:
 
 $$
-u \to u^{\star}  = u_N \Leftrightarrow g \to g^{\star} = g_Z
+u \to u^{\star}  = u_N \Leftrightarrow g \to g^{\star} = g_Z = g_{I_{h}}
 $$
-and fully-adjusted position marginal propensity to invest will be:
+and long-run marginal propensity to invest will be:
 
 
 \begin{equation}
@@ -687,8 +689,8 @@ Once again, we can show the long-run position making the residential investment 
 Y^{\star} = \frac{I_h}{\left(1-R\right)\left(1 - \omega - g_{I_h}^{\star}\cdot \frac{v}{u^{\star}\right)}}
 \end{equation}
 
-Next, we move towards the analysis of the particularities of our model:  one of the NCC autonomous expenditures also contributes to total capital stock.  
-Replacing Equation ref:h_long in ref:k_short, we obtain fully-adjusted position of the ratio between houses and total capital stock (denoted by $k^\star$):
+Next, we move towards the analysis of the particularities of our model.
+To do so, we replace Equation ref:h_long in ref:k_short, we obtain long-run ratio between houses and total capital stock (denoted by $k^\star$):
 
 #+BEGIN_comment
 It worth noting that the second term of RHS of equation ref:k_long is equal to the ``fraction'' ($f$) introduced by textcite:serrano_long_1995:
@@ -727,7 +729,9 @@ k^{\star} = 1 - \frac{h^{\star}}{h^\star + (1-R)(1-h^\star - \omega)}
 
 
 
-Before moving on to the numerical simulations, we present some steady state stock ratios in order to shed some light in the dynamic process of the model. Dividing Equation ref:_Lf by firms' capital stock and making some algebraic manipulation, we obtain steady state loans' ratio to capital stock ($\ell^{\star}$, Equation ref:firm_ratio):
+Before moving to the numerical simulations, we present some steady growth stock ratios in order to shed some lights in the dynamic process of the model.
+At odds with literature, we do not normalize the stocks by the total capital stock, but by the economically relevant capital (firms' capital stock or houses) type.
+Thus, dividing Equation ref:_Lf by firms' capital stock and making some algebraic manipulation, we obtain steady growth loans' ratio to firms' capital stock ($\ell^{\star}$, Equation ref:firm_ratio):
 
 $$
 \Delta \left(\frac{L_{f}}{K_{f}}\right) = \frac{I_{f} - FU}{K_{f}} - \ell^{\star}_{f}\cdot g^{\star}  = 0
@@ -737,7 +741,7 @@ $$
 \label{firm_ratio}
 \ell_f^\star = 1 - \gamma_F\left(\frac{r_g^\star - r_m}{g^\star - \gamma_F\cdot r_m}\right)
 \end{equation}
-Thus, replacing equation ref:firm_ratio into ref:_rn to obtain net profit rate in the fully-adjusted position (see Equation ref:Long_netprofit_ratio)
+Thus, replacing equation ref:firm_ratio into ref:_rn to obtain net profit rate in the long-run (see Equation ref:Long_netprofit_ratio)
 \begin{equation}
 \label{Long_netprofit_ratio}
 r_n^\star = r_g^\star - r_m\cdot \left(1 - \gamma_F\left(\frac{r_g^\star - r_m}{g^\star - \gamma_F\cdot r_m}\right)\right)
@@ -757,7 +761,7 @@ $$
 \ell^\star = \frac{R}{1-R}
 \end{equation}
 
-The same procedure can be applied to find mortgage to house stock ratio ($mo^{\star}$, Equation ref:mortgage_ratio):
+The same procedure is also applied to find mortgage to house stock ratio ($mo^{\star}$, Equation ref:mortgage_ratio):
 $$
 \Delta \left(\frac{MO}{K_{HD}}\right) = \frac{\Delta MO}{K_{HD}} - mo^{\star}\cdot g^{\star} = 0
 $$
@@ -766,7 +770,7 @@ $$
 \label{mortgage_ratio}
 mo^\star = 1
 \end{equation}
-Thus, adding Equations ref:capitalist_ratio and ref:mortgage_ratio and, we get capitalists' total debt in terms of houses ($d^\star$ Equation ref:debt_ratio)
+Thus, adding Equations ref:capitalist_ratio and ref:mortgage_ratio and, we get capitalists' total debt in terms of houses ($d^\star$, Equation ref:debt_ratio)
 
 $$
 d^\star = 1 + \frac{R}{1-R}
@@ -777,7 +781,7 @@ $$
 d^\star = \frac{1}{1-R}
 \end{equation}
 
-Finaly, we can express deposits share on total capital stock ($m^{\star}$) in terms of previous stock ratios:
+Finaly, we can express deposits share on total capital stock ($m^{\star}$, Equation ref:M_long_intermediate) in terms of previous stock ratios:
 
 $$
 \frac{M}{K} = \frac{MO + L_k + L_f}{K}
@@ -792,7 +796,7 @@ m^{\star} = mo^{\star}\cdot k^{\star} + \ell^{\star}_{k}\cdot k^{\star} + \ell^{
 #+END_equation
 
 #+BEGIN_comment
-[fn:lhs] Additionally, replacing Equations ref:h_long, ref:k_long, ref:firm_ratio, ref:capitalist_ratio and ref:mortgage_ratio in to ref:M_long_intermediate, we obtain steady state deposits to total capital stock ratio (Equation ref:deposits_rhs):
+[fn:lhs] Additionally, replacing Equations ref:h_long, ref:k_long, ref:firm_ratio, ref:capitalist_ratio and ref:mortgage_ratio in to ref:M_long_intermediate, we obtain steady growth deposits to total capital stock ratio (Equation ref:deposits_rhs):
 #+CALL:mrhsstar(label="deposits_rhs")
 #+RESULTS:
 :results:

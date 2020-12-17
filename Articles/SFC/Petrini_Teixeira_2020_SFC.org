@@ -12,7 +12,7 @@ In this paper, we build a fully specified parsimonious Sraffian supermultiplier 
 Our model represents a closed and without government economy with workers and capitalist households and only the latter are not credit constrained.
 The introduction of residential investment implies that our SSM-SFC model has two real assets: firms' productive capital and households' real estate.
 In our model, residential investment growth rate responds to changes of house price inflation.
-The numerical simulation experiments shows that our model keep the main standard Sraffian supermultiplier growth models results.
+The numerical simulation experiments shows that our model keeps the main standard Sraffian supermultiplier growth models results.
 As a particular result, an increase of residential investment growth rate increase implies a decrease of real estate share in total real assets.
 Inspired by the recent U.S. bubble episode, we plug house price inflation data (1992-2019).
 Although simple, our numerical simulations are capable to reproduce some stylized facts such as residential investment leading the business cycle and capital accumulation and a clockwise pattern between non-capacity creating autonomous expenditures and capacity utilization rate.
@@ -440,12 +440,12 @@ Since capitalists' loans and mortgage to house ratios ($\ell^{\star}_{k}$ and $m
 \end{table}
 #+end_export
 
-
-** Sensibility                                                       :ignore:
+* Sensibility Analysis
+#+LATEX: \label{append:Sensib}
 
 *** Config                                                           :ignore:
 
-#+BEGIN_SRC python :tangle ./codes/Sobol.py :async t :session Sobol :exports none :python /usr/bin/python3.8 :eval never-export
+#+BEGIN_SRC python :tangle ./codes/Sobol.py :session Sobol :exports none :python /usr/bin/python3.8 :eval never-export
 
 import sys
 
@@ -460,7 +460,7 @@ parameters = [
     'omega',
     'gamma_F',
 #    'alpha',
-    'spread_mo',
+    'rm',
     'phi_0',
     'phi_1',
     'infla',
@@ -471,7 +471,7 @@ parameters = [
 #+RESULTS:
 
 
-#+BEGIN_SRC python  :tangle ./codes/Sobol.py :async t :session Sobol :exports none :python /usr/bin/python3.8 :eval never-export
+#+BEGIN_SRC python  :tangle ./codes/Sobol.py :session Sobol :exports none :python /usr/bin/python3.8 :eval never-export
 def sensibility(
     parameters,
     bound = np.linspace(0,1,101),
@@ -504,7 +504,7 @@ def sensibility(
 
 *** Simulation                                                       :ignore:
 
-#+BEGIN_SRC python  :tangle ./codes/Sobol.py :async t :session Sobol :exports none :cache no :python /usr/bin/python3.8 :eval never-export
+#+BEGIN_SRC python  :tangle ./codes/Sobol.py :session Sobol :exports none :cache no :python /usr/bin/python3.8 :eval never-export
 df = sensibility(time=400, parameters=parameters)
 
 report = pd.DataFrame(
@@ -517,87 +517,84 @@ print(df)
 
 #+RESULTS:
 #+begin_example
-gamma_u     omega   gamma_F  spread_mo     phi_0     phi_1     infla         R
-0.00 -2.530464 -2.087674 -2.698257  -2.698247 -3.018613 -2.691682 -2.698247 -1.092702
-0.01 -2.711678 -2.095959 -2.698256  -2.698288 -1.967421 -2.692559 -2.691682 -1.100112
-0.02 -2.694301 -2.104348 -2.698260  -2.698331 -2.635810 -2.693389 -2.680788 -1.107645
-0.03 -2.709234 -2.112844 -2.698255  -2.698374 -2.627593 -2.694172 -2.666582 -1.115304
-0.04 -2.718127 -2.121447 -2.698251  -2.698412 -2.389913 -2.694906 -2.649931 -1.123094
-...       ...       ...        ...       ...       ...       ...       ...
-0.96       NaN -3.816070 -2.698230  -2.699445       NaN -2.470601 -1.831873       NaN
-0.97       NaN -3.785307 -2.698232  -2.699429       NaN -2.464600 -1.829003       NaN
-0.98       NaN -3.749482 -2.698234  -2.699412       NaN -2.458528 -1.826174       NaN
-0.99       NaN -3.709475 -2.698236  -2.699395       NaN -2.452386 -1.823388       NaN
-1.00       NaN -3.666369 -2.698235  -2.699377       NaN -2.446172 -1.820641       NaN
+       gamma_u     omega   gamma_F        rm     phi_0     phi_1     infla         R
+0.00 -2.530464 -2.087674 -2.698257 -2.691684 -3.018613 -2.691682 -2.698247 -1.092702
+0.01 -2.711678 -2.095959 -2.698256 -2.698247 -1.967421 -2.692559 -2.691682 -1.100112
+0.02 -2.694301 -2.104348 -2.698260 -2.699360 -2.635810 -2.693389 -2.680788 -1.107645
+0.03 -2.709234 -2.112844 -2.698255 -2.694363 -2.627593 -2.694172 -2.666582 -1.115304
+0.04 -2.718127 -2.121447 -2.698251 -2.682466 -2.389913 -2.694906 -2.649931 -1.123094
+...        ...       ...       ...       ...       ...       ...       ...       ...
+0.96       NaN -3.816070 -2.698230 -3.467853       NaN -2.470601 -1.831873       NaN
+0.97       NaN -3.785307 -2.698232 -3.484124       NaN -2.464600 -1.829003       NaN
+0.98       NaN -3.749482 -2.698234 -3.500338       NaN -2.458528 -1.826174       NaN
+0.99       NaN -3.709475 -2.698236 -3.516496       NaN -2.452386 -1.823388       NaN
+1.00       NaN -3.666369 -2.698235 -3.532599       NaN -2.446172 -1.820641       NaN
 
 [101 rows x 8 columns]
 #+end_example
 
+
 *** Table                                                            :ignore:
 
 
-#+BEGIN_SRC python  :tangle ./codes/Sobol.py :async t :session Sobol :exports none :python /usr/bin/python3.8 :eval never-export
+#+BEGIN_SRC python  :tangle ./codes/Sobol.py :session Sobol :exports none :python /usr/bin/python3.8 :eval never-export
 results = report.copy(deep=True)
 df_ = df.copy(deep=True)
 long_string = "Instability inducing value"
 results["Value"] = [long_string]
 results.set_index("Value", inplace=True)
-results.index.name = 'Parameter'
+results.index.name = "Parameter"
 results = results.transpose().copy(deep=True)
 results["Effect of increase"] = df.diff().median() >= 0
-translate = {
-    True: "Destabilizing",
-    False: "Stabilizing"
-}
-results["Effect of increase"] = results["Effect of increase"].map(translate).copy(deep=True)
+translate = {True: "Destabilizing", False: "Stabilizing"}
+results["Effect of increase"] = (
+    results["Effect of increase"].map(translate).copy(deep=True)
+)
 
 for i in range(len(results[long_string])):
-    val = results[long_string][i]
+    val = results.loc[results.index[i], long_string]
     if val >= 1.0:
-        results[long_string].iloc[i] = np.nan
+        results.loc[results.index[i], long_string] = np.nan
 
 latex = {
-    "gamma_u": "$\gamma_u$", "omega": "$\omega$", "gamma_F" : "$\gamma_F$",
-    "phi_0" : "$\phi_0$", "phi_1" : "$\phi_1$",
-    "infla" : "$\pi$", "spread_mo" : "$\sigma_{mo}$", "alpha" : "$\\alpha$",
-    "R" : "$R$",
+    "gamma_u": "$\gamma_u$",
+    "omega": "$\omega$",
+    "gamma_F": "$\gamma_F$",
+    "phi_0": "$\phi_0$",
+    "phi_1": "$\phi_1$",
+    "infla": "$\pi$",
+    "rm": "$rm$",
+    "alpha": "$\\alpha$",
+    "R": "$R$",
 }
 results["Description"] = [i for i in results.index]
 desc = {
     "gamma_u": "Adjustment speed",
     "omega": "wage-share",
-    "gamma_F" : "Profit distribution policy",
-    "phi_0" : "$g_{I_Z}$ autonomous component",
-    "phi_1" : "own interest rate parameter",
-    "infla" : "real estate inflation",
-    "spread_mo" : "Mortgage spread",
-#    "alpha" : "Marginal propensity to consume",
-    "R" : "$C_k$ share on $Z$",
+    "gamma_F": "Profit distribution policy",
+    "phi_0": "$g_{I_h}$ autonomous component",
+    "phi_1": "own interest rate parameter",
+    "infla": "real estate inflation",
+    "rm": "Deposits interest rate",
+    #    "alpha" : "Marginal propensity to consume",
+    "R": "$C_k$ share on $Z$",
 }
 results["Description"] = results["Description"].map(desc)
 results["Parameter"] = results.index.map(latex)
 results.set_index("Parameter", inplace=True)
-results.index.name = ''
-results  = results[[ # Reorder columns
-    "Description",
-    long_string,
-    "Effect of increase"
-]]
+results.index.name = ""
+results = results[["Description", long_string, "Effect of increase"]]  # Reorder columns
 results.to_latex(
-    './tabs/sobol.tex',
-    label = "tab:sensibility",
-    escape = False,
-    na_rep = '-',
-    #position="H"
+    "./tabs/sobol.tex",
+    label="tab:sensibility",
+    escape=False,
+    na_rep="-",
+    # position="H"
 )
 #+END_SRC
 
 #+RESULTS:
-: /home/gpetrini/.local/lib/python3.8/site-packages/pandas/core/indexing.py:670: SettingWithCopyWarning: 
-: A value is trying to be set on a copy of a slice from a DataFrame
-: 
-: See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-:   iloc._setitem_with_indexer(indexer, value)
+
 
 #+BEGIN_SRC latex
 \begin{table}[H]
@@ -619,6 +616,8 @@ results.to_latex(
 \caption*{\textbf{Source:} Authors' elaboration}
 \end{table}
 #+end_export
+
+
 
 
 

@@ -889,10 +889,6 @@ salvar_grafico(file_name="Concentration_Curve")
 plt.clf()
 #+END_SRC
 
-#+RESULTS:
-:results:
-:end:
-
 
 
 
@@ -902,7 +898,9 @@ plt.clf()
 
 *** Literature state-of-art                                          :ignore:
 A growing body of empirical demand-led literature has evaluated the role of NCC autonomous expenditures.
-textcite:freitas_pattern_2013 present a growth accounting decomposition fro Brazil from 1970 to 2005 and report the relevance of those expenditures in describing Brazilian GDP growth. textcite:braga_investment_2020 shows evidence that economic growth and non-residential investment are explained by NCC autonomous expenditures in Brazilian economy from 1962 to 2015. For the U.S., textcite:girardi_long-run_2016 show that NCC autonomous expenditures have permanent effects on growth rate.
+textcite:freitas_pattern_2013 present a growth accounting decomposition for Brazil from 1970 to 2005 and report the relevance of those expenditures in describing Brazilian GDP growth rate.
+textcite:braga_investment_2020 shows evidence that economic growth and non-residential investment are explained by NCC autonomous expenditures in the Brazilian economy from 1962 to 2015.
+For the U.S., textcite:girardi_long-run_2016 show that NCC autonomous expenditures have permanent effects on growth rate.
 textcite:haluska_growth_2020 employ Granger-causality tests to assess the stability of the SSM for the US (1987-2017) and report a causality from NCC autonomous expenditures to the marginal propensity to invest, as expected.
 Finally, textcite:girardi_autonomous_2020 bring evidence that those expenditures determine investment share on GDP for twenty OECD countries.
 
@@ -910,14 +908,14 @@ Finally, textcite:girardi_autonomous_2020 bring evidence that those expenditures
 
 *** Leamer and Fiebiger related                                      :ignore:
 However, there still is a lack of studies on the role of residential investment specifically.
-What is commonly  discussed about this NCC autonomous expenditure is largely based on textcite:green_follow_1997 pioneer work.
+It is worth mentioning that the discussion about this NCC autonomous expenditure is largely based on textcite:green_follow_1997 pioneer work.
 Based on Granger Causality and cointegration tests for the US from 1959-1992, this is one of the first papers to indicates that residential investment leads the business cycle.
 Subsequently, textcite:leamer_housing_2007 concludes that this pattern occurs at least since the post-war period.
 More precisely,  \textcite[p.~8]{leamer_housing_2007} describes US business cycles as follows: "[f]irst homes, then cars,
 and last business equipment".
 Recently, textcites:fiebiger_semi-autonomous_2018,fiebiger_trend_2017 also report residential investment as an important determinant of business cycles for the US based on causal narratives.
 Alternatively, textcite:huang_is_2020 estimate a Structural Vector Autoregressive (SVEC) model in a time-scale framework for the OECD countries to assess both prediction and causality relations stated by textcite:leamer_housing_2007.
-They report that residential investment predicts the US  macroeconomic fluctuation and housing related variables (house prices, real mortgage rate --- deflated by a general price index --- and bank spread) lead the business cycle in all G7 countries.
+They report that residential investment predicts the US  macroeconomic fluctuation and housing related variables (house prices, real mortgage rate --- deflated by a consumer price index --- and credit spread) lead the business cycle in all G7 countries.
 
 #+LATEX:\\
 
@@ -930,14 +928,14 @@ textcite:goodhart_house_2008 for instance, estimate a time-series fixed effects 
 textcite:wood_house_2020 report that house prices are relevant for describing household indebtedness from 1980 to 2017 in 18 advance economies.
 However, both studies do not include residential investment.
 textcite:Arestis_Residential_2014, on the other side, include residential investment. Using a ARDL model for 17 OECD countries from 1970 to 2013, the authors report that banking credit and real house prices are the most statistically significant variables for real residential investment in the US.
-Although those approaches are interesting, it fails to take into account the connection between asset bubbles and aggregate demand which is relevant for describe the recent housing burst event.
+Although those approaches are interesting, they fails to take into account the connection between asset bubbles and aggregate demand.
 
 #+LATEX:\\
 
 *** Section structure                                                :ignore:
 
 From this review of recent empirical literature, it is noticeable that few macroeconometric studies have investigated residential investment in any systematic way.
-In this paper, we argue that besides this growing body of literature that recognizes the macroeconomic importance of residential investment, little progress has been made in connecting asset bubbles with its macroeconomics consequences.
+In this paper, we argue that besides this growing body of literature that recognizes the macroeconomic importance of residential investment, little progress has been made in connecting house bubbles with its macroeconomics consequences.
 On the following subsection, we present some residential investment-related stylized facts in order to highlight its relevance for the US business cycle which will be compared to the theoretical model in Section ref:real_sim.
 Next, we analyze the connection between residential investment, real estate inflation and mortgage interest rate during the U.S. housing bubble episode.
 
@@ -948,7 +946,7 @@ Next, we analyze the connection between residential investment, real estate infl
 *** Investmento residencial e o ciclo econômico                      :ignore:
 As discussed before, both textcites:green_follow_1997,leamer_housing_2007 made it clear how important this particular expenditure is to USA business cycle. In this subsection, we show some residential investment stylized facts for the US in more detail.
 
-Figure ref:Investo_Resid_GDP shows how residential investment movements help to predict recessions. Recessions are anticipated by a reduction of residential investment share on GDP, while the expansion of those expenditures precedes economic recovery. The fall of dwellings expenditures in 1966-67 are an exception because the increase of military expenditures because of Vietnam War offset an eventual economic downturn \cite[p.~20]{leamer_housing_2007}. Another exception is the dot-com bubble 2000 crisis that was not caused by residential investment. The Great Recession 2008-2009 is the one in which this pattern is the most evident.
+Figure ref:Investo_Resid_GDP shows how residential investment movements help to predict recessions. Recessions are anticipated by a reduction of residential investment share on GDP, while the expansion of those expenditures precedes economic recovery. The fall of residential investment in 1966-67 are an exception because the increase of military expenditures because of Vietnam War offset an eventual economic downturn \cite[p.~20]{leamer_housing_2007}. Another exception is the dot-com bubble 2000 crisis that was not caused by residential investment.
 
 
 
@@ -962,12 +960,13 @@ Figure ref:Investo_Resid_GDP shows how residential investment movements help to 
 \end{figure}
 #+end_export
 
-In order to depict the relation between housing and business cycle, we present Figure ref:fig:cycles in which each cycle is represented in a different panel[fn::Similar reasoning can be found in textcite:fiebiger_trend_2017. Unlike them, we plot only residential investment without including other households expenses financed by credit.].
-Residential investment-GDP ratio and capacity utilization --- as a proxy for business cycle --- are presented on vertical and horizontal axis respectively.
-Economic recovery is generally characterized by residential investment growing faster than GDP[fn::It worth noting that 1991-2000 period is a particular case.]. Both residential investment share on GDP and capacity utilization increase as a consequence of higher residential investment growth rate.
+In order to depict the relation between residential investment and business cycle, we present Figure ref:fig:cycles in which each cycle is represented in a different panel[fn::Similar reasoning can be found in textcite:fiebiger_trend_2017. Unlike them, we plot only residential investment without including other households expenses financed by credit.].
+Residential investment-GDP ratio and rate of capacity utilization --- as a proxy for business cycle --- are presented on vertical and horizontal axis respectively.
+Economic recovery is generally characterized by residential investment growing faster than GDP. Both residential investment share on GDP and capacity utilization increase as a consequence of higher residential investment growth rate.
 Accordingly to the Sraffian Supermultiplier model, we can interpret subsequent non-residential investment increase as a result of capital stock adjustment principle. 
-This increase implies GDP to grow faster than residential investment, therefore reducing both its share on GDP and capacity utilization ratio. Finally, as a result of economic burst, capacity utilization ratio falls and the cycle ends.
-
+This increase implies GDP to grow faster than residential investment, therefore reducing both its share on GDP and rate of capacity utilization.
+As a result of economic burst, rate of capacity utilization falls and the cycle ends.
+This pattern is more evident in the 1970-75, 1982-91 and in the Great Recession.
 
 
 #+BEGIN_SRC latex
@@ -1018,15 +1017,15 @@ EXPLICAR FIGURA.
 The same could be said about the growth of the richest mortgage value.
 
 ** Housing bubble and residential investment
+#+LATEX: \label{sec_own}
 Once residential investment is relevant to describe the U.S. business cycle, it is important to understand its determinants.
 There are at some key variables to assess the residential investment behavior.
-The first variable is the mortgage interest rate, which determines the financial cost of buying houses and the weight of debt-service on house investors' income.
-The other is rate of change house prices.
-The one who owns a house or is willing to buy one takes into consideration the change of the asset price.
-This happens because of speculative reasons or just to prevent capital loss and reductions of net worth.
+The first one is the mortgage interest rate, which determines the financial cost of buying houses and the weight of debt-service on house investors' income.
+The other is the rate of change of house prices.
+The one who owns a house --- or intend to buy one --- takes its price variation in consideration for speculative reasons or just to prevent capital loss and reductions of net worth.
 
 Based on \citeauthor*{Sraffa_Own_1932}'s \citeyear{Sraffa_Own_1932} commodity rate of interest, textcite:teixeira_crescimento_2015 proposes the so-called houses own rate of interest.
-Estimated by deflating mortgages interest rate real estate inflation, this particular real interest rate is the most relevant for house buyers since it is the real cost in real estate from buying real estate  \cite[p.~53]{teixeira_crescimento_2015}.
+Estimated by deflating mortgages interest by houses price inflation, this particular real interest rate is the most relevant for house buyers since it is the real cost in real estate from buying houses  \cite[p.~53]{teixeira_crescimento_2015}.
 This particular interest rate is shown in Equation ref:_own in which $own$ stands for houses own rate of interst, $r_{mo}$ for mortgage interest rate and $\pi$ for house price inflation.
 
 
@@ -1038,7 +1037,7 @@ own = \left(\frac{1+r_{mo}}{1+\pi}\right) -1
 #+END_EXPORT
 
 During a housing bubble period, it is real estate inflation that governs own's interest rate movements. Therefore, the lower this rate is, the greater the capital gains (in real estate) for speculating with real estate will be. This negative relation between houses own interest rate and residential investment is shown in Figure \ref{propria_investo} in which this particular real interest rate has been gradually decreased over the real estate boom (2002-5).
-Additionally, Figure ref:propria_investo illustrates how this  procedure is more adequate than a consumer price index deflation --- as \textcite[p.~143--6]{fair_macroeconometric_2013} does --- to describe residential investment growth rate[fn:: Based on this concept, textcite:petrini_demanda_2019 estimated time series econometric model for the U.S. (1992 to 2019) and presents empirical evidence that residential investment growth rate and houses own rate of interest hare a common negative long-run trend.  Furthermore, textcite:petrini_demanda_2019 also reports a unidirectional long-run causality from houses own rate of interest to residential investment growth rate.].
+Additionally, Figure ref:propria_investo illustrates how this  procedure is more adequate than a consumer price index deflation --- as \textcite[p.~143--6]{fair_macroeconometric_2013} does --- to describe residential investment growth rate[fn:: Based on this concept, textcite:petrini_demanda_2019 estimated time series econometric model for the U.S. (1992 to 2019) and presents empirical evidence that residential investment growth rate and houses own rate of interest have a common negative long-run trend.  Furthermore, textcite:petrini_demanda_2019 also reports a unidirectional long-run causality from houses own rate of interest to residential investment growth rate.].
 
 
 #+begin_export latex

@@ -1099,10 +1099,10 @@ fig.savefig("./figs/Real_Shocks_2.png", dpi=600)
 
 In this Section, we present the results of the following experiments: 
     (i) wage-share decrease;
-    (ii) real estate inflation and;
+    (ii) house price inflation;
     (iii) deposits interest rate increase.
 In order to evaluate if our model is able to reproduce some stylized facts, we introduce U.S. houses own rate of interest observed data (from 1992 to 2019) into our numerical simulation.
-Before we move foward, it worth mentioning that we use \citeauthor*{fazzari-2020-deman-led}'s  citeyear:fazzari-2020-deman-led parameter values calibrated for the U.S. economy for a similar time range (from 1980 to 2016).
+Before we move foward, it is worth mentioning that we use \citeauthor*{fazzari-2020-deman-led}'s  citeyear:fazzari-2020-deman-led parameter values calibrated for the U.S. economy for a similar time range (from 1980 to 2016).
 Our first experiment assess if income distribution has a level effect on output — as in cite:mandarino-2020-worker-debt — or growth rate effect — as in cite:brochier_supermultiplier_2018.
 Real estate inflation increase experiment is motivated by recent US experience (from 1992 to 2019) as discussed in Section ref:sec:empirical while the last simulation aims to evaluate indebtedness stability.
 Table \ref{tab:param} in Appendix ref:append:Data presents the parameters of simulation and Table \ref{ResumoChoques} compare each result to baseline.
@@ -1123,27 +1123,27 @@ Finally, Appendix \ref{Appen:Sensibility} presents a primer parameters sensibili
 ** Wage-share decrease
    #+LATEX: \label{sec:Exp1}
 
-A wage-share decrease has permanent negative impact on output level --- due to changes on the supermultiplier --- and temporary negative effects on degree of capacity utilization (see Figure ref:fig:results_1 A).
+A wage-share decrease has permanent negative impact on output level --- due to changes in the supermultiplier --- and temporary negative effects on degree of capacity utilization (see Figure ref:fig:results_1 A).
 So, aggregate demand growth level is temporarily smaller than baseline as a result of the lower supermultiplier.
 As a consequence of this negative level effect, both accumulation growth rate and marginal propensity to invest temporaly decline while NCC autonomous expenditures share on GDP increases.
 Since NCC autonomous expenditures growth rate remains unchanged and its share on GDP increases, aggregate demand grows faster than accumulation rate.
 As a result, degree of capacity utilization is higher than the normal one.
-During the traverse, marginal propensity to invest endogenously adjust to discrepancies between actual and normal utilization rates.
+During the traverse, marginal propensity to invest endogenously adjust to discrepancies between actual and normal capacity utilization rates.
 Consequently, non-residential investment growth rate increases faster than aggregate demand.
-This endogenous adjustment process continues as long as actual capacity utilization rate is different from the normal one.
+This endogenous adjustment process continues as long as actual rate of capacity utilization is different from the normal one.
 In summary, we report standards SSM model results:
     (i) marginal propensity to invest decrease is temporally and returns to baseline level;
-    (ii) utilization rate moves towards normal one;
+    (ii) rate of capacity utilization moves towards normal one;
     (iii) supermultiplier decreases and autonomous expenditures share increases due to GDP decline and; 
     (iv) since autonomous expenditures growth rate does not change, distribution effects on growth rates are temporary. 
 
 
-Despite temporary effects in growth rate, wage-share decrease has a permanent effect in house share on total capital stock (see Equation ref:k_long and Figure ref:fig:results_2 B).
+Despite temporary growth rate effects, wage-share decrease has a permanent effect in house share on total capital stock (see Equation ref:k_long and Figure ref:fig:results_2 B).
 As a consequence of the initially lower accumulation rate, total capital stock also grows at a temporarily lower rate.
 However, since residencial investment growth rate remains unchanged, its share on total capital stock increases.
 #+LATEX:%Another persistent effect is the higher capitalists' indebtedness compared to baseline despite the profit-share increase.
-#+LATEX:This result is explained by the negative level effect on profits as a consequence of the negative effect on GDP and subsequent decrease in capitalists' disposable income.
-#+LATEX:In other words, we report a paradox in capitalists attempt to increase their profit share which results a negative effect both on net profits and capitalists' disposable income.
+#+LATEX:%This result is explained by the negative level effect on profits as a consequence of the negative effect on GDP and subsequent decrease in capitalists' disposable income.
+#+LATEX:%In other words, we report a paradox in capitalists attempt to increase their profit share which results a negative effect both on net profits and capitalists' disposable income.
 
 Finally, we also report a persistent effect on firms' balance sheet due to wage-share decrease.
 The negative level effect on GDP implies an already mentioned temporally decrease in marginal propensity to invest.
@@ -1165,7 +1165,7 @@ Since loans interest remains unchanged, capitalists' indebtedness ratio decrease
 During the traverse, gross and net profit rate are temporally close to each other as a result of profits level increase, so firms' indebtedness decreases as well.
 Therefore, similar to textcite:mandarino-2020-worker-debt, we also report paradox of debt.
 
-In summary, we report SSM standard fully-adjusted position results:
+In summary, we report SSM standard long-run results:
     (i) GDP growth rate converges to NCC autonomous expenditure growth rate;
     (ii) marginal propensity to invest remains persistently higher compared to baseline and;
     (iii) utilization rate moves gradually towards the normal one.
@@ -1203,7 +1203,7 @@ Compared to the previous experiments, this shock has opposite effects on long-ru
 
 In particular, we report a stronger negative effect over both capitalists' and firms' balance sheet than wage-share decrease (see figures ref:fig:results_1 and ref:fig:results_2).
 This effect is a result of the temporarily stronger decline of GDP growth rate compared to NCC autonomous expenditure growth rate.
-As a consequence of lower GDP growth rate, mass of profits also decreases.
+As a consequence of lower GDP growth rate, total profits also decreases.
 Thus, capitalists' disposable income decreases more than debt-financed consumption growth rate.
 Interest rate increase alone is enough to capitalists' indebtedness level to increase, however it is followed by GDP growth rate decrease, so the overall effect is stronger than wage-share decrease experiment (Section ref:sec:Exp1).
 Regarding firms' balance sheet, we report a temporarily negative level effect on gross profit rate and a permanent one on net profit rate. 
@@ -1219,18 +1219,18 @@ Therefore, we find a stable debt dynamics for both capitalists and firms (other 
 	\caption{Shocks summary (compared to baseline)}
 	\label{ResumoChoques}
 	%\resizebox{\textwidth}{!}{%
-		\begin{tabular}{c|c|c|c||c|c|c}
-			\hline\hline
-			\multirow{2}{*}{} & \multicolumn{3}{c||}{\textbf{traverse ($h \neq h^\star$)}} & \multicolumn{3}{c}{\textbf{Long-run ($h = h^\star$)}} \\ \cline{2-7} 
-			&  \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow \pi$} & \textbf{$\Uparrow rm$} &  \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow \pi$} & \textbf{$\Uparrow rm$} \\ \hline
-			\textbf{$g$}  & - & + & - & 0 & + & - \\ \hline
-			\textbf{$g_Z$}  & 0 & + & -  & 0 & + & - \\ \hline
-			\textbf{$u$}  & - & + & -  & 0 & 0 & 0 \\ \hline
-			\textbf{$h$}  & - & + & -  & 0 & + & - \\ \hline
-			\textbf{$k$}  & + & - & +  & + & - & + \\ \hline
-			\textbf{$\frac{Z}{Y}$}  & + & - & +  & + & - & + \\ \hline
-			\textit{$r_m\frac{(D - M)}{K_{HD}}$}  & - & - & +  & - & - & + \\ \hline\hline
-		\end{tabular}%
+	\begin{tabular}{c|c|c|c||c|c|c}
+		\hline\hline
+		\multirow{2}{*}{}                    & \multicolumn{3}{c||}{\textbf{traverse ($h \neq h^\star$)}} & \multicolumn{3}{c}{\textbf{Long-run ($h = h^\star$)}}                                                                                                            \\ \cline{2-7}
+		                                     & \textbf{$\Downarrow \omega$}                               & \textbf{$\Uparrow \pi$}                               & \textbf{$\Uparrow rm$} & \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow \pi$} & \textbf{$\Uparrow rm$} \\ \hline
+		\textbf{$g$}                         & -                                                          & +                                                     & -                      & 0                            & +                       & -                      \\ \hline
+		\textbf{$g_Z$}                       & 0                                                          & +                                                     & -                      & 0                            & +                       & -                      \\ \hline
+		\textbf{$u$}                         & -                                                          & +                                                     & -                      & 0                            & 0                       & 0                      \\ \hline
+		\textbf{$h$}                         & -                                                          & +                                                     & -                      & 0                            & +                       & -                      \\ \hline
+		\textbf{$k$}                         & +                                                          & -                                                     & +                      & +                            & -                       & +                      \\ \hline
+		\textbf{$\frac{Z}{Y}$}               & +                                                          & -                                                     & +                      & +                            & -                       & +                      \\ \hline
+		\textit{$r_m\frac{(D - M)}{K_{HD}}$} & +                                                          & -                                                     & +                      & 0                            & -                       & +                      \\ \hline\hline
+	\end{tabular}%
 	%}
 	\caption*{\textbf{Source:} Authors' Elaboration}
 \end{table}
@@ -1243,18 +1243,18 @@ Therefore, we find a stable debt dynamics for both capitalists and firms (other 
 	\caption{Shocks summary (compared to baseline)}
 	\label{ResumoChoques}
 	%\resizebox{\textwidth}{!}{%
-		\begin{tabular}{c|c|c|c||c|c|c}
-			\hline\hline
-			\multirow{2}{*}{} & \multicolumn{3}{c||}{\textbf{traverse ($h \neq h^\star$)}} & \multicolumn{3}{c}{\textbf{Long-run ($h = h^\star$)}} \\ \cline{2-7} 
-			&  \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow \pi$} & \textbf{$\Uparrow rm$} &  \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow \pi$} & \textbf{$\Uparrow rm$} \\ \hline
-			\textbf{$g$}  & - & + & - & 0 & + & - \\ \hline
-			\textbf{$g_Z$}  & 0 & + & -  & 0 & + & - \\ \hline
-			\textbf{$u$}  & - & + & -  & 0 & 0 & 0 \\ \hline
-			\textbf{$h$}  & - & + & -  & 0 & + & - \\ \hline
-			\textbf{$k$}  & + & - & +  & + & - & + \\ \hline
-			\textbf{$\frac{Z}{Y}$}  & + & - & +  & + & - & + \\ \hline
-			\textit{$r_m\frac{(D - M)}{K_{HD}}$}  & - & - & +  & - & - & + \\ \hline\hline
-		\end{tabular}%
+	\begin{tabular}{c|c|c|c||c|c|c}
+		\hline\hline
+		\multirow{2}{*}{}                    & \multicolumn{3}{c||}{\textbf{traverse ($h \neq h^\star$)}} & \multicolumn{3}{c}{\textbf{Long-run ($h = h^\star$)}}                                                                                                            \\ \cline{2-7}
+		                                     & \textbf{$\Downarrow \omega$}                               & \textbf{$\Uparrow \pi$}                               & \textbf{$\Uparrow rm$} & \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow \pi$} & \textbf{$\Uparrow rm$} \\ \hline
+		\textbf{$g$}                         & -                                                          & +                                                     & -                      & 0                            & +                       & -                      \\ \hline
+		\textbf{$g_Z$}                       & 0                                                          & +                                                     & -                      & 0                            & +                       & -                      \\ \hline
+		\textbf{$u$}                         & -                                                          & +                                                     & -                      & 0                            & 0                       & 0                      \\ \hline
+		\textbf{$h$}                         & -                                                          & +                                                     & -                      & 0                            & +                       & -                      \\ \hline
+		\textbf{$k$}                         & +                                                          & -                                                     & +                      & +                            & -                       & +                      \\ \hline
+		\textbf{$\frac{Z}{Y}$}               & +                                                          & -                                                     & +                      & +                            & -                       & +                      \\ \hline
+		\textit{$r_m\frac{(D - M)}{K_{HD}}$} & +                                                          & -                                                     & +                      & 0                            & -                       & +                      \\ \hline\hline
+	\end{tabular}%
 	%}
 	\caption*{\textbf{Source:} Authors' Elaboration}
 \end{table}
@@ -1310,16 +1310,16 @@ Therefore, we find a stable debt dynamics for both capitalists and firms (other 
 ** Plugging real data
 #+LATEX: \label{real_sim}
 
-Finally, we include houses own interest rate data  discussed in section ref:sec:empirical (see Figure ref:propria_investo) into our model.
+Finally, we include houses own rate of interest data  discussed in section ref:sec:empirical (see Figure ref:propria_investo) into our model.
 In order to do so, each year corresponds to ten simulated periods for visualization reasons.
 Additionally, we have abandoned the assumption of a fixed share ($R$) between residential investment and capitalist consumption.
 In order to include capitalists consumption without running into asymptotic paths, we defined its growth rate as the geometric average of residential investment growth rate from 1992 to 2019.
 
 Although rudimentary, this procedure allows us to replicate some stylized facts presented in section ref:sec:empirical and in the literature (see Figure ref:fig:Realresults_1).
-Similarly to Figure ref:fig:cycles, we report a clockwise relationship between autonomous expenditure share on GDP and capacity utilization rate.
+Similarly to Figure ref:fig:cycles, we report a clockwise relationship between autonomous expenditure share on GDP and rate of capacity utilization.
 With due mediation, we also report a smooth gravitation of capacity utilization ratio towards the normal one.
 As expected, NCC autonomous expenditures (notably residential investment) describes accumulation and GDP growth rate. 
-Together these results provide a first step towards the connection between asset bubbles and aggregate demand within the Sraffian Supermultiplier framework.
+Together these results provide a first step towards the connection between house bubbles and aggregate demand within the Sraffian Supermultiplier framework.
 
 
 

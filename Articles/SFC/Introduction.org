@@ -4,7 +4,7 @@ bibliography:refs.bib
 * Introduction                                                       :ignore:
 
 Non-residential investment is the most scrutinized variable in demand-led growth models so that others expenditures are given a secondary role cite:brochier_macroeconomics_2017.
-More than a decade after the Great Recession, this is still the case for residential investment which continues to receive sparse and unsystematic attention by the literature cites:caverzasi_stock-flow_2013,nikolaidi_minsky_2017.
+More than a decade after the Great Recession (2008-9), this is still the case for residential investment which continues to receive sparse and unsystematic attention by the literature cites:caverzasi_stock-flow_2013,nikolaidi_minsky_2017.
 Despite its absence in theoretical models, there is a growing empirical literature highlighting its macrodynamic relevance cites:leamer_housing_2007,jorda_great_2016,fiebiger_semi-autonomous_2018,fiebiger_trend_2017.
 
 
@@ -22,17 +22,17 @@ textcites:zezza_u.s._2008,nikolaidi_securitisation_2015 include residential inve
 In a recent contribution, textcite:dejuan_supermultiplier-cum-finance_2018 present an SSM model with residential investment.
 They build a model in order to analyze the destabilizing effects of household over-indebtedness without exploring the determinants of residential investment.
 
-This paper is a first step in building the connection between house price inflation and residential investment.
+This paper is a first step in building the connection between house price inflation and residential investment whitin a demand-led growth model.
 In order to do so, we build a fully specified parsimonious Sraffian supermultiplier stock-flow consistent model (SSM-SFC) with residential investment.
 
 The remainder of this paper is organized as follows.
 Section ref:sec:empirical discuss some residential investment related stylized facts for the US economy related to house bubble, residential investment and its macroeconomic implications.
 Section ref:sec:Model presents a SSM-SFC model  with asset bubbles and two real assets: firms' capital and household' real estate. 
-Section ref:sec:runs evaluates short-, traverse and long-run equilibria in order to access the consequences of residential investment inclusion on output level and growth and stock-flow ratios.
+Section ref:sec:runs evaluates short- and long-run equilibria as well as traverse in order to assess the consequences  of the inclusion of residential investment to the output level, growth rate and to stock-flow ratios.
 Next, Section ref:sec:Experiments evaluates this relations through numerical simulations.
-Inspired by the recent housing bubble episode, the experiments are: decrease in wage-share (Section ref:sec:Exp1); increase in real estate inflation (Section ref:sec:Exp2); and an increase in interest rate ref:sec:Exp3).
+Inspired by the U.S. 2000s housing bubble episode, the experiments are: decrease in wage-share (Section ref:sec:Exp1); increase in real estate inflation (Section ref:sec:Exp2); and an increase in interest rate (Section ref:sec:Exp3).
 In this same Section, we also plug houses own rate of interest observed data for the U.S. (from 1992 to 2019) in order to compare simulations' results with the stylized facts presented previously.
-Section ref:sec:Conclusion offers some concluding remarks while Appendix ref:append:Data provides simulation's parameters and baseline values.
+Section ref:sec:Conclusion offers some concluding remarks while Appendix ref:append:Data provides simulation's parameters and baseline values and Appendix ref:append:Sensib presents a preliminary sensibility analysis.
 
 #+BEGIN_COMMENT
 The analytical solution is presented in Section ref:sec:Solution in order to assess stability condition since residential investment growth rate is now described by houses' own interest rate.
