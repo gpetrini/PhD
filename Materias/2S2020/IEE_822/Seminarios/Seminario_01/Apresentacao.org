@@ -1,0 +1,42 @@
+#+OPTIONS: H:2 toc:nil
+#+Title: Panorama das regularidades empíricas - textcite:schularickCreditBoomsGone2012 e  textcite:sharpe_2020_Why
+#+Author: Gabriel Petrini
+#+Email: gpetrinidasilveira@gmail.com
+#+DATE: 06 de Janeiro de 2021
+#+LANGUAGE: pt_Br
+* Beamer specific settings :ignore:noexport:
+#+LATEX_HEADER: \usepackage{csquotes, caption}
+#+LATEX_HEADER: \usepackage[brazilian]{babel}
+#+beamer_frame_level: 2
+#+startup: beamer
+#+LATEX_HEADER: \usepackage[style=abnt,noslsn,extrayear,uniquename=init,giveninits,justify,sccite, scbib,repeattitles,doi=false,isbn=false,url=false,maxcitenames=2, natbib=true,backend=biber]{biblatex}
+#+LATEX_HEADER: \addbibresource{/HDD/Org/all_my_refs.bib}
+#+latex_header: \AtBeginSection[]{\begin{frame}<beamer>\frametitle{Artigos}\tableofcontents[currentsection]\end{frame}}
+
+* textcite:schularickCreditBoomsGone2012: Booms de crédito acabam: Política Monetária, ciclos alavancados e crises financeiras (1870-2008)
+
+** Quem são os autores
+
+** Estrutura do artigo
+
+* textcite:sharpe_2020_Why: Por que o investimento (das firmas) é tão insensível à taxa de juros?
+
+** Quem são os autores
+
+** Dissecando o artigo
+
+** TL;DR (/a.k.a/ nem li; nem lerei)
+
+/Surveys/ empresariais indicam elevada insensibilidade do investimento (/ex ante/) à taxa de juros
+- Teoria sugere o inverso
+- Por quê? Lucros retidos e rigidezes
+
+$$
+IRR_{k} = \frac{A_{k}}{c_{k}} \geq \text{Hurdle rate} \nRightarrow \text{Juros}
+$$
+
+- Resultados são bastante robustos e pouco sensíveis à amostra
+  + Há uma assimetria em relação a um aumento/redução dos juros, mas o conclusão permanece
+
+*** Relevância
+- Teorias do investimento, finanças corporativas e canais de transmissão da política monetária
