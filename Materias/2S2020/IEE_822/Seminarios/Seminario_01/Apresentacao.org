@@ -1,11 +1,11 @@
-#+OPTIONS: H:2 toc:nil
+#+OPTIONS: H:2 toc:nil  ':t
 #+Title: Panorama das regularidades empíricas - textcite:schularickCreditBoomsGone2012 e  textcite:sharpe_2020_Why
 #+Author: Gabriel Petrini
 #+Email: gpetrinidasilveira@gmail.com
 #+DATE: 06 de Janeiro de 2021
 #+LANGUAGE: pt_Br
 * Beamer specific settings :ignore:noexport:
-#+LATEX_HEADER: \usepackage{csquotes, caption}
+#+LATEX_HEADER: \usepackage{caption}
 #+LATEX_HEADER: \usepackage[brazilian]{babel}
 #+beamer_frame_level: 2
 #+startup: beamer
@@ -16,8 +16,139 @@
 * textcite:schularickCreditBoomsGone2012: Booms de crédito acabam: Política Monetária, ciclos alavancados e crises financeiras (1870-2008)
 
 ** Quem são os autores
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{Allan Taylor + Moritz Schularick} 
+\includegraphics[width = 0.35\textwidth]{./figs/Schularick_Taylor.png}
+\label{fig:autores01}
+\caption*{\textbf{Fonte:} Suspeita}
+\end{figure}
+#+end_export
+
+** TL;DR (/a.k.a/ nem li; nem lerei)
+
+Autores apresentam um painel longo (1870-2008) para 14 países da OECD
+
+- Em constante atualização (Ver [[http://www.macrohistory.net/data/][Macro history data]])
+- Duas eras do capitalismo financeiro
+
+Estimam vários modelos/especificações (29!) para verificar os antecedentes das crises financeiras
+- *Pergunta:* Fim /Boom/ Crédito?
+
+*** Relevância e questões abertas
+
+- Se crises financeiras são raras, é necessário olhar para um panorama mais longo
+- Compreensão dos atencedentes das crises financeiras $\Rightarrow$ Bancos centrais
+- Crises financeiras são mais prováveis quanto maior o aprofundamento financeiro?
 
 ** Estrutura do artigo
+
+*** Moeda, crédito e crises financeiras no longo prazo
+
+*** Dados
+
+*** Moeda e crédito em duas eras do capitalismo financeiro
+
+*** Moeda, crédito e produto no pós-crise financeira
+
+*** /Boom/ de crédito e crises financeiras
+
+*** Testes de robustez
+** Moeda, Crédito e Crises financeiras no longo prazo: Duas eras
+
+*** Duas Eras do Capitalismo Financeiro
+- */Money View/ (1870-1939):* Relação estável entre moeda e crédito
+- */Credit View/ (1945-$\ldots$):* Taxa de crescimento do Crédito muito maior que o estoque de moeda e que o PIB
+  + _Pergunta:_ Crédito para quê/quem? cite:jordaGreatMortgagingHousing2016
+*** O que mudou?
+
+- "Dinâmica das crises" bem diferente
+  + Maiores perdas em termos do produto
+  + Sistema financeiro mais complexo
+- /Big Govern./ e /Big Bank/ $\Leftrightarrow$ Lições da Grande Depressão
+** Duas eras, uma imagem
+
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{Agregados financeiros/M3} 
+\includegraphics[width = 0.95\textwidth]{./figs/AgregadosM3.png}
+\label{fig:agregados}
+\caption*{\textbf{Fonte:} \textcite[p.~ 1035]{schularickCreditBoomsGone2012}}
+\end{figure}
+#+end_export
+
+** Duas eras, algumas observações
+
+|-----------------------------+--------------+------------------------------|
+|                             | Fase I       | Fase II                      |
+|-----------------------------+--------------+------------------------------|
+| Preços                      | Deflação     | Pressão inflacionária        |
+| Agregados monetários        | Decrecimento | Expansão                     |
+| $\Delta$ Política Monetária | -            | Resposta mais rápida e ativa |
+| $\Delta$ Institucionais     | -            | Instituições depositárias    |
+|-----------------------------+--------------+------------------------------|
+
+- Fenômeno comum aos vários países da base de dados
+- Argumentam que Fase I pode ser explicada pela visão "monetária" de Friedman
+- Fase II seria explicada por outra teoria $\Leftrightarrow$ /Credit View/ $\Leftrightarrow$ textcite:minsky_1977_Financial
+
+** Dados e estratégia das estimações
+
+Base de dados permite analizar variávies até então pouco comparáveis
+
+- Empréstimos e ativos bancários
+- Preço de ativos? cite:jordaGreatMortgagingHousing2016
+
+
+$$
+Pr(\text{Crise Fin.}_{i,t}) = L^{N}(\text{Crédito}) + L(\text{Controles})
+$$
+em que
+- *Crédito:* Crédito bancário deflacionado pelo índice de preços
+- *Controles:* Vários! (Mesmo!)
+
+*** Observação econométrica
+
+- Seria o caso de um painel longo? ($T>>N$)
+** Alguns dos resultados de algumas estimações
+#+begin_center
+|-------------------------+---------------------------+---------------------------+---------------------------+---------------------------+---------------------------|
+| Método                  | OLS                       | OLS                       | OLS                       | Logit                     | Logit                     |
+| Efeitos fixos           | -                         | País                      | País + Ano                | -                         | País                      |
+|-------------------------+---------------------------+---------------------------+---------------------------+---------------------------+---------------------------|
+| $\sum$ Coef.            | $0.425^{\star\star\star}$ | $0.417^{\star\star\star}$ | $0.443^{\star\star\star}$ | $10.10^{\star\star\star}$ | $9.697^{\star\star\star}$ |
+| $\sum L_{Ns} = 0$[fn:p] | 0.001                     | 0.002                     | 0.001                     | 0.000                     | 0.00408                   |
+| $R^2$                   | 0.016                     | 0.023                     | 0.290                     | 0.0434                    | 0.0659                    |
+| $F, \chi^{2}$[fn:p]     | 0.001                     | 0.045                     | 0.000                     | 0.000                     | 0.00663                   |
+| AUROC                   | $0.673^{\star\star\star}$ | $0.720^{\star\star\star}$ | $0.952^{\star\star\star}$ | $0.673^{\star\star\star}$ | $0.717^{\star\star\star}$ |
+|-------------------------+---------------------------+---------------------------+---------------------------+---------------------------+---------------------------|
+|                         |                           |                           |                           |                           |                           |
+#+end_center
+
+[fn:p] p-valor
+
+
+*** Conclusão
+
+Defasagem da taxa de crescimento de crédito (até 5 anos) $\Rightarrow$ indicativo de crise financeira
+- Lags conjuntamente estatisticamente significates a 1%
+- Destaque para quando a segunda derivada é negativa
+** Sobre as outras estimações e robustez dos resultados
+
+- Agregados monetários não são tão preditivos quanto crédito bancário
+  + Poderia ser preditivo na primeira era financeira[fn::Crédito se ajusta bem em ambas as eras]
+- Foram introduzidos vários controles para evitar o viés de omissão $\Rightarrow$ resultado muda pouco
+- Resultados inconclusivos se o crédito é utilizado para financiar investimento ou consumo
+  + _Sugere-se_ que crises financeiras são mais prováveis se Crédito $\Rightarrow$ Investimento
+- $\Uparrow$ Preço dos ativos (ações) $\Rightarrow \Downarrow$ colateral $\Rightarrow \Uparrow$ Instabilidade financeira?
+  + Resultados inconclusivos, mas mais preocupantes na medida que o setor financeiro cresce
+
+
+*** Resumo
+
+Crédito bancário continua sendo o principal antecedente das crises financeiras
 
 * textcite:sharpe_2020_Why: Por que o investimento (das firmas) é tão insensível à taxa de juros?
 
@@ -40,3 +171,22 @@ $$
 
 *** Relevância
 - Teorias do investimento, finanças corporativas e canais de transmissão da política monetária
+
+* Unindo os pontos?
+
+** textcite:schularickCreditBoomsGone2012: How I Learned to Stop Worrying and Love textcite:minsky_1977_Financial?
+
+Algumas aproximações com algumas das conclusões de textcite:minsky_1977_Financial, mas $\ldots$
+
+- Pouca atenção à posição financeira e balanço patrimonial dos agentes
+- Não explica mecanismos pelos quais o crédito ajudaria a anteceder as crises
+- Preço dos ativos aparece como um controle e apenas retoma como proposição de política econômica
+
+*** Algumas questões
+
+- Sempre /credit view/?
+- /Shadow banking/ intensificaria essas conclusões?
+- Como lidar com as mudanças de definições ao longo do tempo?
+- Por mais que identificam um fenômeno comum, o que explicaria a diferença de intensidade entre países?
+
+** textcite:sharpe_2020_Why: How I Learned to Stop Loving and Worry textcite:minsky_1977_Financial?

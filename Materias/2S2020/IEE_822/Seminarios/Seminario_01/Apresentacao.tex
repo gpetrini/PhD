@@ -1,7 +1,7 @@
-% Created 2020-12-18 sex 15:48
+% Created 2020-12-21 seg 18:25
 % Intended LaTeX compiler: pdflatex
 \documentclass[presentation]{beamer}
-  \usepackage{csquotes, caption}
+  \usepackage{caption}
 \usepackage[brazilian, ]{babel}
 \usepackage[style=abnt,noslsn,extrayear,uniquename=init,giveninits,justify,sccite, scbib,repeattitles,doi=false,isbn=false,url=false,maxcitenames=2, natbib=true,backend=biber]{biblatex}
 \addbibresource{/HDD/Org/all_my_refs.bib}
@@ -14,23 +14,196 @@
 
 \maketitle
 \section{\textcite{schularickCreditBoomsGone2012}: Booms de crédito acabam: Política Monetária, ciclos alavancados e crises financeiras (1870-2008)}
-\label{sec:orgf9efa51}
+\label{sec:org4780dc4}
 
-\begin{frame}[label={sec:orgc665d69}]{Quem são os autores}
+\begin{frame}[label={sec:orgbe70d63}]{Quem são os autores}
+\begin{figure}[htb]
+\centering
+\caption{Allan Taylor + Moritz Schularick} 
+\includegraphics[width = 0.35\textwidth]{./figs/Schularick_Taylor.png}
+\label{fig:autores01}
+\caption*{\textbf{Fonte:} Suspeita}
+\end{figure}
 \end{frame}
 
-\begin{frame}[label={sec:org68222f2}]{Estrutura do artigo}
+\begin{frame}[label={sec:orgdc204c0}]{TL;DR (\emph{a.k.a} nem li; nem lerei)}
+Autores apresentam um painel longo (1870-2008) para 14 países da OECD
+
+\begin{itemize}
+\item Em constante atualização (Ver \href{http://www.macrohistory.net/data/}{Macro history data})
+\item Duas eras do capitalismo financeiro
+\end{itemize}
+
+Estimam vários modelos/especificações (29!) para verificar os antecedentes das crises financeiras
+\begin{itemize}
+\item \alert{Pergunta:} Fim \emph{Boom} Crédito?
+\end{itemize}
+
+\begin{block}{Relevância e questões abertas}
+\begin{itemize}
+\item Se crises financeiras são raras, é necessário olhar para um panorama mais longo
+\item Compreensão dos atencedentes das crises financeiras \(\Rightarrow\) Bancos centrais
+\item Crises financeiras são mais prováveis quanto maior o aprofundamento financeiro?
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[label={sec:org08b47aa}]{Estrutura do artigo}
+\begin{block}{Moeda, crédito e crises financeiras no longo prazo}
+\end{block}
+
+\begin{block}{Dados}
+\end{block}
+
+\begin{block}{Moeda e crédito em duas eras do capitalismo financeiro}
+\end{block}
+
+\begin{block}{Moeda, crédito e produto no pós-crise financeira}
+\end{block}
+
+\begin{block}{\emph{Boom} de crédito e crises financeiras}
+\end{block}
+
+\begin{block}{Testes de robustez}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgdeea6ee}]{Moeda, Crédito e Crises financeiras no longo prazo: Duas eras}
+\begin{block}{Duas Eras do Capitalismo Financeiro}
+\begin{itemize}
+\item \alert{\emph{Money View} (1870-1939):} Relação estável entre moeda e crédito
+\item \alert{\emph{Credit View} (1945-\(\ldots\)):} Taxa de crescimento do Crédito muito maior que o estoque de moeda e que o PIB
+\begin{itemize}
+\item \uline{Pergunta:} Crédito para quê/quem? \cite{jordaGreatMortgagingHousing2016}
+\end{itemize}
+\end{itemize}
+\end{block}
+\begin{block}{O que mudou?}
+\begin{itemize}
+\item "Dinâmica das crises" bem diferente
+\begin{itemize}
+\item Maiores perdas em termos do produto
+\item Sistema financeiro mais complexo
+\end{itemize}
+\item \emph{Big Govern.} e \emph{Big Bank} \(\Leftrightarrow\) Lições da Grande Depressão
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org25dfaf0}]{Duas eras, uma imagem}
+\begin{figure}[htb]
+\centering
+\caption{Agregados financeiros/M3} 
+\includegraphics[width = 0.95\textwidth]{./figs/AgregadosM3.png}
+\label{fig:agregados}
+\caption*{\textbf{Fonte:} \textcite[p.~ 1035]{schularickCreditBoomsGone2012}}
+\end{figure}
+\end{frame}
+
+\begin{frame}[label={sec:org19044e6}]{Duas eras, algumas observações}
+\begin{center}
+\begin{tabular}{lll}
+\hline
+ & Fase I & Fase II\\
+\hline
+Preços & Deflação & Pressão inflacionária\\
+Agregados monetários & Decrecimento & Expansão\\
+\(\Delta\) Política Monetária & - & Resposta mais rápida e ativa\\
+\(\Delta\) Institucionais & - & Instituições depositárias\\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{itemize}
+\item Fenômeno comum aos vários países da base de dados
+\item Argumentam que Fase I pode ser explicada pela visão "monetária" de Friedman
+\item Fase II seria explicada por outra teoria \(\Leftrightarrow\) \emph{Credit View} \(\Leftrightarrow\) \textcite{minsky_1977_Financial}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:org8571091}]{Dados e estratégia das estimações}
+Base de dados permite analizar variávies até então pouco comparáveis
+
+\begin{itemize}
+\item Empréstimos e ativos bancários
+\item Preço de ativos? \cite{jordaGreatMortgagingHousing2016}
+\end{itemize}
+
+
+$$
+Pr(\text{Crise Fin.}_{i,t}) = L^{N}(\text{Crédito}) + L(\text{Controles})
+$$
+em que
+\begin{itemize}
+\item \alert{Crédito:} Crédito bancário deflacionado pelo índice de preços
+\item \alert{Controles:} Vários! (Mesmo!)
+\end{itemize}
+
+\begin{block}{Observação econométrica}
+\begin{itemize}
+\item Seria o caso de um painel longo? (\(T>>N\))
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgbae1cf5}]{Alguns dos resultados de algumas estimações}
+\begin{center}
+\begin{center}
+\begin{tabular}{llllll}
+\hline
+Método & OLS & OLS & OLS & Logit & Logit\\
+Efeitos fixos & - & País & País + Ano & - & País\\
+\hline
+\(\sum\) Coef. & \(0.425^{\star\star\star}\) & \(0.417^{\star\star\star}\) & \(0.443^{\star\star\star}\) & \(10.10^{\star\star\star}\) & \(9.697^{\star\star\star}\)\\
+\(\sum L_{Ns} = 0\)\footnotemark & 0.001 & 0.002 & 0.001 & 0.000 & 0.00408\\
+\(R^2\) & 0.016 & 0.023 & 0.290 & 0.0434 & 0.0659\\
+\(F, \chi^{2}\)\textsuperscript{\ref{org58f7ebf}} & 0.001 & 0.045 & 0.000 & 0.000 & 0.00663\\
+AUROC & \(0.673^{\star\star\star}\) & \(0.720^{\star\star\star}\) & \(0.952^{\star\star\star}\) & \(0.673^{\star\star\star}\) & \(0.717^{\star\star\star}\)\\
+\hline
+ &  &  &  &  & \\
+\end{tabular}
+\end{center}\footnotetext[1]{\label{org58f7ebf}p-valor}
+\end{center}
+
+
+\begin{block}{Conclusão}
+Defasagem da taxa de crescimento de crédito (até 5 anos) \(\Rightarrow\) indicativo de crise financeira
+\begin{itemize}
+\item Lags conjuntamente estatisticamente significates a 1\%
+\item Destaque para quando a segunda derivada é negativa
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orge3ab564}]{Sobre as outras estimações e robustez dos resultados}
+\begin{itemize}
+\item Agregados monetários não são tão preditivos quanto crédito bancário
+\begin{itemize}
+\item Poderia ser preditivo na primeira era financeira\footnote{Crédito se ajusta bem em ambas as eras}
+\end{itemize}
+\item Foram introduzidos vários controles para evitar o viés de omissão \(\Rightarrow\) resultado muda pouco
+\item Resultados inconclusivos se o crédito é utilizado para financiar investimento ou consumo
+\begin{itemize}
+\item \uline{Sugere-se} que crises financeiras são mais prováveis se Crédito \(\Rightarrow\) Investimento
+\end{itemize}
+\item \(\Uparrow\) Preço dos ativos (ações) \(\Rightarrow \Downarrow\) colateral \(\Rightarrow \Uparrow\) Instabilidade financeira?
+\begin{itemize}
+\item Resultados inconclusivos, mas mais preocupantes na medida que o setor financeiro cresce
+\end{itemize}
+\end{itemize}
+
+
+\begin{block}{Resumo}
+Crédito bancário continua sendo o principal antecedente das crises financeiras
+\end{block}
 \end{frame}
 
 \section{\textcite{sharpe_2020_Why}: Por que o investimento (das firmas) é tão insensível à taxa de juros?}
-\label{sec:orgb5797fa}
+\label{sec:org22dcfe2}
 
-\begin{frame}[label={sec:org973f2db}]{Quem são os autores}
+\begin{frame}[label={sec:org2fa9063}]{Quem são os autores}
 \end{frame}
 
-\begin{frame}[label={sec:org5c492d2}]{Estrutura do artigo}
+\begin{frame}[label={sec:orgd41adf3}]{Dissecando o artigo}
 \end{frame}
-\begin{frame}[label={sec:org9b4b8f2}]{TL;DR (\emph{a.k.a} nem li; nem lerei)}
+
+\begin{frame}[label={sec:org5546fb2}]{TL;DR (\emph{a.k.a} nem li; nem lerei)}
 \emph{Surveys} empresariais indicam elevada insensibilidade do investimento (\emph{ex ante}) à taxa de juros
 \begin{itemize}
 \item Teoria sugere o inverso
@@ -53,5 +226,30 @@ $$
 \item Teorias do investimento, finanças corporativas e canais de transmissão da política monetária
 \end{itemize}
 \end{block}
+\end{frame}
+
+\section{Unindo os pontos?}
+\label{sec:org91ac82b}
+
+\begin{frame}[label={sec:org1189f44}]{\textcite{schularickCreditBoomsGone2012}: How I Learned to Stop Worrying and Love \textcite{minsky_1977_Financial}?}
+Algumas aproximações com algumas das conclusões de \textcite{minsky_1977_Financial}, mas \(\ldots\)
+
+\begin{itemize}
+\item Pouca atenção à posição financeira e balanço patrimonial dos agentes
+\item Não explica mecanismos pelos quais o crédito ajudaria a anteceder as crises
+\item Preço dos ativos aparece como um controle e apenas retoma como proposição de política econômica
+\end{itemize}
+
+\begin{block}{Algumas questões}
+\begin{itemize}
+\item Sempre \emph{credit view}?
+\item \emph{Shadow banking} intensificaria essas conclusões?
+\item Como lidar com as mudanças de definições ao longo do tempo?
+\item Por mais que identificam um fenômeno comum, o que explicaria a diferença de intensidade entre países?
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[label={sec:org6935dfe}]{\textcite{sharpe_2020_Why}: How I Learned to Stop Loving and Worry \textcite{minsky_1977_Financial}?}
 \end{frame}
 \end{document}
