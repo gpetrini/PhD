@@ -15,16 +15,21 @@
 
 * textcite:schularickCreditBoomsGone2012: Booms de crédito acabam: Política Monetária, ciclos alavancados e crises financeiras (1870-2008)
 
-** Quem são os autores
+** Quem são os autores?
 #+begin_export latex
 \begin{figure}[htb]
 \centering
-\caption{Allan Taylor + Moritz Schularick} 
+\caption{Allan Taylor (Harvard) + Moritz Schularick (Free University of Berlin)}
 \includegraphics[width = 0.35\textwidth]{./figs/Schularick_Taylor.png}
 \label{fig:autores01}
 \caption*{\textbf{Fonte:} Suspeita}
 \end{figure}
 #+end_export
+
+Conjuntamente contribuem no /MacroFinance Lab/ e recentemente pesquisam
+
+- Macroeconomia financeira, bancária e instabilidade financeira
+- Finanças internacionais e história econômica
 
 ** TL;DR (/a.k.a/ nem li; nem lerei)
 
@@ -152,13 +157,33 @@ Crédito bancário continua sendo o principal antecedente das crises financeiras
 
 * textcite:sharpe_2020_Why: Por que o investimento (das firmas) é tão insensível à taxa de juros?
 
-** Quem são os autores
+** Quem são os autores?
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{Steve A. Sharpe (Stanford) + Gustavo A. Suarez (Harvard)}
+\includegraphics[width = 0.35\textwidth]{./figs/Sharpe_Suarez.png}
+\label{fig:autores01}
+\caption*{\textbf{Fonte:} Suspeita}
+\end{figure}
+#+end_export
 
-** Dissecando o artigo
+Economistas do FED (Whashington). Atualmente pesquisam:
 
+- Política monetária e Mercados Financeiros
+- Mercados de crédito
+
+** Estrutura do artigo
+*** Embasamento teórico
+**** Sensibilidade do investimento a taxa de juros nos modelos convencionais
+**** Da teoria à empiria
+*** Quetionário e principais descobertas
+*** Características das firmas respondentes
+*** Estimação da regressão
+*** Outros fatores potenciais por trás da insensibilidade
 ** TL;DR (/a.k.a/ nem li; nem lerei)
 
-/Surveys/ empresariais indicam elevada insensibilidade do investimento (/ex ante/) à taxa de juros
+Questionário indica elevada *insensibilidade* do investimento (/ex ante/) à taxa de juros
 - Teoria sugere o inverso
 - Por quê? Lucros retidos e rigidezes
 
@@ -166,11 +191,143 @@ $$
 IRR_{k} = \frac{A_{k}}{c_{k}} \geq \text{Hurdle rate} \nRightarrow \text{Juros}
 $$
 
-- Resultados são bastante robustos e pouco sensíveis à amostra
+- Resultados são bastante robustos e pouco sensíveis às características amostra
   + Há uma assimetria em relação a um aumento/redução dos juros, mas o conclusão permanece
+  + Simetria do "porque não"
 
 *** Relevância
 - Teorias do investimento, finanças corporativas e canais de transmissão da política monetária
+** Revisão da literatura teórica
+
+#+CAPTION: Mecanismo esperados dos juros ao investimento
+|-------------------------------+-----------------------------------------------------------------------------------------------------------|
+| Modelo (tipo de custo, $C$)   | Juros $(r) \Leftrightarrow$ Investimento $(I)$                                                            |
+|-------------------------------+-----------------------------------------------------------------------------------------------------------|
+| Uso do capital                | $\Uparrow r \Rightarrow \Uparrow C \Rightarrow \Downarrow I$                                              |
+| Ajustamento                   | $I = f(q(t)) = \int_{t}^{{\infty}} \pi_{K}(s)\exp^{-r(s-t)}ds$                                            |
+| Irreversibilidade e incerteza | Região de inação em torno de $q(t)$                                                                       |
+| Financeiros (ext.)            | $I = f\left(\frac{q(t)}{\text{C fin.}}\right) \Rightarrow \Delta$ Estru. K $\Rightarrow \Downarrow$ Sens. |
+|-------------------------------+-----------------------------------------------------------------------------------------------------------|
+
+*** Resumo
+
+Espera-se uma sensibilidade elevada entre taxa de juros e investimento; essa sensibilidade aumenta quanto maior a perspectiva de expansão da firma; maiores custos de financialmento externo; maior rigidez da estrutural de capital
+** Da sensibilidade à rigidez
+#+begin_export latex
+\begin{figure}[htb]
+\centering
+\caption{Taxa mínima de retorno VS Taxa de juros de Longo Prazo} 
+\includegraphics[width = 0.95\textwidth]{./figs/Hurdle.png}
+\label{fig:cycles}
+\caption*{\textbf{Fonte} \textcite[p.~6]{sharpe_2020_Why}}
+\end{figure}
+#+end_export
+
+** Questionário e desenho amostral
+
+- 680 Firmas de indústrias não-financeiras
+- *Controles:* Tamanho da firma, da indústria e regime proprietário
+
+
+*** Questão
+
+#+BEGIN_QUOTE
+Quanto os planos de investimento se alterariam (em p.p.) dada uma queda/elevação da taxa de juros?
+#+END_QUOTE
+
+*** Respostas
+
+- Não se aplica
+- $0.5 \ldots 3.0+$
+- Nada
+  + Por quê?!
+
+** Características das firmas
+
+#+CAPTION: Características da amostra
+|---------------------------------------+-----------------------------|
+| Características das firmas            | Porcentagem (sem subgrupos) |
+|---------------------------------------+-----------------------------|
+| Sem planos de tomar empréstimos       |                          51 |
+| Preocupações com $K$ de giro          |                          26 |
+|---------------------------------------+-----------------------------|
+| Incerteza                             |                          32 |
+| Expectativa cresc. receita $\geq 5\%$ |                          58 |
+| Expectativa cresc. lucro $\geq 5\%$   |                          53 |
+| Renda $\leq 100 Mi$                   |                          57 |
+| Privada                               |                          78 |
+|---------------------------------------+-----------------------------|
+| Indústria                             |                          32 |
+| Serviços                              |                          18 |
+| Varejo                                |                          14 |
+| Outros setores                        |                          37 |
+|---------------------------------------+-----------------------------|
+
+** Resultados
+
+#+CAPTION: Sensibilidade dos planos de investimento às taxas de juros
+|-----------------------------+-----------------+-------------------|
+| $\Delta$ Investimento (p.p) | Queda dos juros | Aumento dos juros |
+|-----------------------------+-----------------+-------------------|
+|                         0.5 |              3% |                6% |
+|                           1 |              5% |               10% |
+|                           2 |              8% |               16% |
+|                           3 |              5% |               11% |
+|                          3+ |             11% |               20% |
+|-----------------------------+-----------------+-------------------|
+|             $\sum$ senvível |             32% |               63% |
+|-----------------------------+-----------------+-------------------|
+|                           0 |             68% |               37% |
+|               Não se aplica |             139 |               146 |
+|-----------------------------+-----------------+-------------------|
+
+** Por que não?!
+
+#+CAPTION: Razões para a insensibilidade da taxa de juros
+|------------------------------------+---------+---------|
+| Motivo                             | Aumento | Redução |
+|------------------------------------+---------+---------|
+| Financiamento por fluxo de caixa   |     32% |     49% |
+| Juros já estão baixos/ $\pi > r$   |     27% |     11% |
+| Elevado endividamento              |      4% |      1% |
+| Restrição de crédito               |      2% |      2% |
+|------------------------------------+---------+---------|
+| $\sum$ razões financeiras          |     65% |     63% |
+|------------------------------------+---------+---------|
+| Investimento depende da demanda/LP |     17% |     17% |
+| Sem lucros adicionais              |     10% |     11% |
+| Elevada incerteza                  |      3% |      1% |
+| Não intensiva em $K$ /Outros       |      5% |      7% |
+|------------------------------------+---------+---------|
+| $\sum$ razões não-financeiras      |     35% |     37% |
+|------------------------------------+---------+---------|
+** Regressão
+*** Probit e a insensibilidade aos juros
+\begin{align*}
+Pr(\text{Não reagir}) =& \alpha_{ind} + \beta_{1}\text{Sem plano para pedir empréstimos} + \\
+& \beta_{2}\text{K de giro} + \beta_{3}\text{Balanço Patrimonial} + \beta_{4}\text{Incerteza} + \\
+& \beta_{5}\text{Expec. Cresc.} + \beta_{6}\text{Tamanho} + \beta_{7}\text{Privada}
+\end{align*}
+*** Tobit e o investimento induzido pelos juros
+$$
+\text{Threshold rate increase} = max\{3.1, \delta X_{i} + u_{i}\}
+$$
+*** Conclusão
+- *Insensibilidade:* $\Uparrow$ Fluxo de caixa $\Leftrightarrow \Downarrow$ pedir empréstimos
+- *Sensibilidade:* Consistente com o modelo /probit/
+- *Taxa de crescimento esperada:* Resultados ambíguos
+** Outras explicações pontenciais
+- *Prevalência de acordos de dívida:* Restringem investimento
+  + _Contra-factual:_ Insensibilidade é comum às firmas pequenas e grandes
+- *Excesso de precaução no ano do questionário:* Crise europeia e expectativas de uma menor demanda
+  + Outras perguntas do questionário não sugerem isso
+- *Mudanças nos juros pouco prováveis:* Difícil de imaginar tais cenários
+  + Agentes atribuem uma baixa probabilidade de reduções ainda maiores nos juros
+
+*** Alternativas
+
+- Importância da estrutura patrimonial das *famílias* $\Rightarrow$ Transmissão da PM
+- Investimento resindencial e Consumo de bens durávies $\Rightarrow$ Sensíveis aos juros
 
 * Unindo os pontos?
 
@@ -190,3 +347,15 @@ Algumas aproximações com algumas das conclusões de textcite:minsky_1977_Finan
 - Por mais que identificam um fenômeno comum, o que explicaria a diferença de intensidade entre países?
 
 ** textcite:sharpe_2020_Why: How I Learned to Stop Loving and Worry textcite:minsky_1977_Financial?
+
+textcite:schularickCreditBoomsGone2012 reportam a importância do crédito para os ciclos financeiros. No entanto, textcite:sharpe_2020_Why sugerem que as firmas não reagem tanto quanto as teorias /a la/ cite:minsky_1977_Financial descrevem
+
+- Se investimento (das firmas) é insensível aos juros, o que fica da HIF?
+- Existe alguma não-linearidade relevante que não foi considerada?
+  + *Memo:* Assimetria de sensibilidade é acompanhada da simetria de "motivos"
+
+*** Outras Questões abertas
+
+- Tais resultados se restringem ao EUA/período analizado?
+- textcite:minsky_1977_Financial seria mais aplicável a outros gastos que não investimento produtivo?
+- Será que a metodologia utilizada é a mais adequada para dados qualitativos?
