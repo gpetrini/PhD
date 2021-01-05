@@ -1,0 +1,466 @@
+% Created 2021-01-05 ter 18:38
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[top=3cm, bottom=2cm, left=3cm, right=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[theorems, skins]{tcolorbox}
+\usepackage[style=abnt,noslsn,extrayear,uniquename=init,giveninits,justify,sccite,
+scbib,repeattitles,doi=false,isbn=false,url=false,maxcitenames=2,
+natbib=true,backend=biber]{biblatex}
+\usepackage{url}
+\usepackage[cache=false]{minted}
+\usepackage[linktocpage,pdfstartview=FitH,colorlinks,
+linkcolor=blue,anchorcolor=blue,
+citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
+\usepackage{attachfile}
+\usepackage{setspace}
+\usepackage{tikz}
+\usepackage[brazilian, ]{babel}
+\usepackage[style=abnt,noslsn,extrayear,uniquename=init,giveninits,justify,sccite, scbib,repeattitles,doi=false,isbn=false,url=false,maxcitenames=2, natbib=true,backend=biber]{biblatex}
+\usepackage{caption, epigraph}
+\addbibresource{/HDD/Org/all_my_refs.bib}
+\author{Gabriel Petrini}
+\date{06 de Janeiro de 2021}
+\title{Panorama das regularidades empíricas em \textcite{schularickCreditBoomsGone2012} e  \textcite{sharpe_2020_Why}}
+\begin{document}
+
+\maketitle
+
+
+\epigraph{[T]he typical
+financing relation for consumer and housing debt can amplify but it cannot initiate a
+downturn in income and employment}{Hyman Minsky}
+
+\section*{Introdução}
+\label{sec:orge9bef32}
+
+O presente arquivo contem as resenhas dos artigos de \textcite{schularickCreditBoomsGone2012} e \textcite{sharpe_2020_Why} com o objetivo de apresentar algumas regularidades empíricas relacionadas às integrações do lado real e financeiro e suas implicações sobre o ciclo econômico.
+Para tanto, os trabalhos mencionados não serão discutidos em seus pormenores, mas sim de forma bastante ampla.
+Dito isso, as duas seções seguintes irão apresentar os objetivos, resultados e argumentos dos autores à luz do recorte proposto pela disciplina.
+Cabe a seção final sintetizar estas contribuições e pontuar algumas questões que possam guiar debates subsequentes.
+
+\section*{\textcite{schularickCreditBoomsGone2012}: Booms de crédito acabam: Política Monetária, ciclos alavancados e crises financeiras (1870-2008)}
+\label{sec:orge5f1cc5}
+
+\subsection*{Introdução e estrutura do artigo}
+\label{sec:org928ecc4}
+
+\textcite{schularickCreditBoomsGone2012}  --- e em trabalhos mais recentes \cite{jordaGreatMortgagingHousing2016,jordaRateReturnEverything2019}--- constroem uma base de dados que abrange 14 países da OCDE para os anos de 1870 a 2008.
+Além de compatibilizar séries econômicas de diferentes países, tal esforço permite fazer uma análise mais robusta econometricamente de eventos menos frequentes como é caso das crises financeiras.
+Com estes dados em mãos, os autores estimam vários modelos de dados em painel sob diferentes especificações --- totalizando 29 ajustes --- para estimar seus antecedentes.
+Em linhas gerais, encontram que o crédito bancário antecede tais crises e este resultado é bastante robusto.
+Estas contribuições lançam luz sobre a compreensão do ciclo econômico e ampliam a relevância dos mecanismos de transmissão da política monetária para além da determinação da taxa básica de juros.
+
+Para atingir tais objetivos, o artigo é estruturado da seguinte forma:
+    (I) Estabelecimento do horizonte de análise em que é pontuada a relevância de comparações de longo prazo;
+    (II) Apresentação da base de dados elaborada;
+    (III) Comparação dos dados ao longo do período de análise e identificação de diferentes eras do capitalismo contemporâneo;
+    (IV) Análise dos determinantes e condicionantes da inflexão identificada anteriormente e;
+    (V) Estimação dos antecedentes das crises financeiras por meio de modelos de dados em painel.
+Esta seção seguirá a mesma estrutura do artigo em análise e, por simplicidade, serão apresentados apenas os resultados mais relevantes.
+
+\subsection*{Moeda, Crédito e Crises financeiras no longo prazo: Duas eras}
+\label{sec:org7fc6a21}
+
+Nesta seção os autores pontuam a importância de se realizar uma análise comparativa em um horizonte temporal mais longo.
+Cabe destacar que tal recorte analítico é pertinente dada a frequência com que as crises financeiras ocorrem.
+Mais uma vez, vale realçar a relevância da contribuição deste artigo ao construir uma base de dados que permite que tal investigação seja realizada.
+Sendo assim, tais dados permitem identificar duas fases do capitalismo contemporâneo.
+A primeira (1870-1939) é caracterizada por uma relação estável entre o estoque de moeda, atividade econômica e crédito bancário.
+Tal regularidade, argumentam, justifica interpretações monetaristas em que variações (discricionárias) do estoque de moeda eram compreendidas como principal determinante das flutuações econômicas.
+Na segunda fase (1945-\(\ldots\)), os autores pontuam que a taxa de crescimento do crédito bancário era bastante superior ao estoque de moeda e ao produto, rompendo com a estabilidade mencionada acima (ver Figura \ref{fig:agregados}).
+Dada esta inflexão, a visão "monetária" perde sua capacidade explicativa e dá lugar a uma visão "creditícia" em que o crédito bancário é visto como mais relevante que o estoque de moeda para explicar os ciclos econômicos.
+
+
+\begin{figure}[htb]
+\centering
+\caption{Agregados financeiros/M3}
+\includegraphics[width = 0.95\textwidth]{./figs/AgregadosM3.png}
+\label{fig:agregados}
+\caption*{\textbf{Fonte:} \textcite[p.~ 1035]{schularickCreditBoomsGone2012}}
+\end{figure}
+
+Em seguida, os autores argumentam que as consequência e, principalmente, as lições da Grande Depressão foram fundamentais para entender as diferenças entre as duas fases.
+Em resumo, a existência de um \emph{Big Government} e de um \emph{Big Bank} não impactou somente a forma com que os \emph{policy makers} reagem às crises, mas também a forma de seus efeitos sobre o lado real e financeiro.
+A tabela \ref{tab:comparacao} é um esforço de sintetizar tais diferenças tanto em termos de variáveis macroeconômicas quanto em relação às mudanças institucionais e de política econômica.
+Em resumo, os autores identificam as crises financeiras nessas duas fases são distintas em intensidade (medida em termos de perda do produto) e integração (por meio de uma maior complexidade do sistema financeiro).
+
+\begin{table}[htbp]
+\caption{\label{tab:comparacao}Comparação dos efeitos das crises financeiras entre as fases identificadas pelos autores}
+\centering
+\begin{tabular}{lll}
+\hline
+ & Fase I & Fase II\\
+\hline
+Preços & Deflação & Pressão inflacionária\\
+Agregados monetários & Decrecimento & Expansão\\
+\(\Delta\) Política Monetária & - & Resposta mais rápida e ativa\\
+\(\Delta\) Institucionais & - & Instituições depositárias\\
+\hline
+\end{tabular}
+\end{table}
+
+
+\subsection*{Dados e estratégia das estimações}
+\label{sec:org5641f2a}
+
+
+Nesta seção, \textcite{schularickCreditBoomsGone2012} apresentam as variáveis contempladas pela base de dados construída por eles e sua equipe que abrangem dados anuais de 1870 a 2008 para 14 países da OCDE.
+Em linhas gerais, tal contribuição permite analizar variáveis macroeconômicas até então pouco comparáveis como é o caso dos empréstimos e dos ativos bancários.
+Cabe aqui a menção de que este é um esforço coletivo e em constante atualização como pode ser visto em outros trabalhos que os autores avançaram como é o caso de \textcite{jordaRateReturnEverything2019} em que são incluídos dados referêntes aos preços de alguns ativos financeiros.
+Dito isso, vale destacar algumas definições.
+
+
+Ao longo do artigo, os ativos bancários são definidos como a soma do balanço patrimonial (fim do período) dos bancos com operações no país em questão.
+Sendo assim, exclui-se corretoras imobiliárias, sociedades financeiras, seguradoras e outras instituições financeiras bem como ativos em moeda estrangeira e instituições que comporiam o \emph{shadow banking system}\footnote{Além disso, dado o horizonte de análise é preciso ter em mente que alguns agregados macroeconômicos foram redefinidos ao longo do período e, em função disso, foram necessários alguns ajustes nos dados.}.
+Mais adiante, os autores explicitam o que entendem por crises financeiras conforme o trecho abaixo:
+
+\begin{quote}
+[W]e define financial crises as events during which a country’s banking sector experiences bank runs, sharp increases in default rates accompanied by large losses of capital that result in public intervention, bankruptcy, or forced merger of financial institutions \cite[p. 138]{schularickCreditBoomsGone2012}
+\end{quote}
+A seguir, são retomados alguns dos temas que foram tratados na presente resenha como a diferença entre as duas eras e as lições da Grande Depressão e, por conta de espaço, não serão rediscutidos.
+
+
+Feita esta breve discussão da abrangência e comparabilidade da base de dados, segui-se para uma apresentação da estratégia econométrica utilizada nas estimações.
+A Equação \ref{eq:Schularick} representa de forma bastante genérica a estratégia de análise dos autores em que \emph{Crédito} representa o crédito bancário deflacionado pelo índice de preçoes ao consumidor; \emph{Controles} representam os efeitos fixos nas diferentes estimações e \(L^{N}\) é o operador de defasagem para \(N\) períodos.
+Resumidamente, os autores investigam em que medida a defasagem da taxa de crescimento do crédito bancário é um indicativo de crise financeira.
+Em outras palavras, testam a capacidade explicativa da "visão creditícia" dada a inflexão identificada a partir de 1945.
+
+
+\begin{equation}
+\label{eq:Schularick}
+Pr(\text{Crise Fin.}_{i,t}) = L^{N}(\text{Crédito}) + L(\text{Controles})
+\end{equation}
+
+
+A tabela a seguir resume alguns dos resultados de uma parcela das especificações estimadas pelos autores.
+Em poucas palavras, \textcite{schularickCreditBoomsGone2012} concluem que o crédito bancário é o principal antecedente das crises financeiras e que este resultado muda pouco com a introdução dos diferentes controles.
+Além disso, também reportam uma menor capacidade explicativa dos agregados monetários se comparados ao crédito bancário, mas não excluem a possibilidade de tais variávies serem relevantes na primeira fase.
+Apresentam também resultados pouco conclusivos sobre a utilização do crédito (se para consumo ou para investimento) e sua relação com as crises financeiras.
+Vale destacar também que encontram resultados ambíguos no que diz respeito às variações do colateral --- via preço das ações --- e grau de instabilidade financeira, mas chamam atenção para uma maior intensidade desses efeitos na medida que o setor financeiro ganha corpo.
+
+\begin{center}
+\begin{center}
+\begin{tabular}{llllll}
+\hline
+Método & OLS & OLS & OLS & Logit & Logit\\
+Efeitos fixos & - & País & País + Ano & - & País\\
+\hline
+\(\sum\) Coef. & \(0.425^{\star\star\star}\) & \(0.417^{\star\star\star}\) & \(0.443^{\star\star\star}\) & \(10.10^{\star\star\star}\) & \(9.697^{\star\star\star}\)\\
+\(\sum L_{Ns} = 0\)\footnotemark & 0.001 & 0.002 & 0.001 & 0.000 & 0.00408\\
+\(R^2\) & 0.016 & 0.023 & 0.290 & 0.0434 & 0.0659\\
+\(F, \chi^{2}\)\textsuperscript{\ref{org2b96bb0}} & 0.001 & 0.045 & 0.000 & 0.000 & 0.00663\\
+AUROC & \(0.673^{\star\star\star}\) & \(0.720^{\star\star\star}\) & \(0.952^{\star\star\star}\) & \(0.673^{\star\star\star}\) & \(0.717^{\star\star\star}\)\\
+\hline
+ &  &  &  &  & \\
+\end{tabular}
+\end{center}\footnotetext[2]{\label{org2b96bb0}p-valor}
+\end{center}
+
+
+
+\subsection*{Considerações finais e questionamentos}
+\label{sec:orgc676eae}
+
+
+O artigo analizado contribui não apenas com bases de dados promissoras, mas também lança luz sobre os determinantes das flutuações econômicas em que o crédito bancário desempenha um papel central.
+Além disso, cabe a menção da identificação de diferenças padrões e implicações das crises financeiras ao longo do período de análise.
+Soma-se a isso a corroboração da explicação "creditícia" dos ciclos econômicos.
+
+Neste ponto, vale destacar que as conclusões desta visão "creditícia" tem paralelos com os trabalhos de \textcite{minsky_1977_Financial} ao dar ênfase às variáveis financeiras e seus impactos sobre o lado real da economia.
+Outro elemento em comum são as heranças da Grande Depressão em que \emph{Big Government} e \emph{Big Bank} fazem com que as crises financeiras não ocorram da mesma maneira e com a mesma intensidade e frequência.
+No entato, esta comparação entre Minky e \textcite{schularickCreditBoomsGone2012} se restringe a isso.
+A limitação deste paralelo se dá principalmente pela pouca atenção tanto à posição financeira e estrutura patrimonial dos agentes quanto às inovações financeiras.
+Além disso, o preço dos ativos (neste caso, ações) desempenham um papel menor na análise e é limitado a um controle econométrico nas estimações.
+
+Dito isso, elenca-se algumas questões motivadas a partir da leitura de \textcite{schularickCreditBoomsGone2012}.
+Sendo assim, pergunta-se:
+
+\begin{itemize}
+\item Como mencionado anteriormente, foram necessários ajustes nos dados para que as séries fossem comparáveis ao longo do tempo. Dentre as consequências, pontua-se a exclusão das instituições que comporiam o \emph{shadow banking system}. Em que medida tal mudança intensificaria as conclusões dos autores e em que direção?
+\item Dada a dimensão temporal da análise, como incorporar as mudanças das definições dos agregados monetários utilizados sem que para isso se restrinjam a amplitude das estimações? Como explicar as diferentes intensidades da mudança da \emph{money view} para a \emph{credit view}?
+\item Também relacionado à amplitude temporal dos dados, não seria mais adequado estimar modelos de séries temporais em painel invés de dados em painel convencionais? Se sim, em que medida as duas eras do capitalismo seriam identificadas por meio de testes de quebra estrutural específicas para dados em painel?
+\item Quais seriam os mecanismos de transmissão que explicam a relevância do crédito para as flutuações econômicas? O crédito a nível agregado é relevante por si só ou é necessário desagregar os dados para ter um melhor entendimento destes fenômenos? Se for necessário desagregar, qual a importância de \emph{quem} (trabalhadores? capitalistas? firmas? governo?, etc) toma empréstimo para a compreensão de tais resultados?
+\item Preços e bolhas de ativos são mais relevantes do que meros controles econométricos? Se sim, em que medida?
+\end{itemize}
+
+Pontanto, estas questões indicam não apenas a relevância da contribuição do artigo resenhado, mas também outras agendas que pesquisa que podem se iniciar a partir de tais discussões.
+
+\section*{\textcite{sharpe_2020_Why}: Por que o investimento (das firmas) é tão insensível à taxa de juros?}
+\label{sec:org6b67dc8}
+\subsection*{Introdução}
+\label{sec:org70a903e}
+
+\textcite{sharpe_2020_Why} investigam a sensibilidade dos planos de investimento das firmas não-financeiras à taxa de juros.
+A partir da revisão da literatura teórica ressaltam que os modelos de investimento usuais indicam uma elavada elasticidade-juros do investimento.
+Em seguida, analisam dados qualitativos de um questionário que abrange 680 firmas americanas não-financeiras e encontram resultados diferentes ao esperado pelos modelos convencionais.
+Somado à isso, estimam modelos \emph{probit} e \emph{tobit} para avaliar tanto a insensibilidade do investimento à taxa de juros quanto qual deveria a variação dos juros para induzir mudanças nos planos de investimento.
+Os resultados das estimações econométricos reforçam os fatos estilizados apresentados anteriormente, qual sejam: investimento das firmas é pouco sensível aos juros.
+Dentre as explicações, destacam a relevância dos lucros retidos, das expectativas de demanda e insesibilidade da taxa de lucro requerida à taxa de juros efetiva.
+
+Antes de prosseguir para a resenha do texto, cabe pontuar a relevância da contribuição ao lançar luz sobre as teorias do investimento e sobre os possíveis canais de política monetária.
+Além disso, destaca-se que os argumentos serão apresentados em uma ordem diferente do artigo para evitar repetições desnecessárias.
+Sendo assim, a subseção seguinte apresenta as conclusões da revisão da literatura.
+Adiante, apresenta-se o desenho amostral bem como a questão a ser investigada pelos autores para então mostrar algumas estatísticas descritivas.
+Com estas informações em mãos, avança-se em direção aos modelos econométricos estimados.
+Encerra-se com as explicações levatadas pelos autores e alguns questionamentos.
+
+
+\subsection*{Revisão da literatura teórica}
+\label{sec:org624c89d}
+
+Os autores iniciam o artigo revisitando os modelos de investimento convencionais que parte de variações do \(q\) de Tobin.
+Ao longo desta seção, investigam quais os resultados esperados em termos da elasticidade-juros do investimento das firmas não-financeiras.
+Em linhas gerais, a literatura teórica indica uma elevada sensibilidade do investimento aos juros.
+Soma-se a isso que essa sensibilidade aumenta quanto maior a perspectiva de expansão da firma; maiores os custos de financialmento externo e; maior rigidez da estrutural de capital.
+A tabela \ref{tab:teorico} expressa tais conclusões de forma resumida em que os juros são denotados por \(r\), investimento por \(I\), custos de utilização do capital \(C\), lucros por \(\pi\) e estoque de capital por \(K\).
+
+
+\begin{table}[htbp]
+\caption{\label{tab:teorico}Mecanismo esperados dos juros ao investimento}
+\centering
+\begin{tabular}{ll}
+\hline
+Modelo (tipo de custo, \(C\)) & Juros \((r) \Leftrightarrow\) Investimento \((I)\)\\
+\hline
+Uso do capital & \(\Uparrow r \Rightarrow \Uparrow C \Rightarrow \Downarrow I\)\\
+Ajustamento & \(I = f(q(t)) = \int_{t}^{{\infty}} \pi_{K}(s)\exp^{-r(s-t)}ds\)\\
+Irreversibilidade e incerteza & Região de inação em torno de \(q(t)\)\\
+Financeiros (ext.) & \(I = f\left(\frac{q(t)}{\text{C fin.}}\right) \Rightarrow \Delta\) Estru. K \(\Rightarrow \Downarrow\) Sens.\\
+\hline
+\end{tabular}
+\end{table}
+
+
+Os autores afirmam que apesar dos modelos usuais reportarem uma elevada sensibilidade do investimento aos juros, o mesmo não é válido para modelos que incorporam os custos de financiamento externo dinamicamente.
+Resumidamente, argumentam que expectativas de uma elevação do custo de financiamento (\emph{i.e} juros) são acompanhadas de um aumento do fluxo de caixa (\emph{i.e.} lucros retidos) e planos de investimento mais precavidos para evitar maiores custos financeiros.
+Sendo assim, espera-se que o investimento das firmas com maior fluxo de caixa e com maior flexibilidade na estrutura patrimonial seja menos sensível à variações na taxa de juros.
+
+Outra discussão feita pelos autores diz respeito a importância das rigidezes reais e suas implicações sobre o investimento.
+\textcite{sharpe_2020_Why} pontuam que incerteza e irreversibilidade introduzem fricções não desprezíveis no modelo.
+Como consequência, espera-se que firmas com maiores perspectivas de crescimento sejam mais sensíveis às taxas de juros.
+
+Adiante, fazem uma mediação entre esta discussão teórica e os instrumentos de análise utilizados pelas firmas não-financeiras.
+Dentre os tópicos apresentados, cabe destacar a importância da rigidez das taxas de retorno requeridas (\emph{hurdle rates}) pelas firmas.
+A equação \ref{hurdle} exemplifica como essa taxa de retorno requerida é calculada em que \(A_{k}\) são os fluxos de caixa e \(c_{k}\) são os custos de um projeto de investimento.
+Caso as taxas internas de retorno (\(IRR\)) deste projeto sejam inferiores às taxas mínimas requeridas, o projeto não será implementado.
+Como consequência, se o investimento responde às variações nas taxas de retorno requerida e estas são insensíveis a taxa de juros, o investimento é insensível aos juros.
+Por fim, a Figura \ref{fig:hurdle} ilustra a rigidez das taxas de retorno requeridas aos juros.
+
+
+\begin{equation}
+\label{hurdle}
+IRR_{k} = \frac{A_{k}}{c_{k}} \geq \text{Hurdle rate} \nRightarrow \text{Juros}
+\end{equation}
+
+\begin{figure}[htb]
+\centering
+\caption{Taxa mínima de retorno VS Taxa de juros de Longo Prazo}
+\includegraphics[width = 0.95\textwidth]{./figs/Hurdle.png}
+\label{fig:hurdle}
+\caption*{\textbf{Fonte} \textcite[p.~6]{sharpe_2020_Why}}
+\end{figure}
+
+Portanto, \textcite{sharpe_2020_Why} relatam que a revisão da literatura teórica sugere que o investimento é sensível às taxas de e juros nos modelos convencionais.
+No entanto, quando rigidezes reais e os custos financeiros são incluídos em modelos dinâmicos, tal sensibilidade é reduzida por meio da retenção de lucro e é menor quanto mais flexível a estrutura de capital.
+Adiante, os autores apresentam qual questão do questionário estão interessados para então apresentar algumas estatísticas descritivas para então expor as características da amostra.
+Na presente resenha, segue-se o caminho inverso: do desenho amostral para os resultados do questionário.
+
+\subsection*{Desenho amostral e questão de interesse}
+\label{sec:orgf953594}
+
+Os autores partem do \emph{Global Business Outlook (GBO) survey} respondido por 500-100 firmas americanas não-financeiras desde 1997.
+Neste artigo, restrigem a análise à 680 firmas respondentes à questão de interesse (adiante) no ano de 2012.
+Pontua-se que o desenho amostral é bastante diversividado e inclui firmas de tamanhos, setores e regimes proprietários distintos sem incorrer em vies de seleção.
+A tabela \ref{tab:amostra} é uma versão resumida e adaptada que mostra a porcentagem das firmas respondentes que possuem determinada característica.
+De modo geral, são empresas privadas e com renda menor que US\$ 100 Mi com expectativa de receita menor que 5\%.
+Destaca-se também que a maior parte destas firmas não possuiam planos de tomar empréstimo e, como será discutido adiante, é um ponto central da análise.
+
+\begin{table}[htbp]
+\caption{\label{tab:amostra}Características da amostra}
+\centering
+\begin{tabular}{lr}
+\hline
+Características das firmas & Porcentagem (sem subgrupos)\\
+\hline
+Sem planos de tomar empréstimos & 51\\
+Preocupações com \(K\) de giro & 26\\
+\hline
+Incerteza & 32\\
+Expectativa cresc. receita \(\geq 5\%\) & 58\\
+Expectativa cresc. lucro \(\geq 5\%\) & 53\\
+Renda \(\leq 100 Mi\) & 57\\
+Privada & 78\\
+\hline
+Indústria & 32\\
+Serviços & 18\\
+Varejo & 14\\
+Outros setores & 37\\
+\hline
+\end{tabular}
+\end{table}
+
+Apresentado o desenho amostral, segue-se para a questão de interesse a ser investigada cujos resultados das respostas estão na tabela \ref{tab:resultsQ}.
+Refraseando, foi perguntado o seguinte para os executivos financeiros destas empresas:
+
+\begin{quote}
+Quanto os planos de investimento se alterariam (em p.p.) dada uma queda da taxa de juros?
+\end{quote}
+As respotas possíveis se iniciavam em 0.5 p.p. a 3.0+ p.p. e inclui "não se aplica" e "não se altera".
+O mesmo foi feita para um aumento da taxa de juros.
+
+
+\begin{table}[htbp]
+\caption{\label{tab:resultsQ}Sensibilidade dos planos de investimento às taxas de juros}
+\centering
+\begin{tabular}{rll}
+\hline
+\(\Delta\) Investimento (p.p) & Queda dos juros & Aumento dos juros\\
+\hline
+0.5 & 3\% & 6\%\\
+1 & 5\% & 10\%\\
+2 & 8\% & 16\%\\
+3 & 5\% & 11\%\\
+3+ & 11\% & 20\%\\
+\hline
+\(\sum\) senvível & 32\% & 63\%\\
+\hline
+0 & 68\% & 37\%\\
+Não se aplica & 139 & 146\\
+\hline
+\end{tabular}
+\end{table}
+Os resultados tabulados na Tabela \ref{tab:resultsQ} sugerem que os planos de investimento são, em sua maioria, insensíveis a uma queda da taxa de juros e o mesmo pode ser dito, feitas algumas ressalvas, ao aumento dos juros.
+Cabe pontuar os efeitos não-lineares das variações dos juros, ou seja, mais firmas são sensívies ao seu aumento do que à sua queda.
+
+Prosseguindo com a exposição do questionário, foi perguntado às firmas o porquê de não alterar os planos de investimento às variações dos juros.
+Os resultados são apresentados na Tabela \ref{tab:resultsN}.
+Em sua maioria, as firmas com investimento insensível aos juros justificaram tal decisão por razões financeiras.
+Dentre elas, destaca-se o financiamento do investimento por meio de lucros retidos e esta resposta se aplica tanto ao aumento quando à queda do investimento.
+Tal resultado, argumentam, esta associado aos custos financeiros e o comportamento antecipatório das firmas relatado na revisão de literatura.
+Além disso, cabe a menção a nível reduzido dos juros para explicar o porquê desta insensibilidade do investimento.
+Por fim, em relação às razões não-financeiras, as firmas relataram que os planos de investimento dependiam principalmente das expectativas da demanda de longo prazo e não aos juros.
+
+\begin{table}[htbp]
+\caption{\label{tab:resultsN}Razões para a insensibilidade da taxa de juros}
+\centering
+\begin{tabular}{lll}
+\hline
+Motivo & Aumento & Redução\\
+\hline
+Financiamento por fluxo de caixa & 32\% & 49\%\\
+Juros já estão baixos/ \(\pi > r\) & 27\% & 11\%\\
+Elevado endividamento & 4\% & 1\%\\
+Restrição de crédito & 2\% & 2\%\\
+\hline
+\(\sum\) razões financeiras & 65\% & 63\%\\
+\hline
+Investimento depende da demanda/LP & 17\% & 17\%\\
+Sem lucros adicionais & 10\% & 11\%\\
+Elevada incerteza & 3\% & 1\%\\
+Não intensiva em \(K\) /Outros & 5\% & 7\%\\
+\hline
+\(\sum\) razões não-financeiras & 35\% & 37\%\\
+\hline
+\end{tabular}
+\end{table}
+
+
+Portanto, \textcite{sharpe_2020_Why} reportam uma elasticidade-juros do investimento bastante reduzida.
+A partir dos resultados do questionário, destaca-se o financiamento do investimento por lucros retidos como um dos principais fatores explicativos.
+Tal conclusão é relacionada aos modelos de investimento dinâmicos que incluem custos de financiamento e rigidezes reais.
+Em seguida, os autores estimam modelos econométricos para mensurar e explicar tais regularidade.
+
+\subsection*{Estimação e explicações alternativas}
+\label{sec:org476ad15}
+
+Feitas estas discussões, os autores prosseguem para a estimação de modelos econométricos para lançar luz sobre os resultados discutidos anteriormente.
+O primeiro ajuste é feito por um modelo \emph{probit} para mensurar a insensibilidade do investimento aos juros.
+Em linhas gerais, este modelo indica qual a probabilidade de uma firma não reagir às variações na taxa de juros dadas as suas caractarísticas apresetadas na tabela \ref{tab:amostra}.
+A equação \ref{eq:probit} representa tal estimação em que \(\alpha_{ind}\) indica o setor da firma; \(\betas\) são coeficientes e as variáveis são adaptações das características presentes na tabela \ref{tab:amostra}.
+\begin{align*}
+\label{eq:probit}
+Pr(\text{Não reagir}) =& \alpha_{ind} + \beta_{1}\text{Sem plano para pedir empréstimos} + \\
+& \beta_{2}\text{K de giro} + \beta_{3}\text{Balanço Patrimonial} + \beta_{4}\text{Incerteza} + \\
+& \beta_{5}\text{Expec. Cresc.} + \beta_{6}\text{Tamanho} + \beta_{7}\text{Privada}
+\end{align*}
+
+Adionalmente, os autores também estimam um modelo do tipo \emph{tobit} para mensurar qual seria a variação necessária da taxa de juros para induzir variações nos planos de investimento das firmas. Este ajute é representado pela equação \ref{eq:tobit} em que \(X\) representa as mesmas covariatas da estimação \emph{probit}.
+
+\begin{equation}
+\label{eq:tobit}
+\text{Threshold rate increase} = max\{3.1, \delta X_{i} + u_{i}\}
+\end{equation}
+
+
+Resumidamente, \textcite{sharpe_2020_Why} conseguem reportar os resultados apresentados alteriormente, ou seja, os planos de investimento das firmas são mais insensíveis aos juros quanto maior o fluxo de caixa e isto esta associado a menores intenções de tomar empréstimo.
+Além disso, cabe mencionar que os resultados do \emph{probit} e do \emph{tobit} são consistentes.
+No entanto, os autores encontram resultados diferentes do esperado em relação a expectativa de expansão da firma.
+Como discutido na revisão de literatura, esperava-se que expectativas de crescimento implicassem maior sensibilidade do investimento aos juros, mas obtido nas estimações resultado foi oposto.
+Por razões espaço, tal discussão não será pormenorizada.
+
+Em seguida, os autores fazem algumas ressalvas que podem explicar tais resultados.
+É destacado que a prevalência de acordos de dívida podem restrigir o investimento das firmas e isso explicaria sua insensibilidade aos juros.
+No entanto, pontuam que tais acordos são mais comuns em firmas de porte menor e que os resultados obtidos são comuns à toda amostra, ou seja, esta explicação é pouco convincente.
+Pontuam também os possíveis efeitos da crise europeia em curso e expectativas de uma demanda menor futuramente.
+Tais fatores, portanto, poderiam explicar o excesso de precaução (insensibilidade do investimento) observado no questionário, mas afirmam que outras questões realizadas não sugerem isso.
+Adicionalmente, consideram a possibilidade dos respondentes acharem que novas reduções na taxa de juros são pouco prováveis e que isso pode alterar os resultados.
+Porém, ao observarem as respostas deste questionário em outro período notam que esta reguralidade se repetiu.
+
+\subsection*{Considerações finais e questionamentos}
+\label{sec:org6b9c155}
+
+A contribuição de \textcite{sharpe_2020_Why} é tão relevante quanto curiosa.
+De um lado, reportam alguns resultados que colocam em dúvida alguns mecanismos de transmissão da política monetária bastante consagrados pela literatura (seja ela ortodoxa ou heterodoxa).
+Por outro, abrem novas questões que podem ser igualmente esclarecedoras e ajudam na compreensão dos determinantes das flutuações econômicas.
+Tal como os próprios autores colocam, estes resultados sugerem que outros canais de transmissão da política monetária são mais relevantes do que o esperado.
+Dentre eles, destacam a importância tanto da estrutura patrimonial das famílias quanto a elevada sensibilidade do investimento residencial e do consumo de bens duráveis às taxas de juros (e não o investimento das firmas).
+Sendo assim, o presente estudo avança em direção a uma maior compreensão das decisões de investimento das firmas a um nível desagregado e tal contribuição pode ajudar na elaboração de modelos macroeconômicos mais robustos e explicativos.
+
+Feito este apanhado, cabe agora elencar algumas questões motivadas pela leitura deste artigo.
+Primeiramente, vale destacar que a amostra se restringe às firmas \textbf{americanas} não-financeiras no período recente.
+Sendo assim, uma questão que se coloca é: em que medida tais resultados se restringem aos EUA e ao período de análise? Se forem restritos a apenas este caso, como explicar a diferença entre os outros países/períodos? Caso sejam mais amplos, o que das teorias do investimento podem ser levadas adiante e o que deveria ser descartado.
+Adicionalmente, os autores partem de dados qualitativos para sua análise e seguem para estimações econométricas.
+Será que este é o melhor método para tratar dados desta natureza? Uma alternativa, por exemplo, é a método QCA proposto por \textcite{raginComparativeMethodMoving1987} em que os casos são tratados de forma distinta e parte-se de uma outra compreensão de complexidade.
+Caso o método utilizados pelos autores seja o mais adequado, se faz necessário refletir sobre suas hipóteses implícitas: é razoável supor que os efeitos do aumento dos juros sejam simétricos (em termos de consequência e não de intensidade) aos da diminuição dos juros? é razoável supor que as características do desenho amostral sejam mensuradas de forma aditiva? como lidar com diferentes configurações associadas a um mesmo resultado?
+
+Estas e outras questões evidenciam a relevância do texto aqui resenhado.
+Por sim, a seção seguinte retoma as discussões apresentadas ao longo desta resenha e propõe algumas comparações, reflexões e provocações para discussão.
+
+
+\section*{Considerações finais}
+\label{sec:org8504fb6}
+
+Os artigos resenhados apresentam regularidades empíricas bastante significativas e esclarecedoras para se compreender as flutuações econômicas e o comportamento do investimento das firmas.
+\textcite{schularickCreditBoomsGone2012} dão ênfase ao crédito bancário enquanto indicador de antencedente das crises financeiras, mas o fazem sem identificar os mecanismos de trasmissão dessa variável e a estrutura patrimonial dos agentes econômicos.
+\textcite{sharpe_2020_Why}, por sua vez, investigam os motivos pelos quais o investimento das firmas não reagem aos juros tanto quanto esperado pelos modelos teóricos usuais e destacam a relevância dos lucros retidos, das expectativas de demanda e rigidezes.
+Portanto, apesar de utilizarem metodologias, amostras, recortes e embasamentos teóricos distintos, ambos os textos chamam a atenção para as relações reais e financeiras.
+
+Analizados em conjunto, os artigos levam a uma reflexão um tanto quanto provocadora a respeito das contribuições de \cite{minsky_1977_Financial}.
+Em poucas palavras, Minsky dá atenção à estrutura de passivos das firmas e suas implicações sobre a estabilidade macroeconômica.
+Partindo de tipologias de diferentes graus de fragilidade financeira, o autor enfatiza a importância de um aumento na taxa de juros --- resultante da eugoria precedente ---  para explicar pontos de inflexão e crises financeira.
+Por um lado \textcite{schularickCreditBoomsGone2012} corroboram a importância do crédito para as flutuações econômicas e, portanto, a relevância dos passivos financeiros para o ciclo. Por outro, \textcite{sharpe_2020_Why} concluem que as firmas não são tão sensíveis assim aos juros quanto esperado e, portanto, questiona-se em que medida tal ponto de inflexão apontado por Minsky se verifica.
+
+
+Por fim, vale destacar que tal provocação não implica irrelevância de Minsky, mas apenas o reposiciona.
+Desse modo, encerram-se estas resenhas com a seguinte reflexão: A explicação proposta por \textcite{minsky_1977_Financial} é mais adequada para outros gastos que não o investimento das firmas? Se sim, quais? Se não, o que resta?
+
+
+\section*{Referências bibliográficas}
+\label{sec:orgce6b166}
+\printbibliography[heading=none]
+\end{document}

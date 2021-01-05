@@ -39,12 +39,12 @@ Autores apresentam um painel longo (1870-2008) para 14 países da OECD
 - Duas eras do capitalismo financeiro
 
 Estimam vários modelos/especificações (29!) para verificar os antecedentes das crises financeiras
-- *Pergunta:* Fim /Boom/ Crédito?
+- *Resposta:* Crédito bancário
 
 *** Relevância e questões abertas
 
-- Se crises financeiras são raras, é necessário olhar para um panorama mais longo
-- Compreensão dos atencedentes das crises financeiras $\Rightarrow$ Bancos centrais
+- Se crises financeiras são raras, é necessário olhar para um horizonte mais longo
+- Compreensão dos atencedentes das crises financeiras $\Rightarrow$ Atuação Bancos centrais
 - Crises financeiras são mais prováveis quanto maior o aprofundamento financeiro?
 
 ** Estrutura do artigo
@@ -86,6 +86,7 @@ Estimam vários modelos/especificações (29!) para verificar os antecedentes da
 
 ** Duas eras, algumas observações
 
+#+CAPTION: Comparação dos efeitos das crises financeiras entre as fases identificadas pelos autores
 |-----------------------------+--------------+------------------------------|
 |                             | Fase I       | Fase II                      |
 |-----------------------------+--------------+------------------------------|
@@ -101,7 +102,7 @@ Estimam vários modelos/especificações (29!) para verificar os antecedentes da
 
 ** Dados e estratégia das estimações
 
-Base de dados permite analizar variávies até então pouco comparáveis
+Base de dados permite analizar variávies até então pouco comparáveis por meio de dados em painel
 
 - Empréstimos e ativos bancários
 - Preço de ativos? cite:jordaGreatMortgagingHousing2016
@@ -116,7 +117,7 @@ em que
 
 *** Observação econométrica
 
-- Seria o caso de um painel longo? ($T>>N$)
+- Seria o caso de séries temporais em painel? ($T>>N$)
 ** Alguns dos resultados de algumas estimações
 #+begin_center
 |-------------------------+---------------------------+---------------------------+---------------------------+---------------------------+---------------------------|
@@ -145,8 +146,7 @@ Defasagem da taxa de crescimento de crédito (até 5 anos) $\Rightarrow$ indicat
 - Agregados monetários não são tão preditivos quanto crédito bancário
   + Poderia ser preditivo na primeira era financeira[fn::Crédito se ajusta bem em ambas as eras]
 - Foram introduzidos vários controles para evitar o viés de omissão $\Rightarrow$ resultado muda pouco
-- Resultados inconclusivos se o crédito é utilizado para financiar investimento ou consumo
-  + _Sugere-se_ que crises financeiras são mais prováveis se Crédito $\Rightarrow$ Investimento
+- Resultados inconclusivos quando o crédito é utilizado para financiar investimento ou consumo
 - $\Uparrow$ Preço dos ativos (ações) $\Rightarrow \Downarrow$ colateral $\Rightarrow \Uparrow$ Instabilidade financeira?
   + Resultados inconclusivos, mas mais preocupantes na medida que o setor financeiro cresce
 
@@ -191,7 +191,7 @@ $$
 IRR_{k} = \frac{A_{k}}{c_{k}} \geq \text{Hurdle rate} \nRightarrow \text{Juros}
 $$
 
-- Resultados são bastante robustos e pouco sensíveis às características amostra
+- Resultados são bastante robustos e pouco sensíveis às características da amostra
   + Há uma assimetria em relação a um aumento/redução dos juros, mas o conclusão permanece
   + Simetria do "porque não"
 
@@ -335,8 +335,8 @@ $$
 
 Algumas aproximações com algumas das conclusões de textcite:minsky_1977_Financial, mas $\ldots$
 
-- Pouca atenção à posição financeira e balanço patrimonial dos agentes
-- Não explica mecanismos pelos quais o crédito ajudaria a anteceder as crises
+- Pouca atenção à fragilidade financeira e balanço patrimonial
+- Não explica mecanismos pelos quais o crédito ajudaria a anteceder as crises financeiras
 - Preço dos ativos aparece como um controle e apenas retoma como proposição de política econômica
 
 *** Algumas questões

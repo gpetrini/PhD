@@ -1,4 +1,4 @@
-% Created 2020-12-22 ter 18:19
+% Created 2021-01-05 ter 18:02
 % Intended LaTeX compiler: pdflatex
 \documentclass[presentation]{beamer}
   \usepackage{caption}
@@ -14,9 +14,9 @@
 
 \maketitle
 \section{\textcite{schularickCreditBoomsGone2012}: Booms de crédito acabam: Política Monetária, ciclos alavancados e crises financeiras (1870-2008)}
-\label{sec:org9c2ccdb}
+\label{sec:org4ed0cfe}
 
-\begin{frame}[label={sec:orgb9f86eb}]{Quem são os autores?}
+\begin{frame}[label={sec:org7e4d491}]{Quem são os autores?}
 \begin{figure}[htb]
 \centering
 \caption{Allan Taylor (Harvard) + Moritz Schularick (Free University of Berlin)}
@@ -33,7 +33,7 @@ Conjuntamente contribuem no \emph{MacroFinance Lab} e recentemente pesquisam
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:orgb5cdef0}]{TL;DR (\emph{a.k.a} nem li; nem lerei)}
+\begin{frame}[label={sec:org7f26124}]{TL;DR (\emph{a.k.a} nem li; nem lerei)}
 Autores apresentam um painel longo (1870-2008) para 14 países da OECD
 
 \begin{itemize}
@@ -43,19 +43,19 @@ Autores apresentam um painel longo (1870-2008) para 14 países da OECD
 
 Estimam vários modelos/especificações (29!) para verificar os antecedentes das crises financeiras
 \begin{itemize}
-\item \alert{Pergunta:} Fim \emph{Boom} Crédito?
+\item \alert{Resposta:} Crédito bancário
 \end{itemize}
 
 \begin{block}{Relevância e questões abertas}
 \begin{itemize}
-\item Se crises financeiras são raras, é necessário olhar para um panorama mais longo
-\item Compreensão dos atencedentes das crises financeiras \(\Rightarrow\) Bancos centrais
+\item Se crises financeiras são raras, é necessário olhar para um horizonte mais longo
+\item Compreensão dos atencedentes das crises financeiras \(\Rightarrow\) Atuação Bancos centrais
 \item Crises financeiras são mais prováveis quanto maior o aprofundamento financeiro?
 \end{itemize}
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:org04172ac}]{Estrutura do artigo}
+\begin{frame}[label={sec:org835d071}]{Estrutura do artigo}
 \begin{block}{Moeda, crédito e crises financeiras no longo prazo}
 \end{block}
 
@@ -74,7 +74,7 @@ Estimam vários modelos/especificações (29!) para verificar os antecedentes da
 \begin{block}{Testes de robustez}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:orgd447fca}]{Moeda, Crédito e Crises financeiras no longo prazo: Duas eras}
+\begin{frame}[label={sec:org7e9bf9f}]{Moeda, Crédito e Crises financeiras no longo prazo: Duas eras}
 \begin{block}{Duas Eras do Capitalismo Financeiro}
 \begin{itemize}
 \item \alert{\emph{Money View} (1870-1939):} Relação estável entre moeda e crédito
@@ -95,7 +95,7 @@ Estimam vários modelos/especificações (29!) para verificar os antecedentes da
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org7677aea}]{Duas eras, uma imagem}
+\begin{frame}[label={sec:org1639756}]{Duas eras, uma imagem}
 \begin{figure}[htb]
 \centering
 \caption{Agregados financeiros/M3} 
@@ -105,8 +105,10 @@ Estimam vários modelos/especificações (29!) para verificar os antecedentes da
 \end{figure}
 \end{frame}
 
-\begin{frame}[label={sec:org7231322}]{Duas eras, algumas observações}
-\begin{center}
+\begin{frame}[label={sec:org4a97c89}]{Duas eras, algumas observações}
+\begin{table}[htbp]
+\caption{Comparação dos efeitos das crises financeiras entre as fases identificadas pelos autores}
+\centering
 \begin{tabular}{lll}
 \hline
  & Fase I & Fase II\\
@@ -117,7 +119,7 @@ Agregados monetários & Decrecimento & Expansão\\
 \(\Delta\) Institucionais & - & Instituições depositárias\\
 \hline
 \end{tabular}
-\end{center}
+\end{table}
 
 \begin{itemize}
 \item Fenômeno comum aos vários países da base de dados
@@ -126,8 +128,8 @@ Agregados monetários & Decrecimento & Expansão\\
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:org37b40a6}]{Dados e estratégia das estimações}
-Base de dados permite analizar variávies até então pouco comparáveis
+\begin{frame}[label={sec:orgb2058f3}]{Dados e estratégia das estimações}
+Base de dados permite analizar variávies até então pouco comparáveis por meio de dados em painel
 
 \begin{itemize}
 \item Empréstimos e ativos bancários
@@ -146,11 +148,11 @@ em que
 
 \begin{block}{Observação econométrica}
 \begin{itemize}
-\item Seria o caso de um painel longo? (\(T>>N\))
+\item Seria o caso de séries temporais em painel? (\(T>>N\))
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org9dcb224}]{Alguns dos resultados de algumas estimações}
+\begin{frame}[label={sec:org25f2f8e}]{Alguns dos resultados de algumas estimações}
 \begin{center}
 \begin{center}
 \begin{tabular}{llllll}
@@ -161,12 +163,12 @@ Efeitos fixos & - & País & País + Ano & - & País\\
 \(\sum\) Coef. & \(0.425^{\star\star\star}\) & \(0.417^{\star\star\star}\) & \(0.443^{\star\star\star}\) & \(10.10^{\star\star\star}\) & \(9.697^{\star\star\star}\)\\
 \(\sum L_{Ns} = 0\)\footnotemark & 0.001 & 0.002 & 0.001 & 0.000 & 0.00408\\
 \(R^2\) & 0.016 & 0.023 & 0.290 & 0.0434 & 0.0659\\
-\(F, \chi^{2}\)\textsuperscript{\ref{org5be5290}} & 0.001 & 0.045 & 0.000 & 0.000 & 0.00663\\
+\(F, \chi^{2}\)\textsuperscript{\ref{orgebab558}} & 0.001 & 0.045 & 0.000 & 0.000 & 0.00663\\
 AUROC & \(0.673^{\star\star\star}\) & \(0.720^{\star\star\star}\) & \(0.952^{\star\star\star}\) & \(0.673^{\star\star\star}\) & \(0.717^{\star\star\star}\)\\
 \hline
  &  &  &  &  & \\
 \end{tabular}
-\end{center}\footnotetext[1]{\label{org5be5290}p-valor}
+\end{center}\footnotetext[1]{\label{orgebab558}p-valor}
 \end{center}
 
 
@@ -178,17 +180,14 @@ Defasagem da taxa de crescimento de crédito (até 5 anos) \(\Rightarrow\) indic
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:orgf9d79a9}]{Sobre as outras estimações e robustez dos resultados}
+\begin{frame}[label={sec:org52b2461}]{Sobre as outras estimações e robustez dos resultados}
 \begin{itemize}
 \item Agregados monetários não são tão preditivos quanto crédito bancário
 \begin{itemize}
 \item Poderia ser preditivo na primeira era financeira\footnote{Crédito se ajusta bem em ambas as eras}
 \end{itemize}
 \item Foram introduzidos vários controles para evitar o viés de omissão \(\Rightarrow\) resultado muda pouco
-\item Resultados inconclusivos se o crédito é utilizado para financiar investimento ou consumo
-\begin{itemize}
-\item \uline{Sugere-se} que crises financeiras são mais prováveis se Crédito \(\Rightarrow\) Investimento
-\end{itemize}
+\item Resultados inconclusivos quando o crédito é utilizado para financiar investimento ou consumo
 \item \(\Uparrow\) Preço dos ativos (ações) \(\Rightarrow \Downarrow\) colateral \(\Rightarrow \Uparrow\) Instabilidade financeira?
 \begin{itemize}
 \item Resultados inconclusivos, mas mais preocupantes na medida que o setor financeiro cresce
@@ -202,9 +201,9 @@ Crédito bancário continua sendo o principal antecedente das crises financeiras
 \end{frame}
 
 \section{\textcite{sharpe_2020_Why}: Por que o investimento (das firmas) é tão insensível à taxa de juros?}
-\label{sec:org3e61b16}
+\label{sec:org801c9e5}
 
-\begin{frame}[label={sec:org0d2dfc7}]{Quem são os autores?}
+\begin{frame}[label={sec:org2395a70}]{Quem são os autores?}
 \begin{figure}[htb]
 \centering
 \caption{Steve A. Sharpe (Stanford) + Gustavo A. Suarez (Harvard)}
@@ -221,7 +220,7 @@ Economistas do FED (Whashington). Atualmente pesquisam:
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:org0e0013f}]{Estrutura do artigo}
+\begin{frame}[label={sec:org71da50e}]{Estrutura do artigo}
 \begin{block}{Embasamento teórico}
 \begin{block}{Sensibilidade do investimento a taxa de juros nos modelos convencionais}
 \end{block}
@@ -237,7 +236,7 @@ Economistas do FED (Whashington). Atualmente pesquisam:
 \begin{block}{Outros fatores potenciais por trás da insensibilidade}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org4c84397}]{TL;DR (\emph{a.k.a} nem li; nem lerei)}
+\begin{frame}[label={sec:org4414570}]{TL;DR (\emph{a.k.a} nem li; nem lerei)}
 Questionário indica elevada \alert{insensibilidade} do investimento (\emph{ex ante}) à taxa de juros
 \begin{itemize}
 \item Teoria sugere o inverso
@@ -249,7 +248,7 @@ IRR_{k} = \frac{A_{k}}{c_{k}} \geq \text{Hurdle rate} \nRightarrow \text{Juros}
 $$
 
 \begin{itemize}
-\item Resultados são bastante robustos e pouco sensíveis às características amostra
+\item Resultados são bastante robustos e pouco sensíveis às características da amostra
 \begin{itemize}
 \item Há uma assimetria em relação a um aumento/redução dos juros, mas o conclusão permanece
 \item Simetria do "porque não"
@@ -262,7 +261,7 @@ $$
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org35cf161}]{Revisão da literatura teórica}
+\begin{frame}[label={sec:org202792a}]{Revisão da literatura teórica}
 \begin{table}[htbp]
 \caption{Mecanismo esperados dos juros ao investimento}
 \centering
@@ -282,7 +281,7 @@ Financeiros (ext.) & \(I = f\left(\frac{q(t)}{\text{C fin.}}\right) \Rightarrow 
 Espera-se uma sensibilidade elevada entre taxa de juros e investimento; essa sensibilidade aumenta quanto maior a perspectiva de expansão da firma; maiores custos de financialmento externo; maior rigidez da estrutural de capital
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org796c0bf}]{Da sensibilidade à rigidez}
+\begin{frame}[label={sec:org7d9ba03}]{Da sensibilidade à rigidez}
 \begin{figure}[htb]
 \centering
 \caption{Taxa mínima de retorno VS Taxa de juros de Longo Prazo} 
@@ -292,7 +291,7 @@ Espera-se uma sensibilidade elevada entre taxa de juros e investimento; essa sen
 \end{figure}
 \end{frame}
 
-\begin{frame}[label={sec:org4fd368d}]{Questionário e desenho amostral}
+\begin{frame}[label={sec:orgb1f6d7f}]{Questionário e desenho amostral}
 \begin{itemize}
 \item 680 Firmas de indústrias não-financeiras
 \item \alert{Controles:} Tamanho da firma, da indústria e regime proprietário
@@ -317,7 +316,7 @@ Quanto os planos de investimento se alterariam (em p.p.) dada uma queda/elevaç�
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:orgd079670}]{Características das firmas}
+\begin{frame}[label={sec:org2f01a48}]{Características das firmas}
 \begin{table}[htbp]
 \caption{Características da amostra}
 \centering
@@ -343,7 +342,7 @@ Outros setores & 37\\
 \end{table}
 \end{frame}
 
-\begin{frame}[label={sec:orgda691ea}]{Resultados}
+\begin{frame}[label={sec:orgc12be3e}]{Resultados}
 \begin{table}[htbp]
 \caption{Sensibilidade dos planos de investimento às taxas de juros}
 \centering
@@ -366,7 +365,7 @@ Não se aplica & 139 & 146\\
 \end{table}
 \end{frame}
 
-\begin{frame}[label={sec:orgbc3edf6}]{Por que não?!}
+\begin{frame}[label={sec:org5820c1e}]{Por que não?!}
 \begin{table}[htbp]
 \caption{Razões para a insensibilidade da taxa de juros}
 \centering
@@ -391,7 +390,7 @@ Não intensiva em \(K\) /Outros & 5\% & 7\%\\
 \end{tabular}
 \end{table}
 \end{frame}
-\begin{frame}[label={sec:orgb6e7a2c}]{Regressão}
+\begin{frame}[label={sec:org71b0a42}]{Regressão}
 \begin{block}{Probit e a insensibilidade aos juros}
 \begin{align*}
 Pr(\text{Não reagir}) =& \alpha_{ind} + \beta_{1}\text{Sem plano para pedir empréstimos} + \\
@@ -412,7 +411,7 @@ $$
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org512e393}]{Outras explicações pontenciais}
+\begin{frame}[label={sec:orgf460b52}]{Outras explicações pontenciais}
 \begin{itemize}
 \item \alert{Prevalência de acordos de dívida:} Restringem investimento
 \begin{itemize}
@@ -437,14 +436,14 @@ $$
 \end{frame}
 
 \section{Unindo os pontos?}
-\label{sec:org274e241}
+\label{sec:org070e4a7}
 
-\begin{frame}[label={sec:org33c901b}]{\textcite{schularickCreditBoomsGone2012}: How I Learned to Stop Worrying and Love \textcite{minsky_1977_Financial}?}
+\begin{frame}[label={sec:org70e84dd}]{\textcite{schularickCreditBoomsGone2012}: How I Learned to Stop Worrying and Love \textcite{minsky_1977_Financial}?}
 Algumas aproximações com algumas das conclusões de \textcite{minsky_1977_Financial}, mas \(\ldots\)
 
 \begin{itemize}
-\item Pouca atenção à posição financeira e balanço patrimonial dos agentes
-\item Não explica mecanismos pelos quais o crédito ajudaria a anteceder as crises
+\item Pouca atenção à fragilidade financeira e balanço patrimonial
+\item Não explica mecanismos pelos quais o crédito ajudaria a anteceder as crises financeiras
 \item Preço dos ativos aparece como um controle e apenas retoma como proposição de política econômica
 \end{itemize}
 
@@ -458,7 +457,7 @@ Algumas aproximações com algumas das conclusões de \textcite{minsky_1977_Fina
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:orgcd7ef7c}]{\textcite{sharpe_2020_Why}: How I Learned to Stop Loving and Worry \textcite{minsky_1977_Financial}?}
+\begin{frame}[label={sec:org47eba95}]{\textcite{sharpe_2020_Why}: How I Learned to Stop Loving and Worry \textcite{minsky_1977_Financial}?}
 \textcite{schularickCreditBoomsGone2012} reportam a importância do crédito para os ciclos financeiros. No entanto, \textcite{sharpe_2020_Why} sugerem que as firmas não reagem tanto quanto as teorias \emph{a la} \cite{minsky_1977_Financial} descrevem
 
 \begin{itemize}
