@@ -1,9 +1,15 @@
 #+TITLE: Long-run effective demand and residential investment: a Sraffian supermultiplier based analysis
-#+AUTHOR: Gabriel Petrini, Lucas Teixeira
-#+EMAIL: gpetrinidasilveira@gmail.com, lucas.teixeira@unicamp.br
+# #+AUTHOR: Gabriel Petrini, Lucas Teixeira
+#+AUTHOR:
+# #+EMAIL: gpetrinidasilveira@gmail.com, lucas.teixeira@unicamp.br
 #+OPTIONS: toc:nil
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [12pt]
+#+LATEX_HEADER: \usepackage[document]{ragged2e}
+#+LATEX_HEADER: \usepackage[none]{hyphenat} % Avoid hyphenization
+#+LATEX_HEADER: \usepackage[right=3cm,left=3cm, footskip=0.25in]{geometry}
 #+LATEX_HEADER: \addbibresource{refs.bib}
-#+LATEX_HEADER: \usepackage{svg, caption, multirow, booktabs}
+#+LATEX_HEADER: \usepackage{svg, caption, multirow, booktabs, setspace, indentfirst}
 #+LATEX_HEADER: \usepackage[english]{babel}
 #+PROPERTY: header-args:python :python /usr/bin/python3 :exports none :eval never-export
 #+BIND: org-latex-prefer-user-labels t
@@ -20,6 +26,9 @@ Although simple, our numerical simulations are capable to reproduce some stylize
 #+LATEX: \noindent \textbf{Keywords:} Residential Investment; Sraffian supermultiplier; Asset bubble;  Stock-Flow Consistent approach.
 #+END_abstract
 
+#+LATEX: \doublespacing
+#+LATEX: \setlength{\parindent}{4em}
+#+LATEX: \setlength{\parskip}{1em}
 
 * General TODOs                                                    :noexport:
 
@@ -70,7 +79,7 @@ Although simple, our numerical simulations are capable to reproduce some stylize
 #+INCLUDE: "Conclusion.org"
 
 
-* Acknowledgments
+* Acknowledgments :noexport:
   :PROPERTIES:
   :UNNUMBERED: t
   :END:
