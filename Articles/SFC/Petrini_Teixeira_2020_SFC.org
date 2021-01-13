@@ -46,7 +46,7 @@ Although simple, our numerical simulations are capable to reproduce some stylize
 
 
 
-* Empirical Motivation
+* Empirical motivation
 #+LATEX: \label{sec:empirical}
 #+INCLUDE: "Empirical.org"
 
@@ -68,13 +68,13 @@ Although simple, our numerical simulations are capable to reproduce some stylize
 #+INCLUDE: "Analytical.org"
 
 
-* Numerical Simulations
+* Numerical simulations
 #+LATEX: \label{sec:Experiments}
 #+INCLUDE: "Simulation.org"
 
 
 
-* Concluding Remarks
+* Concluding remarks
 #+LATEX: \label{sec:Conclusion}
 #+INCLUDE: "Conclusion.org"
 
@@ -336,7 +336,7 @@ printer(symbol =  'm', equation = m, var = omega, replace_g = False)
 
 
 
-* Analytical Solution :noexport:
+* Analytical solution :noexport:
 #+LATEX: \label{append:Solution}
 
 In this appendix, we present the partial derivatives of somes stock/flow ratios.
@@ -424,7 +424,7 @@ Since capitalists' loans and mortgage to house ratios ($\ell^{\star}_{k}$ and $m
 \frac{-\gamma_F\cdot \phi_1\cdot (1+\pi)\cdot(r_g^\star + r_m)}{((1+\pi)\cdot (\gamma_F\cdot r_m - \phi_0) + \phi_1\cdot (r_m -\pi))^2} < 0
 \end{equation}
 
-* Numerical Appendix
+* Numerical appendix
  #+LATEX: \label{append:Data}
 
 
@@ -449,7 +449,7 @@ Since capitalists' loans and mortgage to house ratios ($\ell^{\star}_{k}$ and $m
 \end{table}
 #+end_export
 
-* Sensibility Analysis
+* Sensibility analysis
 #+LATEX: \label{append:Sensib}
 
 *** Config                                                           :ignore:
