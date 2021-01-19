@@ -1,0 +1,116 @@
+#+OPTIONS: num:nil
+#+TITLE: QCA Data Map
+#+AUTHOR: Gabriel Petrini
+#+LANG: en
+#+TODO: Searching Filed | Downloaded Scripted Cleaned | NotFound
+#+PROPERTY: COLUMNS  %TODO %ITEM %VAR_TYPE(Var.) %FREQUENCY(FRQ)  %START(Start) %END(End) %COVERAGE(Cov) %SEASONAL_ADJ(Season. Adj) %PUBLIC(Public) %URL
+#+PROPERTY: FREQUENCY_ALL Yearly Quarterly Monthly Weekly Daily
+#+PROPERTY: START_ALL
+#+PROPERTY: END_ALL
+#+PROPERTY: DESCRIPTION_ALL
+#+PROPERTY: COVERAGE_ALL Block Country Region Province State City ZipCode
+#+PROPERTY: PUBLIC_ALL Yes No
+#+PROPERTY: SEASONAL_ADJ_ALL Yes No "Not Informed"
+#+PROPERTY: VAR_TYPE_ALL "YoY pct" "pct change" "ratio" "nominal" "real" "index" "Dummy"
+
+
+* HTML headers                                         :noexport:ignore:
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+
+#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+
+
+* Usefull links
+
+- [[https://www.fhfa.gov/DataTools/Downloads/Documents/FHLBank-PUDB/AMA_PUDB_definitions_2019.pdf][FHLBank Public Use Database (USA)]]
+- [[https://sdw.ecb.europa.eu/browse.do?node=9689356][Residential Real Estate variables (EuroStat)]]
+- [[https://www.eba.europa.eu/sites/default/documents/files/documents/10180/526027/a63306a6-3010-426d-b35f-f18aad9bb25d/Loan%20to%20value%20definitions.pdf?retry=1][Loan to value definitions by banks]]
+* Data Sources Summary
+
+#+BEGIN: columnview :maxlevel 3 :id global
+| TODO  | ITEM                           | Var.    | FRQ       | Start   | End     | Cov     | Season. Adj  | Public | URL  |
+|-------+--------------------------------+---------+-----------+---------+---------+---------+--------------+--------+------|
+|       | HTML headers                   |         |           |         |         |         |              |        |      |
+|       | Data Sources Summary           |         |           |         |         |         |              |        |      |
+|       | Mortgage Loan to Value Ratio   |         |           |         |         |         |              |        |      |
+| Filed | England                        | ratio   | Quarterly | 1974Q1  | 2018Q3  | Country | Not Informed | Yes    | [[http://opendatacommunities.org/data/housing-market/ratio/loan-to-value][Link]] |
+| Filed | USA                            | ratio   | Monthly   | 2017M01 | 2020M03 | Country | Not Informed | Yes    | [[https://www.fhfa.gov/DataTools/Downloads/Documents/NATIONAL-MORTGAGE-DATABASE-(NMDB)-AGGREGATE-DATA/National-Statistics-for-New-Residential-Mortgages-in-the-United-States.xlsx][Link]] |
+|       | Mortgage Interest Rate by Type |         |           |         |         |         |              |        |      |
+| Filed | USA                            |         |           |         |         |         |              |        |      |
+| Filed | Fixed                          | nominal | Monthly   | 1986    | 2018    | Country | Not Informed | Yes    | [[https://www.fhfa.gov/DataTools/Downloads/Documents/Historical-Summary-Tables/Table20-2019-by-Month.xls][Link]] |
+| Filed | Adjustable                     | nominal | Monthly   | 1986    | 2018    | Country | Not Informed | Yes    | [[https://www.fhfa.gov/DataTools/Downloads/Documents/Historical-Summary-Tables/Table23-2019-by-Month.xls][Link]] |
+#+END
+
+* Mortgage Loan to Value Ratio
+** Filed England
+:PROPERTIES:
+:URL:      [[http://opendatacommunities.org/data/housing-market/ratio/loan-to-value][Link]]
+:FREQUENCY: Quarterly
+:START:    1974Q1
+:END:      2018Q3
+:DESCRIPTION: "This dataset contains quarterly median loan to value ratios for first time buyers in England."
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:END:
+
+** Filed USA
+:PROPERTIES:
+:URL: [[https://www.fhfa.gov/DataTools/Downloads/Documents/NATIONAL-MORTGAGE-DATABASE-(NMDB)-AGGREGATE-DATA/National-Statistics-for-New-Residential-Mortgages-in-the-United-States.xlsx][Link]]
+:FREQUENCY: Monthly
+:START:    2017M01
+:END:      2020M03
+:DESCRIPTION: "The National Mortgage Database (NMDB®) is a nationally representative five percent sample of residential mortgages in the United States."
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:END:
+
+This dataset has one year data per spreadcheet. Additionaly, there are other data of interest such as:
+- LTV by Ratio Class
+- Average Credit Score
+  + Share of Mortgages with Credit Score Below 600 (%)
+- Average Term Maturity (Years)
+
+*OBS:* Date for *New* Residential Mortgage.
+
+* Mortgage Interest Rate by Type
+
+** Filed USA
+*** Filed Fixed
+:PROPERTIES:
+:URL: [[https://www.fhfa.gov/DataTools/Downloads/Documents/Historical-Summary-Tables/Table20-2019-by-Month.xls][Link]]
+:FREQUENCY: Monthly
+:START:    1986
+:END:      2018
+:DESCRIPTION: "The National Mortgage Database (NMDB®) is a nationally representative five percent sample of residential mortgages in the United States."
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: nominal
+:END:
+
+*** Filed Adjustable
+:PROPERTIES:
+:URL: [[https://www.fhfa.gov/DataTools/Downloads/Documents/Historical-Summary-Tables/Table23-2019-by-Month.xls][Link]]
+:FREQUENCY: Monthly
+:START:    1986
+:END:      2018
+:DESCRIPTION: "The National Mortgage Database (NMDB®) is a nationally representative five percent sample of residential mortgages in the United States."
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: nominal
+:END:
+
+* Loan Purpose Type
+
+* Property Usage Type
+
+* Borrower Credit Score Value
