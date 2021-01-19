@@ -40,6 +40,7 @@ df["Nome"] = [nome.lower().strip() for nome in df["Nome"]] # Covert to lower cas
 df.set_index(["Nome"], inplace=True)
 df.drop(["Unnamed: 17"], axis='columns', inplace=True) # Removendo coluna vazia e coluna de e-mails (é possível inferir)
 #df.columns = pd.to_datetime(df.columns, errors='ignore', format='%Y-%m-%d')
+df['RA'] = [str(i).rjust(6,'0') for i in df['RA']]
 min_df = df[["RA"]].astype(str)
 #+END_SRC
 
@@ -197,7 +198,7 @@ print('\end{center}')
 \textbf{232568} &                  70.0 \\
 \textbf{233566} &                  30.0 \\
 \textbf{215626} &                   0.0 \\
-\textbf{91108 } &                     - \\
+\textbf{091108} &                  50.0 \\
 \textbf{234311} &                  50.0 \\
 \textbf{216397} &                  30.0 \\
 \textbf{197474} &                  50.0 \\
@@ -336,7 +337,7 @@ print('\end{center}')
 \textbf{232568} &                      5.0 \\
 \textbf{233566} &                      7.0 \\
 \textbf{215626} &                      0.0 \\
-\textbf{91108 } &                        - \\
+\textbf{091108} &                      7.0 \\
 \textbf{234311} &                      5.0 \\
 \textbf{216397} &                      0.0 \\
 \textbf{197474} &                      5.0 \\
@@ -459,16 +460,16 @@ resultado
 #+RESULTS:
 #+begin_example
    RA Sorteados
-1        103034
-2        199967
-3        205151
+1        158425
+2        177964
+3        199967
 4        213549
-5        230645
-6        232568
-7        233566
-8        237856
-9        242328
-10       245099
+5        221896
+6        230645
+7        232568
+8        233566
+9        237534
+10       237856
 11       257876
 #+end_example
 
@@ -619,7 +620,7 @@ print('\end{center}')
 \textbf{232568} &                        0.0 \\
 \textbf{233566} &                        0.0 \\
 \textbf{215626} &                        0.0 \\
-\textbf{91108 } &                          - \\
+\textbf{091108} &                        5.0 \\
 \textbf{234311} &                        5.0 \\
 \textbf{216397} &                        0.0 \\
 \textbf{197474} &                        0.0 \\
@@ -830,7 +831,7 @@ print('\end{center}')
 \textbf{232568} &                      7.0 \\
 \textbf{233566} &                      0.0 \\
 \textbf{215626} &                      0.0 \\
-\textbf{91108 } &                        - \\
+\textbf{091108} &                      7.0 \\
 \textbf{234311} &                      7.0 \\
 \textbf{216397} &                      7.0 \\
 \textbf{197474} &                      0.0 \\
@@ -964,14 +965,14 @@ resultado
 \toprule
 {} & RA Sorteados \\
 \midrule
-1  &       158425 \\
+1  &       091108 \\
 2  &       159866 \\
-3  &       197724 \\
+3  &       177964 \\
 4  &       199967 \\
 5  &       206806 \\
 6  &       216397 \\
 7  &       234311 \\
-8  &       244207 \\
+8  &       235042 \\
 9  &       245099 \\
 10 &       257748 \\
 11 &       257932 \\
@@ -1082,7 +1083,7 @@ print('\end{landscape}\end{center}')
 \textbf{232568} &                 caio cimino de almeida &                  70.0 &           - &        2.65 &       54.87 &                      5.0 &       70.00 &        0.00 &                        0.0 &       48.57 &                      7.0 &      100.00 &  c232568@dac.unicamp.br \\
 \textbf{233566} &                 diego tabacof labriola &                  30.0 &        0.00 &        0.00 &       91.15 &                      7.0 &           - &           - &                        0.0 &           - &                      0.0 &        0.00 &  d233566@dac.unicamp.br \\
 \textbf{215626} &                felipe barbosa de souza &                   0.0 &        0.00 &        0.00 &        0.00 &                      0.0 &       18.33 &       11.76 &                        0.0 &       13.33 &                      0.0 &        0.00 &  f215626@dac.unicamp.br \\
-\textbf{91108 } &                 felipe eboli sotorilli &                     - &        1.79 &        0.00 &       77.88 &                        - &       29.17 &       76.47 &                          - &       11.43 &                        - &        0.00 &   f91108@dac.unicamp.br \\
+\textbf{091108} &                 felipe eboli sotorilli &                  50.0 &        1.79 &        0.00 &       77.88 &                      7.0 &       29.17 &       76.47 &                        5.0 &       11.43 &                      7.0 &        0.00 &  f091108@dac.unicamp.br \\
 \textbf{234311} &                  felipe rubbo aguilera &                  50.0 &       33.93 &        1.77 &       92.92 &                      5.0 &           - &       76.47 &                        5.0 &       42.86 &                      7.0 &        0.00 &  f234311@dac.unicamp.br \\
 \textbf{216397} &                        gabriel pereira &                  30.0 &        0.00 &        0.88 &       76.11 &                      3.0 &        0.83 &        0.00 &                        0.0 &       28.57 &                      7.0 &        0.00 &  g216397@dac.unicamp.br \\
 \textbf{197474} &                gabriel pereira jovetta &                  50.0 &        0.00 &        4.42 &       51.33 &                      5.0 &       46.67 &       47.06 &                        0.0 &        0.00 &                      0.0 &      100.00 &  g197474@dac.unicamp.br \\

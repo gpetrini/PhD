@@ -16,6 +16,8 @@
 
 #+begin_src R :results none
 library(QCA)
+library(SetMethods)
+library(venn)
 library(tidyverse)
 library(knitr) # Beatiful tables
 library(stargazer)
@@ -23,157 +25,433 @@ library(stargazer)
 
 * Loading uncalibrated dataset
 
-#+begin_src R :results output pp table
+#+begin_src R :results latex table
 data(LR)
 
-summary(LR) %>% kable() %>% print()
+summary(LR) %>% kable(format='latex')
 #+end_src
 
 #+RESULTS:
-#+begin_example
+#+begin_export latex
 
-
-|   |     DEV       |     URB      |     LIT      |     IND      |     STB       |     SURV    |
-|:--|:--------------|:-------------|:-------------|:-------------|:--------------|:------------|
-|   |Min.   : 320.0 |Min.   :15.30 |Min.   :38.00 |Min.   :11.20 |Min.   : 2.000 |Min.   :-9.0 |
-|   |1st Qu.: 398.5 |1st Qu.:25.88 |1st Qu.:73.30 |1st Qu.:21.70 |1st Qu.: 5.250 |1st Qu.:-8.0 |
-|   |Median : 588.0 |Median :33.70 |Median :95.00 |Median :28.85 |Median : 8.000 |Median :-2.5 |
-|   |Mean   : 641.3 |Mean   :39.94 |Mean   :84.44 |Mean   :28.79 |Mean   : 8.833 |Mean   : 0.0 |
-|   |3rd Qu.: 871.5 |3rd Qu.:53.12 |3rd Qu.:98.00 |3rd Qu.:36.75 |3rd Qu.:10.750 |3rd Qu.: 9.5 |
-|   |Max.   :1098.0 |Max.   :78.80 |Max.   :99.90 |Max.   :49.90 |Max.   :21.000 |Max.   :10.0 |
-#+end_example
+\begin{tabular}{l|l|l|l|l|l|l}
+\hline
+  &      DEV &      URB &      LIT &      IND &      STB &      SURV\\
+\hline
+ & Min.   : 320.0 & Min.   :15.30 & Min.   :38.00 & Min.   :11.20 & Min.   : 2.000 & Min.   :-9.0\\
+\hline
+ & 1st Qu.: 398.5 & 1st Qu.:25.88 & 1st Qu.:73.30 & 1st Qu.:21.70 & 1st Qu.: 5.250 & 1st Qu.:-8.0\\
+\hline
+ & Median : 588.0 & Median :33.70 & Median :95.00 & Median :28.85 & Median : 8.000 & Median :-2.5\\
+\hline
+ & Mean   : 641.3 & Mean   :39.94 & Mean   :84.44 & Mean   :28.79 & Mean   : 8.833 & Mean   : 0.0\\
+\hline
+ & 3rd Qu.: 871.5 & 3rd Qu.:53.12 & 3rd Qu.:98.00 & 3rd Qu.:36.75 & 3rd Qu.:10.750 & 3rd Qu.: 9.5\\
+\hline
+ & Max.   :1098.0 & Max.   :78.80 & Max.   :99.90 & Max.   :49.90 & Max.   :21.000 & Max.   :10.0\\
+\hline
+\end{tabular}
+#+end_export
 
 * Calibrating according to textbook
 
-#+begin_src R
-LR$DEV <- calibrate(LR$DEV, type = "crisp", thresholds = 600)
+#+begin_src R :results latex table 
+LR$DEV <- calibrate(LR$DEV, type = "crisp", thresholds = 550)
 LR$URB <- calibrate(LR$URB, type = "crisp", thresholds = 50)
 LR$LIT  <- calibrate(LR$LIT, type = "crisp", thresholds = 70)
 LR$IND  <- calibrate(LR$IND, type = "crisp", thresholds = 30)
 LR$STB  <- 1 - calibrate(LR$STB, type = "crisp", thresholds = 10)
 LR$SURV  <- calibrate(LR$SURV, type = "crisp", thresholds = 0)
 
-LR %>% kable()
+LR %>% kable(format = "latex") %>% print()
 #+end_src
 
 #+RESULTS:
-:results:
+#+begin_export latex
 
-
-|   | DEV| URB| LIT| IND| STB| SURV|
-|:--|---:|---:|---:|---:|---:|----:|
-|AU |   1|   0|   1|   1|   0|    0|
-|BE |   1|   1|   1|   1|   1|    1|
-|CZ |   0|   1|   1|   1|   1|    1|
-|EE |   0|   0|   1|   0|   1|    0|
-|FI |   0|   0|   1|   0|   1|    1|
-|FR |   1|   0|   1|   1|   1|    1|
-|DE |   1|   1|   1|   1|   0|    0|
-|GR |   0|   0|   0|   0|   0|    0|
-|HU |   0|   0|   1|   0|   0|    0|
-|IE |   1|   0|   1|   0|   1|    1|
-|IT |   0|   0|   1|   0|   1|    0|
-|NL |   1|   1|   1|   1|   1|    1|
-|PL |   0|   0|   1|   0|   0|    0|
-|PT |   0|   0|   0|   0|   0|    0|
-|RO |   0|   0|   0|   0|   1|    0|
-|ES |   0|   0|   0|   0|   0|    0|
-|SE |   1|   0|   1|   1|   1|    1|
-|UK |   1|   1|   1|   1|   1|    1|
-:end:
-
+\begin{tabular}{l|r|r|r|r|r|r}
+\hline
+  & DEV & URB & LIT & IND & STB & SURV\\
+\hline
+AU & 1 & 0 & 1 & 1 & 0 & 0\\
+\hline
+BE & 1 & 1 & 1 & 1 & 1 & 1\\
+\hline
+CZ & 1 & 1 & 1 & 1 & 1 & 1\\
+\hline
+EE & 0 & 0 & 1 & 0 & 1 & 0\\
+\hline
+FI & 1 & 0 & 1 & 0 & 1 & 1\\
+\hline
+FR & 1 & 0 & 1 & 1 & 1 & 1\\
+\hline
+DE & 1 & 1 & 1 & 1 & 0 & 0\\
+\hline
+GR & 0 & 0 & 0 & 0 & 0 & 0\\
+\hline
+HU & 0 & 0 & 1 & 0 & 0 & 0\\
+\hline
+IE & 1 & 0 & 1 & 0 & 1 & 1\\
+\hline
+IT & 0 & 0 & 1 & 0 & 1 & 0\\
+\hline
+NL & 1 & 1 & 1 & 1 & 1 & 1\\
+\hline
+PL & 0 & 0 & 1 & 0 & 0 & 0\\
+\hline
+PT & 0 & 0 & 0 & 0 & 0 & 0\\
+\hline
+RO & 0 & 0 & 0 & 0 & 1 & 0\\
+\hline
+ES & 0 & 0 & 0 & 0 & 0 & 0\\
+\hline
+SE & 1 & 0 & 1 & 1 & 1 & 1\\
+\hline
+UK & 1 & 1 & 1 & 1 & 1 & 1\\
+\hline
+\end{tabular}
+#+end_export
 * Truth Table
 
-#+begin_src R results output raw
+#+begin_src R :results latex table
 TT <- truthTable(
   LR,
   outcome = "SURV",
-  conditions = "DEV, URB, LIT, IND",
+  conditions = c("DEV", "URB", "LIT", "IND", "STB"),
   complete = TRUE,
   use.letters = FALSE,
   show.cases = TRUE,
-  sort.by = "out",
+  sort.by = c("out", "incl", "n"),
   ## dcc = TRUE # Deviant cases
 )
-
-print(TT)
+TT %>% stargazerTT(type="latex")
 #+end_src
 
 #+RESULTS:
-:results:
+#+begin_export latex
 
-  OUT: output value
-    n: number of cases in configuration
- incl: sufficiency inclusion score
-  PRI: proportional reduction in inconsistency
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: sex, jan 15, 2021 - 14:51:01
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}} cccccccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & DEV & URB & LIT & IND & STB & OUT & n & incl & PRI \\ 
+\hline \\[-1.8ex] 
+32 & $1$ & $1$ & $1$ & $1$ & $1$ & 1 & $4$ & $1$ & $1$ \\ 
+22 & $1$ & $0$ & $1$ & $0$ & $1$ & 1 & $2$ & $1$ & $1$ \\ 
+24 & $1$ & $0$ & $1$ & $1$ & $1$ & 1 & $2$ & $1$ & $1$ \\ 
+1 & $0$ & $0$ & $0$ & $0$ & $0$ & 0 & $3$ & $0$ & $0$ \\ 
+5 & $0$ & $0$ & $1$ & $0$ & $0$ & 0 & $2$ & $0$ & $0$ \\ 
+6 & $0$ & $0$ & $1$ & $0$ & $1$ & 0 & $2$ & $0$ & $0$ \\ 
+2 & $0$ & $0$ & $0$ & $0$ & $1$ & 0 & $1$ & $0$ & $0$ \\ 
+23 & $1$ & $0$ & $1$ & $1$ & $0$ & 0 & $1$ & $0$ & $0$ \\ 
+31 & $1$ & $1$ & $1$ & $1$ & $0$ & 0 & $1$ & $0$ & $0$ \\ 
+3 & $0$ & $0$ & $0$ & $1$ & $0$ & ? & $0$ & $$ & $$ \\ 
+4 & $0$ & $0$ & $0$ & $1$ & $1$ & ? & $0$ & $$ & $$ \\ 
+7 & $0$ & $0$ & $1$ & $1$ & $0$ & ? & $0$ & $$ & $$ \\ 
+8 & $0$ & $0$ & $1$ & $1$ & $1$ & ? & $0$ & $$ & $$ \\ 
+9 & $0$ & $1$ & $0$ & $0$ & $0$ & ? & $0$ & $$ & $$ \\ 
+10 & $0$ & $1$ & $0$ & $0$ & $1$ & ? & $0$ & $$ & $$ \\ 
+11 & $0$ & $1$ & $0$ & $1$ & $0$ & ? & $0$ & $$ & $$ \\ 
+12 & $0$ & $1$ & $0$ & $1$ & $1$ & ? & $0$ & $$ & $$ \\ 
+13 & $0$ & $1$ & $1$ & $0$ & $0$ & ? & $0$ & $$ & $$ \\ 
+14 & $0$ & $1$ & $1$ & $0$ & $1$ & ? & $0$ & $$ & $$ \\ 
+15 & $0$ & $1$ & $1$ & $1$ & $0$ & ? & $0$ & $$ & $$ \\ 
+16 & $0$ & $1$ & $1$ & $1$ & $1$ & ? & $0$ & $$ & $$ \\ 
+17 & $1$ & $0$ & $0$ & $0$ & $0$ & ? & $0$ & $$ & $$ \\ 
+18 & $1$ & $0$ & $0$ & $0$ & $1$ & ? & $0$ & $$ & $$ \\ 
+19 & $1$ & $0$ & $0$ & $1$ & $0$ & ? & $0$ & $$ & $$ \\ 
+20 & $1$ & $0$ & $0$ & $1$ & $1$ & ? & $0$ & $$ & $$ \\ 
+21 & $1$ & $0$ & $1$ & $0$ & $0$ & ? & $0$ & $$ & $$ \\ 
+25 & $1$ & $1$ & $0$ & $0$ & $0$ & ? & $0$ & $$ & $$ \\ 
+26 & $1$ & $1$ & $0$ & $0$ & $1$ & ? & $0$ & $$ & $$ \\ 
+27 & $1$ & $1$ & $0$ & $1$ & $0$ & ? & $0$ & $$ & $$ \\ 
+28 & $1$ & $1$ & $0$ & $1$ & $1$ & ? & $0$ & $$ & $$ \\ 
+29 & $1$ & $1$ & $1$ & $0$ & $0$ & ? & $0$ & $$ & $$ \\ 
+30 & $1$ & $1$ & $1$ & $0$ & $1$ & ? & $0$ & $$ & $$ \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table}
+#+end_export
 
-     DEV URB LIT IND   OUT    n  incl  PRI   cases
- 8    0   1   1   1     1     1  1.000 1.000 CZ
-11    1   0   1   0     1     1  1.000 1.000 IE
- 1    0   0   0   0     0     4  0.000 0.000 GR,PT,RO,ES
- 3    0   0   1   0     0     5  0.200 0.200 EE,FI,HU,IT,PL
-12    1   0   1   1     0     3  0.667 0.667 AU,FR,SE
-16    1   1   1   1     0     4  0.750 0.750 BE,DE,NL,UK
- 2    0   0   0   1     ?     0    -     -
- 4    0   0   1   1     ?     0    -     -
- 5    0   1   0   0     ?     0    -     -
- 6    0   1   0   1     ?     0    -     -
- 7    0   1   1   0     ?     0    -     -
- 9    1   0   0   0     ?     0    -     -
-10    1   0   0   1     ?     0    -     -
-13    1   1   0   0     ?     0    -     -
-14    1   1   0   1     ?     0    -     -
-15    1   1   1   0     ?     0    -     -
-:end:
-
-** Finding incoherent configurations
-
-#+begin_src R
-C <- findRows(obj = TT, type = c(2, 3))
-
-LR[C,] %>% kable()
-#+end_src
-
-#+RESULTS:
-:results:
 
 
-|   | DEV| URB| LIT| IND| STB| SURV|
-|:--|---:|---:|---:|---:|---:|----:|
-|BE |   1|   1|   1|   1|   1|    1|
-|FI |   0|   0|   1|   0|   1|    1|
-|FR |   1|   0|   1|   1|   1|    1|
-|HU |   0|   0|   1|   0|   0|    0|
-|PL |   0|   0|   1|   0|   0|    0|
-:end:
+
 
 * Minimization
 
 ** Outcome [1]
 
-#+begin_src R
-MIN <- minimize(TT, include = "?, C", details = TRUE)
-MIN
+#+begin_src R :results drawer latex table
+MIN <- minimize(
+  TT,
+  outcome="SURV",
+  incl.cut = .9,
+  include = "? C",
+  details = TRUE,
+  show.cases=TRUE,
+  complete=TRUE,
+  all.sol = TRUE
+)
+MIN %>% stargazerSol(
+          outcome="SURV",
+          show.cases = TRUE,
+          sol = 1
+        )
+sol_1 <- MIN
 #+end_src
 
 #+RESULTS:
-:results:
+#+begin_export latex
+Warning: stack imbalance in '<-', 2 then 3
 
-M1: DEV*~IND + (~DEV*URB) -
-SURV
-M2: DEV*~IND + (~DEV*IND) -
-SURV
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: sex, jan 15, 2021 - 14:51:06
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}} cccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & inclS & PRI & covS & covU & cases \\ 
+\hline \\[-1.8ex] 
+DEV\textasteriskcentered \textasciitilde URB\textasteriskcentered LIT\textasteriskcentered STB & $1$ & $1$ & $0.500$ & $0.250$ & FI,IE; FR,SE \\ 
+DEV\textasteriskcentered LIT\textasteriskcentered IND\textasteriskcentered STB & $1$ & $1$ & $0.750$ & $0.500$ & FR,SE; BE,CZ,NL,UK \\ 
+Solution & $1$ & $1$ & $1$ & $$ &  \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table}
+#+end_export
 
-                                  -------------------
-             inclS   PRI   covS   covU   (M1)   (M2)   cases
----------------------------------------------------------
-1  DEV*~IND  1.000  1.000  0.125  0.125  0.125  0.125  IE
----------------------------------------------------------
-2  ~DEV*URB  1.000  1.000  0.125  0.000  0.125         CZ
-3  ~DEV*IND  1.000  1.000  0.125  0.000         0.125  CZ
----------------------------------------------------------
-         M1  1.000  1.000  0.250
-         M2  1.000  1.000  0.250
-:end:
 
 ** Outcome [0]
+
+#+begin_src R :results drawer latex table
+TT <- truthTable(
+  LR,
+  outcome = "~SURV",
+  conditions = c("DEV", "URB", "LIT", "IND", "STB"),
+  complete = TRUE,
+  use.letters = FALSE,
+  show.cases = TRUE,
+  sort.by = c("out", "incl", "n"),
+  dcc = TRUE # Deviant cases
+)
+MIN <- minimize(
+  TT,
+  outcome="SURV",
+  incl.cut = .9,
+  include = "? C",
+  details = TRUE,
+  show.cases=TRUE,
+  complete=TRUE,
+  all.sol = TRUE
+)
+MIN %>% stargazerSol(
+          outcome="~SURV",
+          show.cases = TRUE,
+          sol = 1
+        )
+sol_0 <- MIN
+#+end_src
+
+#+RESULTS:
+#+begin_export latex
+Warning: stack imbalance in '<-', 2 then 3
+
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: sex, jan 15, 2021 - 14:51:21
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}} cccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & inclS & PRI & covS & covU & cases \\ 
+\hline \\[-1.8ex] 
+\textasciitilde DEV\textasteriskcentered \textasciitilde URB\textasteriskcentered \textasciitilde IND & $1$ & $1$ & $0.800$ & $0.800$ & GR,PT,ES; RO; HU,PL; EE,IT \\ 
+DEV\textasteriskcentered LIT\textasteriskcentered IND\textasteriskcentered \textasciitilde STB & $1$ & $1$ & $0.200$ & $0.200$ & AU; DE \\ 
+Solution & $1$ & $1$ & $1$ & $$ &  \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table}
+#+end_export
+
+* Visualization
+
+** Outcome [1]
+*** Radar plot
+#+begin_src R :results graphics file :file ../figs/csQCA_LR_1.png
+png('../figs/csQCA_LR_1.png')
+QCAradar(
+  results = sol_1,
+  outcome = "SURV",
+  fit = TRUE,
+  sol = 1
+)
+dev.off()
+#+end_src
+
+#+RESULTS:
+[[file:../figs/csQCA_LR_1.png]]
+*** Pimplot
+#+begin_src R :results graphics file :file ../figs/csQCA_LR_pim1.png
+png('../figs/csQCA_LR_pim1.png')
+pimplot(
+  data = LR,
+  results = sol_1,
+  outcome = "SURV",
+  fit = TRUE,
+  crisp = TRUE,
+  consH = TRUE,
+  all_labels = TRUE,
+  markers = TRUE,
+  jitter = TRUE
+)
+dev.off()
+#+end_src
+
+#+RESULTS:
+[[file:../figs/csQCA_LR_pim1.png]]
+*** Venn Diagram
+#+begin_src R :results file graphics :file ../figs/venn_1.png
+png('../figs/venn_1.png')
+venn(sol_1)
+dev.off()
+#+end_src
+
+#+RESULTS:
+[[file:../figs/venn_1.png]]
+
+** Outcome [0]
+*** Radar plot
+#+begin_src R :results graphics file :file ../figs/csQCA_LR_0.png
+png('../figs/csQCA_LR_0.png')
+QCAradar(
+  results = sol_0,
+  outcome = "SURV",
+  fit = TRUE,
+  sol = 1
+)
+dev.off()
+#+end_src
+
+#+RESULTS:
+[[file:../figs/csQCA_LR_0.png]]
+
+*** Pimplot
+#+begin_src R :results graphics file :file ../figs/csQCA_LR_pim0.png
+png('../figs/csQCA_LR_pim0.png')
+pimplot(
+  data = LR,
+  results = sol_0,
+  outcome = "~SURV",
+  fit = TRUE,
+  crisp = TRUE,
+  consH = TRUE,
+  all_labels = TRUE,
+  markers = TRUE,
+  jitter = TRUE
+)
+dev.off()
+#+end_src
+
+#+RESULTS:
+[[file:../figs/csQCA_LR_pim0.png]]
+
+*** Venn Diagram
+#+begin_src R :results file graphics :file ../figs/venn_0.png
+png('../figs/venn_0.png')
+venn(sol_0)
+dev.off()
+#+end_src
+
+#+RESULTS:
+[[file:../figs/venn_0.png]]
+
+
+* Robustness check
+** Robustness parameters of fit
+
+#+begin_src R :results latex table
+IS = sol_1
+TT <- truthTable(
+  LR,
+  outcome = "SURV",
+  conditions = c("DEV", "URB", "LIT", "IND", "STB"),
+  complete = TRUE,
+  use.letters = FALSE,
+  show.cases = TRUE,
+  sort.by = c("out", "incl", "n"),
+  ## dcc = TRUE # Deviant cases
+)
+
+MIN <- minimize( ## Changing incl.cut (altering consistency)
+  TT,
+  outcome="SURV",
+  incl.cut = .7,
+  include = "? C",
+  details = TRUE,
+  show.cases=TRUE,
+  complete=TRUE,
+  all.sol = TRUE,
+  n.cuts = 2
+) -> TS_1
+MIN <- minimize( ## Changing n.cuts
+  TT,
+  outcome="SURV",
+  incl.cut = .9,
+  include = "? C",
+  details = TRUE,
+  show.cases=TRUE,
+  complete=TRUE,
+  all.sol = TRUE,
+  n.cuts = 1
+) -> TS_2
+
+TS <- list(TS_1, TS_2)
+rob.fit(
+  test_sol = TS,
+  initial_sol = IS,
+  outcome = "SURV"
+) %>% stargazer()
+#+end_src
+
+#+RESULTS:
+#+begin_export latex
+Warning: stack imbalance in '<-', 4 then 5
+Warning: stack imbalance in '<-', 2 then 3
+Warning: stack imbalance in '<-', 4 then 5
+Warning: stack imbalance in '<-', 2 then 3
+
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: sex, jan 15, 2021 - 15:14:49
+\begin{table}[!htbp] \centering
+  \caption{}
+  \label{}
+\begin{tabular}{@{\extracolsep{5pt}} cccc}
+\\[-1.8ex]\hline
+\hline \\[-1.8ex]
+ & RF\_cov & RF\_cons & RF\_SC \\
+\hline \\[-1.8ex]
+Robustness\_Fit & $1$ & $1$ & $1$ \\
+\hline \\[-1.8ex]
+\end{tabular}
+\end{table}
+#+end_export
+** Raw consistency threshold range
+#+begin_src R
+rob.inclrange(
+  data = LR,
+  step = 0.01,
+  max.runs = 10,
+  outcome = "SURV",
+  conditions = c("DEV","URB","STB","IND","LIT"),
+  incl.cut = 0.87,
+  n.cut = 2,
+  include = "?"
+)
+#+end_src

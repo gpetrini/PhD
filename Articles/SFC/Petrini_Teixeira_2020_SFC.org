@@ -1,7 +1,5 @@
 #+TITLE: Long-run effective demand and residential investment: a Sraffian supermultiplier based analysis
-# #+AUTHOR: Gabriel Petrini, Lucas Teixeira
 #+AUTHOR:
-# #+EMAIL: gpetrinidasilveira@gmail.com, lucas.teixeira@unicamp.br
 #+OPTIONS: toc:nil
 #+LATEX_CLASS: article
 #+LATEX_CLASS_OPTIONS: [12pt]
@@ -12,14 +10,14 @@
 #+LATEX_HEADER: \usepackage{svg, caption, multirow, booktabs, setspace, indentfirst}
 #+LATEX_HEADER: \usepackage[english]{babel}
 #+PROPERTY: header-args:python :python /usr/bin/python3 :exports none :eval never-export
-#+BIND: org-latex-prefer-user-labels t
+
 #+BEGIN_abstract
-In this paper, we build a fully specified parsimonious Sraffian supermultiplier stock-flow consistent model (SSM-SFC) with two non-capacity creating autonomous expenditure: residential investment and debt-financed consumption.
-Our model represents a closed and without government economy with workers and capitalist households and only the latter are not credit constrained.
+In this paper, we build a fully specified parsimonious Sraffian supermultiplier stock-flow consistent model (SSM-SFC) with two non-capacity creating autonomous expenditures: residential investment and debt-financed consumption.
+Our model represents a closed and without government economy with workers and capitalists households and only the latter are not credit constrained.
 The introduction of residential investment implies that our SSM-SFC model has two real assets: firms' productive capital and households' real estate.
 In our model, residential investment growth rate responds to changes of house price inflation.
 The numerical simulation experiments shows that our model keeps the main standard Sraffian supermultiplier growth models results.
-As a particular result, an increase of residential investment growth rate increase implies a decrease of real estate share in total real assets.
+As a particular result, an increase of residential investment growth rate implies a decrease of real estate share in total real assets.
 Inspired by the recent U.S. bubble episode, we plug house price inflation data (1992-2019).
 Although simple, our numerical simulations are capable to reproduce some stylized facts such as residential investment leading the business cycle and capital accumulation and a clockwise pattern between non-capacity creating autonomous expenditures and capacity utilization rate.
 	
@@ -63,7 +61,7 @@ Although simple, our numerical simulations are capable to reproduce some stylize
 
 
 
-* Short and long-run equilibria
+* From short- to long-run equilibria
 #+LATEX: \label{sec:runs}
 #+INCLUDE: "Analytical.org"
 

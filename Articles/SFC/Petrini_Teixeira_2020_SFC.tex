@@ -1,52 +1,45 @@
-% Created 2021-01-15 sex 11:15
+% Created 2021-01-19 ter 16:51
 % Intended LaTeX compiler: pdflatex
 \documentclass[12pt]{article}
 \usepackage[utf8]{inputenc}
-\usepackage{lmodern}
 \usepackage[T1]{fontenc}
-\usepackage[top=3cm, bottom=2cm, left=3cm, right=2cm]{geometry}
 \usepackage{graphicx}
+\usepackage{grffile}
 \usepackage{longtable}
-\usepackage{float}
 \usepackage{wrapfig}
 \usepackage{rotating}
 \usepackage[normalem]{ulem}
 \usepackage{amsmath}
 \usepackage{textcomp}
-\usepackage{marvosym}
-\usepackage{wasysym}
 \usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage[theorems, skins]{tcolorbox}
-\usepackage[style=abnt,noslsn,extrayear,uniquename=init,giveninits,justify,sccite,
-scbib,repeattitles,doi=false,isbn=false,url=false,maxcitenames=2,
-natbib=true,backend=biber]{biblatex}
-\usepackage{url}
-\usepackage[cache=false]{minted}
-\usepackage[linktocpage,pdfstartview=FitH,colorlinks,
-linkcolor=blue,anchorcolor=blue,
-citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
-\usepackage{attachfile}
-\usepackage{setspace}
-\usepackage{tikz}
+\usepackage{capt-of}
+\usepackage{hyperref}
 \usepackage[document]{ragged2e}
 \usepackage[none]{hyphenat} % Avoid hyphenization
 \usepackage[right=3cm,left=3cm, footskip=0.25in]{geometry}
 \addbibresource{refs.bib}
 \usepackage{svg, caption, multirow, booktabs, setspace, indentfirst}
 \usepackage[english]{babel}
+\author{""}
 \date{\today}
 \title{Long-run effective demand and residential investment: a Sraffian supermultiplier based analysis}
+\hypersetup{
+ pdfauthor={""},
+ pdftitle={Long-run effective demand and residential investment: a Sraffian supermultiplier based analysis},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.1 (Org mode 9.3)}, 
+ pdflang={English}}
 \begin{document}
 
 \maketitle
 \begin{abstract}
-In this paper, we build a fully specified parsimonious Sraffian supermultiplier stock-flow consistent model (SSM-SFC) with two non-capacity creating autonomous expenditure: residential investment and debt-financed consumption.
-Our model represents a closed and without government economy with workers and capitalist households and only the latter are not credit constrained.
+In this paper, we build a fully specified parsimonious Sraffian supermultiplier stock-flow consistent model (SSM-SFC) with two non-capacity creating autonomous expenditures: residential investment and debt-financed consumption.
+Our model represents a closed and without government economy with workers and capitalists households and only the latter are not credit constrained.
 The introduction of residential investment implies that our SSM-SFC model has two real assets: firms' productive capital and households' real estate.
 In our model, residential investment growth rate responds to changes of house price inflation.
 The numerical simulation experiments shows that our model keeps the main standard Sraffian supermultiplier growth models results.
-As a particular result, an increase of residential investment growth rate increase implies a decrease of real estate share in total real assets.
+As a particular result, an increase of residential investment growth rate implies a decrease of real estate share in total real assets.
 Inspired by the recent U.S. bubble episode, we plug house price inflation data (1992-2019).
 Although simple, our numerical simulations are capable to reproduce some stylized facts such as residential investment leading the business cycle and capital accumulation and a clockwise pattern between non-capacity creating autonomous expenditures and capacity utilization rate.
 
@@ -58,83 +51,114 @@ Although simple, our numerical simulations are capable to reproduce some stylize
 \setlength{\parskip}{1em}
 
 \section{Introduction}
-\label{sec:org7990468}
+\label{sec:orgca000ec}
 \label{sec:introduction}
-Non-residential investment is the most scrutinized variable in demand-led growth models so that others expenditures are given a secondary role \cite{brochier_macroeconomics_2017}.
-More than a decade after the Great Recession (2008-9), this is still the case for residential investment which continues to receive sparse and unsystematic attention by the literature \cites{caverzasi_stock-flow_2013}{nikolaidi_minsky_2017}.
-Despite its absence in theoretical models, there is a growing empirical literature highlighting its macrodynamic relevance \cites{leamer_housing_2007}{jorda_great_2016}{fiebiger_semi-autonomous_2018}{fiebiger_trend_2017}.
+\subsection{Introduction\hfill{}\textsc{ignore}}
+\label{sec:org7957a00}
+
+Non-residential investment is the most scrutinized variable in demand-led growth models so that others expenditures are given a secondary role cite:brochier\textsubscript{macroeconomics}\textsubscript{2017}.
+More than a decade after the Great Recession (2008-9), this is still the case for residential investment which continues to receive sparse and unsystematic attention by the literature cites:caverzasi\textsubscript{stock}-flow\textsubscript{2013,nikolaidi}\textsubscript{minsky}\textsubscript{2017}.
+Despite its absence in theoretical models, there is a growing empirical literature highlighting its macrodynamic relevance cites:leamer\textsubscript{housing}\textsubscript{2007,jorda}\textsubscript{great}\textsubscript{2016,fiebiger}\textsubscript{semi}-autonomous\textsubscript{2018,fiebiger}\textsubscript{trend}\textsubscript{2017}.
 
 
 Sraffian supermultiplier growth model (SSM) establishes an important role to non-capacity creating (NCC) autonomous expenditures such
 as residential investment.
-\textcite{serrano_long_1995,serrano_sraffian_2017} present a simple version of the SSM model to highlight it as an alternative closure for heterodox growth theory.
-More recently, \textcites{allain_tackling_2015}{lavoie_post-keynesian_2015}{lavoie_convergence_2016} have introduced SSM to a broader Post-Keynesian audience.
+textcite:serrano\textsubscript{long}\textsubscript{1995,serrano}\textsubscript{sraffian}\textsubscript{2017} present a simple version of the SSM model to highlight it as an alternative closure for heterodox growth theory.
+More recently, textcites:allain\textsubscript{tackling}\textsubscript{2015,lavoie}\textsubscript{post}-keynesian\textsubscript{2015,lavoie}\textsubscript{convergence}\textsubscript{2016} have introduced SSM to a broader Post-Keynesian audience.
 
 Different NCC autonomous expenditures have been included in this framework. 
-For instance, some scholars have investigated the macroeconomic implications of both debt-financed \cites{pariboni_autonomous_2015}{fagundes_role_2017}{mandarino-2020-worker-debt} and financial wealth-financed consumption \cite{brochier_supermultiplier_2018}.
-The same applies to government expenditures \cites{allain_tackling_2015}{bougrine_autonomous_2020} and exports \cite{nah_long-run_2017}.
+For instance, some scholars have investigated the macroeconomic implications of both debt-financed cites:pariboni\textsubscript{autonomous}\textsubscript{2015,fagundes}\textsubscript{role}\textsubscript{2017,mandarino}-2020-worker-debt and financial wealth-financed consumption cite:brochier\textsubscript{supermultiplier}\textsubscript{2018}.
+The same applies to government expenditures cites:allain\textsubscript{tackling}\textsubscript{2015,bougrine}\textsubscript{autonomous}\textsubscript{2020} and exports cite:nah\textsubscript{long}-run\textsubscript{2017}.
 
 Even though these works emphasize the relevance of some NCC autonomous expenditures, residential investment has received little attention.
-\textcites{zezza_u.s._2008}{nikolaidi_securitisation_2015} include residential investment in a SFC model with others objectives than its implications to economic growth and business cycles.
-In a recent contribution, \textcite{dejuan_supermultiplier-cum-finance_2018} present an SSM model with residential investment.
+textcites:zezza\textsubscript{u.s}.\textsubscript{2008,nikolaidi}\textsubscript{securitisation}\textsubscript{2015} include residential investment in a SFC model with others objectives than its implications to economic growth and business cycles.
+In a recent contribution, textcite:dejuan\textsubscript{supermultiplier}-cum-finance\textsubscript{2018} present an SSM model with residential investment.
 They build a model in order to analyze the destabilizing effects of household over-indebtedness without exploring the determinants of residential investment.
 
 This paper is a first step in building the connection between house price inflation and residential investment whitin a demand-led growth model.
 In order to do so, we build a fully specified parsimonious Sraffian supermultiplier stock-flow consistent model (SSM-SFC) with residential investment.
 
 The remainder of this paper is organized as follows.
-Section \ref{sec:empirical} discuss some residential investment related stylized facts for the US economy related to house bubble, residential investment and its macroeconomic implications.
-Section \ref{sec:Model} presents a SSM-SFC model  with asset bubbles and two real assets: firms' capital and household' real estate. 
-Section \ref{sec:runs} evaluates short- and long-run equilibria as well as traverse in order to assess the consequences  of the inclusion of residential investment to the output level, growth rate and to stock-flow ratios.
-Next, Section \ref{sec:Experiments} evaluates this relations through numerical simulations.
-Inspired by the U.S. 2000s housing bubble episode, the experiments are: decrease in wage-share (Section \ref{sec:Exp1}); increase in real estate inflation (Section \ref{sec:Exp2}); and an increase in interest rate (Section \ref{sec:Exp3}).
+Section ref:sec:empirical discuss some residential investment related stylized facts for the US economy and its macroeconomic implications.
+Section ref:sec:Model presents a SSM-SFC model  with asset bubbles and two real assets: firms' capital and household' real estate. 
+Section ref:sec:runs evaluates short- and long-run equilibria as well as traverse in order to assess the consequences  of the inclusion of residential investment to the output level, growth rate and to stock-flow ratios.
+Next, Section ref:sec:Experiments evaluates this relations through numerical simulations.
+Inspired by the U.S. 2000s housing bubble episode, the experiments are: decrease in wage-share (Section ref:sec:Exp1); increase in real estate inflation (Section ref:sec:Exp2); and an increase in interest rate (Section ref:sec:Exp3).
 In this same Section, we also plug houses own rate of interest observed data for the U.S. (from 1992 to 2019) in order to compare simulations' results with the stylized facts presented previously.
-Section \ref{sec:Conclusion} offers some concluding remarks while Appendix \ref{append:Data} provides simulation's parameters and baseline values and Appendix \ref{append:Sensib} presents a preliminary sensibility analysis.
+Section ref:sec:Conclusion offers some concluding remarks while Appendix ref:append:Data provides simulation's parameters and baseline values and Appendix ref:append:Sensib presents a preliminary sensibility analysis.
 
 
 
 \section{Empirical motivation}
-\label{sec:orgaff5ee3}
+\label{sec:org1cf38d0}
 \label{sec:empirical}
+
+\subsection{Empirical Motivation\hfill{}\textsc{ignore}}
+\label{sec:orgb9490c4}
+
+\subsubsection{Introduction\hfill{}\textsc{ignore}}
+\label{sec:org85e662b}
+
+\begin{enumerate}
+\item Literature state-of-art\hfill{}\textsc{ignore}
+\label{sec:orgd7b09e0}
 A growing body of empirical demand-led literature has evaluated the role of NCC autonomous expenditures.
-\textcite{freitas_pattern_2013} present a growth accounting decomposition for Brazil from 1970 to 2005 and report the relevance of those expenditures in describing Brazilian GDP growth rate.
-\textcite{braga_investment_2020} shows evidence that economic growth and non-residential investment are explained by NCC autonomous expenditures in the Brazilian economy from 1962 to 2015.
-For the U.S., \textcite{girardi_long-run_2016} show that NCC autonomous expenditures have permanent effects on growth rate.
-\textcite{haluska_growth_2020} employ Granger-causality tests to assess the stability of the SSM for the US (1987-2017) and report a causality from NCC autonomous expenditures to the marginal propensity to invest, as expected.
-Finally, \textcite{girardi_autonomous_2020} bring evidence that those expenditures determine investment share on GDP for twenty OECD countries.
+textcite:freitas\textsubscript{pattern}\textsubscript{2013} present a growth accounting decomposition for Brazil from 1970 to 2005 and report the relevance of those expenditures in describing Brazilian GDP growth rate.
+textcite:braga\textsubscript{investment}\textsubscript{2020} shows evidence that economic growth and non-residential investment are explained by NCC autonomous expenditures in the Brazilian economy from 1962 to 2015.
+For the U.S., textcite:girardi\textsubscript{long}-run\textsubscript{2016} show that NCC autonomous expenditures have permanent effects on growth rate.
+textcite:haluska\textsubscript{growth}\textsubscript{2020} employ Granger-causality tests to assess the stability of the SSM for the US (1987-2017) and report a causality from NCC autonomous expenditures to the marginal propensity to invest, as expected.
+Finally, textcite:girardi\textsubscript{autonomous}\textsubscript{2020} bring evidence that those expenditures determine investment share on GDP for twenty OECD countries.
 
 \\
+
+\item Leamer and Fiebiger related\hfill{}\textsc{ignore}
+\label{sec:org7b46a25}
 However, there still is a lack of studies on the role of residential investment specifically.
-It is worth mentioning that the discussion about this NCC autonomous expenditure is largely based on \textcite{green_follow_1997} pioneer work.
+It is worth mentioning that the discussion about this NCC autonomous expenditure is largely based on textcite:green\textsubscript{follow}\textsubscript{1997} pioneer work.
 Based on Granger Causality and cointegration tests for the US from 1959-1992, this is one of the first papers to indicates that residential investment leads the business cycle.
-Subsequently, \textcite{leamer_housing_2007} concludes that this pattern occurs at least since the post-war period.
-More precisely,  \textcite[p.~8]{leamer_housing_2007} describes US business cycles as follows: ``[f]irst homes, then cars,
-and last business equipment''.
-Recently, \textcites{fiebiger_semi-autonomous_2018}{fiebiger_trend_2017} also report residential investment as an important determinant of business cycles for the US based on causal narratives.
-Alternatively, \textcite{huang_is_2020} estimate a Structural Vector Autoregressive (SVEC) model in a time-scale framework for the OECD countries to assess both prediction and causality relations stated by \textcite{leamer_housing_2007}.
+Subsequently, textcite:leamer\textsubscript{housing}\textsubscript{2007} concludes that this pattern occurs at least since the post-war period.
+More precisely,  \textcite[p.~8]{leamer_housing_2007} describes US business cycles as follows: "[f]irst homes, then cars,
+and last business equipment".
+Recently, textcites:fiebiger\textsubscript{semi}-autonomous\textsubscript{2018,fiebiger}\textsubscript{trend}\textsubscript{2017} also report residential investment as an important determinant of business cycles for the US based on causal narratives.
+Alternatively, textcite:huang\textsubscript{is}\textsubscript{2020} estimate a Structural Vector Autoregressive (SVEC) model in a time-scale framework for the OECD countries to assess both prediction and causality relations stated by textcite:leamer\textsubscript{housing}\textsubscript{2007}.
 They report that residential investment predicts the US  macroeconomic fluctuation and housing related variables (house prices, real mortgage rate --- deflated by a consumer price index --- and credit spread) lead the business cycle in all G7 countries.
 
 \\
+
+
+
+\item Lack of residential investment literature\hfill{}\textsc{ignore}
+\label{sec:org4f60e33}
 After the Great Recession (2008-2009), there has been growing macroeconometric studies on housing.
 However, most of them have emphasized house prices and not its volume (residential investment).
-\textcite{goodhart_house_2008} for instance, estimate a time-series fixed effects panel data for 17 industrialized countries from 1970 to 2006. They report a multidirectional relation between money, credit, house prices and GDP growth and have found stronger effects during housing booms\footnote{\textcite{Arestis_Bank_2014} also found a  direct relationship between house prices and credit volume based on cointegration and error correction techniques for 9 OECD countries from 1970 to 2011.}. 
-\textcite{wood_house_2020} report that house prices are relevant for describing household indebtedness from 1980 to 2017 in 18 advance economies.
+textcite:goodhart\textsubscript{house}\textsubscript{2008} for instance, estimate a time-series fixed effects panel data for 17 industrialized countries from 1970 to 2006. They report a multidirectional relation between money, credit, house prices and GDP growth and have found stronger effects during housing booms\footnote{textcite:Arestis\textsubscript{Bank}\textsubscript{2014} also found a  direct relationship between house prices and credit volume based on cointegration and error correction techniques for 9 OECD countries from 1970 to 2011.}. 
+textcite:wood\textsubscript{house}\textsubscript{2020} report that house prices are relevant for describing household indebtedness from 1980 to 2017 in 18 advance economies.
 However, both studies do not include residential investment.
-\textcite{Arestis_Residential_2014}, on the other side, include residential investment. Using a ARDL model for 17 OECD countries from 1970 to 2013, the authors report that banking credit and real house prices are the most statistically significant variables for real residential investment in the US.
-Although those approaches are interesting, they fails to take into account the connection between asset bubbles and aggregate demand.
+textcite:Arestis\textsubscript{Residential}\textsubscript{2014}, on the other side, include residential investment. Using a ARDL model for 17 OECD countries from 1970 to 2013, the authors report that banking credit and real house prices are the most statistically significant variables for real residential investment in the US.
+Although those approaches are interesting, they fail to take into account the connection between asset bubbles and aggregate demand.
 
 \\
+
+\item Section structure\hfill{}\textsc{ignore}
+\label{sec:orge40c43e}
+
 From this review of recent empirical literature, it is noticeable that few macroeconometric studies have investigated residential investment in any systematic way.
 In this paper, we argue that besides this growing body of literature that recognizes the macroeconomic importance of residential investment, little progress has been made in connecting house bubbles with its macroeconomics consequences.
-On the following subsection, we present some residential investment-related stylized facts in order to highlight its relevance for the US business cycle which will be compared to the theoretical model in Section \ref{real_sim}.
+On the following subsection, we present some residential investment-related stylized facts in order to highlight its relevance for the US business cycle which will be compared to the theoretical model in Section ref:real\textsubscript{sim}.
 Next, we analyze the connection between residential investment, real estate inflation and mortgage interest rate during the U.S. housing bubble episode.
+\end{enumerate}
 
-\subsection{Residential investment stylized facts}
-\label{sec:org874b1ea}
 
-As discussed before, both \textcites{green_follow_1997}{leamer_housing_2007} made it clear how important this particular expenditure is to USA business cycle. In this subsection, we show some residential investment stylized facts for the US in more detail.
 
-Figure \ref{Investo_Resid_GDP} shows how residential investment movements help to predict recessions. Recessions are anticipated by a reduction of residential investment share on GDP, while the expansion of those expenditures precedes economic recovery. The fall of residential investment in 1966-67 are an exception because the increase of military expenditures because of Vietnam War offset an eventual economic downturn \cite[p.~20]{leamer_housing_2007}. Another exception is the dot-com bubble 2000 crisis that was not caused by residential investment.
+\subsubsection{Residential investment stylized facts}
+\label{sec:org1e5eb79}
+
+\begin{enumerate}
+\item Investmento residencial e o ciclo econômico\hfill{}\textsc{ignore}
+\label{sec:org94fcb06}
+As discussed before, both textcites:green\textsubscript{follow}\textsubscript{1997,leamer}\textsubscript{housing}\textsubscript{2007} made it clear how important this particular expenditure is to USA business cycle. In this subsection, we show some residential investment stylized facts for the US in more detail.
+
+Figure ref:Investo\textsubscript{Resid}\textsubscript{GDP} shows how residential investment movements help to predict recessions. Recessions are anticipated by a reduction of residential investment share on GDP, while the expansion of those expenditures precedes economic recovery. The fall of residential investment in 1966-67 are an exception because the increase of military expenditures because of Vietnam War offset an eventual economic downturn \cite[p.~20]{leamer_housing_2007}. Another exception is the dot-com bubble 2000 crisis that was not caused by residential investment.
 
 
 
@@ -146,7 +170,7 @@ Figure \ref{Investo_Resid_GDP} shows how residential investment movements help t
     \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration}
 \end{figure}
 
-In order to depict the relation between residential investment and business cycle, we present Figure \ref{fig:cycles} in which each cycle is represented in a different panel\footnote{Similar reasoning can be found in \textcite{fiebiger_trend_2017}. Unlike them, we plot only residential investment without including other households expenses financed by credit.}.
+In order to depict the relation between residential investment and business cycle, we present Figure ref:fig:cycles in which each cycle is represented in a different panel\footnote{Similar reasoning can be found in textcite:fiebiger\textsubscript{trend}\textsubscript{2017}. Unlike them, we plot only residential investment without including other households expenses financed by credit.}.
 Residential investment-GDP ratio and rate of capacity utilization --- as a proxy for business cycle --- are presented on vertical and horizontal axis respectively.
 Economic recovery is generally characterized by residential investment growing faster than GDP. Both residential investment share on GDP and capacity utilization increase as a consequence of higher residential investment growth rate.
 Accordingly to the Sraffian Supermultiplier model, we can interpret subsequent non-residential investment increase as a result of capital stock adjustment principle. 
@@ -155,16 +179,19 @@ As a result of economic burst, rate of capacity utilization falls and the cycle 
 This pattern is more evident in the 1970-75, 1982-91 and in the Great Recession.
 
 
+\begin{verbatim}
 \begin{figure}[htb]
     \centering
-        \caption{Share of residential investment and capacity utilization during business cycles\\\centering (Dots size grow in  time)} 
+	\caption{Share of residential investment and capacity utilization during business cycles\\\centering (Dots size grow in  time)} 
     \includegraphics[width = 0.9\textwidth]{./figs/cycles.png}
     \label{fig:cycles}
     \caption*{\textbf{Source:} Federal Reserve Bank of St. Louis, authors’ elaboration.}
 \end{figure}
+\end{verbatim}
+\end{enumerate}
 
-\subsection{Housing bubble and residential investment}
-\label{sec:orgd0c6213}
+\subsubsection{Housing bubble and residential investment}
+\label{sec:org40c5cc7}
 \label{sec_own}
 Once residential investment is relevant to describe the U.S. business cycle, it is important to understand its determinants.
 There are at some key variables to assess the residential investment behavior.
@@ -172,9 +199,9 @@ The first one is the mortgage interest rate, which determines the financial cost
 The other is the rate of change of house prices.
 The one who owns a house --- or intend to buy one --- takes its price variation in consideration for speculative reasons or just to prevent capital loss and reductions of net worth.
 
-Based on \citeauthor*{Sraffa_Own_1932}'s \citeyear{Sraffa_Own_1932} commodity rate of interest, \textcite{teixeira_crescimento_2015} proposes the so-called houses own rate of interest.
+Based on \citeauthor*{Sraffa_Own_1932}'s \citeyear{Sraffa_Own_1932} commodity rate of interest, textcite:teixeira\textsubscript{crescimento}\textsubscript{2015} proposes the so-called houses own rate of interest.
 Estimated by deflating mortgages interest by houses price inflation, this particular real interest rate is the most relevant for house buyers since it is the real cost in real estate from buying houses  \cite[p.~53]{teixeira_crescimento_2015}.
-This particular interest rate is shown in Equation \ref{_own} in which \(own\) stands for houses own rate of interst, \(r_{mo}\) for mortgage interest rate and \(\pi\) for house price inflation.
+This particular interest rate is shown in Equation ref:\textsubscript{own} in which \(own\) stands for houses own rate of interst, \(r_{mo}\) for mortgage interest rate and \(\pi\) for house price inflation.
 
 
 \begin{equation}
@@ -183,7 +210,7 @@ own = \left(\frac{1+r_{mo}}{1+\pi}\right) -1
 \end{equation}
 
 During a housing bubble period, it is real estate inflation that governs own's interest rate movements. Therefore, the lower this rate is, the greater the capital gains (in real estate) for speculating with real estate will be. This negative relation between houses own interest rate and residential investment is shown in Figure \ref{propria_investo} in which this particular real interest rate has been gradually decreased over the real estate boom (2002-5).
-Additionally, Figure \ref{propria_investo} illustrates how this  procedure is more adequate than a consumer price index deflation --- as \textcite[p.~143--6]{fair_macroeconometric_2013} does --- to describe residential investment growth rate\footnote{Based on this concept, \textcite{petrini_demanda_2019} estimated time series econometric model for the U.S. (1992 to 2019) and presents empirical evidence that residential investment growth rate and houses own rate of interest have a common negative long-run trend.  Furthermore, \textcite{petrini_demanda_2019} also reports a unidirectional long-run causality from houses own rate of interest to residential investment growth rate.}.
+Additionally, Figure ref:propria\textsubscript{investo} illustrates how this  procedure is more adequate than a consumer price index deflation --- as \textcite[p.~143--6]{fair_macroeconometric_2013} does --- to describe residential investment growth rate\footnote{Based on this concept, textcite:petrini\textsubscript{demanda}\textsubscript{2019} estimated time series econometric model for the U.S. (1992 to 2019) and presents empirical evidence that residential investment growth rate and houses own rate of interest have a common negative long-run trend.  Furthermore, textcite:petrini\textsubscript{demanda}\textsubscript{2019} also reports a unidirectional long-run causality from houses own rate of interest to residential investment growth rate.}.
 
 
 \begin{figure}[htb]
@@ -200,15 +227,19 @@ In the next section, we build a fully specified parsimonious Sraffian supermulti
 
 
 \section{A Sraffian supermultiplier SFC model with residential investment}
-\label{sec:org4ee1f5b}
+\label{sec:orga7ada79}
 \label{sec:Model}
-\subsection{General equations}
-\label{sec:orgceda425}
+\subsection{A Sraffian supermultiplier SFC model with residential investment\hfill{}\textsc{ignore}}
+\label{sec:org35b6872}
+
+\subsubsection{General equations}
+\label{sec:org97a6f6f}
 
 Our model is the most parsimonious as possible: a closed capitalist economy without government sector. Output (\(Y\)) is determined by  a fixed combination of a homogeneous labor (\(L\)) input with homogeneous fixed business capital (\(K_f\)). 
 For simplicity, we put technological progress, depreciation and goods inflation aside so investment is presented in net terms and all variables --- except for houses --- are measured in real terms.
-Assuming a Leontief production function (Equation \ref{_Leontieff}) and that growth is not constrained by labor scarcity, full capacity output (\(Y_{FC}\)) is
-determined by firms' capital stock (Equation \ref{_YFC}):
+Assuming a Leontief production function (Equation ref:\textsubscript{Leontieff}) and that growth is not constrained by labor scarcity, full capacity output (\(Y_{FC}\)) is
+determined by firms' capital stock (Equation ref:\textsubscript{YFC}):
+\begin{verbatim}
 \begin{equation}
 \label{_Leontieff}
     Y_{FC} = \min (Y_L, Y_K)
@@ -221,10 +252,12 @@ determined by firms' capital stock (Equation \ref{_YFC}):
 \label{_u}
     u = \frac{Y}{Y_{FC}}
 \end{equation}
+\end{verbatim}
 where \(Y_L\) and \(Y_K\) stands for full employment and full capacity output respectively, \(v\) is exogenous capital-output ratio and \(u\) is rate of capacity utilization.
 
 We further assume an economic structure composed by both workers (denoted by subscript \(w\)) and capitalists (denoted by subscript \(k\)) households.
-Thus, demand-determined output level (\(Y\), Equation \ref{_Y})  is the sum of workers and capitalists consumption (\(C_w\) and \(C_k\) respectively) and both households and firms investment (\(I_h\) and \(I_f\) respectively) and only the latter creates capacity to the business sector of the economy:
+Thus, demand-determined output level (\(Y\), Equation ref:\textsubscript{Y})  is the sum of workers and capitalists consumption (\(C_w\) and \(C_k\) respectively) and both households and firms investment (\(I_h\) and \(I_f\) respectively) and only the latter creates capacity to the business sector of the economy:
+\begin{verbatim}
 \begin{equation}
 \label{_Ct}
     C = C_w + C_k
@@ -237,16 +270,20 @@ Thus, demand-determined output level (\(Y\), Equation \ref{_Y})  is the sum of w
 \label{_Y}
     Y = \overbrace{[C_w + \underbrace{C_k + I_h}_{\text{Capitalists}}]}^{\text{Households}} + \overbrace{[I_f]}^{\text{Firms}}
 \end{equation}
+\end{verbatim}
 
 In other words, from institutional sectors perspective, household expenditures have two components (consumption and residential investment) and firms just one (non-residential investment).
 So, the novelty of this model is the inclusion of a second investment component all made by household sector and held by capitalists households for simplicity. 
 Therefore, this economy produces two types of real assets: firms productive capital (\(K_f\)) and households houses (\(K_h\)):
+\begin{verbatim}
 \begin{equation}
     \label{_K}
     K = K_f + K_h
 \end{equation}
+\end{verbatim}
 
-Denoting the houses share in total real assets as \(k\) (Equation \ref{_k}), we can rewrite equation \ref{_K} as:
+Denoting the houses share in total real assets as \(k\) (Equation ref:\textsubscript{k}), we can rewrite equation \ref{_K} as:
+\begin{verbatim}
 \begin{equation}
 \label{_k}
     k = \frac{K_h}{K}
@@ -254,21 +291,24 @@ Denoting the houses share in total real assets as \(k\) (Equation \ref{_k}), we 
 $$
 K = (1-k)\cdot K + k\cdot K
 $$
+\end{verbatim}
 
-Following Sraffian literature, functional income distribution is determined both by historical-institutional factors and class struggle. 
-As consequence, wage-share (\(\omega\)) is considered exogenous to our model and define total wages as (\(W\), Eq. \ref{_W}):
+Following Sraffian literature, functional income distribution is determined by historical-institutional factors and class struggle.
+As consequence, wage-share (\(\omega\)) is considered exogenous to our model and define total wages as (\(W\), Eq. ref:\textsubscript{W}):
 
+\begin{verbatim}
 \begin{equation}
 \label{_W}
     W = \omega\cdot Y
 \end{equation}
+\end{verbatim}
 
 Table \ref{Matriz_Estoques} presents the balance sheet matrix for all institutional sectors. 
 Capitalists households hold financial wealth as bank deposits (\(M\)) and residential investment is financed by mortgages (\(MO\)).
 Capitalists' total net wealth (\(NW_{k}\)) is the sum of their net financial wealth (\(V_{k}\)) and real assets (\textit{i.e.} houses, \(K_h\)).
 Table  \ref{Matriz_Fluxos} presents both transactions flows and the flow of funds matrix. 
 This table shows all economic relations between institutional sectors ensuring that there is no  ``black holes''
-so all financial and real transaction are explicitly defined \cite{godley_monetary_2007,macedo_e_silva_peering_2011}.
+so all financial and real transaction are explicitly defined cite:godley\textsubscript{monetary}\textsubscript{2007,macedo}\textsubscript{e}\textsubscript{silva}\textsubscript{peering}\textsubscript{2011}.
 
 In this model, capitalist consumption (\(C_k\)) is fully autonomous and financed by loans (\(L_{k}\)) while workers consumption (\(C_w\)) is fully induced by their wages.
 We assume that workers expend what they earn while capitalists earn what they expend, so workers financial and real wealth are both null.
@@ -278,6 +318,7 @@ On the following subsections, we will present the equations of each of these ins
 
 
 
+\begin{verbatim}
 \begin{table}[H]
 \centering
 \caption{Balance Sheet matrix}
@@ -285,7 +326,7 @@ On the following subsections, we will present the equations of each of these ins
 \begin{tabular}{lccccc}
 \hline
 \hline
-                          & Workers & Capitalists      & Firms        & Banks  &    $\sum$ \\ \hline
+			  & Workers & Capitalists      & Firms        & Banks  &    $\sum$ \\ \hline
 
 Deposits & & $+M$ & & $-M$ & 0\\
 Loans& &$-L_{k}$ &$-L_f$& $+L$ & 0\\
@@ -299,8 +340,10 @@ $\sum$ Net Wealth &---&$NW_{k}$&$NW_f$&$NW_b$& $+K$\\
 \end{tabular}%
 \caption*{\textbf{Source:} Authors' Elaboration}
 \end{table}
+\end{verbatim}
 
 
+\begin{verbatim}
 \begin{table}[H]
 \centering
 \caption{Transactions flow matrix and flow of funds
@@ -339,15 +382,17 @@ Change in loans     & &$+\Delta L_{k}$&&$+\Delta L_f$& &$-\Delta L$& 0\\
 }
 \caption*{\textbf{Source:} Authors' Elaboration}
 \end{table}
+\end{verbatim}
 
 
-\subsection{Firms}
-\label{sec:org9cdb7c0}
+\subsubsection{Firms}
+\label{sec:org65e8d48}
 
 In order to produce, firms purchase capital goods (\(-I_f\) in capital account) and hire workers, whom total remuneration is the economy wage bill. 
-Firms total profits (\(FT\), Equation \ref{_FT}) are a residual between sales (\(Y\)) and total wages (\(W\)).
-Firms retain part (\(\gamma_F\)) of profits net of interest payments (\(FU\), Equation \ref{_FU}) --- to reinvest --- and distribute the remainder to capitalists (\(FD\), Equation \ref{_FD}):
+Firms total profits (\(FT\), Equation ref:\textsubscript{FT}) are a residual between sales (\(Y\)) and total wages (\(W\)).
+Firms retain part (\(\gamma_F\)) of profits net of interest payments (\(FU\), Equation ref:\textsubscript{FU}) --- to reinvest --- and distribute the remainder to capitalists (\(FD\), Equation ref:\textsubscript{FD}):
 
+\begin{verbatim}
 \begin{equation}
 \label{_FT}
     FT = Y - W = FD + FU
@@ -360,13 +405,15 @@ Firms retain part (\(\gamma_F\)) of profits net of interest payments (\(FU\), Eq
 \label{_FD}
     FD = (1-\gamma_F)\cdot (FT - r_l\cdot L_{f_{-1}})
 \end{equation}
+\end{verbatim}
 
-Firms (non-residential) investment is fully induced by the level of effective demand (Eq. \ref{_If}), and its growth rate changes accordingly to the capital stock adjustment principle \cite{freitas_growth_2015}.
-Equation \ref{_h} is a simple way to describe this mechanism.
+Firms (non-residential) investment is fully induced by the level of effective demand (Eq. ref:\textsubscript{If}), and its growth rate changes accordingly to the capital stock adjustment principle cite:freitas\textsubscript{growth}\textsubscript{2015}.
+Equation ref:\textsubscript{h} is a simple way to describe this mechanism.
 According to it, the marginal propensity to invest (\(h\)) endogenously adjust to discrepancies between actual and normal utilization rates (\(u\) and \(u_N\), respectively). 
-For this mechanism to take place, the adjustment parameter (\(\gamma_u\)) must be sufficiently small and non-negative\footnote{The size of this parameter guards a fundamental relation to the stability of the model, as shown by \textcite{freitas_growth_2015}.}. 
+For this mechanism to take place, the adjustment parameter (\(\gamma_u\)) must be sufficiently small and non-negative\footnote{The size of this parameter guards a fundamental relation to the stability of the model, as shown by textcite:freitas\textsubscript{growth}\textsubscript{2015}.}. 
 As a consequence, productive capacity gradually adjusts to effective demand.
 
+\begin{verbatim}
 \begin{equation}
 \label{_If}
     I_f = h_{t-1}\cdot Y
@@ -378,12 +425,14 @@ As a consequence, productive capacity gradually adjusts to effective demand.
 \begin{equation}
     \Delta K_f = I_f
 \end{equation}
+\end{verbatim}
 
 
 Firms finance investment that exceeds undistributed profits by bank loans, paying an interest rate on it (\(r_l\)) charged by the banks.
 We assume an elastic supply of credit for investment. 
 Moreover, tables \ref{Matriz_Estoques} and \ref{Matriz_Fluxos} show firms net wealth (\(NW_f\)) and net financial balance (\(NFW_f\)) explicitly:
 
+\begin{verbatim}
 \begin{equation}
 \label{_Lf}
     \Delta L_f = I_f - FU
@@ -402,20 +451,22 @@ r_g = \frac{(1-\omega)\cdot u}{v}
 \label{_rn}
 r_n = r_g - r_l\cdot\frac{L_{f_{-1}}}{K_f}
 \end{equation}
+\end{verbatim}
 
 where \(r_g\) and \(r_n\) denotes gross and net profit rate respectively.
 
-\subsection{Banks}
-\label{sec:orge7f032e}
+\subsubsection{Banks}
+\label{sec:orgcd72b11}
 
 As in most part of SFC literature, banks do not have an active role in this model.
-They create money as credit is demanded and just after they collect deposits \cite{le_bourva_money_1992}. 
+They create money as credit is demanded and just after they collect deposits cite:le\textsubscript{bourva}\textsubscript{money}\textsubscript{1992}. 
 Firms finance part of their investment with credit (\(L_f\)) and capitalists households finance all their residential investment by mortgages (\(MO\)) and consumption by loans (\(L_{k}\)), as already mentioned.
 For simplicity, we assume null bank spreads (\(\sigma_{mo} = \sigma_l = 0\)) so interest rate on mortgages (\(r_{mo}\)) and on loans (\(r_{l}\))
 are the same as on deposits (\(r_{m}\)) which is  exogenously determined by banks.
 Banks net balances (\(NFW_b\)) are defined by interests received net of interests payments. 
-As those interests are the same, banks net wealth is necessarily zero (see table \ref{Matriz_Estoques}) and deposits are residuum:
+As those interests are the same, banks net wealth is necessarily zero (see table \ref{Matriz_Estoques}) and deposits are \emph{residuum}:
 
+\begin{verbatim}
 \begin{equation}
 L = L_f + L_{k}
 \end{equation}
@@ -441,17 +492,20 @@ $$
 \label{_M}
     \Delta M = \Delta L + \Delta MO
 \end{equation}
+\end{verbatim}
 
-\subsection{Households}
-\label{sec:orgbcb99f4}
+\subsubsection{Households}
+\label{sec:org1f48e6d}
 
-\subsubsection{Workers}
-\label{sec:org715c9b2}
+\begin{enumerate}
+\item Workers
+\label{sec:orgdf4ddf2}
 
 As mentioned before, we assume that workers expend (\(C_w\)) what they earn (\(W\)). 
 For simplicity, we consider that wages are the only source of workers' disposable income (\(YD_{w}\)) and do not have access to consumption loans, so worker' saving (\(S_{hw}\)) are null.
-Therefore, accordingly to our hypothesis, workers' do not hold both net financial (\(NFW_{w}\)) and total wealth (\(V_{w}\)).
+Therefore, accordingly to our hypothesis, workers do not hold both net financial (\(NFW_{w}\)) nor total wealth (\(V_{w}\)).
 
+\begin{verbatim}
 \begin{equation}
 C_w = W
 \end{equation}
@@ -470,17 +524,19 @@ NFW_{w} = S_{w} = 0
 \begin{equation}
 V_{w} = 0
 \end{equation}
+\end{verbatim}
 
-\subsubsection{Capitalists}
-\label{sec:orge34d326}
+\item Capitalists
+\label{sec:org26ce641}
 
 This is the most complex institutional sector of our model. 
 We assume consumption (\(C_k\)) is fully-autonomous and financed by loans (\(L_{k}\)). 
 Disposable income (\(YD_k\)) is the sum of distributed profits and received interests on deposits, net of interests payments
 on both mortgages and loans.
 Capitalists savings (\(S_{k}\)) are disposable income net of consumption.
-At odds with SFC literature, savings are not equal to net balance (\(NFW_{k}\), Equation \ref{NFWh}) since we have included residential investment.
+At odds with SFC literature, savings are not equal to net balance (\(NFW_{k}\), Equation ref:NFWh) since we have included residential investment.
 
+\begin{verbatim}
 \begin{equation}
 \Delta L_{k} = C_k
 \end{equation}
@@ -496,10 +552,11 @@ At odds with SFC literature, savings are not equal to net balance (\(NFW_{k}\), 
 \label{NFWh}
     NFW_{k} = S_{k} - I_h
 \end{equation}
+\end{verbatim}
 
 
-As mentioned before, capitalist households are the only institutional sector investing in houses which are financed by mortgages as in equation (\ref{EqMO}).
-Thus, capitalists' total debt stock (\(D\)) is the sum of mortgage and consumption loans (Equation \ref{k_D})
+As mentioned before, capitalist households are the only institutional sector investing in houses which are financed by mortgages as in equation ref:EqMO.
+Thus, capitalists' total debt stock (\(D\)) is the sum of mortgage and consumption loans (Equation ref:k\textsubscript{D})
 
 \begin{equation}
   \label{EqMO}
@@ -512,9 +569,10 @@ Thus, capitalists' total debt stock (\(D\)) is the sum of mortgage and consumpti
 
 
 
-Next, we present residential investment growth rate (\(g_{I_h}\)) as determined by houses own rate of interest (\(own\), equation \ref{_own}) as introduced by \textcite{teixeira_crescimento_2015} and discussed in section \ref{sec:empirical}.
+Next, we present residential investment growth rate (\(g_{I_h}\)) as determined by houses own rate of interest (\(own\), equation \ref{_own}) as introduced by textcite:teixeira\textsubscript{crescimento}\textsubscript{2015} and discussed in section ref:sec:empirical.
 
 
+\begin{verbatim}
 \begin{equation}
 	I_h = (1 + g_{I_h})\cdot I_{h_{-1}}
 \end{equation}
@@ -523,19 +581,24 @@ Next, we present residential investment growth rate (\(g_{I_h}\)) as determined 
 	g_{I_h} = \phi_0 - \phi_1\cdot own
 \end{equation}
 
-where  \(\phi_0\) represents long-term determinants of residential investment (\emph{e.g.} demographic factors, housing and credit policies, etc.)\footnote{For an early discussion about long-term determinants of residential investment see \textcite{grebler_capital_1956}. For a historical-institutional discussing of mortgage markets, see \textcite{green_american_2005}.} while \(\phi_1\) captures houses own rate of interest as described in Section \ref{sec_own}.
+
+\end{verbatim}
+where  \(\phi_0\) represents long-term determinants of residential investment (\emph{e.g.} demographic factors, housing and credit policies, etc.)\footnote{For an early discussion about long-term determinants of residential investment see textcite:grebler\textsubscript{capital}\textsubscript{1956}. For a historical-institutional discussing of mortgage markets, see textcite:green\textsubscript{american}\textsubscript{2005}.} while \(\phi_1\) captures houses own rate of interest as described in Section ref:sec\textsubscript{own}.
 
 Accordingly to our hypothesis, nominal (\(V_{nk}\)) and real net wealth (\(V_{k}\)) are distinguished only by the inclusion of house price (\(p_h\)) and are defined as follows:
+\begin{verbatim}
 \begin{equation}
 V_{k} = K_{hd} + M - L_{k} - MO
 \end{equation}
 \begin{equation}
 V_{nk} = K_{hd}\cdot p_h + M - L_{k} - MO
 \end{equation}
+\end{verbatim}
 
 
-In order to fulfill our goals, we employ \citeauthor*{freitas_baseline_2020}'s \citeyear{freitas_baseline_2020} procedure in which NCC autonomous expenditure (\(Z\)) composition (\(R\)) remains unchanged. Thus, we can express capitalists total consumption as follows:
+In order to fulfill our goals, we employ \citeauthor*{freitas_baseline_2020}'s citeyear:freitas\textsubscript{baseline}\textsubscript{2020} procedure in which NCC autonomous expenditure (\(Z\)) composition (\(R\)) remains unchanged. Thus, we can express capitalists total consumption as follows:
 
+\begin{verbatim}
 \begin{equation}
 \label{_Z}
 Z = C_k + I_h
@@ -543,7 +606,8 @@ Z = C_k + I_h
 $$
 \frac{C_k}{Z} + \frac{I_h}{Z} = R + (1-R)
 $$
-which allows us to rewrite both residential investment and capitalists consumption in terms of residential investment (Eq. \ref{Z_Ih}):
+\end{verbatim}
+which allows us to rewrite both residential investment and capitalists consumption in terms of residential investment (Eq. ref:Z\textsubscript{Ih}):
 \begin{equation}
 \label{_Ck}
     C_k = R\cdot Z
@@ -566,65 +630,66 @@ g\textsubscript{C\textsubscript{k}} = g\textsubscript{Z} = g\textsubscript{I\tex
 
 In this section, we presented a fully-specified parsimonious model to connect house bubbles with aggregate demand.
 In the next Section, we analyze the dynamics from short- to long-run equilibria.
+\end{enumerate}
 
 
 
-\section{Short and long-run equilibria}
-\label{sec:org37c02f8}
+\section{From short- to long-run equilibria}
+\label{sec:orgc8b4eb2}
 \label{sec:runs}
-\subsection{From short- to long-run equilibria}
-\label{sec:org788b519}
+\subsection{From short- to long-run equilibria\hfill{}\textsc{ignore}}
+\label{sec:orgdaaae11}
 
 In this Section, we show the implications of residential investment inclusion into a SSM-SFC model. First, we present the short-run dynamics and then move to the traverse and then to the long-run equilibrium (denoted by \(\star\)).
 
 \subsubsection{Short-run good market equilibrium}
-\label{sec:orgc0b61f8}
+\label{sec:orgef4dc89}
 \label{short}
 
-In this model, real output (equation \ref{_Y}) is the sum of household consumption (equation \ref{_Ct}) and both types of investment (equation \ref{_It}). 
-If we replace equations \ref{_W} and  \ref{_If} into \ref{_Y} and considering equation \ref{_Z} we get the short-run GDP level which is determined both by NCC expenditures (\(Z_t\)) and the supermultiplier (inverse of Equation \ref{Y_nivel} denominator)
+In this model, real output (equation \ref{_Y}) is the sum of household consumption (equation ref:\textsubscript{Ct}) and both types of investment (equation ref:\textsubscript{It}). 
+If we replace equations ref:\textsubscript{W} and  ref:\textsubscript{If} into ref:\textsubscript{Y} and considering equation ref:\textsubscript{Z} we get the short-run GDP level which is determined both by NCC expenditures (\(Z_t\)) and the supermultiplier (inverse of Equation ref:Y\textsubscript{nivel} denominator)
 
 \begin{equation}
 \label{Y_nivel}
 Y_t = \frac{Z_t}{1 - h_t - \omega}
 \end{equation}
-and replacing Equation \ref{Z_Ih} in the previous one
+and replacing Equation ref:Z\textsubscript{Ih} in the previous one
 \begin{equation}
 \label{Y_Ih}
 Y_t = \frac{I_h}{(1-R)(1 - h_t - \omega)}
 \end{equation}
 since \(R\) is non-negative and lower than one, the Keynesian stability condition is \(h_{t} + \omega < 1\).
 
-Next, dividing equation \ref{Y_Ih} by \ref{_YFC},  replacing residential investment growth rate by Equation \ref{g_Z_own}  and rearranging, we get the short-run equilibrium utilization rate (Equation \ref{short_u}).
+Next, dividing equation ref:Y\textsubscript{Ih} by ref:\textsubscript{YFC},  replacing residential investment growth rate by Equation ref:g\textsubscript{Z}\textsubscript{own}  and rearranging, we get the short-run equilibrium utilization rate (Equation ref:short\textsubscript{u}).
 In this model, residential investment growth rate determines GDP growth rate.
-When the latter accelerates, rate of capacity utilization increases as shown by Equation \ref{short_u}:
+When the latter accelerates, rate of capacity utilization increases as shown by Equation ref:short\textsubscript{u}:
 \begin{equation}
 \label{short_u}
 u_t = \frac{v}{(1-R)(1-h_t - \omega)}\frac{I_{h_{t-1}}}{K_{f_{t-2}}}\frac{(1 + g_{I_h})}{(1+g_{K_{t-1}})}
 \end{equation}
-Replacing equation \ref{g_Z_own} in Equation \ref{short_u} we make explicit the functional form of residential investment growth rate as one of the determinants of rate of capacity utilization as shown in Equation \ref{short_u_own}:
+Replacing equation ref:g\textsubscript{Z}\textsubscript{own} in Equation ref:short\textsubscript{u} we make explicit the functional form of residential investment growth rate as one of the determinants of rate of capacity utilization as shown in Equation ref:short\textsubscript{u}\textsubscript{own}:
 \begin{equation}
 \label{short_u_own}
 u_t = \frac{v}{(1-R)(1-h_t - \omega)}\frac{I_{h_{t-1}}}{K_{f_{t-2}}}\frac{(1 + \phi_0 - \phi_1\cdot own_t)}{(1+g_{K_{t-1}})}
 \end{equation}
 
-Next, we revisit Equation \ref{short_u} in order to present houses share on total capital stock (\(k\)).
+Next, we revisit Equation ref:short\textsubscript{u} in order to present houses share on total capital stock (\(k\)).
 To do so, we express firms' capital in terms of houses. 
-Then, dividing both sides of equation \ref{short_u} by houses and after some algebraic manipulations, we get houses-to-capital ratio (Equation \ref{k_short})
+Then, dividing both sides of equation ref:short\textsubscript{u} by houses and after some algebraic manipulations, we get houses-to-capital ratio (Equation ref:k\textsubscript{short})
 \begin{equation}
 \label{k_short}
 k = \frac{(1-R)\cdot (1-h_t - \omega)}{h_t + (1-R)\cdot (1-h_t - \omega)}
 \end{equation}
 
 \subsubsection{Traverse and long-run equilibrium}
-\label{sec:org60e7ad8}
+\label{sec:orgde2e28f}
 \label{long}
 
 In this subsection, we present traverse and long-run equilibrium equations.
-According to equation \ref{short_u}, when aggregate demand and capacity output grow at different rates, capacity utilization will change. 
-This discrepancy triggers marginal propensity to invest adjustment mechanism (see Equation \ref{_h}). 
+According to equation ref:short\textsubscript{u}, when aggregate demand and capacity output grow at different rates, capacity utilization will change. 
+This discrepancy triggers marginal propensity to invest adjustment mechanism (see Equation ref:\textsubscript{h}). 
 During the adjustment process, both supermultiplier and NCC autonomous expenditure share on GDP changes.
-Equation \ref{g_medium} presents aggregate demand during the traverse:
+Equation ref:g\textsubscript{medium} presents aggregate demand during the traverse:
 
 \begin{equation}
 \label{g_medium}
@@ -644,20 +709,20 @@ and long-run marginal propensity to invest will be:
 \label{h_long}
 h^{\star} = g^{\star}\cdot \frac{v}{u^{\star}}
 \end{equation}
-Finally, replacing Equation \ref{h_long} into Equation \ref{Y_nivel} we obtain long-run GDP level as shown in Equation
+Finally, replacing Equation ref:h\textsubscript{long} into Equation ref:Y\textsubscript{nivel} we obtain long-run GDP level as shown in Equation
 
 \begin{equation}
 \label{Y_lr}
 Y^{\star} = \frac{Z}{\left(1 - \omega - g^{\star}\cdot \frac{v}{u^{\star}}\right)}
 \end{equation}
-Once again, we can show the long-run position making the residential investment growth rate explicit as in Equation \ref{Y_gIh}
+Once again, we can show the long-run position making the residential investment growth rate explicit as in Equation ref:Y\textsubscript{gIh}
 \begin{equation}
 \label{Y_gIh}
 Y^{\star} = \frac{I_h}{\left(1-R\right)\left(1 - \omega - g_{I_h}^{\star}\cdot \frac{v}{u^{\star}\right)}}
 \end{equation}
 
 Next, we move towards the analysis of the particularities of our model.
-To do so, we replace Equation \ref{h_long} in \ref{k_short}, we obtain long-run ratio between houses and total capital stock (denoted by \(k^\star\)):
+To do so, we replace Equation ref:h\textsubscript{long} in ref:k\textsubscript{short}, we obtain long-run ratio between houses and total capital stock (denoted by \(k^\star\)):
 
 \begin{equation}
 \label{k_long}
@@ -668,7 +733,7 @@ k^{\star} = 1 - \frac{h^{\star}}{h^\star + (1-R)(1-h^\star - \omega)}
 
 Before moving to the numerical simulations, we present some steady growth stock ratios in order to shed some lights in the dynamic process of the model.
 At odds with literature, we do not normalize the stocks by the total capital stock, but by the economically relevant capital (firms' capital stock or houses) type.
-Thus, dividing Equation \ref{_Lf} by firms' capital stock and making some algebraic manipulation, we obtain steady growth loans' ratio to firms' capital stock (\(\ell^{\star}\), Equation \ref{firm_ratio}):
+Thus, dividing Equation ref:\textsubscript{Lf} by firms' capital stock and making some algebraic manipulation, we obtain steady growth loans' ratio to firms' capital stock (\(\ell^{\star}\), Equation ref:firm\textsubscript{ratio}):
 
 $$
 \Delta \left(\frac{L_{f}}{K_{f}}\right) = \frac{I_{f} - FU}{K_{f}} - \ell^{\star}_{f}\cdot g^{\star}  = 0
@@ -678,7 +743,7 @@ $$
 \label{firm_ratio}
 \ell_f^\star = 1 - \gamma_F\left(\frac{r_g^\star - r_m}{g^\star - \gamma_F\cdot r_m}\right)
 \end{equation}
-Thus, replacing equation \ref{firm_ratio} into \ref{_rn} to obtain net profit rate in the long-run (see Equation \ref{Long_netprofit_ratio})
+Thus, replacing equation ref:firm\textsubscript{ratio} into ref:\textsubscript{rn} to obtain net profit rate in the long-run (see Equation ref:Long\textsubscript{netprofit}\textsubscript{ratio})
 \begin{equation}
 \label{Long_netprofit_ratio}
 r_n^\star = r_g^\star - r_m\cdot \left(1 - \gamma_F\left(\frac{r_g^\star - r_m}{g^\star - \gamma_F\cdot r_m}\right)\right)
@@ -686,8 +751,8 @@ r_n^\star = r_g^\star - r_m\cdot \left(1 - \gamma_F\left(\frac{r_g^\star - r_m}{
 
 
 
-Next, we rewrite capitalists autonomous expenditure in terms of residential investment (see Equation \ref{C_kZ}). 
-Then, we  present capitalists' loans to houses stock ratio (Equation \ref{capitalist_ratio}):
+Next, we rewrite capitalists autonomous expenditure in terms of residential investment (see Equation ref:C\textsubscript{kZ}). 
+Then, we  present capitalists' loans to houses stock ratio (Equation ref:capitalist\textsubscript{ratio}):
 
 $$
 \Delta \left(\frac{L_k}{K_{HD}}\right) = \frac{C_k}{K_{HD}} - \ell^{\star}_{k}\cdot g^{\star} = 0
@@ -698,7 +763,7 @@ $$
 \ell^\star = \frac{R}{1-R}
 \end{equation}
 
-The same procedure is also applied to find mortgage to house stock ratio (\(mo^{\star}\), Equation \ref{mortgage_ratio}):
+The same procedure is also applied to find mortgage to house stock ratio (\(mo^{\star}\), Equation ref:mortgage\textsubscript{ratio}):
 $$
 \Delta \left(\frac{MO}{K_{HD}}\right) = \frac{\Delta MO}{K_{HD}} - mo^{\star}\cdot g^{\star} = 0
 $$
@@ -707,7 +772,7 @@ $$
 \label{mortgage_ratio}
 mo^\star = 1
 \end{equation}
-Thus, adding Equations \ref{capitalist_ratio} and \ref{mortgage_ratio} and, we get capitalists' total debt in terms of houses (\(d^\star\), Equation \ref{debt_ratio})
+Thus, adding Equations ref:capitalist\textsubscript{ratio} and ref:mortgage\textsubscript{ratio} and, we get capitalists' total debt in terms of houses (\(d^\star\), Equation ref:debt\textsubscript{ratio})
 
 $$
 d^\star = 1 + \frac{R}{1-R}
@@ -718,7 +783,7 @@ $$
 d^\star = \frac{1}{1-R}
 \end{equation}
 
-Finaly, we can express deposits share on total capital stock (\(m^{\star}\), Equation \ref{M_long_intermediate}) in terms of previous stock ratios:
+Finaly, we can express deposits share on total capital stock (\(m^{\star}\), Equation ref:M\textsubscript{long}\textsubscript{intermediate}) in terms of previous stock ratios:
 
 $$
 \frac{M}{K} = \frac{MO + L_k + L_f}{K}
@@ -734,23 +799,30 @@ m\textsuperscript{\(\star\)} = mo\textsuperscript{\(\star\)}\(\cdot\) k\textsupe
 
 
 \section{Numerical simulations}
-\label{sec:org77ff3c3}
+\label{sec:org972a4cf}
 \label{sec:Experiments}
+\subsection{Numerical Simulations\hfill{}\textsc{ignore}}
+\label{sec:org3f9a5d6}
 \label{sec:Experiments}
+
+\subsubsection{Introduction\hfill{}\textsc{ignore}}
+\label{sec:org95a2f11}
+
 In this Section, we present the results of the following experiments: 
     (i) wage-share decrease;
     (ii) house price inflation;
     (iii) deposits interest rate increase.
 In order to evaluate if our model is able to reproduce some stylized facts, we introduce U.S. houses own rate of interest observed data (from 1992 to 2019) into our numerical simulation.
-Before we move foward, it is worth mentioning that we use \citeauthor*{fazzari-2020-deman-led}'s  \citeyear{fazzari-2020-deman-led} parameter values calibrated for the U.S. economy for a similar time range (from 1980 to 2016).
-Our first experiment assess if income distribution has a level effect on output — as in \cite{mandarino-2020-worker-debt} — or growth rate effect — as in \cite{brochier_supermultiplier_2018}.
-Real estate inflation increase experiment is motivated by recent US experience (from 1992 to 2019) as discussed in Section \ref{sec:empirical} while the last simulation aims to evaluate indebtedness stability.
-Table \ref{tab:param} in Appendix \ref{append:Data} presents the parameters of simulation and Table \ref{ResumoChoques} compare each result to baseline.
-\subsection{Wage-share decrease}
-\label{sec:orga0de266}
+Before we move foward, it is worth mentioning that we use \citeauthor*{fazzari-2020-deman-led}'s  citeyear:fazzari-2020-deman-led parameter values calibrated for the U.S. economy for a similar time range (from 1980 to 2016).
+Our first experiment assess if income distribution has a level effect on output — as in cite:mandarino-2020-worker-debt — or growth rate effect — as in cite:brochier\textsubscript{supermultiplier}\textsubscript{2018}.
+Real estate inflation increase experiment is motivated by recent US experience (from 1992 to 2019) as discussed in Section ref:sec:empirical while the last simulation aims to evaluate indebtedness stability.
+Table \ref{tab:param} in Appendix ref:append:Data presents the parameters of simulation and Table \ref{ResumoChoques} compare each result to baseline.
+
+\subsubsection{Wage-share decrease}
+\label{sec:org265fea5}
 \label{sec:Exp1}
 
-A wage-share decrease has permanent negative impact on output level --- due to changes in the supermultiplier --- and temporary negative effects on degree of capacity utilization (see Figure \ref{fig:results_1} A).
+A wage-share decrease has permanent negative impact on output level --- due to changes in the supermultiplier --- and temporary negative effects on degree of capacity utilization (see Figure ref:fig:results\textsubscript{1} A).
 So, aggregate demand growth level is temporarily smaller than baseline as a result of the lower supermultiplier.
 As a consequence of this negative level effect, both accumulation growth rate and marginal propensity to invest temporaly decline while NCC autonomous expenditures share on GDP increases.
 Since NCC autonomous expenditures growth rate remains unchanged and its share on GDP increases, aggregate demand grows faster than accumulation rate.
@@ -765,7 +837,7 @@ In summary, we report standards SSM model results:
     (iv) since autonomous expenditures growth rate does not change, distribution effects on growth rates are temporary. 
 
 
-Despite temporary growth rate effects, wage-share decrease has a permanent effect in house share on total capital stock (see Equation \ref{k_long} and Figure \ref{fig:results_2} B).
+Despite temporary growth rate effects, wage-share decrease has a permanent effect in house share on total capital stock (see Equation ref:k\textsubscript{long} and Figure ref:fig:results\textsubscript{2} B).
 As a consequence of the initially lower accumulation rate, total capital stock also grows at a temporarily lower rate.
 However, since residential investment growth rate remains unchanged, its share on total capital stock increases.
 %Another persistent effect is the higher capitalists' indebtedness compared to baseline despite the profit-share increase.
@@ -775,12 +847,12 @@ However, since residential investment growth rate remains unchanged, its share o
 Finally, we also report a persistent effect on firms' balance sheet due to wage-share decrease.
 The negative level effect on GDP implies an already mentioned temporally decrease in marginal propensity to invest.
 As a consequence of the initially lower accumulation rate and higher profit share, firms' loan-to-capital ratio decrease.
-Thus, according to Equation \ref{Long_netprofit_ratio}, gross and net profit rate remain persistently close to each other (see Figure \ref{fig:results_2} D).
+Thus, according to Equation ref:Long\textsubscript{netprofit}\textsubscript{ratio}, gross and net profit rate remain persistently close to each other (see Figure ref:fig:results\textsubscript{2} D).
 Therefore, as profits distribution policy remains the same, firms require less external funding so its indebtedness decreases.
 
 
-\subsection{Real estate inflation increase}
-\label{sec:org42569ce}
+\subsubsection{Real estate inflation increase}
+\label{sec:org2b1e1fc}
 \label{sec:Exp2}
 
 
@@ -791,7 +863,7 @@ is temporally higher than GDP growth rate due to marginal propensity to invest a
 Furthermore, capitalists' disposable income also increases as a result of the already mentioned higher GDP growth rate.
 Since loans interest remains unchanged, capitalists' indebtedness ratio decreases.
 During the traverse, gross and net profit rate are temporally close to each other as a result of profits level increase, so firms' indebtedness decreases as well.
-Therefore, similar to \textcite{mandarino-2020-worker-debt}, we also report paradox of debt.
+Therefore, similar to textcite:mandarino-2020-worker-debt, we also report paradox of debt.
 
 In summary, we report SSM standard long-run results:
     (i) GDP growth rate converges to NCC autonomous expenditure growth rate;
@@ -808,25 +880,31 @@ Firms investment follows capital stock adjustment principle, so a higher firms i
 GDP grows faster than residential investment.
 Thus, both residential investment share on GDP and degree of capacity  utilization decrease.
 In other words, both autonomous expenditures share on GDP and houses share on real assets decline as a result of the already described non-residential investment positive reaction.
-\subsection{Interest rate increase}
-\label{sec:org2d667cf}
+\subsubsection{Interest rate increase}
+\label{sec:org02827fe}
 \label{sec:Exp3}
 
 A increase in benchmark interest rate  has a persistent effect on long-run growth rate since houses own interest rate increases as well\footnote{Since we assume null spread on both mortgage and loans interest rate, an increase on deposits interest rate also increases the other ones. As a consequence, banks' net financial wealth remains unchanged.}.
 Non-residential investment growth rate decreases as a result of residential investment growth rate permanent decline, so houses share on real assets increases.
-Compared to the previous experiments, this shock has opposite effects on long-run growth rates, NCC autonomous expenditure share on GDP, utilization rate and marginal propensity to invest  than the previous one (see Figure \ref{fig:results_1}).
+Compared to the previous experiments, this shock has opposite effects on long-run growth rates, NCC autonomous expenditure share on GDP, utilization rate and marginal propensity to invest  than the previous one (see Figure ref:fig:results\textsubscript{1}).
 
 
-In particular, we report a stronger negative effect over both capitalists' and firms' balance sheet than wage-share decrease (see figures \ref{fig:results_1} and \ref{fig:results_2}).
+In particular, we report a stronger negative effect over both capitalists' and firms' balance sheet than wage-share decrease (see figures ref:fig:results\textsubscript{1} and ref:fig:results\textsubscript{2}).
 This effect is a result of the temporarily stronger decline of GDP growth rate compared to NCC autonomous expenditure growth rate.
 As a consequence of lower GDP growth rate, total profits also decreases.
 Thus, capitalists' disposable income decreases more than debt-financed consumption growth rate.
-Interest rate increase alone is enough to capitalists' indebtedness level to increase, however it is followed by GDP growth rate decrease, so the overall effect is stronger than wage-share decrease experiment (Section \ref{sec:Exp1}).
+Interest rate increase alone is enough to capitalists' indebtedness level to increase, however it is followed by GDP growth rate decrease, so the overall effect is stronger than wage-share decrease experiment (Section ref:sec:Exp1).
 Regarding firms' balance sheet, we report a temporarily negative level effect on gross profit rate and a permanent one on net profit rate. 
 So, there is a permanent increase in the gap between them due to increase in external funding and to the negative level effect on profits.
 Therefore, we find a stable debt dynamics for both capitalists and firms (other parameters remaining unchanged).
 
 
+\subsubsection{Summary\hfill{}\textsc{ignore}}
+\label{sec:orga8ca5e3}
+\begin{enumerate}
+\item Table\hfill{}\textsc{ignore}
+\label{sec:org76b6ec3}
+\begin{verbatim}
 \begin{table}[H]
 	\centering
 	\caption{Shocks summary (compared to baseline)}
@@ -835,7 +913,7 @@ Therefore, we find a stable debt dynamics for both capitalists and firms (other 
 	\begin{tabular}{c|c|c|c||c|c|c}
 		\hline\hline
 		\multirow{2}{*}{}                    & \multicolumn{3}{c||}{\textbf{traverse ($h \neq h^\star$)}} & \multicolumn{3}{c}{\textbf{Long-run ($h = h^\star$)}}                                                                                                            \\ \cline{2-7}
-		                                     & \textbf{$\Downarrow \omega$}                               & \textbf{$\Uparrow \pi$}                               & \textbf{$\Uparrow rm$} & \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow \pi$} & \textbf{$\Uparrow rm$} \\ \hline
+						     & \textbf{$\Downarrow \omega$}                               & \textbf{$\Uparrow \pi$}                               & \textbf{$\Uparrow rm$} & \textbf{$\Downarrow \omega$} & \textbf{$\Uparrow \pi$} & \textbf{$\Uparrow rm$} \\ \hline
 		\textbf{$g$}                         & -                                                          & +                                                     & -                      & 0                            & +                       & -                      \\ \hline
 		\textbf{$g_Z$}                       & 0                                                          & +                                                     & -                      & 0                            & +                       & -                      \\ \hline
 		\textbf{$u$}                         & -                                                          & +                                                     & -                      & 0                            & 0                       & 0                      \\ \hline
@@ -847,8 +925,12 @@ Therefore, we find a stable debt dynamics for both capitalists and firms (other 
 	%}
 	\caption*{\textbf{Source:} Authors' Elaboration}
 \end{table}
+\end{verbatim}
 
 
+\item Figure I\hfill{}\textsc{ignore}
+\label{sec:org10aef15}
+\begin{verbatim}
 \begin{figure}[htb]
 	\centering
 	\caption{Experiments simulations (I)}
@@ -856,7 +938,11 @@ Therefore, we find a stable debt dynamics for both capitalists and firms (other 
 	\includegraphics[width=.8\textwidth]{./figs/Compared_Shocks_1.png}
 	\caption*{\textbf{Source:} Authors' elaboration}
 \end{figure}
+\end{verbatim}
 
+\item Figure II\hfill{}\textsc{ignore}
+\label{sec:org19b6234}
+\begin{verbatim}
 \begin{figure}[htb]
 	\centering
 	\caption{Experiments simulations (II)}
@@ -864,20 +950,22 @@ Therefore, we find a stable debt dynamics for both capitalists and firms (other 
 	\includegraphics[width=.8\textwidth]{./figs/Compared_Shocks_2.png}
 	\caption*{\textbf{Source:} Authors' elaboration}
 \end{figure}
+\end{verbatim}
+\end{enumerate}
 
 
 
-\subsection{Plugging real data}
-\label{sec:orga2788ba}
+\subsubsection{Plugging real data}
+\label{sec:orga515f5d}
 \label{real_sim}
 
-Finally, we include houses own rate of interest data  discussed in section \ref{sec:empirical} (see Figure \ref{propria_investo}) into our model.
+Finally, we include houses own rate of interest data  discussed in section ref:sec:empirical (see Figure ref:propria\textsubscript{investo}) into our model.
 In order to do so, each year corresponds to ten simulated periods for visualization reasons.
 Additionally, we have abandoned the assumption of a fixed share (\(R\)) between residential investment and capitalist consumption.
 In order to include capitalists consumption without running into asymptotic paths, we defined its growth rate as the geometric average of residential investment growth rate from 1992 to 2019.
 
-Although rudimentary, this procedure allows us to replicate some stylized facts presented in section \ref{sec:empirical} and in the literature (see Figure \ref{fig:Realresults_1}).
-Similarly to Figure \ref{fig:cycles}, we report a clockwise relationship between autonomous expenditure share on GDP and rate of capacity utilization.
+Although rudimentary, this procedure allows us to replicate some stylized facts presented in section ref:sec:empirical and in the literature (see Figure ref:fig:Realresults\textsubscript{1}).
+Similarly to Figure ref:fig:cycles, we report a clockwise relationship between autonomous expenditure share on GDP and rate of capacity utilization.
 With due mediation, we also report a smooth gravitation of capacity utilization ratio towards the normal one.
 As expected, NCC autonomous expenditures (notably residential investment) describes accumulation and GDP growth rate. 
 Together these results provide a first step towards the connection between house bubbles and aggregate demand within the Sraffian Supermultiplier framework.
@@ -887,6 +975,7 @@ Together these results provide a first step towards the connection between house
 
 
 
+\begin{verbatim}
 \begin{figure}[htb]
 	\centering
 	\caption{Real Data Experiments simulations}
@@ -894,12 +983,18 @@ Together these results provide a first step towards the connection between house
 	\includegraphics[width=.8\textwidth]{./figs/Real_Shocks_1.png}
 	\caption*{\textbf{Source:} Authors' elaboration}
 \end{figure}
+\end{verbatim}
 
 
 
 \section{Concluding remarks}
-\label{sec:orgd24e52f}
+\label{sec:orgcac3e1a}
 \label{sec:Conclusion}
+\subsection{Concluding Remarks\hfill{}\textsc{ignore}}
+\label{sec:org7ff81c5}
+
+
+
 This paper contributes to demand-led growth agenda, taking in consideration recent efforts of embedding it in a SFC framework.
 Our novelty is the introduction of residential investment determined by houses own rate of interest in a SSM-SFC model.
 Residential investment has beeen included due to recent empirical works showing its relevance for macroeconomic dynamics.
@@ -918,26 +1013,27 @@ Future research should increase the complexity of this model in order to underst
 Some extensions could be exploring other determinants of its growth rate and  its effects on banks' net financial wealth.
 This emerging ``housing agenda'' should also moves towards institutional grounds.
 For example, future research could assess which institutional arrangements allow/inhibit the connection between house bubble, credit granting/rationing and financial instability.
-Nevertheless, this is a first step in a wider research agenda on the role of residential investment for economic growth and business cycles. 
+Nevertheless, this is a little step in a wider research agenda on the role of residential investment for economic growth and business cycles.
 
 
 \section*{Disclosure statement}
-\label{sec:org867ef50}
+\label{sec:orgb16f4bf}
 No potential conflict of interest was reported by the authors.
 
 
 \section*{References}
-\label{sec:orgf457101}
+\label{sec:org8550ffb}
 \printbibliography[heading=none]
 
 
 \appendix
 
 \section{Numerical appendix}
-\label{sec:org980f131}
+\label{sec:org9ddcf83}
 \label{append:Data}
 
 
+\begin{verbatim}
 \begin{table}[H]
 \caption{Parameters of variables}
 \centering
@@ -945,10 +1041,23 @@ No potential conflict of interest was reported by the authors.
 \input{./tabs/parameters.tex}
 \caption*{\textbf{Source:} Authors' elaboration}
 \end{table}
+\end{verbatim}
 
 \section{Sensibility analysis}
-\label{sec:org25a1757}
+\label{sec:org6a88096}
 \label{append:Sensib}
+
+\subsubsection{Config\hfill{}\textsc{ignore}}
+\label{sec:org015b47a}
+
+\subsubsection{Simulation\hfill{}\textsc{ignore}}
+\label{sec:org375e9be}
+
+\subsubsection{Table\hfill{}\textsc{ignore}}
+\label{sec:org6f94ff9}
+
+
+\begin{verbatim}
 \begin{table}[H]
 \caption{Effect of individual parameters\\on model stability}
 \label{tab:sensibility}
@@ -956,4 +1065,5 @@ No potential conflict of interest was reported by the authors.
 \input{./tabs/sobol.tex}
 \caption*{\textbf{Source:} Authors' elaboration}
 \end{table}
+\end{verbatim}
 \end{document}
