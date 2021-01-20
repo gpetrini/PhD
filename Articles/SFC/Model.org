@@ -42,8 +42,8 @@ determined by firms' capital stock (Equation ref:_YFC):
 #+end_export
 where $Y_L$ and $Y_K$ stands for full employment and full capacity output respectively, $v$ is exogenous capital-output ratio and $u$ is rate of capacity utilization.
 
-We further assume an economic structure composed by both workers (denoted by subscript $w$) and capitalists (denoted by subscript $k$) households.
-Thus, demand-determined output level ($Y$, Equation ref:_Y)  is the sum of workers and capitalists consumption ($C_w$ and $C_k$ respectively) and both households and firms investment ($I_h$ and $I_f$ respectively) and only the latter creates capacity to the business sector of the economy:
+We further assume a social structure composed by both workers (denoted by subscript $w$) and capitalists (denoted by subscript $k$) households.
+Thus, demand determined output level ($Y$, Equation ref:_Y)  is the sum of workers and capitalists consumption ($C_w$ and $C_k$ respectively) and both households and firms investment ($I_h$ and $I_f$ respectively) and only the latter creates capacity to the business sector of the economy:
 #+BEGIN_SRC latex
 \begin{equation}
 \label{_Ct}
@@ -75,7 +75,7 @@ Thus, demand-determined output level ($Y$, Equation ref:_Y)  is the sum of worke
 \end{equation}
 #+end_export
 
-In other words, from institutional sectors perspective, household expenditures have two components (consumption and residential investment) and firms just one (non-residential investment).
+In other words, from a institutional sectors perspective, household expenditures have two components (consumption and residential investment) and firms just one (non-residential investment).
 So, the novelty of this model is the inclusion of a second investment component all made by household sector and held by capitalists households for simplicity. 
 Therefore, this economy produces two types of real assets: firms productive capital ($K_f$) and households houses ($K_h$):
 #+BEGIN_SRC latex
@@ -144,7 +144,7 @@ In this model, capitalist consumption ($C_k$) is fully autonomous and financed b
 We assume that workers expend what they earn while capitalists earn what they expend, so workers financial and real wealth are both null.
 Firms finance their investment primarily by undistributed profits ($FU$) and the residual by bank loans ($L_f$) --- thus they do not hold deposits. 
 Banks create credit \textit{ex nihilo} and then collect the deposits, paying the same interest rate that they charge.
-On the following subsections, we will present the equations of each of these institutional sectors.
+On the following subsections, we will present the equations of each of those institutional sectors.
 
 
 
@@ -410,7 +410,7 @@ Firms finance part of their investment with credit ($L_f$) and capitalists house
 For simplicity, we assume null bank spreads ($\sigma_{mo} = \sigma_l = 0$) so interest rate on mortgages ($r_{mo}$) and on loans ($r_{l}$)
 are the same as on deposits ($r_{m}$) which is  exogenously determined by banks.
 Banks net balances ($NFW_b$) are defined by interests received net of interests payments. 
-As those interests are the same, banks net wealth is necessarily zero (see table \ref{Matriz_Estoques}) and deposits are /residuum/:
+As those interests are the same, banks net wealth is necessarily zero (see table \ref{Matriz_Estoques}) and deposits are residuum:
 
 #+BEGIN_SRC latex
 \begin{equation}
@@ -620,7 +620,7 @@ V_{nk} = K_{hd}\cdot p_h + M - L_{k} - MO
 #+end_export
 
 
-In order to fulfill our goals, we employ \citeauthor*{freitas_baseline_2020}'s citeyear:freitas_baseline_2020 procedure in which NCC autonomous expenditure ($Z$) composition ($R$) remains unchanged. Thus, we can express capitalists total consumption as follows:
+In order to fulfill our goals, we employ \citeauthor*{freitas_baseline_2020}'s citeyear:freitas_baseline_2020 procedure in which NCC autonomous expenditure ($Z$) composition ($R$) remains unchanged.
 
 #+BEGIN_SRC latex
 \begin{equation}

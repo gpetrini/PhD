@@ -1097,11 +1097,11 @@ fig.savefig("./figs/Real_Shocks_2.png", dpi=600)
 
 ** Introduction                                                      :ignore:
 
-In this Section, we present the results of the following experiments: 
+In this Section, we present the results of the following numerical experiments: 
     (i) wage-share decrease;
     (ii) house price inflation;
-    (iii) deposits interest rate increase.
-In order to evaluate if our model is able to reproduce some stylized facts, we introduce U.S. houses own rate of interest observed data (from 1992 to 2019) into our numerical simulation.
+    (iii) benchmark interest rate increase.
+In order to evaluate if our model is able to reproduce some stylized facts, we also perform a numerical simulation with US data of houses own rate of interest (from 1992 to 2019). 
 Before we move foward, it is worth mentioning that we use \citeauthor*{fazzari-2020-deman-led}'s  citeyear:fazzari-2020-deman-led parameter values calibrated for the U.S. economy for a similar time range (from 1980 to 2016).
 Our first experiment assess if income distribution has a level effect on output — as in cite:mandarino-2020-worker-debt — or growth rate effect — as in cite:brochier_supermultiplier_2018.
 Real estate inflation increase experiment is motivated by recent US experience (from 1992 to 2019) as discussed in Section ref:sec:empirical while the last simulation aims to evaluate indebtedness stability.
@@ -1125,7 +1125,7 @@ Finally, Appendix \ref{Appen:Sensibility} presents a primer parameters sensibili
 
 A wage-share decrease has permanent negative impact on output level --- due to changes in the supermultiplier --- and temporary negative effects on degree of capacity utilization (see Figure ref:fig:results_1 A).
 So, aggregate demand growth level is temporarily smaller than baseline as a result of the lower supermultiplier.
-As a consequence of this negative level effect, both accumulation growth rate and marginal propensity to invest temporaly decline while NCC autonomous expenditures share on GDP increases.
+As a consequence of this negative level effect, both accumulation growth rate and marginal propensity to invest temporally decline while NCC autonomous expenditures share on GDP increases.
 Since NCC autonomous expenditures growth rate remains unchanged and its share on GDP increases, aggregate demand grows faster than accumulation rate.
 As a result, degree of capacity utilization is higher than the normal one.
 During the traverse, marginal propensity to invest endogenously adjust to discrepancies between actual and normal capacity utilization rates.
@@ -1134,11 +1134,11 @@ This endogenous adjustment process continues as long as actual rate of capacity 
 In summary, we report standards SSM model results:
     (i) marginal propensity to invest decrease is temporally and returns to baseline level;
     (ii) rate of capacity utilization moves towards normal one;
-    (iii) supermultiplier decreases and autonomous expenditures share increases due to GDP decline and; 
+    (iii) supermultiplier decreases and autonomous expenditures share of GDP increases;
     (iv) since autonomous expenditures growth rate does not change, distribution effects on growth rates are temporary. 
 
 
-Despite temporary growth rate effects, wage-share decrease has a permanent effect in house share on total capital stock (see Equation ref:k_long and Figure ref:fig:results_2 B).
+Despite temporary growth rate effects, wage-share decrease has a permanent effect on house share on total capital stock (see Equation ref:k_long and Figure ref:fig:results_2 B).
 As a consequence of the initially lower accumulation rate, total capital stock also grows at a temporarily lower rate.
 However, since residential investment growth rate remains unchanged, its share on total capital stock increases.
 #+LATEX:%Another persistent effect is the higher capitalists' indebtedness compared to baseline despite the profit-share increase.
@@ -1169,7 +1169,6 @@ In summary, we report SSM standard long-run results:
     (i) GDP growth rate converges to NCC autonomous expenditure growth rate;
     (ii) marginal propensity to invest remains persistently higher compared to baseline and;
     (iii) utilization rate moves gradually towards the normal one.
-As mentioned before, our model distinctiveness is the existence of two types of capital stocks since households invest as well.
 
 
 The most distinct result is real houses share decreases on total capital stock as a result of residential investment growth rate increase.

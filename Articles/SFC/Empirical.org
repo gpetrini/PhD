@@ -897,7 +897,7 @@ plt.clf()
 ** Introduction                                                      :ignore:
 
 *** Literature state-of-art                                          :ignore:
-A growing body of empirical demand-led literature has evaluated the role of NCC autonomous expenditures.
+A growing body of empirical literature on demand-led growth has evaluated the role of NCC autonomous expenditures.
 textcite:freitas_pattern_2013 present a growth accounting decomposition for Brazil from 1970 to 2005 and report the relevance of those expenditures in describing Brazilian GDP growth rate.
 textcite:braga_investment_2020 shows evidence that economic growth and non-residential investment are explained by NCC autonomous expenditures in the Brazilian economy from 1962 to 2015.
 For the U.S., textcite:girardi_long-run_2016 show that NCC autonomous expenditures have permanent effects on growth rate.
@@ -923,7 +923,7 @@ They report that residential investment predicts the US  macroeconomic fluctuati
 
 *** Lack of residential investment literature                        :ignore:
 After the Great Recession (2008-2009), there has been growing macroeconometric studies on housing.
-However, most of them have emphasized house prices and not its volume (residential investment).
+However, most of them have emphasized house prices and not residential investment.
 textcite:goodhart_house_2008 for instance, estimate a time-series fixed effects panel data for 17 industrialized countries from 1970 to 2006. They report a multidirectional relation between money, credit, house prices and GDP growth and have found stronger effects during housing booms[fn::textcite:Arestis_Bank_2014 also found a  direct relationship between house prices and credit volume based on cointegration and error correction techniques for 9 OECD countries from 1970 to 2011.]. 
 textcite:wood_house_2020 report that house prices are relevant for describing household indebtedness from 1980 to 2017 in 18 advance economies.
 However, both studies do not include residential investment.
@@ -934,8 +934,8 @@ Although those approaches are interesting, they fail to take into account the co
 
 *** Section structure                                                :ignore:
 
-From this review of recent empirical literature, it is noticeable that few macroeconometric studies have investigated residential investment in any systematic way.
-In this paper, we argue that besides this growing body of literature that recognizes the macroeconomic importance of residential investment, little progress has been made in connecting house bubbles with its macroeconomics consequences.
+From this review of recent empirical literature, it is noticeable that few macroeconometric studies have investigated residential investment in a systematic way.
+In this paper, we argue that besides this growing body of literature that recognizes the macroeconomic importance of residential investment, little progress has been made in connecting  it to house price bubbles.
 On the following subsection, we present some residential investment-related stylized facts in order to highlight its relevance for the US business cycle which will be compared to the theoretical model in Section ref:real_sim.
 Next, we analyze the connection between residential investment, real estate inflation and mortgage interest rate during the U.S. housing bubble episode.
 
@@ -946,7 +946,7 @@ Next, we analyze the connection between residential investment, real estate infl
 *** Investmento residencial e o ciclo econômico                      :ignore:
 As discussed before, both textcites:green_follow_1997,leamer_housing_2007 made it clear how important this particular expenditure is to USA business cycle. In this subsection, we show some residential investment stylized facts for the US in more detail.
 
-Figure ref:Investo_Resid_GDP shows how residential investment movements help to predict recessions. Recessions are anticipated by a reduction of residential investment share on GDP, while the expansion of those expenditures precedes economic recovery. The fall of residential investment in 1966-67 are an exception because the increase of military expenditures because of Vietnam War offset an eventual economic downturn \cite[p.~20]{leamer_housing_2007}. Another exception is the dot-com bubble 2000 crisis that was not caused by residential investment.
+Figure ref:Investo_Resid_GDP shows how residential investment dynamics help to predict recessions. Recessions are anticipated by a reduction of residential investment share on GDP, while the expansion of those expenditures precedes economic recovery. The fall of residential investment in 1966-67 are an exception because the increase of military expenditures due to Vietnam War offsets an eventual economic downturn \cite[p.~20]{leamer_housing_2007}. Another exception is the dot-com bubble 2000 crisis that was not caused by residential investment.
 
 
 
@@ -1018,10 +1018,10 @@ The same could be said about the growth of the richest mortgage value.
 
 ** Housing bubble and residential investment
 #+LATEX: \label{sec_own}
-Once residential investment is relevant to describe the U.S. business cycle, it is important to understand its determinants.
+Once we understand the relevance of residential investment to describe the U.S. business cycle, it is important to investigate its determinants.
 There are at some key variables to assess the residential investment behavior.
 The first one is the mortgage interest rate, which determines the financial cost of buying houses and the weight of debt-service on house investors' income.
-The other is the rate of change of house prices.
+The other is the house price inflation.
 The one who owns a house --- or intend to buy one --- takes its price variation in consideration for speculative reasons or just to prevent capital loss and reductions of net worth.
 
 Based on \citeauthor*{Sraffa_Own_1932}'s \citeyear{Sraffa_Own_1932} commodity rate of interest, textcite:teixeira_crescimento_2015 proposes the so-called houses own rate of interest.
@@ -1037,13 +1037,13 @@ own = \left(\frac{1+r_{mo}}{1+\pi}\right) -1
 #+END_EXPORT
 
 During a housing bubble period, it is real estate inflation that governs own's interest rate movements. Therefore, the lower this rate is, the greater the capital gains (in real estate) for speculating with real estate will be. This negative relation between houses own interest rate and residential investment is shown in Figure \ref{propria_investo} in which this particular real interest rate has been gradually decreased over the real estate boom (2002-5).
-Additionally, Figure ref:propria_investo illustrates how this  procedure is more adequate than a consumer price index deflation --- as \textcite[p.~143--6]{fair_macroeconometric_2013} does --- to describe residential investment growth rate[fn:: Based on this concept, textcite:petrini_demanda_2019 estimated time series econometric model for the U.S. (1992 to 2019) and presents empirical evidence that residential investment growth rate and houses own rate of interest have a common negative long-run trend.  Furthermore, textcite:petrini_demanda_2019 also reports a unidirectional long-run causality from houses own rate of interest to residential investment growth rate.].
+Additionally, Figure ref:propria_investo illustrates this procedure is more adequate than a consumer price index deflation --- as \textcite[p.~143--6]{fair_macroeconometric_2013} does --- to describe residential investment growth rate[fn:: Based on this concept, textcite:petrini_demanda_2019 estimated time series econometric model for the U.S. (1992 to 2019) and presents empirical evidence that residential investment growth rate and houses own rate of interest have a common negative long-run trend.  Furthermore, textcite:petrini_demanda_2019 also reports a unidirectional long-run causality from houses own rate of interest to residential investment growth rate.].
 
 
 #+begin_export latex
 \begin{figure}[htb]
 	\centering
-	\caption{Residential investment growth rate vs. Houses Own interest rate}
+	\caption{Residential investment growth rate vs. Houses Own rate of interest}
 	\label{propria_investo}
 	\includegraphics[width=.8\textwidth]{./figs/Own_gI}
 	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' elaboration}

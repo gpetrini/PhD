@@ -1,5 +1,7 @@
 #+TITLE: Long-run effective demand and residential investment: a Sraffian supermultiplier based analysis
-#+AUTHOR:
+#+AUTHOR: Gabriel Petrini, Lucas Teixeira
+# #+AUTHOR:
+# #+EMAIL: gpetrinidasilveira@gmail.com, lucas.teixeira@unicamp.br
 #+OPTIONS: toc:nil
 #+LATEX_CLASS: article
 #+LATEX_CLASS_OPTIONS: [12pt]
@@ -13,12 +15,12 @@
 
 #+BEGIN_abstract
 In this paper, we build a fully specified parsimonious Sraffian supermultiplier stock-flow consistent model (SSM-SFC) with two non-capacity creating autonomous expenditures: residential investment and debt-financed consumption.
-Our model represents a closed and without government economy with workers and capitalists households and only the latter are not credit constrained.
+Our model represents a closed economy without government with workers and capitalists households and only the latter are not credit constrained.
 The introduction of residential investment implies that our SSM-SFC model has two real assets: firms' productive capital and households' real estate.
 In our model, residential investment growth rate responds to changes of house price inflation.
 The numerical simulation experiments shows that our model keeps the main standard Sraffian supermultiplier growth models results.
 As a particular result, an increase of residential investment growth rate implies a decrease of real estate share in total real assets.
-Inspired by the recent U.S. bubble episode, we plug house price inflation data (1992-2019).
+Inspired by the recent U.S. bubble episode, we plug house price inflation data (1992-2019) into our model.
 Although simple, our numerical simulations are capable to reproduce some stylized facts such as residential investment leading the business cycle and capital accumulation and a clockwise pattern between non-capacity creating autonomous expenditures and capacity utilization rate.
 	
 #+LATEX: \noindent \textbf{Keywords:} Residential Investment; Sraffian supermultiplier; Asset bubble;  Stock-Flow Consistent approach.
@@ -28,20 +30,10 @@ Although simple, our numerical simulations are capable to reproduce some stylize
 #+LATEX: \setlength{\parindent}{4em}
 #+LATEX: \setlength{\parskip}{1em}
 
-* General TODOs                                                    :noexport:
-
-** DONE [#B] Corrigir referências das seções
-   CLOSED: [2020-08-03 seg 12:07]
- 
-   Deve-se ter um espaço depois do comando latex
-** TODO [#B] Padronizar: Housing, Residential Investiment
-   - [ ] Residential investment
-
 
 * Introduction
 #+LATEX: \label{sec:introduction}
 #+INCLUDE: "Introduction.org"
-
 
 
 * Empirical motivation
@@ -77,12 +69,12 @@ Although simple, our numerical simulations are capable to reproduce some stylize
 #+INCLUDE: "Conclusion.org"
 
 
-* Acknowledgments :noexport:
+* Acknowledgments
   :PROPERTIES:
   :UNNUMBERED: t
   :END:
 
-#+LATEX: \noindent The authors wish to acknowledge the financial support from the Brazilian National Research Council (CNPq; grant 130777/2018-8). We  are  grateful  to  Lídia  Brochier,  Carolina  Baltar,  Franklin  Serrano, Stefano Di Bucchianico  and Fabrício Pitombo Leite for  discussions,  as  well  as  comments  by  the participants of Cecon/Unicamp and UFRJ Political Economy research seminars and the participants of XII AKB meeting, 20th FMM forum, 46th EEA Annual Conference and EAEPE 2020 Conference. Any remaining errors are, of course, our own.
+#+LATEX:  The authors wish to acknowledge the financial support from the Brazilian National Research Council (CNPq; grant 130777/2018-8). We  are  grateful  to  Lídia  Brochier,  Carolina  Baltar,  Franklin  Serrano, Stefano Di Bucchianico  and Fabrício Pitombo Leite for  discussions,  as  well  as  comments  by  the participants of Cecon/Unicamp and UFRJ Political Economy research seminars and the participants of XII AKB meeting, 20th FMM forum, 46th EEA Annual Conference and EAEPE 2020 Conference. Any remaining errors are, of course, our own.
 
 * Disclosure statement
   :PROPERTIES:
@@ -156,7 +148,7 @@ $$
 Tr(J) = -g_Z < 0
 $$
 As both $\gamma_u$ and $u_N$ are strictly positive values, we just need to check positive trace condition.
-Differently from textcite:freitas_growth_2015, we do not assume this condition initially.
+Differently from \textcite{freitas_growth_2015}, we do not assume this condition initially.
 Thus, our system is stable (near the fully-adjusted position) only if houses own interest rate (Equation ref:g_Z_own) meets the following inequality:
 $$
 g_{I_h} = g_Z = \phi_0 - \phi_1\cdot own > 0

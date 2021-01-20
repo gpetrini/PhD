@@ -655,7 +655,7 @@ However, it has permanent effects over capital stock composition as a result of 
 
 In this subsection, we present traverse and long-run equilibrium equations.
 According to equation ref:short_u, when aggregate demand and capacity output grow at different rates, capacity utilization will change. 
-This discrepancy triggers marginal propensity to invest adjustment mechanism (see Equation ref:_h). 
+The discrepancy between actual and normal rate of capacity utilization triggers marginal propensity to invest adjustment mechanism (see Equation ref:_h). 
 During the adjustment process, both supermultiplier and NCC autonomous expenditure share on GDP changes.
 Equation ref:g_medium presents aggregate demand during the traverse:
 
@@ -663,7 +663,7 @@ Equation ref:g_medium presents aggregate demand during the traverse:
 \label{g_medium}
 g_t = g_{Z} + \frac{\Delta h}{1 - \omega - h_{t}}
 \end{equation}
-This process continues as long as GDP growth rate moves towards NCC autonomous expenditure growth rate (in this case, residential investment and capitalist consumption). Next, we analyze the long-run equilibrium values and steady growth stock ratios.
+This process continues as long as GDP growth rate moves towards NCC autonomous expenditure growth rate (in this case, residential investment and capitalist consumption). 
 
 As mentioned before, firms’ marginal propensity to invest reacts to discrepancies between the rate of capacity utilization and the normal one.  This adjustment process continues until actual and normal rate of capacity utilization are equal:
 
@@ -677,7 +677,7 @@ and long-run marginal propensity to invest will be:
 \label{h_long}
 h^{\star} = g^{\star}\cdot \frac{v}{u^{\star}}
 \end{equation}
-Finally, replacing Equation ref:h_long into Equation ref:Y_nivel we obtain long-run GDP level as shown in Equation
+Finally, replacing Equation ref:h_long into Equation ref:Y_nivel we obtain long-run GDP level as shown in Equation ref:Y_lr
 
 \begin{equation}
 \label{Y_lr}
@@ -770,7 +770,7 @@ $$
 \label{mortgage_ratio}
 mo^\star = 1
 \end{equation}
-Thus, adding Equations ref:capitalist_ratio and ref:mortgage_ratio and, we get capitalists' total debt in terms of houses ($d^\star$, Equation ref:debt_ratio)
+Thus, adding Equations ref:capitalist_ratio and ref:mortgage_ratio and, we get households capitalists' total debt in terms of houses ($d^\star$, Equation ref:debt_ratio)
 
 $$
 d^\star = 1 + \frac{R}{1-R}
