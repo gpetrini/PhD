@@ -1,16 +1,19 @@
+#+OPTIONS: toc:nil email:nil author:nil
 #+TITLE: Long-run effective demand and residential investment: a Sraffian supermultiplier based analysis
-#+AUTHOR: Gabriel Petrini, Lucas Teixeira
-# #+AUTHOR:
-# #+EMAIL: gpetrinidasilveira@gmail.com, lucas.teixeira@unicamp.br
-#+OPTIONS: toc:nil
+# #+AUTHOR: Lucas Teixeira \and Gabriel Petrini
+# #+EMAIL: Assistent Professor at University of Campinas (Brazil),  PhD Student at University of Campinas (Brazil)
 #+LATEX_CLASS: article
 #+LATEX_CLASS_OPTIONS: [12pt]
 #+LATEX_HEADER: \usepackage[document]{ragged2e}
 #+LATEX_HEADER: \usepackage[none]{hyphenat} % Avoid hyphenization
 #+LATEX_HEADER: \usepackage[right=3cm,left=3cm, footskip=0.25in]{geometry}
 #+LATEX_HEADER: \addbibresource{refs.bib}
-#+LATEX_HEADER: \usepackage{svg, caption, multirow, booktabs, setspace, indentfirst}
+#+LATEX_HEADER: \usepackage{svg, caption, multirow, booktabs, setspace, indentfirst, authblk}
 #+LATEX_HEADER: \usepackage[english]{babel}
+#+LATEX_HEADER:\author[1]{Lucas Teixeira}
+#+LATEX_HEADER:\affil[1]{Assistent Professor at University of Campinas (Brazil)} % Author affiliation
+#+LATEX_HEADER:\author[2]{Gabriel Petrini}
+#+LATEX_HEADER:\affil[2]{PhD Student at University of Campinas (Brazil)} % Author affiliation
 #+PROPERTY: header-args:python :python /usr/bin/python3 :exports none :eval never-export
 
 #+BEGIN_abstract
