@@ -3,12 +3,13 @@
 #+AUTHOR: Gabriel Petrini
 #+LANG: en
 #+TODO: Searching Filed | Downloaded Scripted Cleaned | NotFound
-#+PROPERTY: COLUMNS  %TODO %ITEM %VAR_TYPE(Var.) %FREQUENCY(FRQ)  %START(Start) %END(End) %COVERAGE(Cov) %SEASONAL_ADJ(Season. Adj) %PUBLIC(Public) %URL
+#+PROPERTY: COLUMNS  %TODO %ITEM %VAR_TYPE(Var.) %FREQUENCY(FRQ)  %START(Start) %END(End) %COVERAGE(Cov) %SEASONAL_ADJ(Season. Adj) %KEY(Key) %URL
 #+PROPERTY: FREQUENCY_ALL Yearly Quarterly Monthly Weekly Daily
 #+PROPERTY: START_ALL
 #+PROPERTY: END_ALL
 #+PROPERTY: DESCRIPTION_ALL
-#+PROPERTY: COVERAGE_ALL Block Country Region Province State City ZipCode
+#+PROPERTY: KEY_ALL
+#+PROPERTY: COVERAGE_ALL "Block and Domestic Currency" Country Region Province State City ZipCode
 #+PROPERTY: PUBLIC_ALL Yes No
 #+PROPERTY: SEASONAL_ADJ_ALL Yes No "Not Informed"
 #+PROPERTY: VAR_TYPE_ALL "YoY pct" "pct change" "ratio" "nominal" "real" "index" "Dummy"
@@ -32,17 +33,23 @@
 * Data Sources Summary
 
 #+BEGIN: columnview :maxlevel 3 :id global
-| TODO  | ITEM                           | Var.    | FRQ       | Start   | End     | Cov     | Season. Adj  | Public | URL  |
-|-------+--------------------------------+---------+-----------+---------+---------+---------+--------------+--------+------|
-|       | HTML headers                   |         |           |         |         |         |              |        |      |
-|       | Data Sources Summary           |         |           |         |         |         |              |        |      |
-|       | Mortgage Loan to Value Ratio   |         |           |         |         |         |              |        |      |
-| Filed | England                        | ratio   | Quarterly | 1974Q1  | 2018Q3  | Country | Not Informed | Yes    | [[http://opendatacommunities.org/data/housing-market/ratio/loan-to-value][Link]] |
-| Filed | USA                            | ratio   | Monthly   | 2017M01 | 2020M03 | Country | Not Informed | Yes    | [[https://www.fhfa.gov/DataTools/Downloads/Documents/NATIONAL-MORTGAGE-DATABASE-(NMDB)-AGGREGATE-DATA/National-Statistics-for-New-Residential-Mortgages-in-the-United-States.xlsx][Link]] |
-|       | Mortgage Interest Rate by Type |         |           |         |         |         |              |        |      |
-| Filed | USA                            |         |           |         |         |         |              |        |      |
-| Filed | Fixed                          | nominal | Monthly   | 1986    | 2018    | Country | Not Informed | Yes    | [[https://www.fhfa.gov/DataTools/Downloads/Documents/Historical-Summary-Tables/Table20-2019-by-Month.xls][Link]] |
-| Filed | Adjustable                     | nominal | Monthly   | 1986    | 2018    | Country | Not Informed | Yes    | [[https://www.fhfa.gov/DataTools/Downloads/Documents/Historical-Summary-Tables/Table23-2019-by-Month.xls][Link]] |
+| TODO  | ITEM                                                           | Var.    | FRQ       |   Start |     End | Cov     | Season. Adj  | Public | URL  |
+|-------+----------------------------------------------------------------+---------+-----------+---------+---------+---------+--------------+--------+------|
+|       | HTML headers                                                   |         |           |         |         |         |              |        |      |
+|       | Usefull links                                                  |         |           |         |         |         |              |        |      |
+|       | Data Sources Summary                                           |         |           |         |         |         |              |        |      |
+|       | Mortgage Loan to Value Ratio                                   |         |           |         |         |         |              |        |      |
+| Filed | England                                                        | ratio   | Quarterly |  1974Q1 |  2018Q3 | Country | Not Informed | Yes    | [[http://opendatacommunities.org/data/housing-market/ratio/loan-to-value][Link]] |
+| Filed | USA                                                            | ratio   | Monthly   | 2017M01 | 2020M03 | Country | Not Informed | Yes    | [[https://www.fhfa.gov/DataTools/Downloads/Documents/NATIONAL-MORTGAGE-DATABASE-(NMDB)-AGGREGATE-DATA/National-Statistics-for-New-Residential-Mortgages-in-the-United-States.xlsx][Link]] |
+|       | Share of variable rate loans in total loans for house purchase |         |           |         |         |         |              |        |      |
+| Filed | USA                                                            |         |           |         |         |         |              |        |      |
+| Filed | Fixed                                                          | nominal | Monthly   |    1986 |    2018 | Country | Not Informed | Yes    | [[https://www.fhfa.gov/DataTools/Downloads/Documents/Historical-Summary-Tables/Table20-2019-by-Month.xls][Link]] |
+| Filed | Adjustable                                                     | nominal | Monthly   |    1986 |    2018 | Country | Not Informed | Yes    | [[https://www.fhfa.gov/DataTools/Downloads/Documents/Historical-Summary-Tables/Table23-2019-by-Month.xls][Link]] |
+| Filed | Austria                                                        | ratio   | Monthly   |    2003 |    2020 | Country | Not Informed | Yes    | [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.AT.SVLHPHH.EUR.MIR.Z][Link]] |
+| Filed | Belgium                                                        | ratio   | Monthly   |    2003 |    2020 | Country | Not Informed | Yes    | [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.BE.SVLHPHH.EUR.MIR.Z][Link]] |
+|       | Loan Purpose Type                                              |         |           |         |         |         |              |        |      |
+|       | Property Usage Type                                            |         |           |         |         |         |              |        |      |
+|       | Borrower Credit Score Value                                    |         |           |         |         |         |              |        |      |
 #+END
 
 * Mortgage Loan to Value Ratio
@@ -80,10 +87,12 @@ This dataset has one year data per spreadcheet. Additionaly, there are other dat
 
 *OBS:* Date for *New* Residential Mortgage.
 
-* Mortgage Interest Rate by Type
-
-** Filed USA
-*** Filed Fixed
+* Share of variable rate loans in total loans for house purchase
+** Searching Canada
+** Searching Japan
+** Searching Norway
+** Searching Switzerland
+** Filed USA - Fixed
 :PROPERTIES:
 :URL: [[https://www.fhfa.gov/DataTools/Downloads/Documents/Historical-Summary-Tables/Table20-2019-by-Month.xls][Link]]
 :FREQUENCY: Monthly
@@ -96,7 +105,7 @@ This dataset has one year data per spreadcheet. Additionaly, there are other dat
 :VAR_TYPE: nominal
 :END:
 
-*** Filed Adjustable
+** Filed USA - Adjustable
 :PROPERTIES:
 :URL: [[https://www.fhfa.gov/DataTools/Downloads/Documents/Historical-Summary-Tables/Table23-2019-by-Month.xls][Link]]
 :FREQUENCY: Monthly
@@ -108,6 +117,357 @@ This dataset has one year data per spreadcheet. Additionaly, there are other dat
 :SEASONAL_ADJ: Not Informed
 :VAR_TYPE: nominal
 :END:
+
+** Filed Austria
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.AT.SVLHPHH.EUR.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:  RAI.M.AT.SVLHPHH.EUR.MIR.Z
+:END:
+
+** Filed Belgium
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.BE.SVLHPHH.EUR.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:   RAI.M.BE.SVLHPHH.EUR.MIR.Z
+:END:
+
+** Filed Bulgaria
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.BG.SVLHPHH.U1.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:    RAI.M.BG.SVLHPHH.U1.MIR.Z
+:END:
+
+** Filed Cyprus
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.CY.SVLHPHH.EUR.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:  RAI.M.CY.SVLHPHH.EUR.MIR.Z
+:END:
+
+** Filed Czech Republic (CZ)
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.CZ.SVLHPHH.U1.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:  RAI.M.CZ.SVLHPHH.U1.MIR.Z
+:END:
+
+** Filed Germany (DE)
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.DE.SVLHPHH.EUR.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:   RAI.M.DE.SVLHPHH.EUR.MIR.Z
+:END:
+
+** Filed Denmark (DK)
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.DK.SVLHPHH.U1.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:  RAI.M.DK.SVLHPHH.U1.MIR.Z
+:END:
+
+** Filed Estonia (EE)
+:PROPERTIES:
+:URL:  [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.EE.SVLHPHH.EUR.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:  RAI.M.DK.SVLHPHH.U1.MIR.Z
+:END:
+
+** Filed Estonia (EE)
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.EE.SVLHPHH.U1.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Block and Domestic Currency
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:  RAI.M.EE.SVLHPHH.U1.MIR.Z
+:END:
+
+** Filed Spain (ES)
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.ES.SVLHPHH.EUR.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:  RAI.M.ES.SVLHPHH.EUR.MIR.Z
+:END:
+
+** Filed Finland (FI)
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.ES.SVLHPHH.EUR.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:  RAI.M.FI.SVLHPHH.EUR.MIR.Z
+:END:
+
+** Filed France (FR)
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.FR.SVLHPHH.EUR.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:  RAI.M.FR.SVLHPHH.EUR.MIR.Z
+:END:
+
+** Filed United Kingdom (GB)
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.GB.SVLHPHH.GBP.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:  RAI.M.GB.SVLHPHH.GBP.MIR.Z
+:END:
+
+** Filed Greece (GR)
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.GR.SVLHPHH.EUR.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:  RAI.M.GR.SVLHPHH.EUR.MIR.Z
+:END:
+
+** Filed Croatia (HR)
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.HR.SVLHPHH.U1.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:  RAI.M.HR.SVLHPHH.U1.MIR.Z
+:END:
+
+** Filed Hungary (HU)
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.HU.SVLHPHH.U1.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:  RAI.M.HU.SVLHPHH.U1.MIR.Z
+:END:
+
+** Filed Ireland (IE)
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.IE.SVLHPHH.EUR.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY: RAI.M.IE.SVLHPHH.EUR.MIR.Z
+:END:
+
+** Filed Italy (IT)
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.IT.SVLHPHH.EUR.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:  RAI.M.IT.SVLHPHH.EUR.MIR.Z
+:END:
+
+** Filed Luxembourg (LU)
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.LU.SVLHPHH.EUR.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:  RAI.M.LU.SVLHPHH.EUR.MIR.Z
+:END:
+
+** Filed Netherlands (NL)
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.NL.SVLHPHH.EUR.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:  RAI.M.NL.SVLHPHH.EUR.MIR.Z
+:END:
+
+** Filed Poland (PL)
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.PL.SVLHPHH.U1.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:  RAI.M.PL.SVLHPHH.U1.MIR.Z
+:END:
+
+** Filed Portugal (PT)
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.PT.SVLHPHH.EUR.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY: RAI.M.PT.SVLHPHH.EUR.MIR.Z
+:END:
+
+** Filed Romania (RO)
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.RO.SVLHPHH.U1.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:  RAI.M.SE.SVLHPHH.U1.MIR.Z
+:END:
+
+** Filed Sweden (SE)
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.SE.SVLHPHH.U1.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:  RAI.M.SE.SVLHPHH.U1.MIR.Z
+:END:
+
+** Filed Euro area
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/quickview.do?SERIES_KEY=304.RAI.M.U2.SVLHPHH.EUR.MIR.Z][Link]]
+:FREQUENCY: Monthly
+:START:    2003
+:END:      2020
+:DESCRIPTION: "Share of variable rate loans in total loans for house purchase"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY:  RAI.M.U2.SVLHPHH.EUR.MIR.Z
+:END:
+
 
 * Loan Purpose Type
 
