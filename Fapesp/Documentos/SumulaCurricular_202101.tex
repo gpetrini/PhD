@@ -1,72 +1,26 @@
-\documentclass[11pt,a4paper]{article}
-\usepackage[utf8]{inputenc}
+\documentclass[11pt,a4paper]{article} \usepackage[utf8]{inputenc}
 \usepackage[top=2cm, right=2cm, left=2.5cm, bottom=2cm]{geometry}
-\usepackage[T1]{fontenc}
-\usepackage[portuguese]{babel}
-\usepackage{amsfonts}
-\usepackage{bibentry}
-\usepackage[style=abnt,	natbib=true]{biblatex}
+\usepackage[T1]{fontenc} \usepackage[portuguese]{babel} \usepackage{amsfonts}
+\usepackage{bibentry} \usepackage[style=abnt, natbib=true]{biblatex}
 \usepackage{tabularx}
 
-\usepackage{filecontents}
-\begin{filecontents}{\jobname.bib}
-@inproceedings{petrini_investimento_2019,
-		address = {Campinas},
-		title = {Investimento residencial em um modelo {Stock}-{Flow} {Consistent} com supermultiplicador sraffiano},
-		booktitle = {{XII} {Encontro} {Internacional} da {AKB}},
-		author = {Petrini, Gabriel and Teixeira, Lucas},
-		year = {2019}
-	}
-	
-@inproceedings{petrini_long_2020,
-		address = {Boston},
-		title = {Long {Run} {Effective} {Demand}: {Introducing} {Residential} {Investment} in a {Sraffian} {Supermultiplier} {Stock}-{Flow} {Consistent} {Model}},
-		language = {en},
-		booktitle = {46th {Eastern} {Economic} {Association} {Conference}},
-		author = {Petrini, Gabriel and Teixeira, Lucas},
-		year = {2020}
-	}
+\bibliography{Producoes.bib}
 
-@inproceedings{petrini_long_2020b,
-	address = {Bilbao},
-	title = {Long-run effective demand and residential investment: a Sraffian supermultiplier based analysis},
-	language = {en},
-	booktitle = {32nd Annual EAEPE Conference},
-	author = {Petrini, Gabriel and Teixeira, Lucas},
-	year = {2020}
-}
-
-@inproceedings{petrini_long_2019,
-		address = {Berlin},
-		title = {Long {Run} {Effective} {Demand}: {Introducing} {Residential} {Investment} in a {Sraffian} {Supermultiplier} {Stock}-{Flow} {Consistent} {Model}},
-		language = {en},
-		booktitle = {23th {Forum} for {Macroeconics} and {Macroeconomic} {Policies}},
-		author = {Petrini, Gabriel and Teixeira, Lucas},
-		year = {2019}
-}
-\end{filecontents}
-
-\nobibliography{\jobname}
-
-\bibliography{\jobname}
-
-\author{Gabriel Petrini da Silveira}
-\title{Súmula Curricular}
-\date{Julho de 2020}
+\author{Gabriel Petrini da Silveira} \title{Súmula Curricular} \date{Julho de
+  2020}
 
 \begin{document}
 \begin{center}
-	\rule{\textwidth}{1.2pt}
-	\textbf{Súmula Curricular}\\
-	\Large\textbf{Gabriel Petrini da Silveira}\\
-	Janeiro de 2021
-	\rule{\textwidth}{1.2pt}
+  \rule{\textwidth}{1.2pt}
+  \textbf{Súmula Curricular}\\
+  \Large\textbf{Gabriel Petrini da Silveira}\\
+  Janeiro de 2021 \rule{\textwidth}{1.2pt}
 \end{center}
 
 \section{Formação}
 
 \begin{center}
-\begin{tabularx}{\textwidth}{c|c|X}
+  \begin{tabularx}{\textwidth}{c|c|X}
 	\hline \hline 
 	\textbf{Ano} & \textbf{Título} & \textbf{Instituição} \\ 
 	\hline 
@@ -74,10 +28,11 @@
 	2018 - 2019 & Mestrado - CNPq & Unicamp \\ \hline 
 	2019 - 2019 & Aperfeiçoamento & Metodologia e Análise Qualitativa Comparada (QCA). (Carga horária: 30h). Universidade Estadual de Campinas\\ \hline
 	2019 - 2019 & Aperfeiçoamento &  7th International Summer School on `Keynesian Macroeconomics and European Economic Policies'. (Carga Horária: 40h). Macroeconomic Policy Institute
-	(IMK), Berlim \\ \hline
-	2020 - (Atual) & Doutorado em andamento - CNPq & Unicamp \\ 
+									(IMK), Berlim \\ \hline
+	2020 - (Atual) & Doutorado em andamento - CNPq & Unicamp \\\hline
+	2020 - 2021 & Aperfeiçoamento & Econometrics III: Structural Modeling (Carga horária: 30h). University of Oklahoma\\
 	\hline \hline 
-\end{tabularx} 
+  \end{tabularx}
 \end{center}
 
 \section{Histórico profissional}
@@ -89,10 +44,14 @@ NADA A DECLARAR
 
 
 \begin{itemize}
-	\item \fullcite{petrini_investimento_2019}
-	\item \fullcite{petrini_long_2019}
-	\item \fullcite{petrini_long_2020}
-	\item \fullcite{petrini_long_2020b}
+  \item \fullcite{petrini_investimento_2019}
+  \item \fullcite{petrini_long_2019}
+  \item \fullcite{cecon_atividade1}
+  \item \fullcite{RPPS}
+  \item \fullcite{cecon_corona}
+  \item \fullcite{petrini_long_2020}
+  \item \fullcite{petrini_long_2020b}
+  \item \fullcite{petrini_TD}
 \end{itemize}
 	
 
@@ -100,41 +59,71 @@ NADA A DECLARAR
 \section{Lista de financiamentos à pesquisa vigentes}
 
 \begin{itemize}
-	\item \textbf{Tese de doutorado:} Três Ensaios em Macroeconomia imobiliária: instituições, inflação de ativos e instabilidade financeira. Duração: 2020 a 2023. Universidade Estadual de Campinas, Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq). Número do processo: 140721/2020-7.
+  \item \textbf{Tese de doutorado:} Três Ensaios em Macroeconomia imobiliária:
+		instituições, inflação de ativos e instabilidade financeira. Duração:
+		2020 a 2023. Universidade Estadual de Campinas, Conselho Nacional de
+		Desenvolvimento Científico e Tecnológico (CNPq). Número do processo:
+		140721/2020-7.
 \end{itemize}
 
-\section{Lista de orientações em andamento (com bolsas)}
+\section{Lista de orientações em andamento}
 
-NADA A DECLARAR
+\begin{itemize}
+  \item Lorena Salces Dourado. Desigualdade Sob o Red Scare: Um Estudo Dos Condicionantes Geopolíticos e Institucionais da Distribuição de Renda nos Países Centrais Durante a Guerra Fria. Início: 2021. Trabalho de Conclusão de Curso (Graduação em
+		Ciências Econômicas) - Universidade Estadual de Campinas. (Orientador). Bolsa: Sem bolsa.
+  \item Felipe Messias Barros. Padrões de Financeirização Brasileiros: Particularidades, Momentos e Ruptura. Início: 2021. Trabalho de Conclusão de Curso (Graduação em Ciências Econômicas) - Universidade Estadual de Campinas. (Orientador). Bolsa: Sem bolsa.
+\end{itemize}
 
 \section{Indicadores quantitativos}
 
 \begin{itemize}
-	\item Trabalhos apresentados em congressos internacionais: 4
+  \item Trabalhos apresentados em congressos internacionais: 4
+  \item Parecer para periódicos internacionais: 1
+  \item Participação em bancas de monografia: 1
 \end{itemize}
 
 \section{Links}
 
 \begin{description}
-	\item[Google Scholar:] \url{https://scholar.google.com.br/citations?user=0soJqxkAAAAJ&hl=pt-BR}
-	\item[Orcid:] \url{https://orcid.org/0000-0002-3523-9826}
-	\item[Publons:] \url{https://publons.com/researcher/3763984/gabriel-petrini-da-silveira/}
+  \item[Google Scholar:] \url{https://scholar.google.com.br/citations?user=0soJqxkAAAAJ&hl=pt-BR}
+  \item[Orcid:] \url{https://orcid.org/0000-0002-3523-9826}
+  \item[Publons:] \url{https://publons.com/researcher/3763984/gabriel-petrini-da-silveira/}
 \end{description}
 
 \section{Outras informações}
-
+\subsection{Grupos de Pesquisa}
 \begin{itemize}
-	\item 2016: Programa de Apoio Didático (PAD) - Microeconomia III
-	\item 2017: Programa de Apoio Didático (PAD) - Economia Matemática III
-	\item 2017: Programa de Apoio Didático (PAD) - Macroeconomia II
-	\item 2020: Programa de Estágio de Docência (PED) - Macroeconomia III
-	\item 2020: Programa de Estágio de Docência (PED) - Métodos de Análise Econômica III
-	\item Primeiro lugar na ANPEC 2018 na classificação de concorrência ampla para mestrado em teoria econômica do Instituto de Economia Unicamp.
-	\item Primeiro lugar no processo seletivo de doutorado em teoria econômica do Instituto de Economia Unicamp (ampla concorrência)
+ \item Membro do Centro de Estudos em Conjuntura e Política Econômica (CECON-Unicamp)
+\end{itemize}
+
+
+\subsection{Apoio Didático e Estágio de Docência}
+\begin{itemize}
+  \item 2016: Programa de Apoio Didático (PAD) - Microeconomia III
+  \item 2017: Programa de Apoio Didático (PAD) - Economia Matemática III
+  \item 2017: Programa de Apoio Didático (PAD) - Macroeconomia II
+  \item 2020: Programa de Estágio de Docência (PED) - Macroeconomia III
+  \item 2020: Programa de Estágio de Docência (PED) - Métodos de Análise
+		Econômica III
+\end{itemize}
+
+\subsection{Processos Seletivos}
+\begin{itemize}
+  \item Primeiro lugar na ANPEC 2018 na classificação de concorrência ampla para
+		mestrado em teoria econômica do Instituto de Economia Unicamp.
+  \item Primeiro lugar no processo seletivo de doutorado em teoria econômica do
+		Instituto de Economia Unicamp (ampla concorrência)
+\end{itemize}
+
+\subsection{Projetos de Pesquisa}
+\begin{itemize}
+  \item \textbf{Projeto de Pesquisa (2019):} Parecer acerca das inconsistências na justificativa oficial da emanda constitucional N. 103/2019 para a reforma do Regime Próprio de Previdência Social (RPPS). Coordenador: Pedro Paulo Zaluth Bastos. Pesquisadores contratados: Arthur Welle; Gabriel Petrini da Silveira (Beneficiário). Requerente: UNAFISCO Nacional (Ofício No 254/2019 - JUR).
+  \item \textbf{Projeto de Pesquisa (2020):} Os impactos econômicos da pandemia do Covid-19. Coordenadores: Pedro Paulo Zaluth Bastos; Luiz Celso Gomes Jr. Pesquisadores: Lorena Salces Dourado; Gabriel Petrini (Beneficiário); Paulo Robilotti; Antônio Ibarra. Pesquisa em parceria com Ciência de Dados por uma Causa (CDC, UFPR).
+\end{itemize}
+
+\subsection{Softwares e pacotes}
+\begin{itemize}
   \item Manutenção e atualização de um pacote para solução e simulação de sistemas lineares escrito em \textit{python 3}. Disponível em \url{https://github.com/gpetrini/pysolve3}
-	\item Contribuidor no Centro de Estudos de Conjuntura e Política Econômica (Cecon/Unicamp)
-  \item \textbf{Orientação em adanamento:} Lorena Salces Dourado. DESIGUALDADE SOB O RED SCARE: UM ESTUDO DOS CONDICIONANTES GEOPOLÍTICOS E INSTITUCIONAIS DA DISTRIBUIÇÃO DE RENDA NOS PAÍSES CENTRAIS DURANTE A GUERRA FRIA. Início: 2021. Trabalho de Conclusão de Curso (Graduação em Ciências Econômicas) - Universidade Estadual de Campinas. (Orientador).
-  \item \textbf{Orientação em andamento:} Felipe Messias Barros. Padrões de Financeirização Brasileiros: Particularidades, Momentos e Ruptura. Início: 2021. Trabalho de Conclusão de Curso (Graduação em Ciências Econômicas) - Universidade Estadual de Campinas. (Orientador).
 \end{itemize}
 
 \end{document}
