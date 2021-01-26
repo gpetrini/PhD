@@ -30,6 +30,7 @@
 - [[https://www.fhfa.gov/DataTools/Downloads/Documents/FHLBank-PUDB/AMA_PUDB_definitions_2019.pdf][FHLBank Public Use Database (USA)]]
 - [[https://sdw.ecb.europa.eu/browse.do?node=9689356][Residential Real Estate variables (EuroStat)]]
 - [[https://www.eba.europa.eu/sites/default/documents/files/documents/10180/526027/a63306a6-3010-426d-b35f-f18aad9bb25d/Loan%20to%20value%20definitions.pdf?retry=1][Loan to value definitions by banks]]
+- [[https://www.cmhc-schl.gc.ca/en/data-and-research/data-tables/mortgage-consumer-credit-trends-cmas][Canada's mortgage related dataset]]
 * Data Sources Summary
 
 #+BEGIN: columnview :maxlevel 3 :id global
@@ -52,6 +53,7 @@
 |       | Borrower Credit Score Value                                    |         |           |         |         |         |              |        |      |
 #+END
 
+* Mortgaging - cite:jorda_2016_great
 * Mortgage Loan to Value Ratio
 ** Filed England
 :PROPERTIES:
@@ -89,6 +91,20 @@ This dataset has one year data per spreadcheet. Additionaly, there are other dat
 
 * Share of variable rate loans in total loans for house purchase
 ** Searching Canada
+:PROPERTIES:
+:URL: [[https://www.canadianmortgagetrends.com/wp-content/uploads/2014/11/Res_Mtge_Mkt_Fall-Report-Final.pdf][Link]]
+:FREQUENCY: Yearly
+:START:    2006
+:END:      2017
+:DESCRIPTION: "Report result"
+:COVERAGE: Country
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:END:
+
+*** [[https://www.canadianmortgagetrends.com/wp-content/uploads/2014/11/Res_Mtge_Mkt_Fall-Report-Final.pdf][2014]]
+
 ** Searching Japan
 ** Searching Norway
 ** Searching Switzerland
@@ -474,3 +490,19 @@ This dataset has one year data per spreadcheet. Additionaly, there are other dat
 * Property Usage Type
 
 * Borrower Credit Score Value
+
+* Homeownership Rate
+
+* Mortgage Debt Outstanding-to-GDP
+
+* Early Repayment
+
+* Amortzation and Term
+
+* Mortgage Default and Foreclosure
+
+* Mortgage Funding
+
+* Mortgage depth
+
+* Housing Loan Penetration

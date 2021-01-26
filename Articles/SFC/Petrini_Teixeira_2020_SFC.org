@@ -4,11 +4,12 @@
 # #+EMAIL: Assistent Professor at University of Campinas (Brazil),  PhD Student at University of Campinas (Brazil)
 #+LATEX_CLASS: article
 #+LATEX_CLASS_OPTIONS: [12pt]
-#+LATEX_HEADER: \usepackage[document]{ragged2e}
-#+LATEX_HEADER: \usepackage[none]{hyphenat} % Avoid hyphenization
-#+LATEX_HEADER: \usepackage[right=3cm,left=3cm, footskip=0.25in]{geometry}
+# #+LATEX_HEADER: \usepackage[document]{ragged2e}
+# #+LATEX_HEADER: \usepackage[none]{hyphenat} % Avoid hyphenization
+# #+LATEX_HEADER: \usepackage[right=3cm,left=3cm, footskip=0.25in]{geometry}
 #+LATEX_HEADER: \addbibresource{refs.bib}
-#+LATEX_HEADER: \usepackage{svg, caption, multirow, booktabs, setspace, indentfirst, authblk}
+#+LATEX_HEADER: \usepackage{svg, caption, multirow, booktabs, setspace, indentfirst}
+#+LATEX_HEADER: \usepackage{authblk}
 #+LATEX_HEADER: \usepackage[english]{babel}
 #+LATEX_HEADER:\author[1]{Lucas Teixeira}
 #+LATEX_HEADER:\affil[1]{Assistent Professor at University of Campinas (Brazil), Email: \url{lucastei@unicamp.br}} % Author affiliation
@@ -24,22 +25,38 @@ In our model, residential investment growth rate responds to changes of house pr
 The numerical simulation experiments shows that our model keeps the main standard Sraffian supermultiplier growth models results.
 As a particular result, an increase of residential investment growth rate implies a decrease of real estate share in total real assets.
 Inspired by the recent U.S. bubble episode, we plug house price inflation data (1992-2019) into our model.
-Although simple, our numerical simulations are capable to reproduce some stylized facts such as residential investment leading the business cycle and capital accumulation and a clockwise pattern between non-capacity creating autonomous expenditures and capacity utilization rate.
+Although simple, our numerical simulations are capable to reproduce some stylized facts such as residential investment leading the business cycle and capital accumulation and a clockwise pattern between non-capacity creating autonomous expenditures and capacity utilization rate.\\
 	
-#+LATEX: \noindent \textbf{Keywords:} Residential Investment; Sraffian supermultiplier; Asset bubble;  Stock-Flow Consistent approach.
+#+LATEX: \noindent \textbf{Keywords:} Residential Investment; Sraffian supermultiplier; Asset bubble;  Stock-Flow Consistent approach; US Economy\\
+#+LATEX: \noindent \textbf{JEL:} B51, E11, E12, E17, G51, O41, O51
 #+END_abstract
 
-#+LATEX: \doublespacing
-#+LATEX: \setlength{\parindent}{4em}
-#+LATEX: \setlength{\parskip}{1em}
+#+LATEX:  \renewcommand{\abstractname}{Resumo}
+#+BEGIN_abstract
+Neste artigo, desenvolvemos um modelo supermultiplicador sraffiano parcimonioso com consistência entre fluxos e estoques (SSM-SFC) com dois gastos autônomos não criadores de capacidade produtiva: investimento residencial e consumo financiado por crédito.
+Nosso modelo representa uma economia fechada e sem governo com famílias de trabalhadores e de capitalistas no qual somente estas últimas não possuem restrição de crédito.
+A inclusão do investimento residencial implica um modelo SSM-SFC com dois ativos reais: capital das firmas e imóveis das famílias.
+Em nosso modelo, a taxa de crescimento do investimento residencial responde às mudanças na inflação de preço dos imóveis.
+As simulações numéricas mostram que nosso modelo preserva os resultados convencionais do supermultiplicador sraffiano.
+Como um resultado particular, o aumento na taxa de crescimento do investimento residencial implica uma redução da participação nos imóveis nos ativos reais totais.
+Baseando-se na bolha imóbiliária recente nos EUA, incluímos dados de inflação do preços dos imóveis (1992-2019) em nossas simulações.
+Apesar de simples, nossas simulações numéricas são capazes de repoduzir alguns fatos estilizados como o investimento residencial liderando o ciclo econômico bem como a acumulação de capital e um padrão cíclico entre gastos autônomos não criadores de capacidade e grau de utilização da capacidade.\\
+
+#+LATEX: \noindent \textbf{Palavras-Chave:} Investimento Residencial; Supermultiplicador sraffiano; Bolha de ativos; Abordagem consistente entre fluxos e estoques, Economia dos EUA.\\
+#+LATEX: \noindent \textbf{JEL:} B51, E11, E12, E17, G51, O41, O51
+#+END_abstract
+
+# #+LATEX: \doublespacing
+# #+LATEX: \setlength{\parindent}{4em}
+# #+LATEX: \setlength{\parskip}{1em}
 
 
-* Introduction :noexport:
+* Introduction
 #+LATEX: \label{sec:introduction}
 #+INCLUDE: "Introduction.org"
 
 
-* Empirical motivation :noexport:
+* Empirical motivation
 #+LATEX: \label{sec:empirical}
 #+INCLUDE: "Empirical.org"
 
@@ -50,43 +67,43 @@ Although simple, our numerical simulations are capable to reproduce some stylize
 
 
 
-* A Sraffian supermultiplier SFC model with residential investment :noexport:
+* A Sraffian supermultiplier SFC model with residential investment
 #+LATEX: \label{sec:Model}
 #+INCLUDE: "Model.org"
 
 
 
-* From short- to long-run equilibria :noexport:
+* From short- to long-run equilibria
 #+LATEX: \label{sec:runs}
 #+INCLUDE: "Analytical.org"
 
 
-* Numerical simulations :noexport:
+* Numerical simulations
 #+LATEX: \label{sec:Experiments}
 #+INCLUDE: "Simulation.org"
 
 
 
-* Concluding remarks :noexport:
+* Concluding remarks
 #+LATEX: \label{sec:Conclusion}
 #+INCLUDE: "Conclusion.org"
 
 
-* Acknowledgments :noexport:
+* Acknowledgments
   :PROPERTIES:
   :UNNUMBERED: t
   :END:
 
 #+LATEX:  The authors wish to acknowledge the financial support from the Brazilian National Research Council (CNPq; grant 130777/2018-8). We  are  grateful  to  Lídia  Brochier,  Carolina  Baltar,  Franklin  Serrano, Stefano Di Bucchianico  and Fabrício Pitombo Leite for  discussions,  as  well  as  comments  by  the participants of Cecon/Unicamp and UFRJ Political Economy research seminars and the participants of XII AKB meeting, 20th FMM forum, 46th EEA Annual Conference and EAEPE 2020 Conference. Any remaining errors are, of course, our own.
 
-* Disclosure statement :noexport:
+* Disclosure statement
   :PROPERTIES:
   :UNNUMBERED: t
   :END:
 No potential conflict of interest was reported by the authors.
 
 
-* References :noexport:
+* References
   :PROPERTIES:
   :UNNUMBERED: t
   :END:
@@ -417,7 +434,7 @@ Since capitalists' loans and mortgage to house ratios ($\ell^{\star}_{k}$ and $m
 \frac{-\gamma_F\cdot \phi_1\cdot (1+\pi)\cdot(r_g^\star + r_m)}{((1+\pi)\cdot (\gamma_F\cdot r_m - \phi_0) + \phi_1\cdot (r_m -\pi))^2} < 0
 \end{equation}
 
-* Numerical appendix :noexport:
+* Numerical appendix
  #+LATEX: \label{append:Data}
 
 
@@ -442,7 +459,7 @@ Since capitalists' loans and mortgage to house ratios ($\ell^{\star}_{k}$ and $m
 \end{table}
 #+end_export
 
-* Sensibility analysis :noexport:
+* Sensibility analysis
 #+LATEX: \label{append:Sensib}
 
 *** Config                                                           :ignore:

@@ -1,0 +1,42 @@
+#+OPTIONS: num:nil
+#+TITLE: QCA Road Map
+#+AUTHOR: Gabriel Petrini
+#+LANG: en
+
+* HTML headers                                         :noexport:ignore:
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+
+#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+
+* TODO General
+
+** TODO COnvert org-table to python/R dataframe
+* TODO [#B] textcite:scanlon__DRAFT  model
+** TODO Convert text table to org table
+** TODO Download mortgaging data
+** TODO Calibrate mortgaging data
+** TODO Create csQCA model
+*** TODO Truth Table
+*** TODO Minimize
+*** TODO Analyze
+* TODO [#B] textcite:green_2014_International model
+** TODO Get/Ask textcite:lea_2010_International dataset
+** TODO Download mortgaging data
+** TODO Calibrate mortgaging data
+** TODO Create csQCA model
+*** TODO Truth Table
+*** TODO Minimize
+*** TODO Analyze
+* TODO [#C] textcite:diamondjr._1992_Qualitative model
+** TODO Convert text table to org table
+** TODO Convert rank to crisp/fuzzy data
+** TODO Download mortgaging data
+** TODO Calibrate mortgaging data
+** TODO Create csQCA model
+*** TODO Truth Table
+*** TODO Minimize
+*** TODO Analyze
