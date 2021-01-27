@@ -1,7 +1,9 @@
 #+OPTIONS: num:nil
 #+TITLE: QCA Data Map
 #+AUTHOR: Gabriel Petrini
-#+LANG: en
+#+startup: shrink
+#+PROPERTY:header-args python :results output drawer :eval never-export :session map :exports both
+* Properties :noexport:
 #+TODO: Searching Filed | Downloaded Scripted Cleaned | NotFound
 #+PROPERTY: COLUMNS  %TODO %ITEM %VAR_TYPE(Var.) %FREQUENCY(FRQ)  %START(Start) %END(End) %COVERAGE(Cov) %SEASONAL_ADJ(Season. Adj) %KEY(Key) %URL
 #+PROPERTY: FREQUENCY_ALL Yearly Quarterly Monthly Weekly Daily
@@ -23,7 +25,6 @@
 #+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 #+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
 #+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
-
 
 * Usefull links
 
@@ -89,7 +90,138 @@
 |           | Housing Loan Penetration                                       |         |           |         |         |                             |              |                            |      |
 #+END
 
+* Code initialization
+
+#+begin_src python
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from tabulate import tabulate
+
+print("numpy version  : ", np.__version__)
+print("pandas version : ", pd.__version__)
+print("seaborn version : ", sns.__version__)
+
+plt.style.use('seaborn-white')
+#+end_src
+
+#+RESULTS:
+:results:
+numpy version  :  1.18.4
+pandas version :  1.1.3
+seaborn version :  0.11.0
+:end:
+
 * Mortgaging - cite:jorda_2016_great
+:PROPERTIES:
+:URL:     [[http://www.macrohistory.net/data/][Link]] 
+:FREQUENCY: Yearly
+:START:    1970 
+:END:      2016
+:DESCRIPTION: "The database covers 17 advanced economies since 1870 on an annual basis. It comprises 45 real and nominal variables. Among these, there are time series that had been hitherto unavailable to researchers, among them financial variables such as bank credit to the non-financial private sector, mortgage lending and long-term returns on housing, equities, bonds and bills. The database captures the near-universe of advanced-country macroeconomic and asset price dynamics, covering on average over 90 percent of advanced-economy output and over 50 percent of world output."
+:COVERAGE: Block and Domestic Currency
+:PUBLIC:   Yes
+:SEASONAL_ADJ: No
+:VAR_TYPE: real
+:END:
+** Countries List
+
+- Australia
+- Belgium
+- Canada
+- Denmark
+- Finland
+- France
+- Germany
+- Italy
+- Japan
+- Netherlands
+- Norway
+- Portugal
+- Spain
+- Sweden
+- Switzerland
+- United Kingdom
+- United States
+  
+** Variables Overview
+|--------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Variables                      | Description                                                                                                                                                                                                                                                                 |
+| <30>                           | <30>                                                                                                                                                                                                                                                                        |
+|--------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Real Economy                   | Nominal GDP (local currency), Real GDP per capita (PPP), Real GDP per capita (index, 2005=100), Real Consumption per capita (index, 2006=100), Investment-to-GDP Ratio, Population                                                                                          |
+| International                  | Current Account (nominal, local currency), Imports (nominal, local currency), Exports (nominal, local currency), USD Exchange Rate (local currency/USD)                                                                                                                     |
+| Government                     | Government Revenue (nominal, local currency), Government Expenditure (nominal, local currency), Public Debt-to-GDP Ratio                                                                                                                                                    |
+| Money, Prices & Interest Rates | Narrow Money (nominal, local currency), Broad Money (nominal, local currency), Short-term Interest Rate (nominal, percent per year), Long-term Interest Rates (nominal, percent per year), Consumer Prices (index, 1990=100)                                                |
+| Credit Data                    | Total Loans to Non-financial Private Sector (nominal, local currency), Mortgage Loans to Non-financial Private Sector (nominal, local currency), Total Loans to Households (nominal, local currency), Total Loans to Business (nominal, local currency)                     |
+| House Prices                   | House Prices (index, 1990=100)                                                                                                                                                                                                                                              |
+| Crisis Dates                   | Systemic Financial Crisis (0-1 dummy)                                                                                                                                                                                                                                       |
+| Rates of Return                | Equity Total Return, Capital Gain and Dividend Yield; Housing Total Return, Capital Gain and Rental Yield; Government Bond Total Return, Government Bill Rate; Total Rates of Return on Risky and Safe Assets, and on Overall Wealth. All data are nominal, local currency. |
+| Peg Data                       | Peg (0-1 dummy), Strict Peg (0-1 dummy), Peg Type (Base, Peg, Float), Peg Base                                                                                                                                                                                              |
+|--------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+** Quick inspection
+#+begin_src python :results pp
+df = pd.read_excel(
+    io="http://www.macrohistory.net/JST/JSTdatasetR4.xlsx",
+    sheet_name="Data",
+    index_col=[2, 0],
+    parse_dates=True,
+)
+df = df.drop(["country", "ifs", "peg_type", "peg_base"], axis="columns")
+print(df.describe())
+#+end_src
+
+#+RESULTS:
+#+begin_example
+                 pop       rgdpmad       rgdppc       rconpc           gdp  ...    bond_rate   eq_div_rtn   capital_tr     risky_tr      safe_tr
+count    2499.000000   2499.000000  2499.000000  2411.000000  2.474000e+03  ...  2301.000000  2083.000000  1763.000000  1786.000000  2168.000000
+mean    31955.383336   8682.644589    37.832058    40.043222  2.177163e+06  ...     0.055887     0.043225     0.100468     0.112592     0.052806
+std     45230.239000   7551.731010    32.145419    30.860849  1.468816e+07  ...     0.030687     0.017700     0.091458     0.111806     0.048646
+min      1675.000000    737.375497     3.263085     4.074400  1.250757e-11  ...    -0.000400     0.000000    -0.232140    -0.238515    -0.152371
+25%      5107.933000   2771.511473    12.509331    15.235000  3.262150e+01  ...     0.036950     0.032460     0.049847     0.051196     0.026311
+50%     10605.870000   5193.394590    22.125076    26.560000  1.613274e+03  ...     0.046900     0.043091     0.091775     0.103964     0.043828
+75%     45613.500000  14024.706784    61.578296    64.933650  4.150800e+04  ...     0.064158     0.053744     0.139122     0.162037     0.069026
+max    322783.332739  36359.374592   117.645175   115.435926  1.861064e+08  ...     0.237154     0.138189     1.144161     1.281639     0.408514
+
+[8 rows x 45 columns]
+#+end_example
+
+** Comparing mortgaging average pre-2007 and post-2008
+
+#+begin_src python :results graphics file :file ./figs/Jorda_TQCA_Outcome.png
+tmp = df.reset_index(level=[0,1]).loc[:,['iso', 'year','tmort', 'tloans']].copy(deep=True)
+tmp.set_index(['year'], inplace=True)
+tmp["Mortgaging"] = tmp["tmort"]/tmp['tloans']
+tmp = tmp.pivot(columns='iso', values='Mortgaging')
+tmp = ((tmp.loc['2009-01-01':,:].mean() - tmp.loc[:'2006-01-01',:].mean())/(tmp.loc[:'2006-01-01',:].mean()))
+tmp.index.name = 'Country'
+tmp = tmp.sort_values(ascending=False)
+tmp.to_csv('./raw/Jorda_TQCA_Outcome_2009_2007.csv', header=['DMRTG])
+fig, ax = plt.subplots(figsize=(8,5))
+tmp.plot(
+    kind='bar',
+    edgecolor='black',
+    lw=2,
+    ax=ax
+)
+sns.despine()
+
+ax.set_title('avg(Mortgaging post 2009) - avg(Mortgaging pre 2007)')
+
+fig.savefig(
+    './figs/Jorda_TQCA_Outcome.png',
+    dpi=300,
+    bbox_inches='tight'
+)
+
+plt.close()
+#+end_src
+
+#+RESULTS:
+[[file:./figs/Jorda_TQCA_Outcome.png]]
+
 * Mortgage Loan to Value Ratio
 ** Filed England
 :PROPERTIES:
