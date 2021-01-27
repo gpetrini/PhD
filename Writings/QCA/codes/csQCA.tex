@@ -1,4 +1,4 @@
-% Created 2021-01-15 sex 15:15
+% Created 2021-01-27 qua 16:38
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -37,15 +37,15 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \maketitle
 \tableofcontents
 
-\section*{Loadings packages}
-\label{sec:org6fffd51}
+\section{Loadings packages}
+\label{sec:org1868fbf}
 
 \begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{nillangnilswitchesnilflags}
 nilbody
 \end{minted}
 
-\section*{Loading uncalibrated dataset}
-\label{sec:org7bb0c95}
+\section{Loading uncalibrated dataset}
+\label{sec:orge8edad1}
 
 \begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{nillangnilswitchesnilflags}
 nilbody
@@ -70,8 +70,8 @@ nilbody
 \hline
 \end{tabular}
 
-\section*{Calibrating according to textbook}
-\label{sec:org8a0388c}
+\section{Calibrating according to textbook}
+\label{sec:orgef96a03}
 
 \begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{nillangnilswitchesnilflags}
 nilbody
@@ -119,8 +119,9 @@ SE & 1 & 0 & 1 & 1 & 1 & 1\\
 UK & 1 & 1 & 1 & 1 & 1 & 1\\
 \hline
 \end{tabular}
-\section*{Truth Table}
-\label{sec:org047e59b}
+
+\section{Truth Table}
+\label{sec:orgd1ebb63}
 
 \begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{nillangnilswitchesnilflags}
 nilbody
@@ -128,7 +129,7 @@ nilbody
 
 
 % Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-% Date and time: sex, jan 15, 2021 - 14:51:01
+% Date and time: qua, jan 27, 2021 - 16:37:54
 \begin{table}[!htbp] \centering 
   \caption{} 
   \label{} 
@@ -177,12 +178,38 @@ nilbody
 
 
 
-\section*{Minimization}
-\label{sec:org39f5ae6}
+\section{Minimization}
+\label{sec:org3d82350}
 
-\subsection*{Outcome [1]}
-\label{sec:org2694a55}
+\subsection{Outcome [1]}
+\label{sec:org93d4e1a}
+\subsubsection{Parsimonious solution}
+\label{sec:orgf6a8939}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{nillangnilswitchesnilflags}
+nilbody
+\end{minted}
 
+
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: qua, jan 27, 2021 - 16:37:54
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}} cccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & inclS & PRI & covS & covU & cases \\ 
+\hline \\[-1.8ex] 
+DEV\textasteriskcentered \textasciitilde IND & $1$ & $1$ & $0.250$ & $0$ & FI,IE \\ 
+IND\textasteriskcentered STB & $1$ & $1$ & $0.750$ & $0$ & FR,SE; BE,CZ,NL,UK \\ 
+Solution & $1$ & $1$ & $1$ & $$ &  \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table}
+
+
+\subsubsection{Conservative solution}
+\label{sec:orgfcd202c}
 \begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{nillangnilswitchesnilflags}
 nilbody
 \end{minted}
@@ -190,7 +217,7 @@ nilbody
 Warning: stack imbalance in '<-', 2 then 3
 
 % Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-% Date and time: sex, jan 15, 2021 - 14:51:06
+% Date and time: qua, jan 27, 2021 - 16:37:54
 \begin{table}[!htbp] \centering 
   \caption{} 
   \label{} 
@@ -206,10 +233,35 @@ Solution & $1$ & $1$ & $1$ & $$ &  \\
 \end{tabular} 
 \end{table}
 
+\subsubsection{Intermediary solution}
+\label{sec:org8857c91}
 
-\subsection*{Outcome [0]}
-\label{sec:org77d8685}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{nillangnilswitchesnilflags}
+nilbody
+\end{minted}
 
+Warning: stack imbalance in '<-', 2 then 5
+
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: qua, jan 27, 2021 - 16:37:55
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}} cccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & inclS & PRI & covS & covU & cases \\ 
+\hline \\[-1.8ex] 
+DEV\textasteriskcentered LIT\textasteriskcentered STB & $1$ & $1$ & $1$ & $$ & FI,IE; FR,SE; BE,CZ,NL,UK \\ 
+Solution & $1$ & $1$ & $1$ & $$ &  \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table}
+
+\subsection{Outcome [0]}
+\label{sec:orgbd52d03}
+\subsubsection{Conservative soltuion}
+\label{sec:org75be60c}
 \begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{nillangnilswitchesnilflags}
 nilbody
 \end{minted}
@@ -217,9 +269,9 @@ nilbody
 Warning: stack imbalance in '<-', 2 then 3
 
 % Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-% Date and time: sex, jan 15, 2021 - 14:51:21
+% Date and time: qua, jan 27, 2021 - 16:37:55
 \begin{table}[!htbp] \centering 
-  \caption{} 
+  \caption{Conservative solution} 
   \label{} 
 \begin{tabular}{@{\extracolsep{5pt}} cccccc} 
 \\[-1.8ex]\hline 
@@ -233,13 +285,70 @@ Solution & $1$ & $1$ & $1$ & $$ &  \\
 \end{tabular} 
 \end{table}
 
-\section*{Visualization}
-\label{sec:org24ca43b}
 
-\subsection*{Outcome [1]}
-\label{sec:org472e419}
-\subsubsection*{Radar plot}
-\label{sec:orgb7bae02}
+
+\subsubsection{Parsimonious solution}
+\label{sec:org3ad711a}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{nillangnilswitchesnilflags}
+nilbody
+\end{minted}
+
+Warning: stack imbalance in '<-', 2 then 3
+
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: qua, jan 27, 2021 - 16:37:55
+\begin{table}[!htbp] \centering 
+  \caption{Parsimonious solution} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}} cccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & inclS & PRI & covS & covU & cases \\ 
+\hline \\[-1.8ex] 
+\textasciitilde DEV\textasteriskcentered \textasciitilde URB\textasteriskcentered \textasciitilde IND & $1$ & $1$ & $0.800$ & $0.800$ & GR,PT,ES; RO; HU,PL; EE,IT \\ 
+DEV\textasteriskcentered LIT\textasteriskcentered IND\textasteriskcentered \textasciitilde STB & $1$ & $1$ & $0.200$ & $0.200$ & AU; DE \\ 
+Solution & $1$ & $1$ & $1$ & $$ &  \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table}
+
+
+
+
+
+\subsubsection{Intermediary solution}
+\label{sec:orgc3561a8}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{nillangnilswitchesnilflags}
+nilbody
+\end{minted}
+
+
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: qua, jan 27, 2021 - 16:37:55
+\begin{table}[!htbp] \centering 
+  \caption{Intermediary solution} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}} cccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & inclS & PRI & covS & covU & cases \\ 
+\hline \\[-1.8ex] 
+\textasciitilde DEV & $1$ & $1$ & $0.800$ & $0.300$ & GR,PT,ES; RO; HU,PL; EE,IT \\ 
+\textasciitilde STB & $1$ & $1$ & $0.700$ & $0.200$ & GR,PT,ES; HU,PL; AU; DE \\ 
+Solution & $1$ & $1$ & $1$ & $$ &  \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table}
+
+
+
+\section{Visualizing intermediaries solutions}
+\label{sec:orgc89621a}
+
+\subsection{Outcome [1]}
+\label{sec:org99b538e}
+\subsubsection{Radar plot}
+\label{sec:orga4b4048}
 \begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{nillangnilswitchesnilflags}
 nilbody
 \end{minted}
@@ -247,8 +356,8 @@ nilbody
 \begin{center}
 \includegraphics[width=.9\linewidth]{../figs/csQCA_LR_1.png}
 \end{center}
-\subsubsection*{Pimplot}
-\label{sec:org18d1559}
+\subsubsection{Pimplot}
+\label{sec:orge2343a8}
 \begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{nillangnilswitchesnilflags}
 nilbody
 \end{minted}
@@ -256,11 +365,20 @@ nilbody
 \begin{center}
 \includegraphics[width=.9\linewidth]{../figs/csQCA_LR_pim1.png}
 \end{center}
+\subsubsection{Venn Diagram}
+\label{sec:org9f74bcf}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{nillangnilswitchesnilflags}
+nilbody
+\end{minted}
 
-\subsection*{Outcome [0]}
-\label{sec:orge968d61}
-\subsubsection*{Radar plot}
-\label{sec:orgc71d195}
+\begin{center}
+\includegraphics[width=.9\linewidth]{../figs/venn_1.png}
+\end{center}
+
+\subsection{Outcome [0]}
+\label{sec:org6daa33b}
+\subsubsection{Radar plot}
+\label{sec:org4a41c7d}
 \begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{nillangnilswitchesnilflags}
 nilbody
 \end{minted}
@@ -269,8 +387,8 @@ nilbody
 \includegraphics[width=.9\linewidth]{../figs/csQCA_LR_0.png}
 \end{center}
 
-\subsubsection*{Pimplot}
-\label{sec:org5bdba17}
+\subsubsection{Pimplot}
+\label{sec:org0830fc3}
 \begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{nillangnilswitchesnilflags}
 nilbody
 \end{minted}
@@ -279,11 +397,21 @@ nilbody
 \includegraphics[width=.9\linewidth]{../figs/csQCA_LR_pim0.png}
 \end{center}
 
+\subsubsection{Venn Diagram}
+\label{sec:org2d1061c}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{nillangnilswitchesnilflags}
+nilbody
+\end{minted}
 
-\section*{Robustness check}
-\label{sec:org911de90}
-\subsection*{Robustness parameters of fit}
-\label{sec:org68e99c7}
+\begin{center}
+\includegraphics[width=.9\linewidth]{../figs/venn_0.png}
+\end{center}
+
+
+\section{Robustness check}
+\label{sec:orgbd93c77}
+\subsection{Robustness parameters of fit}
+\label{sec:orge6d6133}
 
 \begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{nillangnilswitchesnilflags}
 nilbody
@@ -295,17 +423,22 @@ Warning: stack imbalance in '<-', 4 then 5
 Warning: stack imbalance in '<-', 2 then 3
 
 % Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-% Date and time: sex, jan 15, 2021 - 15:14:49
-\begin{table}[!htbp] \centering
-  \caption{}
-  \label{}
-\begin{tabular}{@{\extracolsep{5pt}} cccc}
-\\[-1.8ex]\hline
-\hline \\[-1.8ex]
- & RF\_cov & RF\_cons & RF\_SC \\
-\hline \\[-1.8ex]
-Robustness\_Fit & $1$ & $1$ & $1$ \\
-\hline \\[-1.8ex]
-\end{tabular}
+% Date and time: qua, jan 27, 2021 - 16:37:56
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}} cccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+ & RF\_cov & RF\_cons & RF\_SC \\ 
+\hline \\[-1.8ex] 
+Robustness\_Fit & $1$ & $1$ & $1$ \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
 \end{table}
+\subsection{Raw consistency threshold range}
+\label{sec:orga2391d4}
+\begin{minted}[frame=lines,fontsize=\scriptsize,linenos]{nillangnilswitchesnilflags}
+nilbody
+\end{minted}
 \end{document}

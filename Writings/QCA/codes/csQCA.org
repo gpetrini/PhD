@@ -1,8 +1,6 @@
-#+OPTIONS: num:nil
 #+TITLE: csQCA
-#+LANG: en
-#+PROPERTY: header-args R :results output drawer :eval never-export :session QCA :exports both
-* HTML headers :noexport:ignore:
+#+PROPERTY:header-args R :results output drawer :eval never-export :session QCA :exports both
+* HTML headers :noexport:
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
 
@@ -111,6 +109,7 @@ UK & 1 & 1 & 1 & 1 & 1 & 1\\
 \hline
 \end{tabular}
 #+end_export
+
 * Truth Table
 
 #+begin_src R :results latex table
@@ -121,8 +120,8 @@ TT <- truthTable(
   complete = TRUE,
   use.letters = FALSE,
   show.cases = TRUE,
-  sort.by = c("out", "incl", "n"),
-  ## dcc = TRUE # Deviant cases
+  ## sort.by = c("out", "incl", "n"),
+  dcc = TRUE # Deviant cases
 )
 TT %>% stargazerTT(type="latex")
 #+end_src
@@ -131,49 +130,49 @@ TT %>% stargazerTT(type="latex")
 #+begin_export latex
 
 % Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-% Date and time: sex, jan 15, 2021 - 14:51:01
-\begin{table}[!htbp] \centering 
-  \caption{} 
-  \label{} 
-\begin{tabular}{@{\extracolsep{5pt}} cccccccccc} 
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
- & DEV & URB & LIT & IND & STB & OUT & n & incl & PRI \\ 
-\hline \\[-1.8ex] 
-32 & $1$ & $1$ & $1$ & $1$ & $1$ & 1 & $4$ & $1$ & $1$ \\ 
-22 & $1$ & $0$ & $1$ & $0$ & $1$ & 1 & $2$ & $1$ & $1$ \\ 
-24 & $1$ & $0$ & $1$ & $1$ & $1$ & 1 & $2$ & $1$ & $1$ \\ 
-1 & $0$ & $0$ & $0$ & $0$ & $0$ & 0 & $3$ & $0$ & $0$ \\ 
-5 & $0$ & $0$ & $1$ & $0$ & $0$ & 0 & $2$ & $0$ & $0$ \\ 
-6 & $0$ & $0$ & $1$ & $0$ & $1$ & 0 & $2$ & $0$ & $0$ \\ 
-2 & $0$ & $0$ & $0$ & $0$ & $1$ & 0 & $1$ & $0$ & $0$ \\ 
-23 & $1$ & $0$ & $1$ & $1$ & $0$ & 0 & $1$ & $0$ & $0$ \\ 
-31 & $1$ & $1$ & $1$ & $1$ & $0$ & 0 & $1$ & $0$ & $0$ \\ 
-3 & $0$ & $0$ & $0$ & $1$ & $0$ & ? & $0$ & $$ & $$ \\ 
-4 & $0$ & $0$ & $0$ & $1$ & $1$ & ? & $0$ & $$ & $$ \\ 
-7 & $0$ & $0$ & $1$ & $1$ & $0$ & ? & $0$ & $$ & $$ \\ 
-8 & $0$ & $0$ & $1$ & $1$ & $1$ & ? & $0$ & $$ & $$ \\ 
-9 & $0$ & $1$ & $0$ & $0$ & $0$ & ? & $0$ & $$ & $$ \\ 
-10 & $0$ & $1$ & $0$ & $0$ & $1$ & ? & $0$ & $$ & $$ \\ 
-11 & $0$ & $1$ & $0$ & $1$ & $0$ & ? & $0$ & $$ & $$ \\ 
-12 & $0$ & $1$ & $0$ & $1$ & $1$ & ? & $0$ & $$ & $$ \\ 
-13 & $0$ & $1$ & $1$ & $0$ & $0$ & ? & $0$ & $$ & $$ \\ 
-14 & $0$ & $1$ & $1$ & $0$ & $1$ & ? & $0$ & $$ & $$ \\ 
-15 & $0$ & $1$ & $1$ & $1$ & $0$ & ? & $0$ & $$ & $$ \\ 
-16 & $0$ & $1$ & $1$ & $1$ & $1$ & ? & $0$ & $$ & $$ \\ 
-17 & $1$ & $0$ & $0$ & $0$ & $0$ & ? & $0$ & $$ & $$ \\ 
-18 & $1$ & $0$ & $0$ & $0$ & $1$ & ? & $0$ & $$ & $$ \\ 
-19 & $1$ & $0$ & $0$ & $1$ & $0$ & ? & $0$ & $$ & $$ \\ 
-20 & $1$ & $0$ & $0$ & $1$ & $1$ & ? & $0$ & $$ & $$ \\ 
-21 & $1$ & $0$ & $1$ & $0$ & $0$ & ? & $0$ & $$ & $$ \\ 
-25 & $1$ & $1$ & $0$ & $0$ & $0$ & ? & $0$ & $$ & $$ \\ 
-26 & $1$ & $1$ & $0$ & $0$ & $1$ & ? & $0$ & $$ & $$ \\ 
-27 & $1$ & $1$ & $0$ & $1$ & $0$ & ? & $0$ & $$ & $$ \\ 
-28 & $1$ & $1$ & $0$ & $1$ & $1$ & ? & $0$ & $$ & $$ \\ 
-29 & $1$ & $1$ & $1$ & $0$ & $0$ & ? & $0$ & $$ & $$ \\ 
-30 & $1$ & $1$ & $1$ & $0$ & $1$ & ? & $0$ & $$ & $$ \\ 
-\hline \\[-1.8ex] 
-\end{tabular} 
+% Date and time: qua, jan 27, 2021 - 16:37:54
+\begin{table}[!htbp] \centering
+  \caption{}
+  \label{}
+\begin{tabular}{@{\extracolsep{5pt}} cccccccccc}
+\\[-1.8ex]\hline
+\hline \\[-1.8ex]
+ & DEV & URB & LIT & IND & STB & OUT & n & incl & PRI \\
+\hline \\[-1.8ex]
+32 & $1$ & $1$ & $1$ & $1$ & $1$ & 1 & $4$ & $1$ & $1$ \\
+22 & $1$ & $0$ & $1$ & $0$ & $1$ & 1 & $2$ & $1$ & $1$ \\
+24 & $1$ & $0$ & $1$ & $1$ & $1$ & 1 & $2$ & $1$ & $1$ \\
+1 & $0$ & $0$ & $0$ & $0$ & $0$ & 0 & $3$ & $0$ & $0$ \\
+5 & $0$ & $0$ & $1$ & $0$ & $0$ & 0 & $2$ & $0$ & $0$ \\
+6 & $0$ & $0$ & $1$ & $0$ & $1$ & 0 & $2$ & $0$ & $0$ \\
+2 & $0$ & $0$ & $0$ & $0$ & $1$ & 0 & $1$ & $0$ & $0$ \\
+23 & $1$ & $0$ & $1$ & $1$ & $0$ & 0 & $1$ & $0$ & $0$ \\
+31 & $1$ & $1$ & $1$ & $1$ & $0$ & 0 & $1$ & $0$ & $0$ \\
+3 & $0$ & $0$ & $0$ & $1$ & $0$ & ? & $0$ & $$ & $$ \\
+4 & $0$ & $0$ & $0$ & $1$ & $1$ & ? & $0$ & $$ & $$ \\
+7 & $0$ & $0$ & $1$ & $1$ & $0$ & ? & $0$ & $$ & $$ \\
+8 & $0$ & $0$ & $1$ & $1$ & $1$ & ? & $0$ & $$ & $$ \\
+9 & $0$ & $1$ & $0$ & $0$ & $0$ & ? & $0$ & $$ & $$ \\
+10 & $0$ & $1$ & $0$ & $0$ & $1$ & ? & $0$ & $$ & $$ \\
+11 & $0$ & $1$ & $0$ & $1$ & $0$ & ? & $0$ & $$ & $$ \\
+12 & $0$ & $1$ & $0$ & $1$ & $1$ & ? & $0$ & $$ & $$ \\
+13 & $0$ & $1$ & $1$ & $0$ & $0$ & ? & $0$ & $$ & $$ \\
+14 & $0$ & $1$ & $1$ & $0$ & $1$ & ? & $0$ & $$ & $$ \\
+15 & $0$ & $1$ & $1$ & $1$ & $0$ & ? & $0$ & $$ & $$ \\
+16 & $0$ & $1$ & $1$ & $1$ & $1$ & ? & $0$ & $$ & $$ \\
+17 & $1$ & $0$ & $0$ & $0$ & $0$ & ? & $0$ & $$ & $$ \\
+18 & $1$ & $0$ & $0$ & $0$ & $1$ & ? & $0$ & $$ & $$ \\
+19 & $1$ & $0$ & $0$ & $1$ & $0$ & ? & $0$ & $$ & $$ \\
+20 & $1$ & $0$ & $0$ & $1$ & $1$ & ? & $0$ & $$ & $$ \\
+21 & $1$ & $0$ & $1$ & $0$ & $0$ & ? & $0$ & $$ & $$ \\
+25 & $1$ & $1$ & $0$ & $0$ & $0$ & ? & $0$ & $$ & $$ \\
+26 & $1$ & $1$ & $0$ & $0$ & $1$ & ? & $0$ & $$ & $$ \\
+27 & $1$ & $1$ & $0$ & $1$ & $0$ & ? & $0$ & $$ & $$ \\
+28 & $1$ & $1$ & $0$ & $1$ & $1$ & ? & $0$ & $$ & $$ \\
+29 & $1$ & $1$ & $1$ & $0$ & $0$ & ? & $0$ & $$ & $$ \\
+30 & $1$ & $1$ & $1$ & $0$ & $1$ & ? & $0$ & $$ & $$ \\
+\hline \\[-1.8ex]
+\end{tabular}
 \end{table}
 #+end_export
 
@@ -184,13 +183,13 @@ TT %>% stargazerTT(type="latex")
 * Minimization
 
 ** Outcome [1]
-
-#+begin_src R :results drawer latex table
+*** Parsimonious solution
+#+begin_src R :results latex
 MIN <- minimize(
   TT,
   outcome="SURV",
   incl.cut = .9,
-  include = "? C",
+  include = "?",
   details = TRUE,
   show.cases=TRUE,
   complete=TRUE,
@@ -199,7 +198,94 @@ MIN <- minimize(
 MIN %>% stargazerSol(
           outcome="SURV",
           show.cases = TRUE,
-          sol = 1
+          sol = 2
+        )
+#+end_src
+
+#+RESULTS:
+#+begin_export latex
+
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: qua, jan 27, 2021 - 16:37:54
+\begin{table}[!htbp] \centering
+  \caption{}
+  \label{}
+\begin{tabular}{@{\extracolsep{5pt}} cccccc}
+\\[-1.8ex]\hline
+\hline \\[-1.8ex]
+ & inclS & PRI & covS & covU & cases \\
+\hline \\[-1.8ex]
+DEV\textasteriskcentered \textasciitilde IND & $1$ & $1$ & $0.250$ & $0$ & FI,IE \\
+IND\textasteriskcentered STB & $1$ & $1$ & $0.750$ & $0$ & FR,SE; BE,CZ,NL,UK \\
+Solution & $1$ & $1$ & $1$ & $$ &  \\
+\hline \\[-1.8ex]
+\end{tabular}
+\end{table}
+#+end_export
+
+
+*** Intermediary solution
+
+#+begin_src R :results latex
+MIN <- minimize(
+  TT,
+  outcome = "SURV",
+  incl.cut = .9,
+  include = "?",
+  details = TRUE,
+  show.cases = TRUE,
+  complete = TRUE,
+  all.sol = TRUE,
+  dir.exp = c(
+    1, # DEV
+    1, # URB
+    1, # LIT
+    1, # IND
+    1 # STB
+  )
+)
+MIN %>% stargazerSol(
+  outcome = "SURV",
+  show.cases = TRUE,
+)
+sol_1 <- MIN
+#+end_src
+
+#+RESULTS:
+#+begin_export latex
+Warning: stack imbalance in '<-', 2 then 5
+
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: qua, jan 27, 2021 - 16:37:55
+\begin{table}[!htbp] \centering
+  \caption{}
+  \label{}
+\begin{tabular}{@{\extracolsep{5pt}} cccccc}
+\\[-1.8ex]\hline
+\hline \\[-1.8ex]
+ & inclS & PRI & covS & covU & cases \\
+\hline \\[-1.8ex]
+DEV\textasteriskcentered LIT\textasteriskcentered STB & $1$ & $1$ & $1$ & $$ & FI,IE; FR,SE; BE,CZ,NL,UK \\
+Solution & $1$ & $1$ & $1$ & $$ &  \\
+\hline \\[-1.8ex]
+\end{tabular}
+\end{table}
+#+end_export
+
+*** Conservative solution
+#+begin_src R :results latex
+MIN <- minimize(
+  TT,
+  outcome="SURV",
+  incl.cut = .9,
+  details = TRUE,
+  show.cases=TRUE,
+  complete=TRUE,
+  all.sol = TRUE
+)
+MIN %>% stargazerSol(
+          outcome="SURV",
+          show.cases = TRUE,
         )
 sol_1 <- MIN
 #+end_src
@@ -209,27 +295,26 @@ sol_1 <- MIN
 Warning: stack imbalance in '<-', 2 then 3
 
 % Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-% Date and time: sex, jan 15, 2021 - 14:51:06
-\begin{table}[!htbp] \centering 
-  \caption{} 
-  \label{} 
-\begin{tabular}{@{\extracolsep{5pt}} cccccc} 
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
- & inclS & PRI & covS & covU & cases \\ 
-\hline \\[-1.8ex] 
-DEV\textasteriskcentered \textasciitilde URB\textasteriskcentered LIT\textasteriskcentered STB & $1$ & $1$ & $0.500$ & $0.250$ & FI,IE; FR,SE \\ 
-DEV\textasteriskcentered LIT\textasteriskcentered IND\textasteriskcentered STB & $1$ & $1$ & $0.750$ & $0.500$ & FR,SE; BE,CZ,NL,UK \\ 
-Solution & $1$ & $1$ & $1$ & $$ &  \\ 
-\hline \\[-1.8ex] 
-\end{tabular} 
+% Date and time: qua, jan 27, 2021 - 16:40:05
+\begin{table}[!htbp] \centering
+  \caption{}
+  \label{}
+\begin{tabular}{@{\extracolsep{5pt}} cccccc}
+\\[-1.8ex]\hline
+\hline \\[-1.8ex]
+ & inclS & PRI & covS & covU & cases \\
+\hline \\[-1.8ex]
+DEV\textasteriskcentered \textasciitilde URB\textasteriskcentered LIT\textasteriskcentered STB & $1$ & $1$ & $0.500$ & $0.250$ & FI,IE; FR,SE \\
+DEV\textasteriskcentered LIT\textasteriskcentered IND\textasteriskcentered STB & $1$ & $1$ & $0.750$ & $0.500$ & FR,SE; BE,CZ,NL,UK \\
+Solution & $1$ & $1$ & $1$ & $$ &  \\
+\hline \\[-1.8ex]
+\end{tabular}
 \end{table}
 #+end_export
 
-
 ** Outcome [0]
-
-#+begin_src R :results drawer latex table
+*** Conservative soltuion
+#+begin_src R :results drawer latex table :var title="Conservative solution"
 TT <- truthTable(
   LR,
   outcome = "~SURV",
@@ -244,7 +329,6 @@ MIN <- minimize(
   TT,
   outcome="SURV",
   incl.cut = .9,
-  include = "? C",
   details = TRUE,
   show.cases=TRUE,
   complete=TRUE,
@@ -253,7 +337,8 @@ MIN <- minimize(
 MIN %>% stargazerSol(
           outcome="~SURV",
           show.cases = TRUE,
-          sol = 1
+          sol = 1,
+          title = title
         )
 sol_0 <- MIN
 #+end_src
@@ -263,24 +348,143 @@ sol_0 <- MIN
 Warning: stack imbalance in '<-', 2 then 3
 
 % Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-% Date and time: sex, jan 15, 2021 - 14:51:21
-\begin{table}[!htbp] \centering 
-  \caption{} 
-  \label{} 
-\begin{tabular}{@{\extracolsep{5pt}} cccccc} 
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
- & inclS & PRI & covS & covU & cases \\ 
-\hline \\[-1.8ex] 
-\textasciitilde DEV\textasteriskcentered \textasciitilde URB\textasteriskcentered \textasciitilde IND & $1$ & $1$ & $0.800$ & $0.800$ & GR,PT,ES; RO; HU,PL; EE,IT \\ 
-DEV\textasteriskcentered LIT\textasteriskcentered IND\textasteriskcentered \textasciitilde STB & $1$ & $1$ & $0.200$ & $0.200$ & AU; DE \\ 
-Solution & $1$ & $1$ & $1$ & $$ &  \\ 
-\hline \\[-1.8ex] 
-\end{tabular} 
+% Date and time: qua, jan 27, 2021 - 16:37:55
+\begin{table}[!htbp] \centering
+  \caption{Conservative solution}
+  \label{}
+\begin{tabular}{@{\extracolsep{5pt}} cccccc}
+\\[-1.8ex]\hline
+\hline \\[-1.8ex]
+ & inclS & PRI & covS & covU & cases \\
+\hline \\[-1.8ex]
+\textasciitilde DEV\textasteriskcentered \textasciitilde URB\textasteriskcentered \textasciitilde IND & $1$ & $1$ & $0.800$ & $0.800$ & GR,PT,ES; RO; HU,PL; EE,IT \\
+DEV\textasteriskcentered LIT\textasteriskcentered IND\textasteriskcentered \textasciitilde STB & $1$ & $1$ & $0.200$ & $0.200$ & AU; DE \\
+Solution & $1$ & $1$ & $1$ & $$ &  \\
+\hline \\[-1.8ex]
+\end{tabular}
 \end{table}
 #+end_export
 
-* Visualization
+
+
+*** Parsimonious solution
+#+begin_src R :results drawer latex table :var title="Parsimonious solution"
+TT <- truthTable(
+  LR,
+  outcome = "~SURV",
+  conditions = c("DEV", "URB", "LIT", "IND", "STB"),
+  complete = TRUE,
+  use.letters = FALSE,
+  show.cases = TRUE,
+  sort.by = c("out", "incl", "n"),
+  dcc = TRUE # Deviant cases
+)
+MIN <- minimize(
+  TT,
+  outcome="SURV",
+  incl.cut = .9,
+  details = TRUE,
+  show.cases=TRUE,
+  complete=TRUE,
+  all.sol = TRUE
+)
+MIN %>% stargazerSol(
+          outcome="~SURV",
+          show.cases = TRUE,
+          sol = 1,
+          title = title
+        )
+sol_0 <- MIN
+#+end_src
+
+#+RESULTS:
+#+begin_export latex
+Warning: stack imbalance in '<-', 2 then 3
+
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: qua, jan 27, 2021 - 16:37:55
+\begin{table}[!htbp] \centering
+  \caption{Parsimonious solution}
+  \label{}
+\begin{tabular}{@{\extracolsep{5pt}} cccccc}
+\\[-1.8ex]\hline
+\hline \\[-1.8ex]
+ & inclS & PRI & covS & covU & cases \\
+\hline \\[-1.8ex]
+\textasciitilde DEV\textasteriskcentered \textasciitilde URB\textasteriskcentered \textasciitilde IND & $1$ & $1$ & $0.800$ & $0.800$ & GR,PT,ES; RO; HU,PL; EE,IT \\
+DEV\textasteriskcentered LIT\textasteriskcentered IND\textasteriskcentered \textasciitilde STB & $1$ & $1$ & $0.200$ & $0.200$ & AU; DE \\
+Solution & $1$ & $1$ & $1$ & $$ &  \\
+\hline \\[-1.8ex]
+\end{tabular}
+\end{table}
+#+end_export
+
+
+
+
+
+*** Intermediary solution
+#+begin_src R :results drawer latex table :var title="Intermediary solution"
+TT <- truthTable(
+  LR,
+  outcome = "~SURV",
+  conditions = c("DEV", "URB", "LIT", "IND", "STB"),
+  include = "?",
+  complete = TRUE,
+  use.letters = FALSE,
+  show.cases = TRUE,
+  sort.by = c("out", "incl", "n"),
+  dir.exp = c(
+    0, # DEV
+    0, # URB
+    0, # LIT
+    0, # IND
+    0 # STB
+  ),
+  dcc = TRUE # Deviant cases
+)
+MIN <- minimize(
+  TT,
+  outcome="SURV",
+  incl.cut = .9,
+  include = "?",
+  details = TRUE,
+  show.cases=TRUE,
+  complete=TRUE,
+  all.sol = TRUE
+)
+MIN %>% stargazerSol(
+          outcome="~SURV",
+          show.cases = TRUE,
+          title = title
+        )
+sol_0 <- MIN
+#+end_src
+
+#+RESULTS:
+#+begin_export latex
+
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: qua, jan 27, 2021 - 16:37:55
+\begin{table}[!htbp] \centering
+  \caption{Intermediary solution}
+  \label{}
+\begin{tabular}{@{\extracolsep{5pt}} cccccc}
+\\[-1.8ex]\hline
+\hline \\[-1.8ex]
+ & inclS & PRI & covS & covU & cases \\
+\hline \\[-1.8ex]
+\textasciitilde DEV & $1$ & $1$ & $0.800$ & $0.300$ & GR,PT,ES; RO; HU,PL; EE,IT \\
+\textasciitilde STB & $1$ & $1$ & $0.700$ & $0.200$ & GR,PT,ES; HU,PL; AU; DE \\
+Solution & $1$ & $1$ & $1$ & $$ &  \\
+\hline \\[-1.8ex]
+\end{tabular}
+\end{table}
+#+end_export
+
+
+
+* Visualizing intermediaries solutions
 
 ** Outcome [1]
 *** Radar plot
@@ -290,7 +494,6 @@ QCAradar(
   results = sol_1,
   outcome = "SURV",
   fit = TRUE,
-  sol = 1
 )
 dev.off()
 #+end_src
@@ -428,7 +631,7 @@ Warning: stack imbalance in '<-', 4 then 5
 Warning: stack imbalance in '<-', 2 then 3
 
 % Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-% Date and time: sex, jan 15, 2021 - 15:14:49
+% Date and time: qua, jan 27, 2021 - 16:37:56
 \begin{table}[!htbp] \centering
   \caption{}
   \label{}
@@ -443,7 +646,7 @@ Robustness\_Fit & $1$ & $1$ & $1$ \\
 \end{table}
 #+end_export
 ** Raw consistency threshold range
-#+begin_src R
+#+begin_src R :eval no
 rob.inclrange(
   data = LR,
   step = 0.01,
@@ -455,3 +658,4 @@ rob.inclrange(
   include = "?"
 )
 #+end_src
+
