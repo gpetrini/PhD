@@ -32,6 +32,9 @@
 - [[https://sdw.ecb.europa.eu/browse.do?node=9689356][Residential Real Estate variables (EuroStat)]]
 - [[https://www.eba.europa.eu/sites/default/documents/files/documents/10180/526027/a63306a6-3010-426d-b35f-f18aad9bb25d/Loan%20to%20value%20definitions.pdf?retry=1][Loan to value definitions by banks]]
 - [[https://www.cmhc-schl.gc.ca/en/data-and-research/data-tables/mortgage-consumer-credit-trends-cmas][Canada's mortgage related dataset]]
+- [[https://www.ecb.europa.eu/pub/economic-research/research-networks/html/researcher_hfcn.en.html][Household Finance and Consumption Network (HFCN):]] For some microdata about houseld expectations for housing
+- [[https://www.bis.org/statistics/pp/disclaimer.htm][Sources of property price data sets]]
+- [[https://www.bis.org/statistics/full_data_sets.htm][Download BIS statistics in a single file]]
 * Data Sources Summary
 
 #+BEGIN: columnview :maxlevel 3 :id global
@@ -223,7 +226,23 @@ plt.close()
 [[file:./figs/Jorda_TQCA_Outcome.png]]
 
 * Mortgage Loan to Value Ratio
-** Filed England
+[[https://sdw.ecb.europa.eu/browse.do?node=9689356][ECB Statistical Data Warehouse:]] In the future, these should hopefully be complemented with comprehensive and comparable data on mortgage loan maturities and LTV, DSTI or LTI ratios.
+** Australia
+** Belgium
+** Canada
+** Denmark
+** Finland
+** France
+** Germany
+** Italy
+** Japan
+** Netherlands
+** Norway
+** Portugal
+** Spain
+** Sweden
+** Switzerland
+** Filed United Kingdom
 :PROPERTIES:
 :URL:      [[http://opendatacommunities.org/data/housing-market/ratio/loan-to-value][Link]]
 :FREQUENCY: Quarterly
@@ -236,7 +255,7 @@ plt.close()
 :VAR_TYPE: ratio
 :END:
 
-** Filed USA
+** Filed United States
 :PROPERTIES:
 :URL: [[https://www.fhfa.gov/DataTools/Downloads/Documents/NATIONAL-MORTGAGE-DATABASE-(NMDB)-AGGREGATE-DATA/National-Statistics-for-New-Residential-Mortgages-in-the-United-States.xlsx][Link]]
 :FREQUENCY: Monthly
@@ -654,23 +673,257 @@ This dataset has one year data per spreadcheet. Additionaly, there are other dat
 
 
 * Loan Purpose Type
+** Australia
+** Belgium
+** Canada
+** Denmark
+** Finland
+** France
+** Germany
+** Italy
+** Japan
+** Netherlands
+** Norway
+** Portugal
+** Spain
+** Sweden
+** Switzerland
+** United Kingdom
+** United States
 
 * Property Usage Type
+** Australia
+** Belgium
+** Canada
+** Denmark
+** Finland
+** France
+** Germany
+** Italy
+** Japan
+** Netherlands
+** Norway
+** Portugal
+** Spain
+** Sweden
+** Switzerland
+** United Kingdom
+** United States
 
 * Borrower Credit Score Value
+** Australia
+** Belgium
+** Canada
+** Denmark
+** Finland
+** France
+** Germany
+** Italy
+** Japan
+** Netherlands
+** Norway
+** Portugal
+** Spain
+** Sweden
+** Switzerland
+** United Kingdom
+** United States
 
 * Homeownership Rate
+** Australia
+** Belgium
+** Canada
+** Denmark
+** Finland
+** France
+** Germany
+** Italy
+** Japan
+** Netherlands
+** Norway
+** Portugal
+** Spain
+** Sweden
+** Switzerland
+** United Kingdom
+** United States
 
 * Mortgage Debt Outstanding-to-GDP
+** Australia
+** Belgium
+** Canada
+** Denmark
+** Finland
+** France
+** Germany
+** Italy
+** Japan
+** Netherlands
+** Norway
+** Portugal
+** Spain
+** Sweden
+** Switzerland
+** United Kingdom
+** United States
 
 * Early Repayment
+** Australia
+** Belgium
+** Canada
+** Denmark
+** Finland
+** France
+** Germany
+** Italy
+** Japan
+** Netherlands
+** Norway
+** Portugal
+** Spain
+** Sweden
+** Switzerland
+** United Kingdom
+** United States
 
 * Amortzation and Term
+** Australia
+** Belgium
+** Canada
+** Denmark
+** Finland
+** France
+** Germany
+** Italy
+** Japan
+** Netherlands
+** Norway
+** Portugal
+** Spain
+** Sweden
+** Switzerland
+** United Kingdom
+** United States
 
 * Mortgage Default and Foreclosure
+** Australia
+** Belgium
+** Canada
+** Denmark
+** Finland
+** France
+** Germany
+** Italy
+** Japan
+** Netherlands
+** Norway
+** Portugal
+** Spain
+** Sweden
+** Switzerland
+** United Kingdom
+** United States
 
 * Mortgage Funding
+** Australia
+** Belgium
+** Canada
+** Denmark
+** Finland
+** France
+** Germany
+** Italy
+** Japan
+** Netherlands
+** Norway
+** Portugal
+** Spain
+** Sweden
+** Switzerland
+** United Kingdom
+** United States
 
 * Mortgage depth
+** Australia
+** Belgium
+** Canada
+** Denmark
+** Finland
+** France
+** Germany
+** Italy
+** Japan
+** Netherlands
+** Norway
+** Portugal
+** Spain
+** Sweden
+** Switzerland
+** United Kingdom
+** United States
 
 * Housing Loan Penetration
+** Australia
+** Belgium
+** Canada
+** Denmark
+** Finland
+** France
+** Germany
+** Italy
+** Japan
+** Netherlands
+** Norway
+** Portugal
+** Spain
+** Sweden
+** Switzerland
+** United Kingdom
+** United States
+
+* Changes in credit standard
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/browse.do?node=bbn3663][Link]]
+:FREQUENCY: Quarterly
+:START:    2007
+:END:      2020
+:DESCRIPTION: "Changes in credit standards for loans to households (for house purchase)"
+:COVERAGE: Block and Domestic Currency
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: index
+:KEY:  BLS.Q.DE.ALL.O.E.Z.B3.ST.S.FNET
+:END:
+
+Countries list:
+- Euro Area
+- Germany
+- Spain
+- Italy
+- France
+
+* Loan-to-Deposits ratio
+:PROPERTIES:
+:URL: [[https://sdw.ecb.europa.eu/browse.do?node=bbn3329][Link]]
+:FREQUENCY: Quarterly
+:START:    1997
+:END:      2020
+:DESCRIPTION: ""
+:COVERAGE: Block and Domestic Currency
+:PUBLIC:   Yes
+:SEASONAL_ADJ: Not Informed
+:VAR_TYPE: ratio
+:KEY: ""
+:END:
+Countries list:
+- Australia
+- Belgium
+- Denmark
+- Finland
+- France
+- Germany
+- Italy
+- Netherlands
+- Portugal
+- Spain
+- Sweden
