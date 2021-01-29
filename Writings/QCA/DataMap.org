@@ -191,33 +191,28 @@ max    322783.332739  36359.374592   117.645175   115.435926  1.861064e+08  ... 
 [8 rows x 45 columns]
 #+end_example
 
-** Comparing mortgaging average pre-2007 and post-2008
+** Comparing mortgaging pre-2007 and post-2008
 
 #+begin_src python :results graphics file :file ./figs/Jorda_TQCA_Outcome.png
-tmp = df.reset_index(level=[0,1]).loc[:,['iso', 'year','tmort', 'tloans']].copy(deep=True)
-tmp.set_index(['year'], inplace=True)
-tmp["Mortgaging"] = tmp["tmort"]/tmp['tloans']
-tmp = tmp.pivot(columns='iso', values='Mortgaging')
-tmp = ((tmp.loc['2009-01-01':,:].mean() - tmp.loc[:'2006-01-01',:].mean())/(tmp.loc[:'2006-01-01',:].mean()))
-tmp.index.name = 'Country'
-tmp = tmp.sort_values(ascending=False)
-tmp.to_csv('./raw/Jorda_TQCA_Outcome_2009_2007.csv', header=['DMRTG])
-fig, ax = plt.subplots(figsize=(8,5))
-tmp.plot(
-    kind='bar',
-    edgecolor='black',
-    lw=2,
-    ax=ax
+tmp = (
+    df.reset_index(level=[0, 1])
+    .loc[:, ["iso", "year", "tmort", "tloans"]]
+    .copy(deep=True)
 )
+tmp.set_index(["year"], inplace=True)
+tmp["Mortgaging"] = tmp["tmort"] / tmp["tloans"]
+tmp = tmp.pivot(columns="iso", values="Mortgaging")
+tmp = tmp.loc["2009-01-01", :] - tmp.loc["2006-01-01", :]
+tmp.index.name = "Country"
+tmp = tmp.sort_values(ascending=False)
+tmp.to_csv("./raw/Jorda_TQCA_Outcome_2009_2007.csv", header=["DMRTG"])
+fig, ax = plt.subplots(figsize=(8, 5))
+tmp.plot(kind="bar", edgecolor="black", lw=2, ax=ax)
 sns.despine()
 
-ax.set_title('avg(Mortgaging post 2009) - avg(Mortgaging pre 2007)')
+ax.set_title("$\Delta$ Mortgaging (2009 - 2006)")
 
-fig.savefig(
-    './figs/Jorda_TQCA_Outcome.png',
-    dpi=300,
-    bbox_inches='tight'
-)
+fig.savefig("./figs/Jorda_TQCA_Outcome.png", dpi=300, bbox_inches="tight")
 
 plt.close()
 #+end_src

@@ -1,0 +1,714 @@
+#+OPTIONS: num:nil
+#+TITLE: Scanlon model: Mortgages changes 2008-2007
+#+AUTHOR: Gabriel Petrini
+#+LANG: en
+#+PROPERTY:header-args python:results output :eval never-export :session scanlon :exports both
+#+PROPERTY:header-args R:results output :eval never-export :session scanlon :exports both
+
+* HTML headers                                         :noexport:ignore:
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+
+#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+#+HTML_HEAD: <style> #content{max-width:1800px;}</style>
+
+* Introduction
+
+textcite:scanlon_2009_Mortgage presents a report some institutional change in mortgage market in response to the Great Finance Crises (GFC).
+In this toy model, we present an comparative analisys based on Qualitative Comparative Analysis (QCA) initially developed by textcite:raginComparativeMethodMoving1987.
+Here, we use textcite:jorda_2016_great dataset in order to investigate which sets led to an increase or decrease in mortgage share in total loans (thereafter mortgaging).
+To do so, we compare the diference between the mortgage level prior (2006) and after (2009) the GFC.
+If this trend increased, the outcome (MORT) is mapped into 1 and 0 otherwise.
+Since the information in textcite:scanlon_2009_Mortgage work is fully categorical (fully in or out), we employed the crisp-set variant (csQCA).
+As long it is a toy model, we kindly as to do not cite or quote this file without authors' permition.
+
+* Code initial setup
+** Python
+
+#+BEGIN_SRC python
+# General packages
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Country converter
+import country_converter as coco
+
+cc = coco.CountryConverter()
+
+
+# For exporting org tables
+from tabulate import tabulate
+#+END_SRC
+
+#+RESULTS:
+
+** R
+#+begin_src R
+library(QCA)
+library(SetMethods)
+library(venn)
+library(tidyverse)
+library(knitr) # Beatiful tables
+library(stargazer)
+#+end_src
+
+#+RESULTS:
+
+* textcite:scanlon_2009_Mortgage table
+
+** Creating
+#+NAME: raw
+#+CAPTION: Table 3: Change in mortgage product characteristics, late 2007 – late 2008 (p. 7)
+|----------------+-----------+------------------------------+-------------------------------------+--------------------------------+----------------|
+| Country        | Lower LTV | 100% mortgage less available | LTI/affordability criteria tightned | Maximum mortgage term shortned | New loan types |
+|----------------+-----------+------------------------------+-------------------------------------+--------------------------------+----------------|
+| Australia      | X         | X                            | X                                   | -                              | -              |
+| Denmark        | X         | -                            | -                                   | -                              | -              |
+| France         | X         | X                            | -                                   | X                              | -              |
+| Iceland        | -         | -                            | -                                   | -                              | -              |
+| Ireland        | X         | X                            | X                                   | -                              | X              |
+| Netherlands    | -         | X                            | X                                   | -                              | -              |
+| Norway         | X         | -                            | -                                   | -                              | -              |
+| Poland         | -         | -                            | -                                   | X                              | -              |
+| Portugal       | -         | -                            | X                                   | -                              | X              |
+| Russia         | X         | X                            | X                                   | X                              | -              |
+| Spain          | X         | -                            | X                                   | X                              | -              |
+| Sweden         | X         | X                            | -                                   | -                              | -              |
+| United Kingdom | X         | X                            | X                                   | -                              | -              |
+| United States  | X         | X                            | X                                   | -                              | -              |
+|----------------+-----------+------------------------------+-------------------------------------+--------------------------------+----------------|
+
+** Importing
+
+#+BEGIN_SRC python :var df=raw() :results value raw :output :return tabulate(df, headers=df.columns, tablefmt='orgtbl')
+df = pd.DataFrame(
+    df,
+)
+df.set_index(0, inplace=True)
+df = df.rename(columns=df.iloc[0]).drop("Country")
+df.index = cc.convert( # Converting to ISO3
+    names = df.index.to_list(),
+    to = 'ISO3'
+)
+df.index.name = 'Country'
+#+END_SRC
+
+#+RESULTS:
+|     | Lower LTV   | 100% mortgage less available   | LTI/affordability criteria tightned   | Maximum mortgage term shortned   | New loan types   |
+|-----+-------------+--------------------------------+---------------------------------------+----------------------------------+------------------|
+| AUS | X           | X                              | X                                     | -                                | -                |
+| DNK | X           | -                              | -                                     | -                                | -                |
+| FRA | X           | X                              | -                                     | X                                | -                |
+| ISL | -           | -                              | -                                     | -                                | -                |
+| IRL | X           | X                              | X                                     | -                                | X                |
+| NLD | -           | X                              | X                                     | -                                | -                |
+| NOR | X           | -                              | -                                     | -                                | -                |
+| POL | -           | -                              | -                                     | X                                | -                |
+| PRT | -           | -                              | X                                     | -                                | X                |
+| RUS | X           | X                              | X                                     | X                                | -                |
+| ESP | X           | -                              | X                                     | X                                | -                |
+| SWE | X           | X                              | -                                     | -                                | -                |
+| GBR | X           | X                              | X                                     | -                                | -                |
+| USA | X           | X                              | X                                     | -                                | -                |
+
+
+*** Exporting
+
+#+BEGIN_SRC python
+df.to_csv('../raw/Scanlon.csv')
+#+END_SRC
+
+#+RESULTS:
+
+
+** Creating Crisp-set table
+
+
+#+BEGIN_SRC python :results value raw :output :return tabulate(df, headers=df.columns, tablefmt='orgtbl')
+for col in df:
+    df[col] = df[col].map({"X": 1.0, "-": 0.0})
+#+END_SRC
+
+#+RESULTS:
+|     |   Lower LTV |   100% mortgage less available |   LTI/affordability criteria tightned |   Maximum mortgage term shortned |   New loan types |
+|-----+-------------+--------------------------------+---------------------------------------+----------------------------------+------------------|
+| AUS |           1 |                              1 |                                     1 |                                0 |                0 |
+| DNK |           1 |                              0 |                                     0 |                                0 |                0 |
+| FRA |           1 |                              1 |                                     0 |                                1 |                0 |
+| ISL |           0 |                              0 |                                     0 |                                0 |                0 |
+| IRL |           1 |                              1 |                                     1 |                                0 |                1 |
+| NLD |           0 |                              1 |                                     1 |                                0 |                0 |
+| NOR |           1 |                              0 |                                     0 |                                0 |                0 |
+| POL |           0 |                              0 |                                     0 |                                1 |                0 |
+| PRT |           0 |                              0 |                                     1 |                                0 |                1 |
+| RUS |           1 |                              1 |                                     1 |                                1 |                0 |
+| ESP |           1 |                              0 |                                     1 |                                1 |                0 |
+| SWE |           1 |                              1 |                                     0 |                                0 |                0 |
+| GBR |           1 |                              1 |                                     1 |                                0 |                0 |
+| USA |           1 |                              1 |                                     1 |                                0 |                0 |
+
+*** Exporting
+
+#+BEGIN_SRC python
+df.to_csv('../clean/Scanlon_cripset_noOUT.csv')
+#+END_SRC
+
+#+RESULTS:
+
+** Merging with outcome
+
+#+BEGIN_SRC python :results value raw :output :return tabulate(outcome, headers=outcome.columns, tablefmt='orgtbl')
+outcome = pd.read_csv(
+    '../raw/Jorda_TQCA_Outcome_2009_2007.csv',
+    index_col = [0]
+)
+outcome
+#+END_SRC
+
+#+RESULTS:
+|     |        DMRTG |
+|-----+--------------|
+| NOR |  0.0566525   |
+| ITA |  0.0391297   |
+| BEL |  0.0288521   |
+| JPN |  0.0181154   |
+| FIN |  0.0132737   |
+| GBR |  0.012143    |
+| SWE |  0.0116887   |
+| AUS |  0.010745    |
+| DNK |  0.010012    |
+| FRA |  0.00792685  |
+| ESP | -0.000690213 |
+| USA | -0.00423217  |
+| CHE | -0.00680872  |
+| PRT | -0.0134038   |
+| DEU | -0.0352307   |
+| CAN | -0.0372443   |
+| NLD | -0.0614047   |
+
+
+#+BEGIN_SRC python :results value raw :output :return tabulate(df, headers=df.columns, tablefmt='orgtbl')
+df = pd.merge(df,outcome, left_index=True, right_index=True)
+#+END_SRC
+
+#+RESULTS:
+|     | Lower LTV | 100% mortgage less available | LTI/affordability criteria tightned | Maximum mortgage term shortned | New loan types |        DMRTG |
+|-----+-----------+------------------------------+-------------------------------------+--------------------------------+----------------+--------------|
+| AUS |         1 |                            1 |                                   1 |                              0 |              0 |     0.010745 |
+| DNK |         1 |                            0 |                                   0 |                              0 |              0 |     0.010012 |
+| FRA |         1 |                            1 |                                   0 |                              1 |              0 |   0.00792685 |
+| NLD |         0 |                            1 |                                   1 |                              0 |              0 |   -0.0614047 |
+| NOR |         1 |                            0 |                                   0 |                              0 |              0 |    0.0566525 |
+| PRT |         0 |                            0 |                                   1 |                              0 |              1 |   -0.0134038 |
+| ESP |         1 |                            0 |                                   1 |                              1 |              0 | -0.000690213 |
+| SWE |         1 |                            1 |                                   0 |                              0 |              0 |    0.0116887 |
+| GBR |         1 |                            1 |                                   1 |                              0 |              0 |     0.012143 |
+| USA |         1 |                            1 |                                   1 |                              0 |              0 |  -0.00423217 |
+
+#+CAPTION: Uncalibratted outcome
+[[../figs/Jorda_TQCA_Outcome.png]]
+
+** Renaming columns and Exporting to csv
+
+#+BEGIN_SRC python :results value raw :output :return tabulate(df, headers=df.columns, tablefmt='orgtbl')
+df.columns = [
+    "LOWLTV",  # Lower LTV
+    "LESS",  # Less 100% mortgage available
+    "AFFOR",  # LTI/affordability criteria tightned
+    "MAX",  # Maximum mortgage term shortned
+    "NEW",  # New loans type to deal with the crisis
+    "DMORT",  # pct change in mortaging between pre 2006 and post 2009
+]
+df.to_csv("../clean/csQCA_scanlon.csv", header=True)
+#+END_SRC
+
+#+RESULTS:
+|     |   LOWLTV |   LESS |   AFFOR |   MAX |   NEW |        DMORT |
+|-----+----------+--------+---------+-------+-------+--------------|
+| AUS |        1 |      1 |       1 |     0 |     0 |  0.010745    |
+| DNK |        1 |      0 |       0 |     0 |     0 |  0.010012    |
+| FRA |        1 |      1 |       0 |     1 |     0 |  0.00792685  |
+| NLD |        0 |      1 |       1 |     0 |     0 | -0.0614047   |
+| NOR |        1 |      0 |       0 |     0 |     0 |  0.0566525   |
+| PRT |        0 |      0 |       1 |     0 |     1 | -0.0134038   |
+| ESP |        1 |      0 |       1 |     1 |     0 | -0.000690213 |
+| SWE |        1 |      1 |       0 |     0 |     0 |  0.0116887   |
+| GBR |        1 |      1 |       1 |     0 |     0 |  0.012143    |
+| USA |        1 |      1 |       1 |     0 |     0 | -0.00423217  |
+
+* Calibration
+
+#+begin_src R :results value table
+df = read.csv('../clean/csQCA_scanlon.csv')
+
+
+# Indirect calibration (binomial)
+df$DMORT<-calibrate(df$DMORT, type = "crisp", threshold = 0.0)
+
+df
+#+end_src
+
+#+RESULTS:
+| AUS | 1 | 1 | 1 | 0 | 0 | 1 |
+| DNK | 1 | 0 | 0 | 0 | 0 | 1 |
+| FRA | 1 | 1 | 0 | 1 | 0 | 1 |
+| NLD | 0 | 1 | 1 | 0 | 0 | 0 |
+| NOR | 1 | 0 | 0 | 0 | 0 | 1 |
+| PRT | 0 | 0 | 1 | 0 | 1 | 0 |
+| ESP | 1 | 0 | 1 | 1 | 0 | 0 |
+| SWE | 1 | 1 | 0 | 0 | 0 | 1 |
+| GBR | 1 | 1 | 1 | 0 | 0 | 1 |
+| USA | 1 | 1 | 1 | 0 | 0 | 0 |
+
+
+* Outcome [0]: Decrease in mortgaging trend
+** Truth Table
+
+#+begin_src R :results pp
+TT <- truthTable(
+  df,
+  outcome = "DMORT",
+  conditions = c(
+    "LOWLTV",
+    "LESS",
+    "AFFOR",
+    "MAX",
+    "NEW"
+  ),
+  complete = TRUE,
+  use.letters = FALSE,
+  show.cases = TRUE,
+  sort.by = c("out", "incl", "n"),
+  neg.out = TRUE,
+ ## dcc = TRUE # Deviant cases
+  )
+print(TT)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+
+  OUT: output value
+    n: number of cases in configuration
+ incl: sufficiency inclusion score
+  PRI: proportional reduction in inconsistency
+
+     LOWLTV LESS AFFOR MAX NEW   OUT    n  incl  PRI   cases
+ 6     0     0     1    0   1     1     1  1.000 1.000 6
+13     0     1     1    0   0     1     1  1.000 1.000 4
+23     1     0     1    1   0     1     1  1.000 1.000 7
+29     1     1     1    0   0     0     3  0.333 0.333 1,9,10
+17     1     0     0    0   0     0     2  0.000 0.000 2,5
+25     1     1     0    0   0     0     1  0.000 0.000 8
+27     1     1     0    1   0     0     1  0.000 0.000 3
+ 1     0     0     0    0   0     ?     0    -     -
+ 2     0     0     0    0   1     ?     0    -     -
+ 3     0     0     0    1   0     ?     0    -     -
+ 4     0     0     0    1   1     ?     0    -     -
+ 5     0     0     1    0   0     ?     0    -     -
+ 7     0     0     1    1   0     ?     0    -     -
+ 8     0     0     1    1   1     ?     0    -     -
+ 9     0     1     0    0   0     ?     0    -     -
+10     0     1     0    0   1     ?     0    -     -
+11     0     1     0    1   0     ?     0    -     -
+12     0     1     0    1   1     ?     0    -     -
+14     0     1     1    0   1     ?     0    -     -
+15     0     1     1    1   0     ?     0    -     -
+16     0     1     1    1   1     ?     0    -     -
+18     1     0     0    0   1     ?     0    -     -
+19     1     0     0    1   0     ?     0    -     -
+20     1     0     0    1   1     ?     0    -     -
+21     1     0     1    0   0     ?     0    -     -
+22     1     0     1    0   1     ?     0    -     -
+24     1     0     1    1   1     ?     0    -     -
+26     1     1     0    0   1     ?     0    -     -
+28     1     1     0    1   1     ?     0    -     -
+30     1     1     1    0   1     ?     0    -     -
+31     1     1     1    1   0     ?     0    -     -
+32     1     1     1    1   1     ?     0    -     -
+#+end_example
+** Minimization
+*** Parsimonious solution
+**** Solution
+#+begin_src R :results pp
+MIN <- minimize(
+  TT,
+  outcome="DMORT",
+  incl.cut = .8,
+  include = "?",
+  details = TRUE,
+  show.cases=TRUE,
+  complete=TRUE,
+ neg.out = TRUE,
+ all.sol = TRUE
+)
+print(MIN)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+
+M1: ~LOWLTV + (~LESS*AFFOR) -
+~DMORT
+M2: ~LOWLTV + (~LESS*MAX) -
+~DMORT
+M3: ~LOWLTV + (AFFOR*MAX) -
+~DMORT
+
+                                     --------------------------
+                inclS   PRI   covS   covU   (M1)   (M2)   (M3)   cases
+---------------------------------------------------------------------
+1      ~LOWLTV  1.000  1.000  0.500  0.250  0.250  0.500  0.500  6; 4
+---------------------------------------------------------------------
+2  ~LESS*AFFOR  1.000  1.000  0.500  0.000  0.250                6; 7
+3    ~LESS*MAX  1.000  1.000  0.250  0.000         0.250         7
+4    AFFOR*MAX  1.000  1.000  0.250  0.000                0.250  7
+---------------------------------------------------------------------
+            M1  1.000  1.000  0.750
+            M2  1.000  1.000  0.750
+            M3  1.000  1.000  0.750
+#+end_example
+**** Venn Diagram
+
+#+begin_src R :results file graphics :file ../figs/Scanlon_Venn_Parsimonious_out.png
+png('../figs/Scanlon_Venn_Parsimonious_out.png')
+venn(MIN, box=FALSE, ilabels=TRUE)
+dev.off()
+#+end_src
+
+#+RESULTS:
+[[file:../figs/Scanlon_Venn_Parsimonious_out.png]]
+
+
+
+*** Intermediary solution
+**** Solution
+
+#+begin_src R :results pp
+MIN <- minimize(
+  TT,
+  outcome = "DMORT",
+  incl.cut = .8,
+  include = "?",
+  details = TRUE,
+  show.cases = TRUE,
+  complete = TRUE,
+  all.sol = TRUE,
+  dir.exp = c(
+    0,
+    0,
+    0,
+    0,
+    0
+  ),
+  neg.out=TRUE
+)
+print(MIN)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Warning: stack imbalance in '<-', 2 then 6
+
+From C1P1:
+
+M1:    ~LOWLTV*~LESS*~MAX + ~LOWLTV*~MAX*~NEW + ~LESS*AFFOR*~NEW -
+~DMORT
+
+                       inclS   PRI   covS   covU   cases
+--------------------------------------------------------
+1  ~LOWLTV*~LESS*~MAX  1.000  1.000  0.250  0.250  6
+2   ~LOWLTV*~MAX*~NEW  1.000  1.000  0.250  0.250  4
+3    ~LESS*AFFOR*~NEW  1.000  1.000  0.250  0.250  7
+--------------------------------------------------------
+                   M1  1.000  1.000  0.750
+
+
+From C1P2:
+
+M1:    ~LOWLTV*~LESS*~MAX + ~LOWLTV*~MAX*~NEW + ~LESS*MAX*~NEW -
+~DMORT
+
+                       inclS   PRI   covS   covU   cases
+--------------------------------------------------------
+1  ~LOWLTV*~LESS*~MAX  1.000  1.000  0.250  0.250  6
+2   ~LOWLTV*~MAX*~NEW  1.000  1.000  0.250  0.250  4
+3      ~LESS*MAX*~NEW  1.000  1.000  0.250  0.250  7
+--------------------------------------------------------
+                   M1  1.000  1.000  0.750
+
+
+From C1P3:
+
+M1:    ~LOWLTV*~LESS*~MAX + ~LOWLTV*~MAX*~NEW + ~LESS*AFFOR*MAX*~NEW -
+~DMORT
+
+                         inclS   PRI   covS   covU   cases
+----------------------------------------------------------
+1    ~LOWLTV*~LESS*~MAX  1.000  1.000  0.250  0.250  6
+2     ~LOWLTV*~MAX*~NEW  1.000  1.000  0.250  0.250  4
+3  ~LESS*AFFOR*MAX*~NEW  1.000  1.000  0.250  0.250  7
+----------------------------------------------------------
+                     M1  1.000  1.000  0.750
+#+end_example
+
+
+**** Venn Diagram
+
+#+begin_src R :results file graphics :file ../figs/Scanlon_Venn_Inter_out.png
+png('../figs/Scanlon_Venn_Inter_out.png')
+venn(MIN, box=FALSE, ilabels=TRUE)
+dev.off()
+#+end_src
+
+#+RESULTS:
+[[file:../figs/Scanlon_Venn_Inter_out.png]]
+
+
+
+*** Conservative solution
+**** Solution
+
+#+begin_src R :results pp
+MIN <- minimize(
+  TT,
+  outcome="~DMORT",
+  incl.cut = .8,
+  details = TRUE,
+  show.cases=TRUE,
+  complete=TRUE,
+  all.sol = TRUE
+)
+print(MIN)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Warning: stack imbalance in '<-', 2 then 3
+
+M1: ~LOWLTV*LESS*AFFOR*~MAX*~NEW + LOWLTV*~LESS*AFFOR*MAX*~NEW +
+    ~LOWLTV*~LESS*AFFOR*~MAX*NEW -
+~DMORT
+
+                                 inclS   PRI   covS   covU   cases
+------------------------------------------------------------------
+1  ~LOWLTV*LESS*AFFOR*~MAX*~NEW  1.000  1.000  0.250  0.250  4
+2   LOWLTV*~LESS*AFFOR*MAX*~NEW  1.000  1.000  0.250  0.250  7
+3  ~LOWLTV*~LESS*AFFOR*~MAX*NEW  1.000  1.000  0.250  0.250  6
+------------------------------------------------------------------
+                             M1  1.000  1.000  0.750
+#+end_example
+
+**** Venn Diagram
+
+#+begin_src R :results file graphics :file ../figs/Scanlon_Venn_Conserv_out.png
+png('../figs/Scanlon_Venn_Conserv_out.png')
+venn(MIN, box=FALSE, ilabels=TRUE)
+dev.off()
+#+end_src
+
+#+RESULTS:
+[[file:../figs/Scanlon_Venn_Conserv_out.png]]
+* Outcome [1]: Increase in mortgaging trend
+** Truth Table
+
+#+begin_src R :results pp
+TT <- truthTable(
+  df,
+  outcome = "DMORT",
+  conditions = c(
+    "LOWLTV",
+    "LESS",
+    "AFFOR",
+    "MAX",
+    "NEW"
+  ),
+  complete = TRUE,
+  use.letters = FALSE,
+  show.cases = TRUE,
+  sort.by = c("out", "incl", "n"),
+  ## dcc = TRUE # Deviant cases
+  )
+print(TT)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+
+  OUT: output value
+    n: number of cases in configuration
+ incl: sufficiency inclusion score
+  PRI: proportional reduction in inconsistency
+
+     LOWLTV LESS AFFOR MAX NEW   OUT    n  incl  PRI   cases
+17     1     0     0    0   0     1     2  1.000 1.000 2,5
+25     1     1     0    0   0     1     1  1.000 1.000 8
+27     1     1     0    1   0     1     1  1.000 1.000 3
+29     1     1     1    0   0     0     3  0.667 0.667 1,9,10
+ 6     0     0     1    0   1     0     1  0.000 0.000 6
+13     0     1     1    0   0     0     1  0.000 0.000 4
+23     1     0     1    1   0     0     1  0.000 0.000 7
+ 1     0     0     0    0   0     ?     0    -     -
+ 2     0     0     0    0   1     ?     0    -     -
+ 3     0     0     0    1   0     ?     0    -     -
+ 4     0     0     0    1   1     ?     0    -     -
+ 5     0     0     1    0   0     ?     0    -     -
+ 7     0     0     1    1   0     ?     0    -     -
+ 8     0     0     1    1   1     ?     0    -     -
+ 9     0     1     0    0   0     ?     0    -     -
+10     0     1     0    0   1     ?     0    -     -
+11     0     1     0    1   0     ?     0    -     -
+12     0     1     0    1   1     ?     0    -     -
+14     0     1     1    0   1     ?     0    -     -
+15     0     1     1    1   0     ?     0    -     -
+16     0     1     1    1   1     ?     0    -     -
+18     1     0     0    0   1     ?     0    -     -
+19     1     0     0    1   0     ?     0    -     -
+20     1     0     0    1   1     ?     0    -     -
+21     1     0     1    0   0     ?     0    -     -
+22     1     0     1    0   1     ?     0    -     -
+24     1     0     1    1   1     ?     0    -     -
+26     1     1     0    0   1     ?     0    -     -
+28     1     1     0    1   1     ?     0    -     -
+30     1     1     1    0   1     ?     0    -     -
+31     1     1     1    1   0     ?     0    -     -
+32     1     1     1    1   1     ?     0    -     -
+#+end_example
+** Minimization
+*** Parsimonious solution
+**** Solution
+#+begin_src R :results pp
+MIN <- minimize(
+  TT,
+  outcome="DMORT",
+  incl.cut = .8,
+  include = "?",
+  details = TRUE,
+  show.cases=TRUE,
+  complete=TRUE,
+  all.sol = TRUE
+)
+print(MIN)
+#+end_src
+
+#+RESULTS:
+:
+: M1: ~AFFOR -
+: DMORT
+:
+:            inclS   PRI   covS   covU   cases
+: ------------------------------------------------
+: 1  ~AFFOR  1.000  1.000  0.667    -    2,5; 8; 3
+: ------------------------------------------------
+:        M1  1.000  1.000  0.667
+**** Venn Diagram
+
+#+begin_src R :results file graphics :file ../figs/Scanlon_Venn_Parsimonious_OUT.png
+png('../figs/Scanlon_Venn_Parsimonious_OUT.png')
+venn(MIN, box=FALSE, ilabels=TRUE)
+dev.off()
+#+end_src
+
+#+RESULTS:
+[[file:../figs/Scanlon_Venn_Parsimonious_OUT.png]]
+
+
+
+*** Intermediary solution
+**** Solution
+
+#+begin_src R :results pp
+MIN <- minimize(
+  TT,
+  outcome = "DMORT",
+  incl.cut = .8,
+  include = "?",
+  details = TRUE,
+  show.cases = TRUE,
+  complete = TRUE,
+  all.sol = TRUE,
+  dir.exp = c(
+    0,
+    0,
+    0,
+    0,
+    0
+  )
+)
+print(MIN)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Warning: stack imbalance in '<-', 2 then 4
+
+From C1P1:
+
+M1:    ~AFFOR*~NEW -
+DMORT
+
+                inclS   PRI   covS   covU   cases
+-----------------------------------------------------
+1  ~AFFOR*~NEW  1.000  1.000  0.667    -    2,5; 8; 3
+-----------------------------------------------------
+            M1  1.000  1.000  0.667
+#+end_example
+
+**** Venn Diagram
+
+#+begin_src R :results file graphics :file ../figs/Scanlon_Venn_Inter_OUT.png
+png('../figs/Scanlon_Venn_Inter_OUT.png')
+venn(MIN, box=FALSE, ilabels=TRUE)
+dev.off()
+#+end_src
+
+#+RESULTS:
+[[file:../figs/Scanlon_Venn_Inter_OUT.png]]
+
+
+
+*** Conservative solution
+**** Solution
+
+#+begin_src R :results pp
+MIN <- minimize(
+  TT,
+  outcome="DMORT",
+  incl.cut = .8,
+  details = TRUE,
+  show.cases=TRUE,
+  complete=TRUE,
+  all.sol = TRUE
+)
+print(MIN)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Warning: stack imbalance in '<-', 2 then 3
+
+M1: LOWLTV*LESS*~AFFOR*~NEW + LOWLTV*~AFFOR*~MAX*~NEW -
+DMORT
+
+                            inclS   PRI   covS   covU   cases
+--------------------------------------------------------------
+1  LOWLTV*LESS*~AFFOR*~NEW  1.000  1.000  0.333  0.167  8; 3
+2  LOWLTV*~AFFOR*~MAX*~NEW  1.000  1.000  0.500  0.333  2,5; 8
+--------------------------------------------------------------
+                        M1  1.000  1.000  0.667
+#+end_example
+
+**** Venn Diagram
+
+#+begin_src R :results file graphics :file ../figs/Scanlon_Venn_Conserv_OUT.png
+png('../figs/Scanlon_Venn_Conserv_OUT.png')
+venn(MIN, box=FALSE, ilabels=TRUE)
+dev.off()
+#+end_src
+
+#+RESULTS:
+[[file:../figs/Scanlon_Venn_Conserv_OUT.png]]
