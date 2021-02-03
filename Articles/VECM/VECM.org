@@ -4038,16 +4038,16 @@ g_{I_h} = \phi_0 - \phi_1\cdot own
 #+end_export
 
 where $\phi_0$ stands for long-term determinants (/e.g./ demographic factors, housing and credit policies, etc.) while $\phi_1$ captures the demand for real estate arising from expectations of capital gains resulting from speculation with the existing dwellings stock. 
-This particular real interest rate is the most relevant for households since it is the real cost in real estate from buying real estate  (\cite[p.~53]{teixeira_crescimento_2015}).
+This particular real interest rate is the most relevant for households since it is the real cost in real estate from buying real estate  \cite[p.~53]{teixeira_crescimento_2015}.
 
 Figure ref:propria_investo shows how this deflation procedure is more adequate than a general price index --- as \textcite[p.~143--6]{fair_macroeconometric_2013} does --- to describe the housing dynamics. It worth noting that during a houses' bubble period, it is real estate inflation that governs own's interest rate dynamics.
 Therefore, the lower this rate is, the greater the capital gains (in real estate) for speculating with real estate will be. This negative relation between houses' own interest rate and residential investment is shown in Figure ref:propria_investo in which this particular real interest rate has been gradually decreased over the real estate boom (2002-5).
 
-Despite shedding light on some relevant relationships, \citeauthor{teixeira_crescimento_2015}'s (\citeyear{teixeira_crescimento_2015}) proposition was not evaluated econometrically and this will be done in Section \ref{sec:estimation}. To do so, we assume the following long-run relationship:
+Despite shedding light on some relevant relationships, \citeauthor*{teixeira_crescimento_2015}'s \citeyear{teixeira_crescimento_2015} proposition was not evaluated econometrically and this will be done in Section \ref{sec:estimation}. To do so, we assume the following long-run relationship:
 
 #+begin_export latex
 \begin{equation}
-g_{I_ht} = \phi_0 - \phi_1\cdot own_t
+g_{I_{h_{t}}} = \phi_0 - \phi_1\cdot own_t
 \end{equation}
 #+end_export
 
@@ -4077,9 +4077,9 @@ According to \textcite{teixeira_crescimento_2015}, the expected results are depi
 
 In this section, we employ a model to test whether or not real estate inflation describes residential investment growth rate dynamics[fn::Scripts are available under request.].
 Our sample period (1992:Q1 to 2019:Q1) starts after institutional changes (FDIC e
-FIRREA) due to the Savings and Loans crisis (see Table ref:structbreak in appendix ref:appen:A for some related structural breaks). 
+FIRREA) due to the Savings and Loans crisis (see Table ref:structbreak in appendix ref:appen:A for structural break tests).
 We rely on the following  quarterly seasonally adjusted data: (i) 30-Year fixed mortgage interest rate (MORTGAGE30US, resampled by end of period), private residential investment (PRFI, growth rate as percent change from the previous quarter) and Case-Shiller home price index
-(CSUSHPISA, resampled by end of period). Figure FIGURE shows the original series.
+(CSUSHPISA, resampled by end of period). Figure ref:propria_investo  shows the original series.
 
 #+begin_export latex
 \begin{figure}[htb]
@@ -4206,7 +4206,7 @@ Therefore, houses' own interest rate is explained mainly by itself and explains 
 Next, we analyze the orthoganilized impulse response function (Figure ref:irf).
 In summary, we report a stable system since the increase in $g_{I_h}$ on itself are dampened over time while equivalent shock on own interest rate has a non-explosive permanent effect.
 On the other hand, an increase in $g_{I_h}$ has a null effect over $own$.
-The most relevant result reported in Figure ref:irf is the considerable and lasting negative effect due to an increase in own interest rate over $g_{I_h}$, validating \citeauthor{teixeira_crescimento_2015}'s (\citeyear{teixeira_crescimento_2015}) proposition.
+The most relevant result reported in Figure ref:irf is the considerable and lasting negative effect due to an increase in own interest rate over $g_{I_h}$, validating \citeauthor*{teixeira_crescimento_2015}'s \citeyear{teixeira_crescimento_2015} proposition.
 In short, our results shows that an increase in mortgage interest rate (equivalent to an increase in houses' own interest rate) has a negative and persistent effect on residential investment growth rate while an increase in real estate inflation  has an opposite effect.
 #+begin_export latex
 \begin{figure}[H]

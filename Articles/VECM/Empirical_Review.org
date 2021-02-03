@@ -9,10 +9,10 @@ It worth noting that most econometric papers that includes residential investmen
 Although the macroeconometric relevance of residential investment is not restricted to the US, most scholars have examined this specific case.
 In this context, we analyze the macroeconometric literature that explicitly includes housing to evaluate the determinants of its growth rate.
 
-In this sense, \citeauthor{poterba_tax_1984}'s citeyear:poterba_tax_1984 contribution stands out once it does not assume instantly convergence of real estate supply to the desired level.
+In this sense, \citeauhtor*{poterba_tax_1984}'s \citeyear{poterba_tax_1984} contribution stands out once it does not assume instantly convergence of real estate supply to the desired level.
 Furthermore, this theoretical prcedure considers residential investment as induced positively by house prices.
 Despite the novelty, this work does not include asset bubbles.
-In this context,  textcite:arestis_residential_2015 update \citeauthor{poterba_tax_1984}'s citeyear:poterba_tax_1984 framework by estimating an autoregressive distributed lag (ARDL) model for 17 OECD countries.
+In this context,  textcite:arestis_residential_2015 update \citeauthor*{poterba_tax_1984}'s citeyear:poterba_tax_1984 framework by estimating an autoregressive distributed lag (ARDL) model for 17 OECD countries.
 In summary, they conclude that residential investment depends mainly on disposable income.
 This result would  question the possibility of treating housing as an autonomous expenditure and jeopardize the analysis from the Sraffian supermultiplier perspective.
 However, with regard to the US they report that real house prices and the volume of banking credit are the main determinant of residential investment.
@@ -23,7 +23,7 @@ textcite:green_follow_1997, for example, estimates which investment Granger-caus
 However, he argues that this result does not imply a causal relationship: 
 
 #+BEGIN_QUOTE
-[P]erhaps residential investment, like stock prices and interest rates, is a good predictor of GDP because it is a series that reflects \textbf{forward-looking behavior}. Presumably households will not increase their expenditures on housing unless they expect to prosper in the future. Building a house is a natural mechanism for doing this. Thus, the series can do a good job of predicting GDP \textbf{without necessarily causing GDP} (\cite[p.~267, ephasis added]{green_follow_1997}).
+[P]erhaps residential investment, like stock prices and interest rates, is a good predictor of GDP because it is a series that reflects \textbf{forward-looking behavior}. Presumably households will not increase their expenditures on housing unless they expect to prosper in the future. Building a house is a natural mechanism for doing this. Thus, the series can do a good job of predicting GDP \textbf{without necessarily causing GDP} \cite[p.~267, ephasis added]{green_follow_1997}.
 #+END_QUOTE
 
 
@@ -31,7 +31,7 @@ Despite paying attention to a non-capacity creating autonomous expenditure, text
 textcite:leamer_housing_2007, on the other hand, reports a causal relationship between housing and GDP.
 In summary, states that residential investment implies a higher durable goods consumption, that is, the US business cycle is a ``consumer cycle''.
 
-Alternatively, textcite:huang_is_2018 assess both \citeauthor{leamer_housing_2007}'s (\citeyear{leamer_housing_2007}) hypotheses related to residential investment (prediction and causality). 
+Alternatively, textcite:huang_is_2018 assess both \citeauthor*{leamer_housing_2007}'s \citeyear{leamer_housing_2007} hypotheses related to residential investment (prediction and causality).
 To do so, they estimate a Structural Vector Autoregressive (SVEC) model with wavelets transformation for the US and G7 countries.
 They find residential investment is not only a monetary policy transmission channel, but it also has temporally distinct effects on business cycle.
 In the short-run, housing is more predictive while house prices have a bigger influence in the long-run[fn::
@@ -50,9 +50,9 @@ To do so, they estimate a VECM between monetary aggregates (M2), GDP, residentia
 They report an increasing contribution of long-term mortgages interest rate over resident investment variance after those institutional chances mentioned above:
 
 #+BEGIN_QUOTE
-The findings for the two interest rates give valuable information to evaluate results in other studies. Results here suggest that use of a short-term FFR and post-deregulation data may lead to conclusions that `interest rate shocks are much less important after deregulation.' The fuller state of evidence here indicates that interest rate shocks remain important post-deregulation; however, now it is the long-term rate shocks that carry more information for housing sector movements (\cite[p.~346]{gauger_residential_2003})
+The findings for the two interest rates give valuable information to evaluate results in other studies. Results here suggest that use of a short-term FFR and post-deregulation data may lead to conclusions that `interest rate shocks are much less important after deregulation.' The fuller state of evidence here indicates that interest rate shocks remain important post-deregulation; however, now it is the long-term rate shocks that carry more information for housing sector movements \cite[p.~346]{gauger_residential_2003}.
 #+END_QUOTE
-It worth noting that \citeauthor{gauger_residential_2003}'s (\citeyear{gauger_residential_2003}) work reports other two interesting results:
+It worth noting that \citeauthor*{gauger_residential_2003}'s citeyear:gauger_residential_2003 work reports other two interesting results:
 	(i) GDP level is determined by residential investment and both expenditures share a common long-term trend;
 	(ii) show some relevant institutional changes in real estate market.
 
@@ -99,7 +99,7 @@ As discussed before, other scholars have found statistical significance for thos
 MELHORAR DEFINIÇÃO DE TAXA PRÓPRIA
 
 From this literature review, we conclude that the econometric literature is more concerned with the implication of housing instead of focussing on its determinants.
-One way to describe housing growth rate is the houses' own interest rate proposed by textcite:teixeira_crescimento_2015 following SRAFFA's contribution (?).
+One way to describe housing growth rate is the houses' own interest rate proposed by textcite:teixeira_crescimento_2015 following \citeauhtor*{sraffadrhayekmoney1932}'s citeyear:sraffadrhayekmoney1932 contribution.
 In summary, this particular real interest rate depicts debt service and capital gains effects altogether.
 On the following section, we discuss this proposal in further details and evaluate its econometric significance.
 
