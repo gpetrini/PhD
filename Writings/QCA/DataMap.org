@@ -2,8 +2,8 @@
 #+TITLE: QCA Data Map
 #+AUTHOR: Gabriel Petrini
 #+startup: fold
-#+PROPERTY:header-args python :results output drawer :eval never-export :session map :exports both
-#+PROPERTY:header-args R:results output drawer :eval never-export :session map :exports both
+#+PROPERTY:header-args python :results output drawer :eval never-export :session *map* :exports both
+#+PROPERTY:header-args R:results output drawer :eval never-export :session *map* :exports both
 * Properties :noexport:
 #+TODO: Searching Filed | Downloaded Scripted Cleaned | NotFound
 #+PROPERTY: COLUMNS  %TODO %ITEM %VAR_TYPE(Var.) %FREQUENCY(FRQ)  %START(Start) %END(End) %COVERAGE(Cov) %SEASONAL_ADJ(Season. Adj) %KEY(Key) %URL
@@ -108,7 +108,7 @@ print("numpy version  : ", np.__version__)
 print("pandas version : ", pd.__version__)
 print("seaborn version : ", sns.__version__)
 
-plt.style.use('seaborn-white')
+plt.style.use("seaborn-white")
 #+end_src
 
 #+RESULTS:
@@ -128,8 +128,14 @@ options(warn = -1)
 #+end_src
 
 #+RESULTS:
-:results:
-:end:
+: ── [1mAttaching packages[22m ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
+: [32m✔[39m [34mggplot2[39m 3.3.2     [32m✔[39m [34mpurrr  [39m 0.3.4
+: [32m✔[39m [34mtibble [39m 3.0.4     [32m✔[39m [34mdplyr  [39m 1.0.2
+: [32m✔[39m [34mtidyr  [39m 1.1.2     [32m✔[39m [34mstringr[39m 1.4.0
+: [32m✔[39m [34mreadr  [39m 1.4.0     [32m✔[39m [34mforcats[39m 0.5.0
+: ── [1mConflicts[22m ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+: [31m✖[39m [34mdplyr[39m::[32mfilter()[39m masks [34mstats[39m::filter()
+: [31m✖[39m [34mdplyr[39m::[32mlag()[39m    masks [34mstats[39m::lag()
 
 * Mortgaging - cite:jorda_2016_great
 :PROPERTIES:
@@ -256,13 +262,15 @@ ggplot(df) +
   geom_line(aes(year, mortgaging, colour = country), color='black') +
   gghighlight(use_direct_label = FALSE) +
   facet_wrap(~ country) +
-  xlab("") + ylab("Mortgage share on total loans") +
+  xlab("") + ylab("Mortgage share on total loans for private sector") +
   geom_hline(yintercept=.50, linetype="dashed", color = "black", size=0.25) +
-  scale_x_date(date_breaks = "25 years", date_minor_breaks = "5 years", date_labels = "%Y")
+  scale_x_date(
+    breaks = seq.Date(min(df$year), lubridate::ymd(2020,truncated=2L), by="30 years"),
+    date_minor_breaks = "10 years", date_labels = "%Y")
 
 ggsave(
   './figs/Jorda_Facet.png',
-  width = 10, height = 8, dpi = 150, units = "in", device='png'
+  width = 16, height = 10, dpi = 150, units = "in", device='png'
        )
 #+end_src
 
@@ -272,9 +280,9 @@ ggsave(
 
 
 
-** Real estate share of bank lending
+** Facet plot (Mortgage/Loans to Household)
 
-#+begin_src R :results graphics file :file ./figs/Jorda_BarSorted.png
+#+begin_src R :results graphics file :file ./figs/Jorda_FacetHH.png
 df = read_dta(
   'http://www.macrohistory.net/JST/JSTdatasetR4.dta',
   encoding = NULL,
@@ -282,30 +290,193 @@ df = read_dta(
   skip = 0,
   n_max = Inf,
   .name_repair = "unique"
-) %>% filter(year == 1970 | year == 1989 | year == 2007 | year == max(year)) %>%
-  mutate(mortgaging = tmort/tloans) %>%
-  ## mutate(year = lubridate::ymd(year, truncated = 2L)) %>%
+) %>% mutate(Mortgage_TotalHH = tmort/thh) %>%
+  mutate(year = lubridate::ymd(year, truncated = 2L)) %>%
+  select(year, country, Mortgage_TotalHH) %>%
+  pivot_wider(names_from = country, values_from = Mortgage_TotalHH) %>%
+  rowwise() %>% mutate("[Average]" = mean(c_across(Australia:USA), na.rm=TRUE)) %>%
+  pivot_longer(!year, names_to = "country", values_to = "Mortgage_TotalHH")
+
+ggplot(df) +
+  geom_line(aes(year, Mortgage_TotalHH, colour = country), color='black') +
+  gghighlight(use_direct_label = FALSE) +
+  facet_wrap(~ country) +
+  xlab("") + ylab("Mortgage share on total loans to households") +
+  geom_hline(yintercept=.50, linetype="dashed", color = "black", size=0.25) +
+  scale_x_date(
+    breaks = seq.Date(min(df$year), lubridate::ymd(2020,truncated=2L), by="30 years"),
+    date_minor_breaks = "10 years", date_labels = "%Y")
+
+ggsave(
+  './figs/Jorda_FacetHH.png',
+  width = 16, height = 10, dpi = 150, units = "in", device='png'
+       )
+#+end_src
+
+#+RESULTS:
+[[file:./figs/Jorda_FacetHH.png]]
+
+
+
+** Grouped facet
+#+begin_src R :results graphics file :file ./figs/Jorda_FacetGrouped.png
+df <- read_dta(
+  "http://www.macrohistory.net/JST/JSTdatasetR4.dta",
+  encoding = NULL,
+  col_select = NULL,
+  skip = 0,
+  n_max = Inf,
+  .name_repair = "unique"
+) %>%
+  mutate(mortgaging = tmort / tloans) %>%
+  mutate(year = lubridate::ymd(year, truncated = 2L)) %>%
   select(year, country, mortgaging) %>%
   pivot_wider(names_from = country, values_from = mortgaging) %>%
-  rowwise() %>% mutate("[Average]" = mean(c_across(Australia:USA), na.rm=TRUE)) %>%
+  rowwise() %>%
+  mutate("[Average]" = mean(c_across(Australia:USA), na.rm = TRUE)) %>%
   pivot_longer(!year, names_to = "country", values_to = "mortgaging") %>%
   group_by(year) %>%
   arrange(desc(mortgaging), .by_group = TRUE)
 
-ggplot(df, aes(tidytext::reorder_within(country, mortgaging, year), mortgaging, fill=1-mortgaging)) +
-    geom_bar(show.legend = FALSE,stat='identity', color='black') +
-    facet_wrap(~year, scales = "free_y") +
-    coord_flip() +
-    scale_y_continuous(expand = c(0,0)) +
-    tidytext::scale_x_reordered() +
-    xlab("") + ylab("Mortgage share on total loans") +
-    geom_text(aes(label=round(mortgaging,2)), position = position_stack(vjust= 0.5),
-            colour = "white", size = 2.5)
+df <- df %>%
+  ungroup() %>%
+  mutate(Categories = case_when(
+           country == "USA" | country == "UK" | country == "Ireland" | country == "Australia" ~ "Market oriented",
+           country == "Germany" | country == "Austria" ~ "Central European corporatist",
+           country == "[Average]" ~ "Average",
+           country == "Portugal" | country == "Spain" | country == "Turkey" ~ "Southern European (Geographically)",
+           country == "Denmark" | country == "Finland" | country == "Iceland" | country == "Norway" | country == "Sweden" |
+           country == "Netherlands" | country == "France" | country == "Belgium" ~ "Welfare countries"
+         )) %>%
+  mutate(Categories = as.factor(replace_na(Categories, "Uncategorized"))) %>%
+  group_by(Categories) %>%
+  mutate(tmp = as.factor(country) %>% as.numeric() %>% as.factor()) %>%
+  ungroup()
+
+
+ggplot(df) +
+  geom_line(aes(year, mortgaging, colour = tmp)) +
+  gghighlight(label_key = country) +
+  facet_wrap(~ Categories) +
+  xlab("") + ylab("Mortgage share on total loans for private sector") +
+  geom_hline(yintercept=.50, linetype="dashed", color = "black", size=0.25) +
+  scale_x_date(
+    breaks = seq.Date(min(df$year), lubridate::ymd(2020,truncated=2L), by="30 years"),
+    date_minor_breaks = "10 years", date_labels = "%Y") +
+  ggsci::scale_color_nejm()
 
 ggsave(
-  './figs/Jorda_BarSorted.png',
-  width = 10, height = 8, dpi = 150, units = "in", device='png'
+  './figs/Jorda_FacetGrouped.png',
+  width = 16, height = 10, dpi = 150, units = "in", device='png'
        )
+#+end_src
+
+** Real estate share of bank lending
+#+begin_src R :results pp table
+df <- read_dta(
+  "http://www.macrohistory.net/JST/JSTdatasetR4.dta",
+  encoding = NULL,
+  col_select = NULL,
+  skip = 0,
+  n_max = Inf,
+  .name_repair = "unique"
+) %>%
+  filter(year == 1970 | year == 1989 | year == 2007 | year == max(year)) %>%
+  mutate(mortgaging = tmort / tloans) %>%
+  ## mutate(year = lubridate::ymd(year, truncated = 2L)) %>%
+  select(year, country, mortgaging) %>%
+  pivot_wider(names_from = country, values_from = mortgaging) %>%
+  rowwise() %>%
+  mutate("[Average]" = mean(c_across(Australia:USA), na.rm = TRUE)) %>%
+  pivot_longer(!year, names_to = "country", values_to = "mortgaging") %>%
+  group_by(year) %>%
+  arrange(desc(mortgaging), .by_group = TRUE)
+df %>%
+  mutate(year = lubridate::year(lubridate::ymd(year, truncated = 2L))) %>%
+  pivot_wider(names_from = country, values_from = mortgaging) %>%
+  t() %>%
+  knitr::kable(digits=2, row.names=TRUE)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+
+
+|            |        |        |        |        |
+|:-----------|-------:|-------:|-------:|-------:|
+|year        | 1970.00| 1989.00| 2007.00| 2016.00|
+|Sweden      |    0.81|    0.56|    0.60|    0.62|
+|Denmark     |    0.59|    0.63|    0.60|    0.69|
+|USA         |    0.55|    0.61|    0.70|    0.63|
+|UK          |    0.51|    0.43|    0.52|    0.67|
+|Switzerland |    0.49|    0.72|    0.87|    0.96|
+|Netherlands |    0.46|    0.33|    0.55|    0.54|
+|Finland     |    0.44|    0.33|    0.44|    0.46|
+|Germany     |    0.42|    0.36|    0.51|    0.50|
+|[Average]   |    0.38|    0.41|    0.55|    0.59|
+|Norway      |    0.36|    0.41|    0.68|    0.73|
+|France      |    0.33|    0.38|    0.49|    0.53|
+|Australia   |    0.32|    0.30|    0.49|    0.57|
+|Canada      |    0.30|    0.47|    0.51|    0.48|
+|Belgium     |    0.30|    0.30|    0.45|    0.52|
+|Italy       |    0.29|    0.32|    0.48|    0.60|
+|Portugal    |    0.16|    0.25|    0.44|    0.49|
+|Spain       |    0.12|    0.24|    0.58|    0.51|
+|Japan       |    0.07|    0.25|    0.43|    0.47|
+#+end_example
+
+#+begin_src R :results graphics file :file ./figs/Jorda_BarSorted.png
+df <- read_dta(
+  "http://www.macrohistory.net/JST/JSTdatasetR4.dta",
+  encoding = NULL,
+  col_select = NULL,
+  skip = 0,
+  n_max = Inf,
+  .name_repair = "unique"
+) %>%
+  filter(year == 1930 | year == 1970 | year == 1989 | year == 2000 | year == 2007 | year == max(year)) %>%
+  mutate(mortgaging = tmort / tloans) %>%
+  ## mutate(year = lubridate::ymd(year, truncated = 2L)) %>%
+  select(year, country, mortgaging) %>%
+  pivot_wider(names_from = country, values_from = mortgaging) %>%
+  rowwise() %>%
+  mutate("[Average]" = mean(c_across(Australia:USA), na.rm = TRUE)) %>%
+  pivot_longer(!year, names_to = "country", values_to = "mortgaging") %>%
+  group_by(year) %>%
+  arrange(desc(mortgaging), .by_group = TRUE)
+
+df <- df %>%
+  ungroup() %>%
+  mutate(Categories = case_when(
+           country == "USA" | country == "UK" | country == "Ireland" | country == "Australia" ~ "Market oriented",
+           country == "Germany" | country == "Austria" ~ "Central European corporatist",
+           country == "[Average]" ~ "Average",
+           country == "Portugal" | country == "Spain" | country == "Turkey" ~ "Southern European (Geographically)",
+           country == "Denmark" | country == "Finland" | country == "Iceland" | country == "Norway" | country == "Sweden" |
+           country == "Netherlands" | country == "France" | country == "Belgium" ~ "Welfare countries"
+         )) %>%
+  mutate(Categories = as.factor(replace_na(Categories, "Uncategorized"))) %>%
+  filter(country != "[Average]")
+
+
+ggplot(df, aes(tidytext::reorder_within(country, mortgaging, year), mortgaging, fill = Categories)) +
+  geom_bar(show.legend = TRUE, stat = "identity", color = "black") +
+  facet_wrap(~year, scales = "free_y") +
+  coord_flip() +
+  scale_y_continuous(expand = c(0, 0)) +
+  tidytext::scale_x_reordered() +
+  xlab("") +
+  ylab("Mortgage share on total loans for private sector") +
+  geom_text(aes(label = round(mortgaging, 2)),
+    position = position_stack(vjust = 0.5),
+    colour = "white", size = 2.5
+  ) +
+  ggsci::scale_fill_npg()
+
+ggsave(
+  "./figs/Jorda_BarSorted.png",
+  width = 10, height = 8, dpi = 150, units = "in", device = "png"
+)
 #+end_src
 
 #+RESULTS:
@@ -1015,3 +1186,50 @@ Countries list:
 - Portugal
 - Spain
 - Sweden
+
+* WID dataset: Personal and Private Housing/Debt at local prices
+
+** Facet plot
+- Checar se tem Personal Housing, Private Housing, Private Debt
+
+#+begin_src R
+library(stringr)
+df = read.csv(
+  './raw/WID_Private_Personal_Housing_Debt_JordaCountries.csv',
+  skip = 1,
+  sep = ';'
+)
+cols = c("Year")
+for(col in colnames(df)[-c(1)]){
+  col <- str_split(col, "\\.\\.\\.")[[1]][1]
+  col <- str_split(col, "\\.")[[1]][-1]
+  cols <- append(cols, col)
+}
+## %>%
+## mutate(mortgaging = tmort/tloans) %>%
+##   mutate(year = lubridate::ymd(year, truncated = 2L)) %>%
+##   select(year, country, mortgaging) %>%
+##   pivot_wider(names_from = country, values_from = mortgaging) %>%
+##   rowwise() %>% mutate("[Average]" = mean(c_across(Australia:USA), na.rm=TRUE)) %>%
+##   pivot_longer(!year, names_to = "country", values_to = "mortgaging")
+
+## ggplot(df) +
+##   geom_line(aes(year, mortgaging, colour = country), color='black') +
+##   gghighlight(use_direct_label = FALSE) +
+##   facet_wrap(~ country) +
+##   xlab("") + ylab("Mortgage share on total loans for private sector") +
+##   geom_hline(yintercept=.50, linetype="dashed", color = "black", size=0.25) +
+##   scale_x_date(
+##     breaks = seq.Date(min(df$year), lubridate::ymd(2020,truncated=2L), by="30 years"),
+##     date_minor_breaks = "10 years", date_labels = "%Y")
+
+## ggsave(
+##   './figs/WID_Facet.png',
+##   width = 16, height = 10, dpi = 150, units = "in", device='png'
+##        )
+#+end_src
+
+#+RESULTS:
+
+
+
