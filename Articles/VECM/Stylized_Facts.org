@@ -469,6 +469,132 @@ salvar_grafico(file_name="Distribuicao_Passivos")
 #+RESULTS:
 [[file:./figs/Distribuicao_Passivos.png]]
 
+** Crisis centered plot
+*** Begin
+#+begin_src R :session *centered* :results graphics file :file ./figs/Centered_Begin_pct1.png
+library(tidyverse)
+library(purrr)
+library(fredr)
+library(lubridate)
+
+begin <- c('1953-07-01', '1957-08-01', '1960-04-01', '1969-12-01', '1973-11-01', '1980-01-01', '1981-07-01', '1990-07-01', '2001-03-01', '2007-12-01')
+end <- c('1954-06-01', '1958-05-01', '1961-03-01', '1970-12-01', '1975-04-01', '1980-08-01', '1982-12-01', '1991-04-01', '2001-12-01', '2009-07-01')
+
+
+df <-  map_dfr(
+  c("GDP", "PRFI", "PNFI", "HCCSDODNS", "USRECM"),
+  fredr,
+  units = "pc1", # pct from 1 year ago
+  frequency = 'q'
+) %>%
+  select(date, series_id, value) %>%
+  pivot_wider(names_from = series_id, values_from= value) %>%
+  mutate(
+    recessions = as.logical(USRECM),
+    Residential_Investment = PRFI,
+    NonResidential_Investment = PNFI,
+    DurableGoods = HCCSDODNS
+  ) %>%
+  select(date, recessions, GDP, Residential_Investment, NonResidential_Investment, DurableGoods) %>%
+  mutate(crise = case_when(
+           (date >= ymd(begin[1]) %m+% years(-2) & date <= ymd(begin[1]) %m+% years(2)) ~ begin[1],
+           (date >= ymd(begin[2]) %m+% years(-2) & date <= ymd(begin[2]) %m+% years(2)) ~ begin[2],
+           (date >= ymd(begin[3]) %m+% years(-2) & date <= ymd(begin[3]) %m+% years(2)) ~ begin[3],
+           (date >= ymd(begin[4]) %m+% years(-2) & date <= ymd(begin[4]) %m+% years(2)) ~ begin[4],
+           (date >= ymd(begin[5]) %m+% years(-2) & date <= ymd(begin[5]) %m+% years(2)) ~ begin[5],
+           (date >= ymd(begin[6]) %m+% years(-2) & date <= ymd(begin[6]) %m+% years(2)) ~ begin[6],
+           (date >= ymd(begin[7]) %m+% years(-2) & date <= ymd(begin[7]) %m+% years(2)) ~ begin[7],
+           (date >= ymd(begin[8]) %m+% years(-2) & date <= ymd(begin[8]) %m+% years(2)) ~ begin[8],
+           (date >= ymd(begin[9]) %m+% years(-2) & date <= ymd(begin[9]) %m+% years(2)) ~ begin[9],
+           (date >= ymd(begin[10]) %m+% years(-2) & date <= ymd(begin[10]) %m+% years(2)) ~ begin[10]
+         )) %>%
+  mutate(crise = crise %>% as.character() %>% as.factor()) %>%
+  pivot_longer(cols = -c(date, crise, recessions), names_to="Series", values_to = "value") %>%
+  ## mutate(Series = as.factor(Series)) %>%
+  filter(date>=ymd('1980-01-01') & date <=ymd('2011-01-01')) %>%
+  drop_na(crise)
+
+ggplot(df, aes(x=date, y=value, colour=Series)) +
+  geom_line() +
+  scale_x_date(breaks = "year", minor_breaks = "6 months", date_labels="%y' %b") +
+  ggsci::scale_color_futurama() +
+  facet_wrap(~crise, scale="free_x", drop=TRUE) +
+  geom_hline(yintercept=0, color='black', size=0.25) +
+  xlab("") + ylab("Percent change from 1 year") +
+  theme_bw()
+ggsave(
+  "./figs/Centered_Begin_pct1.png",
+  width = 10, height = 8, dpi = 150, units = "in", device = "png"
+)
+#+end_src
+
+#+RESULTS:
+[[file:./figs/Centered_Begin_pct1.png]]
+
+
+
+
+
+
+
+
+
+*** End
+#+begin_src R :session *centered* :results graphics file :file ./figs/Centered_End_pct1.png
+
+end <- c('1954-06-01', '1958-05-01', '1961-03-01', '1970-12-01', '1975-04-01', '1980-08-01', '1982-12-01', '1991-04-01', '2001-12-01', '2009-07-01')
+
+df <-  map_dfr(
+  c("GDP", "PRFI", "PNFI", "HCCSDODNS", "USRECM"),
+  fredr,
+  units = "pc1", # pct from 1 year ago
+  frequency = 'q'
+) %>%
+  select(date, series_id, value) %>%
+  pivot_wider(names_from = series_id, values_from= value) %>%
+  mutate(
+    recessions = as.logical(USRECM),
+    Residential_Investment = PRFI,
+    NonResidential_Investment = PNFI,
+    DurableGoods = HCCSDODNS
+  ) %>%
+  select(date, recessions, GDP, Residential_Investment, NonResidential_Investment, DurableGoods) %>%
+  mutate(crise = case_when(
+           (date >= ymd(end[1]) %m+% years(-2) & date <= ymd(end[1]) %m+% years(2)) ~ end[1],
+           (date >= ymd(end[2]) %m+% years(-2) & date <= ymd(end[2]) %m+% years(2)) ~ end[2],
+           (date >= ymd(end[3]) %m+% years(-2) & date <= ymd(end[3]) %m+% years(2)) ~ end[3],
+           (date >= ymd(end[4]) %m+% years(-2) & date <= ymd(end[4]) %m+% years(2)) ~ end[4],
+           (date >= ymd(end[5]) %m+% years(-2) & date <= ymd(end[5]) %m+% years(2)) ~ end[5],
+           (date >= ymd(end[6]) %m+% years(-2) & date <= ymd(end[6]) %m+% years(2)) ~ end[6],
+           (date >= ymd(end[7]) %m+% years(-2) & date <= ymd(end[7]) %m+% years(2)) ~ end[7],
+           (date >= ymd(end[8]) %m+% years(-2) & date <= ymd(end[8]) %m+% years(2)) ~ end[8],
+           (date >= ymd(end[9]) %m+% years(-2) & date <= ymd(end[9]) %m+% years(2)) ~ end[9],
+           (date >= ymd(end[10]) %m+% years(-2) & date <= ymd(end[10]) %m+% years(2)) ~ end[10]
+         )) %>%
+  mutate(crise = crise %>% as.character() %>% as.factor()) %>%
+  pivot_longer(cols = -c(date, crise, recessions), names_to="Series", values_to = "value") %>%
+  ## mutate(Series = as.factor(Series)) %>%
+  filter(date>=ymd('1980-01-01') & date <=ymd('2011-01-01')) %>%
+  drop_na(crise)
+
+ggplot(df, aes(x=date, y=value, colour=Series)) +
+  geom_line() +
+  scale_x_date(breaks = "year", minor_breaks = "6 months", date_labels="%y' %b") +
+  ggsci::scale_color_futurama() +
+  facet_wrap(~crise, scale="free_x", drop=TRUE) +
+  geom_hline(yintercept=0, color='black', size=0.25) +
+  xlab("") + ylab("Percent change from 1 year") +
+  theme_bw()
+ggsave(
+  "./figs/Centered_End_pct1.png",
+  width = 10, height = 8, dpi = 150, units = "in", device = "png"
+)
+#+end_src
+
+#+RESULTS:
+[[file:./figs/Centered_End_pct1.png]]
+
+
 *  Housing Dynamics and Business Cycle in the US Economy :ignore:
 
 After the Great Recession, the literature has analyzed the relevance of housing at macroeconomic level cites:leamer_housing_2015,teixeira_crescimento_2015,fiebiger_semi-autonomous_2018.
