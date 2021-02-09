@@ -1,0 +1,625 @@
+#+OPTIONS: num:nil toc:nil
+#+TITLE: Review Map
+#+AUTHOR: Gabriel Petrini
+#+LANG: en
+
+* HTML headers                                         :noexport:ignore:
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+
+#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+
+* cite:gattini_2012_House House price responsiveness of housing investments across major European economies
+  :PROPERTIES:
+  :Custom_ID: gattini_2012_House
+  :URL:
+  :AUTHOR:
+  :END:
+
+** FISH-5SS
+
+
+|---------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| *Background*                                  | Residential investment is way less analyzed than house prices                                                                                                                                               |
+| *Supporting Ideas*                            |                                                                                                                                                                                                             |
+| *Purpose*                                     |                                                                                                                                                                                                             |
+| *Originality/value (Contribution)*            |                                                                                                                                                                                                             |
+| *Relevance*                                   | Point out that previous empirical studies connecting costs shifters and residential investment are inconclusive and house prices is the main determinant of new houses (elasticity ranging from o.5 to 2.3) |
+| *Design/methodology/approach*                 | Error correction and country specific model                                                                                                                                                                 |
+| *Sample*                                      | Six European countries (1970 - 2009): Germany,  France,  Italy,  Spain,  the Netherlands and the United Kingdom                                                                                             |
+| *Variables*                                   | Real residential investment, Real GDP, Real long term interest rate and proxies for land prices                                                                                                             |
+| *Results*                                     | Germany has the strongest response to house prices while Italy show the lowest one                                                                                                                          |
+| *(Interesting) Findings*                      |                                                                                                                                                                                                             |
+| *Research limitations/implications (Critics)* |                                                                                                                                                                                                             |
+| *Uncategorized stuff*                         | Residential investment is highly inertial in some countries which may justify the lag selection order in VEC paper.                                                                                         |
+| *5SS*                                         |                                                                                                                                                                                                             |
+|---------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+** Backlinks
+
+
+** Specific comments
+
+Residential investment function is estimated as follows:
+
+#+BEGIN_latex
+\begin{equation}
+RHI = RHI(GPD(+), INT (-), LAND(-))
+\end{equation}
+#+END_latex
+The authors report the expected sign in their estimations.
+LAND is computed using dwellings price and the deflator of residential investment.
+
+* cite:mccarthy_2002_Monetary Monetary Policy Transmission to Residential Investment
+  :PROPERTIES:
+  :Custom_ID: mccarthy_2002_Monetary
+  :END:
+
+** FISH-5SS
+
+
+|---------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| *Background*                                  | Residential investment volatility reduction is related to the deregulation in the housing finance system in the mid-1980s. As a consequence, mortgage markets are more connected to capital markets.                                        |
+| *Supporting Ideas*                            |                                                                                                                                                                                                                                             |
+| *Purpose*                                     | Investigate whether or not the monetary transmission mechanism channels have changed with these institutional breaks.                                                                                                                       |
+| *Originality/value (Contribution)*            |                                                                                                                                                                                                                                             |
+| *Relevance*                                   | This paper emphases the relevance of some institutional breaks for future empirical investigations.                                                                                                                                         |
+| *Design/methodology/approach*                 | The authors estimates both reduced and structural models to evaluate the response of housing market to a monetary policy shock. Estimation using GMM method.                                                                                |
+| *Results*                                     | The *magnitude* of the response to shock is similar to before the institutional break. The main difference is the *timming* of the response in which the housing market response is slower than before and more similar to the overall economy. |
+| *Sample*                                      | US: 1975-1985 and 1986-2000                                                                                                                                                                                                                 |
+| *(Interesting) Findings*                      | Quantitative financing constraint (?) has a smaller influence than before while pricing has become the rationaing mechanism.                                                                                                                |
+| *Research limitations/implications (Critics)* |                                                                                                                                                                                                                                             |
+| *Uncategorized stuff*                         |                                                                                                                                                                                                                                             |
+| *5SS*                                         | Page 146: "These results thus suggest that monetary policy is now transmitted to housing through pricing channels, rather than through quantitative financing restrictions, as was typical during the New Deal financing system era. "      |
+|---------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+** Backlinks
+[[file:2021-02-09-12-27-01-goodhart_2008_House.org][goodhart_2008_House: House prices, money, credit, and the macroeconomy (Oxford Review of Economic Policy)]]
+[[file:2021-02-09-12-27-24-gaugerResidentialFixedInvestment.org][gaugerResidentialFixedInvestment: Residential Fixed Investment and the Macroeconomy: Has Deregulation Altered Key Relationships? ()]]
+
+
+** Model and covariates
+
+House price ($p^{d}$, demand):
+
+#+BEGIN_latex
+\begin{equation}
+p^{d} = p^{d}(h_{t}, c_{t}, u_{t})
+\end{equation}
+#+END_latex
+- $h_{t}$ housing stock
+- $u_{t}$ user cost
+- $c_{t}$ nondurable and services consumption (as a proxy for permanent income)
+
+House price ($p^{s}$, supply):
+#+BEGIN_latex
+\begin{equation}
+p^{s} = p^{s}((i_{t} - h_{t}), cc_{t})
+\end{equation}
+#+END_latex
+- $i_{t}$ log of residential investment
+- $cc_{t}$ construction cost index
+
+Equitlibrium condition:
+#+BEGIN_latex
+\begin{equation}
+p^{d^{*}} = p^{s^{*}} = p^{*}
+\end{equation}
+#+END_latex
+
+Residential investment equation
+
+#+BEGIN_latex
+\begin{equation}
+\Delta \frac{I}{H} = \lambda_{s} (p_{t-1} - p^{s}_{{t-1}}) + \theta_{0} + \theta_{1}\Delta p_{t} + \theta_{2} cc_{t} + \theta_{3} r + \theta_{4} \Delta p_{t}^{l} + \theta_{5} q_{t-1} + v_{t}
+\end{equation}
+#+END_latex
+- $r_{t}$ short term interest rate
+- $p^{l}$ land prices
+- $q_{t-1}$ quantity of new houses for sales
+- Only the first term is expected to be positive.
+
+  #+CAPTION: Residential investment estimation results (reduced form)
+  |-------------+----+----------------------+-----------------------------+--------------------+----------------------+------------------|
+  |             | EC | Home price inflation | Construction cost inflation | Real interest rate | Land price inflation | New homes supply |
+  |-------------+----+----------------------+-----------------------------+--------------------+----------------------+------------------|
+  | Full sample | +  | -                    | +                           | -                  | -                    | -                |
+  |   1975-1985 | +  | -                    | +                           | -                  | +                    | -                |
+  |   1986-2000 | +  | +                    | -                           | -                  | -                    | -                |
+  |-------------+----+----------------------+-----------------------------+--------------------+----------------------+------------------|
+
+  #+CAPTION: Residential investment estimation results (structural form)
+  |-------------+----+----------------------+-----------------------+--------------------+----------------------+------------------+-------------|
+  |             | EC | Home price inflation | Const. cost inflation | Real interest rate | Land price inflation | New homes supply | New deposit |
+  |-------------+----+----------------------+-----------------------+--------------------+----------------------+------------------+-------------|
+  | Full sample | +  | +                    | +                     | -                  | -                    | +                | +           |
+  |   1975-1985 | +  | +                    | -                     | -                  | +                    | -                | +           |
+  |   1986-2000 | +  | +                    | +                     | -                  | -                    | +                | -           |
+  |-------------+----+----------------------+-----------------------+--------------------+----------------------+------------------+-------------|
+* cite:barot_2002_House House Prices and Housing Investment in Sweden and the UK: Econometric Analysis for the Period 1970\textendash 1998
+  :PROPERTIES:
+  :Custom_ID: barot_2002_House
+  :URL:
+  :AUTHOR:
+  :END:
+
+** FISH-5SS
+
+
+|---------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| *Background*                                  |                                                                                                                                                         |
+| *Supporting Ideas*                            |                                                                                                                                                         |
+| *Purpose*                                     | Investigate the differences and similarity for the Sweden and UK housing market.                                                                        |
+| *Originality/value (Contribution)*            | Evaluates if it would be possible to elaborate an single theory for housing.                                                                            |
+| *Relevance*                                   |                                                                                                                                                         |
+| *Design/methodology/approach*                 | ECM model based on a Stock-flow framework in which the interection between demand and supply of structure determines the asset price.                   |
+| *Sample*                                      | UK and Sweden: 1970-1998                                                                                                                                |
+| *Results*                                     | For Sweden, income Granger Causes house prices while UK also presents and feedback relation.                                                            |
+| *(Interesting) Findings*                      |                                                                                                                                                         |
+| *Research limitations/implications (Critics)* |                                                                                                                                                         |
+| *Uncategorized stuff*                         | House prices trends are quite different between countries. The authors point out a ressurgence of Tobin'Q theory applied to explain housing investment. |
+| *5SS*                                         |                                                                                                                                                         |
+|---------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+** Backlinks
+
+
+** Theoretical considerations
+The augmented Tobin model of housing investment incorporating the interest rate can be written as:
+
+#+BEGIN_latex
+\begin{equation}
+q = \frac{PH}{PB}
+\end{equation}
+#+END_latex
+
+#+BEGIN_latex
+\begin{equation}
+\frac{IH}{H} = h (q(+), r(-))
+\end{equation}
+#+END_latex
+#+BEGIN_latex
+\begin{equation}
+H^{S} = IH + (1-\delta)H_{t-1}
+\end{equation}
+#+END_latex
+- $PH$ Market price
+- $PB$ Construction price
+- $r$ real interest rate (?)
+- $\delta$ depreciation
+
+In long-equilibrium, the value of Tobin’s q converges to 1
+** Estimation results
+#+CAPTION: Estimation results
+|-----------------------------------+----------------------------------+---------------------------------|
+| Granger causality test            | UK                               | Sweden                          |
+|-----------------------------------+----------------------------------+---------------------------------|
+| House prices and income           | Both                             | Income to house prices          |
+| House prices and financial wealth | Financial wealth to house prices | Prices to Financial Wealth      |
+| House prices and household debt   | Debt to house prices             | House prices to debt            |
+| House prices and interest rate    | Interest rate to house prices    | Interest rate to house prices   |
+| Tobin's Q and housing investment  | Tobin's Q to housing investment  | Tobin's Q to housing investment |
+|-----------------------------------+----------------------------------+---------------------------------|
+
+Our test results indicate that for both Sweden and the UK, Tobin’s q Granger causes housing investment because the construction industry bases its investment decisions on profitability as reflected by the q index.
+
+* cite:topel_1988_Housing Housing Investment in the United States
+  :PROPERTIES:
+  :Custom_ID: topel_1988_Housing
+  :URL:
+  :AUTHOR:
+  :END:
+
+** FISH-5SS
+
+
+|---------------------------------------------+----------------------------------------------------------------------|
+| *Background*                                  |                                                                      |
+| *Supporting Ideas*                            |                                                                      |
+| *Purpose*                                     |                                                                      |
+| *Originality/value (Contribution)*            |                                                                      |
+| *Relevance*                                   |                                                                      |
+| *Design/methodology/approach*                 | Instrumental variable                                                |
+| *Sample:*                                     | US: 1963-183                                                         |
+| *Results*                                     |                                                                      |
+| *(Interesting) Findings*                      | Residential investment elasticity to asset prices is high (3)        |
+| *Research limitations/implications (Critics)* | The authors use housing starts as a proxy for residential investment |
+| *Uncategorized stuff*                         |                                                                      |
+| *5SS*                                         |                                                                      |
+|---------------------------------------------+----------------------------------------------------------------------|
+
+** Backlinks
+
+
+
+** Model specifications
+
+
+#+BEGIN_latex
+\begin{equation}
+I = \beta_{0} + \beta_{2}P_{t} + \beta_{3}y  + v
+\end{equation}
+#+END_latex
+- $P$ Hedonic prices
+  + Price include site + structure
+    - Similar results when using structure alone
+- Myopic form ($\beta_{1} = 0$)
+- $y$ cost shifters
+  + Interest rate
+  + Expected inflation
+  + Month: Median market time since the begin of construction
+  + Wage (construction sector)
+- $v$ Unobservable cost shifters
+* cite:Arestis_2014 -  [[https://www.google.com/search?channel=fs&client=ubuntu&q=Residential+Construction+Activity+in+OECD+Economies][Residential Construction Activity In OECD Economies]]
+   :PROPERTIES:
+   :YEAR:     2015
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Reading
+   :RELEVANCE: Regular
+   :IMPACT:   Low
+   :CITE:     Yes
+   :END:
+
+   #+BEGIN_SRC bibtex
+@Article{Arestis_2014,
+  author       = {Arestis, Philip and González-Martínez, Ana Rosa},
+  title	       = {Residential Construction Activity in OECD Economies},
+  year	       = 2014,
+  volume       = 83,
+  number       = 4,
+  month	       = {Jun},
+  pages	       = {451–474},
+  issn	       = {1463-6786},
+  doi	       = {10.1111/manc.12072},
+  url	       = {http://dx.doi.org/10.1111/manc.12072},
+  journal      = {The Manchester School},
+  publisher    = {Wiley}
+}
+   #+END_SRC
+
+
+| *Background*                                  | Heterogenous recovery after the great financial crisis. Residential investment plays a prominent role on the recovery. This justify the relevance of this paper.  Most research on Housing has been analyzing house prices and not its volume. Household behavior change: house as a durable good $\Rightarrow$ asset                                                                                                                                  |
+| *Supporting Ideas*                            | Residential investiment usually leads the economic recovery. Both house prices and construction section still at pre-GFC levels. In the short-run, housing is constrained by its supply. As a consequence, increasing demand press housing prices while it supply becomes gradually more elastic. Quantitative equilibrium adjustments. Housing is considered a speculative asset. ARDL method assumes that all variables are endogenously determined. |
+| *Purpose*                                     |                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| *Originality/value (Contribution)*            | Increasing housing prices ($RHP$) accelerates real residential investment ($RRI$) as long as household expect that this rise will last in the future.                                                                                                                                                                                                                                                                                                  |
+| *Relevance*                                   | This paper move towards the residential investment literature paying attention to the market-finance link.                                                                                                                                                                                                                                                                                                                                             |
+| *Design/methodology/approach*                 | ARDL model for 17 OECD countries from 1970-2013. *Variables:* Real Disposable Income, real house prices, real interest rate (housing loans), unemployment rate and volume of banking credit. *Demographic and Monetary Channels:* Mortgage rate and credit.                                                                                                                                                                                            |
+| *Results*                                     | For the US, banking credit and Real House Prices are the most statistically significant variables. Only Canada, Japan, New Zeland, Norway, UK and USA do not have statistically significant Real Disposable Income variable. So, for most of analyzed countries, RDY is the most relevant determinant of RRI. Positive correlation between house prices and housing acquisition.                                                                       |
+| *(Interesting) Findings*                      | Interest rate is not the most powerful variable to influence residential investment.                                                                                                                                                                                                                                                                                                                                                                   |
+| *Research limitations/implications (Critics)* | There probably is endogenety problems between variables (/e.g./ UN and RDY; RHP and C; RDY and MR, and, most important, RDY and RRI and so on). *Todo:* Check if authors tested controls (Problably do not).                                                                                                                                                                                                                                           |
+| *Uncategorized stuff*                         | There is still no consensus about residential investment specification function.                                                                                                                                                                                                                                                                                                                                                                       |
+| *5SS*                                         | This paper contributes to residential investment empirical agenda and finds a positive correlation between RDY, RHP and residential investment demand. Improves previous works including banking sector related variable.                                                                                                                                                                                                                              |
+
+
+$$
+D_H = D_H(\underset{-}{RHP}, \underset{+}{RDY}, \underset{-}{MR}, \underset{+}{C}, \underset{-}{UN})
+$$
+
+$$
+S_H = S_H(\underset{+}{RHP}, \underset{+}{RRI})
+$$
+
+$$
+RRI = RRI(\underset{+}{RHP}, \underset{+}{RDY}, \underset{-}{MR}, \underset{+}{C}, \underset{-}{UN})
+$$
+
+where:
+
+- $RHP$: Real house prices
+- $RDY$: Real disposable income
+- $MR$: Mortgage rate
+- $C$: Banking credit
+- $UN$: Unemployment rate
+- $RRI$: Real residential investment
+
+* cite:sutton_2017_Interestb Interest rates and house prices in the United States and around the world
+  :PROPERTIES:
+  :Custom_ID: sutton_2017_Interestb
+  :URL:
+  :AUTHOR:
+  :END:
+
+** FISH-5SS
+
+
+|---------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| *Background*                                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| *Supporting Ideas*                            | Since houses are a long-lasting good, the long term interest rate is the most adequate one. However,  house prices depends on short-term interest rate. The authors highlight the persistance of house prices (both in nominal and in real terms). Real house prices and interest rates move in the same direction                                                                                                                                                                                                |
+| *Purpose*                                     | Estimate the response of house prices to changes in short and long-run interest rates                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| *Originality/value (Contribution)*            |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| *Relevance*                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| *Design/methodology/approach*                 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| *Sample*                                      | Unbalanced panel (1950-2015) composed by 47 Countries (20 Advanced and 27 EMEs). For the US, the estimate quarterly data from 1970 to 2015                                                                                                                                                                                                                                                                                                                                                                        |
+| *Variables*                                   | Explained: Real house price growth ($h^{p}$) and short-term interest rates. Explanatory: real GDP growth ($y$); total employment growth ($l$, proxy for labor market and demographics factors); interest rate variables.  Growth of the domestic bank credit to the non-financial private sector was also initially included, but was eventually dropped because of its high correlation with real GDP growth. They include both real and nominal interest rate since the latter is a important lending criteria. |
+|                                             |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| *Results*                                     | Short-term interest rate is the main determinant of house prices, specially outside the US. Demand for houses adjusts slowly to changes in interest rates due to high transaction costs.                                                                                                                                                                                                                                                                                                                          |
+| *(Interesting) Findings*                      | Analyze an dateset containing house prices                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| *Research limitations/implications (Critics)* |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| *Uncategorized stuff*                         | They point out that house prices as not computated by statistical offices and this has been changed by the GFC.                                                                                                                                                                                                                                                                                                                                                                                                   |
+| *5SS*                                         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+|---------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+** Backlinks
+
+** US specific results
+
+- Changes in US house prices are highly persistent
+- Most lags enter the regression with a positive sign
+  + Evidance against random walk model
+- GDP and total employment seems to not affect house prices
+- Both nominal and real interest rate affects the house price inflation
+- House prices respond to long-term interest rate
+- A 100 basis-point fall in the nominal US short-term rate generates a rise in real house prices
+* cite:Goodhart_2008 - [[https://www.ecb.europa.eu/pub/pdf/scpwps/ecbwp888.pdf?ec420f6e04a07efadb15fbbd5d4223e6][House prices, money, credit and the macroeconomy]]
+   :PROPERTIES:
+   :YEAR:     2008
+   :ZOTERO:   Yes
+   :TYPE:     Empirical
+   :STATUS:   Finished
+   :RELEVANCE: Regular
+   :IMPACT:   Regular
+   :CITE:     Yes
+   :END:
+
+#+BEGIN_SRC bibtex
+@Article{Goodhart_2008,
+  author       = {Goodhart, C. and Hofmann, B.},
+  title	       = {House prices, money, credit, and the macroeconomy},
+  year	       = 2008,
+  volume       = 24,
+  number       = 1,
+  month	       = {Mar},
+  pages	       = {180–205},
+  issn	       = {1460-2121},
+  doi	       = {10.1093/oxrep/grn009},
+  url	       = {http://dx.doi.org/10.1093/oxrep/grn009},
+  journal      = {Oxford Review of Economic Policy},
+  publisher    = {Oxford University Press (OUP)}
+}
+#+END_SRC
+
+| <40>                                        | <50>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| *Background*                                  | Credit aggregates and asset prices play no role in standard models.                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| *Supporting Ideas*                            | The must be multidirectional links between house prices and monetary variables. According to lifecycle mode, an increase in house prices leads to an increase in consumption. When house prices increases, residential investment Tobin's $q$ increase as well. So, residential investment is a positive function of house prices. House prices assumed to be sticker than monetary variables. Financial, structural e institutional changes in the 80s are supposed to  change the macroeconomic dynamics. |
+| *Purpose*                                     | To investigate whether money, credit, house prices and GDP have multidirectional links.                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| *Originality/value (Contribution)*            | Links credit and asset prices in both directions and connects house prices with monetary variables (/i.e./ money, credit, house prices and economy).                                                                                                                                                                                                                                                                                                                                                          |
+| *Relevance*                                   | This paper provides a TsPanel data for a similar country and time selection in the dissertation. Furthermore, indicates some technical literature for TsPanel.                                                                                                                                                                                                                                                                                                                                              |
+| *Design/methodology/approach*                 | Fixed-effects panel VAR. 17 industrialized countries (1970-(1985-)2006). Housing booms are included with dummy variables. *Estimation:* OLS without time dummies. This specification is employed because $T>N$, so dummies would involve loss in efficiency. For Cholesky decomposition, ordering was based on monetary transmission literature.                                                                                                                                                              |
+| *Results*                                     | *Stronger Multidirectional* link between house prices and monetary variables in the recent subsample (1985-2006). Stronger monetary shocks in housing boom.                                                                                                                                                                                                                                                                                                                                                   |
+| *(Interesting) Findings*                      | Monetary variables affects future house prices and the other way around also occurs. Only money growth affects future CPI. CPI shock capture supply-side disturbances ($\Uparrow cpi,\, \Downarrow y, \Uparrow ir, \Downarrow hp, \Downarrow m, \Downarrow c$) An house price shock increase all other variables. The same holds for money and credit shock. Money  and credit growth provides information about emerging house price booms or bubbles.                                                     |
+| *Research limitations/implications (Critics)* | The authors themselves indicates that results are not statiscally significants. Housing boom included with dummy variables. Residential investment variable not included.                                                                                                                                                                                                                                                                                                                                   |
+| *Uncategorized stuff*                         | House owners gain from a house price  increse while renters lose. The authors indicates that estimating individual VARs would lead to few degrees of freedom. Lag order: 4 (AIC).                                                                                                                                                                                                                                                                                                                           |
+| *5SS*                                         | The authors estimate a time-series fixed effects panel data for 17 industrialized countries for 1970-2006. They report a multidirectional relation between money, credit, house prices and GDP growth. This effects are stronger during housing booms.                                                                 However, they do not include residential investment.                                                                                                                                 |
+
+
+** Main model
+
+$$
+Y_{i,t} = A_i + A(L)Y_{i,t} + \varepsilon_{i,t}
+$$
+
+- $Y$ endogenous variables
+  - Variables: real GDP ($y$), consumer price index ($cpi$), short-term nominal interest rate ($ir$), nominal house prices ($hp$), nominal broad money ($m$) and nominal bank credit ($c$)
+- $A$ country-specific fixed effects
+  - Countries:  US, Japan, Germany, France, Italy, the UK, Canada, Switzerland, Sweden, Norway, Finland, Denmark, Spain, the Netherlands, Belgium, Ireland and Australia
+
+** Housing boom estimation
+
+$$
+Y_{i,t} = A_i + A_{NB}(L)Y_{i,t}\cdot D^{NB}_{i,t} + A_{B}(L)Y_{i,t}\cdot D^{B}_{i,t} + \varepsilon_{i,t}
+$$
+
+in which $B$ and $NB$ stands for boom and not housing boom respectively. Housing boom defined as follows (p. 24):
+
+#+BEGIN_QUOTE
+persistent deviation of real house prices from a smooth trend, calculated based on a one-sided HP filter with a smoothing parameter of 100,000. A boom is defined as a positive deviation of house prices from this smooth trend of more than 5% lasting at least 12 quarters.
+#+END_QUOTE
+
+
+Next, another model is estimated whith $D^{NB}$ equals to one for those countries with lower real house price increases and zero otherwise and the same procedure was repeated for $D^B$. The same results were found: monetary variables have stronger effects during housing boom despite not being statistically significant.
+
+Then, the author moves towards country-specific factors based on available LTV (loan-to-Value) ratio. They find countries with higher LTV to be the ones with higher price increases (relatively). However, the is no perfect correlation between this variables.
+
+**** Other stuff
+
+Quoting in defense of TsPanel (p. 15) based on Gavin and Theodorou
+(2005):
+
+#+BEGIN_QUOTE
+adopting a panel approach in a macro framework like our own
+helps to uncover common dynamic relationships which might otherwise be obscured by idiosyncratic effects at the individual country level
+#+END_QUOTE
+
+* [[https://www.tandfonline.com/doi/abs/10.2753/PKE0160-3477360304][Arestis and González - Bank credit and the housing market in OECD countries]]
+    :PROPERTIES:
+    :YEAR:     2014
+    :ZOTERO:   Yes
+    :TYPE:     Empirical
+    :STATUS:   Filed
+    :RELEVANCE: Regular
+    :IMPACT:   Low
+    :CITE:     Wait
+    :END:
+
+    #+BEGIN_SRC bibtex
+@Article{Arestis_Credit_2014,
+  author       = {Arestis, Philip and González, Ana Rosa},
+  title	       = {Bank credit and the housing market in OECD
+                  countries},
+  year	       = 2014,
+  volume       = 36,
+  number       = 3,
+  month	       = {Apr},
+  pages	       = {467–490},
+  issn	       = {0160-3477},
+  doi	       = {10.2753/pke0160-3477360304},
+  url	       = {http://dx.doi.org/10.2753/PKE0160-3477360304},
+  journal      = {Journal of Post Keynesian Economics},
+  publisher    = {Informa UK Limited}
+}
+    #+END_SRC
+
+*FOR:* VECM
+
+| *Background*                                  |                                                                   |
+| *Supporting Ideas*                            |This paper is highly based on "dynamic monetized production economy" which means that production requires credit to occurs. It is supposed that an increase on house prices would lead to a decrease on demand for credit (which is at odd with some stylized facts). |
+| *Purpose*                                     | Evaluates if banking credit is determined by house prices.        |
+| *Originality/value (Contribution)*            | Bank credit is endogenised through real estate-related variables. |
+| *Relevance*                                   | This paper assumes some different hypothesis than those utilized in the dissertation. Addionaly, it analyses some similar countries. The dataset, though, is not so comparable.  Results are at odds with the empirical literature for the US |
+| *Design/methodology/approach*                 |The theoretical model assumes two types of firms: real-estate and non-real estate producers. Demand for Houses depends on disposable income ($RDY$), mortgage rate ($MR$) and housing prices ($P_H$). House supply, on the other side, depends positively on house prices and on real residential investment ($RRI$). Cointegration and error correction techniques |
+| *Countries*                                   |9 OECD countries: Belgium, Finland, Italy, Japan, the Netherlands, New Zealand, Norway, Spain and the United States.                                                |
+| *Time range*                                  | 1970 to 2011 (restricted by availability)                         |
+| *Results*                                     |There is a direct relationship between house prices and credit volume (but not at the US). For the US, Belgium and Norway, RDY is the only variable that describes credit volume. For the short-run dynamics, MR is not statiscally significant for any country while RDY is the only one for the US (which has the lowest $R^2$). Anyway, house prices has a positive effect on volume of credit in almost every country analyzed. |
+| *(Interesting) Findings*                      |                                                                   |
+| *Research limitations/implications (Critics)* |The authors implicitly suppose that there is no speculative reason for buy a House. Additionally, they suppose and price-adjustment mechanism. The authors describe a loop in housing-credit relation in which an increase in credit demand leads to an increase on house prices since its supply is fixed on the short-run. Real disposable income is include as a proxy for borrower risk of default. However, the following rationale is based on information criteria and other supply-side elements, which could be inconsistent with overall assumptions. Further, is mentioned that RDY is supposed to be the main determinant of house demand (and not credit). It is said that mortgage interest rate could crowd out construction investment. |
+| *Uncategorized stuff*                         |Points out AMECO databank (Dwellings and Long-term interest rate), BIS (Real House price index) |
+| *5SS*                                         |                                                                   |
+
+
+$$
+D_H = D_H (\underset{-}{P_H}, \underset{+}{RDY}, \underset{-}{MR})
+$$
+
+$$
+S_H = S_H (\underset{+}{P_H}, \underset{+}{RRI})
+$$
+
+on equilibrium
+
+$$
+P_H = P_H (\underset{+}{RDY}, \underset{-}{MR}, \underset{-}{RRI})
+$$
+
+$$
+Q_H = Q_H (\underset{+}{P_H}, \underset{+}{RDY}, \underset{-}{MR})
+$$
+
+Next, they present an equation for Demand for Credit which depends on house market equilibrium
+
+$$
+D_C = D_C (\underset{+}{P_H(\cdot)}, \underset{+}{Q_H(\cdot)})
+$$
+
+$$
+D_C = D_C (\underset{+}{P_H}, \underset{+}{RDY}, \underset{+}{RRI}, \underset{-}{MR},)
+$$
+while supply of credit depends only on mortgage rate (as a proxy for user cost of dwellings)
+
+$$
+S_C = S_C (MR)
+$$
+which implies the following Banking Credit (volume) equilibrium
+
+$$
+BC = BC (\underset{+}{P_H}, \underset{+}{RDY},\underset{+}{RRI},\underset{-}{MR})
+$$
+
+thus, the equation to be estimated is
+
+$$
+BC = \gamma_0 + \gamma_1 P_H + \gamma_2 RDY + \gamma_3 + RRI - \gamma_4 MR
+$$
+where credit share to GDP was used as endogenous variable. Additionally, long-term interest rate was used instead of mortgage interest rate due to homogeneous and reliable information.
+
+* [[https://www.postkeynesian.net/working-papers/2005/][Wood and Stockhammer - House prices, private debt and the macroeconomics of comparative political economy]]
+    :PROPERTIES:
+    :YEAR:     2020
+    :ZOTERO:   Yes
+    :TYPE:     Empirical
+    :STATUS:   Reading
+    :RELEVANCE: High
+    :IMPACT:   Regular
+    :CITE:     Yes
+    :END:
+
+    #+BEGIN_SRC bibtex
+
+    #+END_SRC
+
+| *Background*                                  | Firm-centric Comparative Political Economy (CPE) approach stablishes that macroeconomic growth is determined by competitiveness gains. More recently, there is a macroeconomic turn to consumption-related variables.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| *Supporting Ideas*                            | Mortgage provision is one of the principal drivers of growth in the financial sector. House price increases is related to household endebtedness in advanced economies. Household indebtedness has a positive short-term effect on growth but a negative one on the long-run                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| *Purpose*                                     | The authors argue that CPE does not consider the financial sector sufficiently, mainly regarding household indebtednes.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| *Originality/value (Contribution)*            | Connect house prices with household indebtedness and the latter with economic growth. Additionally, evaluate whether household indebtedness and house prices affects each other in *both* directions.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| *Relevance*                                   | Analyze almost all the countries intended for the dissertation in a similar time range. So, it is an important paper for comparison.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| *Design/methodology/approach*                 | Three sets of equations: debt (households and business) on GDP growth; households debt as a function of house prices and GDP and; house prices as a function o household indebtedness and GDP. Specification tested: ARDL with robust panel-corrected standard errors (PCSE); mean group (MG) estimator to evaluate the *consistency* of the parameter (more robust in case of country heterogeneity) and two ADL model to examine the VoC subcategories using median value for each country of the stock market value traded to GDP ratio divided by the bank credit to GDP                                                                                                                                                           |
+| *Time range*                                  | 1980 to 2017. The starting point was chosen to be related with the re-rise of financial sector  (see Bengtsson and Rynes 2015).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| *Countries*                                   | 18 advanced countries in an  unbalanced pooled panel data:  Australia, Belgium, Canada, Denmark, Finland, France, Germany, Ireland, Italy, Japan, the Netherlands, New Zealand, Norway, Spain, Sweden, Switzerland, the UK and the USA. *Market-based banking economies:*  Switzerland, USA, Canada, Spain, Netherlands, Japan, UK, Sweden and Australia. *Less MB:* Germany, France, Norway, Denmark, Finland, Italy, Belgium, Ireland and New Zealand. *LMEs:* Australia, Canada, Ireland, New Zealand, the UK and the USA. *CMEs:* Belgium, Denmark, Finland, Germany, Japan, the Netherlands, Norway, Sweden and Switzerland. *MMEs:* France, Italy and Spain. Countries without hight house inflation:  Germany, Italy and Japan. |
+| *Results*                                     | Household debt has _stronger_ and more statistically significant effects on GDP than business debt. Changes in household debt volumes are largely a result of _house price fluctuations_. Macroeconomic effects of household debt and house prices are present across the cases in the sample and are _not limited to the Anglosphere countries_.                                                                                                                                                                                                                                                                                                                                                                                      |
+| *(Interesting) Findings*                      | The author proposes an classification criteria for more or less marked-based economy based on Beck et al. (2009).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| *Research limitations/implications (Critics)* | Do not include residential investiment variable nor its specification. Since residential investment is not included, there is no reason for house prices affects GDP growth rate.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| *Uncategorized stuff*                         | Present Hay (2013) contribution in which economic growth is determined by house price increases and mortgage deregulation. There is a summary of CPE and VoC critics. The authors indicates that ARDL is adequate in the presence of a unit root.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| *5SS*                                         |House prices are relevant for describing Household indebtedness while the latter determines GDP growth rate in advance economies.    |
+*FOR:* VEC (detail) and SFC (skim)
+
+**** Baseline specification
+
+$$
+GDP = \beta_1 GDP(-1) + \beta_2 GDP(-2) + \beta_3HHD(-1) + \beta_4HHD(-2) + \beta_5 BD(-1) + \beta_6 BD(-2) + \varepsilon
+$$
+
+- GDP depends on its lagged value, on HHD in all specification
+- Only HP second lag affects GDP negatively (Specification 5)
+- BD does not affects GDP on any specification
+
+$$
+HHD = \beta_1 HHD(-1) + \beta_2 HHD(-2) + \beta_3HP(-1) + \beta_4HP(-2) + \beta_5 GDP(-1) + \beta_6 GDP(-2) + \varepsilon
+$$
+
+- HHD depends on its lagged value and on HP in all specification
+- GDP affects HHD only on Mean Group estimator
+
+$$
+HP = \beta_1 HP(-1) + \beta_2 HP(-2) + \beta_3HHD(-1) + \beta_4HHD(-2) + \beta_5 GDP(-1) + \beta_6 GDP(-2) + \varepsilon
+$$
+
+- GDP does not affects HP in any specification
+- HP depends on its lagged value in all specification
+- HHD does not affects HP on Less Market-based banking economies only
+
+* cite:Hofmann_2004 -  [[https://ideas.repec.org/a/bla/intfin/v7y2004i2p203-234.html][The Determinants of Bank Credit in Industrialized Countries: Do Property Prices Matter?]]
+     :PROPERTIES:
+     :YEAR:     2004
+     :ZOTERO:   Yes
+     :TYPE:     Empirical
+     :STATUS:   Filed
+     :RELEVANCE: High
+     :IMPACT:   High
+     :CITE:     Yes
+     :END:
+
+     #+BEGIN_SRC bibtex
+@Article{Hofmann_2004,
+  author       = {Hofmann, Boris},
+  title	       = {The Determinants of Bank Credit in Industrialized
+                  Countries: Do Property Prices Matter?},
+  year	       = 2004,
+  volume       = 7,
+  number       = 2,
+  month	       = {Jul},
+  pages	       = {203–234},
+  issn	       = {1468-2362},
+  doi	       = {10.1111/j.1367-0271.2004.00136.x},
+  url	       = {http://dx.doi.org/10.1111/j.1367-0271.2004.00136.x},
+  journal      = {International Finance},
+  publisher    = {Wiley}
+}
+     #+END_SRC
+
+
+| *Background*                                  | Boom and burst in credit markets (industrialized countries). Credit usually plays no significant role on conventional models.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| *Supporting Ideas*                            | Some authors have proposed to analyze credit differently from bonds and a other debt instruments (/i.e./ relaxing perfect substitutability of loans) and rise a different role of credit. *Financial accelerator model:* Both firms and households are borrowing constrained and can only borrow if they offer *collateral*. Borrowing capacity is supposed to be *procyclical* since Net Worth is procyclical as well. *Lifecycle model* supports the mechanism from property prices increase and expenditure increase. However, this effect is not true for renters. So, the general effect is mixed. The author also argues that property prices affect bank capital value directly (own assets) and indirectly (value of loans secured by property). |
+| *Purpose*                                     | Analyze the relationship between credit aggregates, economic activity and property prices formaly.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| *Originality/value (Contribution)*            | The author includes real estate value as an determinant of bank lending. Reports a long-run relationship between credit and property prices.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| *Relevance*                                   | Almost same countries intended to be evaluated in the dissertation for a similar time range. Empirical methodology and specification will be different.                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| *Design/methodology/approach*                 | Banking credit as a function of economic activity, interest rates and property prices for 16 industrialized countries (1980 onwards). *Estimation procedure:* VEC for each country. Interest rates are supposed to have a negative effect on credit demand (financing cost). Data are taken from BIS database. Aggregate property price is defined as average of residential and commercial property prices and are deflated by consumer price index. Countrywide residential prices are available for some countries only.                                                                                                                                                                                                                              |
+| *Results*                                     | Finds a positive long-run relationships between  real credit, real GDP and real property prices and negative to real interest rate. Property prices are important determinant of long-run borrowing capacity to the private sector. Increases in property prices implies a positive effect on bank lending in most countries (IRF).                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| *(Interesting) Findings*                      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| *Research limitations/implications (Critics)* |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| *Uncategorized stuff*                         | Commercial property prices seems to be more volatile than residential properties.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| *5SS*                                         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+
+* References
