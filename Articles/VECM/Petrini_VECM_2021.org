@@ -44,7 +44,7 @@
 #+end_export
 
 ** Submission specifications :ignore:
-#+LATEX_HEADER: \usepackage{endfloat}
+#+LATEX_HEADER: %\usepackage{endfloat}
 
 ** Authors infos :ignore:
 #+LATEX_HEADER: \usepackage{authblk}
@@ -80,7 +80,7 @@ while the other way round does not occur.
 
 
 
-* Residential investment, trend and business cycle in the US
+* Residential investment, economic growth and business cycle in the US economy
 #+LATEX: \label{sec:Stylized_Facts}
 #+INCLUDE: "Stylized_Facts.org"
 * Review of the Macroeconometric Literature

@@ -3972,7 +3972,36 @@ Alternative Hypothesis: The process is weakly stationary.
 
 ** Houses' own interest rate and residential investment growth rate in the US	Economy
 #+LATEX: \label{sc:own} 
+*** Versão Lucas <2021-02-11 qui>
+The review of the literature in the previous session shows us that may be the only
+consensus about the determinants of residential investment is on house prices
+(nominal or deflated by consumer price index) and some rate of interest (mortgage or
+long term, as proxy). Some authors deflate the rate of interest by the CPI, some use
+nominal interest rate as to capture the effect of monetary illusion. In this session, we
+will present a particular way of combining the two variables in a single index that we
+will use on our econometric estimation.
 
+Arestis and Gonzalez-Martínez (2014) argue that the last house bubble (during the
+2000s to the US economy) changed the traditional view on the motivations to acquire
+housing. Accordingly to this view, house was a durable good that renders a service
+through it lifetime to tis owner. As well, it is a way of investing wealth more
+accessible to most households than others options, like stock shares. During the
+bubble, households would acquire housings only to sell it later with capital gains. Or,
+would benefit from renting their properties.
+
+The speculative behavior was disseminated through households (figureX). Bottom
+50% of population increased their acquisition of housing and also their mortgage
+indebtedness, supporting the ordinary view of the Great Recession as originated by a
+subprime crisis. But the top 1% also increased their wealth in form of housing, as well
+as their mortgage debts, corroborating the new narrative of the crisis (Albanesi, de
+Giorgi and Nosal: 2017). It is worth noting that this housing boom was possible
+because of some changes of housing market regulation and housing finance that
+allowed a great increase of housing credit. In particular, there were some changes in
+regulation after the saving and loans crisis of the 1980s.
+
+**** TODO Gráfico percentis
+
+*** Versão antiga
 In this subsection, we describe the relationship between residential investment growth rate ($g_{I_h}$) and houses' own interest rate ($own$) as proposed by textcite:teixeira_crescimento_2015. 
 Next, we will present the hypothesis to be tested on the Section ref:sec:estimation. To obtain this relationship, we deflate mortgage interest rate ($r_{mo}$) by real estate inflation ($\pi$) as follows:
 
