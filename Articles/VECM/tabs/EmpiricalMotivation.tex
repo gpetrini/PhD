@@ -1,23 +1,28 @@
-%\begin{landscape}
-\begin{table}[H]
-    \centering
-    \caption{Macroeconometric models}
-    \label{tab:empirical_tab}
-    \begin{tabularx}{\textwidth}{s|s|m|b}
+% \begin{landscape}
+\begin{table}[htb]
+    \caption{Residential investment determinants in macroeconometric models}
+    \label{tab:summary_models}
+    \begin{threeparttable}
+        % \resizebox{\textheight}{!}{%
+% \begin{tabular}{p{0.1\textwidth}p{0.1\textwidth}p{0.1\textwidth}p{0.7\textwidth}}
+      \begin{tabularx}{\textwidth}{s|s|s|m}
     \hline\hline
-    \textbf{Authors} & \textbf{Object} & \textbf{Method} & \textbf{Rationale}\\\hline
-    \textcite{poterba_tax_1984} & & & \\\hline
-    \textcite{green_follow_1997} & Cycle & Econometric, Granger test & Households forward looking behaviour;\newline Regulation: real state as tax shelters (generous tax treatment to capital gains and losses) \\\hline
-    \textcite{gauger_residential_2003} & Trend & Econometric, Granger test & \\\hline
-    \textcite{leamer_housing_2007} & Cycle & Econometrics \newline Causal narratives & Houses fix prices, adjusts on volume; \newline Speculation and leverage. Small prices drops kill housing business; \newline Monetary policy: Sensitivity of residential investment to Fed Funds Rate \\ \hline
-    \textcite{arestis_residential_2015} & Trend (?) & Econometric: ARDL Model & House prices and credit supply for the US and disposable income for other countries.\\\hline
-    \textcite{teixeira_crescimento_2015} & Trend, cycles and crises & Causal narratives & For cycle and crises: speculation and own rates of interest\\ \hline 
-    \textcite{fiebiger_trend_2017} & Trend, cycles and crises & Causal narratives & Semi-autonomous expenditures, external source for profits\\ \hline 
-    \textcite{fiebiger_semi-autonomous_2018} & Trend, cycles and crises & Causal narratives & Semi-autonomous expenditures, external source for profits\\ \hline
-    \textcite{huang_is_2018} & Trend and cycles & Econometrics: SVEC & Housing antecipates the business cycle\newline Unconclusive result related to causality between them\\ \hline
-    \textcite{wood_house_2020} & Cycles & Econometrics: ARLD & House prices determine household indebtedness which describe recent growth rate for some advanced economies\\ \hline
+    \textbf{Authors} & \textbf{Sample} & \textbf{Estimation method} & \textbf{Covariates}\\\hline
+    \textcite{poterba_tax_1984} & US (1974-1982) & & \makecell{$RHP(+), NCD(-), W(+),$\\$Cr(+)$} \\\hline
+    \textcite{topel_1988_Housing} & US (1963-1983) & Instrumental variable & \makecell{$HeP(+), INT(-), INFLA(-),$\\$TIME(-), W(-)$} \\\hline
+    \textcite{egebo_1990_MODEL} & 7 OECD countries (1960-1987) & OLS & \makecell{$RDY(+), RINT(-), PRIr(-),$\\$PRSr(+)$} \\\hline
+    \textcite{mccarthyMonetaryPolicyTransmission2002} & US (1975-1985 and 1986-2000) & EC-GMM & \makecell{$HP(+), CC(-), SINT(-),$\\$LAND(-), H(-)$} \\\hline
+    \textcite{barot_2002_House} & UK and Sweden (1970-1998) & EC model & $Q(+), RINT(-)$ \\\hline
+    \textcite{gauger_residential_2003} & US (1959-79 and 1982-99) & VECM and Granger test & $M2, GDP(+), SINT(-), MR(-),$\\\hline
+    \textcite{arestis_residential_2015} & 17 OECD countries (1970-2013) & ARDL Model & \makecell{$RHP(+), RDY(-), MR(-),$\\$ Cr(+), UN(-)$}\\\hline
+    \textcite{kohlscheen_2018_Residential} & 15 OECD countries (1970-2017) & OLS & \makecell{$Q(+), RHP(+), GDPc(+),$\\$ POP(+), NM(+), H(-)$} \\\hline
     \hline
     \end{tabularx}
+    % \end{tabular}
+    % } %end resize
+
+    \footnotesize{\textbf{Notes:} Signs inside parenthesis indicates expected effects. \textcite{topel_1988_Housing} use housing starts as the dependend variable; all the other use residential investment ($RI$). \textbf{Covariates dictionary:} $RHP$ Real House Prices; $NCD$ Non-residential construction deflator; $W$ Real Construction Wage; $Cr$ Banking Credit; $HS$ Housing Starts; $HeP$ Hedonic Prices; $INT$ Interest Rates (non-specified); $INFLA$ Expected inflation; $TIME$ Median market time since the begin of construction; $RDY$ Real Disposable Income; $RINT$ Real Interest Rate; $PRIr$ Residential investment relative price; $PRSr$ Residential services relative prices; $HP$ House Prices; $CC$ Construction Costs; $SINT$ Short-term Interest Rate; $LAND$ Land Price; $H$ House Stock; $Q$ Adapted Tobin's Q for the housing sector; $RINT$ Real interest rate; $M2$ Monetary aggregates; $GDP$ Gross Domestic Product; $MR$ Mortgage Interest rate; $UN$ Unemployment rate; $GDPc$ GDP per capita; $POP$ Population Density; $NM$ Net Migration rates (per 1000 population).}
+  \end{threeparttable}
     \caption*{\textbf{Source:} Authors' elaboration}
 \end{table}
-%\end{landscape}
+% \end{landscape}

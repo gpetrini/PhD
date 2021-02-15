@@ -3972,37 +3972,36 @@ Alternative Hypothesis: The process is weakly stationary.
 
 ** Houses' own interest rate and residential investment growth rate in the US	Economy
 #+LATEX: \label{sc:own} 
-*** Versão Lucas <2021-02-11 qui>
-The review of the literature in the previous session shows us that may be the only
-consensus about the determinants of residential investment is on house prices
-(nominal or deflated by consumer price index) and some rate of interest (mortgage or
-long term, as proxy). Some authors deflate the rate of interest by the CPI, some use
-nominal interest rate as to capture the effect of monetary illusion. In this session, we
-will present a particular way of combining the two variables in a single index that we
-will use on our econometric estimation.
 
-Arestis and Gonzalez-Martínez (2014) argue that the last house bubble (during the
-2000s to the US economy) changed the traditional view on the motivations to acquire
-housing. Accordingly to this view, house was a durable good that renders a service
-through it lifetime to tis owner. As well, it is a way of investing wealth more
-accessible to most households than others options, like stock shares. During the
-bubble, households would acquire housings only to sell it later with capital gains. Or,
-would benefit from renting their properties.
 
-The speculative behavior was disseminated through households (figureX). Bottom
-50% of population increased their acquisition of housing and also their mortgage
-indebtedness, supporting the ordinary view of the Great Recession as originated by a
-subprime crisis. But the top 1% also increased their wealth in form of housing, as well
-as their mortgage debts, corroborating the new narrative of the crisis (Albanesi, de
-Giorgi and Nosal: 2017). It is worth noting that this housing boom was possible
-because of some changes of housing market regulation and housing finance that
-allowed a great increase of housing credit. In particular, there were some changes in
-regulation after the saving and loans crisis of the 1980s.
+textcite:arestis_residential_2015 argue that the last house bubble episode (during the 2000s to the US economy) changed the traditional view on the motivations to acquire housing.
+Accordingly to previous view, house was a durable good that renders a service through it lifetime to its owner.
+As well, it is a way of investing wealth more accessible to most households than others options, like stock shares.
+During the bubble, households would acquire housings only to sell it later with capital gains.
+Or, would benefit from renting their properties.
 
-**** TODO Gráfico percentis
+The speculative behavior was disseminated through households (see figure ref:fig:mort_houses).
+Bottom 50% of households with wealth increased their acquisition of housing and also their mortgage indebtedness.
+This movement supports the ordinary view of the Great Recession as originated by a subprime crisis cite:mian_consequences_2009.
+The top 1%, however, also increased their wealth in form of housing, as well as their mortgage debts, corroborating to a "New narrative" of the crisis cite:albanesi_2017_Credit.
+As discussed before, this housing boom was possible because of some changes of housing market regulation and housing finance cite:federal_deposit_insurance_corporation_savings_1997,mccarthyMonetaryPolicyTransmission2002,wall_too_2010.
 
-*** Versão antiga
-In this subsection, we describe the relationship between residential investment growth rate ($g_{I_h}$) and houses' own interest rate ($own$) as proposed by textcite:teixeira_crescimento_2015. 
+#+begin_export latex
+\begin{figure}[H]
+	\centering
+	\caption{Houses and Mortgage shares evolution by wealth percentile (1989/07=1)}
+	\label{fig:mort_houses}
+	\includegraphics[width=.9\textwidth]{./figs/Houses_Mortgages.png}
+	\caption*{\textbf{Source:} Board of Governors of the Federal Reserve System (US), Authors' Elaboration}
+\end{figure}
+#+end_export
+
+
+*** Descrição teórica da taxa própria
+*** Descrição mais formal da taxa própria (preparação para VECM) :ignore:
+
+
+Next, we describe the relationship between residential investment growth rate ($g_{I_h}$) and houses' own interest rate ($own$) as proposed by textcite:teixeira_crescimento_2015.
 Next, we will present the hypothesis to be tested on the Section ref:sec:estimation. To obtain this relationship, we deflate mortgage interest rate ($r_{mo}$) by real estate inflation ($\pi$) as follows:
 
 #+begin_export latex
@@ -4015,7 +4014,7 @@ g_{I_h} = \phi_0 - \phi_1\cdot own
 \end{equation}
 #+end_export
 
-where $\phi_0$ stands for long-term determinants (/e.g./ demographic factors, housing and credit policies, etc.) while $\phi_1$ captures the demand for real estate arising from expectations of capital gains resulting from speculation with the existing dwellings stock. 
+where $\phi_0$ stands for long-term determinants (/e.g./ demographic factors, housing and credit policies, etc.) while $\phi_1$ captures the demand for real estate arising from expectations of capital gains resulting from speculation with the existing dwellings stock.
 This particular real interest rate is the most relevant for households since it is the real cost in real estate from buying real estate  \cite[p.~53]{teixeira_crescimento_2015}.
 
 Figure ref:propria_investo shows how this deflation procedure is more adequate than a general price index --- as \textcite[p.~143--6]{fair_macroeconometric_2013} does --- to describe the housing dynamics. It worth noting that during a houses' bubble period, it is real estate inflation that governs own's interest rate dynamics.
@@ -4043,7 +4042,7 @@ therefore, if these time-series are co-integrated, we specify the short-run adju
 #+end_export
 
 where $\delta_s$ indicate linear trend (level);
-$\alpha_{is}$ are the error correction coefficients; 
+$\alpha_{is}$ are the error correction coefficients;
 $\beta_s$ and $\gamma_s$ are coefficients associated with lagged $g_{I_h}$ and $own$ respectively and; $\varepsilon_s$ are the residuals.
 Based on \textcite{teixeira_crescimento_2015}, we depict the expected results in Table \ref{resultados_esperados} below:
 

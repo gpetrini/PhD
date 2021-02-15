@@ -516,6 +516,78 @@ plt.tight_layout()
 plt.close()
 salvar_grafico(file_name="Distribuicao_Passivos")
 #+end_src
+*** Hipotecas e imóveis
+#+begin_src python  :results graphics file :file ./figs/Houses_Mortgages.png
+def concentracao_df(df):
+    colunas = ["Top 1%", "Top 10%", "Top 50-90%", "Bottom 50%"]
+    df.columns = colunas
+    df = df / 100
+    df.index.name = ""
+    df = df / df.iloc[0, :]
+    return df
+
+
+start = dt(1947, 1, 1)
+end = dt(2019, 1, 1)
+url = "https://fred.stlouisfed.org/release/tables?rid=453&eid=813804#snid=813936"
+
+houses = web.DataReader(
+    [
+        "WFRBST01110",  # Share of Real Estate Held by the Top 1% (99th to 100th Wealth Percentiles)
+        "WFRBSN09137",  # Share of Real Estate Held by the 90th to 99th Wealth Percentiles
+        "WFRBSN40164",  # Share of Real Estate Held by the 50th to 90th Wealth Percentiles
+        "WFRBSB50191",  # Share of Real Estate Held by the Bottom 50% (1st to 50th Wealth Percentiles)
+    ],
+    "fred",
+    start,
+    end,
+)
+houses = concentracao_df(houses)
+
+Mortgages = web.DataReader(
+    [
+        "WFRBST01129",  # Share of Home mortgages Held by the Top 1% (99th to 100th Wealth Percentiles)
+        "WFRBSN09156",  # Share of Home mortgages Held by the 90th to 99th Wealth Percentiles
+        "WFRBSN40183",  # Share of Home mortgages Held by the 50th to 90th Wealth Percentiles
+        "WFRBSB50210",  # Share of Home mortgages Held by the Bottom 50% (1st to 50th Wealth Percentiles)
+    ],
+    "fred",
+    start,
+    end,
+)
+Mortgages = concentracao_df(Mortgages)
+
+
+fig, ax = plt.subplots(1, 2, figsize=(19.2, 10.80), sharey=True)
+
+houses.plot(title="A - Houses", ax=ax[0], legend=False, lw=3)
+Mortgages.plot(title="B - Mortgages", ax=ax[1], legend=False, lw=3)
+
+crise_subprime(axes=ax[0])
+crise_subprime(axes=ax[1])
+crises(axes=ax[0])
+crises(axes=ax[1])
+ax[1].legend(loc="center left", bbox_to_anchor=(1.1, 0.5), fontsize=18)
+
+crise_subprime(axes=ax[0])
+crise_subprime(axes=ax[1])
+crises(axes=ax[0])
+crises(axes=ax[1])
+
+ax[0].set_title("A - Houses", fontsize=18)
+ax[1].set_title("B - Mortgages", fontsize=18)
+
+ax[0].tick_params(axis="both", which="major", labelsize=15)
+ax[1].tick_params(axis="both", which="major", labelsize=15)
+
+sns.despine()
+plt.tight_layout()
+plt.close()
+salvar_grafico(file_name="Houses_Mortgages")
+#+end_src
+
+#+RESULTS:
+[[file:./figs/Houses_Mortgages.png]]
 
 ** Crisis centered plot
 *** Begin
@@ -710,8 +782,7 @@ In a letter to President Franklin D. Roosevelt, in the mid of the Great Depressi
 The other exception is textcite:duesenberry_investment_1958 who presents a critique of ordinary theories of aggregate investment because they put together firms’ investment in capital and structures and investment in residential housing.
 In this sense, he builds a model dedicated for the latter type of investment, emphasizing the role of house prices.
 
-Perhaps, the small share of residential investment on aggregate demand (see figure ref:fig:share) may explain this lack of attention.
-#+latex: % Perhaps, this lack of attention could be attributed to residential investment small share of aggregate demand (see figure ref:fig:share).
+Perhaps, the small share of residential investment on aggregate demand may explain this lack of attention (see figure ref:fig:share).
 The subprime crisis and the Great Recession of the US economy had changed the landscape, making clear the macroeconomic role of
 housing prices and finance, and residential investment.
 Specifically, we argue however small its share on GDP is, it does have a fundamental role in explaining business cycles and long-run growth.
@@ -730,7 +801,7 @@ Specifically, we argue however small its share on GDP is, it does have a fundame
 #+end_export
 
 Recently, more and more macroeconomists are paying attention to the relevance of residential investment for the business cycles.
-textcite:green_follow_1997, however, analyzed this connection even before the Great Recession.
+textcite:green_follow_1997 analyzed this connection even before the Great Recession.
 Based on Granger casualty tests for the US from 1952 to 1992, he concludes that residential investment leads the cycle, while non-residential investment (i.e., firms business investment) lags the cycle.
 textcite:green_follow_1997 relates this result to the forward-looking behavior of households.
 Thus, he restricts the relevance of residential investment as a temporal precedence indicator.
@@ -738,17 +809,18 @@ Thus, he restricts the relevance of residential investment as a temporal precede
 textcite:leamer_housing_2007 is more incisive. He states that housing is the business cycle.
 In analyzing the US economy for the post-war period, he concludes that residential investment is the best predictor of economic crises.
 The economic cycle of US economy would be a consumer cycle: "first homes, then cars, last business investment" \cite[p.~8]{leamer_housing_2007}.
-Thus, according to textcite:leamer_housing_2007, residential investment anticipates and causes the business cycle[fn::However, textcite:leamer_housing_2007 him self did not evaluate this statements econometrically.].
+In a follow up work, the author declare that nine out of eleven US economic recessions were preceded by a severe downturn of residential investment, in the post-war period cite:leamer_housing_2015.
+# Thus, according to textcite:leamer_housing_2007, residential investment anticipates and causes the business cycle[fn::However, textcite:leamer_housing_2007 him self did not evaluate this statements econometrically.].
 textcite:kydland_2016_housing extends \citeauthor*{leamer_housing_2007}'s \citeyear{leamer_housing_2007} proposition to other countries to evaluate how unique the US case is.
 Similarly to textcite:green_follow_1997, they also conclude that residential investment leads the cycle -- while non-residential investment lags it -- for the US and Canada.
 The results, however, are more robust when they include housing starts instead of residential investment.
-Briefly, they find that housing starts precedes GDP the shorter the time to build is[fn::For the other countries in the sample, and at odds with conventional theory, textcite:kydland_2016_housing find that residential investment is coincident (and not laggging) with GDP. Additionally, they conclude that long-term nominal mortgage rate is a relevant transmission channel from interest rates to housing costs.].
+Briefly, they find that housing starts precedes GDP the shorter the time to build is[fn::For the other countries in the sample, textcite:kydland_2016_housing find that residential investment is coincident (and not lagging) with GDP. Additionally, they conclude that long-term nominal mortgage rate is a relevant transmission channel from interest rates to housing costs.].
 More recently, textcite:huang_is_2018 assess  prediction and causality relations proposed by textcite:leamer_housing_2007 for 17 OECD countries.
-For the US, both statements are valid[fn::For the other countries, they found inconclusive results regarding fluctuations due to institutional heterogeneity. However, textcite:huang_is_2018 claim that for most G7 countries, residential investment at least amplify the business cycle.] and housing related variables (house prices, real mortgage rate --- deflated by a consumer price index --- and bank spread) lead the business cycle.
+For the US both statements are valid[fn::For the other countries, they found inconclusive results regarding fluctuations due to institutional heterogeneity. However, textcite:huang_is_2018 claim that for most G7 countries, residential investment at least amplify the business cycle.] and housing related variables (house prices, real mortgage rate --- deflated by a consumer price index --- and bank spread) lead the business cycle.
 
 
 In order to depict the relation between residential investment and business cycle, we present Figure ref:fig:cycle.
-In each panel, we present the growth rate of selected expenditures 2 years before and after recession begin[fn::This similar reasoning can be found in textcite:leamer_housing_2007.][fn::We adopt usual NBER recession dating procedure.].
+In each panel, we present the growth rate of selected expenditures two years before and after recession begin[fn::This similar reasoning can be found in textcite:leamer_housing_2007.][fn::We adopt usual NBER recession dating procedure.].
 In most of them, residential investment growth rate is negative before the recession start.
 The Great Recession is a remarkable example of this pattern while dot-com crisis (2000-1) is an exception as already pointed out by textcite:leamer_housing_2007.
 
@@ -780,9 +852,11 @@ Recently, textcite:perez_Montiel_2021 test econometrically the assertion that th
 #+end_export
 
 
-Before we move forward, it is worth mentioning that the relevance of housing is not restricted to its growth effects. 
+Before we move forward, it is worth mentioning that the relevance of housing is not restricted to its implications to growth and business cycles.
 For example, textcite:jorda_great_2016 report that credit and financial sector growth has been led mainly by mortgages. 
 As a consequence, banking activities were redirected towards granting credit majorly to households and not towards productive investment cites:erturk_banks_2007,kohl_more_2018.
 Other studies have shown that real estate inflation is the main determinant of household indebtedness, distribution of wealth and that it has implications for macroeconomic stability cites:ryoo_household_2015,stockhammer_debt-driven_2016,barnes_private_2016,johnston_global_2017,mian_household_2017,anderson_politics_2020,fuller_housing_2020. 
 In summary, what we intended to show was the macroeconomic relevance of residential investment.
 On the following section, we analyze how econometric literature has dealt with determinants of the latter.
+
+*** TODO Falar sobre bolha no parágrafo anterior? :noexport:

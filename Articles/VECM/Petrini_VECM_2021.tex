@@ -1,4 +1,4 @@
-% Created 2021-02-11 qui 14:14
+% Created 2021-02-15 seg 18:20
 % Intended LaTeX compiler: pdflatex
 \documentclass[12pt, a4paper]{article}
 \usepackage[utf8]{inputenc}
@@ -30,7 +30,7 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \usepackage{setspace}
 \usepackage{tikz}
 \addbibresource{ref.bib}
-\usepackage{svg, caption, multirow, booktabs, tabularx, subfigure, subcaption, lscape, tablefootnote, threeparttable}
+\usepackage{svg, caption, multirow, booktabs, tabularx, subfigure, subcaption, lscape, tablefootnote, threeparttable, makecell}
 \newcolumntype{b}{>{\hsize=2.3\hsize}X}
 \newcolumntype{s}{>{\hsize=.45\hsize}X}
 \newcolumntype{m}{>{\hsize=.9\hsize}X}
@@ -40,9 +40,9 @@ citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
 \author[1]{Gabriel Petrini}
 \affil[1]{PhD Student at University of Campinas (Brazil), Email: \url{gpetrinidasilveira@gmail.com}} % Author affiliation
 \author[2]{Lucas Teixeira}
-\affil[2]{Assistent Professor at University of Campinas (Brazil), Email: \url{lucastei@unicamp.br}} % Author affiliation
+\affil[2]{Assistant Professor at University of Campinas (Brazil), Email: \url{lucastei@unicamp.br}} % Author affiliation
 \author[3]{Frankin Serrano}
-\affil[3]{Professor at Federal University of Rio de Janeiro (Brazil), Email: \url{}} % Author affiliation
+\affil[3]{Associate Professor at Federal University of Rio de Janeiro (Brazil), Email: \url{}} % Author affiliation
 \date{\today}
 \title{Untitled}
 \begin{document}
@@ -64,7 +64,7 @@ while the other way round does not occur.
 
 
 \section{Introduction}
-\label{sec:org469597e}
+\label{sec:orga872da7}
 \label{sec:Introduction}
 Among aggregate demand expenditures, non-residential investment is the most examined  one between (at least) heterodox macroeconomists.
 As a consequence, the relevance of others (autonomous) expenditures on macroeconomic dynamics has been underestimated \cite{brochier_macroeconomics_2017}.
@@ -82,7 +82,7 @@ The results for all statistical tests are provided in Appendix \ref{appen:A}.
 
 
 \section{Residential investment, economic growth and business cycle in the US economy}
-\label{sec:orgbaff481}
+\label{sec:org30d077e}
 \label{sec:Stylized_Facts}
 Traditionally, economists do not pay attention to the role of residential investment to macroeconomic dynamics.
 There are, nevertheless, two notable exceptions.
@@ -90,8 +90,7 @@ In a letter to President Franklin D. Roosevelt, in the mid of the Great Depressi
 The other exception is \textcite{duesenberry_investment_1958} who presents a critique of ordinary theories of aggregate investment because they put together firms’ investment in capital and structures and investment in residential housing.
 In this sense, he builds a model dedicated for the latter type of investment, emphasizing the role of house prices.
 
-Perhaps, the small share of residential investment on aggregate demand (see figure \ref{fig:share}) may explain this lack of attention.
-% Perhaps, this lack of attention could be attributed to residential investment small share of aggregate demand (see figure ref:fig:share).
+Perhaps, the small share of residential investment on aggregate demand may explain this lack of attention (see figure \ref{fig:share}).
 The subprime crisis and the Great Recession of the US economy had changed the landscape, making clear the macroeconomic role of
 housing prices and finance, and residential investment.
 Specifically, we argue however small its share on GDP is, it does have a fundamental role in explaining business cycles and long-run growth.
@@ -108,7 +107,7 @@ Specifically, we argue however small its share on GDP is, it does have a fundame
 \end{figure}
 
 Recently, more and more macroeconomists are paying attention to the relevance of residential investment for the business cycles.
-\textcite{green_follow_1997}, however, analyzed this connection even before the Great Recession.
+\textcite{green_follow_1997} analyzed this connection even before the Great Recession.
 Based on Granger casualty tests for the US from 1952 to 1992, he concludes that residential investment leads the cycle, while non-residential investment (i.e., firms business investment) lags the cycle.
 \textcite{green_follow_1997} relates this result to the forward-looking behavior of households.
 Thus, he restricts the relevance of residential investment as a temporal precedence indicator.
@@ -116,17 +115,18 @@ Thus, he restricts the relevance of residential investment as a temporal precede
 \textcite{leamer_housing_2007} is more incisive. He states that housing is the business cycle.
 In analyzing the US economy for the post-war period, he concludes that residential investment is the best predictor of economic crises.
 The economic cycle of US economy would be a consumer cycle: ``first homes, then cars, last business investment'' \cite[p.~8]{leamer_housing_2007}.
-Thus, according to \textcite{leamer_housing_2007}, residential investment anticipates and causes the business cycle\footnote{However, \textcite{leamer_housing_2007} him self did not evaluate this statements econometrically.}.
+In a follow up work, the author declare that nine out of eleven US economic recessions were preceded by a severe downturn of residential investment, in the post-war period \cite{leamer_housing_2015}.
+
 \textcite{kydland_2016_housing} extends \citeauthor*{leamer_housing_2007}'s \citeyear{leamer_housing_2007} proposition to other countries to evaluate how unique the US case is.
 Similarly to \textcite{green_follow_1997}, they also conclude that residential investment leads the cycle -- while non-residential investment lags it -- for the US and Canada.
 The results, however, are more robust when they include housing starts instead of residential investment.
-Briefly, they find that housing starts precedes GDP the shorter the time to build is\footnote{For the other countries in the sample, and at odds with conventional theory, \textcite{kydland_2016_housing} find that residential investment is coincident (and not laggging) with GDP. Additionally, they conclude that long-term nominal mortgage rate is a relevant transmission channel from interest rates to housing costs.}.
+Briefly, they find that housing starts precedes GDP the shorter the time to build is\footnote{For the other countries in the sample, \textcite{kydland_2016_housing} find that residential investment is coincident (and not lagging) with GDP. Additionally, they conclude that long-term nominal mortgage rate is a relevant transmission channel from interest rates to housing costs.}.
 More recently, \textcite{huang_is_2018} assess  prediction and causality relations proposed by \textcite{leamer_housing_2007} for 17 OECD countries.
-For the US, both statements are valid\footnote{For the other countries, they found inconclusive results regarding fluctuations due to institutional heterogeneity. However, \textcite{huang_is_2018} claim that for most G7 countries, residential investment at least amplify the business cycle.} and housing related variables (house prices, real mortgage rate --- deflated by a consumer price index --- and bank spread) lead the business cycle.
+For the US both statements are valid\footnote{For the other countries, they found inconclusive results regarding fluctuations due to institutional heterogeneity. However, \textcite{huang_is_2018} claim that for most G7 countries, residential investment at least amplify the business cycle.} and housing related variables (house prices, real mortgage rate --- deflated by a consumer price index --- and bank spread) lead the business cycle.
 
 
 In order to depict the relation between residential investment and business cycle, we present Figure \ref{fig:cycle}.
-In each panel, we present the growth rate of selected expenditures 2 years before and after recession begin\footnote{This similar reasoning can be found in \textcite{leamer_housing_2007}.}\textsuperscript{,}\,\footnote{We adopt usual NBER recession dating procedure.}.
+In each panel, we present the growth rate of selected expenditures two years before and after recession begin\footnote{This similar reasoning can be found in \textcite{leamer_housing_2007}.}\textsuperscript{,}\,\footnote{We adopt usual NBER recession dating procedure.}.
 In most of them, residential investment growth rate is negative before the recession start.
 The Great Recession is a remarkable example of this pattern while dot-com crisis (2000-1) is an exception as already pointed out by \textcite{leamer_housing_2007}.
 
@@ -154,20 +154,20 @@ Recently, \textcite{perez_Montiel_2021} test econometrically the assertion that 
 \end{figure}
 
 
-Before we move forward, it is worth mentioning that the relevance of housing is not restricted to its growth effects. 
+Before we move forward, it is worth mentioning that the relevance of housing is not restricted to its implications to growth and business cycles.
 For example, \textcite{jorda_great_2016} report that credit and financial sector growth has been led mainly by mortgages. 
 As a consequence, banking activities were redirected towards granting credit majorly to households and not towards productive investment \cites{erturk_banks_2007}{kohl_more_2018}.
 Other studies have shown that real estate inflation is the main determinant of household indebtedness, distribution of wealth and that it has implications for macroeconomic stability \cites{ryoo_household_2015}{stockhammer_debt-driven_2016}{barnes_private_2016}{johnston_global_2017}{mian_household_2017}{anderson_politics_2020}{fuller_housing_2020}. 
 In summary, what we intended to show was the macroeconomic relevance of residential investment.
 On the following section, we analyze how econometric literature has dealt with determinants of the latter.
 \section{Review of the Macroeconometric Literature}
-\label{sec:orge622e6c}
+\label{sec:org01ee9bb}
 \label{sec:empirical_review}
 \subsection{Ausência de trabalhos que analizam investimento residencial de um ponto de vista macroeconômico}
-\label{sec:org3da3d7b}
+\label{sec:orgaad53cb}
 As we have seen in the previous session, there have been a growing attention to the macroeconomic implications of housing.
 However, most of this literature treat housing-related variables in a microeconomic and regional fashion.
-According to \textcite{arestis_u.s._2008}, the US housing market in particular is considered heterogeneous.
+According to \textcite{arestis_u.s._2008}, the US housing market in particular is quite heterogeneous.
 As a consequence, most econometric papers do not analyze residential investment in macroeconomic terms, restricting it to regional and metropolitan issues \cite{arestis_u.s._2008}.
 Additionally, if the housing macroeconomic literature is scarce, even fewer scholars examinate residential investment specifically.
 Most of them emphasize house prices consequences and not its volume implications \cites{arestis_residential_2015}{perez_Montiel_2021}.
@@ -178,20 +178,20 @@ In order to estimate the determinants of residential investment, he includes rea
 In summary, real house prices is the main driver of constructors behavior.
 Therefore, \textcite{poterba_tax_1984} concludes that residential investment is positively induced house prices.
 \textcite{topel_1988_Housing} estimate the determinants of housing starts (as a proxy for residential investment) for the US from 1963 to 183.
-Their functional for residential investment includes hedonic prices ando some cost shifters for the construction sector such as interest rate, expected inflation, wages and median market time since the construction begins.
+Their functional form for residential investment includes hedonic prices and some cost shifters for the construction sector such as interest rate, expected inflation, wages and median market time since the construction begins.
 Similar to \textcite{poterba_tax_1984}, they conclude that residential investment is highly sensible to house prices movements while interest rate is a relevant cost shifter.
+
 Recently,  \textcite{arestis_residential_2015} update \citeauthor*{poterba_tax_1984}'s \citeyear{poterba_tax_1984} framework by estimating an autoregressive distributed lag (ARDL) model for 17 OECD countries.
 In their model, they specify residential investment as a positive function of house prices, real disposable income and bank credit while mortgage interest and unemployment rate are expected to have negative effects.
 They report that disposable income is the major determinant of residential investment for most OECD countries while banking credit and house prices are more relevant for the US.
-However, with regard to the US they report that real house prices and the volume of banking credit are the main determinant of residential investment.
 
-Some scholars estimated residential investment based on a Tobin's Q adapted for the housing sector.
-\textcite{barot_2002_House}, for instance, investigate the differences and similarities for the Sweden and UK housing market based on a Stock-flow framework from 1970-1998.
+Some scholars estimated residential investment based on a Tobin's Q adapted for the housing sector\footnote{This adapted Tobin's Q is defined as the ratio between the market price of new houses and construction cost to build a new one.}.
+\textcite{barot_2002_House}, for instance, investigate the differences and similarities for the Sweden and UK housing market based on a Stock-flow framework from 1970 to 1998.
 Their residential investment functional form includes both adapted Tobin's Q and real interest rate.
 They report some opposite results regarding Granger causality tests for house prices, financial wealth, household debt and interest rate.
 The only result that is equally valid for both Swedwn and UK is that housing Tobin's Q granger causes housing investment.
-More recently, \textcite{kohlscheen_2018_Residential}, also estimate residential investment as a function of housing Tobin's Q\footnote{More precisely, \textcite{kohlscheen_2018_Residential} include Tobin's Q numerator and denominator as separate variables.} with an unbalanced panel data for 15 OECD countries from 1970 ownwards.
-Beyond Tobin's Q, In addition, they also include real house prices, GDP level, population density, net migration rates and house stock share on GDP.
+More recently, \textcite{kohlscheen_2018_Residential}, also estimate residential investment as a function of housing Tobin's Q with an unbalanced panel data for 15 OECD countries from 1970 ownwards\footnote{More precisely, \textcite{kohlscheen_2018_Residential} include Tobin's Q numerator and denominator as separate variables.}.
+Beyond Tobin's Q they also include real house prices, GDP level, population density, net migration rates and house stock share on GDP.
 In summary, they conclude that real house prices growth, nominal interest rate, net migration rates and existing house stock are the main determinants of residential investment.
 
 Other common ground in macroeconomic housing is the relevance of interest rate for residential investment.
@@ -202,9 +202,9 @@ In order to isolate some institutional change effects, they estimate a GMM model
 They conclude that the magnitude of the response to shock is similar to before the institutional break of mid-1980s.
 \textcite{gauger_residential_2003} also evaluate the consequences of deregulation of depository institutions throughout the 1980s.
 In order to do so, they estimate a VECM between monetary aggregates (M2), GDP, residential investment and alternate between short-term government bonds and long-term mortgage interest rates.
-They report an increasing contribution of long-term mortgages interest rate over resident investment variance after those institutional chances mentioned above.
+They report an increasing contribution of long-term mortgages interest rate over resident investment variance after those institutional changes mentioned above.
 
-Figure \ref{Fig:CreditFDICIA} illustrates item (ii) mentioned above in which we mark some reforms that occurred due to the savings and loans crisis throughout the 80's and early 90's.
+Figure \ref{Fig:CreditFDICIA} illustrates the relevance of institutional reforms due to the savings and loans crisis throughout the 80's and early 90's.
 This institutional changes --- notably Financial Institutions Reform, Recovery, and Enforcement Act (FIRREA) in 1989 and Federal Deposit Insurance Corporation Improvement Act  (FDICIA) in 1991 --- increased the credit volume to households.
 As a consequence, real estate finance has increased considerably in the following periods.
 
@@ -217,60 +217,46 @@ As a consequence, real estate finance has increased considerably in the followin
 	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' elaboration}
 \end{figure}
 
+Table \ref{tab:summary_model} presents an overview of the discussed topics and its main conclusions.
+From this brief review of the literature, we conclude that may be the only consensus about the determinants of residential investment is on house prices (nominal or deflated by consumer price index) and some rate of interest (mortgage or long term, as proxy)\footnote{For a broader review of econometric literature, see \textcite{egebo_1990_MODEL}.}.
+Some authors deflate the rate of interest by the CPI, others use nominal interest rate to capture the effect of monetary illusion.
+In the next section, we will present a particular way of combining the two variables in a single index that we will use on our econometric estimation.
 
-\subsection{Consensos - Mencionar qual o consenso encontrado a partir desta revisão: relevância do juros e do preço dos imóveis}
-\label{sec:org5e3eee1}
-\subsubsection{Egebo,   T.,   Richardson,   P.   and   Lienert,   I.   (1990).}
-\label{sec:org79e3a7b}
-Faz uma ampla revisão da literatura da época
-\subsubsection{(Gattini and Ganoulis 2012) House price responsiveness of housing investments across major European economies}
-\label{sec:org970e78f}
-Residential investment is way less analyzed than house prices
-\subsection{Ponte para a seção seguinte: resume a proposta do artigo}
-\label{sec:orgbaf9ba8}
+
+\input{tabs/EmpiricalMotivation}
 
 \section{Macroeconometric analysis}
-\label{sec:orgff7e728}
+\label{sec:orgdb43262}
 \label{sec:VECM}
 \subsection{Houses' own interest rate and residential investment growth rate in the US	Economy}
-\label{sec:org6657fe8}
+\label{sec:orgaafc2a0}
 \label{sc:own}
-\subsubsection{Versão Lucas \textit{<2021-02-11 qui>}}
-\label{sec:org23839a0}
-The review of the literature in the previous session shows us that may be the only
-consensus about the determinants of residential investment is on house prices
-(nominal or deflated by consumer price index) and some rate of interest (mortgage or
-long term, as proxy). Some authors deflate the rate of interest by the CPI, some use
-nominal interest rate as to capture the effect of monetary illusion. In this session, we
-will present a particular way of combining the two variables in a single index that we
-will use on our econometric estimation.
 
-Arestis and Gonzalez-Martínez (2014) argue that the last house bubble (during the
-2000s to the US economy) changed the traditional view on the motivations to acquire
-housing. Accordingly to this view, house was a durable good that renders a service
-through it lifetime to tis owner. As well, it is a way of investing wealth more
-accessible to most households than others options, like stock shares. During the
-bubble, households would acquire housings only to sell it later with capital gains. Or,
-would benefit from renting their properties.
 
-The speculative behavior was disseminated through households (figureX). Bottom
-50\% of population increased their acquisition of housing and also their mortgage
-indebtedness, supporting the ordinary view of the Great Recession as originated by a
-subprime crisis. But the top 1\% also increased their wealth in form of housing, as well
-as their mortgage debts, corroborating the new narrative of the crisis (Albanesi, de
-Giorgi and Nosal: 2017). It is worth noting that this housing boom was possible
-because of some changes of housing market regulation and housing finance that
-allowed a great increase of housing credit. In particular, there were some changes in
-regulation after the saving and loans crisis of the 1980s.
+\textcite{arestis_residential_2015} argue that the last house bubble episode (during the 2000s to the US economy) changed the traditional view on the motivations to acquire housing.
+Accordingly to previous view, house was a durable good that renders a service through it lifetime to its owner.
+As well, it is a way of investing wealth more accessible to most households than others options, like stock shares.
+During the bubble, households would acquire housings only to sell it later with capital gains.
+Or, would benefit from renting their properties.
 
-\begin{enumerate}
-\item {\bfseries\sffamily TODO} Gráfico percentis
-\label{sec:org03ebaa2}
-\end{enumerate}
+The speculative behavior was disseminated through households (see figure \ref{fig:mort_houses}).
+Bottom 50\% of households with wealth increased their acquisition of housing and also their mortgage indebtedness.
+This movement supports the ordinary view of the Great Recession as originated by a subprime crisis \cite{mian_consequences_2009}.
+The top 1\%, however, also increased their wealth in form of housing, as well as their mortgage debts, corroborating to a ``New narrative'' of the crisis \cite{albanesi_2017_Credit}.
+As discussed before, this housing boom was possible because of some changes of housing market regulation and housing finance \cite{federal_deposit_insurance_corporation_savings_1997,mccarthyMonetaryPolicyTransmission2002,wall_too_2010}.
 
-\subsubsection{Versão antiga}
-\label{sec:org70b702e}
-In this subsection, we describe the relationship between residential investment growth rate (\(g_{I_h}\)) and houses' own interest rate (\(own\)) as proposed by \textcite{teixeira_crescimento_2015}. 
+\begin{figure}[H]
+	\centering
+	\caption{Houses and Mortgage shares evolution by wealth percentile (1989/07=1)}
+	\label{fig:mort_houses}
+	\includegraphics[width=.9\textwidth]{./figs/Houses_Mortgages.png}
+	\caption*{\textbf{Source:} Board of Governors of the Federal Reserve System (US), Authors' Elaboration}
+\end{figure}
+
+
+\subsubsection{Descrição teórica da taxa própria}
+\label{sec:org680e695}
+Next, we describe the relationship between residential investment growth rate (\(g_{I_h}\)) and houses' own interest rate (\(own\)) as proposed by \textcite{teixeira_crescimento_2015}.
 Next, we will present the hypothesis to be tested on the Section \ref{sec:estimation}. To obtain this relationship, we deflate mortgage interest rate (\(r_{mo}\)) by real estate inflation (\(\pi\)) as follows:
 
 $$
@@ -281,7 +267,7 @@ $$
 g_{I_h} = \phi_0 - \phi_1\cdot own
 \end{equation}
 
-where \(\phi_0\) stands for long-term determinants (\emph{e.g.} demographic factors, housing and credit policies, etc.) while \(\phi_1\) captures the demand for real estate arising from expectations of capital gains resulting from speculation with the existing dwellings stock. 
+where \(\phi_0\) stands for long-term determinants (\emph{e.g.} demographic factors, housing and credit policies, etc.) while \(\phi_1\) captures the demand for real estate arising from expectations of capital gains resulting from speculation with the existing dwellings stock.
 This particular real interest rate is the most relevant for households since it is the real cost in real estate from buying real estate  \cite[p.~53]{teixeira_crescimento_2015}.
 
 Figure \ref{propria_investo} shows how this deflation procedure is more adequate than a general price index --- as \textcite[p.~143--6]{fair_macroeconometric_2013} does --- to describe the housing dynamics. It worth noting that during a houses' bubble period, it is real estate inflation that governs own's interest rate dynamics.
@@ -305,14 +291,14 @@ therefore, if these time-series are co-integrated, we specify the short-run adju
 \end{equation}
 
 where \(\delta_s\) indicate linear trend (level);
-\(\alpha_{is}\) are the error correction coefficients; 
+\(\alpha_{is}\) are the error correction coefficients;
 \(\beta_s\) and \(\gamma_s\) are coefficients associated with lagged \(g_{I_h}\) and \(own\) respectively and; \(\varepsilon_s\) are the residuals.
 Based on \textcite{teixeira_crescimento_2015}, we depict the expected results in Table \ref{resultados_esperados} below:
 
 \input{./tabs/hypothesis.tex}
 
 \subsection{Data and estimation strategy}
-\label{sec:orgc5c83ca}
+\label{sec:orgf9d02c1}
 \label{sec:estimation}
 
 
@@ -393,7 +379,7 @@ On the following subsection, we analyze the results and compare with the theoret
 
 
 \subsection{Estimation results}
-\label{sec:orgc772751}
+\label{sec:org8845926}
 \label{sec:results}
 
 According to parameters presented in Table \ref{Estimacao}, we find statistically significant co-integration  coefficients for both equations. 
@@ -438,7 +424,7 @@ In short, our results shows that an increase in mortgage interest rate (equivale
 \end{figure}
 
 \subsection{Comparison with previous studies}
-\label{sec:org588c410}
+\label{sec:org22e145b}
 
 In this section,  we contrast our findings with those obtained by the literature.
 At this stage, we restrict the comparison with  \textcite{gauger_residential_2003} and \textcite{arestis_residential_2015} since we share the same topic.
@@ -451,7 +437,7 @@ Thus, we conclude that our estimation depicts residential investment growth rate
 On the following section we present some concluding remarks.
 
 \section{Concluding Remarks}
-\label{sec:orgbf476ab}
+\label{sec:org690b2c0}
 \label{sec:Conclusion}
 In this article, we present a residential investment growth rate specification compatible with the Srrafian supermultiplier model.
 To do so, we estimate a bi-dimension VEC evaluate \textcite{teixeira_crescimento_2015}
@@ -478,22 +464,22 @@ Thus, our  proposal differs from the usual empirical literature by:
 
 
 \section*{Acknowledgments}
-\label{sec:org8257d78}
+\label{sec:org43cebd8}
 \noindent The authors wish to acknowledge the financial support from the Brazilian National Research Council (CNPq; grant 130777/2018-8). We are grateful to Rosângela Ballini, Carolina Baltar, Júlia Braga, Ítalo Pedrosa, Cecon/Unicamp and UFRJ Macroeconomic discussion groups for useful comments and suggestions on earlier drafts of this article. All remaining errors are, of course, our own.
 
 
 \section*{Disclosure statement}
-\label{sec:org2ffcc50}
+\label{sec:orgd2fa410}
 No potential conflict of interest was reported by the authors.
 
 \section*{References}
-\label{sec:org01a9558}
+\label{sec:orgd9e7bd9}
 \printbibliography[heading=none]
 
 
 \appendix
 \section{Statistical Appendix}
-\label{sec:org5b0b4a3}
+\label{sec:org8f80c5a}
 \label{appen:A}
 
 In this appendix we report several tests: unit root tests on our variables of interest, Structural break test, Johansen procedure and hypothesis tests on residuals. 
