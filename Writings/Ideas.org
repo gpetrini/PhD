@@ -1,0 +1,110 @@
+#+OPTIONS: num:nil
+#+TITLE: PhD dissertation Brainstorm
+#+AUTHOR: Gabriel Petrini
+#+LANGUAGE: pt_Br
+
+* HTML headers                                         :noexport:ignore:
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+
+#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+
+
+* <2021-03-04 qui> QCA design e escrita do capítulo
+
+** Introdução, Propósito do artigo e inserção no debate
+
+- VoC com estudo de caso para housing (mais provável)
+- Housing à luz da discussão de VoC e outros
+- Literatura tem apresentado dois movimentos em relação a housing: Grande revolução e Hipotecarização
+  + Não há, no entanto, um esforço de avaliar em que medida esses movimentos se retroalimentam e este é uma das propostas do artigo
+  + Grande revolução é mais comparativo enquanto mortgaging é mais empírico
+  + Entender em que medida isso esta associado à mudanças institucionais ou não e colocar em termos de VoC
+
+** Discussão teórica
+
+- Finance como disputa por poder - VoC e CPE
+- Recentemente há um ponto de encontro entre VoC incorporando modelos de crescimento PK e PK analisando elementos de VoC
+  + Propósito do artigo é reaver a discussão da convergência institucional em maiores detalhes para dar maior suporte a essa intersecção crescente na literatura
+- Apresentar críticas à variedades de capitalismos e suas limitações ao tratar de investimento residencial
+- Debate da convergência e convergência aparente (após modelo)
+- Problematizar com ideia do Chang de que existe diferença entre função e forma das instituições
+  + As mesmas funções podem ser desempenhadas por formas diferentes e vice-versa
+
+** Apresentação dos dados e motivação empírica
+*** Discussão
+- Importância de housing finance para a macroeconomia (sobretudo endividamento das famílias)
+  + Atenção recente pós GFC e mudanças regulatórias (MCB)
+- Discutir em que medida mortgaging e grande revolução se retroalimentam
+- Incluir tabela com dados para serem referenciados no QCA para calibragem
+- Incluir gráfico com as categorias de variedades de capitalismos residencial
+- Mencionar que não será discutido os determinantes da demanda por imóvies
+  + *Tese:* Mencionar que este tema será melhor contemplado no capítulo de dados em painel
+*** Gráficos e dados
+
+- Hipotecarização por pais (parical)
+- Diagrama variedades de capitalismos residencial (decommodification: dívida x ocupação)
+- Diagrama variedades de capitalismos LTV max - LTV vs Hipotecatização ou LTV deviation
+- Tabela com as classificações mencionadas
+*** Tabela
+** QCA
+*** Design
+- Talvez fosse mais interessante o TQCA
+  + Variáveis institucionais variam pouco para um QCA em painel
+  + Tira necessidade de saber quando as mudanças ocorreram, basta que elas ocorreram
+    - Isso é válido principalmente para inovações
+    - Talvez incluir se existe na maior parte do tempo ou não
+  + Desvantagem: mais logical remainders
+- Dividir dois QCAs: uma para mortgaging e outro para commoditização das casas (grande revolução)
+  + Avalia se existem elementos em comuns nessas duas muudanças
+  + Commoditização associada a owner-occupation ratio
+  + Dificuldade: como justificar variávies que aparecem em um ou nos dois modelos
+- Propor discussão de um QCA com um tratamento mais adequado do tempo em que /path-dependence/ is tratado mais seriamente
+  + Citar exemplos nas conclusões
+  + Este é um primeiro passo para tratar institucionalidade sistematicamente
+*** Variáveis
+
+**** Mortgageing
+
+O que motiva o banco emprestar crédito para casas
+
+- Lender-friendly
+  + Consumption-friendly
+    - Variáveis associadas ao imposto sobre ganhos de capital
+    - Equity withdraw
+    - Reclousure?
+  + Housing-friendly
+    - Termos do empréstimo
+    - Tipo da taxa de juros
+    - Prepagamento?
+    - Foreclosure
+- Banking friendly: repassar risco para outros
+  + Securitização
+  + Covered Bonds
+
+**** Grande revolução
+
+O que permite as famílias ter maior acesso a crédito - commoditização
+
+- Capacidade de empréstimo dos bancos (Max LTV - LTV)
+  + Maior acesso a dívida
+
+
+*** Vantagens
+
+- Variáveis country-wide - países como um todo e não nível da firma
+  + Porque a nível do país e não microeconômico
+- Variávies institucionais variam pouco
+  + Não haveria significância estatística
+- Muitos casos para uma análise caso a caso
+
+** Tecnicalidades
+
+- Org table com células mescladas
+  + Parece ser mais simples no latex
+- Importar dados do latex
+  + Python ou R?
+    - astropy
