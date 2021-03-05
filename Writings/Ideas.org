@@ -108,3 +108,13 @@ O que permite as famílias ter maior acesso a crédito - commoditização
 - Importar dados do latex
   + Python ou R?
     - astropy
+
+* <2021-03-05 sex> Calibragem variáveis quantitativas
+
+** Mortgaging
+
+#+BEGIN_latex
+\begin{equation}
+Mort_{i} = \sum_{i=1991}^{T = 2014} \frac{(Mort_{i,t} - \overbrace{Mort_{t}})}{T}
+\end{equation}
+#+END_latex

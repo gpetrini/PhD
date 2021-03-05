@@ -1,0 +1,587 @@
+#+OPTIONS: num:nil
+#+TITLE: IMF model: Fully qualitative variables and Mortgaging changes 1992-2014
+#+AUTHOR: Gabriel Petrini
+#+LANG: en
+#+PROPERTY:header-args python:results output :eval never-export :session imf :exports both
+#+PROPERTY:header-args R:results output :eval never-export :session imf :exports both
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup
+
+* Introduction
+
+
+* Code initial setup
+** Python
+
+#+BEGIN_SRC python
+# General packages
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from datetime import datetime as dt
+# Country converter
+import country_converter as coco
+
+cc = coco.CountryConverter()
+
+
+# For exporting org tables
+from tabulate import tabulate
+start_year = '1992-01-01'
+end_year = '2014-01-01'
+#+END_SRC
+
+#+RESULTS:
+
+** R
+#+begin_src R
+library(QCA)
+library(SetMethods)
+library(venn)
+library(tidyverse)
+library(knitr) # Beatiful tables
+library(stargazer)
+#+end_src
+
+#+RESULTS:
+
+* Loading datasets
+
+** Outcome: cite:jorda_2016_great
+
+#+BEGIN_SRC python
+df = pd.read_excel(
+    io="http://www.macrohistory.net/JST/JSTdatasetR4.xlsx",
+    sheet_name="Data",
+    index_col=[2, 0],
+    parse_dates=True,
+)
+df = df.drop(["country", "ifs", "peg_type", "peg_base"], axis="columns")
+tmp = (
+    df.reset_index(level=[0, 1])
+    .loc[:, ["iso", "year", "tmort", "tloans"]]
+    .copy(deep=True)
+)
+tmp.set_index(["year"], inplace=True)
+tmp["Mortgaging"] = tmp["tmort"] / tmp["tloans"]
+tmp = tmp.pivot(columns="iso", values="Mortgaging")
+tmp.index.name = "Country"
+tmp["Mean"] = tmp.mean(axis = 'columns')
+for country in tmp:
+    tmp[country] = (tmp[country] - tmp["Mean"])/tmp["Mean"]
+tmp.drop(["Mean"], axis='columns', inplace=True)
+tmp = tmp.loc[start_year:end_year, :].mean()
+tmp.to_csv(
+    f"../data/exp_raw/Jorda_TQCA_Outcome_{start_year.split('-')[0]}_{end_year.split('-')[0]}.csv",
+    header=["DMRTG"],
+)
+#+END_SRC
+
+#+RESULTS:
+
+** Explanatory variables
+
+#+NAME: raw
+#+CAPTION: Institutional Differences in National Mortagage Markets
+|----------------+--------------------------+-------------+----------------------------------+-------------------+------------------------------+---------------------|
+| Country        | Mortgage Equity Withdraw | Refinancing | Prevailing type of mortgage rate | Personal bankrupt | Capital gains tax on selling | Different treatment |
+| <10>           | <10>                     | <10>        | <10>                             | <10>              | <10>                         | <10>                |
+|----------------+--------------------------+-------------+----------------------------------+-------------------+------------------------------+---------------------|
+| Australia      | Yes                      | Limited     |                                  |                   |                              |                     |
+| Austria        | No                       | No          | Variable                         | Yes               | No                           | No                  |
+| Belgium        | No                       | No          | Fixed                            | Yes               | No                           | No                  |
+| Canada         | Yes                      | No          | Variable                         |                   |                              |                     |
+| Denmark        | Yes                      | Yes         | Fixed                            |                   |                              |                     |
+| Finland        | Yes                      | No          | Variable                         | Yes               | No                           | No                  |
+| France         | No                       | No          | Fixed                            | Yes               | No                           | Yes                 |
+| Germany        | No                       | No          | Fixed                            | Yes               | No                           | Yes                 |
+| Greece         | No                       | No          | Variable                         | No                | Yes                          | No                  |
+| Ireland        | Limited                  | No          | Variable                         | Yes               | No                           | Yes                 |
+| Italy          | No                       | No          | Variable                         | No                | No                           | Yes                 |
+| Japan          | No                       | No          | Fixed                            |                   |                              |                     |
+| Netherlands    | Yes                      | Yes         | Fixed                            | Yes               | No                           | No                  |
+| Norway         | Yes                      | No          | Variable                         |                   |                              |                     |
+| Spain          | Limited                  | No          | Variable                         | No                | Yes                          | Yes                 |
+| Sweden         | Yes                      | Yes         | Variable                         |                   |                              |                     |
+| Switzerland    |                          |             |                                  |                   |                              |                     |
+| United Kingdom | Yes                      | Limited     | Fixed                            |                   |                              |                     |
+| United States  | Yes                      | Yes         | Variable                         |                   |                              |                     |
+|----------------+--------------------------+-------------+----------------------------------+-------------------+------------------------------+---------------------|
+
+
+
+** Importing
+
+#+BEGIN_SRC python :var df=raw() :results value raw :output :return tabulate(df, headers=df.columns, tablefmt='orgtbl')
+df = pd.DataFrame(
+    df,
+)
+df.set_index(0, inplace=True)
+df = df.rename(columns=df.iloc[0]).drop("Country")
+df.index = cc.convert( # Converting to ISO3
+    names = df.index.to_list(),
+    to = 'ISO3'
+)
+df.index.name = 'Country'
+#+END_SRC
+
+#+RESULTS:
+|           | Mortgage Equity Withdraw   | Refinancing   | Prevailing type of mortgage rate   | Personal bankrupt   | Capital gains tax on selling   | Different treatment   |
+|-----------+----------------------------+---------------+------------------------------------+---------------------+--------------------------------+-----------------------|
+| not found | <10>                       | <10>          | <10>                               | <10>                | <10>                           | <10>                  |
+| AUS       | Yes                        | Limited       |                                    |                     |                                |                       |
+| AUT       | No                         | No            | Variable                           | Yes                 | No                             | No                    |
+| BEL       | No                         | No            | Fixed                              | Yes                 | No                             | No                    |
+| CAN       | Yes                        | No            | Variable                           |                     |                                |                       |
+| DNK       | Yes                        | Yes           | Fixed                              |                     |                                |                       |
+| FIN       | Yes                        | No            | Variable                           | Yes                 | No                             | No                    |
+| FRA       | No                         | No            | Fixed                              | Yes                 | No                             | Yes                   |
+| DEU       | No                         | No            | Fixed                              | Yes                 | No                             | Yes                   |
+| GRC       | No                         | No            | Variable                           | No                  | Yes                            | No                    |
+| IRL       | Limited                    | No            | Variable                           | Yes                 | No                             | Yes                   |
+| ITA       | No                         | No            | Variable                           | No                  | No                             | Yes                   |
+| JPN       | No                         | No            | Fixed                              |                     |                                |                       |
+| NLD       | Yes                        | Yes           | Fixed                              | Yes                 | No                             | No                    |
+| NOR       | Yes                        | No            | Variable                           |                     |                                |                       |
+| ESP       | Limited                    | No            | Variable                           | No                  | Yes                            | Yes                   |
+| SWE       | Yes                        | Yes           | Variable                           |                     |                                |                       |
+| CHE       |                            |               |                                    |                     |                                |                       |
+| GBR       | Yes                        | Limited       | Fixed                              |                     |                                |                       |
+| USA       | Yes                        | Yes           | Variable                           |                     |                                |                       |
+
+** Creating Crisp-set table
+
+
+#+BEGIN_SRC python :results value raw :output :return tabulate(df, headers=df.columns, tablefmt='orgtbl')
+for col in df:
+    df[col] = df[col].map({"Yes": 1.0, "No": 0.0, "Variable" : 1.0, "Fixed" : 0, "Limited" : 1.0, "" : np.NaN})
+#+END_SRC
+
+#+RESULTS:
+|           |   Mortgage Equity Withdraw |   Refinancing |   Prevailing type of mortgage rate |   Personal bankrupt |   Capital gains tax on selling |   Different treatment |
+|-----------+----------------------------+---------------+------------------------------------+---------------------+--------------------------------+-----------------------|
+| not found |                        nan |           nan |                                nan |                 nan |                            nan |                   nan |
+| AUS       |                          1 |             1 |                                nan |                 nan |                            nan |                   nan |
+| AUT       |                          0 |             0 |                                  1 |                   1 |                              0 |                     0 |
+| BEL       |                          0 |             0 |                                  0 |                   1 |                              0 |                     0 |
+| CAN       |                          1 |             0 |                                  1 |                 nan |                            nan |                   nan |
+| DNK       |                          1 |             1 |                                  0 |                 nan |                            nan |                   nan |
+| FIN       |                          1 |             0 |                                  1 |                   1 |                              0 |                     0 |
+| FRA       |                          0 |             0 |                                  0 |                   1 |                              0 |                     1 |
+| DEU       |                          0 |             0 |                                  0 |                   1 |                              0 |                     1 |
+| GRC       |                          0 |             0 |                                  1 |                   0 |                              1 |                     0 |
+| IRL       |                          1 |             0 |                                  1 |                   1 |                              0 |                     1 |
+| ITA       |                          0 |             0 |                                  1 |                   0 |                              0 |                     1 |
+| JPN       |                          0 |             0 |                                  0 |                 nan |                            nan |                   nan |
+| NLD       |                          1 |             1 |                                  0 |                   1 |                              0 |                     0 |
+| NOR       |                          1 |             0 |                                  1 |                 nan |                            nan |                   nan |
+| ESP       |                          1 |             0 |                                  1 |                   0 |                              1 |                     1 |
+| SWE       |                          1 |             1 |                                  1 |                 nan |                            nan |                   nan |
+| CHE       |                        nan |           nan |                                nan |                 nan |                            nan |                   nan |
+| GBR       |                          1 |             1 |                                  0 |                 nan |                            nan |                   nan |
+| USA       |                          1 |             1 |                                  1 |                 nan |                            nan |                   nan |
+
+*** Exporting
+
+#+BEGIN_SRC python
+df.to_csv('../data/exp_raw/IMF_cripset_noOUT.csv')
+#+END_SRC
+
+#+RESULTS:
+
+** Merging with outcome
+
+#+BEGIN_SRC python :results value raw :output :return tabulate(outcome, headers=outcome.columns, tablefmt='orgtbl')
+outcome = pd.read_csv(
+    f'../data/exp_raw/Jorda_TQCA_Outcome_{start_year.split("-")[0]}_{end_year.split("-")[0]}.csv',
+    index_col = [0]
+)
+outcome
+#+END_SRC
+
+#+RESULTS:
+|     |       DMRTG |
+|-----+-------------|
+| AUS |  0.00954618 |
+| BEL | -0.235859   |
+| CAN | -0.0260832  |
+| CHE |  0.602562   |
+| DEU | -0.159588   |
+| DNK |  0.285315   |
+| ESP | -0.0792994  |
+| FIN | -0.212905   |
+| FRA | -0.137745   |
+| GBR |  0.0355253  |
+| ITA | -0.13112    |
+| JPN | -0.321393   |
+| NLD | -0.0459784  |
+| NOR |  0.179259   |
+| PRT | -0.251311   |
+| SWE |  0.23373    |
+| USA |  0.255345   |
+
+
+#+BEGIN_SRC python :results value raw :output :return tabulate(df, headers=df.columns, tablefmt='orgtbl')
+df = pd.merge(df,outcome, left_index=True, right_index=True)
+#+END_SRC
+
+#+RESULTS:
+|     | Mortgage Equity Withdraw | Refinancing | Prevailing type of mortgage rate | Personal bankrupt | Capital gains tax on selling | Different treatment |      DMRTG |
+|-----+--------------------------+-------------+----------------------------------+-------------------+------------------------------+---------------------+------------|
+| AUS |                        1 |           1 |                              nan |               nan |                          nan |                 nan | 0.00954618 |
+| BEL |                        0 |           0 |                                0 |                 1 |                            0 |                   0 |  -0.235859 |
+| CAN |                        1 |           0 |                                1 |               nan |                          nan |                 nan | -0.0260832 |
+| DNK |                        1 |           1 |                                0 |               nan |                          nan |                 nan |   0.285315 |
+| FIN |                        1 |           0 |                                1 |                 1 |                            0 |                   0 |  -0.212905 |
+| FRA |                        0 |           0 |                                0 |                 1 |                            0 |                   1 |  -0.137745 |
+| DEU |                        0 |           0 |                                0 |                 1 |                            0 |                   1 |  -0.159588 |
+| ITA |                        0 |           0 |                                1 |                 0 |                            0 |                   1 |   -0.13112 |
+| JPN |                        0 |           0 |                                0 |               nan |                          nan |                 nan |  -0.321393 |
+| NLD |                        1 |           1 |                                0 |                 1 |                            0 |                   0 | -0.0459784 |
+| NOR |                        1 |           0 |                                1 |               nan |                          nan |                 nan |   0.179259 |
+| ESP |                        1 |           0 |                                1 |                 0 |                            1 |                   1 | -0.0792994 |
+| SWE |                        1 |           1 |                                1 |               nan |                          nan |                 nan |    0.23373 |
+| CHE |                      nan |         nan |                              nan |               nan |                          nan |                 nan |   0.602562 |
+| GBR |                        1 |           1 |                                0 |               nan |                          nan |                 nan |  0.0355253 |
+| USA |                        1 |           1 |                                1 |               nan |                          nan |                 nan |   0.255345 |
+
+
+** Renaming columns and Exporting to csv
+
+#+BEGIN_SRC python :results value raw :output :return tabulate(df, headers=df.columns, tablefmt='orgtbl')
+df.columns = [
+    "EQUITY", # Equity withdraw
+    "REFI", # Refinancing
+    "VARINT", # Prevailing variable mortgage interest rate
+    "BANKR", # Personal bankrupt law
+    "CGSELL", # Capital gains tax on selling (after 10 year)
+    "DIFFT", # Capital gains tax with different treatment between housing and financial assets
+    "DMORT",  # pct change in mortaging between pre 2006 and post 2009
+]
+df.to_csv("../data/exp_pro/TQCA_IMF.csv", header=True)
+print(df)
+#+END_SRC
+
+#+RESULTS:
+|     |   EQUITY |   REFI |   VARINT |   BANKR |   CGSELL |   DIFFT |       DMORT |
+|-----+----------+--------+----------+---------+----------+---------+-------------|
+| AUS |        1 |      1 |      nan |     nan |      nan |     nan |  0.00954618 |
+| BEL |        0 |      0 |        0 |       1 |        0 |       0 | -0.235859   |
+| CAN |        1 |      0 |        1 |     nan |      nan |     nan | -0.0260832  |
+| DNK |        1 |      1 |        0 |     nan |      nan |     nan |  0.285315   |
+| FIN |        1 |      0 |        1 |       1 |        0 |       0 | -0.212905   |
+| FRA |        0 |      0 |        0 |       1 |        0 |       1 | -0.137745   |
+| DEU |        0 |      0 |        0 |       1 |        0 |       1 | -0.159588   |
+| ITA |        0 |      0 |        1 |       0 |        0 |       1 | -0.13112    |
+| JPN |        0 |      0 |        0 |     nan |      nan |     nan | -0.321393   |
+| NLD |        1 |      1 |        0 |       1 |        0 |       0 | -0.0459784  |
+| NOR |        1 |      0 |        1 |     nan |      nan |     nan |  0.179259   |
+| ESP |        1 |      0 |        1 |       0 |        1 |       1 | -0.0792994  |
+| SWE |        1 |      1 |        1 |     nan |      nan |     nan |  0.23373    |
+| CHE |      nan |    nan |      nan |     nan |      nan |     nan |  0.602562   |
+| GBR |        1 |      1 |        0 |     nan |      nan |     nan |  0.0355253  |
+| USA |        1 |      1 |        1 |     nan |      nan |     nan |  0.255345   |
+
+
+* Calibration
+
+#+begin_src R :results value table
+df = read.csv('../data/exp_pro/TQCA_IMF.csv')
+
+# Indirect calibration (binomial)
+df$DMORT<-calibrate(df$DMORT, type = "crisp", threshold = 0.0)
+
+df
+#+end_src
+
+#+RESULTS:
+| AUS | 1 | 1 |   |   |   |   | 1 |
+| BEL | 0 | 0 | 0 | 1 | 0 | 0 | 0 |
+| CAN | 1 | 0 | 1 |   |   |   | 0 |
+| DNK | 1 | 1 | 0 |   |   |   | 1 |
+| FIN | 1 | 0 | 1 | 1 | 0 | 0 | 0 |
+| FRA | 0 | 0 | 0 | 1 | 0 | 1 | 0 |
+| DEU | 0 | 0 | 0 | 1 | 0 | 1 | 0 |
+| ITA | 0 | 0 | 1 | 0 | 0 | 1 | 0 |
+| JPN | 0 | 0 | 0 |   |   |   | 0 |
+| NLD | 1 | 1 | 0 | 1 | 0 | 0 | 0 |
+| NOR | 1 | 0 | 1 |   |   |   | 1 |
+| ESP | 1 | 0 | 1 | 0 | 1 | 1 | 0 |
+| SWE | 1 | 1 | 1 |   |   |   | 1 |
+| CHE |   |   |   |   |   |   | 1 |
+| GBR | 1 | 1 | 0 |   |   |   | 1 |
+| USA | 1 | 1 | 1 |   |   |   | 1 |
+
+
+* Necessity
+
+* Outcome [0]: Decrease in mortgaging
+** Truth Table
+
+#+begin_src R :results pp
+TT <- truthTable(
+  df %>%
+  select(EQUITY, REFI, VARINT, DMORT) %>%
+  drop_na(),
+  outcome = "DMORT",
+  conditions = c(
+    "EQUITY", # Equity withdraw
+    "REFI", # Refinancing
+    "VARINT" # Prevailing variable mortgage interest rate
+    ## "BANKR" # Personal bankrupt law
+    ## "CGSELL", # Capital gains tax on selling (after 10 year)
+    ## "DIFFT" # Capital gains tax with different treatment between housing and financial assets
+  ),
+  complete = TRUE,
+  use.letters = FALSE,
+  show.cases = TRUE,
+  sort.by = c("out", "incl", "n"),
+  neg.out = TRUE,
+ ## dcc = TRUE # Deviant cases
+  )
+print(TT)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+
+  OUT: output value
+    n: number of cases in configuration
+ incl: sufficiency inclusion score
+  PRI: proportional reduction in inconsistency
+
+    EQUITY REFI VARINT   OUT    n  incl  PRI   cases
+1     0     0     0       1     4  1.000 1.000 1,5,6,8
+2     0     0     1       1     1  1.000 1.000 7
+6     1     0     1       0     4  0.750 0.750 2,4,10,11
+7     1     1     0       0     3  0.333 0.333 3,9,13
+8     1     1     1       0     2  0.000 0.000 12,14
+3     0     1     0       ?     0    -     -
+4     0     1     1       ?     0    -     -
+5     1     0     0       ?     0    -     -
+#+end_example
+** Minimization
+*** Parsimonious solution
+#+begin_src R :results pp :eval yes
+MIN <- minimize(
+  TT,
+  outcome="DMORT",
+  incl.cut = .8,
+  include = "?",
+  details = TRUE,
+  show.cases=TRUE,
+  complete=TRUE,
+ neg.out = TRUE,
+ all.sol = TRUE
+)
+print(MIN)
+#+end_src
+
+#+RESULTS:
+:
+: M1: ~EQUITY -
+: ~DMORT
+:
+:             inclS   PRI   covS   covU   cases
+: --------------------------------------------------
+: 1  ~EQUITY  1.000  1.000  0.556    -    1,5,6,8; 7
+: --------------------------------------------------
+:         M1  1.000  1.000  0.556
+
+
+
+*** Intermediary solution
+
+#+begin_src R :results pp :eval no
+MIN <- minimize(
+  TT,
+  outcome = "~DMORT",
+  incl.cut = .8,
+  include = "?",
+  details = TRUE,
+  show.cases = TRUE,
+  complete = TRUE,
+  all.sol = TRUE,
+  dir.exp = c(
+    0,
+    0,
+    0,
+    0,
+    0
+  ),
+  neg.out=TRUE
+)
+print(MIN)
+#+end_src
+
+
+
+
+*** Conservative solution
+
+#+begin_src R :results pp
+MIN <- minimize(
+  TT,
+  outcome="~DMORT",
+  incl.cut = .8,
+  details = TRUE,
+  show.cases=TRUE,
+  complete=TRUE,
+  all.sol = TRUE
+)
+print(MIN)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Warning: stack imbalance in '<-', 2 then 3
+
+M1: ~EQUITY*~REFI -
+~DMORT
+
+                  inclS   PRI   covS   covU   cases
+--------------------------------------------------------
+1  ~EQUITY*~REFI  1.000  1.000  0.556    -    1,5,6,8; 7
+--------------------------------------------------------
+              M1  1.000  1.000  0.556
+#+end_example
+
+* Outcome [1]: Increase in mortgaging trend
+** Truth Table
+
+#+begin_src R :results pp
+TT <- truthTable(
+  df %>%
+  select(EQUITY, REFI, VARINT, DMORT) %>%
+  drop_na(),
+  outcome = "DMORT",
+  conditions = c(
+    "EQUITY", # Equity withdraw
+    "REFI", # Refinancing
+    "VARINT" # Prevailing variable mortgage interest rate
+    ## "BANKR" # Personal bankrupt law
+    ## "CGSELL", # Capital gains tax on selling (after 10 year)
+    ## "DIFFT" # Capital gains tax with different treatment between housing and financial assets
+  ),
+  complete = TRUE,
+  use.letters = FALSE,
+  show.cases = TRUE,
+  sort.by = c("out", "incl", "n"),
+  ## dcc = TRUE # Deviant cases
+  )
+print(TT)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+
+  OUT: output value
+    n: number of cases in configuration
+ incl: sufficiency inclusion score
+  PRI: proportional reduction in inconsistency
+
+    EQUITY REFI VARINT   OUT    n  incl  PRI   cases
+8     1     1     1       1     2  1.000 1.000 12,14
+7     1     1     0       0     3  0.667 0.667 3,9,13
+6     1     0     1       0     4  0.250 0.250 2,4,10,11
+1     0     0     0       0     4  0.000 0.000 1,5,6,8
+2     0     0     1       0     1  0.000 0.000 7
+3     0     1     0       ?     0    -     -
+4     0     1     1       ?     0    -     -
+5     1     0     0       ?     0    -     -
+#+end_example
+
+** Minimization
+*** Parsimonious solution
+#+begin_src R :results pp
+MIN <- minimize(
+  TT,
+  outcome="DMORT",
+  incl.cut = .8,
+  include = "?",
+  details = TRUE,
+  show.cases=TRUE,
+  complete=TRUE,
+  all.sol = TRUE
+)
+print(MIN)
+#+end_src
+
+#+RESULTS:
+:
+: M1: REFI*VARINT -
+: DMORT
+:
+:                 inclS   PRI   covS   covU   cases
+: -------------------------------------------------
+: 1  REFI*VARINT  1.000  1.000  0.400    -    12,14
+: -------------------------------------------------
+:             M1  1.000  1.000  0.400
+
+*** Intermediary solution
+
+#+begin_src R :results pp :eval no
+MIN <- minimize(
+  TT,
+  outcome = "DMORT",
+  incl.cut = .8,
+  include = "?",
+  details = TRUE,
+  show.cases = TRUE,
+  complete = TRUE,
+  all.sol = TRUE,
+  dir.exp = c(
+    0,
+    0,
+    0,
+    0,
+    0
+  )
+)
+print(MIN)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Warning: stack imbalance in '<-', 2 then 4
+
+From C1P1:
+
+M1:    ~AFFOR*~NEW -
+DMORT
+
+                inclS   PRI   covS   covU   cases
+-----------------------------------------------------
+1  ~AFFOR*~NEW  1.000  1.000  0.667    -    2,5; 8; 3
+-----------------------------------------------------
+            M1  1.000  1.000  0.667
+#+end_example
+
+
+*** Conservative solution
+
+#+begin_src R :results pp
+MIN <- minimize(
+  TT,
+  outcome="DMORT",
+  incl.cut = .8,
+  details = TRUE,
+  show.cases=TRUE,
+  complete=TRUE,
+  all.sol = TRUE
+)
+print(MIN)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Warning: stack imbalance in '<-', 2 then 3
+
+M1: EQUITY*REFI*VARINT -
+DMORT
+
+                       inclS   PRI   covS   covU   cases
+--------------------------------------------------------
+1  EQUITY*REFI*VARINT  1.000  1.000  0.400    -    12,14
+--------------------------------------------------------
+                   M1  1.000  1.000  0.400
+#+end_example
