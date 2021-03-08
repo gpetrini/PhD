@@ -118,3 +118,10 @@ O que permite as famílias ter maior acesso a crédito - commoditização
 Mort_{i} = \sum_{i=1991}^{T = 2014} \frac{(Mort_{i,t} - \overbrace{Mort_{t}})}{T}
 \end{equation}
 #+END_latex
+
+* <2021-03-08 seg> Novas variávies QCA
+
+- Incluir variável se o país é LME ou CME
+- Adicionar cor de LME e CME ao diagrama de commoditização
+- *Memo:* Estimar um QCA com mortgaging e outro com commoditização
+- Estimar um QCA final em que LMF e CMF (variedades de capitalismo residencial) vs Variáveis comuns os anteriores

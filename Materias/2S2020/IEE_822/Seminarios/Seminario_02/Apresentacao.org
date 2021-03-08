@@ -1,0 +1,78 @@
+#+OPTIONS: H:2 toc:nil  ':t
+#+Title: Panorama das regularidades empíricas 2 - textcite:custodio_2013_Why
+#+Author: Gabriel Petrini
+#+Email: gpetrinidasilveira@gmail.com
+#+DATE: 06 de Janeiro de 2021
+#+LANGUAGE: pt_Br
+* Beamer specific settings :ignore:noexport:
+#+LATEX_HEADER: \usepackage{caption, subcaption}
+#+LATEX_HEADER: \usepackage[brazilian]{babel}
+#+beamer_frame_level: 2
+#+startup: beamer
+#+LATEX_HEADER: \usepackage[style=abnt,noslsn,extrayear,uniquename=init,giveninits,justify,sccite, scbib,repeattitles,doi=false,isbn=false,url=false,maxcitenames=2, natbib=true,backend=biber]{biblatex}
+#+LATEX_HEADER: \addbibresource{/HDD/Org/all_my_refs.bib}
+#+latex_header: \AtBeginSection[]{\begin{frame}<beamer>\frametitle{Estrutura da apresentação}\tableofcontents[currentsection]\end{frame}}
+
+* fullcite:custodio_2013_Why
+
+** Quem são os autores?
+
+#+begin_export latex
+\begin{figure}
+\caption{Autores}
+\begin{subfigure}{.3\linewidth}
+\centering
+\includegraphics[width=.95\textwidth]{./figs/custodio.jpeg}
+\caption{Cláudia Custódio\\(Imperial College)}
+\end{subfigure}%
+\begin{subfigure}{.3\linewidth}
+\centering
+\includegraphics[width=\textwidth]{./figs/Ferreira.jpg}
+\caption{Miguel A. Ferreira\\(Nova SBE)}
+\end{subfigure}%\\[1ex]
+\begin{subfigure}{.3\linewidth}
+\centering
+\includegraphics[width=.8\textwidth]{./figs/Laureano.jpeg}
+\caption{Luís Laureano\\(IUL, Lisboa)}
+\end{subfigure}
+\end{figure}
+#+end_export
+
+
+Conjuntamente (dois primeiros principalmente) pesquisam sobre finanças corporativas.
+Artigos publicados em:
+- Jornal of Financial Economics (este)
+- Management Science
+- Society and Economics
+
+** TL;DR (/a.k.a/ nem li; nem lerei)
+
+*Objetivo:* Compreender o porquê da redução da maturidade da dívida de $\pm$ 13 mil firmas americanas não-financeiras (1976-2008)
+- Características das firmas explica pouco
+- Assimetria de informação explica um pouco mais, mas insuficiente
+- Novas firmas listadas na bolsa e oferta de crédito (desregulamentações financeiras) são relevantes
+- Restrito aos EUA
+
+
+*** Relevância e questões abertas
+
+- $\Uparrow$ estrutura de dívida  curto prazo $\Rightarrow \Uparrow$ Exposição ao risco
+- Pode ter amplificado efeitos da GFC
+- Existe algum dialogo com a literatura da financeirização?
+
+
+** Estrutura do artigo
+*** Amostra e descrição dos dados
+*** Redução da maturidade da dívida e características das firmas
+*** A demanda por maturidade de dívida mudou?
+*** Novas firmas listadas em bolsa
+*** Emissão de dívida e fatores da oferta de crédito
+* Amostra e descrição dos dados
+** Desenho amostral
+** Variáveis a ser explicada
+* Características das firmas
+* Função demanda por maturidade de dívida
+* Novas firmas listadas em bolsa
+* Fatores de oferta
+* Conclusão
+** Retomada e implicações
