@@ -1,11 +1,10 @@
-% Created 2021-03-08 seg 18:46
+% Created 2021-03-09 ter 11:37
 % Intended LaTeX compiler: pdflatex
 \documentclass[presentation]{beamer}
   \usepackage{caption, subcaption}
 \usepackage[brazilian, ]{babel}
 \usepackage[style=abnt,noslsn,extrayear,uniquename=init,giveninits,justify,sccite, scbib,repeattitles,doi=false,isbn=false,url=false,maxcitenames=2, natbib=true,backend=biber]{biblatex}
 \addbibresource{/HDD/Org/all_my_refs.bib}
-\AtBeginSection[]{\begin{frame}<beamer>\frametitle{Estrutura da apresentação}\tableofcontents[currentsection]\end{frame}}
 \usetheme{default}
 \author{Gabriel Petrini}
 \date{06 de Janeiro de 2021}
@@ -14,9 +13,9 @@
 
 \maketitle
 \section{\fullcite{custodio_2013_Why}}
-\label{sec:org893fb00}
+\label{sec:orgad194aa}
 
-\begin{frame}[label={sec:orgbf87cd4}]{Quem são os autores?}
+\begin{frame}[label={sec:orgd54013d}]{Quem são os autores?}
 \begin{figure}
 \caption{Autores}
 \begin{subfigure}{.3\linewidth}
@@ -46,7 +45,7 @@ Artigos publicados em:
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:org6eb3b19}]{TL;DR (\emph{a.k.a} nem li; nem lerei)}
+\begin{frame}[label={sec:org0e95a44}]{TL;DR (\emph{a.k.a} nem li; nem lerei)}
 \alert{Objetivo:} Compreender o porquê da redução da maturidade da dívida de \(\pm\) 13 mil firmas americanas não-financeiras (1976-2008)
 \begin{itemize}
 \item Características das firmas explica pouco
@@ -66,7 +65,7 @@ Artigos publicados em:
 \end{frame}
 
 
-\begin{frame}[label={sec:orgbfb61a4}]{Estrutura do artigo}
+\begin{frame}[label={sec:org8de9697}]{Estrutura do artigo}
 \begin{block}{Amostra e descrição dos dados}
 \end{block}
 \begin{block}{Redução da maturidade da dívida e características das firmas}
@@ -79,21 +78,247 @@ Artigos publicados em:
 \end{block}
 \end{frame}
 \section{Amostra e descrição dos dados}
-\label{sec:org9a953e9}
-\begin{frame}[label={sec:org85fc5b3}]{Desenho amostral}
+\label{sec:org9a5a1dd}
+\begin{frame}[label={sec:org6b69b21}]{Variável a ser explicada}
+\begin{figure}[htbp]
+\caption{Dívida com maturidade com mais de 3 anos (\%)}
+\centerline{\includegraphics[width=\textwidth]{figs/Tendencia.png}}
+\end{figure}
 \end{frame}
-\begin{frame}[label={sec:org4634a17}]{Variáveis a ser explicada}
+
+
+\begin{frame}[label={sec:orge63e05f}]{Firmas americanas não-financeiras (1976-2008, Compustat)}
+\begin{center}
+\begin{tabular}{lrr}
+\hline
+Variável & Média & Mediana\\
+\hline
+Maturidade da dívida &  & \\
+\hline
++3 anos & 0.438 & 0.460\\
++5 anos & 0.280 & 0.179\\
+\hline
+Características das firmas &  & \\
+\hline
+Tamanho & 0.242 & 0.104\\
+Oportunidade de investimento (proxy) & 1.847 & 1.306\\
+Lucros anormais & -0.029 & 0.007\\
+Alavancagem & 0.273 & 0.242\\
+Assimetria de informação (proxy, P\&D) & 0.040 & 0.000\\
+CAPEX & 0.074 & 0.050\\
+Índice de gov. corporativas & 9.152 & 9.000\\
+Nota de rating? (dummy) & 0.229 & 0.000\\
+Paga dividendo? (dummy) & 0.370 & 0.000\\
+Fluxo de caixa & 0.131 & 0.061\\
+Idade & 14 & 9\\
+\hline
+\end{tabular}
+\end{center}
 \end{frame}
+
 \section{Características das firmas}
-\label{sec:org10ba415}
-\section{Função demanda por maturidade de dívida}
-\label{sec:orgb26e0a3}
+\label{sec:org73d53cf}
+
+\begin{frame}[label={sec:org7cf5288}]{Discussão teórica}
+\begin{table}[htbp]
+\caption{Expectativas direcionais sobre maturidade da dívida}
+\centering
+\begin{tabular}{lll}
+\hline
+Variável & Direção & Proxy\\
+\hline
+Tamanho da firma & + & Percentil NYSE\\
+Oport. crescimento & - & Market-to-book\\
+Acionistas Vs. gerentes & - & Ind. governanças corporativas\\
+Custos de agência & \(\Leftrightarrow\) & Alavancagem e oport. invest.\\
+Assimetria de info. & - & P\&D\\
+Melhores projetos & - & Lucros anormais\\
+Volatilidade dos ativos & - & -\\
+Alavancagem & + & Comparação com a mediana\\
+Pagamento de dividendo & + & Dummy\\
+Fluxo de caixa & - & Comparação com a mediana\\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{itemize}
+\item Dívida de curto prazo minimiza custos de agência \(\Rightarrow\) Renegociação mais frequente
+\begin{itemize}
+\item Subinvestimento
+\item Substituição de ativos
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:orgc66c9c2}]{Conclusões}
+\begin{table}[htbp]
+\caption{Alguns dos resultados para redução da maturidade da dívida}
+\centering
+\begin{tabular}{lll}
+\hline
+Variável & Direção & Procede?\\
+\hline
+Tamanho da firma & + & Pouco\\
+Acionistas Vs gerentes & - & Não\\
+Custos de agência & \(\Leftrightarrow\) & Não\\
+Assimetria de info. & - & Sim\\
+Pagamento de dividendo & + & Sim, mas insuficiente\\
+Fluxo de caixa & - & Sim, mas insuficiente\\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{itemize}
+\item Mudanças na composição da industria parecem ser mais relevantes
+\item Tendência negativa restrita aos EUA
+\end{itemize}
+\end{frame}
+
+\section{Os fatores de demanda explicam?}
+\label{sec:orgba1ed01}
+
+\begin{frame}[label={sec:orge8b1671}]{Estratégia de estimação}
+\begin{latex}
+\begin{equation}
+\text{\% Div. curto prazo} \sim \text{Carac. Firmas}
+\end{equation}
+\end{latex}
+
+\begin{block}{Modelos alternativos}
+\begin{itemize}
+\item Características das firmas
+\item Fatores macroeconômicos
+\item Dummies para décadas
+\item Também estimam Tobit para verificar robustez dos resultados
+\item Abordagem Fama and Macbeth (1976-1979)
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[label={sec:org64e1dcf}]{Resultados e discussão}
+\begin{itemize}
+\item Os coeficientes (exceto lucros anormais) apresentam os sinais esperados
+\begin{itemize}
+\item Hipótese da sinalização não é verificada
+\end{itemize}
+\item Dummies para as décadas sugerem que composição da indústria é relevante
+\item Fatores macroeconômicos explicam um pouco mais do que as características das firmas
+\end{itemize}
+
+
+\begin{block}{Principal resultado até aqui}
+Caracterísitcas de demanda (características das firmas) explicam muito pouco a redução da maturidade da dívida.
+\end{block}
+\end{frame}
+
 \section{Novas firmas listadas em bolsa}
-\label{sec:org43735f8}
+\label{sec:orgeb41bb6}
+\begin{frame}[label={sec:org4fd6851}]{Listing vintage effect}
+\begin{figure}[htbp]
+\caption{Dívida com maturidade com mais de 3 anos (\%)}
+\centerline{\includegraphics[width=\textwidth]{figs/Listing.png}}
+\end{figure}
+\end{frame}
+\begin{frame}[label={sec:org2256689}]{Estratégia de estimação}
+\begin{itemize}
+\item Dividem as firmas a partir do ano que foram listadas na bolsa
+\item Ao incluir essa dummy, a tendência passa a ser positiva
+\end{itemize}
+
+\begin{block}{Conclusões e Explicações}
+O efeito das novas firmas que entram na bolsa é suficiente para explicar
+\begin{itemize}
+\item Dados não corroboram hipótese de que esta variável só captura o ciclo de vida de uma firma
+\item Uma firma jovem listada em bolsa nos anos 80s-90s tem mais dívida de curto prazo relativamente
+\item Desregulamentações financeiras \(\Rightarrow\) maior acesso a \emph{public equity} (?)
+\item Associado a fatores de oferta ou demanda das firmas?
+\end{itemize}
+\end{block}
+\end{frame}
+
 \section{Fatores de oferta}
-\label{sec:org12a3e39}
+\label{sec:orgc318f4d}
+
+\begin{frame}[label={sec:org79a9cf8}]{Mudança de ênfase: emissão}
+\begin{center}
+\(\Uparrow\) Emissão \(\Leftrightarrow\) Preferências reveladas \(\Leftrightarrow\) demanda positiva por dívida
+\end{center}
+
+\begin{itemize}
+\item Elimina as características das firmas (demanda)
+\item Firmas maiores não parece reduzir a maturidade da dívida
+\begin{itemize}
+\item Estoque de dívida permanece no balanço de firmas maiores e mais antigas
+\end{itemize}
+\item \(\Delta\) Composição da dívida "pública" (ações) \(\Rightarrow\) Redução da maturidade
+\begin{itemize}
+\item Mesmo não ocorre para dívida bancária ("privada")
+\end{itemize}
+\end{itemize}
+
+\begin{block}{Resultado das estimações}
+\begin{itemize}
+\item Fatores de demanda não explicam este resultado
+\item Não ocorre com dívida bancária
+\item Fatores de oferta parecem relevantes
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[label={sec:org14c6838},fragile]{Os fatores de oferta}
+ \begin{center}
+Estrutura K firmas \(\Leftarrow\) oferta de crédito \(\Leftarrow\) demanda do investidor
+\end{center}
+
+\begin{block}{Abordagens: oferta de crédito permanece a mesma?}
+\begin{itemize}
+\item Se fatores de oferta não são relevantes, controle (listada pre-1980) \texttt{==}  tratamento (pós-80) \(\Rightarrow\) Fatores de demanda
+\begin{itemize}
+\item Condições de oferta não são as mesmas \(\Rightarrow\) Oferta de crédito é relevante
+\end{itemize}
+\item Introdução de efeitos exógenos
+\begin{description}
+\item[{1986-93}] Investidores concentraram em firmas com notas especulativas \(\Rightarrow\) Restringe maturidade da dívida das firmas com nota de investimento
+\item[{2006-8}] Impacto distinto sobre a maturidade da dívida (firmas sem rating com maturidade menor)
+\end{description}
+\end{itemize}
+\end{block}
+
+\begin{block}{Conclusões}
+\begin{itemize}
+\item Demanda do investimento é relevante
+\item Restrito aos EUA \(\Leftrightarrow\) Mercado corporativo mais desenvolvido
+\end{itemize}
+\end{block}
+\end{frame}
+
 \section{Conclusão}
-\label{sec:org044f298}
-\begin{frame}[label={sec:orgc980383}]{Retomada e implicações}
+\label{sec:orgd4dbafa}
+\begin{frame}[label={sec:org999dfa2}]{Retomada e implicações}
+Redução da maturidade da dívida das firmas dos EUA:
+\begin{itemize}
+\item Concentrada nas firmas menores
+\item Maior grau de assimetria de informação \(\Rightarrow\) menor maturidade
+\item Conflitos de agência e sinalizações explicam pouco
+\item Novas firmas listadas em bolsa \(\Rightarrow\) explicam um pouco mais
+\item Características das firmas não explicam a totalidade
+\item Oferta de crédito é relevante
+\item Concentrada na dívida não-bancária ("pública")
+\end{itemize}
+
+\begin{block}{Implicações}
+\begin{itemize}
+\item Firmas estão mais expostas a choques de crédito e de liquidez
+\item Tais mudanças podem ter exacerbado os efeitos da GFC
+\end{itemize}
+\end{block}
+
+\begin{block}{Limitação?}
+\begin{itemize}
+\item Os metodos adotados são os mais adequados para variáveis qualitativas
+\end{itemize}
+\end{block}
 \end{frame}
 \end{document}

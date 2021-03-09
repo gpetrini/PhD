@@ -11,7 +11,7 @@
 #+startup: beamer
 #+LATEX_HEADER: \usepackage[style=abnt,noslsn,extrayear,uniquename=init,giveninits,justify,sccite, scbib,repeattitles,doi=false,isbn=false,url=false,maxcitenames=2, natbib=true,backend=biber]{biblatex}
 #+LATEX_HEADER: \addbibresource{/HDD/Org/all_my_refs.bib}
-#+latex_header: \AtBeginSection[]{\begin{frame}<beamer>\frametitle{Estrutura da apresentação}\tableofcontents[currentsection]\end{frame}}
+# #+latex_header: \AtBeginSection[]{\begin{frame}<beamer>\frametitle{Estrutura da apresentação}\tableofcontents[currentsection]\end{frame}}
 
 * fullcite:custodio_2013_Why
 
@@ -68,11 +68,192 @@ Artigos publicados em:
 *** Novas firmas listadas em bolsa
 *** Emissão de dívida e fatores da oferta de crédito
 * Amostra e descrição dos dados
-** Desenho amostral
-** Variáveis a ser explicada
+** Variável a ser explicada
+
+#+begin_export latex
+\begin{figure}[htbp]
+\caption{Dívida com maturidade com mais de 3 anos (\%)}
+\centerline{\includegraphics[width=\textwidth]{figs/Tendencia.png}}
+\end{figure}
+#+end_export
+
+
+** Firmas americanas não-financeiras (1976-2008, Compustat)
+
+|---------------------------------------+--------+---------|
+| Variável                              |  Média | Mediana |
+|---------------------------------------+--------+---------|
+| Maturidade da dívida                  |        |         |
+|---------------------------------------+--------+---------|
+| +3 anos                               |  0.438 |   0.460 |
+| +5 anos                               |  0.280 |   0.179 |
+|---------------------------------------+--------+---------|
+| Características das firmas            |        |         |
+|---------------------------------------+--------+---------|
+| Tamanho                               |  0.242 |   0.104 |
+| Oportunidade de investimento (proxy)  |  1.847 |   1.306 |
+| Lucros anormais                       | -0.029 |   0.007 |
+| Alavancagem                           |  0.273 |   0.242 |
+| Assimetria de informação (proxy, P&D) |  0.040 |   0.000 |
+| CAPEX                                 |  0.074 |   0.050 |
+| Índice de gov. corporativas           |  9.152 |   9.000 |
+| Nota de rating? (dummy)               |  0.229 |   0.000 |
+| Paga dividendo? (dummy)               |  0.370 |   0.000 |
+| Fluxo de caixa                        |  0.131 |   0.061 |
+| Idade                                 |     14 |       9 |
+|---------------------------------------+--------+---------|
+
 * Características das firmas
-* Função demanda por maturidade de dívida
+
+** Discussão teórica
+
+
+#+CAPTION: Expectativas direcionais sobre maturidade da dívida
+|-------------------------+-------------------+-------------------------------|
+| Variável                | Direção           | Proxy                         |
+|-------------------------+-------------------+-------------------------------|
+| Tamanho da firma        | +                 | Percentil NYSE                |
+| Oport. crescimento      | -                 | Market-to-book                |
+| Acionistas Vs. gerentes | -                 | Ind. governanças corporativas |
+| Custos de agência       | $\Leftrightarrow$ | Alavancagem e oport. invest.  |
+| Assimetria de info.     | -                 | P&D                           |
+| Melhores projetos       | -                 | Lucros anormais               |
+| Volatilidade dos ativos | -                 | -                             |
+| Alavancagem             | +                 | Comparação com a mediana      |
+| Pagamento de dividendo  | +                 | Dummy                         |
+| Fluxo de caixa          | -                 | Comparação com a mediana      |
+|-------------------------+-------------------+-------------------------------|
+
+
+- Dívida de curto prazo minimiza custos de agência $\Rightarrow$ Renegociação mais frequente
+  + Subinvestimento
+  + Substituição de ativos
+
+** Conclusões
+
+#+CAPTION: Alguns dos resultados para redução da maturidade da dívida
+|------------------------+-------------------+-----------------------|
+| Variável               | Direção           | Procede?              |
+|------------------------+-------------------+-----------------------|
+| Tamanho da firma       | +                 | Pouco                 |
+| Acionistas Vs gerentes | -                 | Não                   |
+| Custos de agência      | $\Leftrightarrow$ | Não                   |
+| Assimetria de info.    | -                 | Sim                   |
+| Pagamento de dividendo | +                 | Sim, mas insuficiente |
+| Fluxo de caixa         | -                 | Sim, mas insuficiente |
+|------------------------+-------------------+-----------------------|
+
+
+- Mudanças na composição da industria parecem ser mais relevantes
+- Tendência negativa restrita aos EUA
+
+* Os fatores de demanda explicam?
+
+** Estratégia de estimação
+
+#+BEGIN_latex
+\begin{equation}
+\text{\% Div. curto prazo} \sim \text{Carac. Firmas}
+\end{equation}
+#+END_latex
+
+*** Modelos alternativos
+
+- Características das firmas
+- Fatores macroeconômicos
+- Dummies para décadas
+- Também estimam Tobit para verificar robustez dos resultados
+- Abordagem Fama and Macbeth (1976-1979)
+
+** Resultados e discussão
+
+- Os coeficientes (exceto lucros anormais) apresentam os sinais esperados
+  + Hipótese da sinalização não é verificada
+- Dummies para as décadas sugerem que composição da indústria é relevante
+- Fatores macroeconômicos explicam um pouco mais do que as características das firmas
+
+
+*** Principal resultado até aqui
+
+Caracterísitcas de demanda (características das firmas) explicam muito pouco a redução da maturidade da dívida.
+
 * Novas firmas listadas em bolsa
+** Listing vintage effect
+
+
+#+begin_export latex
+\begin{figure}[htbp]
+\caption{Dívida com maturidade com mais de 3 anos (\%)}
+\centerline{\includegraphics[width=\textwidth]{figs/Listing.png}}
+\end{figure}
+#+end_export
+** Estratégia de estimação
+
+- Dividem as firmas a partir do ano que foram listadas na bolsa
+- Ao incluir essa dummy, a tendência passa a ser positiva
+
+*** Conclusões e Explicações
+
+O efeito das novas firmas que entram na bolsa é suficiente para explicar
+- Dados não corroboram hipótese de que esta variável só captura o ciclo de vida de uma firma
+- Uma firma jovem listada em bolsa nos anos 80s-90s tem mais dívida de curto prazo relativamente
+- Desregulamentações financeiras $\Rightarrow$ maior acesso a /public equity/ (?)
+- Associado a fatores de oferta ou demanda das firmas?
+
 * Fatores de oferta
+
+** Mudança de ênfase: emissão
+
+#+begin_center
+$\Uparrow$ Emissão $\Leftrightarrow$ Preferências reveladas $\Leftrightarrow$ demanda positiva por dívida
+#+end_center
+
+- Elimina as características das firmas (demanda)
+- Firmas maiores não parece reduzir a maturidade da dívida
+  + Estoque de dívida permanece no balanço de firmas maiores e mais antigas
+- $\Delta$ Composição da dívida "pública" (ações) $\Rightarrow$ Redução da maturidade
+  + Mesmo não ocorre para dívida bancária ("privada")
+
+*** Resultado das estimações
+
+- Fatores de demanda não explicam este resultado
+- Não ocorre com dívida bancária
+- Fatores de oferta parecem relevantes
+
+** Os fatores de oferta
+
+#+begin_center
+Estrutura K firmas $\Leftarrow$ oferta de crédito $\Leftarrow$ demanda do investidor
+#+end_center
+
+*** Abordagens: oferta de crédito permanece a mesma?
+- Se fatores de oferta não são relevantes, controle (listada pre-1980) ====  tratamento (pós-80) $\Rightarrow$ Fatores de demanda
+  + Condições de oferta não são as mesmas $\Rightarrow$ Oferta de crédito é relevante
+- Introdução de efeitos exógenos
+  + 1986-93 :: Investidores concentraram em firmas com notas especulativas $\Rightarrow$ Restringe maturidade da dívida das firmas com nota de investimento
+  + 2006-8 :: Impacto distinto sobre a maturidade da dívida (firmas sem rating com maturidade menor)
+
+*** Conclusões
+- Demanda do investimento é relevante
+- Restrito aos EUA $\Leftrightarrow$ Mercado corporativo mais desenvolvido
+
 * Conclusão
 ** Retomada e implicações
+
+Redução da maturidade da dívida das firmas dos EUA:
+- Concentrada nas firmas menores
+- Maior grau de assimetria de informação $\Rightarrow$ menor maturidade
+- Conflitos de agência e sinalizações explicam pouco
+- Novas firmas listadas em bolsa $\Rightarrow$ explicam um pouco mais
+- Características das firmas não explicam a totalidade
+- Oferta de crédito é relevante
+- Concentrada na dívida não-bancária ("pública")
+
+*** Implicações
+
+- Firmas estão mais expostas a choques de crédito e de liquidez
+- Tais mudanças podem ter exacerbado os efeitos da GFC
+
+*** Limitação?
+
+- Os metodos adotados são os mais adequados para variáveis qualitativas?
