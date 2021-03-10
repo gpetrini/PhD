@@ -49,6 +49,16 @@ In a recent paper, textcite:wood_house_2020 evaluate the relationship between ec
 To do so, they estimate a ARDL model for 18 OECD countries from 1980 to 2017 and report that house prices determine household indebtedness which is central to describe recent economic growth rate.
 Despite shedding light on the macroeconomic relevance of real estate, their model does not include both residential investment nor mortgage interest rate.
 As discussed before, other scholars have found statistical significance for those variables to determine housing cite:gauger_residential_2003.
+
+
+
+As we have seen in the previous session, there have been a growing attention to the macroeconomic implications of housing.
+However, most of this literature treat housing-related variables in a microeconomic and regional fashion.
+According to textcite:arestis_u.s._2008, the US housing market in particular is quite heterogeneous.
+As a consequence, most econometric papers do not analyze residential investment in macroeconomic terms, restricting it to regional and metropolitan issues cite:arestis_u.s._2008.
+Additionally, if the housing macroeconomic literature is scarce, even fewer scholars examinate residential investment specifically.
+Most of them emphasize house prices consequences and not its volume implications cites:arestis_residential_2015,perez_Montiel_2021.
+
 *** Taxa própria
 
 MELHORAR DEFINIÇÃO DE TAXA PRÓPRIA
@@ -100,7 +110,7 @@ As a consequence, real estate finance has increased considerably in the followin
 	\centering
 	\caption{Mortgage and Consumer credit growth rate (1979-2019)}
 	\label{Fig:CreditFDICIA}
-	\includegraphics[width=\textwidth]{./figs/FDICIA.eps}
+	\includegraphics[width=\textwidth]{./figs/FDICIA.png}
 	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' elaboration}
 \end{figure}
 #+END_EXPORT
@@ -115,13 +125,9 @@ bibliography:ref.bib
 * Review of the Macroeconometric Literature                          :ignore:
 
 
-** Ausência de trabalhos que analizam investimento residencial de um ponto de vista macroeconômico
-As we have seen in the previous session, there have been a growing attention to the macroeconomic implications of housing.
-However, most of this literature treat housing-related variables in a microeconomic and regional fashion.
-According to textcite:arestis_u.s._2008, the US housing market in particular is quite heterogeneous.
-As a consequence, most econometric papers do not analyze residential investment in macroeconomic terms, restricting it to regional and metropolitan issues cite:arestis_u.s._2008.
-Additionally, if the housing macroeconomic literature is scarce, even fewer scholars examinate residential investment specifically.
-Most of them emphasize house prices consequences and not its volume implications cites:arestis_residential_2015,perez_Montiel_2021.
+** Ausência de trabalhos que analizam investimento residencial de um ponto de vista macroeconômico :ignore:
+
+As we have seen in the previous session, there has been a growing attention to the macroeconomic implications of residential investment. It is worth noting, there is a vast empirical literature on housing. However, this literature is mainly focused on urban and regional economics or microeconomic issues. As a consequence, few econometric papers analyze housing in macroeconomic terms. Additionally, if housing macroeconomic literature is scarce, even fewer scholars examine residential investment and its determinants specifically. In this sense, we review papers that analyse the determinants of residential investment (or some proxy) focusing on the US case, as well on some panel analysis of multiple countries.
 
 In this sense, \citeauthor*{poterba_tax_1984}'s \citeyear{poterba_tax_1984} contribution stands out once it considers houses as an asset and not only as a durable consumption good.
 Based on asset-market model for the construction sector, he estimates a residential investment supply function for the US from 1974 to 1982.
@@ -155,25 +161,12 @@ textcite:gauger_residential_2003 also evaluate the consequences of deregulation 
 In order to do so, they estimate a VECM between monetary aggregates (M2), GDP, residential investment and alternate between short-term government bonds and long-term mortgage interest rates.
 They report an increasing contribution of long-term mortgages interest rate over resident investment variance after those institutional changes mentioned above.
 
-Figure ref:Fig:CreditFDICIA illustrates the relevance of institutional reforms due to the savings and loans crisis throughout the 80's and early 90's.
-This institutional changes --- notably Financial Institutions Reform, Recovery, and Enforcement Act (FIRREA) in 1989 and Federal Deposit Insurance Corporation Improvement Act  (FDICIA) in 1991 --- increased the credit volume to households.
-As a consequence, real estate finance has increased considerably in the following periods.
-
-
-#+BEGIN_EXPORT latex
-\begin{figure}[htb]
-	\centering
-	\caption{Mortgage and Consumer credit growth rate (1979-2019)}
-	\label{Fig:CreditFDICIA}
-	\includegraphics[width=\textwidth]{./figs/FDICIA.eps}
-	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' elaboration}
-\end{figure}
-#+END_EXPORT
 
 Table ref:tab:summary_model presents an overview of the discussed topics and its main conclusions.
 From this brief review of the literature, we conclude that may be the only consensus about the determinants of residential investment is on house prices (nominal or deflated by consumer price index) and some rate of interest (mortgage or long term, as proxy)[fn::For a broader review of econometric literature, see textcite:egebo_1990_MODEL.].
 Some authors deflate the rate of interest by the CPI, others use nominal interest rate to capture the effect of monetary illusion.
-In the next section, we will present a particular way of combining the two variables in a single index that we will use on our econometric estimation.
+In the next section, we will present a particular way of combining house prices and mortgage rate of interest in a single index that we will use on our econometric estimation.
+
 
 
 #+BEGIN_EXPORT latex

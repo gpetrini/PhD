@@ -3997,7 +3997,6 @@ As discussed before, this housing boom was possible because of some changes of h
 #+end_export
 
 
-*** Descrição teórica da taxa própria
 *** Descrição mais formal da taxa própria (preparação para VECM) :ignore:
 
 
@@ -4032,11 +4031,11 @@ therefore, if these time-series are co-integrated, we specify the short-run adju
 #+begin_export latex
 \begin{equation}
 \begin{cases}
-\Delta own_t = \delta_{1} + \alpha_1\left(g_{I_{h_{t-1}}} - \phi_0 + \phi_1\cdot own_{t-1}\right) + {\sum^{N=4}_{i=1}}\beta_{1,i}\cdot \Delta g_{I_{h_{t-i}}} +
-\sum^{N=4}_{i=1}\gamma_{1,i}\cdot \Delta own_{t-i} +\varepsilon_{t,1}
+\Delta own_t = \delta_{1} + \alpha_1\left(g_{I_{h_{t-1}}} - \phi_0 + \phi_1\cdot own_{t-1}\right) + {\sum^{N}_{i=1}}\beta_{1,i}\cdot \Delta g_{I_{h_{t-i}}} +
+\sum^{N}_{i=1}\gamma_{1,i}\cdot \Delta own_{t-i} +\varepsilon_{t,1}
 \\
-\Delta g_{Z_{t}} = \delta_{2} + \alpha_2\left(g_{I_{h_{t-1}}} - \phi_0 + \phi_1\cdot own_{t-1}\right) + \sum^{N=4}_{i=1}\beta_{2,i}\cdot \Delta g_{I_{h_{t-i}}} +
-\sum^{N=4}_{i=1}\gamma_{2,i}\cdot \Delta own_{t-i} +\varepsilon_{t,2}
+\Delta g_{I_{h_{t}}} = \delta_{2} + \alpha_2\left(g_{I_{h_{t-1}}} - \phi_0 + \phi_1\cdot own_{t-1}\right) + \sum^{N}_{i=1}\beta_{2,i}\cdot \Delta g_{I_{h_{t-i}}} +
+\sum^{N}_{i=1}\gamma_{2,i}\cdot \Delta own_{t-i} +\varepsilon_{t,2}
 \end{cases}
 \end{equation}
 #+end_export
@@ -4046,6 +4045,20 @@ $\alpha_{is}$ are the error correction coefficients;
 $\beta_s$ and $\gamma_s$ are coefficients associated with lagged $g_{I_h}$ and $own$ respectively and; $\varepsilon_s$ are the residuals.
 Based on \textcite{teixeira_crescimento_2015}, we depict the expected results in Table \ref{resultados_esperados} below:
 
+Figure ref:Fig:CreditFDICIA illustrates the relevance of institutional reforms due to the savings and loans crisis throughout the 80's and early 90's.
+This institutional changes --- notably Financial Institutions Reform, Recovery, and Enforcement Act (FIRREA) in 1989 and Federal Deposit Insurance Corporation Improvement Act  (FDICIA) in 1991 --- increased the credit volume to households.
+As a consequence, real estate finance has increased considerably in the following periods.
+
+
+#+BEGIN_EXPORT latex
+\begin{figure}[htb]
+	\centering
+	\caption{Mortgage and Consumer credit growth rate (1979-2019)}
+	\label{Fig:CreditFDICIA}
+	\includegraphics[width=\textwidth]{./figs/FDICIA.png}
+	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' elaboration}
+\end{figure}
+#+END_EXPORT
 \input{./tabs/hypothesis.tex}
 
 ** Data and estimation strategy
@@ -4177,7 +4190,7 @@ Therefore, houses' own interest rate is explained mainly by itself and explains 
 	\centering
 	\caption{Forecast error variance decomposition (FEVD)}
 	\label{fevd}
-	\includegraphics[height=.4\textheight]{./figs/FEVD_VECMpython_TxPropria.png}
+	\includegraphics[width=.9\textwidth]{./figs/FEVD_VECMpython_TxPropria.png}
 	\caption*{\textbf{Source:} Authors' elaboration}
 \end{figure}
 #+end_export

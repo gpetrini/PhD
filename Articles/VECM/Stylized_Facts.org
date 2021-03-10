@@ -774,8 +774,9 @@ plt.close()
 
 #+begin_comment
 It is worth mentioning the novelty of \textcite{green_follow_1997} and \textcite{leamer_housing_2007} --- revisited in \textcite{leamer_housing_2015} and by \textcite{fiebiger_trend_2017} --- when shedding light on the relevance of residential investment even before of the Great Recession. CITAÇÃO KEYNES DO PROJETO + DUESEMBERRY
-#+end_comment
-*  Housing Dynamics and Business Cycle in the US Economy :ignore:
+
+
+
 Traditionally, economists do not pay attention to the role of residential investment to macroeconomic dynamics.
 There are, nevertheless, two notable exceptions.
 In a letter to President Franklin D. Roosevelt, in the mid of the Great Depression, Keynes present the case of housing as the best aid to fight the crisis and to foster economic recovery \cite[p.~436]{keynes_collected_1978}.
@@ -786,6 +787,16 @@ Perhaps, the small share of residential investment on aggregate demand may expla
 The subprime crisis and the Great Recession of the US economy had changed the landscape, making clear the macroeconomic role of
 housing prices and finance, and residential investment.
 Specifically, we argue however small its share on GDP is, it does have a fundamental role in explaining business cycles and long-run growth.
+#+end_comment
+*  Housing Dynamics and Business Cycle in the US Economy :ignore:
+Before the subprime crisis and the subsequent Great Recession (2008-9), economists usually did not pay due attention to the role of residential investment to macroeconomic dynamics.
+Perhaps, this lack of attention can be explained by the small share of residential investment on aggregate demand (see figure ref:fig:share).
+The subprime crisis and the Great Recession of the US economy had changed the landscape, making clear the macroeconomic role of housing prices and finance, and residential investment.
+Specifically, we argue however small its share on GDP is, it does have a fundamental role in explaining business cycles and long-run growth.
+
+There are, nevertheless, two notable exceptions. In a letter to President Franklin D. Roosevelt, in the mid of the Great Depression, Keynes present the case of housing as the best aid to fight the crisis and to foster economic recovery \cite[p.~436]{keynes_collected_1978}.
+The other exception is textcite:duesenberry_investment_1958 who presents a critique of ordinary theories of aggregate investment because they put together firms’ investment in capital and structures and investment in residential housing.
+In this sense, he builds a model dedicated for the latter type of investment, emphasizing the role of house prices.
 
 
 #+begin_export latex
@@ -834,6 +845,11 @@ The Great Recession is a remarkable example of this pattern while dot-com crisis
 	\caption*{\textbf{Source:} Authors' Elaboration}
 \end{figure}
 #+end_export
+
+#+begin_comment
+Talvez discutir preço aqui
+#+end_comment
+
 
 In a heterodox perspective, textcites:fiebiger_semi-autonomous_2018,fiebiger_trend_2017 present residential investment as a Luxemburg-type external market providing a source of autonomous demand to absorb economic surplus.
 Both works state its role (together with debt-financed consumption) in inducing non-residential investment and driving output growth, during the business cycle as well in the long-run.
