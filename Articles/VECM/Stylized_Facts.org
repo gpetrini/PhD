@@ -611,27 +611,28 @@ df <-  map_dfr(
   pivot_wider(names_from = series_id, values_from= value) %>%
   mutate(
     recessions = as.logical(USRECM),
-    Residential_Investment = PRFI,
-    NonResidential_Investment = PNFI,
-    DurableGoods = HCCSDODNS
+    `Residential Investment` = PRFI,
+    `Non Residential Investment` = PNFI,
+    `Durable Goods` = HCCSDODNS
   ) %>%
-  select(date, recessions, GDP, Residential_Investment, NonResidential_Investment, DurableGoods) %>%
+  select(date, recessions, GDP, `Residential Investment`, `Non Residential Investment`, `Durable Goods`) %>%
   mutate(crise = case_when(
-           (date >= ymd(begin[1]) %m+% years(-2) & date <= ymd(begin[1]) %m+% years(2)) ~ begin[1],
-           (date >= ymd(begin[2]) %m+% years(-2) & date <= ymd(begin[2]) %m+% years(2)) ~ begin[2],
-           (date >= ymd(begin[3]) %m+% years(-2) & date <= ymd(begin[3]) %m+% years(2)) ~ begin[3],
-           (date >= ymd(begin[4]) %m+% years(-2) & date <= ymd(begin[4]) %m+% years(2)) ~ begin[4],
-           (date >= ymd(begin[5]) %m+% years(-2) & date <= ymd(begin[5]) %m+% years(2)) ~ begin[5],
-           (date >= ymd(begin[6]) %m+% years(-2) & date <= ymd(begin[6]) %m+% years(2)) ~ begin[6],
-           (date >= ymd(begin[7]) %m+% years(-2) & date <= ymd(begin[7]) %m+% years(2)) ~ begin[7],
-           (date >= ymd(begin[8]) %m+% years(-2) & date <= ymd(begin[8]) %m+% years(2)) ~ begin[8],
-           (date >= ymd(begin[9]) %m+% years(-2) & date <= ymd(begin[9]) %m+% years(2)) ~ begin[9],
-           (date >= ymd(begin[10]) %m+% years(-2) & date <= ymd(begin[10]) %m+% years(2)) ~ begin[10]
+           (date >= ymd(begin[1]) %m+% years(-2) & date <= ymd(begin[1]) %m+% years(2)) ~ begin[1] %>% substr(1,7),
+           (date >= ymd(begin[2]) %m+% years(-2) & date <= ymd(begin[2]) %m+% years(2)) ~ begin[2] %>% substr(1,7),
+           (date >= ymd(begin[3]) %m+% years(-2) & date <= ymd(begin[3]) %m+% years(2)) ~ begin[3] %>% substr(1,7),
+           (date >= ymd(begin[4]) %m+% years(-2) & date <= ymd(begin[4]) %m+% years(2)) ~ begin[4] %>% substr(1,7),
+           (date >= ymd(begin[5]) %m+% years(-2) & date <= ymd(begin[5]) %m+% years(2)) ~ begin[5] %>% substr(1,7),
+           (date >= ymd(begin[6]) %m+% years(-2) & date <= ymd(begin[7]) %m+% years(2)) ~ paste(begin[6] %>% substr(1,7), "and", begin[7] %>% substr(1,7)),
+           ## (date >= ymd(begin[7]) %m+% years(-2) & date <= ymd(begin[7]) %m+% years(2)) ~ begin[7],
+           (date >= ymd(begin[8]) %m+% years(-2) & date <= ymd(begin[8]) %m+% years(2)) ~ begin[8] %>% substr(1,7),
+           (date >= ymd(begin[9]) %m+% years(-2) & date <= ymd(begin[9]) %m+% years(2)) ~ begin[9] %>% substr(1,7),
+           (date >= ymd(begin[10]) %m+% years(-2) & date <= ymd(begin[10]) %m+% years(2)) ~ begin[10] %>% substr(1,7)
          )) %>%
+  ## mutate(crise = substr(crise, 1,7)) %>%
   mutate(crise = crise %>% as.character() %>% as.factor()) %>%
   pivot_longer(cols = -c(date, crise, recessions), names_to="Series", values_to = "value") %>%
   ## mutate(Series = as.factor(Series)) %>%
-  filter(date>=ymd('1980-01-01') & date <=ymd('2011-01-01')) %>%
+  filter(date>=ymd('1979-01-01') & date <=ymd('2011-01-01')) %>%
   drop_na(crise)
 
 ggplot(df, aes(x=date, y=value, colour=Series)) +
@@ -640,8 +641,16 @@ ggplot(df, aes(x=date, y=value, colour=Series)) +
   ggsci::scale_color_futurama() +
   facet_wrap(~crise, scale="free_x", drop=TRUE) +
   geom_hline(yintercept=0, color='black', size=0.25) +
-  xlab("") + ylab("Percent change from 1 year") +
-  theme_bw()
+  xlab("") + ylab("Percent change from 1 year ago") +
+  theme_bw() ->fig
+
+for(i in begin){
+  if(ymd(i) >= ymd('1980-01-01')){
+    fig + geom_vline(xintercept = as.numeric(ymd(i)), linetype="dashed",
+                color = "black", size=.5) -> fig
+  }
+}
+
 ggsave(
   "./figs/Centered_Begin_pct1.png",
   width = 10, height = 8, dpi = 150, units = "in", device = "png"
@@ -680,22 +689,23 @@ df <-  map_dfr(
   ) %>%
   select(date, recessions, GDP, Residential_Investment, NonResidential_Investment, DurableGoods) %>%
   mutate(crise = case_when(
-           (date >= ymd(end[1]) %m+% years(-2) & date <= ymd(end[1]) %m+% years(2)) ~ end[1],
-           (date >= ymd(end[2]) %m+% years(-2) & date <= ymd(end[2]) %m+% years(2)) ~ end[2],
-           (date >= ymd(end[3]) %m+% years(-2) & date <= ymd(end[3]) %m+% years(2)) ~ end[3],
-           (date >= ymd(end[4]) %m+% years(-2) & date <= ymd(end[4]) %m+% years(2)) ~ end[4],
-           (date >= ymd(end[5]) %m+% years(-2) & date <= ymd(end[5]) %m+% years(2)) ~ end[5],
-           (date >= ymd(end[6]) %m+% years(-2) & date <= ymd(end[6]) %m+% years(2)) ~ end[6],
-           (date >= ymd(end[7]) %m+% years(-2) & date <= ymd(end[7]) %m+% years(2)) ~ end[7],
-           (date >= ymd(end[8]) %m+% years(-2) & date <= ymd(end[8]) %m+% years(2)) ~ end[8],
-           (date >= ymd(end[9]) %m+% years(-2) & date <= ymd(end[9]) %m+% years(2)) ~ end[9],
-           (date >= ymd(end[10]) %m+% years(-2) & date <= ymd(end[10]) %m+% years(2)) ~ end[10]
+           (date >= ymd(end[1]) %m+% years(-1) & date <= ymd(end[1]) %m+% years(1)) ~ end[1],
+           (date >= ymd(end[2]) %m+% years(-1) & date <= ymd(end[2]) %m+% years(1)) ~ end[2],
+           (date >= ymd(end[3]) %m+% years(-1) & date <= ymd(end[3]) %m+% years(1)) ~ end[3],
+           (date >= ymd(end[4]) %m+% years(-1) & date <= ymd(end[4]) %m+% years(1)) ~ end[4],
+           (date >= ymd(end[5]) %m+% years(-1) & date <= ymd(end[5]) %m+% years(1)) ~ end[5],
+           (date >= ymd(end[6]) %m+% years(-1) & date <= ymd(end[6]) %m+% years(1)) ~ end[6],
+           (date >= ymd(end[7]) %m+% years(-1) & date <= ymd(end[7]) %m+% years(1)) ~ end[7],
+           (date >= ymd(end[8]) %m+% years(-1) & date <= ymd(end[8]) %m+% years(1)) ~ end[8],
+           (date >= ymd(end[9]) %m+% years(-1) & date <= ymd(end[9]) %m+% years(1)) ~ end[9],
+           (date >= ymd(end[10]) %m+% years(-1) & date <= ymd(end[10]) %m+% years(1)) ~ end[10]
          )) %>%
+  mutate(crise = paste0(month(crise),"/",year(crise))) %>%
   mutate(crise = crise %>% as.character() %>% as.factor()) %>%
   pivot_longer(cols = -c(date, crise, recessions), names_to="Series", values_to = "value") %>%
   ## mutate(Series = as.factor(Series)) %>%
-  filter(date>=ymd('1980-01-01') & date <=ymd('2011-01-01')) %>%
-  drop_na(crise)
+  filter(date>=ymd('1981-01-01') & date <=ymd('2011-01-01')) %>%
+  drop_na(crise) %>% drop_na()
 
 ggplot(df, aes(x=date, y=value, colour=Series)) +
   geom_line() +
@@ -704,12 +714,24 @@ ggplot(df, aes(x=date, y=value, colour=Series)) +
   facet_wrap(~crise, scale="free_x", drop=TRUE) +
   geom_hline(yintercept=0, color='black', size=0.25) +
   xlab("") + ylab("Percent change from 1 year") +
-  theme_bw()
+  theme_bw() ->fig
+
+  
+
+for(i in end){
+  if(ymd(i) >= ymd('1980-01-01')){
+    fig + geom_vline(xintercept = as.numeric(ymd(i)), linetype="dashed",
+                color = "black", size=.5) -> fig
+  }
+}
 ggsave(
   "./figs/Centered_End_pct1.png",
   width = 10, height = 8, dpi = 150, units = "in", device = "png"
 )
 #+end_src
+
+#+RESULTS:
+[[file:./figs/Centered_End_pct1.png]]
 
 ** Ciclo e tendência
 
@@ -811,9 +833,9 @@ In this sense, he builds a model dedicated for the latter type of investment, em
 \end{figure}
 #+end_export
 
-Recently, more and more macroeconomists are paying attention to the relevance of residential investment for the business cycles.
+Recently, more and more economists are paying attention to the relevance of residential investment for the business cycles.
 textcite:green_follow_1997 analyzed this connection even before the Great Recession.
-Based on Granger casualty tests for the US from 1952 to 1992, he concludes that residential investment leads the cycle, while non-residential investment (i.e., firms business investment) lags the cycle.
+Based on Granger causality tests for the US from 1952 to 1992, he concludes that residential investment leads the cycle, while non-residential investment (i.e., firms business investment) lags the cycle.
 textcite:green_follow_1997 relates this result to the forward-looking behavior of households.
 Thus, he restricts the relevance of residential investment as a temporal precedence indicator.
 
@@ -839,10 +861,10 @@ The Great Recession is a remarkable example of this pattern while dot-com crisis
 #+begin_export latex
 \begin{figure}[H]
 	\centering
-	\caption{Selected expecditure growth rates 2 years before and after recession start}
+	\caption{Selected expecditure growth rates 2 years before and after recession start\\Dashed lines indicates recession start}
 	\label{fig:cycle}
 	\includegraphics[width=\textwidth]{./figs/Centered_Begin_pct1.png}
-	\caption*{\textbf{Source:} Authors' Elaboration}
+	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' Elaboration}
 \end{figure}
 #+end_export
 
