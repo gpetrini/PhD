@@ -52,8 +52,8 @@
 #+LATEX_HEADER:\affil[1]{PhD Student at University of Campinas (Brazil), Email: \url{gpetrinidasilveira@gmail.com}} % Author affiliation
 #+LATEX_HEADER:\author[2]{Lucas Teixeira}
 #+LATEX_HEADER:\affil[2]{Assistant Professor at University of Campinas (Brazil), Email: \url{lucastei@unicamp.br}} % Author affiliation
-#+LATEX_HEADER:\author[3]{Frankin Serrano}
-#+LATEX_HEADER:\affil[3]{Associate Professor at Federal University of Rio de Janeiro (Brazil), Email: \url{}} % Author affiliation
+# #+LATEX_HEADER:\author[3]{Frankin Serrano}
+# #+LATEX_HEADER:\affil[3]{Associate Professor at Federal University of Rio de Janeiro (Brazil), Email: \url{}} % Author affiliation
 
 #+PROPERTY: header-args:python :python /usr/bin/python3 :exports none :eval never-export
 #+BIND: org-latex-prefer-user-labels t
@@ -124,12 +124,21 @@ No potential conflict of interest was reported by the authors.
 #+LATEX: \label{appen:A}
 
 In this appendix we report several tests: unit root tests on our variables of interest, Structural break test, Johansen procedure and hypothesis tests on residuals. 
-The time-series of residential investment growth rate, mortgage interest rate and real estate inflation are all taken using textcite:yeo_new_2000 transformation.  
+The time-series of residential investment growth rate, mortgage interest rate and real estate inflation are all taken using textcite:yeo_new_2000 transformation (see Figure ref:YeoJhonson).
 As shown in Table ref:unitroot, the null hypothesis of a unit root in the first differences of the series is overwhelmingly rejected.
 As mentioned, we found structural breaks related to institutional changes and our series are co-integrated (see Tables ref:structbreak and ref:Johansen).
 Our estimation order selection was based both on statistical and theoretical reasoning with homoscedasticity residuals (see Tables ref:criterios and ref:testes_resduos).
 All expected results are statistically significant and most of them are not restrict to model specification (see Table ref:tab:robust).
 
+#+begin_export latex
+\begin{figure}[htb]
+	\centering
+	\caption{Time-series with \textcite{yeo_new_2000} transformation}
+	\label{YeoJhonson}
+	\includegraphics[width=\textwidth]{./figs/YeoJohnson_All.png}
+	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' elaboration}
+\end{figure}
+#+end_export
 #+begin_export latex
 \input{./tabs/UnitRoot.tex}
 \input{./tabs/StructBreak.tex}
@@ -138,4 +147,3 @@ All expected results are statistically significant and most of them are not rest
 \input{./tabs/H0_Residuals.tex}
 \input{./tabs/robust.tex}
 #+end_export
-

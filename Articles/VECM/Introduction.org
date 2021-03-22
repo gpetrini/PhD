@@ -2,12 +2,23 @@
 
 bibliography:ref.bib
 
+* Fora :noexport:
+
+
+#+BEGIN_COMMENT
+A current trend among empirical research on demand-led growth agenda is to test its  relevance and stability.
+\textcite{freitas_pattern_2013} present a growth accounting decomposition and show the relevance of those expenditures to describe the Brazilian GDP growth rate between 1970-2005.
+\textcite{braga_investment_2018} shows evidence that economic growth and induced investment are governed by unproductive expenditures in Brazilian economy from 1962 to 2015.
+For the US, \textcite{girardi_long-run_2016} show that autonomous expenditures do cause long-run effects on the growth rate. \textcite{girardi_autonomous_2018} bring evidence that autonomous expenditures determine the investment share on GDP for twenty OECD countries.
+\textcite{haluska_growth_2019} employ Granger-causality tests to assess the stability of the SSM for the US (1987-2017). They find: (i) causality goes from autonomous expenditures to the marginal propensity to invest; (ii) induced investment share has a higher temporal persistence and presents slow and statistically significant adjustment rate to demand growth, as described by the SSM.
+#+END_COMMENT
+
 * Introduction                                                       :ignore:
 
 Among aggregate demand expenditures, non-residential investment is the most examined  one between (at least) heterodox macroeconomists.
 As a consequence, the relevance of others (autonomous) expenditures on macroeconomic dynamics has been underestimated cite:brochier_macroeconomics_2017.
 The Sraffian supermultiplier (SSM) model presented by textcite:serrano_long_1995 establishes a prominent role for non-capacity creating autonomous expenditures in the theoretical ground.
-Despite the late interest in those expenditures cites:freitas_pattern_2013,girardi_long-run_2016,girardi_autonomous_2018,braga_investment_2018, there still is a lack of studies on the role of residential investment in particular[fn::Except for textcite:green_follow_1997 and textcite:leamer_housing_2007 --- which shows the relevance of this expenditure to US business cycle at least since the post-war period ---, most of those studies were published after the Great Recession (2008-2009).]. 
+Despite the late interest in those expenditures cites:freitas_pattern_2013,girardi_long-run_2016,girardi_autonomous_2018,braga_investment_2018, there still is a lack of studies on the role of residential investment in particular.
 
 Our main objective is to assess the determinants of residential investment growth rate.
 We argue that the scarce attention that residential investment receives is not compatible with its relevance for the US and its significance is not restricted to the Great Recession.
@@ -18,10 +29,4 @@ Section ref:sec:Conclusion offers some concluding remarks.
 The results for all statistical tests are provided in Appendix ref:appen:A.
 
 
-#+BEGIN_COMMENT
-A current trend among empirical research on demand-led growth agenda is to test its  relevance and stability. 
-\textcite{freitas_pattern_2013} present a growth accounting decomposition and show the relevance of those expenditures to describe the Brazilian GDP growth rate between 1970-2005. 
-\textcite{braga_investment_2018} shows evidence that economic growth and induced investment are governed by unproductive expenditures in Brazilian economy from 1962 to 2015. 
-For the US, \textcite{girardi_long-run_2016} show that autonomous expenditures do cause long-run effects on the growth rate. \textcite{girardi_autonomous_2018} bring evidence that autonomous expenditures determine the investment share on GDP for twenty OECD countries. 
-\textcite{haluska_growth_2019} employ Granger-causality tests to assess the stability of the SSM for the US (1987-2017). They find: (i) causality goes from autonomous expenditures to the marginal propensity to invest; (ii) induced investment share has a higher temporal persistence and presents slow and statistically significant adjustment rate to demand growth, as described by the SSM.
-#+END_COMMENT
+

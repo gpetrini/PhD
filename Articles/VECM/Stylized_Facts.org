@@ -853,7 +853,7 @@ For the US both statements are valid[fn::For the other countries, they found inc
 
 
 In order to depict the relation between residential investment and business cycle, we present Figure ref:fig:cycle.
-In each panel, we present the growth rate of selected expenditures two years before and after recession begin[fn::This similar reasoning can be found in textcite:leamer_housing_2007.][fn::We adopt usual NBER recession dating procedure.].
+In each panel, we present the growth rate of selected expenditures two years before and after recession begin.
 In most of them, residential investment growth rate is negative before the recession start.
 The Great Recession is a remarkable example of this pattern while dot-com crisis (2000-1) is an exception as already pointed out by textcite:leamer_housing_2007.
 
@@ -861,7 +861,7 @@ The Great Recession is a remarkable example of this pattern while dot-com crisis
 #+begin_export latex
 \begin{figure}[H]
 	\centering
-	\caption{Selected expecditure growth rates 2 years before and after recession start\\Dashed lines indicates recession start}
+	\caption{Selected expecditure growth rates 2 years before and after recession start\\Dashed lines indicates recession start (NBER recession dating procedure)}
 	\label{fig:cycle}
 	\includegraphics[width=\textwidth]{./figs/Centered_Begin_pct1.png}
 	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' Elaboration}
