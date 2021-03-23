@@ -635,19 +635,25 @@ df <-  map_dfr(
   filter(date>=ymd('1979-01-01') & date <=ymd('2011-01-01')) %>%
   drop_na(crise)
 
-ggplot(df, aes(x=date, y=value, colour=Series)) +
+ggplot(df, aes(x=date, y=value, colour=Series, linetype=Series)) +
   geom_line() +
   scale_x_date(breaks = "year", minor_breaks = "6 months", date_labels="%y' %b") +
-  ggsci::scale_color_futurama() +
+  ## ggsci::scale_color_futurama() +
   facet_wrap(~crise, scale="free_x", drop=TRUE) +
   geom_hline(yintercept=0, color='black', size=0.25) +
   xlab("") + ylab("Percent change from 1 year ago") +
-  theme_bw() ->fig
+  theme_bw() +
+  scale_color_manual(name = "Series",
+                     values = c('black', 'black', 'grey', 'black'),
+                     labels = c("Durable Goods", "GDP", "Non Residential Investment", "Residential Investment")) +
+  scale_linetype_manual(name = "Series", 
+                        values = c("solid", "dashed", "solid", "dotted"),
+                        labels = c("Durable Goods", "GDP", "Non Residential Investment", "Residential Investment")) ->fig
 
 for(i in begin){
   if(ymd(i) >= ymd('1980-01-01')){
-    fig + geom_vline(xintercept = as.numeric(ymd(i)), linetype="dashed",
-                color = "black", size=.5) -> fig
+    fig + geom_vline(xintercept = as.numeric(ymd(i)), linetype="solid",
+                color = "black", size=.25) -> fig
   }
 }
 
@@ -758,20 +764,6 @@ df = df.pct_change().dropna()
 cycle, trend = sm.tsa.filters.hpfilter(df["GDP"], 1600)
 _cycle, _trend = sm.tsa.filters.hpfilter(df["Residential Investment"], 1600)
 
-trend.plot(
-    color="red",
-    ls="-",
-    label="GDP trend - HP Filter ($\lambda = 1600$)",
-    legend=True,
-    ax=ax,
-)
-_trend.plot(
-    color="black",
-    ls="-",
-    label="Residential Investment trend - HP Filter ($\lambda = 1600$)",
-    legend=True,
-    ax=ax,
-)
 df = pd.concat([trend, _trend], axis=1)
 df.columns = [
     "GDP",
@@ -780,7 +772,7 @@ df.columns = [
 
 fig, ax = plt.subplots(1, 1, figsize=(8, 5))
 
-df.plot(ax=ax)
+df.plot(ax=ax, color=("black", "darkgrey"))
 crise_subprime(ax)
 crises(ax)
 
@@ -791,6 +783,10 @@ plt.xlabel("")
 salvar_grafico(file_name="Trend")
 plt.close()
 #+END_SRC
+
+#+RESULTS:
+:results:
+:end:
 
 * Residuals :noexport:
 
@@ -827,7 +823,7 @@ In this sense, he builds a model dedicated for the latter type of investment, em
 	\caption{Expenditures share on GDP}
 	\label{fig:share}
 \begin{figure}[htb]
-    \includegraphics[width = \textwidth]{./figs/Share_AD.png}
+    \includegraphics[width = \textwidth]{./figs/Share_AD_grey.png}
     \end{figure}
 	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' Elaboration}
 \end{figure}

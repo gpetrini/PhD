@@ -10,6 +10,7 @@
 #+LATEX_HEADER: \newcolumntype{s}{>{\hsize=.45\hsize}X}
 #+LATEX_HEADER: \newcolumntype{m}{>{\hsize=.9\hsize}X}
 #+LATEX_HEADER: \usepackage[english]{babel}
+#+LATEX_HEADER: \usepackage[bottom]{footmisc}
 *** Original date ([[https://tex.stackexchange.com/questions/142999/the-proper-way-to-cite-the-earliest-publication-date-in-brackets-followed-by][Link]]) :ignore:
 #+begin_export latex :exports none
 \DeclareLabeldate{%

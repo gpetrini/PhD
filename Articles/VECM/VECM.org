@@ -3,12 +3,9 @@
 
 bibliography:ref.bib
 
-** TODOs
-
-**** TODO Separar os dados da estratégia empírica
-
-** Loading packages 
+** Loading packages
 #+BEGIN_SRC python
+from PIL import Image  # for grey scale
 from datetime import datetime as dt
 
 t1 = dt.now()
@@ -104,19 +101,23 @@ plt.close("all")
 #+BEGIN_SRC python :results graphics file :file ./figs/YeoJohnson_All.png
 df = pd.read_csv("./data/Data_yeojohnson.csv", index_col=[0], parse_dates=True)
 
-fig, ax = plt.subplots(figsize=(19.2, 10.8), sharey=True)
+df = df[["Interest rate", "Inflation", "gIh", "Own Interest rate"]]
+df.columns = [  # Renaming
+    "Mortgage interest rate",
+    "House price inflation",
+    "Residential investment growth rate",
+    "Houses own rate of interest",
+]
 
-df[["Interest rate", "Inflation", "gIh", "Own Interest rate"]].plot(
-    ax=ax,
-    subplots=True,
-    layout=(2, 2),
-    # subplots=False,
-    lw=3,
-)
-ax.legend(fontsize=14)
-ax.tick_params(axis="both", which="major", labelsize=15)
+fig, ax = plt.subplots(2, 2, figsize=(19.2, 10.8), sharey=True)
+
+for i, ax in enumerate(ax.flat):
+    df[[df.columns[i]]].plot(ax=ax, lw=3, color="black", legend=False)
+    ax.set_title(df.columns[i])
+    ax.tick_params(axis="both", which="major", labelsize=15)
+    sns.despine()
+
 plt.tight_layout()
-sns.despine()
 
 salvar_grafico("YeoJohnson_All")
 plt.close("all")
@@ -468,7 +469,7 @@ df = df.dropna()
 :results:
 /home/gpetrini/.local/lib/python3.8/site-packages/scipy/stats/morestats.py:1371: RuntimeWarning: invalid value encountered in greater_equal
   pos = x >= 0  # binary mask
-/tmp/babel-lZ51sA/python-78e8Qn:37: SettingWithCopyWarning:
+/tmp/babel-WhNddm/python-eXqgtX:37: SettingWithCopyWarning:
 A value is trying to be set on a copy of a slice from a DataFrame
 
 See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
@@ -819,7 +820,7 @@ class FEVD(object):
                 )
 
                 handles.append(handle)
-            ax.axhline(y=0.5, color="red", ls="--", lw=3)
+            ax.axhline(y=0.5, color="white", ls="--", lw=3) # more printer friendly
 
             ax.set_title(self.names[i])
 
@@ -831,6 +832,10 @@ class FEVD(object):
         sns.despine()
         return fig
 #+END_SRC
+
+#+RESULTS:
+:results:
+:end:
 
 *** Structural break test
 
@@ -934,8 +939,8 @@ testes_raiz(df=df['gIh'])
 :results:
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
-  File "/tmp/pyOnlS37", line 3, in <module>
-  File "/tmp/babel-lZ51sA/python-1Toc8Y", line 2, in <module>
+  File "/tmp/pyxvpfJN", line 3, in <module>
+  File "/tmp/babel-WhNddm/python-GbaX56", line 2, in <module>
     df[["Inflation", "gIh", "Own Interest rate", "Interest rate"]].to_csv(
   File "/home/gpetrini/.local/lib/python3.8/site-packages/pandas/core/generic.py", line 3170, in to_csv
     formatter.save()
@@ -1097,8 +1102,8 @@ testes_raiz(df['Own Interest rate'])
 ZIVOT ANDREWS level series
         Zivot-Andrews Results
 =====================================
-Test Statistic                 -4.218
-P-value                         0.230
+Test Statistic                 -4.224
+P-value                         0.227
 Lags                                0
 -------------------------------------
 
@@ -1111,7 +1116,7 @@ Alternative Hypothesis: The process is trend and break stationary.
 ZIVOT ANDREWS First differences
         Zivot-Andrews Results
 =====================================
-Test Statistic                 -6.351
+Test Statistic                 -6.353
 P-value                         0.000
 Lags                                4
 -------------------------------------
@@ -1125,8 +1130,8 @@ Alternative Hypothesis: The process is trend and break stationary.
 ADF level series
    Augmented Dickey-Fuller Results
 =====================================
-Test Statistic                 -2.320
-P-value                         0.165
+Test Statistic                 -2.315
+P-value                         0.167
 Lags                                0
 -------------------------------------
 
@@ -1139,7 +1144,7 @@ Alternative Hypothesis: The process is weakly stationary.
 ADF First differences
    Augmented Dickey-Fuller Results
 =====================================
-Test Statistic                 -5.101
+Test Statistic                 -5.104
 P-value                         0.000
 Lags                                4
 -------------------------------------
@@ -1153,8 +1158,8 @@ Alternative Hypothesis: The process is weakly stationary.
 DFGLS level series
       Dickey-Fuller GLS Results
 =====================================
-Test Statistic                 -1.039
-P-value                         0.277
+Test Statistic                 -1.032
+P-value                         0.280
 Lags                                0
 -------------------------------------
 
@@ -1167,7 +1172,7 @@ Alternative Hypothesis: The process is weakly stationary.
 DFGLS First differences
       Dickey-Fuller GLS Results
 =====================================
-Test Statistic                 -3.775
+Test Statistic                 -3.771
 P-value                         0.000
 Lags                                3
 -------------------------------------
@@ -1181,7 +1186,7 @@ Alternative Hypothesis: The process is weakly stationary.
 KPSS em nível
     KPSS Stationarity Test Results
 =====================================
-Test Statistic                  0.690
+Test Statistic                  0.691
 P-value                         0.014
 Lags                                6
 -------------------------------------
@@ -1195,8 +1200,8 @@ Alternative Hypothesis: The process contains a unit root.
 KPSS em primeira diferença
     KPSS Stationarity Test Results
 =====================================
-Test Statistic                  0.061
-P-value                         0.811
+Test Statistic                  0.060
+P-value                         0.814
 Lags                                3
 -------------------------------------
 
@@ -1209,8 +1214,8 @@ Alternative Hypothesis: The process contains a unit root.
 Phillips Perron em nível
      Phillips-Perron Test (Z-tau)
 =====================================
-Test Statistic                 -2.415
-P-value                         0.138
+Test Statistic                 -2.409
+P-value                         0.139
 Lags                               13
 -------------------------------------
 
@@ -1223,7 +1228,7 @@ Alternative Hypothesis: The process is weakly stationary.
 Phillips Perron em primeira diferença
      Phillips-Perron Test (Z-tau)
 =====================================
-Test Statistic                -10.395
+Test Statistic                -10.387
 P-value                         0.000
 Lags                               13
 -------------------------------------
@@ -1246,8 +1251,8 @@ testes_raiz(df['Inflation'])
 ZIVOT ANDREWS level series
         Zivot-Andrews Results
 =====================================
-Test Statistic                 -4.890
-P-value                         0.041
+Test Statistic                 -4.896
+P-value                         0.040
 Lags                                4
 -------------------------------------
 
@@ -1260,7 +1265,7 @@ Alternative Hypothesis: The process is trend and break stationary.
 ZIVOT ANDREWS First differences
         Zivot-Andrews Results
 =====================================
-Test Statistic                 -6.148
+Test Statistic                 -6.155
 P-value                         0.001
 Lags                                4
 -------------------------------------
@@ -1274,7 +1279,7 @@ Alternative Hypothesis: The process is trend and break stationary.
 ADF level series
    Augmented Dickey-Fuller Results
 =====================================
-Test Statistic                 -2.674
+Test Statistic                 -2.671
 P-value                         0.079
 Lags                                4
 -------------------------------------
@@ -1288,7 +1293,7 @@ Alternative Hypothesis: The process is weakly stationary.
 ADF First differences
    Augmented Dickey-Fuller Results
 =====================================
-Test Statistic                 -4.707
+Test Statistic                 -4.715
 P-value                         0.000
 Lags                                4
 -------------------------------------
@@ -1302,8 +1307,8 @@ Alternative Hypothesis: The process is weakly stationary.
 DFGLS level series
       Dickey-Fuller GLS Results
 =====================================
-Test Statistic                 -2.533
-P-value                         0.011
+Test Statistic                 -2.530
+P-value                         0.012
 Lags                                4
 -------------------------------------
 
@@ -1316,7 +1321,7 @@ Alternative Hypothesis: The process is weakly stationary.
 DFGLS First differences
       Dickey-Fuller GLS Results
 =====================================
-Test Statistic                 -3.939
+Test Statistic                 -3.954
 P-value                         0.000
 Lags                                3
 -------------------------------------
@@ -1344,8 +1349,8 @@ Alternative Hypothesis: The process contains a unit root.
 KPSS em primeira diferença
     KPSS Stationarity Test Results
 =====================================
-Test Statistic                  0.059
-P-value                         0.823
+Test Statistic                  0.058
+P-value                         0.825
 Lags                                6
 -------------------------------------
 
@@ -1358,7 +1363,7 @@ Alternative Hypothesis: The process contains a unit root.
 Phillips Perron em nível
      Phillips-Perron Test (Z-tau)
 =====================================
-Test Statistic                 -2.701
+Test Statistic                 -2.699
 P-value                         0.074
 Lags                               13
 -------------------------------------
@@ -1372,7 +1377,7 @@ Alternative Hypothesis: The process is weakly stationary.
 Phillips Perron em primeira diferença
      Phillips-Perron Test (Z-tau)
 =====================================
-Test Statistic                -11.338
+Test Statistic                -11.335
 P-value                         0.000
 Lags                               13
 -------------------------------------
@@ -1557,45 +1562,45 @@ VAR Order
 ==================================================
        AIC         BIC         FPE         HQIC
 --------------------------------------------------
-0       -14.83      -14.72   3.634e-07      -14.78
-1       -16.33     -16.11*   8.093e-08      -16.24
-2       -16.30      -15.98   8.333e-08      -16.17
-3       -16.42      -15.99   7.381e-08      -16.25
-4       -16.47      -15.93   7.073e-08      -16.25
-5      -16.57*      -15.92  6.388e-08*     -16.31*
-6       -16.50      -15.75   6.832e-08      -16.20
-7       -16.46      -15.60   7.163e-08      -16.11
-8       -16.40      -15.43   7.643e-08      -16.01
-9       -16.40      -15.32   7.641e-08      -15.97
-10      -16.34      -15.15   8.180e-08      -15.86
-11      -16.33      -15.04   8.303e-08      -15.81
-12      -16.55      -15.15   6.673e-08      -15.99
-13      -16.49      -14.99   7.136e-08      -15.88
-14      -16.48      -14.86   7.316e-08      -15.82
-15      -16.43      -14.71   7.745e-08      -15.73
+0       -14.83      -14.72   3.633e-07      -14.78
+1       -16.33     -16.12*   8.089e-08      -16.24
+2       -16.30      -15.98   8.328e-08      -16.17
+3       -16.42      -15.99   7.378e-08      -16.25
+4       -16.47      -15.93   7.067e-08      -16.25
+5      -16.57*      -15.93  6.380e-08*     -16.31*
+6       -16.50      -15.75   6.824e-08      -16.20
+7       -16.46      -15.60   7.156e-08      -16.11
+8       -16.40      -15.43   7.637e-08      -16.01
+9       -16.40      -15.33   7.633e-08      -15.97
+10      -16.34      -15.15   8.172e-08      -15.86
+11      -16.33      -15.04   8.297e-08      -15.81
+12      -16.55      -15.15   6.672e-08      -15.99
+13      -16.49      -14.99   7.134e-08      -15.88
+14      -16.48      -14.86   7.315e-08      -15.82
+15      -16.43      -14.71   7.743e-08      -15.73
 --------------------------------------------------
 ==================================================
 
 Testando para lag = 1 e trend = nc
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -3.167471
-p-value: 0.016924
+t Statistic: -3.167538
+p-value: 0.016920
 CONCLUSION: REJECT null Hypothesis: there IS cointegration
 
 
 Testando para lag = 1 e trend = c
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -4.367300
-p-value: 0.002006
+t Statistic: -4.364738
+p-value: 0.002025
 CONCLUSION: REJECT null Hypothesis: there IS cointegration
 
 
 Testando para lag = 1 e trend = ct
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -9.116071
+t Statistic: -9.114267
 p-value: 0.000000
 CONCLUSION: REJECT null Hypothesis: there IS cointegration
 
@@ -1603,7 +1608,7 @@ CONCLUSION: REJECT null Hypothesis: there IS cointegration
 Testando para lag = 1 e trend = ctt
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -9.994341
+t Statistic: -9.988571
 p-value: 0.000000
 CONCLUSION: REJECT null Hypothesis: there IS cointegration
 
@@ -1615,8 +1620,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          13.16          12.32
-  1   2          3.017          4.130
+  0   2          13.18          12.32
+  1   2          3.029          4.130
 -------------------------------------
 Para lag = 1 e significância = 5.0%, Rank = 1
 
@@ -1626,8 +1631,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          23.59          15.49
-  1   2          5.131          3.841
+  0   2          23.54          15.49
+  1   2          5.117          3.841
 -------------------------------------
 Para lag = 1 e significância = 5.0%, Rank = 2
 
@@ -1637,8 +1642,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          48.49          18.40
-  1   2          6.027          3.841
+  0   2          48.48          18.40
+  1   2          6.035          3.841
 -------------------------------------
 Para lag = 1 e significância = 5.0%, Rank = 2
 ==========
@@ -1647,31 +1652,31 @@ Para lag = 1 e significância = 5.0%, Rank = 2
 Testando para lag = 2 e trend = nc
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.430520
-p-value: 0.106307
+t Statistic: -2.430656
+p-value: 0.106277
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 2 e trend = c
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.822540
-p-value: 0.158618
+t Statistic: -2.819589
+p-value: 0.159531
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 2 e trend = ct
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -4.403550
-p-value: 0.007793
+t Statistic: -4.400628
+p-value: 0.007870
 CONCLUSION: REJECT null Hypothesis: there IS cointegration
 
 
 Testando para lag = 2 e trend = ctt
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -9.994341
+t Statistic: -9.988571
 p-value: 0.000000
 CONCLUSION: REJECT null Hypothesis: there IS cointegration
 
@@ -1683,8 +1688,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          12.61          12.32
-  1   2          3.016          4.130
+  0   2          12.63          12.32
+  1   2          3.031          4.130
 -------------------------------------
 Para lag = 2 e significância = 5.0%, Rank = 1
 
@@ -1694,8 +1699,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          15.62          15.49
-  1   2          4.537          3.841
+  0   2          15.58          15.49
+  1   2          4.512          3.841
 -------------------------------------
 Para lag = 2 e significância = 5.0%, Rank = 2
 
@@ -1705,8 +1710,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          26.14          18.40
-  1   2          6.671          3.841
+  0   2          26.12          18.40
+  1   2          6.681          3.841
 -------------------------------------
 Para lag = 2 e significância = 5.0%, Rank = 2
 ==========
@@ -1715,31 +1720,31 @@ Para lag = 2 e significância = 5.0%, Rank = 2
 Testando para lag = 3 e trend = nc
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.829766
-p-value: 0.042222
+t Statistic: -2.829801
+p-value: 0.042218
 CONCLUSION: REJECT null Hypothesis: there IS cointegration
 
 
 Testando para lag = 3 e trend = c
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.822540
-p-value: 0.158618
+t Statistic: -2.819589
+p-value: 0.159531
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 3 e trend = ct
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -4.403550
-p-value: 0.007793
+t Statistic: -4.400628
+p-value: 0.007870
 CONCLUSION: REJECT null Hypothesis: there IS cointegration
 
 
 Testando para lag = 3 e trend = ctt
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -9.994341
+t Statistic: -9.988571
 p-value: 0.000000
 CONCLUSION: REJECT null Hypothesis: there IS cointegration
 
@@ -1752,7 +1757,7 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 r_0 r_1 test statistic critical value
 -------------------------------------
   0   2          17.19          12.32
-  1   2          2.499          4.130
+  1   2          2.506          4.130
 -------------------------------------
 Para lag = 3 e significância = 5.0%, Rank = 1
 
@@ -1762,8 +1767,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          20.97          15.49
-  1   2          3.967          3.841
+  0   2          20.94          15.49
+  1   2          3.940          3.841
 -------------------------------------
 Para lag = 3 e significância = 5.0%, Rank = 2
 
@@ -1773,8 +1778,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          33.40          18.40
-  1   2          7.554          3.841
+  0   2          33.41          18.40
+  1   2          7.565          3.841
 -------------------------------------
 Para lag = 3 e significância = 5.0%, Rank = 2
 ==========
@@ -1783,31 +1788,31 @@ Para lag = 3 e significância = 5.0%, Rank = 2
 Testando para lag = 4 e trend = nc
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.244003
-p-value: 0.154161
+t Statistic: -2.243920
+p-value: 0.154185
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 4 e trend = c
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.166951
-p-value: 0.441466
+t Statistic: -2.164779
+p-value: 0.442594
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 4 e trend = ct
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -3.127798
-p-value: 0.211884
+t Statistic: -3.127549
+p-value: 0.211978
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 4 e trend = ctt
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -9.994341
+t Statistic: -9.988571
 p-value: 0.000000
 CONCLUSION: REJECT null Hypothesis: there IS cointegration
 
@@ -1820,7 +1825,7 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 r_0 r_1 test statistic critical value
 -------------------------------------
   0   2          18.69          12.32
-  1   2          2.377          4.130
+  1   2          2.381          4.130
 -------------------------------------
 Para lag = 4 e significância = 5.0%, Rank = 1
 
@@ -1830,8 +1835,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          19.06          15.49
-  1   2          3.744          3.841
+  0   2          19.04          15.49
+  1   2          3.716          3.841
 -------------------------------------
 Para lag = 4 e significância = 5.0%, Rank = 1
 
@@ -1842,7 +1847,7 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 r_0 r_1 test statistic critical value
 -------------------------------------
   0   2          27.89          18.40
-  1   2          13.25          3.841
+  1   2          13.26          3.841
 -------------------------------------
 Para lag = 4 e significância = 5.0%, Rank = 2
 ==========
@@ -1851,31 +1856,31 @@ Para lag = 4 e significância = 5.0%, Rank = 2
 Testando para lag = 5 e trend = nc
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.244003
-p-value: 0.154161
+t Statistic: -2.243920
+p-value: 0.154185
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 5 e trend = c
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.166951
-p-value: 0.441466
+t Statistic: -2.164779
+p-value: 0.442594
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 5 e trend = ct
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -3.127798
-p-value: 0.211884
+t Statistic: -3.127549
+p-value: 0.211978
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 5 e trend = ctt
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -9.994341
+t Statistic: -9.988571
 p-value: 0.000000
 CONCLUSION: REJECT null Hypothesis: there IS cointegration
 
@@ -1888,7 +1893,7 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 r_0 r_1 test statistic critical value
 -------------------------------------
   0   2          15.46          12.32
-  1   2          2.635          4.130
+  1   2          2.643          4.130
 -------------------------------------
 Para lag = 5 e significância = 5.0%, Rank = 1
 
@@ -1898,7 +1903,7 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          14.70          15.49
+  0   2          14.67          15.49
 -------------------------------------
 Para lag = 5 e significância = 5.0%, Rank = 0
 
@@ -1908,8 +1913,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          21.18          18.40
-  1   2          9.592          3.841
+  0   2          21.17          18.40
+  1   2          9.596          3.841
 -------------------------------------
 Para lag = 5 e significância = 5.0%, Rank = 2
 ==========
@@ -1918,31 +1923,31 @@ Para lag = 5 e significância = 5.0%, Rank = 2
 Testando para lag = 6 e trend = nc
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.244003
-p-value: 0.154161
+t Statistic: -2.243920
+p-value: 0.154185
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 6 e trend = c
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.166951
-p-value: 0.441466
+t Statistic: -2.164779
+p-value: 0.442594
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 6 e trend = ct
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.214580
-p-value: 0.672873
+t Statistic: -2.213828
+p-value: 0.673250
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 6 e trend = ctt
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -9.994341
+t Statistic: -9.988571
 p-value: 0.000000
 CONCLUSION: REJECT null Hypothesis: there IS cointegration
 
@@ -1954,8 +1959,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          13.55          12.32
-  1   2          2.445          4.130
+  0   2          13.56          12.32
+  1   2          2.454          4.130
 -------------------------------------
 Para lag = 6 e significância = 5.0%, Rank = 1
 
@@ -1965,7 +1970,7 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          11.87          15.49
+  0   2          11.85          15.49
 -------------------------------------
 Para lag = 6 e significância = 5.0%, Rank = 0
 
@@ -1975,7 +1980,7 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          17.37          18.40
+  0   2          17.36          18.40
 -------------------------------------
 Para lag = 6 e significância = 5.0%, Rank = 0
 ==========
@@ -1984,32 +1989,32 @@ Para lag = 6 e significância = 5.0%, Rank = 0
 Testando para lag = 7 e trend = nc
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.244003
-p-value: 0.154161
+t Statistic: -2.243920
+p-value: 0.154185
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 7 e trend = c
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.166951
-p-value: 0.441466
+t Statistic: -2.164779
+p-value: 0.442594
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 7 e trend = ct
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -3.127798
-p-value: 0.211884
+t Statistic: -3.127549
+p-value: 0.211978
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 7 e trend = ctt
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -3.521249
-p-value: 0.207330
+t Statistic: -3.516636
+p-value: 0.209095
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
@@ -2020,8 +2025,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          15.33          12.32
-  1   2          3.345          4.130
+  0   2          15.34          12.32
+  1   2          3.352          4.130
 -------------------------------------
 Para lag = 7 e significância = 5.0%, Rank = 1
 
@@ -2031,7 +2036,7 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          13.86          15.49
+  0   2          13.83          15.49
 -------------------------------------
 Para lag = 7 e significância = 5.0%, Rank = 0
 
@@ -2041,7 +2046,7 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          17.54          18.40
+  0   2          17.53          18.40
 -------------------------------------
 Para lag = 7 e significância = 5.0%, Rank = 0
 ==========
@@ -2050,32 +2055,32 @@ Para lag = 7 e significância = 5.0%, Rank = 0
 Testando para lag = 8 e trend = nc
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.244003
-p-value: 0.154161
+t Statistic: -2.243920
+p-value: 0.154185
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 8 e trend = c
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.166951
-p-value: 0.441466
+t Statistic: -2.164779
+p-value: 0.442594
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 8 e trend = ct
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -3.127798
-p-value: 0.211884
+t Statistic: -3.127549
+p-value: 0.211978
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 8 e trend = ctt
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -3.521249
-p-value: 0.207330
+t Statistic: -3.516636
+p-value: 0.209095
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
@@ -2086,8 +2091,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          18.19          12.32
-  1   2          4.179          4.130
+  0   2          18.21          12.32
+  1   2          4.174          4.130
 -------------------------------------
 Para lag = 8 e significância = 5.0%, Rank = 2
 
@@ -2097,7 +2102,7 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          14.36          15.49
+  0   2          14.34          15.49
 -------------------------------------
 Para lag = 8 e significância = 5.0%, Rank = 0
 
@@ -2107,7 +2112,7 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          15.62          18.40
+  0   2          15.64          18.40
 -------------------------------------
 Para lag = 8 e significância = 5.0%, Rank = 0
 ==========
@@ -2126,7 +2131,7 @@ testes_coint(series=df[['gIh', 'Inflation']])
 Testando para lag = 1 e trend = nc
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -5.115974
+t Statistic: -5.111354
 p-value: 0.000011
 CONCLUSION: REJECT null Hypothesis: there IS cointegration
 
@@ -2134,24 +2139,24 @@ CONCLUSION: REJECT null Hypothesis: there IS cointegration
 Testando para lag = 1 e trend = c
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -5.072610
-p-value: 0.000121
+t Statistic: -5.068044
+p-value: 0.000123
 CONCLUSION: REJECT null Hypothesis: there IS cointegration
 
 
 Testando para lag = 1 e trend = ct
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -5.038917
-p-value: 0.000738
+t Statistic: -5.035162
+p-value: 0.000749
 CONCLUSION: REJECT null Hypothesis: there IS cointegration
 
 
 Testando para lag = 1 e trend = ctt
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -5.207764
-p-value: 0.001547
+t Statistic: -5.200449
+p-value: 0.001592
 CONCLUSION: REJECT null Hypothesis: there IS cointegration
 
 
@@ -2162,8 +2167,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          32.24          12.32
-  1   2          4.396          4.130
+  0   2          32.15          12.32
+  1   2          4.379          4.130
 -------------------------------------
 Para lag = 1 e significância = 5.0%, Rank = 2
 
@@ -2173,8 +2178,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          33.71          15.49
-  1   2          6.001          3.841
+  0   2          33.64          15.49
+  1   2          5.997          3.841
 -------------------------------------
 Para lag = 1 e significância = 5.0%, Rank = 2
 
@@ -2184,8 +2189,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          33.37          18.40
-  1   2          6.050          3.841
+  0   2          33.30          18.40
+  1   2          6.043          3.841
 -------------------------------------
 Para lag = 1 e significância = 5.0%, Rank = 2
 ==========
@@ -2194,32 +2199,32 @@ Para lag = 1 e significância = 5.0%, Rank = 2
 Testando para lag = 2 e trend = nc
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -3.439817
-p-value: 0.007431
+t Statistic: -3.434234
+p-value: 0.007563
 CONCLUSION: REJECT null Hypothesis: there IS cointegration
 
 
 Testando para lag = 2 e trend = c
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -3.400061
-p-value: 0.042344
+t Statistic: -3.394437
+p-value: 0.042972
 CONCLUSION: REJECT null Hypothesis: there IS cointegration
 
 
 Testando para lag = 2 e trend = ct
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -3.374609
-p-value: 0.130583
+t Statistic: -3.369891
+p-value: 0.131885
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 2 e trend = ctt
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -3.446565
-p-value: 0.237158
+t Statistic: -3.437983
+p-value: 0.240701
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
@@ -2230,8 +2235,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          24.97          12.32
-  1   2          5.167          4.130
+  0   2          24.85          12.32
+  1   2          5.150          4.130
 -------------------------------------
 Para lag = 2 e significância = 5.0%, Rank = 2
 
@@ -2241,8 +2246,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          26.77          15.49
-  1   2          7.049          3.841
+  0   2          26.66          15.49
+  1   2          7.045          3.841
 -------------------------------------
 Para lag = 2 e significância = 5.0%, Rank = 2
 
@@ -2252,8 +2257,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          26.28          18.40
-  1   2          7.104          3.841
+  0   2          26.18          18.40
+  1   2          7.097          3.841
 -------------------------------------
 Para lag = 2 e significância = 5.0%, Rank = 2
 ==========
@@ -2262,32 +2267,32 @@ Para lag = 2 e significância = 5.0%, Rank = 2
 Testando para lag = 3 e trend = nc
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -3.439817
-p-value: 0.007431
+t Statistic: -3.434234
+p-value: 0.007563
 CONCLUSION: REJECT null Hypothesis: there IS cointegration
 
 
 Testando para lag = 3 e trend = c
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -3.400061
-p-value: 0.042344
+t Statistic: -3.394437
+p-value: 0.042972
 CONCLUSION: REJECT null Hypothesis: there IS cointegration
 
 
 Testando para lag = 3 e trend = ct
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -3.374609
-p-value: 0.130583
+t Statistic: -3.369891
+p-value: 0.131885
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 3 e trend = ctt
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -3.446565
-p-value: 0.237158
+t Statistic: -3.437983
+p-value: 0.240701
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
@@ -2298,8 +2303,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          29.91          12.32
-  1   2          4.805          4.130
+  0   2          29.82          12.32
+  1   2          4.794          4.130
 -------------------------------------
 Para lag = 3 e significância = 5.0%, Rank = 2
 
@@ -2309,8 +2314,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          31.65          15.49
-  1   2          6.490          3.841
+  0   2          31.56          15.49
+  1   2          6.492          3.841
 -------------------------------------
 Para lag = 3 e significância = 5.0%, Rank = 2
 
@@ -2320,7 +2325,7 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          30.64          18.40
+  0   2          30.57          18.40
   1   2          6.517          3.841
 -------------------------------------
 Para lag = 3 e significância = 5.0%, Rank = 2
@@ -2330,32 +2335,32 @@ Para lag = 3 e significância = 5.0%, Rank = 2
 Testando para lag = 4 e trend = nc
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.886233
-p-value: 0.036542
+t Statistic: -2.883375
+p-value: 0.036813
 CONCLUSION: REJECT null Hypothesis: there IS cointegration
 
 
 Testando para lag = 4 e trend = c
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.834073
-p-value: 0.155084
+t Statistic: -2.831078
+p-value: 0.155996
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 4 e trend = ct
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.783921
-p-value: 0.366704
+t Statistic: -2.782161
+p-value: 0.367608
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 4 e trend = ctt
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.818192
-p-value: 0.561347
+t Statistic: -2.812690
+p-value: 0.564428
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
@@ -2366,8 +2371,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          24.78          12.32
-  1   2          8.450          4.130
+  0   2          24.77          12.32
+  1   2          8.453          4.130
 -------------------------------------
 Para lag = 4 e significância = 5.0%, Rank = 2
 
@@ -2378,7 +2383,7 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 r_0 r_1 test statistic critical value
 -------------------------------------
   0   2          27.57          15.49
-  1   2          11.36          3.841
+  1   2          11.37          3.841
 -------------------------------------
 Para lag = 4 e significância = 5.0%, Rank = 2
 
@@ -2388,8 +2393,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          26.73          18.40
-  1   2          11.41          3.841
+  0   2          26.74          18.40
+  1   2          11.42          3.841
 -------------------------------------
 Para lag = 4 e significância = 5.0%, Rank = 2
 ==========
@@ -2398,32 +2403,32 @@ Para lag = 4 e significância = 5.0%, Rank = 2
 Testando para lag = 5 e trend = nc
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.886233
-p-value: 0.036542
+t Statistic: -2.883375
+p-value: 0.036813
 CONCLUSION: REJECT null Hypothesis: there IS cointegration
 
 
 Testando para lag = 5 e trend = c
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.834073
-p-value: 0.155084
+t Statistic: -2.831078
+p-value: 0.155996
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 5 e trend = ct
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.783921
-p-value: 0.366704
+t Statistic: -2.782161
+p-value: 0.367608
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
 Testando para lag = 5 e trend = ctt
 Null Hypothesis: there is NO cointegration
 Alternative Hypothesis: there IS cointegration
-t Statistic: -2.818192
-p-value: 0.561347
+t Statistic: -2.812690
+p-value: 0.564428
 CONCLUSION: FAIL to reject Null Hypothesis: there is NO cointegration
 
 
@@ -2434,8 +2439,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          19.02          12.32
-  1   2          5.151          4.130
+  0   2          18.99          12.32
+  1   2          5.134          4.130
 -------------------------------------
 Para lag = 5 e significância = 5.0%, Rank = 2
 
@@ -2445,8 +2450,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          20.94          15.49
-  1   2          7.216          3.841
+  0   2          20.90          15.49
+  1   2          7.201          3.841
 -------------------------------------
 Para lag = 5 e significância = 5.0%, Rank = 2
 
@@ -2456,8 +2461,8 @@ Johansen cointegration test using trace test statistic with 5% significance leve
 =====================================
 r_0 r_1 test statistic critical value
 -------------------------------------
-  0   2          19.93          18.40
-  1   2          7.249          3.841
+  0   2          19.91          18.40
+  1   2          7.232          3.841
 -------------------------------------
 Para lag = 5 e significância = 5.0%, Rank = 2
 ==========
@@ -2503,21 +2508,21 @@ print(order_sel)
 \toprule
             & \textbf{AIC} & \textbf{BIC} & \textbf{FPE} & \textbf{HQIC}  \\
 \midrule
-\textbf{0}  &      -16.27  &     -16.00*  &   8.622e-08  &       -16.16   \\
-\textbf{1}  &      -16.24  &      -15.86  &   8.864e-08  &       -16.09   \\
-\textbf{2}  &      -16.36  &      -15.87  &   7.878e-08  &       -16.16   \\
-\textbf{3}  &      -16.40  &      -15.80  &   7.558e-08  &       -16.16   \\
-\textbf{4}  &     -16.50*  &      -15.80  &  6.827e-08*  &      -16.22*   \\
-\textbf{5}  &      -16.44  &      -15.63  &   7.305e-08  &       -16.11   \\
-\textbf{6}  &      -16.39  &      -15.47  &   7.682e-08  &       -16.02   \\
-\textbf{7}  &      -16.33  &      -15.30  &   8.192e-08  &       -15.91   \\
-\textbf{8}  &      -16.33  &      -15.20  &   8.193e-08  &       -15.87   \\
-\textbf{9}  &      -16.27  &      -15.02  &   8.777e-08  &       -15.77   \\
-\textbf{10} &      -16.26  &      -14.90  &   8.947e-08  &       -15.71   \\
+\textbf{0}  &      -16.27  &     -16.00*  &   8.617e-08  &       -16.16   \\
+\textbf{1}  &      -16.24  &      -15.86  &   8.859e-08  &       -16.09   \\
+\textbf{2}  &      -16.36  &      -15.87  &   7.875e-08  &       -16.16   \\
+\textbf{3}  &      -16.40  &      -15.81  &   7.552e-08  &       -16.16   \\
+\textbf{4}  &     -16.50*  &      -15.80  &  6.819e-08*  &      -16.22*   \\
+\textbf{5}  &      -16.44  &      -15.63  &   7.296e-08  &       -16.11   \\
+\textbf{6}  &      -16.39  &      -15.47  &   7.675e-08  &       -16.02   \\
+\textbf{7}  &      -16.33  &      -15.30  &   8.186e-08  &       -15.91   \\
+\textbf{8}  &      -16.33  &      -15.20  &   8.186e-08  &       -15.87   \\
+\textbf{9}  &      -16.27  &      -15.03  &   8.768e-08  &       -15.77   \\
+\textbf{10} &      -16.26  &      -14.90  &   8.941e-08  &       -15.71   \\
 \textbf{11} &      -16.49  &      -15.03  &   7.113e-08  &       -15.90   \\
 \textbf{12} &      -16.43  &      -14.86  &   7.637e-08  &       -15.80   \\
 \textbf{13} &      -16.41  &      -14.73  &   7.847e-08  &       -15.73   \\
-\textbf{14} &      -16.37  &      -14.58  &   8.312e-08  &       -15.64   \\
+\textbf{14} &      -16.37  &      -14.58  &   8.310e-08  &       -15.64   \\
 \textbf{15} &      -16.32  &      -14.42  &   8.854e-08  &       -15.55   \\
 \bottomrule
 \end{tabular}
@@ -2562,36 +2567,36 @@ print(adjust)
 \toprule
                               & \textbf{coef} & \textbf{std err} & \textbf{z} & \textbf{P$> |$z$|$} & \textbf{[0.025} & \textbf{0.975]}  \\
 \midrule
-\textbf{lin\_trend}           &   -9.993e-06  &     4.14e-05     &    -0.241  &         0.809        &    -9.11e-05    &     7.11e-05     \\
-\textbf{L1.Own Interest rate} &       0.0323  &        0.111     &     0.291  &         0.771        &       -0.185    &        0.249     \\
-\textbf{L1.gIh}               &       0.0654  &        0.082     &     0.797  &         0.426        &       -0.095    &        0.226     \\
-\textbf{L2.Own Interest rate} &      -0.0076  &        0.109     &    -0.070  &         0.944        &       -0.222    &        0.207     \\
-\textbf{L2.gIh}               &       0.1070  &        0.081     &     1.322  &         0.186        &       -0.052    &        0.266     \\
-\textbf{L3.Own Interest rate} &       0.0809  &        0.118     &     0.685  &         0.493        &       -0.151    &        0.312     \\
-\textbf{L3.gIh}               &       0.1072  &        0.069     &     1.561  &         0.119        &       -0.027    &        0.242     \\
-\textbf{L4.Own Interest rate} &       0.2705  &        0.119     &     2.272  &         0.023        &        0.037    &        0.504     \\
+\textbf{lin\_trend}           &   -1.006e-05  &     4.13e-05     &    -0.243  &         0.808        &    -9.11e-05    &      7.1e-05     \\
+\textbf{L1.Own Interest rate} &       0.0325  &        0.111     &     0.294  &         0.769        &       -0.185    &        0.250     \\
+\textbf{L1.gIh}               &       0.0650  &        0.082     &     0.792  &         0.428        &       -0.096    &        0.226     \\
+\textbf{L2.Own Interest rate} &      -0.0074  &        0.109     &    -0.068  &         0.946        &       -0.222    &        0.207     \\
+\textbf{L2.gIh}               &       0.1069  &        0.081     &     1.322  &         0.186        &       -0.052    &        0.265     \\
+\textbf{L3.Own Interest rate} &       0.0814  &        0.118     &     0.689  &         0.491        &       -0.150    &        0.313     \\
+\textbf{L3.gIh}               &       0.1080  &        0.069     &     1.573  &         0.116        &       -0.027    &        0.243     \\
+\textbf{L4.Own Interest rate} &       0.2695  &        0.119     &     2.262  &         0.024        &        0.036    &        0.503     \\
                               & \textbf{coef} & \textbf{std err} & \textbf{z} & \textbf{P$> |$z$|$} & \textbf{[0.025} & \textbf{0.975]}  \\
 \midrule
-\textbf{lin\_trend}           &      -0.0003  &     6.51e-05     &    -3.901  &         0.000        &       -0.000    &       -0.000     \\
-\textbf{L1.Own Interest rate} &      -0.1860  &        0.174     &    -1.068  &         0.285        &       -0.527    &        0.155     \\
-\textbf{L1.gIh}               &      -0.4241  &        0.129     &    -3.285  &         0.001        &       -0.677    &       -0.171     \\
-\textbf{L2.Own Interest rate} &      -1.0124  &        0.172     &    -5.890  &         0.000        &       -1.349    &       -0.675     \\
-\textbf{L2.gIh}               &      -0.4640  &        0.127     &    -3.645  &         0.000        &       -0.713    &       -0.214     \\
-\textbf{L3.Own Interest rate} &      -0.6077  &        0.186     &    -3.271  &         0.001        &       -0.972    &       -0.244     \\
-\textbf{L3.gIh}               &      -0.2088  &        0.108     &    -1.933  &         0.053        &       -0.421    &        0.003     \\
-\textbf{L4.Own Interest rate} &      -0.5448  &        0.187     &    -2.909  &         0.004        &       -0.912    &       -0.178     \\
-\textbf{L4.gIh}               &      -0.2526  &        0.084     &    -3.010  &         0.003        &       -0.417    &       -0.088     \\
+\textbf{lin\_trend}           &      -0.0003  &      6.5e-05     &    -3.900  &         0.000        &       -0.000    &       -0.000     \\
+\textbf{L1.Own Interest rate} &      -0.1837  &        0.174     &    -1.054  &         0.292        &       -0.525    &        0.158     \\
+\textbf{L1.gIh}               &      -0.4237  &        0.129     &    -3.283  &         0.001        &       -0.677    &       -0.171     \\
+\textbf{L2.Own Interest rate} &      -1.0134  &        0.172     &    -5.891  &         0.000        &       -1.351    &       -0.676     \\
+\textbf{L2.gIh}               &      -0.4647  &        0.127     &    -3.651  &         0.000        &       -0.714    &       -0.215     \\
+\textbf{L3.Own Interest rate} &      -0.6084  &        0.186     &    -3.273  &         0.001        &       -0.973    &       -0.244     \\
+\textbf{L3.gIh}               &      -0.2099  &        0.108     &    -1.943  &         0.052        &       -0.422    &        0.002     \\
+\textbf{L4.Own Interest rate} &      -0.5464  &        0.187     &    -2.915  &         0.004        &       -0.914    &       -0.179     \\
+\textbf{L4.gIh}               &      -0.2536  &        0.084     &    -3.022  &         0.003        &       -0.418    &       -0.089     \\
              & \textbf{coef} & \textbf{std err} & \textbf{z} & \textbf{P$> |$z$|$} & \textbf{[0.025} & \textbf{0.975]}  \\
 \midrule
-\textbf{ec1} &      -0.0121  &        0.068     &    -0.178  &         0.858        &       -0.145    &        0.121     \\
+\textbf{ec1} &      -0.0119  &        0.068     &    -0.177  &         0.860        &       -0.145    &        0.121     \\
              & \textbf{coef} & \textbf{std err} & \textbf{z} & \textbf{P$> |$z$|$} & \textbf{[0.025} & \textbf{0.975]}  \\
 \midrule
-\textbf{ec1} &      -0.4119  &        0.107     &    -3.864  &         0.000        &       -0.621    &       -0.203     \\
+\textbf{ec1} &      -0.4114  &        0.106     &    -3.863  &         0.000        &       -0.620    &       -0.203     \\
                 & \textbf{coef} & \textbf{std err} & \textbf{z} & \textbf{P$> |$z$|$} & \textbf{[0.025} & \textbf{0.975]}  \\
 \midrule
 \textbf{beta.1} &       1.0000  &            0     &         0  &         0.000        &        1.000    &        1.000     \\
-\textbf{beta.2} &       1.3167  &        0.156     &     8.431  &         0.000        &        1.011    &        1.623     \\
-\textbf{const}  &      -0.1127  &        0.009     &   -11.940  &         0.000        &       -0.131    &       -0.094     \\
+\textbf{beta.2} &       1.3177  &        0.156     &     8.429  &         0.000        &        1.011    &        1.624     \\
+\textbf{const}  &      -0.1127  &        0.009     &   -11.928  &         0.000        &       -0.131    &       -0.094     \\
 \bottomrule
 \end{tabular}
 %\caption{Det. terms outside the coint. relation & lagged endog. parameters for equation Own Interest rate}
@@ -2603,14 +2608,22 @@ print(adjust)
 **** Orthoganalized
 
 #+BEGIN_SRC python :results graphics file :file ./figs/Impulse_VECMOrth.png
-p = results.irf(20).plot(orth=True)
+p = results.irf(20).plot(orth=True, subplot_params={"color": "black"})
 p.suptitle("")
 sns.despine()
 
+p.savefig(
+    "./figs/Impulse_VECMOrth.png",
+    dpi=300,
+    bbox_inches="tight",
+    pad_inches=0.0,
+    transparent=False,
+)
+plt.close("all")
 
-p.savefig("./figs/Impulse_VECMOrth.png", dpi = 300, bbox_inches = 'tight',
-    pad_inches = 0.0, transparent = False,)
-plt.close('all')
+
+img = Image.open("./figs/Impulse_VECMOrth.png").convert("LA")
+img.save("./figs/Impulse_VECMOrth_grey.png")
 #+END_SRC
 
 #+RESULTS:
@@ -2676,13 +2689,19 @@ residuals = analise_residuos(results=results)
 
 #+RESULTS:
 :results:
-AUTOCORRELAÇÃO RESIDUAL: PORTMANTEAU
+    caused_ind = [get_index(self.names, c) for c in caused]
+  File "/home/gpetrini/.local/lib/python3.8/site-packages/statsmodels/tsa/vector_ar/vecm.py", line 1815, in <listcomp>
+    caused_ind = [get_index(self.names, c) for c in caused]
+  File "/home/gpetrini/.local/lib/python3.8/site-packages/statsmodels/tsa/vector_ar/util.py", line 254, in get_index
+    result = lst.index(name)
+ValueError: 'd_gIh' is not in list
+>>> AUTOCORRELAÇÃO RESIDUAL: PORTMANTEAU
 
 Portmanteau-test for residual autocorrelation. H_0: residual autocorrelation up to lag 15 is zero. Conclusion: fail to reject H_0 at 5% significance level.
 ========================================
 Test statistic Critical value p-value df
 ----------------------------------------
-         50.47          58.12   0.174 42
+         50.51          58.12   0.173 42
 ----------------------------------------
 
 AUTOCORRELAÇÃO RESIDUAL: PORTMANTEAU AJUSTADO
@@ -2691,7 +2710,7 @@ Adjusted Portmanteau-test for residual autocorrelation. H_0: residual autocorrel
 ========================================
 Test statistic Critical value p-value df
 ----------------------------------------
-         55.49          58.12   0.079 42
+         55.53          58.12   0.079 42
 ----------------------------------------
 
 LJUNGBOX
@@ -2702,79 +2721,79 @@ Box-Pierce:  False
 Testing for  OWN INTEREST RATE . Considering a significance level of 5.0 %
 /home/gpetrini/.local/lib/python3.8/site-packages/statsmodels/stats/diagnostic.py:524: FutureWarning: The value returned will change to a single DataFrame after 0.12 is released.  Set return_df to True to use to return a DataFrame now.  Set return_df to False to silence this warning.
   warnings.warn(msg, FutureWarning)
-p-value = 0.9221890789946033
+p-value = 0.9193477883797351
 Reject H0 on lag  1 ?  False
 
-p-value = 0.9882661993852673
+p-value = 0.9878756917264138
 Reject H0 on lag  2 ?  False
 
-p-value = 0.9401166590473613
+p-value = 0.9396537698741769
 Reject H0 on lag  3 ?  False
 
-p-value = 0.8975741069713341
+p-value = 0.8965616275035287
 Reject H0 on lag  4 ?  False
 
-p-value = 0.9556641515940801
+p-value = 0.9551438420906964
 Reject H0 on lag  5 ?  False
 
-p-value = 0.9372408154573
+p-value = 0.9361298929124949
 Reject H0 on lag  6 ?  False
 
-p-value = 0.9078848989066519
+p-value = 0.9074751487878628
 Reject H0 on lag  7 ?  False
 
-p-value = 0.7049768031126116
+p-value = 0.7063973854363028
 Reject H0 on lag  8 ?  False
 
-p-value = 0.6466808184117208
+p-value = 0.647689774346883
 Reject H0 on lag  9 ?  False
 
-p-value = 0.5325649743813294
+p-value = 0.5335423481154282
 Reject H0 on lag  10 ?  False
 
-p-value = 0.5617077431441693
+p-value = 0.5635215753829743
 Reject H0 on lag  11 ?  False
 
-p-value = 0.6374829192454776
+p-value = 0.639391846027429
 Reject H0 on lag  12 ?  False
 
 
 
 Testing for  GIH . Considering a significance level of 5.0 %
-p-value = 0.2928438865892487
+p-value = 0.29095211300396007
 Reject H0 on lag  1 ?  False
 
-p-value = 0.3214060364981588
+p-value = 0.3201553663446565
 Reject H0 on lag  2 ?  False
 
-p-value = 0.35223359849202623
+p-value = 0.3512504081022989
 Reject H0 on lag  3 ?  False
 
-p-value = 0.6968808413898132
+p-value = 0.6980480183415101
 Reject H0 on lag  4 ?  False
 
-p-value = 2.7078322902468117
+p-value = 2.6912644596934605
 Reject H0 on lag  5 ?  False
 
-p-value = 2.7291018355802854
+p-value = 2.711883938706883
 Reject H0 on lag  6 ?  False
 
-p-value = 2.757449261953701
+p-value = 2.743715002535212
 Reject H0 on lag  7 ?  False
 
-p-value = 4.228072172822588
+p-value = 4.246864113466479
 Reject H0 on lag  8 ?  False
 
-p-value = 4.3722293897598705
+p-value = 4.393315823669711
 Reject H0 on lag  9 ?  False
 
-p-value = 4.467213731646196
+p-value = 4.485571716132848
 Reject H0 on lag  10 ?  False
 
-p-value = 8.461592824979224
+p-value = 8.495769423727353
 Reject H0 on lag  11 ?  False
 
-p-value = 10.043381370583266
+p-value = 10.11716962494874
 Reject H0 on lag  12 ?  False
 
 
@@ -2786,79 +2805,79 @@ H0: autocorrelations up to lag k equal zero
 H1: autocorrelations up to lag k not zero
 Box-Pierce:  True
 Testing for  OWN INTEREST RATE . Considering a significance level of 5.0 %
-p-value = 0.9232842254033358
+p-value = 0.920482660566307
 Reject H0 on lag  1 ?  False
 
-p-value = 0.9886582805809287
+p-value = 0.9882789317018735
 Reject H0 on lag  2 ?  False
 
-p-value = 0.9438947638006764
+p-value = 0.9434569012725278
 Reject H0 on lag  3 ?  False
 
-p-value = 0.9063434757309058
+p-value = 0.9054063928908398
 Reject H0 on lag  4 ?  False
 
-p-value = 0.9604769403779105
+p-value = 0.9600075425786178
 Reject H0 on lag  5 ?  False
 
-p-value = 0.9459999009400404
+p-value = 0.945031054599083
 Reject H0 on lag  6 ?  False
 
-p-value = 0.9231691176443677
+p-value = 0.9228027759713657
 Reject H0 on lag  7 ?  False
 
-p-value = 0.7536348535475705
+p-value = 0.7548479044597016
 Reject H0 on lag  8 ?  False
 
-p-value = 0.70793304762609
+p-value = 0.7088016753332314
 Reject H0 on lag  9 ?  False
 
-p-value = 0.6123508492313927
+p-value = 0.6132319226410103
 Reject H0 on lag  10 ?  False
 
-p-value = 0.645134788175992
+p-value = 0.6467414080020828
 Reject H0 on lag  11 ?  False
 
-p-value = 0.7169517982961326
+p-value = 0.7185670570505887
 Reject H0 on lag  12 ?  False
 
 
 
 Testing for  GIH . Considering a significance level of 5.0 %
-p-value = 0.2928438865892487
+p-value = 0.29095211300396007
 Reject H0 on lag  1 ?  False
 
-p-value = 0.3214060364981588
+p-value = 0.3201553663446565
 Reject H0 on lag  2 ?  False
 
-p-value = 0.35223359849202623
+p-value = 0.3512504081022989
 Reject H0 on lag  3 ?  False
 
-p-value = 0.6968808413898132
+p-value = 0.6980480183415101
 Reject H0 on lag  4 ?  False
 
-p-value = 2.7078322902468117
+p-value = 2.6912644596934605
 Reject H0 on lag  5 ?  False
 
-p-value = 2.7291018355802854
+p-value = 2.711883938706883
 Reject H0 on lag  6 ?  False
 
-p-value = 2.757449261953701
+p-value = 2.743715002535212
 Reject H0 on lag  7 ?  False
 
-p-value = 4.228072172822588
+p-value = 4.246864113466479
 Reject H0 on lag  8 ?  False
 
-p-value = 4.3722293897598705
+p-value = 4.393315823669711
 Reject H0 on lag  9 ?  False
 
-p-value = 4.467213731646196
+p-value = 4.485571716132848
 Reject H0 on lag  10 ?  False
 
-p-value = 8.461592824979224
+p-value = 8.495769423727353
 Reject H0 on lag  11 ?  False
 
-p-value = 10.043381370583266
+p-value = 10.11716962494874
 Reject H0 on lag  12 ?  False
 
 
@@ -2870,7 +2889,7 @@ normality (skew and kurtosis) test. H_0: data generated by normally-distributed 
 ========================================
 Test statistic Critical value p-value df
 ----------------------------------------
-         46.66          9.488   0.000  4
+         46.79          9.488   0.000  4
 ----------------------------------------
 
 HOMOCEDASTICIDADE
@@ -2882,20 +2901,20 @@ Testing for  OWN INTEREST RATE
   warnings.warn("The default value of nlags is changing.  After 0.12, "
 /home/gpetrini/.local/lib/python3.8/site-packages/statsmodels/stats/diagnostic.py:645: FutureWarning: autolag is deprecated and will be removed after 0.12. Model selection before testing fails to control test size. Set autolag to False to silence this warning.
   warnings.warn("autolag is deprecated and will be removed after 0.12. "
-LM statistic:  1.8119954250054855
-LM p-value:  0.17826904516801384
+LM statistic:  1.824144218783971
+LM p-value:  0.17682076991628956
 Reject H0?  False
-F statistic:  1.8086617320619
-F p-value:  0.1816516384818212
+F statistic:  1.8210046678187017
+F p-value:  0.1801813687259512
 Reject H0?  False
 
 
 Testing for  GIH
-LM statistic:  3.6552958325086884
-LM p-value:  0.055891228580347334
+LM statistic:  3.669319441445647
+LM p-value:  0.0554228100979981
 Reject H0?  False
-F statistic:  3.7155939419937525
-F p-value:  0.0566879745640323
+F statistic:  3.7303702211909844
+F p-value:  0.05620696750808147
 Reject H0?  False
 :end:
 
@@ -2946,6 +2965,9 @@ plt.close('all')
 
 #+RESULTS:
 :results:
+    raise TypeError("close() argument must be a Figure, an int, a string, "
+TypeError: close() argument must be a Figure, an int, a string, or None, not '%s'
+>>>
 :end:
 ***** Lags vs Lags
 #+BEGIN_SRC python :results graphics file :file ./figs/VEC_Defasagens.png
@@ -2970,7 +2992,7 @@ testes_raiz(residuals['gIh'])
 ZIVOT ANDREWS level series
         Zivot-Andrews Results
 =====================================
-Test Statistic                -10.648
+Test Statistic                -10.644
 P-value                         0.000
 Lags                                0
 -------------------------------------
@@ -2984,7 +3006,7 @@ Alternative Hypothesis: The process is trend and break stationary.
 ZIVOT ANDREWS First differences
         Zivot-Andrews Results
 =====================================
-Test Statistic                 -6.359
+Test Statistic                 -6.355
 P-value                         0.000
 Lags                                9
 -------------------------------------
@@ -2998,7 +3020,7 @@ Alternative Hypothesis: The process is trend and break stationary.
 ADF level series
    Augmented Dickey-Fuller Results
 =====================================
-Test Statistic                -10.019
+Test Statistic                -10.016
 P-value                         0.000
 Lags                                0
 -------------------------------------
@@ -3012,7 +3034,7 @@ Alternative Hypothesis: The process is weakly stationary.
 ADF First differences
    Augmented Dickey-Fuller Results
 =====================================
-Test Statistic                 -5.955
+Test Statistic                 -5.952
 P-value                         0.000
 Lags                                9
 -------------------------------------
@@ -3026,7 +3048,7 @@ Alternative Hypothesis: The process is weakly stationary.
 DFGLS level series
       Dickey-Fuller GLS Results
 =====================================
-Test Statistic                 -9.023
+Test Statistic                 -9.016
 P-value                         0.000
 Lags                                0
 -------------------------------------
@@ -3040,8 +3062,8 @@ Alternative Hypothesis: The process is weakly stationary.
 DFGLS First differences
       Dickey-Fuller GLS Results
 =====================================
-Test Statistic                 -0.608
-P-value                         0.470
+Test Statistic                 -0.615
+P-value                         0.467
 Lags                               11
 -------------------------------------
 
@@ -3080,7 +3102,7 @@ testes_raiz(residuals['Own Interest rate'])
 ZIVOT ANDREWS level series
         Zivot-Andrews Results
 =====================================
-Test Statistic                -10.062
+Test Statistic                -10.063
 P-value                         0.000
 Lags                                0
 -------------------------------------
@@ -3094,7 +3116,7 @@ Alternative Hypothesis: The process is trend and break stationary.
 ZIVOT ANDREWS First differences
         Zivot-Andrews Results
 =====================================
-Test Statistic                 -6.787
+Test Statistic                 -6.782
 P-value                         0.000
 Lags                                9
 -------------------------------------
@@ -3122,7 +3144,7 @@ Alternative Hypothesis: The process is weakly stationary.
 ADF First differences
    Augmented Dickey-Fuller Results
 =====================================
-Test Statistic                 -6.192
+Test Statistic                 -6.188
 P-value                         0.000
 Lags                                9
 -------------------------------------
@@ -3136,7 +3158,7 @@ Alternative Hypothesis: The process is weakly stationary.
 DFGLS level series
       Dickey-Fuller GLS Results
 =====================================
-Test Statistic                 -9.510
+Test Statistic                 -9.509
 P-value                         0.000
 Lags                                0
 -------------------------------------
@@ -3150,8 +3172,8 @@ Alternative Hypothesis: The process is weakly stationary.
 DFGLS First differences
       Dickey-Fuller GLS Results
 =====================================
-Test Statistic                 -0.955
-P-value                         0.312
+Test Statistic                 -0.945
+P-value                         0.316
 Lags                               12
 -------------------------------------
 
@@ -3178,8 +3200,8 @@ Alternative Hypothesis: The process contains a unit root.
 KPSS em primeira diferença
     KPSS Stationarity Test Results
 =====================================
-Test Statistic                  0.248
-P-value                         0.191
+Test Statistic                  0.249
+P-value                         0.190
 Lags                               47
 -------------------------------------
 
@@ -3206,7 +3228,7 @@ Alternative Hypothesis: The process is weakly stationary.
 Phillips Perron em primeira diferença
      Phillips-Perron Test (Z-tau)
 =====================================
-Test Statistic                -34.183
+Test Statistic                -34.150
 P-value                         0.000
 Lags                               13
 -------------------------------------
@@ -3236,22 +3258,22 @@ print(model.select_order(maxlags=15, trend='ct').summary())
 ==================================================
        AIC         BIC         FPE         HQIC
 --------------------------------------------------
-0       -15.75      -15.64   1.451e-07      -15.70
-1       -15.90      -15.69   1.239e-07      -15.82
-2       -16.24     -15.92*   8.860e-08      -16.11
-3       -16.20      -15.77   9.195e-08      -16.03
-4       -16.34      -15.81  7.983e-08*     -16.13*
-5       -16.34      -15.69   8.046e-08      -16.08
-6       -16.31      -15.56   8.284e-08      -16.01
-7       -16.25      -15.39   8.839e-08      -15.90
-8       -16.28      -15.32   8.547e-08      -15.89
-9       -16.24      -15.17   8.934e-08      -15.81
-10      -16.25      -15.07   8.906e-08      -15.77
-11     -16.36*      -15.07   7.998e-08      -15.84
+0       -15.75      -15.64   1.450e-07      -15.70
+1       -15.91      -15.69   1.237e-07      -15.82
+2       -16.24     -15.92*   8.851e-08      -16.11
+3       -16.20      -15.77   9.185e-08      -16.03
+4       -16.35      -15.81  7.973e-08*     -16.13*
+5       -16.34      -15.69   8.034e-08      -16.08
+6       -16.31      -15.56   8.274e-08      -16.01
+7       -16.25      -15.39   8.830e-08      -15.90
+8       -16.29      -15.32   8.540e-08      -15.89
+9       -16.24      -15.17   8.922e-08      -15.81
+10      -16.25      -15.07   8.899e-08      -15.77
+11     -16.36*      -15.07   7.995e-08      -15.84
 12      -16.34      -14.95   8.203e-08      -15.78
-13      -16.33      -14.82   8.404e-08      -15.72
-14      -16.25      -14.64   9.153e-08      -15.60
-15      -16.18      -14.46   9.902e-08      -15.49
+13      -16.33      -14.82   8.401e-08      -15.72
+14      -16.25      -14.64   9.150e-08      -15.60
+15      -16.18      -14.46   9.898e-08      -15.49
 --------------------------------------------------
 :end:
 
@@ -3268,48 +3290,48 @@ print(results.summary())
 ==================================
 Model:                         VAR
 Method:                        OLS
-Date:           qua, 10, fev, 2021
-Time:                     16:48:44
+Date:           ter, 23, mar, 2021
+Time:                     17:21:51
 --------------------------------------------------------------------
-No. of Equations:         2.00000    BIC:                   -15.9295
-Nobs:                     106.000    HQIC:                  -16.1985
-Log likelihood:           585.419    FPE:                7.68856e-08
-AIC:                     -16.3818    Det(Omega_mle):     6.53222e-08
+No. of Equations:         2.00000    BIC:                   -15.9305
+Nobs:                     106.000    HQIC:                  -16.1995
+Log likelihood:           585.473    FPE:                7.68062e-08
+AIC:                     -16.3828    Det(Omega_mle):     6.52548e-08
 --------------------------------------------------------------------
 Results for equation d_Own Interest rate
 =========================================================================================
                             coefficient       std. error           t-stat            prob
 -----------------------------------------------------------------------------------------
-const                         -0.000226         0.001274           -0.177           0.859
-L1.d_Own Interest rate         0.027513         0.107907            0.255           0.799
-L1.d_gIh                       0.054066         0.060740            0.890           0.373
-L2.d_Own Interest rate        -0.010537         0.110336           -0.095           0.924
-L2.d_gIh                       0.102373         0.074290            1.378           0.168
-L3.d_Own Interest rate         0.083036         0.123557            0.672           0.502
-L3.d_gIh                       0.103936         0.067756            1.534           0.125
-L4.d_Own Interest rate         0.273825         0.122986            2.226           0.026
-L4.d_gIh                       0.054389         0.053672            1.013           0.311
+const                         -0.000231         0.001273           -0.181           0.856
+L1.d_Own Interest rate         0.027850         0.107999            0.258           0.797
+L1.d_gIh                       0.053825         0.060733            0.886           0.375
+L2.d_Own Interest rate        -0.010285         0.110389           -0.093           0.926
+L2.d_gIh                       0.102390         0.074263            1.379           0.168
+L3.d_Own Interest rate         0.083484         0.123566            0.676           0.499
+L3.d_gIh                       0.104809         0.067728            1.548           0.122
+L4.d_Own Interest rate         0.272821         0.123043            2.217           0.027
+L4.d_gIh                       0.054811         0.053668            1.021           0.307
 =========================================================================================
 
 Results for equation d_gIh
 =========================================================================================
                             coefficient       std. error           t-stat            prob
 -----------------------------------------------------------------------------------------
-const                         -0.003136         0.002158           -1.454           0.146
-L1.d_Own Interest rate        -0.416556         0.182812           -2.279           0.023
-L1.d_gIh                      -0.791871         0.102904           -7.695           0.000
-L2.d_Own Interest rate        -1.178970         0.186928           -6.307           0.000
-L2.d_gIh                      -0.692994         0.125859           -5.506           0.000
-L3.d_Own Interest rate        -0.582157         0.209325           -2.781           0.005
-L3.d_gIh                      -0.352853         0.114791           -3.074           0.002
-L4.d_Own Interest rate        -0.442090         0.208359           -2.122           0.034
-L4.d_gIh                      -0.355391         0.090929           -3.908           0.000
+const                         -0.003136         0.002158           -1.453           0.146
+L1.d_Own Interest rate        -0.413604         0.183004           -2.260           0.024
+L1.d_gIh                      -0.791193         0.102913           -7.688           0.000
+L2.d_Own Interest rate        -1.179998         0.187054           -6.308           0.000
+L2.d_gIh                      -0.693607         0.125839           -5.512           0.000
+L3.d_Own Interest rate        -0.582592         0.209383           -2.782           0.005
+L3.d_gIh                      -0.353889         0.114765           -3.084           0.002
+L4.d_Own Interest rate        -0.443669         0.208497           -2.128           0.033
+L4.d_gIh                      -0.356426         0.090941           -3.919           0.000
 =========================================================================================
 
 Correlation matrix of residuals
                        d_Own Interest rate     d_gIh
-d_Own Interest rate               1.000000 -0.394272
-d_gIh                            -0.394272  1.000000
+d_Own Interest rate               1.000000 -0.395026
+d_gIh                            -0.395026  1.000000
 :end:
 
 
@@ -3390,13 +3412,6 @@ plt.close()
 
 #+RESULTS:
 :results:
-    caused_ind = [util.get_index(self.names, c) for c in caused]
-  File "/home/gpetrini/.local/lib/python3.8/site-packages/statsmodels/tsa/vector_ar/var_model.py", line 1784, in <listcomp>
-    caused_ind = [util.get_index(self.names, c) for c in caused]
-  File "/home/gpetrini/.local/lib/python3.8/site-packages/statsmodels/tsa/vector_ar/util.py", line 254, in get_index
-    result = lst.index(name)
-ValueError: 'gIh' is not in list
->>>
 :end:
 **** Model stability
 #+BEGIN_SRC python
@@ -3406,14 +3421,14 @@ print("Estável:", results.is_stable(verbose=True))
 #+RESULTS:
 :results:
 Eigenvalues of VAR(1) rep
-0.6031315796912359
-0.7065740604925873
-0.7065740604925873
-0.7464606302801982
-0.7464606302801982
-0.6595330472590406
-0.8137205059477957
-0.8137205059477957
+0.6015228789010414
+0.7064600426330642
+0.7064600426330642
+0.7463489089954227
+0.7463489089954227
+0.6584992389763756
+0.8137641754439946
+0.8137641754439946
 Estável: True
 :end:
 
@@ -3431,7 +3446,7 @@ Portmanteau-test for residual autocorrelation. H_0: residual autocorrelation up 
 ========================================
 Test statistic Critical value p-value df
 ----------------------------------------
-         51.19          60.48   0.212 44
+         51.21          60.48   0.212 44
 ----------------------------------------
 
 AUTOCORRELAÇÃO RESIDUAL: PORTMANTEAU AJUSTADO
@@ -3440,7 +3455,7 @@ Adjusted Portmanteau-test for residual autocorrelation. H_0: residual autocorrel
 ========================================
 Test statistic Critical value p-value df
 ----------------------------------------
-         55.84          60.48   0.109 44
+         55.87          60.48   0.108 44
 ----------------------------------------
 
 LJUNGBOX
@@ -3451,79 +3466,79 @@ Box-Pierce:  False
 Testing for  D_OWN INTEREST RATE . Considering a significance level of 5.0 %
 /home/gpetrini/.local/lib/python3.8/site-packages/statsmodels/stats/diagnostic.py:524: FutureWarning: The value returned will change to a single DataFrame after 0.12 is released.  Set return_df to True to use to return a DataFrame now.  Set return_df to False to silence this warning.
   warnings.warn(msg, FutureWarning)
-p-value = 0.9936657651605834
+p-value = 0.9973606386840764
 Reject H0 on lag  1 ?  False
 
-p-value = 0.9532942411607932
+p-value = 0.9539586890764923
 Reject H0 on lag  2 ?  False
 
-p-value = 0.9372394031653212
+p-value = 0.9368336607096326
 Reject H0 on lag  3 ?  False
 
-p-value = 0.9475077053483082
+p-value = 0.9471078055859504
 Reject H0 on lag  4 ?  False
 
-p-value = 0.923728312676192
+p-value = 0.9244145750436498
 Reject H0 on lag  5 ?  False
 
-p-value = 0.9433151078232945
+p-value = 0.9434398460183713
 Reject H0 on lag  6 ?  False
 
-p-value = 0.7677479216264478
+p-value = 0.7696814471174311
 Reject H0 on lag  7 ?  False
 
-p-value = 0.6897935175949668
+p-value = 0.6929501529602125
 Reject H0 on lag  8 ?  False
 
-p-value = 0.6703161073268695
+p-value = 0.6729641202994736
 Reject H0 on lag  9 ?  False
 
-p-value = 0.6212750708549971
+p-value = 0.6234625655624791
 Reject H0 on lag  10 ?  False
 
-p-value = 0.695713683986997
+p-value = 0.6980758439515145
 Reject H0 on lag  11 ?  False
 
-p-value = 0.648377705928423
+p-value = 0.6511516612929609
 Reject H0 on lag  12 ?  False
 
 
 
 Testing for  D_GIH . Considering a significance level of 5.0 %
-p-value = 0.2630124312990188
+p-value = 0.2611574752558545
 Reject H0 on lag  1 ?  False
 
-p-value = 0.2968361758158871
+p-value = 0.29576698228382076
 Reject H0 on lag  2 ?  False
 
-p-value = 0.34908891398183817
+p-value = 0.34817774978463073
 Reject H0 on lag  3 ?  False
 
-p-value = 0.6503088381838034
+p-value = 0.6517238688246135
 Reject H0 on lag  4 ?  False
 
-p-value = 2.6677300651893336
+p-value = 2.6515314192347557
 Reject H0 on lag  5 ?  False
 
-p-value = 2.7045180260466166
+p-value = 2.6873847518761758
 Reject H0 on lag  6 ?  False
 
-p-value = 2.719802469699149
+p-value = 2.705349212733215
 Reject H0 on lag  7 ?  False
 
-p-value = 4.145628089650675
+p-value = 4.163025452862863
 Reject H0 on lag  8 ?  False
 
-p-value = 4.2702372657792225
+p-value = 4.289817626927582
 Reject H0 on lag  9 ?  False
 
-p-value = 4.370535403813121
+p-value = 4.387189861960584
 Reject H0 on lag  10 ?  False
 
-p-value = 8.512718885625794
+p-value = 8.545561294958002
 Reject H0 on lag  11 ?  False
 
-p-value = 10.137636303787597
+p-value = 10.211028613180247
 Reject H0 on lag  12 ?  False
 
 
@@ -3535,79 +3550,79 @@ H0: autocorrelations up to lag k equal zero
 H1: autocorrelations up to lag k not zero
 Box-Pierce:  True
 Testing for  D_OWN INTEREST RATE . Considering a significance level of 5.0 %
-p-value = 0.993754358398482
+p-value = 0.9973975545145886
 Reject H0 on lag  1 ?  False
 
-p-value = 0.9549842613606685
+p-value = 0.9556254565681455
 Reject H0 on lag  2 ?  False
 
-p-value = 0.9410348767973901
+p-value = 0.940655834290468
 Reject H0 on lag  3 ?  False
 
-p-value = 0.9519814611221903
+p-value = 0.9516152437296213
 Reject H0 on lag  4 ?  False
 
-p-value = 0.9322607991724536
+p-value = 0.932869146356887
 Reject H0 on lag  5 ?  False
 
-p-value = 0.9511237631972581
+p-value = 0.951233017263707
 Reject H0 on lag  6 ?  False
 
-p-value = 0.8022500063405594
+p-value = 0.8039567288260984
 Reject H0 on lag  7 ?  False
 
-p-value = 0.7384560766480192
+p-value = 0.7412697488225687
 Reject H0 on lag  8 ?  False
 
-p-value = 0.7267584471916546
+p-value = 0.7291212141977832
 Reject H0 on lag  9 ?  False
 
-p-value = 0.6898947167119986
+p-value = 0.6918801349035346
 Reject H0 on lag  10 ?  False
 
-p-value = 0.7593373676867421
+p-value = 0.7613824249958802
 Reject H0 on lag  11 ?  False
 
-p-value = 0.7262432361489415
+p-value = 0.728654587412132
 Reject H0 on lag  12 ?  False
 
 
 
 Testing for  D_GIH . Considering a significance level of 5.0 %
-p-value = 0.2630124312990188
+p-value = 0.2611574752558545
 Reject H0 on lag  1 ?  False
 
-p-value = 0.2968361758158871
+p-value = 0.29576698228382076
 Reject H0 on lag  2 ?  False
 
-p-value = 0.34908891398183817
+p-value = 0.34817774978463073
 Reject H0 on lag  3 ?  False
 
-p-value = 0.6503088381838034
+p-value = 0.6517238688246135
 Reject H0 on lag  4 ?  False
 
-p-value = 2.6677300651893336
+p-value = 2.6515314192347557
 Reject H0 on lag  5 ?  False
 
-p-value = 2.7045180260466166
+p-value = 2.6873847518761758
 Reject H0 on lag  6 ?  False
 
-p-value = 2.719802469699149
+p-value = 2.705349212733215
 Reject H0 on lag  7 ?  False
 
-p-value = 4.145628089650675
+p-value = 4.163025452862863
 Reject H0 on lag  8 ?  False
 
-p-value = 4.2702372657792225
+p-value = 4.289817626927582
 Reject H0 on lag  9 ?  False
 
-p-value = 4.370535403813121
+p-value = 4.387189861960584
 Reject H0 on lag  10 ?  False
 
-p-value = 8.512718885625794
+p-value = 8.545561294958002
 Reject H0 on lag  11 ?  False
 
-p-value = 10.137636303787597
+p-value = 10.211028613180247
 Reject H0 on lag  12 ?  False
 
 
@@ -3619,7 +3634,7 @@ normality (skew and kurtosis) test. H_0: data generated by normally-distributed 
 ========================================
 Test statistic Critical value p-value df
 ----------------------------------------
-         49.85          9.488   0.000  4
+         50.02          9.488   0.000  4
 ----------------------------------------
 
 HOMOCEDASTICIDADE
@@ -3631,20 +3646,20 @@ Testing for  D_OWN INTEREST RATE
   warnings.warn("The default value of nlags is changing.  After 0.12, "
 /home/gpetrini/.local/lib/python3.8/site-packages/statsmodels/stats/diagnostic.py:645: FutureWarning: autolag is deprecated and will be removed after 0.12. Model selection before testing fails to control test size. Set autolag to False to silence this warning.
   warnings.warn("autolag is deprecated and will be removed after 0.12. "
-LM statistic:  1.7890934997621706
-LM p-value:  0.18103664996914828
+LM statistic:  1.8048861590726846
+LM p-value:  0.17912290275420933
 Reject H0?  False
-F statistic:  1.7854375736451698
-F p-value:  0.18442759159846756
+F statistic:  1.8014736111542173
+F p-value:  0.18248549627479257
 Reject H0?  False
 
 
 Testing for  D_GIH
-LM statistic:  1.0833069510599869
-LM p-value:  0.2979589446764947
+LM statistic:  1.0758297016285518
+LM p-value:  0.29963235697396456
 Reject H0?  False
-F statistic:  1.0737506428022083
-F p-value:  0.3025264545817077
+F statistic:  1.0662626312011751
+F p-value:  0.3042096558365478
 Reject H0?  False
 :end:
 
@@ -3715,7 +3730,7 @@ testes_raiz(residuals['d_gIh'])
 ZIVOT ANDREWS level series
         Zivot-Andrews Results
 =====================================
-Test Statistic                -10.744
+Test Statistic                -10.739
 P-value                         0.000
 Lags                                0
 -------------------------------------
@@ -3729,7 +3744,7 @@ Alternative Hypothesis: The process is trend and break stationary.
 ZIVOT ANDREWS First differences
         Zivot-Andrews Results
 =====================================
-Test Statistic                 -6.183
+Test Statistic                 -6.180
 P-value                         0.001
 Lags                                9
 -------------------------------------
@@ -3743,7 +3758,7 @@ Alternative Hypothesis: The process is trend and break stationary.
 ADF level series
    Augmented Dickey-Fuller Results
 =====================================
-Test Statistic                -10.286
+Test Statistic                -10.282
 P-value                         0.000
 Lags                                0
 -------------------------------------
@@ -3757,7 +3772,7 @@ Alternative Hypothesis: The process is weakly stationary.
 ADF First differences
    Augmented Dickey-Fuller Results
 =====================================
-Test Statistic                 -5.695
+Test Statistic                 -5.691
 P-value                         0.000
 Lags                                9
 -------------------------------------
@@ -3785,8 +3800,8 @@ Alternative Hypothesis: The process is weakly stationary.
 DFGLS First differences
       Dickey-Fuller GLS Results
 =====================================
-Test Statistic                 -0.788
-P-value                         0.385
+Test Statistic                 -0.797
+P-value                         0.381
 Lags                               11
 -------------------------------------
 
@@ -3799,8 +3814,8 @@ Alternative Hypothesis: The process is weakly stationary.
 KPSS em nível
     KPSS Stationarity Test Results
 =====================================
-Test Statistic                  0.143
-P-value                         0.411
+Test Statistic                  0.144
+P-value                         0.410
 Lags                                1
 -------------------------------------
 
@@ -3839,7 +3854,7 @@ Alternative Hypothesis: The process is trend and break stationary.
 ZIVOT ANDREWS First differences
         Zivot-Andrews Results
 =====================================
-Test Statistic                 -6.843
+Test Statistic                 -6.838
 P-value                         0.000
 Lags                                9
 -------------------------------------
@@ -3867,7 +3882,7 @@ Alternative Hypothesis: The process is weakly stationary.
 ADF First differences
    Augmented Dickey-Fuller Results
 =====================================
-Test Statistic                 -6.199
+Test Statistic                 -6.196
 P-value                         0.000
 Lags                                9
 -------------------------------------
@@ -3881,7 +3896,7 @@ Alternative Hypothesis: The process is weakly stationary.
 DFGLS level series
       Dickey-Fuller GLS Results
 =====================================
-Test Statistic                 -9.161
+Test Statistic                 -9.157
 P-value                         0.000
 Lags                                0
 -------------------------------------
@@ -3923,8 +3938,8 @@ Alternative Hypothesis: The process contains a unit root.
 KPSS em primeira diferença
     KPSS Stationarity Test Results
 =====================================
-Test Statistic                  0.232
-P-value                         0.214
+Test Statistic                  0.233
+P-value                         0.212
 Lags                               43
 -------------------------------------
 
@@ -3937,7 +3952,7 @@ Alternative Hypothesis: The process contains a unit root.
 Phillips Perron em nível
      Phillips-Perron Test (Z-tau)
 =====================================
-Test Statistic                 -9.644
+Test Statistic                 -9.643
 P-value                         0.000
 Lags                               13
 -------------------------------------
@@ -3951,7 +3966,7 @@ Alternative Hypothesis: The process is weakly stationary.
 Phillips Perron em primeira diferença
      Phillips-Perron Test (Z-tau)
 =====================================
-Test Statistic                -34.807
+Test Statistic                -34.776
 P-value                         0.000
 Lags                               13
 -------------------------------------
@@ -4038,63 +4053,64 @@ Figure ref:Fig:CreditFDICIA illustrates the relevance of institutional reforms d
 ** Houses' own interest rate and residential investment growth rate in the US Economy
 #+LATEX: \label{sc:own} 
 
-From the previous review of the empirical literature, we conclude that may be the only consensus about the determinants of residential investment is on house prices (nominal or deflated by consumer price index) and some rate of interest (mortgage or long term, as proxy).
-Some authors deflate the rate of interest by the CPI, others use nominal interest rate to capture the effect of monetary illusion.
-In this section, we present a particular and parsimonious way of combining house prices and mortgage rate of interest in a single index that we will use on our econometric estimation.
+From the previous section, we conclude that may be the only consensus about the determinants of residential investment is on house prices (nominal or deflated by consumer price index) and some rate of interest (mortgage or long term, as proxy).
+In this section, we present a particular and parsimonious way of combining those two variables  in a single index that we will use on our econometric estimation.
 
-Based on the recent US housing boom episode and its consequences, textcite:teixeira_crescimento_2015  proposed the houses own rate of interest ($own$).
-Inspired by citeauthor*:sraffaDrHayekMoney1932 citeyear*:sraffaDrHayekMoney1932 own commodity rate, this variable is the mortgage interest rate ($r_{mo}$) deflated by real estate inflation ($\pi$) as follows:
+Based on the recent US housing boom episode, textcite:teixeira_crescimento_2015  proposed the houses own rate of interest ($own$).
+Inspired by \citeauthor*{sraffaDrHayekMoney1932}'s citeyear:sraffaDrHayekMoney1932 own commodity rate, this variable is the mortgage interest rate ($r_{mo}$) deflated by real estate inflation ($\pi$) as follows:
 #+BEGIN_latex
 \begin{equation}
-owm =  \overbrace{\left(\frac{1+r_{mo}}{1+\pi} - 1\right)}
+\label{txpropria}
+owm =  \left(\frac{1+r_{mo}}{1+\pi} - 1\right)
 \end{equation}
 #+END_latex
-In sum, this particular real interest rate is the most relevant for households since it is the real cost in real estate from buying real estate  \cite[p.~53]{teixeira_crescimento_2015}.
+Equation ref:txpropria represents this particular real interest rate which is the most relevant for households.
+This is the case because it is the real cost in real estate from buying real estate  \cite[p.~53]{teixeira_crescimento_2015}.
 
-textcite:teixeira_crescimento_2015 also show that this simple procedure is relevant to describe residential investment growth rate ($g_{I_{h}}$).
-Figure ref:propria_investo illustrates how this deflation procedure is more adequate than a general price index --- as
-\textcite[p.~143--6]{fair_macroeconometric_2013} does --- to describe the residential investment dynamics.
-Equation ref:gihown presents the negative relation between houses own rate of interest and residential investment in the simplest functional form as possible:
+textcite:teixeira_crescimento_2015 also uses this procedure to describe residential investment growth rate ($g_{I_{h}}$, see Figure ref:propria_investo).
+Equation ref:gihown presents the negative relation between houses own rate of interest and residential investment in a simple functional form as possible:
 #+begin_export latex
 \begin{equation}
 \label{gihown}
 g_{I_h} = \phi_0 - \phi_1\cdot own
 \end{equation}
 #+end_export
-where $\phi_0$ stands for long-term determinants (/e.g./ demographic factors, housing and credit policies, etc.) while $\phi_1$ captures the demand for real estate arising from expectations of capital gains resulting from speculation with the existing dwellings stock.
-
+where $\phi_0$ stands for long-term determinants (/e.g./ demographic factors, housing and credit policies, etc.) while $\phi_1$ captures the price-interest rate sensibility of demand for houses.
+Additionally, the latter parameter also include the residential investment demand arising from expectations of capital gains resulting from speculation with the existing dwellings stock.
+During a housing bubble period (/e.g./ 2002-5 in the US), it is real estate inflation that governs houses own rate of interest.
+So, the lower this rate is, the greater the capital gains (in real estate) for speculating with real estate will be.
+However, this not imply that all demand for houses during this period will be determined only by speculative purposes.
 
 #+begin_export latex
 \begin{figure}[htb]
 	\centering
-	\caption{Residential investment growth rate vs. Houses Own interest rate}
+	\caption{Residential investment growth rate vs. Houses Own rate of interest}
 	\label{propria_investo}
 	\includegraphics[width=\textwidth]{./figs/TxPropria_Investo.png}
 	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' elaboration}
 \end{figure}
 #+end_export
 
-Despite shedding light on some relevant relationships, \citeauthor*{teixeira_crescimento_2015}'s \citeyear{teixeira_crescimento_2015} proposition was not evaluated econometrically.
-Before we move forward to the empirical estimations, it is worth noting that during a housing bubble period, it is real estate inflation that governs houses own rate of interest.
-So, the lower this rate is, the greater the capital gains (in real estate) for speculating with real estate will be.
-
+Despite shedding light on connection between house prices, mortgage interest rate and residential investment, \citeauthor*{teixeira_crescimento_2015}'s \citeyear{teixeira_crescimento_2015} proposition has not been evaluated econometrically and this is our objective.
+More recently, textcite:petrini_2021_TD simulated a Stock-Flow Consistent model for the US with the already mentioned houses own rate of interest.
+They present a demand-led growth model in which residential investment leads the business cycle and report some of the stylized facts presented in Section ref:sec:Stylized_Facts.
+In this sense, our model extends their to an econometric direction.
 
 ** Data and estimation strategy
 #+LATEX: \label{sec:estimation}
 
 
 In this section, we estimate a model to test whether or not houses own rate of interest describes residential investment growth rate movements.
-Our sample period (1992:Q1 to 2019:Q1) starts after institutional changes due to the Savings and Loans crisis (see Table ref:structbreak in appendix ref:appen:A for structural break tests)[fn::This institutional changes --- notably Financial Institutions Reform, Recovery, and Enforcement Act (FIRREA) in 1989 and Federal Deposit Insurance Corporation Improvement Act  (FDICIA) in 1991 --- increased the credit volume to households. As a consequence, real estate finance has increased considerably in the following periods.]
+Our sample period (1992:Q1 to 2019:Q1) starts after institutional changes due to the Savings and Loans crisis (see Table ref:structbreak in appendix ref:appen:A for structural break tests)[fn::This institutional changes --- notably Financial Institutions Reform, Recovery, and Enforcement Act (FIRREA) in 1989 and Federal Deposit Insurance Corporation Improvement Act  (FDICIA) in 1991 --- increased the credit volume to households. As a consequence, real estate finance has increased considerably in the following periods.].
 We rely on the following  quarterly seasonally adjusted data: (i) 30-Year fixed mortgage interest rate (MORTGAGE30US, resampled by end of period), private residential investment (PRFI, growth rate as percent change from the previous quarter) and Case-Shiller home price index
 (CSUSHPISA, resampled by end of period).
-
+Additionally, we consider mortgage interest rate as an exogenous variable in all tests and estimations.
 
 
 Since we are interested in growth rate variables, we apply textcite:yeo_new_2000 transformation procedure due to non-positive values.
-Additionally, we consider mortgage interest rate as an exogenous variable in all tests and estimations.
 Then, we employ standard unit root tests (see Table ref:unitroot in appendix ref:appen:A) as well as textcite:johansen_estimation_1991 procedure to assess whether houses own rate of interest and residential investment growth rate share a common long-run trend (see Table ref:Johansen in appendix ref:appen:A).
-We report a 5% significance level which allows us to estimate a error correction model cite:enders_applied_2014.
-To do so, we assume the following long-run relationship:
+At a 5% significance level, we conclude that the series are cointegrated, which allows us to estimate a error correction model cite:enders_applied_2014.
+In order to do so, we assume the following long-run relationship:
 
 #+BEGIN_latex
 \begin{equation}
@@ -4109,48 +4125,43 @@ next, we specify the short-run adjustment process of Equation ref:gihLR as follo
 \begin{bmatrix}
 \Delta own_{t}\\
 \Delta g_{I_{h_{t}}}
-\end{bmatrix} = \begin{bmatrix}\delta_{1}\\\delta_{2}\end{bmatrix} + \begin{bmatrix}\alpha_{1}\\ \alpha_{2}\end{bmatrix} \begin{bmatrix}g_{I_{h_{t}}} - \phi_{0} + \phi_{1}\cdot own_{t}\\g_{I_{h_{t}}} - \phi_{0} + \phi_{1}\cdot own_{t}\end{bmatrix} + \sum^N_{i=1} \begin{bmatrix}\beta_{1,i} \Delta g_{I_{h_{t-i}}} & \gamma_{1,i} \Delta own_{t-i}\\\beta_{2,i} \Delta g_{I_{h_{t-i}}} & \gamma_{2,i} \Delta own_{t-1} \end{bmatrix} + \varepsilon_{t}
+\end{bmatrix} = \begin{bmatrix}\delta_{1}\\ \delta_{2}\end{bmatrix} + \begin{bmatrix}\alpha_{1}\\ \alpha_{2}\end{bmatrix} \begin{bmatrix}g_{I_{h_{t-1}}} - \phi_{0} + \phi_{1}\cdot own_{t-1}\\g_{I_{h_{t-1}}} - \phi_{0} + \phi_{1}\cdot own_{t-1}\end{bmatrix}^{\prime} + \sum^N_{i=1} \begin{bmatrix}\beta_{1,i} & \gamma_{1,i} \\\beta_{2,i} & \gamma_{2,i} \end{bmatrix} \begin{bmatrix}\Delta g_{I_{h_{t-i}}} \\\Delta own_{t-i}\end{bmatrix} + \varepsilon_{t}
 \end{equation}
 #+end_export
-where $\delta_s$ indicate linear trend (level);
-$\alpha_{is}$ are the error correction coefficients;
-$\beta_s$ and $\gamma_s$ are coefficients associated with lagged $g_{I_h}$ and $own$ respectively and; $\varepsilon_s$ are the residuals.
-Based on \textcite{teixeira_crescimento_2015}, we depict the expected results in Table \ref{resultados_esperados} below:
+where $\delta$ indicate linear trend (level);
+$\alpha$ are adjustment parameters;
+$\beta$ and $\gamma$ are coefficients associated with lagged $g_{I_h}$ and $own$ respectively and; $\varepsilon$ are the residuals.
+
+Considering the simple functional form of equation ref:gihown and based on \textcite{teixeira_crescimento_2015}, we depict the expected results in Table ref:resultados_esperados.
+At this point, it worth clarify an empirical strategy.
+Originally, houses own rate of interest effect on residential investment  is a result of future real estate inflation.
+This dynamic could be captured by its *expected* value.
+However, such series does not exist.
+So, in the absence of a series for the expected houses own rate of interest, the lag of this variable will be used as a proxy for the future one.
+This procedure is similar to textcite:keynes_general_1937 "practical theory of the future" in which decision-making process for buying a new asset (in this case, houses) depends on expectations/conventions based on past observations.
 
 
 \input{./tabs/hypothesis.tex}
 
+Other relevant question is about economic meaning of Granger causality displayed in Table ref:resultados_esperados (hypothesis 2 and 3).
+We assume that houses own rate of interest autonomously determined residential investment.
+The reason for that is the significantly smaller volume of residential investment (newly constructed homes) compared to existing housing stock.
+As a consequence, speculation with the dwellings stock generates inflation of these assets, which affects the construction of new houses (flow) and not the other way around (hypothesis 7).
+In this sense, we expect that $own$ is weakly exogenous compared to $g_{I_{h}}$.
 
-The next step is to define the model order. According to usual information criteria, both first and forth lags are eligible (see Table ref:criterios in appendix ref:appen:A).
-Although parsimonious, we argue that the first lag has no empirical support.
-According to the Survey of Construction (Citar), the average construction time (from approaval to completion from 1976 to 2018) for a family unity for sale is approximately seven months.
-Thus, we should include at least the second lag in order to incorporate homes built for capital gains purposes which only take place once the construction is completed.
-
-DISCUSSÃO ECONÔMICA (LUCAS).
-We argue that there is other economic intuition to explain the forth lag specification.
-Residential investment (newly constructed homes) is significantly smaller than existing housing stock, we verify an price-effect even if the construction is unfinished[fn::textcite:poterba_tax_1984, for instance, suggests that the time that houses takes to be sold should be include.].
-We argue that this price effect is a result of future real estate inflation.
-Such dynamic could be captured by the *expected* houses' own interest rate.
-However, such series does not exist.
-So, we use lagged houses' own interest rate as a first approximation to the expected one[fn::This procedure is similar to textcite:keynes_general_1937 "practical theory of the future" in which decision-making process for buying a new property depends on expectations/conventions based on past observations.
-In summary, in the absence of a series for the expected own interest rate, the lag of this variable will be used as a proxy for the future one.
-].
-
-*Lucas:* Este parágrafo descreve a figura que descartamos, mas imaginei que poderia aproveitar alguma coisa para discutir a autonomia da taxa própria em relação ao investimento residencial (aproveitei e mudei a nota de rodapé do Leamer para o corpo do texto).
-In order to display the relation between lagged own interest rate and current residential investment growth rate, Figure \ref{defasagens} depicts one variable of interest against the other variable lagged according to lags that minimize the information criteria (1 and 4 respectively).
-This simple procedure allows checking if there is any relationship between the expected own interest rate (in this case, lagged effective rate) and residential investment growth rate.
-In the same Figure, we verify the non-occurrence of the inverse relationship from residential investment to own interest rate.
-Since residential investment (flow) is much lower than the existing stock of dwellings, it is expected that such relationship does not exist.
-In summary, speculation with the dwellings stock generates inflation of these assets, which affects the construction of new houses (flow) and not the other way round.
-It is worth noting a particular aspect of house price formation: land scarcity. As a consequence, speculation with residences is, in the end, speculation with land (the only scarce resource involved in its production) and, therefore, it is relevant for speculation with the dwellings stock \cite[p.~349]{leamer_housing_2007}.
+After presenting the economic reasoning reagarding houses own rate of interest,  the next step is to define the model order.
+According to usual information criteria, both first and forth lags are eligible (see Table ref:criterios in appendix ref:appen:A).
+Despite its parsimony, we argue that the first lag has no empirical support.
+According to the US Survey of Construction (SoC), the average construction time (from approval to completion from 1976 to 2018) for a family unity for sale is approximately seven months.
+Both houses construction time by contract or by the owner, on the other side, takes approximately 8-12 months to conclude.
+In this sense, in order to incorporate homes built for capital gains purposes, which only take place once the construction is completed, we should include at least the second lag.
+Thus, a VEC model with four lags seems more adequate than using just the first one.
 
 
 Considering this theoretical and econometric discussion of model order specification, we estimate a four lag VEC  (see Table ref:Estimacao).
 In addition to being theoretically based, this lag order also generates homoscedastic residuals without serial auto-correlation (see Table ref:testes_resduos in Appendix ref:appen:A).
-Table ref:testes_resduos in Appendix ref:appen:A presents residual tests to check the model's specification while Table ref:tab:robust presents some robustness check.
-On the following subsection, we analyze the results and compare with the theoretical expected ones presented in Table ref:resultados_esperados above.  
-
-
+We also report that our estimation is robust and not sensible to the lag order specification (see Table ref:tab:robust for robustness check).
+On the following subsection, we analyze the results and compare with the theoretical expected ones presented in Table ref:resultados_esperados.
 
 
 ** Estimation results
@@ -4158,12 +4169,13 @@ On the following subsection, we analyze the results and compare with the theoret
 
 According to parameters presented in Table ref:Estimacao, we find statistically significant co-integration  coefficients for both equations. 
 Therefore, both variables share a (negative) long-run trend (validating hypotheses 1 and 4).
-The short-term relationship between $own$ and $g_{Ih}$ ($\beta_{1, is}$ coefficients) are not statistically significant at 5%[fn::The expected result (7) can also be validated from the inspection of Table ref:Estimacao in which only the fourth lag of own interest rate equation is statistically significant.].
-In addition, coefficients $\gamma_{2,s}$ are negative and statistically significant at 5%, supporting hypothesis 6 (see Table  ref:Estimacao).
+The short-term relationship between $own$ and $g_{Ih}$ ($\beta_{1, is}$ coefficients) are not statistically significant at 5%.
+In addition, coefficients $\gamma_{2,s}$ are negative and statistically significant at 5%, supporting hypothesis 6.
 We also find statistically significant coefficients related to demand for houses for non-speculative reasons ($\phi_0$), validating proposition 5.
 On the other hand, the error correction parameter is statistically significant only for the residential investment growth rate equation.
 In this sense, $own$ is weakly exogenous compared to $g_{I_h}$ while houses own rate of interest Granger-causes $g_{I_h}$, supporting the hypothesis (2) and (3).
-In conclusion, our estimation results are in line with the hypothesis presented above and can be summarized as follows: houses own rate of interest determines --- but is not determined by --- residential investment growth rate and these variables present a negative long-term relationship (are co-integrated).
+Since the forth lag of houses own rate of interest is the only statiscally significantly one at 5% level, we also support hypothesis 7.
+In conclusion, our estimation results are in line with the expected ones and can be summarized as follows: houses own rate of interest determines --- but is not determined by --- residential investment growth rate and these variables present a negative long-term relationship.
 
 #+begin_export latex
 \begin{table}[h!]
@@ -4183,11 +4195,24 @@ In conclusion, our estimation results are in line with the hypothesis presented 
 \end{figure}
 #+end_export
 
+Next, we analyze the orthogonilized impulse response function (OIRF, see Figure ref:irf).
+In order to do so, we employ the Cholesky decomposition procedure by assuming that houses own rate of interest is more "exogenous" than residential investment growth rate.
+We report a decreasing effect of a $g_{I_h}$ shock on itself over time while a shock of own rate of interest on itself has a non-explosive permanent effect.
+On the other hand, an increase in $g_{I_h}$ has a null effect over $own$.
+The most relevant result reported in Figure ref:irf is the considerable and lasting negative effect due to an increase in houses own rate of interest over $g_{I_h}$, validating \citeauthor*{teixeira_crescimento_2015}'s \citeyear{teixeira_crescimento_2015} proposition.
 
-DISCUSSÃO DO COEFICIENTE DE COINTEGRAÇÃO
+#+begin_export latex
+\begin{figure}[H]
+	\centering
+	\caption{Orthogonalized Impulse Response Function}
+	\label{irf}
+	\includegraphics[height=.4\textheight]{./figs/Impulse_VECMOrth_grey.png}
+	\caption*{\textbf{Source:} Authors' elaboration}
+\end{figure}
+#+end_export
 
-Figure ref:fevd display the forecast error variance decomposition (FEVD) which reports houses own rate of interest in describing residential investment growth rate dynamics[fn:: It is important to note that the number of variables (two) used generates similar  of a Structural VEC, which means that Choleski's decomposition is sufficient to analyze the (orthogonalized) impulse response function.].
-We report that houses own rage of interest has  depicted  $g_{Ih}$ --- while the reverse is not valid --- after the first quarter.
+Figure ref:fevd display the forecast error variance decomposition (FEVD).
+We report that houses own rate of interest describes $g_{Ih}$ --- while the reverse is not valid --- after the first quarter.
 In addition, we find that such contribution is greater than 50% beyond the third quarter (dashed line in Figure ref:fevd).
 Therefore, houses own rate of interest is explained mainly by itself and explains $g_{I_h}$ considerably.
 
@@ -4201,29 +4226,15 @@ Therefore, houses own rate of interest is explained mainly by itself and explain
 \end{figure}
 #+end_export
 
-Next, we analyze the orthogonilized impulse response function (Figure ref:irf).
-We report a stable system since the increase in $g_{I_h}$ on itself are dampened over time while equivalent shock on own interest rate has a non-explosive permanent effect.
-On the other hand, an increase in $g_{I_h}$ has a null effect over $own$.
-The most relevant result reported in Figure ref:irf is the considerable and lasting negative effect due to an increase in own interest rate over $g_{I_h}$, validating \citeauthor*{teixeira_crescimento_2015}'s \citeyear{teixeira_crescimento_2015} proposition.
 
-#+begin_export latex
-\begin{figure}[H]
-	\centering
-	\caption{Orthogonalized Impulse Response Function}
-	\label{irf}
-	\includegraphics[height=.4\textheight]{./figs/Impulse_VECM.png}
-	\caption*{\textbf{Source:} Authors' elaboration}
-\end{figure}
-#+end_export
-
-
-Next,  we contrast our findings with those obtained by the literature.
-At this stage, we restrict the comparison with  textcite:gauger_residential_2003 and textcite:arestis_residential_2015 since both of them analizy residential investment determinants in a comparable timespan.
+Finally,  we contrast our findings with those discussed in Section ref:sec:empirical_review.
+At this stage, we restrict the comparison with  textcite:gauger_residential_2003 and textcite:arestis_residential_2015 since both of them analyze residential investment determinants after the institutional changes of the 90's.
 Similar to textcite:gauger_residential_2003, we report that mortgage interest rate is relevant for residential investment.
-Our estimations are also in line with textcite:arestis_residential_2015 (at least for the US).
+Our results regarding the positive price effect on residential investment are in line with textcite:arestis_residential_2015 (at least for the US).
 However, they report statistically insignificant coefficients for mortgages nominal interest rate which is at odds with our conclusions.
+
 In summary, our estimation reports that houses own rate of interest has a prominent role in describing residential investment growth rate movements.
-Finally, it is worth noting that despite the amplitude of VEC order, our model is parsimonious considering the number of variables used.
-Thus, we conclude that our estimation depicts residential investment growth rate satisfactorily.
+Finally, it is worth noting that despite the amplitude of VEC order, our model is parsimonious considering the number of variables considered.
+Thus, we conclude that our estimation depicts residential investment growth rate satisfactorily given its parsimony.
 On the following section we present some concluding remarks.
 
