@@ -4053,7 +4053,7 @@ Figure ref:Fig:CreditFDICIA illustrates the relevance of institutional reforms d
 ** Houses' own interest rate and residential investment growth rate in the US Economy
 #+LATEX: \label{sc:own} 
 
-From the previous section, we conclude that may be the only consensus about the determinants of residential investment is on house prices (nominal or deflated by consumer price index) and some rate of interest (mortgage or long term, as proxy).
+From the previous section, we conclude that house prices (nominal or deflated by consumer price index) and some rate of interest (mortgage or long term, as proxy) may be the only consensus about residential investment determinants.
 In this section, we present a particular and parsimonious way of combining those two variables  in a single index that we will use on our econometric estimation.
 
 Based on the recent US housing boom episode, textcite:teixeira_crescimento_2015  proposed the houses own rate of interest ($own$).
@@ -4099,15 +4099,15 @@ In this sense, our model extends their to an econometric direction.
 ** Data and estimation strategy
 #+LATEX: \label{sec:estimation}
 
-
-In this section, we estimate a model to test whether or not houses own rate of interest describes residential investment growth rate movements.
-Our sample period (1992:Q1 to 2019:Q1) starts after institutional changes due to the Savings and Loans crisis (see Table ref:structbreak in appendix ref:appen:A for structural break tests)[fn::This institutional changes --- notably Financial Institutions Reform, Recovery, and Enforcement Act (FIRREA) in 1989 and Federal Deposit Insurance Corporation Improvement Act  (FDICIA) in 1991 --- increased the credit volume to households. As a consequence, real estate finance has increased considerably in the following periods.].
-We rely on the following  quarterly seasonally adjusted data: (i) 30-Year fixed mortgage interest rate (MORTGAGE30US, resampled by end of period), private residential investment (PRFI, growth rate as percent change from the previous quarter) and Case-Shiller home price index
-(CSUSHPISA, resampled by end of period).
+In this subsection we present the estimation estrategy and the data used to assess whether house own rate of interest index explains the behavior of residential investment rate of growth.
+Our sample period (1992:Q1 to 2019:Q1) starts after institutional changes due to the Savings and Loans crisis of the 1980s (see Table ref:structbreak in appendix ref:appen:A for structural break tests)[fn::This institutional changes --- notably Financial Institutions Reform, Recovery, and Enforcement Act (FIRREA) in 1989 and Federal Deposit Insurance Corporation Improvement Act  (FDICIA) in 1991 --- increased the credit volume to households. As a consequence, real estate finance has increased considerably in the following periods. For a discussion about the Savings and Loans crisis, see texcite:federal_deposit_insurance_corporation_savings_1997.].
+We rely on the following  quarterly seasonally adjusted data[fn::All the date is from FRED database. The codes are MORTGAGE30US, PRFI, and CSUSHPISA respectively.]: (i) 30-Year fixed mortgage interest rate (resampled by end of period), private residential investment (growth rate as percent change from the previous quarter) and Case-Shiller home price index
+(resampled by end of period).
 Additionally, we consider mortgage interest rate as an exogenous variable in all tests and estimations.
 
 
-Since we are interested in growth rate variables, we apply textcite:yeo_new_2000 transformation procedure due to non-positive values.
+Since we are interested in growth rate variables, we apply textcite:yeo_new_2000 transformation.
+This procedure is similar to textcite:box_analysis_1964 but more adequate in the presence of non-positive values.
 Then, we employ standard unit root tests (see Table ref:unitroot in appendix ref:appen:A) as well as textcite:johansen_estimation_1991 procedure to assess whether houses own rate of interest and residential investment growth rate share a common long-run trend (see Table ref:Johansen in appendix ref:appen:A).
 At a 5% significance level, we conclude that the series are cointegrated, which allows us to estimate a error correction model cite:enders_applied_2014.
 In order to do so, we assume the following long-run relationship:
@@ -4132,7 +4132,7 @@ where $\delta$ indicate linear trend (level);
 $\alpha$ are adjustment parameters;
 $\beta$ and $\gamma$ are coefficients associated with lagged $g_{I_h}$ and $own$ respectively and; $\varepsilon$ are the residuals.
 
-Considering the simple functional form of equation ref:gihown and based on \textcite{teixeira_crescimento_2015}, we depict the expected results in Table ref:resultados_esperados.
+
 At this point, it worth clarify an empirical strategy.
 Originally, houses own rate of interest effect on residential investment  is a result of future real estate inflation.
 This dynamic could be captured by its *expected* value.
@@ -4140,21 +4140,33 @@ However, such series does not exist.
 So, in the absence of a series for the expected houses own rate of interest, the lag of this variable will be used as a proxy for the future one.
 This procedure is similar to textcite:keynes_general_1937 "practical theory of the future" in which decision-making process for buying a new asset (in this case, houses) depends on expectations/conventions based on past observations.
 
+Considering the simple functional form of Equation ref:gihown and the adjustment process of Equation ref:gihLR we present the expected results in Table ref:resultados_esperados.
+Once we report a cointegration relation between houses own rate of interest and residential investment rate of growth, we expect that the residuals are stationary (hypothesis 1).
+Based on \textcite{teixeira_crescimento_2015}, we also expect that residential investment growth rate has a positive long-run trend not related to price effects (hypothesis 5) while houses own rate of interest has a negative effect as discussed before (hypothesis 4).
+If  hypotheses 1, 4 and 5 are valid, houses own rate of interest and residential investment rate of growth share a common negative long-run trend.
+Additionally, if houses own rate of interest depicts residential investment growth rate as textcite:teixeira_crescimento_2015 describes, its lagged coefficients ($\gamma_{2}$) should be negative and statistically significant (hypothesis 6).
+
 
 \input{./tabs/hypothesis.tex}
 
+
+
 Other relevant question is about economic meaning of Granger causality displayed in Table ref:resultados_esperados (hypothesis 2 and 3).
-We assume that houses own rate of interest autonomously determined residential investment.
-The reason for that is the significantly smaller volume of residential investment (newly constructed homes) compared to existing housing stock.
-As a consequence, speculation with the dwellings stock generates inflation of these assets, which affects the construction of new houses (flow) and not the other way around (hypothesis 7).
-In this sense, we expect that $own$ is weakly exogenous compared to $g_{I_{h}}$.
+We expect that residential investment rate of growth does not affect  houses own rate of interest.
+The explanation is that house prices and mortgage rate of interest are defined to the whole housing market.
+In this market the newly constructed houses are only a small share of the total stock.
+In this sense, we expect that supply and demand on the stock of houses affect its price and the decisions to acquire and produce new houses.
+But we do predict the reverse causality (hypothesis 7).
+In econometric terms, we expect that $own$ is weakly exogenous compared to $g_{I_{h}}$.
 
 After presenting the economic reasoning reagarding houses own rate of interest,  the next step is to define the model order.
-According to usual information criteria, both first and forth lags are eligible (see Table ref:criterios in appendix ref:appen:A).
-Despite its parsimony, we argue that the first lag has no empirical support.
+We run four information criteria to determine the order of the model.
+One (BIC) indicates only one lag, the other three (AIC, FPE and HQIC) indicate four lags (see Table ref:criterios in appendix ref:appen:A).
+# Despite its parsimony, we argue that the first lag has no empirical support.
+In addition to the information criteria, the time lapse in construction new houses provides more arguments in favor of four lags.
 According to the US Survey of Construction (SoC), the average construction time (from approval to completion from 1976 to 2018) for a family unity for sale is approximately seven months.
 Both houses construction time by contract or by the owner, on the other side, takes approximately 8-12 months to conclude.
-In this sense, in order to incorporate homes built for capital gains purposes, which only take place once the construction is completed, we should include at least the second lag.
+In this sense, only persistent changes in house price inflation would influence the construction for speculation purposes.
 Thus, a VEC model with four lags seems more adequate than using just the first one.
 
 
