@@ -61,12 +61,12 @@
 
 * Abstract :ignore:
 #+BEGIN_abstract
-This article investigates the relationship between residential investment, asset inflation, and macroeconomic dynamics based on
-the US post-deregulation case (1992-2019). To do so, we estimate a vector error correction model (VECM) to asses the relevance of
-real interest rate of real estate. We find residential investment growth rate and houses’ own interest rate to be cointegrated. We
-also find that long-run causality goes unidirectionally from houses’ own interest rate to residential investment growth rate,
-as expected. In summary, our findings support the relevance of houses’ own interest rate in determining residential investment
-while the other way round does not occur.
+This article investigates the determinantes of residential investment based on the US post-deregulation case (1992-2019).
+We estimate a vector error correction model (VECM) to evaluate the combination of mortgage interest rate and house prices  into a single index (houses own rate of interest).
+Houses own rate of interest and residential investment growth rate share a negative long-run trend.
+In particular, we find that long-run causality goes unidirectionally from houses own rate of interest to residential investment growth rate.
+As expected, residential investment growth rate effects on houses own rate of interest are not statistically significant.
+Estimation results are not sensible to lag order specification and residuals do not present serial autocorrelation and heterocedasticity.
 	
 #+LATEX: \noindent \textbf{Keywords:} Residential Investment; Asset price inflation; Mortgage Interest rate; Vector-Error correction model\\
 #+LATEX: \noindent \textbf{JEL codes:} E39; E44; R39
