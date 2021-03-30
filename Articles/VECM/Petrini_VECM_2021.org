@@ -1,4 +1,5 @@
-#+TITLE: Untitled
+#+TITLE: Determinants of residential investment growth rate in the US (1992-2019)
+#+SUBTITLE: Draft, please do not cite or quote
 #+OPTIONS: toc:nil author:nil
 #+LATEX_CLASS: article
 #+LATEX_CLASS_OPTIONS: [12pt, a4paper]
@@ -61,13 +62,14 @@
 
 * Abstract :ignore:
 #+BEGIN_abstract
-This article investigates the determinantes of residential investment based on the US post-deregulation case (1992-2019).
-We estimate a vector error correction model (VECM) to evaluate the combination of mortgage interest rate and house prices  into a single index (houses own rate of interest).
-Houses own rate of interest and residential investment growth rate share a negative long-run trend.
-In particular, we find that long-run causality goes unidirectionally from houses own rate of interest to residential investment growth rate.
-As expected, residential investment growth rate effects on houses own rate of interest are not statistically significant.
+This article investigates the determinants of residential investment based on the US case (1992-2019).
+First we propose a combination of mortgage rate of interest and house price inflation in a single index (houses own-rate of interest).
+Our objective is to evaluate whether this index is useful to explain the rate of growth of residential investment.
+Cointegration tests report a long-rung trend between the two variables so we estimate a vector error correction model (VECM).
+In particular, we find that long-run causality goes unidirectionally from houses own-rate of interest to residential investment growth rate.
+As expected, residential investment growth rate effects on houses own-rate of interest are not statistically significant.
 Estimation results are not sensible to lag order specification and residuals do not present serial autocorrelation and heterocedasticity.
-	
+#+LATEX:\\
 #+LATEX: \noindent \textbf{Keywords:} Residential Investment; Asset price inflation; Mortgage Interest rate; Vector-Error correction model\\
 #+LATEX: \noindent \textbf{JEL codes:} E39; E44; R39
 #+END_abstract
@@ -89,7 +91,7 @@ Estimation results are not sensible to lag order specification and residuals do 
 #+LATEX: \label{sec:empirical_review}
 #+INCLUDE: "Empirical_Review.org"
 
-* Macroeconometric analysis
+* Econometric analysis
 #+LATEX: \label{sec:VECM}
 #+INCLUDE: "VECM.org"
 
@@ -103,7 +105,7 @@ Estimation results are not sensible to lag order specification and residuals do 
   :UNNUMBERED: t
   :END:
 
-#+LATEX: \noindent The authors wish to acknowledge the financial support from the Brazilian National Research Council (CNPq; grant 130777/2018-8). We are grateful to Rosângela Ballini, Carolina Baltar, Júlia Braga, Ítalo Pedrosa, Cecon/Unicamp and UFRJ Macroeconomic discussion groups for useful comments and suggestions on earlier drafts of this article. All remaining errors are, of course, our own.
+#+LATEX: \noindent The authors wish to acknowledge the financial support from the Brazilian National Research Council (CNPq; grant 130777/2018-8). We are grateful to Rosângela Ballini, Carolina Baltar, Júlia Braga, Ítalo Pedrosa, Cecon/Unicamp and UFRJ Political Economy groups for useful comments and suggestions on earlier drafts of this article. All remaining errors are, of course, our own.
 
 
 * Disclosure statement
@@ -144,7 +146,7 @@ All expected results are statistically significant and most of them are not rest
 \input{./tabs/UnitRoot.tex}
 \input{./tabs/StructBreak.tex}
 \input{./tabs/Johansen.tex}
-\input{./tabs/lag_order.tex}
+\input{./tabs/VECM_lag_order.tex}
 \input{./tabs/H0_Residuals.tex}
 \input{./tabs/robust.tex}
 #+end_export
