@@ -299,6 +299,90 @@ plt.close()
 salvar_grafico(file_name="FDICIA")
 #+end_src
 
+** Demanda agregada
+
+#+BEGIN_SRC python
+from matplotlib.patches import Ellipse, Polygon
+
+start = dt(1979, 1, 1)
+end = dt(2020, 12, 31)
+
+df = web.get_data_fred(
+    [
+        "PCEC",  # Personal consuption
+        "PNFI",  # Private non-residential fixed investment
+        "PRFI",  # Private residential fixed investment
+        "GCE",  # Governement expenditures
+        "EXPGS",  # Exports
+    ],
+    start,
+    end,
+)
+
+df.columns = [
+    "Personal consumption expend.",
+    "Non Residential investment",
+    "Residential investment",
+    "Government Expenditures",
+    "Exports",
+]
+
+
+df["AD"] = df.sum(axis=1)
+
+df = df.resample("QS").mean()
+df.index.name = ""
+df = df.apply(lambda x: x / df["AD"]).drop(["AD"], axis="columns")
+fig, ax = plt.subplots(1, 1, figsize=(19.2, 10.8))
+
+
+df.plot(
+    kind="area",
+    stacked=True,
+    ax=ax,
+    legend=False,
+    color=(
+        "#000000",
+        "#333333",
+        "#ffffff",
+        "#888888",
+        "#cccccc",
+    ),
+)
+
+df.plot(kind="line", stacked=True, ax=ax, legend=False, color="white", label=None)
+
+handles, labels = ax.get_legend_handles_labels()
+ax.legend(
+    handles[:4:-1],
+    labels[:4:-1],
+    loc="center left",
+    bbox_to_anchor=(1, 0.5),
+    title="Expenditures (in order)",
+    title_fontsize=18,
+)
+
+# ax.text('1980', 0.2, s=df.columns[0], color="white", fontsize=18, fontfamily='serif')
+# ax.text('1980', 0.6, s=df.columns[1], color="white", fontsize=18, fontfamily='serif')
+# ax.text('1980', 0.7, s=df.columns[2], color="black", fontsize=18, fontfamily='serif')
+# ax.text('1980', 0.8, s=df.columns[3], color="black", fontsize=18, fontfamily='serif')
+# ax.text('1980', 0.95, s=df.columns[4], color="black", fontsize=18, fontfamily='serif')
+
+
+ax.set_ylim(0, 1)
+ax.set_xlabel("")
+ax.tick_params(axis="both", which="major", labelsize=15)
+
+sns.despine()
+plt.tight_layout()
+plt.close()
+salvar_grafico(file_name="Share_AD")
+#+END_SRC
+
+#+RESULTS:
+:results:
+:end:
+
 ** Volatilidade e participação
 
 #+begin_src python :results graphics file :file ./figs/subplots.png
@@ -810,12 +894,12 @@ Specifically, we argue however small its share on GDP is, it does have a fundame
 
 Usually, economists did not pay a systematic attention to the role of residential investment to macroeconomic dynamics.
 One possible explanation for this could be the small share of residential investment on aggregate demand (see Figure ref:fig:share).
-Recently, this lack of attention has been replaced by a clearer understanding of the macroeconomic relevance of residential investment.
+Recently, this lack of attention has been replaced by a better understanding of the macroeconomic relevance of residential investment.
 In this Section, we will present some stylized facts regarding the relevance of residential investment for the US economy.
 
 There are, nevertheless, two notable exceptions.
 In a letter to President Franklin D. Roosevelt, in the mid of the Great Depression, Keynes presented the case of housing as the best aid to fight the crisis and to foster economic recovery \cite[p.~436]{keynes_collected_1978}.
-The other exception is textcite:duesenberry_investment_1958 who critics ordinary theories of aggregate investment because they put together firms’ investment in capital and structures and residential investment.
+The other exception is textcite:duesenberry_investment_1958 who critics ordinary theories of aggregate investment because they put firms’ investment in capital and structures together with residential investment.
 In this sense, he proposes a model dedicated for the latter type of investment, emphasizing the role of house prices.
 
 
@@ -825,29 +909,29 @@ In this sense, he proposes a model dedicated for the latter type of investment, 
 	\caption{Expenditures share on aggregate demand}
 	\label{fig:share}
 \begin{figure}[htb]
-    \includegraphics[width = \textwidth]{./figs/Share_AD_grey.png}
+    \includegraphics[width = \textwidth]{./figs/Share_AD.png}
     \end{figure}
 	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' Elaboration}
 \end{figure}
 #+end_export
 
-After a long time, the interest in residential investment had been restored in the econometric business cycles agenda.
-textcite:green_follow_1997 analyzes the connection between residential investment and business cycle even before the Great Recession.
+After a long time, the interest in residential investment has been restored in the business cycles agenda.
+textcite:green_follow_1997 analyzed the connection between residential investment and business cycle even before the Great Recession.
 Based on Granger causality tests for the US from 1952 to 1992, he concludes that residential investment leads the business cycle, while non-residential investment lags it.
-textcite:green_follow_1997 relates this result to the forward-looking behavior of households.
+textcite:green_follow_1997 relates this result to a forward-looking behavior of households.
 Thus, he restricts the relevance of residential investment as a temporal precedence indicator.
 
 textcite:leamer_housing_2007 is more incisive and states that housing is the business cycle.
 In analyzing the US economy for the post-war period, he concludes that residential investment is the best predictor of economic crises.
 The economic cycle of US economy would be a consumer cycle: "first homes, then cars, last business investment" \cite[p.~8]{leamer_housing_2007}.
-In a follow up work, the author declare that nine out of eleven US post-war economic recessions were preceded by a severe downturn of residential investment cite:leamer_housing_2015.
+In a follow up work, the author declares that nine out of eleven US post-war economic recessions were preceded by a severe downturn of residential investment cite:leamer_housing_2015.
 # Thus, according to textcite:leamer_housing_2007, residential investment anticipates and causes the business cycle[fn::However, textcite:leamer_housing_2007 him self did not evaluate this statements econometrically.].
 textcite:kydland_2016_housing expand \citeauthor*{leamer_housing_2007}'s \citeyear{leamer_housing_2007} proposition to other countries to evaluate how unique the US case is.
 Similarly to textcite:green_follow_1997, they also conclude that residential investment leads the business cycle -- while non-residential investment lags it -- for the US and Canada.
 The results, however, are more robust when they include housing starts instead of residential investment.
 Briefly, they find that housing starts precedes GDP the shorter the time to build is[fn::For the other countries in the sample, textcite:kydland_2016_housing find that residential investment is coincident (and not lagging) with GDP. Additionally, they conclude that long-term nominal mortgage rate is a relevant transmission channel from interest rates to housing costs.].
 Similarly, textcite:huang_is_2018 assess  prediction and causality relations proposed by textcite:leamer_housing_2007 for 17 OECD countries.
-For the US both statements are valid and housing related variables (house prices, real mortgage rate --- deflated by a consumer price index --- and bank spread) lead the business cycle[fn::For the other countries, they found inconclusive results regarding fluctuations due to institutional heterogeneity. However, textcite:huang_is_2018 claim that for most G7 countries, residential investment at least amplify the business cycle.].
+For the US both statements are valid and housing related variables (house prices, real mortgage rate and bank spread) lead the business cycle[fn::For the other countries, they found inconclusive results regarding fluctuations due to institutional heterogeneity. However, textcite:huang_is_2018 claim that for most G7 countries, residential investment at least amplify the business cycle.].
 
 
 In order to depict the relation between residential investment and business cycle, we present Figure ref:fig:cycle.
@@ -859,7 +943,7 @@ The Great Recession is a remarkable example of this pattern while dot-com crisis
 #+begin_export latex
 \begin{figure}[H]
 	\centering
-	\caption{Selected expecditure growth rates 2 years before and after recession start\\Dashed lines indicates recession start (NBER recession dating procedure)}
+	\caption{Selected expenditures growth rates two years before and two years after recession starts\\Dashed lines indicates recession start (NBER recession dating procedure)}
 	\label{fig:cycle}
 	\includegraphics[width=\textwidth]{./figs/Centered_Begin_pct1.png}
 	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' Elaboration}
@@ -873,10 +957,10 @@ Talvez discutir preço aqui
 
 In a heterodox perspective, textcites:fiebiger_semi-autonomous_2018,fiebiger_trend_2017 present residential investment as a Luxemburg-type external market providing a source of autonomous demand to absorb economic surplus.
 Both works state its role (together with debt-financed consumption) in inducing non-residential investment and driving output growth, during the business cycle as well in the long-run.
-Figure ref:fig:trend presents the trend of GDP and residential investment growth rate by estimating a HP filter.
+Figure ref:fig:trend presents the trend of GDP and residential investment growth rate by estimating a HP filter[fn::It worth noting that Figure ref:fig:trend is just a visualization procedure. We are aware of the econometric problems regarding this type of filter. For details see textcite:NBER_HP].
 Both series share a correlational relation in which residential investment growth rate is more volatile than GDP growth rate.
 Recently, textcite:perez_Montiel_2021 find that residential investment leads both the business cycles and the long-run economic growth for the US economy.
-Similar to textcite:girardi_long-run_2016, they do not report any relevant feedback from output to residential investment, categorizing this expenditure as an autonomous one.
+Similar to textcite:girardi_long-run_2016, they do not report any relevant feedback from output to residential investment, categorizing this expenditure as autonomous.
 
 #+begin_export latex
 \begin{figure}[H]

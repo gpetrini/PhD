@@ -62,12 +62,13 @@
 
 * Abstract :ignore:
 #+BEGIN_abstract
-This article investigates the determinants of residential investment based on the US case (1992-2019).
+This article investigates the determinants of residential investment for the US case (1992-2019).
 First we propose a combination of mortgage rate of interest and house price inflation in a single index (houses own-rate of interest).
 Our objective is to evaluate whether this index is useful to explain the rate of growth of residential investment.
 Cointegration tests report a long-rung trend between the two variables so we estimate a vector error correction model (VECM).
 In particular, we find that long-run causality goes unidirectionally from houses own-rate of interest to residential investment growth rate.
 As expected, residential investment growth rate effects on houses own-rate of interest are not statistically significant.
+Most importantly, we find that houses-own rate of interest and residential investment growth rate have a negative relationship.
 Estimation results are not sensible to lag order specification and residuals do not present serial autocorrelation and heterocedasticity.
 #+LATEX:\\
 #+LATEX: \noindent \textbf{Keywords:} Residential Investment; Asset price inflation; Mortgage Interest rate; Vector-Error correction model\\
@@ -147,6 +148,14 @@ All expected results are statistically significant and most of them are not rest
 \input{./tabs/StructBreak.tex}
 \input{./tabs/Johansen.tex}
 \input{./tabs/VECM_lag_order.tex}
+
+\begin{table}[htb]
+	\caption{Estimation parameters}
+	\centering
+	\input{./tabs/parameters.tex}
+	\caption*{\textbf{Source:} Authors' elaboration}
+\end{table}
+
 \input{./tabs/H0_Residuals.tex}
 \input{./tabs/robust.tex}
 #+end_export
