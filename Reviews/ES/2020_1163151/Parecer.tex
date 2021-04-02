@@ -1,0 +1,111 @@
+% Created 2021-04-02 sex 16:10
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[top=3cm, bottom=2cm, left=3cm, right=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[theorems, skins]{tcolorbox}
+\usepackage[style=abnt,noslsn,extrayear,uniquename=init,giveninits,justify,sccite,
+scbib,repeattitles,doi=false,isbn=false,url=false,maxcitenames=2,
+natbib=true,backend=biber]{biblatex}
+\usepackage{url}
+\usepackage[cache=false]{minted}
+\usepackage[linktocpage,pdfstartview=FitH,colorlinks,
+linkcolor=blue,anchorcolor=blue,
+citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
+\usepackage{attachfile}
+\usepackage{setspace}
+\usepackage{tikz}
+\renewcommand{\abstractname}{Visão geral e Recomendação}
+\bibliography{./refs.bib}
+\date{Abril de 2021}
+\title{Parecer}
+\begin{document}
+
+\maketitle
+\noindent \textbf{Título:} A contribuição da política fiscal para a crise brasileira recente: uma análise baseada em multiplicadores de despesas e receitas primárias do governo central no período 1997-2018
+
+\begin{abstract}
+O artigo discute os efeitos da política fiscal no Brasil a luz da estimação dos multiplicadores de receitas e despesas primárias para o período de 1997-2018.
+Tais multiplicadores são estimados por meio de um modelo SVAR em dois subperíodos distintos (1997-2018 e 1997-2014).
+A discussão levantada pelo artigo certamente é relevante e interessante.
+Os contrafactuais apresentados trazem questões bastante pertinentes para a compreensão da política fiscal.
+No entanto, o artigo não esclarece o porquê de se utilizar o modelo e questão (SVAR) dada a existência de alternativas que são mais adequadas para o objeto de análise e elementos apontados no próprio texto.
+Além disso, muitas informações relevantes sobre método e resultados obtidos encontram-se em notas de rodapé e deveriam estar no corpor do texto.
+Por fim, a contribuição deste artigo em relação aos demais resenhados pela revisão de literatura esta pouco evidenciada.
+Por estas razões recomendo a \textbf{não aceitação} deste artigo para a submissão.
+
+O artigo possui quatro seções principais.
+A seção 2 discute as inflexões de diferentes atuações da política fiscal no Brasil.
+Adiante, é feita uma revisão da literatura empírica que avalia multiplicadores fiscais.
+A descrição da metodologia e análise dos resultados ficam a cargo das seções 4 e 5.
+Os contrafactuais são apresesentados na seção 6.
+Dada a proposta do artigo, este parecer irá enfatizar principalmente a análise econométrica.
+\end{abstract}
+
+\section{Questões gerais}
+\label{sec:orgc2907e8}
+
+\begin{itemize}
+\item O objetivo e recorte de análise do artigo estão bem delimitados e evidenciados tanto no resumo quanto na introdução
+\item A motivação empírica é bastante relevante e pertinente
+\item Ao longo da seção 2 (p. 2-4) são apontados pontos de inflexão que dizem respeito à atuação da política fiscal no Brasil.
+Justamente por este motivo, modelos que incluem transição de um regime ao outro (como é o caso de TVAR, TSVAR, MSVAR) seriam mais adequados para dar conta destas mudanças.
+Além disso, não há nenhuma menção a testes de quebra estrutural.
+Os modelos e os testes mencionados anteriormente poderiam tornar a estimação proposta mais adequada.
+\item Na revisão da literatura empírica (seção 3), pontuam-se vários trabalhos em que a presença de não-linearidades é bastante relevante quando se trata de multiplicadores fiscais em diferentes regimes.
+Dessa forma, causa um certo estranhamento do porquê de não se adotar este tipo de modelo considerando a importância destas não-linearidades apontadas na própria revisão de literatura.
+\item Alinhado ao item anterior, são discutidos artigos na revisão de literatura (p. 6) em que são utilizados modelos STVAR, mas não há uma discussão do porquê de não se adotar tal tipo de modelo.
+\item A revisão de literatura poderia ser melhor organizada.
+Os artigos discutidos estão (aparentemente) organizados em ordem cronológica de publicação e não por similaridade de métodos/modelos utilizados.
+Tal sequência torna a comparação entre os trabalhos menos direta. No entanto, este é um ponto de importância menor.
+\item Na seção 5 (p. 10) em que são discutidos os resultados e o porquê de se separar a amostra em dois períodos afirma-se (comentário adicionado): ``Os dois recortes temporais permitirão lançar luz sobre uma eventual alteração dos efeitos multiplicadores após a crise iniciada em 2014. A estimação com um modelo não linear [este é o caso de STVAR], portanto, não permitiria uma avaliação específica da crise recente''.
+No entanto, pontua-se que tal metodologia adotada não permite avaliar a crise recente especificamente (p. 15): ``Note que esses multiplicadores durante  a crise podem ser ainda maiores, dado que estamos apenas considerando a diferença entre a amostra pré-crise e a amostra completa''.
+\item A descrição das etapas do VAR estrutural poderiam ser reduzidas dado que é um modelo comum na literatura. Os diferentes tipos de multiplicadores, por sua vez, ocupam um papel menor e poderia ser mais evidenciado dada a relevância para o objeto de interesse
+\item A comparação dos resultados obtidos com os da literatura é feita com pouca mediação. Seria mais adequado agrupar artigos com períodos de análise similares dada a importância da mudança da política fiscal apontada no próprio artigo (principalmente seção 2)
+\item O cenários (contrafactuais) apresentados poderiam estar organizados em uma tabela para melhorar a leitura
+\item De modo geral, a contribuição do artigo em relação aos similares na literatura (mesmo país, período e modelo similares) é pouco demarcada e, quando evidenciada, pontua-se que o artigo em questão optou pelo uso de dados menos desagregados (governo federal apenas invés das outras esferas); modelos mais simples (lineares enquanto a literatura pontua a importância de não linearidades) e; por fim, similaridade com outros artigos (notadamente Cattan (2017)).
+Sugere-se evidenciar mais a contribuição do artigo como é o caso de permitir comparar os efeitos dos benefícios sociais que tem pouco destaque na literatura. Este ponto esta presente no texto, mas poderia ter maior destaque.
+\item Existem alguns pontos discutidos na seção da metodologia que deveriam ter maior destaque dada sua importância. De modo geral, muitos desses tópicos são apresentados em notas de rodapé e que poderiam estar no corpo do texto. Seguem alguns exemplos:
+\begin{itemize}
+\item No final do segundo parágrafo da página 7 afirma-se que foram realizados exercícios para dados trimestrais (modelo principal utiliza variáveis mensais). Esta informação, no entanto, aparece apenas na nota de rodapé 13 (p. 16);
+\item Testes de hipótese comumente discutidos em artigos de econometria de séries temporais são mencionados apenas na nota de rodapé 5. Alguns destes resultados poderiam estar em um anexo estatístico.
+\item A informação da nota de rodapé 14 poderia estar no corpo do texto e, eventualmente, organizada na forma de tabela
+\end{itemize}
+\end{itemize}
+
+\section{Questões específicas}
+\label{sec:orgfb8d9f1}
+
+\begin{itemize}
+\item Ao longo do artigo fica pouco claro se a discussão dos efeitos da política fiscal se dá em termos do \textbf{nível} ou da \textbf{taxa} de crescimento do produto
+\item Em algumas passagens (resumo e introdução principalmente), utiliza-se o termo ``PIB verdadeiro'' invés de alternativas mais adequadas como ``efetivo'' ou ``observado''
+\item Gráfico 5 (p. 14) não possui legenda e a informação consta apenas no texto
+\item É mencionado o uso de 0,8 desvio-padrão no texto (p. 12-14), mas esta informação não consta nos gráficos ao qual se refere.
+\item As notas de rodapé 6 e 10 contém citações longas que pouco contribuem para o ponto em questão. Sugere-se retirar.
+\end{itemize}
+
+
+\section{Consideração final}
+\label{sec:org0c73887}
+
+O artigo apresenta uma discussão bastante pertinente e atual.
+No entanto, alguns do pontos levantados não são considerados pelo modelo utilizado ou poderiam ser considerados de forma mais adequada.
+Isso fica mais evidente pela ênfase de não-linearidades tanto na seção 2 quanto na revisão de literatura, mas adota-se um modelo linear nas estimações.
+Além disso, são pontuadas contribuições na literatura que avançam em mais direções que este com dados mais desagregados, modelos mais compatíveis com a discussão e objeto de análise similar de modo que a contribuição deste artigo se apequena.
+O artigo possui muitas notas de rodapé poderiam ser reduzidas e algumas delas apresentam informações muito importantes para não estarem no corpo do texto.
+Considerando principalmente os itens discutidos acima e os pontos elencados anteriormente, recomendo a \textbf{não aceitação} do artigo para publicação.
+\end{document}

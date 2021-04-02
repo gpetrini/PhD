@@ -62,14 +62,14 @@
 
 * Abstract :ignore:
 #+BEGIN_abstract
-This article investigates the determinants of residential investment for the US case (1992-2019).
+This article investigates the determinants of residential investment for the US (1992-2019).
 First we propose a combination of mortgage rate of interest and house price inflation in a single index (houses own-rate of interest).
-Our objective is to evaluate whether this index is useful to explain the rate of growth of residential investment.
+Our objective is to evaluate whether this index explains the rate of growth of residential investment.
 Cointegration tests report a long-rung trend between the two variables so we estimate a vector error correction model (VECM).
-In particular, we find that long-run causality goes unidirectionally from houses own-rate of interest to residential investment growth rate.
-As expected, residential investment growth rate effects on houses own-rate of interest are not statistically significant.
-Most importantly, we find that houses-own rate of interest and residential investment growth rate have a negative relationship.
-Estimation results are not sensible to lag order specification and residuals do not present serial autocorrelation and heterocedasticity.
+We find that long-run causality goes unidirectionally from houses own-rate of interest to residential investment growth rate.
+In the short-run adjustment process, residential investment growth rate effects on houses own-rate of interest also are not statistically significant.
+Most importantly, we find that houses-own rate of interest and residential investment growth rate have a negative correlation.
+Estimation results are not sensible to lag order specification and residuals do not present serial autocorrelation nor heterocedasticity.
 #+LATEX:\\
 #+LATEX: \noindent \textbf{Keywords:} Residential Investment; Asset price inflation; Mortgage Interest rate; Vector-Error correction model\\
 #+LATEX: \noindent \textbf{JEL codes:} E39; E44; R39
@@ -127,7 +127,7 @@ No potential conflict of interest was reported by the authors.
 * Statistical Appendix
 #+LATEX: \label{appen:A}
 
-In this appendix we report several tests: unit root tests on our variables of interest, Structural break test, Johansen procedure and hypothesis tests on residuals. 
+In this appendix we report some hypothesis tests: unit root tests on our variables of interest, Structural break test, Johansen procedure and hypothesis tests on residuals.
 The time-series of residential investment growth rate, mortgage interest rate and real estate inflation are all taken using textcite:yeo_new_2000 transformation (see Figure ref:YeoJhonson).
 As shown in Table ref:unitroot, the null hypothesis of a unit root in the first differences of the series is overwhelmingly rejected.
 As mentioned, we found structural breaks related to institutional changes and our series are co-integrated (see Tables ref:structbreak and ref:Johansen).
@@ -148,14 +148,6 @@ All expected results are statistically significant and most of them are not rest
 \input{./tabs/StructBreak.tex}
 \input{./tabs/Johansen.tex}
 \input{./tabs/VECM_lag_order.tex}
-
-\begin{table}[htb]
-	\caption{Estimation parameters}
-	\centering
-	\input{./tabs/parameters.tex}
-	\caption*{\textbf{Source:} Authors' elaboration}
-\end{table}
-
 \input{./tabs/H0_Residuals.tex}
 \input{./tabs/robust.tex}
 #+end_export
