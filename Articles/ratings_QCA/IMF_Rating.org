@@ -1,0 +1,221 @@
+#+OPTIONS: num:nil
+#+TITLE:  Acessing rating agencies evaluating criterias: Economic or Political-led?
+#+AUTHOR: Gabriel Petrini
+#+LANG: en
+#+PROPERTY:header-args R :results output drawer :eval never-export :exports both :session *rating*
+#+PROPERTY:header-args python :results output drawer :eval never-export :exports both :session *rating*
+
+* HTML headers :noexport:ignore:
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+
+#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="http://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+
+
+* General TODOs
+
+
+** TODO Check panel QCA
+
+** TODO Import IMF dataset
+
+- Query from IMFData package
+
+** TODO Import rating dataset
+
+- Only some years are freely available
+
+** TODO Merge datasets
+
+** TODO Subset countries?
+
+- Only developing countries?
+
+** TODO Callibrate IMF data
+* Packages and global variables
+
+#+begin_src R :exports code
+library(tidyverse)
+library(tidygeocoder)
+library(data.table)
+#+end_src
+
+
+* Loading Index of Economic Freedom (IEF)
+
+** How to get IEF dataset (=ief.csv=)
+
+- Go to this [[https://www.heritage.org/index/explore][link]]
+- Select Regions (do not select "All")
+- Select all years ("All" option)
+
+
+** Importing to R
+
+#+begin_src R
+df <- data.table::fread(
+                    './data/ief.csv',
+                    na.strings = "N/A"
+                    ) %>%
+  mutate(Name = countrycode::countrycode(
+                              Name,
+                              origin ='country.name',
+                              destination ='iso3c',
+                              warn = FALSE)) %>%
+  rename(ISO = Name, Year = `Index Year`) %>%
+  arrange(ISO, Year) %>%
+  drop_na(ISO) %>%
+  mutate(ISO = factor(ISO))
+#+end_src
+
+#+RESULTS:
+:results:
+:end:
+
+
+** Aggregating concepts
+
+
+
+This aggregates concepts are the one defined in the IEF main webpage.
+Here, we will define this variables as the mean of the individual ones.
+The website does not specify how to calculate them, but it looks like it is the row wise mean.
+
+#+CAPTION: Aggregates IEF variables
+#+NAME: agg
+|------------------------+---------------------+-----------------------+--------------------|
+| Rule of Law            | Government Size     | Regulatory Efficiency | Open Markets       |
+|------------------------+---------------------+-----------------------+--------------------|
+| Property Rights        | Tax Burden          | Business Freedom      | Trade Freedom      |
+| Judicial Effectiveness | Government Spending | Labor Freedom         | Investment Freedom |
+| Government Integrity   | Fiscal Health       | Monetary Freedom      | Financial Freedom  |
+|------------------------+---------------------+-----------------------+--------------------|
+
+#+begin_src R :var agg = agg
+names(agg) <- as.matrix(agg[1, ])
+agg <- agg[-1, ]
+agg[] <- lapply(agg, function(x) type.convert(as.character(x)))
+
+for(i in names(agg)){
+  agg %>% select(all_of(i)) %>% pull() %>% as.character() -> subset
+  df <- df %>%
+     mutate("{i}" := rowMeans(across(all_of(subset))))
+}
+#+end_src
+
+#+RESULTS:
+:results:
+:end:
+
+
+** Visual Check
+
+#+begin_src R :results graphics file :file ./figs/IEF_overview.png
+df %>%
+  filter(Year == max(Year)) %>%
+  filter(ISO %in% c("BRA", "USA", "CAN", "JPN", "BOL")) %>%
+  ggplot(aes(x = reorder(ISO, -`Overall Score`), y = `Overall Score`, fill = `Overall Score`)) +
+  geom_bar(stat = "identity")
+
+ggsave('./figs/IEF_overview.png')
+#+end_src
+
+#+RESULTS:
+[[file:./figs/IEF_overview.png]]
+
+
+** Exporting
+
+*** Full IEF dataset (=ief_full.csv=)
+
+#+begin_src R
+df %>%
+  data.table::fwrite('./data/ief_full.csv')
+#+end_src
+
+#+RESULTS:
+:results:
+:end:
+
+*** Only Aggregates (=ief_aggregates.csv=)
+
+#+begin_src R
+df %>%
+  select(ISO, Year, `Overall Score`, names(agg)) %>%
+  data.table::fwrite('./data/ief_aggregates.csv')
+#+end_src
+
+#+RESULTS:
+:results:
+:end:
+
+** Specific TODOs
+
+- Replace NAs
+- Divide by 100
+
+* Loading IMF dataset
+
+** Quantitative Economic series dictionary
+
+#+CAPTION: Description of series abbreviation
+|----------------------+-------------------------+--------------------------------------------------------------------+------------|
+| Abbreviation         | Description             | Detail                                                             | Group      |
+|----------------------+-------------------------+--------------------------------------------------------------------+------------|
+| GG_GE_G01_CA_XDG     | Government Expenses     | Expense (Gen. Gov., Mil., Nom. - National Curr.)                   | Government |
+| GG_GADL_T_G01_CA_XDC | Public Debt             | Liabilities, Transactions (Gen. Gov., Mil., Nom. - National Curr.) | Government |
+| GG_GR_G01_CA_XDC     | Government Revenue      | Revenue (Gen. Gov., Mil., Nom. - National Curr.)                   | Government |
+| GG_GEI_G01_CA_XDC    | Interest Expenses       | Interest (Gen. Gov., Mil., Nom. - National Curr.)                  | Government |
+| NGDP_XDC             | GDP                     | GDP, Current Prices                                                | Demand     |
+| NCP_XDC              | Household Consumption   | Household Consumption (w/ NPISHs, Nom. Domestic Curr.)             | Demand     |
+| NCGG_XDC             | Government Consumption  | Government Consumption Expenditure (Nom. Domestic Curr.)           | Demand     |
+| NFI_XDC              | Investment              | Gross Fixed Capital Formation (Nom. Domestic Curr.)                | Demand     |
+| NINV_XDC             | Inventories             | Change in inventories (Nom. Domestic Curr.)                        | Supply     |
+| NX_XDC               | Exports                 | Exports of Goods and Services (Nom. Domestic Curr.)                | Demand     |
+| NM_XDC               | Imports                 | Imports of Goods and Service (Nom. Domestic Curr.)                 | Supply     |
+| AIP_IX               | Industrial Production   | Industrial Production Index (2010=100)                             | Supply     |
+| RAXG_USD             | Inter. Liq.             | International reserves (Excl. Gold, USD)                           | External   |
+| RAFASDR_USD          | Inter. Liq. (official)  | International reserves, Official reserves, SDR (USD)               | External   |
+| RAFAIMF_USD          | Inter. Liq. (IMF)       | International reserves, Official reserves, IMF position (USD)      | External   |
+| BXG_BP6_USD          | Exports (BOP)           | Current Account - Goods and Services (Credit, USD)                 | BOP        |
+| BMG_BP6_USD          | Imports (BOP)           | Current Account - Goods and Services (Debit, USD)                  | BOP        |
+| BG_BP6_USD           | CA balance              | Current Account - Goods and Services (Net, USD)                    | BOP        |
+| BK_DB_BP6_USD        | Capital Account         | Capital Account - Total (Debt, USD)                                | BOP        |
+| BFDA_BP6_USD         | Financial Account       | Net Financial Account - (+ Lending, - Borrowing)                   | BOP        |
+| FPE_IX               | Fin. Mkt Prices         | Financial Market Prices (Equities, Index)                          | Prices     |
+| PPPI_IX              | Produces Prices         | Producer Prices Index (2010=100)                                   | Prices     |
+| PCPI_IX              | Consumer Prices         | Consumer Prices Index (2010=100)                                   | Prices     |
+| FPOLM_PA             | CB Interest rate        | Central Bank Policy rate (% per annum)                             | Interest   |
+| FISR_PA              | Savings rate            | Savings rate (% per annum)                                         | Interest   |
+| ENDE_XDC_USD_RATE    | Domestic Currency (end) | Domestic currency rate  per USD, End of period                     | Exchange   |
+| ENDA_XDC_USD_RATE    | Domestic Currency (avg) | Domestic currency rate per USD, Period Average                     | Exchange   |
+| TXG_FOB_USD          | Value of Exports        | Value of Exports (Goods, USD)                                      | Trade      |
+| TMG_FOB_USD          | Value of Imports        | Value of Improts (Goods - FOB, USD)                                | Trade      |
+|----------------------+-------------------------+--------------------------------------------------------------------+------------|
+
+
+** Importing IMF data
+
+* Loading rating index datase (tranding economics)
+
+* Callibrating variables
+
+** Qualitatives (IEF)
+
+** Quantitatives (IMF)
+
+** Outcome (rating)
+
+* Truth Tables
+
+** Presence of Outcome (Rating Increase)
+** Absence of Outcome (Rating Decrease)
+
+* Minimization
+
+* Analysis
+
+* Robustness check
