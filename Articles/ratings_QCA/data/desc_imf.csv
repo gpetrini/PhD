@@ -1,0 +1,30 @@
+Abbreviation,Description,Detail,Group
+GG_GE_G01_CA_XDG,Government Expenses,"Expense (Gen. Gov., Mil., Nom. - National Curr.)",Government
+GG_GADL_T_G01_CA_XDC,Public Debt,"Liabilities, Transactions (Gen. Gov., Mil., Nom. - National Curr.)",Government
+GG_GR_G01_CA_XDC,Government Revenue,"Revenue (Gen. Gov., Mil., Nom. - National Curr.)",Government
+GG_GEI_G01_CA_XDC,Interest Expenses,"Interest (Gen. Gov., Mil., Nom. - National Curr.)",Government
+NGDP_XDC,GDP,"GDP, Current Prices",Demand
+NCP_XDC,Household Consumption,"Household Consumption (w/ NPISHs, Nom. Domestic Curr.)",Demand
+NCGG_XDC,Government Consumption,Government Consumption Expenditure (Nom. Domestic Curr.),Demand
+NFI_XDC,Investment,Gross Fixed Capital Formation (Nom. Domestic Curr.),Demand
+NINV_XDC,Inventories,Change in inventories (Nom. Domestic Curr.),Supply
+NX_XDC,Exports,Exports of Goods and Services (Nom. Domestic Curr.),Demand
+NM_XDC,Imports,Imports of Goods and Service (Nom. Domestic Curr.),Supply
+AIP_IX,Industrial Production,Industrial Production Index (2010=100),Supply
+RAXG_USD,Inter. Liq.,"International reserves (Excl. Gold, USD)",External
+RAFASDR_USD,Inter. Liq. (official),"International reserves, Official reserves, SDR (USD)",External
+RAFAIMF_USD,Inter. Liq. (IMF),"International reserves, Official reserves, IMF position (USD)",External
+BXG_BP6_USD,Exports (BOP),"Current Account - Goods and Services (Credit, USD)",BOP
+BMG_BP6_USD,Imports (BOP),"Current Account - Goods and Services (Debit, USD)",BOP
+BG_BP6_USD,CA balance,"Current Account - Goods and Services (Net, USD)",BOP
+BK_DB_BP6_USD,Capital Account,"Capital Account - Total (Debt, USD)",BOP
+BFDA_BP6_USD,Financial Account,"Net Financial Account - (+ Lending, - Borrowing)",BOP
+FPE_IX,Fin. Mkt Prices,"Financial Market Prices (Equities, Index)",Prices
+PPPI_IX,Produces Prices,Producer Prices Index (2010=100),Prices
+PCPI_IX,Consumer Prices,Consumer Prices Index (2010=100),Prices
+FPOLM_PA,CB Interest rate,Central Bank Policy rate (% per annum),Interest
+FISR_PA,Savings rate,Savings rate (% per annum),Interest
+ENDE_XDC_USD_RATE,Domestic Currency (end),"Domestic currency rate  per USD, End of period",Exchange
+ENDA_XDC_USD_RATE,Domestic Currency (avg),"Domestic currency rate per USD, Period Average",Exchange
+TXG_FOB_USD,Value of Exports,"Value of Exports (Goods, USD)",Trade
+TMG_FOB_USD,Value of Imports,"Value of Improts (Goods - FOB, USD)",Trade

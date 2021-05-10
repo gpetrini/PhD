@@ -1,5 +1,5 @@
 #+OPTIONS: num:nil
-#+TITLE:  Acessing rating agencies evaluating criterias: Economic or Political-led?
+#+TITLE:  Acessing how rating agencies evaluates developing countries: applying two measure?
 #+AUTHOR: Gabriel Petrini
 #+LANG: en
 #+PROPERTY:header-args R :results output drawer :eval never-export :exports both :session *rating*
@@ -41,7 +41,35 @@
 library(tidyverse)
 library(tidygeocoder)
 library(data.table)
+library(FactoMineR)
+library(factoextra)
+
+emacs <- TRUE
 #+end_src
+
+#+RESULTS:
+:results:
+── [1mAttaching packages[22m ────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
+[32m✔[39m [34mggplot2[39m 3.3.3     [32m✔[39m [34mpurrr  [39m 0.3.4
+[32m✔[39m [34mtibble [39m 3.0.6     [32m✔[39m [34mdplyr  [39m 1.0.4
+[32m✔[39m [34mtidyr  [39m 1.1.2     [32m✔[39m [34mstringr[39m 1.4.0
+[32m✔[39m [34mreadr  [39m 1.4.0     [32m✔[39m [34mforcats[39m 0.5.1
+── [1mConflicts[22m ───────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+[31m✖[39m [34mdplyr[39m::[32mfilter()[39m masks [34mstats[39m::filter()
+[31m✖[39m [34mdplyr[39m::[32mlag()[39m    masks [34mstats[39m::lag()
+data.table 1.13.6 using 2 threads (see ?getDTthreads).  Latest news: r-datatable.com
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+:end:
 
 
 * Loading Index of Economic Freedom (IEF)
@@ -94,15 +122,22 @@ The website does not specify how to calculate them, but it looks like it is the 
 | Government Integrity   | Fiscal Health       | Monetary Freedom      | Financial Freedom  |
 |------------------------+---------------------+-----------------------+--------------------|
 
+
 #+begin_src R :var agg = agg
-names(agg) <- as.matrix(agg[1, ])
-agg <- agg[-1, ]
-agg[] <- lapply(agg, function(x) type.convert(as.character(x)))
+
+if(emacs){ # Replace VNs by its columns nates
+  names(agg) <- as.matrix(agg[1, ])
+  agg <- agg[-1, ]
+  agg[] <- lapply(agg, function(x) type.convert(as.character(x)))
+} else{
+  agg <- data.table::fread('./data/desc_aggregates.csv')
+}
+
 
 for(i in names(agg)){
   agg %>% select(all_of(i)) %>% pull() %>% as.character() -> subset
   df <- df %>%
-     mutate("{i}" := rowMeans(across(all_of(subset))))
+    mutate("{i}" := rowMeans(across(all_of(subset))))
 }
 #+end_src
 
@@ -152,6 +187,75 @@ df %>%
 :results:
 :end:
 
+
+** Principal Component Exploration
+
+*** General
+
+#+begin_src R :results graphics file :file ./figs/IEF_biplot.png
+
+data.table::fread('./data/ief_full.csv') -> df
+
+df <- df %>%
+  group_by(ISO) %>%
+  fill(.direction = "updown") %>%
+  ungroup() %>%
+  mutate(Case = paste0(ISO, "_", Year)) %>%
+  select(-c(`Overall Score`, `Regulatory Efficiency`, `Rule of Law`, `Government Size`, `Open Markets`)) %>%
+  select(-c(ISO, Year)) %>%
+  drop_na() %>%
+  column_to_rownames(var = "Case")
+
+PCA(df, scale.unit = TRUE, ncp = 5, graph = FALSE) -> results
+
+png('./figs/IEF_biplot.png')
+fviz_pca_biplot(results, repel = TRUE,
+                col.var = "#2E9FDF", # Variables color
+                col.ind = "#696969"  # Individuals color
+                )
+dev.off()
+#+end_src
+
+#+RESULTS:
+[[file:./figs/IEF_biplot.png]]
+
+
+
+
+*** Aggregates
+
+#+begin_src R :results graphics file :file ./figs/IEF_agg_biplot.png
+
+data.table::fread('./data/ief_full.csv') -> df
+
+df <- df %>%
+  group_by(ISO) %>%
+  fill(.direction = "updown") %>%
+  ungroup() %>%
+  mutate(Case = paste0(ISO, "_", Year)) %>%
+  select(`Regulatory Efficiency`, `Rule of Law`, `Government Size`, `Open Markets`, Case) %>%
+  drop_na() %>%
+  column_to_rownames(var = "Case")
+
+PCA(df, scale.unit = TRUE, ncp = 4, graph = FALSE) -> results
+
+png('./figs/IEF_agg_biplot.png')
+fviz_pca_biplot(results,
+                repel = TRUE,
+                col.var = "#2E9FDF", # Variables color
+                col.ind = "#696969"  # Individuals color
+                ) %>%
+  print()
+dev.off()
+#+end_src
+
+#+RESULTS:
+[[file:./figs/IEF_agg_biplot.png]]
+
+
+
+
+
 ** Specific TODOs
 
 - Replace NAs
@@ -162,10 +266,11 @@ df %>%
 ** Quantitative Economic series dictionary
 
 #+CAPTION: Description of series abbreviation
+#+NAME: imf
 |----------------------+-------------------------+--------------------------------------------------------------------+------------|
 | Abbreviation         | Description             | Detail                                                             | Group      |
 |----------------------+-------------------------+--------------------------------------------------------------------+------------|
-| GG_GE_G01_CA_XDG     | Government Expenses     | Expense (Gen. Gov., Mil., Nom. - National Curr.)                   | Government |
+| GG_GE_G01_CA_XDC     | Government Expenses     | Expense (Gen. Gov., Mil., Nom. - National Curr.)                   | Government |
 | GG_GADL_T_G01_CA_XDC | Public Debt             | Liabilities, Transactions (Gen. Gov., Mil., Nom. - National Curr.) | Government |
 | GG_GR_G01_CA_XDC     | Government Revenue      | Revenue (Gen. Gov., Mil., Nom. - National Curr.)                   | Government |
 | GG_GEI_G01_CA_XDC    | Interest Expenses       | Interest (Gen. Gov., Mil., Nom. - National Curr.)                  | Government |
@@ -199,15 +304,100 @@ df %>%
 
 ** Importing IMF data
 
-* Loading rating index datase (tranding economics)
+*** Quering data
 
-* Callibrating variables
+#+begin_src R :var imf = imf :exports code
+
+if(emacs){ # Replace VNs by its columns nates
+  names(imf) <- as.matrix(imf[1, ])
+  imf <- imf[-1, ]
+  imf[] <- lapply(imf, function(x) type.convert(as.character(x)))
+} else{
+  imf <- data.table::fread('./data/desc_imf.csv')
+}
+
+series <- imf$Abbreviation %>% as.character() %>% c()
+chunck_size <- 5
+chuncks <- split(series, ceiling(seq_along(series)/chunck_size))
+
+imfr::imf_data(
+        database_id = 'IFS',
+        indicator = series,
+      ) -> df
+
+df %>% data.table::fwrite('./data/IFS_full_dataset.csv')
+#+end_src
+
+
+
+
+*** Renaming variables
+
+#+begin_src R :var imf = imf
+
+if(emacs){ # Replace VNs by its columns nates
+  names(imf) <- as.matrix(imf[1, ])
+  imf <- imf[-1, ]
+  imf[] <- lapply(imf, function(x) type.convert(as.character(x)))
+} else{
+  imf <- data.table::fread('./data/desc_imf.csv')
+}
+
+
+colnames <- c("ISO", "Year", imf$Description %>% as.character())
+
+df <- data.table::fread('./data/IFS_full_dataset.csv') %>%
+  rename(ISO = iso2c) %>%
+  mutate(ISO = countrycode::countrycode(
+                              ISO,
+                              origin ='iso2c',
+                              destination ='iso3c',
+                              warn = FALSE)) %>%
+  setNames(colnames)
+
+df %>% data.table::fwrite('./data/IFS_full_renamed.csv')
+#+end_src
+
+#+RESULTS:
+:results:
+:end:
+
+
+
+** Principal Component Exploration
+
+* Loading rating index datase (trending economics)
+
+- Define one rating per country
+  + Agency mean?
+
+
+* Merging datasets
+
+- Subset years
+  + Pre GFC?
+- Subset developing countries
+- Add group variable (for Panel QCA to estimate between effects)
+  + Continents?
+  + Economic Regions?
+
+* Calibrating variables
 
 ** Qualitatives (IEF)
 
+
+- Divide by 100
+
 ** Quantitatives (IMF)
 
+- Calculate the deviation to best rated: Var_Fuzz = (Var_Best - Var_Raw)
+  + As close to one, more close to "get fundamentals right"
+  + There is some cases in which the variables are not [0,1]
+
 ** Outcome (rating)
+
+- Summarize agencies
+- Divide by 100
 
 * Truth Tables
 
