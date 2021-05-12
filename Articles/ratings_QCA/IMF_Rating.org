@@ -72,6 +72,20 @@ Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/
 :end:
 
 
+#+begin_src python
+import pandas as pd
+import numpy as np
+
+import country_converter as coco
+
+converter = coco.CountryConverter()
+
+#+end_src
+
+#+RESULTS:
+:results:
+:end:
+
 * Loading Index of Economic Freedom (IEF)
 
 ** How to get IEF dataset (=ief.csv=)
@@ -364,13 +378,139 @@ df %>% data.table::fwrite('./data/IFS_full_renamed.csv')
 
 
 
+** Defining derived variables
+
+#+BEGIN_SRC python
+df = pd.read_csv(
+    './data/IFS_full_renamed.csv',
+    index_col = ["ISO"],
+    parse_dates = True
+)
+
+df["Debt/GDP"] = df["Public Debt"]/df["GDP"]
+df["Investment share"] = df["Investment"]/df["GDP"]
+df["CA Balance/GDP"] = df["CA balance"]/df["GDP"]
+df["Capital Account/GDP"] = df["Capital Account"]/df["GDP"]
+df["Growth"] = df["GDP"].groupby('ISO').pct_change()
+df["Primary Outcome"] = df["Government Expenses"] - df["Government Revenue"] + df["Interest Expenses"]
+df["Primary Outcome/GDP"] = df["Primary Outcome"]/df["GDP"]
+
+df.to_csv('./data/IFS_Derivated_Series.csv', index_label = "ISO")
+#+END_SRC
+
+#+RESULTS:
+:results:
+:end:
+
 ** Principal Component Exploration
 
-* Loading rating index datase (trending economics)
+#+begin_src R :results graphics file :file ./figs/IFS_biplot.png
+
+data.table::fread("./data/IFS_Derivated_Series.csv") -> df
+
+df <- df %>%
+  group_by(ISO) %>%
+  fill(.direction = "updown") %>%
+  ungroup() %>%
+  mutate(Case = paste0(ISO, "_", Year)) %>%
+  select(Case, `Debt/GDP`, `Primary Outcome/GDP`, `CA Balance/GDP`, `Capital Account/GDP`, Growth) %>%
+  drop_na() %>%
+  column_to_rownames(var = "Case")
+
+PCA(df, scale.unit = TRUE, ncp = 5, graph = FALSE) -> results
+
+png("./figs/IFS_biplot.png")
+fviz_pca_biplot(results,
+  repel = TRUE,
+  col.var = "#2E9FDF", # Variables color
+  col.ind = "#696969" # Individuals color
+) %>% print()
+dev.off()
+#+end_src
+
+#+RESULTS:
+[[file:./figs/IFS_biplot.png]]
+
+
+* Loading rating index dataset (trending economics)
 
 - Define one rating per country
   + Agency mean?
 
+
+** Downloading dataset
+
+In this case, we are aggregating different rates in the same year (if it occurs) with agency mean.
+
+#+BEGIN_SRC python
+categories = pd.read_html(
+    'https://tradingeconomics.com/country-list/rating',
+    index_col = [-1]
+)[1]
+
+for j in range(2,categories.shape[1]):
+
+    fuzzies = {
+        categories.iloc[i,1] : categories.iloc[i,0]/100 for i in range(categories.shape[0])
+    }
+    fuzzies.update(
+        {
+        categories.iloc[i,j] : categories.iloc[i,0]/100 for i in range(categories.shape[0])
+    }
+    )
+
+def fuzzy_rating(grade):
+    result = grade.map(fuzzies)
+    # result = grade.map(fuzzies).mean()
+    return result
+
+countries = pd.read_html(
+    'https://tradingeconomics.com/country-list/rating',
+)[0]
+countries = countries["Unnamed: 0"].to_list()
+countries = [i.lower().strip().replace(" ", "-") for i in countries]
+
+errors = []
+
+rating = pd.DataFrame()
+for country in countries:
+    try:
+        url = f"https://tradingeconomics.com/{country}/rating"
+        df = pd.read_html(
+                url,
+                parse_dates=True,
+                index_col=[-1]
+        )[0]
+        df.index.name = 'Date'
+        df["ISO"] = converter.convert(names = country.replace('-', ' '), to = 'ISO3',)
+        df["Year"] = [i.year for i in df.index]
+        df = df.reset_index()
+        # df = df.set_index('ISO')
+        df["Rating"] = fuzzy_rating(grade=df["Rating"])
+        df = df.pivot_table(
+            index=["ISO", "Year"],
+            columns="Agency",
+            values="Rating",
+            aggfunc=np.mean)
+        df = df.reset_index()
+        df.columns.name = ''
+        rating = rating.append(df)
+    except (KeyError, ValueError) as e:
+        errors = errprs.append(e)
+        # print(f"{country} data is not available")
+        # print(f"Warning message: {e}")
+        pass
+
+rating = rating[rating["ISO"] != "not found"]
+rating.to_csv('./data/rating_fulldataset_numeric.csv')
+#+END_SRC
+
+#+RESULTS:
+:results:
+:end:
+
+
+** Computing average rate and rename variables
 
 * Merging datasets
 
@@ -380,6 +520,13 @@ df %>% data.table::fwrite('./data/IFS_full_renamed.csv')
 - Add group variable (for Panel QCA to estimate between effects)
   + Continents?
   + Economic Regions?
+
+
+** Merging datasets
+
+** Grouping by best rated
+
+** Subset year and countries
 
 * Calibrating variables
 
