@@ -720,17 +720,18 @@ df <-  map_dfr(
   drop_na(crise)
 
 ggplot(df, aes(x=date, y=value, colour=Series, linetype=Series)) +
-  geom_line() +
+  geom_line(size = 1.25) +
   scale_x_date(breaks = "year", minor_breaks = "6 months", date_labels="%y' %b") +
   ## ggsci::scale_color_futurama() +
   facet_wrap(~crise, scale="free_x", drop=TRUE) +
   geom_hline(yintercept=0, color='black', size=0.25) +
   xlab("") + ylab("Percent change from 1 year ago") +
   theme_bw() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   scale_color_manual(name = "Series",
                      values = c('black', 'black', 'grey', 'black'),
                      labels = c("Durable Goods", "GDP", "Non Residential Investment", "Residential Investment")) +
-  scale_linetype_manual(name = "Series", 
+  scale_linetype_manual(name = "Series",
                         values = c("solid", "dashed", "solid", "dotted"),
                         labels = c("Durable Goods", "GDP", "Non Residential Investment", "Residential Investment")) ->fig
 
@@ -749,6 +750,7 @@ ggsave(
 
 #+RESULTS:
 [[file:./figs/Centered_Begin_pct1.png]]
+
 
 
 
@@ -899,7 +901,7 @@ In this Section, we will present some stylized facts regarding the relevance of 
 
 There are, nevertheless, two notable exceptions.
 In a letter to President Franklin D. Roosevelt, in the mid of the Great Depression, Keynes presented the case of housing as the best aid to fight the crisis and to foster economic recovery \cite[p.~436]{keynes_collected_1978}.
-The other exception is textcite:duesenberry_investment_1958 who critics ordinary theories of aggregate investment because they put firms’ investment in capital and structures together with residential investment.
+The other exception is textcite:duesenberry_investment_1958 who criticizes ordinary theories of aggregate investment because they put firms’ investment in capital and structures together with residential investment.
 In this sense, he proposes a model dedicated for the latter type of investment, emphasizing the role of house prices.
 
 
@@ -936,13 +938,13 @@ For the US both statements are valid and housing related variables (house prices
 In order to depict the relation between residential investment and business cycle, we present Figure ref:fig:cycle.
 In each panel, we present the growth rate of selected expenditures two years before and two years after recession starts.
 In most of them, residential investment growth rate is negative before a recession starts.
-The Great Recession is a remarkable example of this pattern while dot-com crisis (2000-1) is an exception as already pointed out by textcite:leamer_housing_2007.
+The Great Recession is a remarkable example of this pattern while the dot-com crisis (2000-1) is an exception as already pointed out by textcite:leamer_housing_2007.
 
 
 #+begin_export latex
 \begin{figure}[H]
 	\centering
-	\caption{Selected expenditures growth rates two years before and two years after recession starts\\Dashed lines indicates recession start (NBER recession dating procedure)}
+	\caption{Selected expenditures growth rates two years before and two years after recession starts\\Vertical lines indicates recession start (NBER recession dating procedure)}
 	\label{fig:cycle}
 	\includegraphics[width=\textwidth]{./figs/Centered_Begin_pct1.png}
 	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' Elaboration}
@@ -955,8 +957,10 @@ Talvez discutir preço aqui
 
 
 In a heterodox perspective, textcites:fiebiger_semi-autonomous_2018,fiebiger_trend_2017 present residential investment as a Luxemburg-type external market providing a source of autonomous demand to absorb economic surplus.
-Both works state its role (together with debt-financed consumption) in inducing non-residential investment and driving output growth, during the business cycle as well in the long-run.
-Figure ref:fig:trend presents the trend of GDP and residential investment growth rate by estimating a HP filter[fn::It worth noting that Figure ref:fig:trend is just a visualization procedure. We are aware of the econometric problems regarding this type of filter. For details see textcite:NBER_HP].
+textcite:teixeira_crescimento_2015 includes both residential investment  and durables goods consumption in the Sraffian supermultiplier framework to explain the recent US housing bubble episode.
+Additionally, in his work houses price and mortgages interest rate are the main determinant of the former.
+Those works state its role (together with debt-financed consumption) in inducing non-residential investment and driving output growth, during the business cycle as well as in the long-run.
+Figure ref:fig:trend presents the trend of GDP and residential investment growth rate by estimating a HP filter[fn::It worth noting that Figure ref:fig:trend is just a visualization procedure. We are aware of the econometric problems regarding this type of filter. For details see textcite:NBER_HP.].
 Both series share a correlational relation in which residential investment growth rate is more volatile than GDP growth rate.
 Recently, textcite:perez_Montiel_2021 find that residential investment leads both the business cycles and the long-run economic growth for the US economy.
 Similar to textcite:girardi_long-run_2016, they do not report any relevant feedback from output to residential investment, categorizing this expenditure as autonomous.
@@ -972,10 +976,10 @@ Similar to textcite:girardi_long-run_2016, they do not report any relevant feedb
 #+end_export
 
 
-Before we move forward, it is worth mentioning that the relevance of housing is not restricted to its implications to growth and business cycles.
+Before we move forward, it is worth mentioning that the relevance of housing is not restricted to its implications to growth and business cycles neither limited to residential investment related variables.
 For example, textcite:jorda_great_2016 report that credit and financial sector growth has been led mainly by mortgages. 
 textcite:kohl_more_2018 presents a historical perspective in which banking activities were majorly redirected to households and housing.
-Other studies have shown that house price inflation is the main determinant of household indebtedness, distribution of wealth and that it has implications for macroeconomic stability cites:ryoo_household_2015,stockhammer_debt-driven_2016,barnes_private_2016,johnston_global_2017,mian_household_2017,anderson_politics_2020,fuller_housing_2020.
+Other studies have shown that house price inflation is one of the main determinants of household indebtedness, distribution of wealth and that it has implications for macroeconomic stability cites:ryoo_household_2015,stockhammer_debt-driven_2016,barnes_private_2016,johnston_global_2017,mian_household_2017,anderson_politics_2020,fuller_housing_2020.
 In summary, what we intended to show was the macroeconomic relevance of residential investment.
 On the following section, we analyze how econometric literature has dealt with its determinants.
 

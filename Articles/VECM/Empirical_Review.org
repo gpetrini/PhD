@@ -146,7 +146,7 @@ The empirical estimations show that residential investment is positively related
 textcite:topel_1988_Housing come to a similar conclusion to textcite:poterba_tax_1984.
 They estimate the determinants of housing starts (as a proxy for residential investment) for the US from 1963 to 1983 using instrumental variables.
 Their functional form for residential investment includes hedonic prices and some cost shifters for the construction sector such as interest rate, expected inflation, wages and median time on market after the construction begins.
-In summary, they found that residential investment is highly sensible to house prices movements while interest rate is a relevant cost shifter.
+In summary, they found that residential investment is highly sensitive to house prices movements while interest rate is a relevant cost shifter.
 
 Recently,  textcite:arestis_residential_2015 update \citeauthor*{poterba_tax_1984}'s citeyear:poterba_tax_1984 framework by estimating an autoregressive distributed lag (ARDL) model for 17 OECD countries (including the US).
 In their model, they specify residential investment as a positive function of house prices, real disposable income and bank credit while long-term real interest rate and unemployment rate are expected to have negative effects.
@@ -163,19 +163,19 @@ The interest rate choice, however, varies.
 In a OLS model for 7 OECD countries (including the US), textcite:egebo_1990_MODEL conclude that real disposable income and long-term interest rate deflated by consumer price index are relevant for explaining residential investment.
 For the US in particular, they report that mortgage interest rate coefficients are robust.
 
-More recently, textcite:fair_macroeconometric_2018 estimates an residential investment function for the US for two subsamples (1954-2013 and 1954-2007) using a 2SOLS method.
+More recently, textcite:fair_macroeconometric_2018 estimates an residential investment function for the US (1954-2017) using both FIML and 3SOLS methods.
 The residential investment equation has some demographic variables (percent of population with an specific age), depreciation rate of housing stock, real disposable income deflated by house market prices, real net housing wealth also deflated by house prices and alternates between real -- deflated by GDP deflator -- and nominal long-term after tax mortgage interest rate.
-It is worth noting that textcite:fair_macroeconometric_2018 discuss the statistical insignificance of real interest rates compared to nominal ones.
+It is worth noting that textcite:fair_macroeconometric_2018 discuss the absence of statistical significance of real interest rates compared to nominal ones.
 As a consequence, he opts to use nominal mortgage rate instead.
 The model report jointly significant variables in which nominal after tax mortgage interest rate affects residential investment negatively.
 
-Others scholars have reported that the residential investment sensitivity to interest rate are still valid after institutional changes after the mid-1980s[fn::The savings and loans crisis of the 1980s was followed by a set of institutional changes which affected the housing financial system. Just to name two of them: Depository Institutions Deregulation and Monetary Control Act (1980); Financial Institutions Reform, Recovery, and Enforcement Act (FIRREA, 1989). For a detailed chronology, see  \textcite[Appendix B]{mccarthyMonetaryPolicyTransmission2002} and textcite:green_american_2005; for a discussion on the consequences for households access to consumption and mortgage credit see textcite:federal_deposit_insurance_corporation_savings_1997,wall_too_2010. @@latex:\label{nota_instituicoes}@@].
+Other scholars have reported that the residential investment sensitivity to interest rate is still valid after institutional changes after the mid-1980s[fn::The savings and loans crisis of the 1980s was followed by a set of institutional changes which affected the housing financial system. Just to name two of them: Depository Institutions Deregulation and Monetary Control Act (1980); Financial Institutions Reform, Recovery, and Enforcement Act (FIRREA, 1989). For a detailed chronology, see  \textcite[Appendix B]{mccarthyMonetaryPolicyTransmission2002} and textcite:green_american_2005; for a discussion on the consequences for households access to consumption and mortgage credit see textcite:federal_deposit_insurance_corporation_savings_1997,wall_too_2010. @@latex:\label{nota_instituicoes}@@].
 textcite:mccarthyMonetaryPolicyTransmission2002, for instance, evaluate the responsiveness of residential investment to interest rates considering these changes in the housing financial system.
 In order to isolate these effects, they estimate  a model for the US in two sub-samples (1975-1985 and 1986-2000) using GMM method.
 They conclude that the residential investment response magnitude to a monetary shock before and after these institutional changes are similar.
 textcite:gauger_residential_2003 also evaluate the consequences of deregulation of depository institutions throughout the 1980s.
 In order to do so, they estimate a VECM between a monetary aggregate (M2), GDP, residential investment and alternate between short-term government bonds and long-term mortgage interest rates.
-They report an increasing contribution of long-term mortgages interest rate in order to explain resident investment variance after those institutional changes mentioned above.
+They report an increasing contribution of long-term mortgages interest rate in order to explain residential investment variance after those institutional changes mentioned above.
 
 
 Finally, Table ref:tab:summary_models shows an overview of the discussed papers.

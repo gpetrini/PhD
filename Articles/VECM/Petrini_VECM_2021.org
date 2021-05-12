@@ -133,7 +133,9 @@ The time-series of residential investment growth rate, mortgage interest rate an
 As shown in Table ref:unitroot, the null hypothesis of a unit root in the first differences of the series is overwhelmingly rejected.
 As mentioned, we found structural breaks related to institutional changes and our series are co-integrated (see Tables ref:structbreak and ref:Johansen).
 Our estimation order selection was based both on statistical and theoretical reasoning with homoscedasticity residuals (see Tables ref:criterios and ref:testes_resduos).
-All expected results are statistically significant and most of them are not restrict to model specification (see Table ref:tab:robust).
+All expected results are statistically significant and most of them are not restrict to model specification.
+Table ref:tab:robust provides a robustness check.
+In the last column of this tables we show which expected result listed in Table ref:tab:resultados_esperados holds for different time lags.
 
 #+begin_export latex
 \begin{figure}[htb]
