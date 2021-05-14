@@ -1,0 +1,48 @@
+#+TITLE: Capítulo ABM
+#+LATEX_CLASS: SelfArx
+#+SETUPFILE: ../manuscript.setup
+#+INCLUDE: Infos.org
+#+EXCLUDE_TAGS: Thesis
+
+* Initial Setup                                              :journal:ignore:
+
+#+LATEX:\flushbottom % Makes all text pages the same height
+#+LATEX:\maketitle % Print the title and abstract box
+#+LATEX:\thispagestyle{empty} % Removes page numbering from the first page
+
+* Capítulo ABM :ignore:
+
+** Epígrafe                                                   :ignore:Thesis:
+
+#+LATEX: \epigraph{The Fed, the European Central Bank and the Bank of Japan together set monetary policy for a zone that accounts for 80 per cent of the world’s
+#+LATEX: industrialized economic activity ... Rarely, if ever, can so much power have been wielded by such a small number of institutions sitting outside the
+#+LATEX:  direct democratic process.}{Goldman Sachs, 2000}
+
+
+** Introduction
+
+The aftermatch of the Great Financial Crisis (2008) induced a set of perspectives change in the economic profession.
+Besides the policy making changes, this changes goes both to the empirical and to methodological and theoretical issues.
+Topics previously at the margin of the macroeconomic debate had received more attention.
+This is the case for income distribution and inequality; financing and systematic risk and, slowly, housing (CITAR).
+Complementary with this focus change, there is also a methodological revolution in course.
+DSGE models had lost its prestigious since it failed to antecipate some of the GFC events.
+Modestly, Agent Based Models (ABM) captured more academic and policy making spaces.
+
+Besides the
+
+** Empirical motivation
+
+** Model description
+
+**** Market protocol
+
+Since house search is time consumming, Households do not have access to all housing information in each period.
+Thus, each households will see a sample of the regions on the landscape.
+Buyer are sorted according to the marginal propensity to invest in housing expenses and its priority in choosing a housing unit increases with this value between those in the same region.
+
+** Baseline and experiments
+
+**** Business as Usual (BAU)
+
+**** Mortgage rate increase

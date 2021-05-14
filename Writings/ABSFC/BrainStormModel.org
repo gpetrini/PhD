@@ -412,6 +412,222 @@ There is $H$ (fixed) households which are devided in the following classes:
   + Richers households searchs for House/Land first
 - Household's propensity to invest or to improve a house will be sthocasthic
 - Rentiers households are allowed to sell houses
+- Non speculative houseowners must sell their houses before bying a new one. If fails to find an affordable one, stay at a rental dwelling
+- Households search only a sample of the model landscape
+  + Seach is time consumming
+- There is a fixed probability of moving out if not financially burdend (review)
+
+*** Visualization
+
+#+begin_src dot :file flowchart.png :results graphics file
+digraph G {
+  node [fontname = "Handlee"];
+  edge [fontname = "Handlee"];
+
+  splines=false;
+
+  begin [
+    label = "Begin";
+    shape = rect;
+  ];
+  type [
+    label = "Household\ntype";
+    shape = house;
+  ];
+  workers [
+    label = "Workers";
+    shape = rect;
+  ];
+owns [
+        label = "Houseowner?"
+        shape = rect;
+        ];
+W_buy [
+        label = "Intend\nto buy?"
+        shape = rect;
+        ];
+W_rent0 [
+       label = "Keep/Go\nrent"
+        shape = rect;
+        ];
+W_pays [
+       label = "Pays rent"
+        shape = rect;
+        ];
+W_house0 [
+       label = "Keep House"
+        shape = rect;
+        ];
+W_move [
+        label = "Intend to\nmove out?"
+        shape = rect;
+        ];
+W_search [
+        label = "Search"
+        shape = rect;
+        ];
+W_sell [
+        label = "Sell"
+        shape = rect;
+        ];
+W_credit [
+        label = "Ask for credit"
+        shape = rect;
+        ];
+W_approaved [
+        label = "Approaved?"
+        shape = rect;
+        ];
+W_found [
+        label = "Found?"
+        shape = rect;
+        ];
+W_bougth [
+        label = "Buy"
+        shape = rect;
+        ];
+   rentiers [
+    label = "Rentiers";
+  ];
+R_buy [
+        label = "Intend to\nbuy other house?"
+        shape = rect;
+        ];
+ R_capital [
+    label = "Expect future\ncapital gains?"
+        ]
+ R_search [
+    label = "Search for\nnew houses"
+        ];
+R_credit [
+        label = "Ask for credit"
+        shape = rect;
+        ];
+R_approaved [
+        label = "Approaved?"
+        shape = rect;
+        ];
+R_found [
+        label = "Found?"
+        shape = rect;
+        ];
+R_bill [
+        label = "Buy public bonds"
+        shape = rect;
+        ];
+R_bougth [
+        label = "Buy"
+        shape = rect;
+        ];
+ R_sell [
+    label = "Sell now"
+        ];
+ R_keep [
+    label = "Keep it"
+        ];
+ R_sold [
+    label = "Sold?"
+        ];
+ R_rent0 [
+    label = "Place for rent"
+        ];
+ landowner [
+    label = "Landowner";
+    shape = diamond;
+  ];
+ L_sell [
+    label = "Intend to sell it?";
+    shape = diamond;
+  ];
+ L_offer [
+    label = "Put on market";
+    shape = diamond;
+  ];
+ L_sold [
+    label = "Sold?";
+    shape = diamond;
+  ];
+ L_rent [
+    label = "Place to rent";
+    shape = diamond;
+  ];
+ L_collects [
+    label = "Collect rents";
+    shape = diamond;
+  ];
+
+ end [
+    label = "End";
+    shape = diamond;
+  ];
+
+  begin -> type;
+  type -> workers -> owns;
+  owns -> W_pays [ label = "No";];
+  W_pays -> W_buy;
+  W_buy -> W_rent0 [ label = "No"];
+  W_buy -> W_credit [label = "Yes"]
+  W_credit -> W_approaved;
+  W_approaved -> W_search [ label = "Yes"];
+  W_approaved -> W_rent0 [ label = "No"];
+  W_rent0 -> end
+  W_search -> W_found;
+  W_found -> W_rent0 [label = "No"];
+  W_found -> W_bougth [label = "Yes"];
+  W_bougth -> end;
+  owns -> W_move [ label = "Yes"];
+  W_move -> W_house0 [ label = "No"];
+  W_move -> W_sell [ label = "Yes"];
+  W_sell -> W_credit;
+  W_house0 -> end;
+  type -> rentiers;
+  rentiers -> R_capital;
+  R_capital -> R_sell [label = "No"];
+  R_capital -> R_keep [label = "Yes"];
+  R_keep -> R_bill;
+  R_sell -> R_sold [label = "Yes"];
+  R_sold -> R_search [ label = "Yes"];
+  R_sold -> R_rent0 [ label = "No"];
+  R_rent0 -> end;
+  rentiers -> R_buy;
+  R_buy -> R_credit [label = "Yes"];
+  R_buy -> R_bill [label = "No"];
+  R_credit -> R_approaved;
+  R_approaved -> R_search [ label = "Yes"];
+  R_approaved -> R_bill [ label = "No"];
+  R_bill -> end;
+  R_search -> R_found;
+  R_found -> R_bill [label = "No"];
+  R_found -> R_bougth [label = "Yes"];
+  R_bougth -> end;
+  type -> landowner;
+  landowner -> L_collects;
+  L_collects -> L_sell;
+  L_sell -> L_offer [ label = "Yes"];
+  L_sell -> L_rent [ label = "No"];
+  L_offer -> L_sold;
+  L_sold -> L_rent [ label = "No"];
+  L_sold -> end [label = "Yes"];
+  L_rent -> end;
+
+{
+    rank=same;
+    workers; rentiers; landowner;
+  }
+
+{
+    rank=same;
+    W_pays; L_collects;
+  }
+{
+    rank=same;
+    W_bougth; W_house0;
+  }
+}
+#+end_src
+
+#+RESULTS:
+[[file:flowchart.png]]
 
 *** Income
 
@@ -599,3 +815,8 @@ I_{f}^{HF} = \beta_{0} + \beta_{1}\cdot own + \beta_{4}\cdot p_{l}\cdot N^{LD}_{
 \Delta MO_{hr} = I_{hhr}
 \end{equation}
 #+END_latex
+
+* Writing strategy
+
+
+In each equation description (mainly in the housing sector) ends each paragraph with an empirical evidence.

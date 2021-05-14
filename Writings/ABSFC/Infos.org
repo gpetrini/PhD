@@ -1,0 +1,18 @@
+
+* Article Information                                        :ignore:journal:
+
+#+BEGIN_EXPORT latex
+\JournalInfo{Draft} % Journal information
+\Archive{Please do not quote} % Additional notes (e.g. copyright, DOI, review/research article)
+
+\Authors{Gabriel Petrini\textsuperscript{1}*, Lucas Teixeira\textsuperscript{2}, Ivette Luna\textsuperscript{2}} % Authors
+\affiliation{\textsuperscript{1}\textit{PhD Student at Unicamp/Brazil}} % Author affiliation
+\affiliation{\textsuperscript{2}\textit{Professor at Unicamp/Brazil}} % Author affiliation
+\affiliation{*\textbf{Corresponding author}: gpetrinidasilveira@gmail.com} % Corresponding author
+
+\Keywords{Keyword1 --- Keyword2 --- Keyword3} % Keywords - if you don't want any simply remove all the text between the curly brackets
+\newcommand{\keywordname}{Keywords} % Defines the keywords heading name
+
+\Abstract{This is an example of an Abstract}
+
+#+END_EXPORT
