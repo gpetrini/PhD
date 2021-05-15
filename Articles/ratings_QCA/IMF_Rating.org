@@ -694,21 +694,13 @@ medians <- df %>%
   mutate(ISO = "Median") %>%
   ungroup()
 
-stats <- means %>%
-  left_join(maxs)
-stats <- stats %>%
-  left_join(mins)
-stats <- stats %>%
-  left_join(medians)
+stats <- bind_rows(means, maxs, mins, medians)
 
 stats %>% data.table::fwrite('./data/ief_imf_rating_stats.csv')
 #+end_src
 
 #+RESULTS:
 :results:
-Joining, by = c("Year", "Growth", "Debt/GDP", "CA Balance/GDP", "Capital Account/GDP", "Primary Outcome/GDP", "ISO")
-Joining, by = c("Year", "Growth", "Debt/GDP", "CA Balance/GDP", "Capital Account/GDP", "Primary Outcome/GDP", "ISO")
-Joining, by = c("Year", "Growth", "Debt/GDP", "CA Balance/GDP", "Capital Account/GDP", "Primary Outcome/GDP", "ISO")
 :end:
 
 
@@ -753,11 +745,8 @@ bests <- data.table::fread('./data/ief_imf_rating_best.csv')
 stats <- data.table::fread('./data/ief_imf_rating_stats.csv')
 df <- data.table::fread("./data/ief_imf_rating.csv")
 
-df <- df %>%
-  left_join(stats, by = c("ISO", "Year"))
+df <- bind_rows(df, bests, stats)
 
-df <- df %>%
-  left_join(bests, by = c("ISO", "Year"))
 
 df %>% data.table::fwrite('./data/dataset_stats_bests.csv')
 
@@ -784,8 +773,6 @@ Error in fread("./data/dataset_stats_bests.csv") :
 
 ** Correct
 
-- Fill NAs in df, stats and bests
-- Corrigir join do stats
 - Calcular valores relativos
 
 * Calibrating variables
