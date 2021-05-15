@@ -80,6 +80,8 @@ import country_converter as coco
 
 converter = coco.CountryConverter()
 
+developing = converter.data["ISO3"][np.isnan(converter.data["OECD"])].to_list()
+oecd = converter.data["ISO3"][~np.isnan(converter.data["OECD"])].to_list()
 #+end_src
 
 #+RESULTS:
@@ -434,9 +436,6 @@ dev.off()
 
 * Loading rating index dataset (trending economics)
 
-- Define one rating per country
-  + Agency mean?
-
 
 ** Downloading dataset
 
@@ -471,6 +470,7 @@ countries = countries["Unnamed: 0"].to_list()
 countries = [i.lower().strip().replace(" ", "-") for i in countries]
 
 errors = []
+empties = []
 
 rating = pd.DataFrame()
 for country in countries:
@@ -492,25 +492,30 @@ for country in countries:
             columns="Agency",
             values="Rating",
             aggfunc=np.mean)
-        df = df.reset_index()
+        df = df.reset_index(level=[0,1])
         df.columns.name = ''
-        rating = rating.append(df)
+        if df.empty:
+            empties.append(country)
+            pass
+        else:
+            rating = rating.append(df)
     except (KeyError, ValueError) as e:
-        errors = errprs.append(e)
+        errors.append(e)
         # print(f"{country} data is not available")
         # print(f"Warning message: {e}")
         pass
 
 rating = rating[rating["ISO"] != "not found"]
+rating["OECD"] = rating["ISO"].isin(oecd)
+rating["Rating"] = rating[["S&P", "Fitch", "Moody's"]].mean(axis=1)
 rating.to_csv('./data/rating_fulldataset_numeric.csv')
 #+END_SRC
 
 #+RESULTS:
 :results:
+european union not found in regex
 :end:
 
-
-** Filtering prime rates
 
 * Merging datasets
 
@@ -527,6 +532,261 @@ rating.to_csv('./data/rating_fulldataset_numeric.csv')
 ** Grouping by best rated
 
 ** Subset year and countries
+
+
+** Creating df
+
+#+begin_src R
+data.table::fread("./data/ief_full.csv") -> ief
+data.table::fread("./data/IFS_Derivated_Series.csv") -> imf
+data.table::fread("./data/rating_fulldataset_numeric.csv") -> rating
+
+df <- ief %>% left_join(imf, by = c("ISO", "Year"))
+df <- df %>% left_join(rating, by = c("ISO", "Year"))
+
+# Replacing NA
+
+df <- df %>%
+  group_by(ISO) %>%
+  fill(everything(), .direction = "updown") %>%
+  ungroup() %>%
+  mutate(Case = paste0(ISO, "_", Year))
+
+df %>% data.table::fwrite('./data/ief_imf_rating.csv')
+
+#+end_src
+
+#+RESULTS:
+:results:
+:end:
+
+
+:results:
+
+R version 4.0.4 (2021-02-15) -- "Lost Library Book"
+Copyright (C) 2021 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R é um software livre e vem sem GARANTIA ALGUMA.
+Você pode redistribuí-lo sob certas circunstâncias.
+Digite 'license()' ou 'licence()' para detalhes de distribuição.
+
+R é um projeto colaborativo com muitos contribuidores.
+Digite 'contributors()' para obter mais informações e
+'citation()' para saber como citar o R ou pacotes do R em publicações.
+
+Digite 'demo()' para demonstrações, 'help()' para o sistema on-line de ajuda,
+ou 'help.start()' para abrir o sistema de ajuda em HTML no seu navegador.
+Digite 'q()' para sair do R.
+
+[Área de trabalho anterior carregada]
+setwd('/HDD/PhD/Articles/ratings_QCA/')
+library(tidyverse)
+library(tidygeocoder)
+library(data.table)
+library(FactoMineR)
+library(factoextra)
+
+emacs <- TRUE
+'org_babel_R_eoe'
+── Attaching packages ────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
+✔ ggplot2 3.3.3     ✔ purrr   0.3.4
+✔ tibble  3.0.6     ✔ dplyr   1.0.4
+✔ tidyr   1.1.2     ✔ stringr 1.4.0
+✔ readr   1.4.0     ✔ forcats 0.5.1
+── Conflicts ───────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+data.table 1.13.6 using 2 threads (see ?getDTthreads).  Latest news: r-datatable.com
+
+Attaching package: ‘data.table’
+
+The following objects are masked from ‘package:dplyr’:
+
+    between, first, last
+
+The following object is masked from ‘package:purrr’:
+
+    transpose
+Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+[1] "org_babel_R_eoe"
+data.table::fread('./data/ief_full.csv') -
+ief
+data.table::fread('./data/IFS_Derivated_Series.csv') -
+imf
+data.table::fread('./data/rating_fulldataset_numeric.csv') -
+rating
+'org_babel_R_eoe'
+
+R version 4.0.4 (2021-02-15) -- "Lost Library Book"
+Copyright (C) 2021 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R é um software livre e vem sem GARANTIA ALGUMA.
+Você pode redistribuí-lo sob certas circunstâncias.
+Digite 'license()' ou 'licence()' para detalhes de distribuição.
+
+R é um projeto colaborativo com muitos contribuidores.
+Digite 'contributors()' para obter mais informações e
+'citation()' para saber como citar o R ou pacotes do R em publicações.
+
+Digite 'demo()' para demonstrações, 'help()' para o sistema on-line de ajuda,
+ou 'help.start()' para abrir o sistema de ajuda em HTML no seu navegador.
+Digite 'q()' para sair do R.
+
+[Área de trabalho anterior carregada]
+Error in data.table::fread("./data/rating_fulldataset_numeric.csv") : 
+  File './data/rating_fulldataset_numeric.csv' does not exist or is non-readable. getwd()=='/HDD/PhD/Articles/ratings_QCA'
+:end:
+
+** Creating yearly min, max and mean
+
+#+begin_src R
+
+
+df <- data.table::fread("./data/ief_imf_rating.csv")
+
+means <- df %>%
+  group_by(Year) %>%
+  summarise(
+    Growth = mean(Growth, na.rm = TRUE),
+    `Debt/GDP` = mean(`Debt/GDP`, na.rm = TRUE),
+    `CA Balance/GDP` = mean(`CA Balance/GDP`, na.rm = TRUE),
+    `Capital Account/GDP` = mean(`Capital Account/GDP`, na.rm = TRUE),
+    `Primary Outcome/GDP` = mean(`Primary Outcome/GDP`, na.rm = TRUE),
+  ) %>%
+  mutate(ISO = "Mean") %>%
+  ungroup()
+
+maxs <- df %>%
+  group_by(Year) %>%
+  summarise(
+    Growth = max(Growth, na.rm = TRUE),
+    `Debt/GDP` = max(`Debt/GDP`, na.rm = TRUE),
+    `CA Balance/GDP` = max(`CA Balance/GDP`, na.rm = TRUE),
+    `Capital Account/GDP` = max(`Capital Account/GDP`, na.rm = TRUE),
+    `Primary Outcome/GDP` = max(`Primary Outcome/GDP`, na.rm = TRUE),
+  ) %>%
+  mutate(ISO = "Max") %>%
+  ungroup()
+
+mins <- df %>%
+  group_by(Year) %>%
+  summarise(
+    Growth = min(Growth, na.rm = TRUE),
+    `Debt/GDP` = min(`Debt/GDP`, na.rm = TRUE),
+    `CA Balance/GDP` = min(`CA Balance/GDP`, na.rm = TRUE),
+    `Capital Account/GDP` = min(`Capital Account/GDP`, na.rm = TRUE),
+    `Primary Outcome/GDP` = min(`Primary Outcome/GDP`, na.rm = TRUE),
+  ) %>%
+  mutate(ISO = "Min") %>%
+  ungroup()
+
+medians <- df %>%
+  group_by(Year) %>%
+  summarise(
+    Growth = median(Growth, na.rm = TRUE),
+    `Debt/GDP` = median(`Debt/GDP`, na.rm = TRUE),
+    `CA Balance/GDP` = median(`CA Balance/GDP`, na.rm = TRUE),
+    `Capital Account/GDP` = median(`Capital Account/GDP`, na.rm = TRUE),
+    `Primary Outcome/GDP` = median(`Primary Outcome/GDP`, na.rm = TRUE),
+  ) %>%
+  mutate(ISO = "Median") %>%
+  ungroup()
+
+stats <- means %>%
+  left_join(maxs)
+stats <- stats %>%
+  left_join(mins)
+stats <- stats %>%
+  left_join(medians)
+
+stats %>% data.table::fwrite('./data/ief_imf_rating_stats.csv')
+#+end_src
+
+#+RESULTS:
+:results:
+Joining, by = c("Year", "Growth", "Debt/GDP", "CA Balance/GDP", "Capital Account/GDP", "Primary Outcome/GDP", "ISO")
+Joining, by = c("Year", "Growth", "Debt/GDP", "CA Balance/GDP", "Capital Account/GDP", "Primary Outcome/GDP", "ISO")
+Joining, by = c("Year", "Growth", "Debt/GDP", "CA Balance/GDP", "Capital Account/GDP", "Primary Outcome/GDP", "ISO")
+:end:
+
+
+** Filtering prime rates
+
+#+begin_src R
+
+df <- data.table::fread("./data/ief_imf_rating.csv")
+
+
+bests <- df %>%
+  group_by(Year) %>%
+  fill(.direction = "updown") %>%
+  filter(Rating >= 0.95) %>%
+  summarise(
+    Growth = mean(Growth, na.rm = TRUE),
+    `Debt/GDP` = mean(`Debt/GDP`, na.rm = TRUE),
+    `CA Balance/GDP` = mean(`CA Balance/GDP`, na.rm = TRUE),
+    `Capital Account/GDP` = mean(`Capital Account/GDP`, na.rm = TRUE),
+    `Primary Outcome/GDP` = mean(`Primary Outcome/GDP`, na.rm = TRUE),
+    `Overall Score` = mean(`Overall Score`, na.rm = TRUE),
+    `Rule of Law` = mean(`Rule of Law`, na.rm = TRUE),
+    `Government Size` = mean(`Government Size`, na.rm = TRUE),
+    `Open Markets` = mean(`Open Markets`, na.rm = TRUE),
+    `Regulatory Efficiency` = mean(`Regulatory Efficiency`, na.rm = TRUE),
+  ) %>%
+  mutate(ISO = "BEST") %>%
+  ungroup()
+
+bests %>% data.table::fwrite("./data/ief_imf_rating_best.csv")
+#+end_src
+
+#+RESULTS:
+:results:
+:end:
+
+** Remerging
+
+#+begin_src R
+
+bests <- data.table::fread('./data/ief_imf_rating_best.csv')
+stats <- data.table::fread('./data/ief_imf_rating_stats.csv')
+df <- data.table::fread("./data/ief_imf_rating.csv")
+
+df <- df %>%
+  left_join(stats, by = c("ISO", "Year"))
+
+df <- df %>%
+  left_join(bests, by = c("ISO", "Year"))
+
+df %>% data.table::fwrite('./data/dataset_stats_bests.csv')
+
+#+end_src
+
+#+RESULTS:
+:results:
+:end:
+
+
+** Calculate relative values
+
+
+#+begin_src R
+
+df <- data.table::fread('./data/dataset_stats_bests.csv')
+#+end_src
+
+#+RESULTS:
+:results:
+Error in fread("./data/dataset_stats_bests.csv") :
+  File './data/dataset_stats_bests.csv' does not exist or is non-readable. getwd()=='/HDD/PhD/Articles/ratings_QCA'
+:end:
+
+** Correct
+
+- Fill NAs in df, stats and bests
+- Corrigir join do stats
+- Calcular valores relativos
 
 * Calibrating variables
 
