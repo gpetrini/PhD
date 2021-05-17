@@ -20,21 +20,13 @@
 
 ** TODO Check panel QCA
 
-** TODO Import IMF dataset
+** TODO Calibrate
 
-- Query from IMFData package
+*** WAIT Valores relativos em relação aos melhores avaliados ou diferença de ano a outro?
+- Ambos?
+- Em relação ao investment grade?
+- Vantagem do relativo é que inclui a situação econômica do ano (exemplo: crise)
 
-** TODO Import rating dataset
-
-- Only some years are freely available
-
-** TODO Merge datasets
-
-** TODO Subset countries?
-
-- Only developing countries?
-
-** TODO Callibrate IMF data
 * Packages and global variables
 
 #+begin_src R :exports code
@@ -519,14 +511,6 @@ european union not found in regex
 
 * Merging datasets
 
-- Subset years
-  + Pre GFC?
-- Subset developing countries
-- Add group variable (for Panel QCA to estimate between effects)
-  + Continents?
-  + Economic Regions?
-
-
 ** Merging datasets
 
 ** Grouping by best rated
@@ -762,18 +746,46 @@ df %>% data.table::fwrite('./data/dataset_stats_bests.csv')
 
 #+begin_src R
 
-df <- data.table::fread('./data/dataset_stats_bests.csv')
+df <- data.table::fread('./data/dataset_stats_bests.csv') %>%
+  group_by(ISO) %>%
+  fill(.direction = "updown") %>%
+  ungroup()
+bests <- data.table::fread('./data/ief_imf_rating_best.csv')
+
+incompletes <- df %>% group_by(ISO) %>% mutate(n = n()) %>% ungroup() %>% filter(n != nrow(bests)) %>% select(ISO) %>% unique()
+
+df <- df %>%
+  group_by(ISO) %>%
+  mutate(n = n()) %>%
+  filter(n == nrow(bests)) %>% # sanity check
+  mutate(
+    relative_growth = Growth/bests$Growth,
+    relative_debt_gdp = `Debt/GDP`/(bests$`Debt/GDP`),
+    relative_primary_gdp = `Primary Outcome/GDP`/(bests$`Primary Outcome/GDP`),
+    relative_ca_gdp = `CA Balance/GDP`/(bests$`CA Balance/GDP`),
+    relative_capitalacc_gdp = `Capital Account/GDP`/(bests$`Capital Account/GDP`),
+    relative_gov_size = `Government Size`/(bests$`Government Size`),
+    relative_ruleoflaw = `Rule of Law`/(bests$`Rule of Law`),
+    relative_open_mkt = `Open Markets`/(bests$`Open Markets`),
+    relative_reg_eff = `Regulatory Efficiency`/(bests$`Regulatory Efficiency`),
+    relative_overall_score = `Overall Score`/(bests$`Overall Score`)
+  ) %>%
+  ungroup()
+
+df %>% data.table::fwrite('./data/dataset_relative_macro_aggregates.csv')
+
 #+end_src
 
 #+RESULTS:
 :results:
-Error in fread("./data/dataset_stats_bests.csv") :
-  File './data/dataset_stats_bests.csv' does not exist or is non-readable. getwd()=='/HDD/PhD/Articles/ratings_QCA'
 :end:
+
+
 
 ** Correct
 
-- Calcular valores relativos
+- Calcular valores do investment grade?
+- Corrigir NAs que não foram preenchidos
 
 * Calibrating variables
 
