@@ -310,6 +310,11 @@ dev.off()
 |----------------------+-------------------------+--------------------------------------------------------------------+------------|
 
 
+Alternatives for primary outcome (IFS):
+- Central Government (including Social Security), Primary Net cash inflow from operating activities, Domestic Currency
+- General Government, Primary Net cash inflow from operating activities, Domestic Currency
+- Budgetary Central Government, Primary operating balance, Domestic Currency
+
 ** Importing IMF data
 
 *** Quering data
@@ -335,8 +340,6 @@ imfr::imf_data(
 
 df %>% data.table::fwrite('./data/IFS_full_dataset.csv')
 #+end_src
-
-
 
 
 *** Renaming variables
@@ -372,22 +375,184 @@ df %>% data.table::fwrite('./data/IFS_full_renamed.csv')
 
 
 
+** Importing HPPD data and merging with IFS
+
+#+begin_src R
+df <- imfr::imf_data(database_id = "HPDD", indicator = "GGXWDG_GDP") %>%
+  rename(`Debt/GDP` = GGXWDG_GDP) %>%
+  rename(Year = year) %>%
+  mutate(Year = as.numeric(Year)) %>%
+  rename(ISO = iso2c) %>%
+  mutate(ISO = countrycode::countrycode(
+                              ISO,
+                              origin ='iso2c',
+                              destination ='iso3c',
+                              warn = FALSE))
+
+df %>% data.table::fwrite('./data/HPDD_Public_Debt.csv')
+
+ifs <- data.table::fread('./data/IFS_full_renamed.csv')
+
+ifs <- ifs %>%
+  left_join(df)
+
+ifs %>% data.table::fwrite('./data/IFS_HPDD.csv')
+#+end_src
+
+#+RESULTS:
+:results:
+  |                                                                              |                                                                      |   0%  |                                                                              |=======                                                               |  10%  |                                                                              |======================================================================| 100%
+  |                                                                              |                                                                      |   0%  |                                                                              |=======                                                               |  10%  |                                                                              |======================================================================| 100%
+  |                                                                              |                                                                      |   0%  |                                                                              |=======                                                               |  10%  |                                                                              |=========================                                             |  36%  |                                                                              |===========================================                           |  61%  |                                                                              |=============================================================         |  87%  |                                                                              |======================================================================| 100%
+  |                                                                              |                                                                      |   0%  |                                                                              |========                                                              |  11%  |                                                                              |======================================================================| 100%
+  |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
+Joining, by = c("ISO", "Year")
+:end:
+
+** Primary outcome from WEO
+
+*** Download
+
+#+BEGIN_SRC python
+import weo
+
+weo.download(year=2021, release="Apr", filename="./data/weo/weo.csv")
+#+END_SRC
+
+#+RESULTS:
+:results:
+data/weo/weo.csv 9.3Mb
+Downloaded 2021-Apr WEO dataset
+:end:
+
+
+
+*** Clean
+
+#+begin_src R
+
+years <- seq(1995, 2021, by = 1) %>% as.character
+
+df <- data.table::fread('./data/weo/weo.csv', na.strings="n/a") %>%
+  filter(`WEO Subject Code` %in% c("GGXONLB", "GGXONLB_NGDP")) %>%
+  select(ISO, `WEO Subject Code`, all_of(years)) %>%
+  pivot_longer(
+    cols = years,
+    names_to = "Year",
+    values_to = "Val"
+  ) %>%
+  pivot_wider(
+    names_from = `WEO Subject Code`,
+    values_from = "Val"
+  ) %>%
+  rename(
+    `Primary Outcome` = `GGXONLB`,
+    `Primary Outcome/GDP` = `GGXONLB_NGDP`
+  )
+
+df %>% data.table::fwrite('./data/primary_outcome.csv')
+#+end_src
+
+#+RESULTS:
+:results:
+:end:
+
+*** Merging with previous dataset
+
+#+begin_src R
+
+weo <- data.table::fread('./data/primary_outcome.csv')
+
+df <- data.table::fread('./data/IFS_HPDD.csv')
+
+df <- df %>%
+  left_join(weo)
+
+df %>% data.table::fwrite('./data/IFS_HPDD_WEO.csv')
+#+end_src
+
+#+RESULTS:
+:results:
+Joining, by = c("ISO", "Year", "Primary Outcome")
+Erro: Can't join on `x$Primary Outcome` x `y$Primary Outcome` because of incompatible types.
+[34mℹ[39m `x$Primary Outcome` is of type <double>>.
+[34mℹ[39m `y$Primary Outcome` is of type <character>>.
+[90mRun `rlang::last_error()` to see where the error occurred.[39m
+:end:
+
+** Primary outcome from WEO
+
+*** Download
+
+#+BEGIN_SRC python
+import weo
+
+weo.download(year=2021, release="Apr", filename="./data/weo/weo.csv")
+#+END_SRC
+
+#+RESULTS:
+:results:
+data/weo/weo.csv 9.3Mb
+Downloaded 2021-Apr WEO dataset
+:end:
+
+
+
+*** Clean
+
+#+begin_src R
+
+years <- seq(1995, 2021, by = 1) %>% as.character
+
+df <- data.table::fread('./data/weo/weo.csv', na.strings="n/a") %>%
+  filter(`WEO Subject Code` %in% c("GGXONLB", "GGXONLB_NGDP")) %>%
+  select(ISO, `WEO Subject Code`, all_of(years)) %>%
+  pivot_longer(
+    cols = years,
+    names_to = "Year",
+    values_to = "Val"
+  ) %>%
+  pivot_wider(
+    names_from = `WEO Subject Code`,
+    values_from = "Val"
+  ) %>%
+  rename(
+    `Primary Outcome` = `GGXONLB`,
+    `Primary Outcome/GDP` = `GGXONLB_NGDP`
+  )
+
+df %>% data.table::fwrite('./data/primary_outcome.csv')
+#+end_src
+
+#+RESULTS:
+:results:
+:end:
+
+
+#+BEGIN_SRC python
+import weo
+
+weo.download(year=2020, release="Apr", filename="./weo/weo.csv")
+#+END_SRC
+
+
+
 ** Defining derived variables
 
 #+BEGIN_SRC python
 df = pd.read_csv(
-    './data/IFS_full_renamed.csv',
+    './data/IFS_HPDD_WEO.csv',
     index_col = ["ISO"],
     parse_dates = True
 )
 
-df["Debt/GDP"] = df["Public Debt"]/df["GDP"]
+# df["Debt/GDP"] = df["Public Debt"]/df["GDP"]
 df["Investment share"] = df["Investment"]/df["GDP"]
 df["CA Balance/GDP"] = df["CA balance"]/df["GDP"]
 df["Capital Account/GDP"] = df["Capital Account"]/df["GDP"]
 df["Growth"] = df["GDP"].groupby('ISO').pct_change()
-df["Primary Outcome"] = df["Government Expenses"] - df["Government Revenue"] + df["Interest Expenses"]
-df["Primary Outcome/GDP"] = df["Primary Outcome"]/df["GDP"]
+# df["Primary Outcome"] = df["Government Expenses"] - df["Government Revenue"] + df["Interest Expenses"]
+# df["Primary Outcome/GDP"] = df["Primary Outcome"]/df["GDP"]
 
 df.to_csv('./data/IFS_Derivated_Series.csv', index_label = "ISO")
 #+END_SRC
@@ -510,12 +675,6 @@ european union not found in regex
 
 
 * Merging datasets
-
-** Merging datasets
-
-** Grouping by best rated
-
-** Subset year and countries
 
 
 ** Creating df
@@ -697,8 +856,8 @@ df <- data.table::fread("./data/ief_imf_rating.csv")
 
 bests <- df %>%
   group_by(Year) %>%
-  fill(.direction = "updown") %>%
   filter(Rating >= 0.95) %>%
+  fill(.direction = "updown") %>%
   summarise(
     Growth = mean(Growth, na.rm = TRUE),
     `Debt/GDP` = mean(`Debt/GDP`, na.rm = TRUE),
@@ -784,26 +943,41 @@ df %>% data.table::fwrite('./data/dataset_relative_macro_aggregates.csv')
 
 ** Correct
 
-- Calcular valores do investment grade?
-- Corrigir NAs que não foram preenchidos
+- Primary Outcome
 
 * Calibrating variables
 
-** Qualitatives (IEF)
+** Importing, subseting and adapting variables names for readability
 
 
-- Divide by 100
+#+begin_src R
+df <- data.table::fread('./data/dataset_relative_macro_aggregates.csv') %>%
+  select(
+    ISO, Case, OECD,
+    `Government Size`, `Regulatory Efficiency`, `Open Markets`, `Rule of Law`,
+    relative_growth, relative_debt_gdp, relative_primary_gdp, relative_ca_gdp, relative_capitalacc_gdp,
+    Rating
+  ) %>%
+  rename(
+    Growth = relative_growth,
+    `Public Debt/GDP` = relative_debt_gdp,
+    `Primary Outcome/GDP` = relative_primary_gdp,
+    `CA Balance/GDP` = relative_ca_gdp,
+    `Capital Acc/GDP` = relative_capitalacc_gdp
+  ) %>%
+  filter(
+    ISO != "BEST",
+    ISO != "Median", ISO != "Mean", ISO != "Min", ISO != "Max"
+    ) %>%
+  select(-c(ISO)) %>%
+  drop_na(Rating)
 
-** Quantitatives (IMF)
+df %>% data.table::fwrite('./data/df_pre_calibration.csv')
+#+end_src
 
-- Calculate the deviation to best rated: Var_Fuzz = (Var_Best - Var_Raw)
-  + As close to one, more close to "get fundamentals right"
-  + There is some cases in which the variables are not [0,1]
-
-** Outcome (rating)
-
-- Summarize agencies
-- Divide by 100
+#+RESULTS:
+:results:
+:end:
 
 * Truth Tables
 
