@@ -17,7 +17,6 @@
 
 * General TODOs
 
-
 ** TODO Check panel QCA
 
 ** TODO Calibrate
@@ -27,6 +26,7 @@
 - Em relação ao investment grade?
 - Vantagem do relativo é que inclui a situação econômica do ano (exemplo: crise)
 
+
 * Packages and global variables
 
 #+begin_src R :exports code
@@ -35,6 +35,8 @@ library(tidygeocoder)
 library(data.table)
 library(FactoMineR)
 library(factoextra)
+library(QCA)
+library(SetMethods)
 
 emacs <- TRUE
 #+end_src
@@ -61,6 +63,42 @@ The following object is masked from ‘package:purrr’:
 
     transpose
 Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+Carregando pacotes exigidos: admisc
+
+Attaching package: ‘admisc’
+
+The following objects are masked from ‘package:dplyr’:
+
+    compute, recode
+
+The following objects are masked from ‘package:purrr’:
+
+    negate, simplify
+
+The following object is masked from ‘package:tidyr’:
+
+    expand
+
+
+To cite package QCA in publications, please use:
+  Dusa, Adrian (2019) QCA with R. A Comprehensive Resource.
+  Springer International Publishing.
+
+To run the graphical user interface, use: runGUI()
+Carregando pacotes exigidos: ggrepel
+Carregando pacotes exigidos: stargazer
+
+Please cite as:
+
+ Hlavac, Marek (2018). stargazer: Well-Formatted Regression and Summary Statistics Tables.
+ R package version 5.2.2. https://CRAN.R-project.org/package=stargazer
+
+
+
+  To cite package SetMethods in publications use:
+
+  Oana, Ioana-Elena and Carsten Q. Schneider. 2018. SetMethods: An Add-on R Package for
+  Advanced QCA. The R Journal 10(1): 507-33. https://journal.r-project.org/archive/2018/RJ-2018-031/index.html
 :end:
 
 
@@ -266,8 +304,6 @@ dev.off()
 
 ** Specific TODOs
 
-- Replace NAs
-- Divide by 100
 
 * Loading IMF dataset
 
@@ -342,6 +378,7 @@ df %>% data.table::fwrite('./data/IFS_full_dataset.csv')
 #+end_src
 
 
+
 *** Renaming variables
 
 #+begin_src R :var imf = imf
@@ -399,11 +436,11 @@ ifs <- ifs %>%
 ifs %>% data.table::fwrite('./data/IFS_HPDD.csv')
 #+end_src
 
-#+RESULTS:
+
 :results:
   |                                                                              |                                                                      |   0%  |                                                                              |=======                                                               |  10%  |                                                                              |======================================================================| 100%
   |                                                                              |                                                                      |   0%  |                                                                              |=======                                                               |  10%  |                                                                              |======================================================================| 100%
-  |                                                                              |                                                                      |   0%  |                                                                              |=======                                                               |  10%  |                                                                              |=========================                                             |  36%  |                                                                              |===========================================                           |  61%  |                                                                              |=============================================================         |  87%  |                                                                              |======================================================================| 100%
+  |                                                                              |                                                                      |   0%  |                                                                              |=======                                                               |  10%  |                                                                              |======================================================================| 100%
   |                                                                              |                                                                      |   0%  |                                                                              |========                                                              |  11%  |                                                                              |======================================================================| 100%
   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
 Joining, by = c("ISO", "Year")
@@ -432,12 +469,15 @@ Downloaded 2021-Apr WEO dataset
 #+begin_src R
 
 years <- seq(1995, 2021, by = 1) %>% as.character
-
-df <- data.table::fread('./data/weo/weo.csv', na.strings="n/a") %>%
+df <- data.table::fread(
+                    './data/weo/weo.csv',
+                    na.strings="n/a",
+                    sep = "\t"
+                    ) %>%
   filter(`WEO Subject Code` %in% c("GGXONLB", "GGXONLB_NGDP")) %>%
   select(ISO, `WEO Subject Code`, all_of(years)) %>%
   pivot_longer(
-    cols = years,
+    cols = all_of(years),
     names_to = "Year",
     values_to = "Val"
   ) %>%
@@ -448,13 +488,23 @@ df <- data.table::fread('./data/weo/weo.csv', na.strings="n/a") %>%
   rename(
     `Primary Outcome` = `GGXONLB`,
     `Primary Outcome/GDP` = `GGXONLB_NGDP`
-  )
+  ) %>%
+  mutate(`Primary Outcome` = as.numeric(`Primary Outcome`)) %>%
+  mutate(`Primary Outcome/GDP` = as.numeric(`Primary Outcome/GDP`)/100) %>%
+  mutate(Year = as.numeric(Year))
 
 df %>% data.table::fwrite('./data/primary_outcome.csv')
 #+end_src
 
 #+RESULTS:
 :results:
+Warning messages:
+1: Problem with `mutate()` input `Primary Outcome`.
+[34mℹ[39m NAs introduzidos por coerção
+[34mℹ[39m Input `Primary Outcome` is `as.numeric(`Primary Outcome`)`.
+2: Problem with `mutate()` input `Primary Outcome/GDP`.
+[34mℹ[39m NAs introduzidos por coerção
+[34mℹ[39m Input `Primary Outcome/GDP` is `as.numeric(`Primary Outcome/GDP`)/100`.
 :end:
 
 *** Merging with previous dataset
@@ -473,55 +523,27 @@ df %>% data.table::fwrite('./data/IFS_HPDD_WEO.csv')
 
 #+RESULTS:
 :results:
-Joining, by = c("ISO", "Year", "Primary Outcome")
-Erro: Can't join on `x$Primary Outcome` x `y$Primary Outcome` because of incompatible types.
-[34mℹ[39m `x$Primary Outcome` is of type <double>>.
-[34mℹ[39m `y$Primary Outcome` is of type <character>>.
-[90mRun `rlang::last_error()` to see where the error occurred.[39m
-:end:
-
-** Primary outcome from WEO
-
-*** Download
-
-#+BEGIN_SRC python
-import weo
-
-weo.download(year=2021, release="Apr", filename="./data/weo/weo.csv")
-#+END_SRC
-
-#+RESULTS:
-:results:
-data/weo/weo.csv 9.3Mb
-Downloaded 2021-Apr WEO dataset
+Joining, by = c("ISO", "Year")
 :end:
 
 
-
-*** Clean
+** Defining derived variables
 
 #+begin_src R
+df <- data.table::fread("./data/IFS_HPDD_WEO.csv") %>%
+  ## mutate(`Primary Outcome` = as.numeric(`Primary Outcome`)) %>%
+  ## mutate(`Primary Outcome/GDP` = as.numeric(`Primary Outcome/GDP`)) %>%
+  ## mutate(Year = as.numeric(Year)) %>%
+  mutate(`Investment share` = (`Investment` / `GDP`)*100) %>%
+  mutate(`CA Balance/GDP` = (`CA balance` / `GDP`)*100) %>%
+  mutate(`Capital Account/GDP` = (`Capital Account` / `GDP`)*100) %>%
+  group_by(ISO) %>%
+  mutate(`Growth` = ((`GDP` - lag(`GDP`)) / (lag(`GDP`))) * 100) %>%
+  ungroup()
 
-years <- seq(1995, 2021, by = 1) %>% as.character
 
-df <- data.table::fread('./data/weo/weo.csv', na.strings="n/a") %>%
-  filter(`WEO Subject Code` %in% c("GGXONLB", "GGXONLB_NGDP")) %>%
-  select(ISO, `WEO Subject Code`, all_of(years)) %>%
-  pivot_longer(
-    cols = years,
-    names_to = "Year",
-    values_to = "Val"
-  ) %>%
-  pivot_wider(
-    names_from = `WEO Subject Code`,
-    values_from = "Val"
-  ) %>%
-  rename(
-    `Primary Outcome` = `GGXONLB`,
-    `Primary Outcome/GDP` = `GGXONLB_NGDP`
-  )
-
-df %>% data.table::fwrite('./data/primary_outcome.csv')
+df %>%
+  data.table::fwrite("./data/IFS_Derivated_Series.csv ")
 #+end_src
 
 #+RESULTS:
@@ -529,37 +551,6 @@ df %>% data.table::fwrite('./data/primary_outcome.csv')
 :end:
 
 
-#+BEGIN_SRC python
-import weo
-
-weo.download(year=2020, release="Apr", filename="./weo/weo.csv")
-#+END_SRC
-
-
-
-** Defining derived variables
-
-#+BEGIN_SRC python
-df = pd.read_csv(
-    './data/IFS_HPDD_WEO.csv',
-    index_col = ["ISO"],
-    parse_dates = True
-)
-
-# df["Debt/GDP"] = df["Public Debt"]/df["GDP"]
-df["Investment share"] = df["Investment"]/df["GDP"]
-df["CA Balance/GDP"] = df["CA balance"]/df["GDP"]
-df["Capital Account/GDP"] = df["Capital Account"]/df["GDP"]
-df["Growth"] = df["GDP"].groupby('ISO').pct_change()
-# df["Primary Outcome"] = df["Government Expenses"] - df["Government Revenue"] + df["Interest Expenses"]
-# df["Primary Outcome/GDP"] = df["Primary Outcome"]/df["GDP"]
-
-df.to_csv('./data/IFS_Derivated_Series.csv', index_label = "ISO")
-#+END_SRC
-
-#+RESULTS:
-:results:
-:end:
 
 ** Principal Component Exploration
 
@@ -684,6 +675,11 @@ data.table::fread("./data/ief_full.csv") -> ief
 data.table::fread("./data/IFS_Derivated_Series.csv") -> imf
 data.table::fread("./data/rating_fulldataset_numeric.csv") -> rating
 
+imf <- imf %>%
+  mutate(`Primary Outcome` = as.numeric(`Primary Outcome`)) %>%
+  mutate(`Primary Outcome/GDP` = as.numeric(`Primary Outcome/GDP`)) %>%
+  mutate(Year = as.numeric(Year))
+
 df <- ief %>% left_join(imf, by = c("ISO", "Year"))
 df <- df %>% left_join(rating, by = c("ISO", "Year"))
 
@@ -695,98 +691,26 @@ df <- df %>%
   ungroup() %>%
   mutate(Case = paste0(ISO, "_", Year))
 
-df %>% data.table::fwrite('./data/ief_imf_rating.csv')
-
+df %>% data.table::fwrite("./data/ief_imf_rating.csv")
 #+end_src
 
 #+RESULTS:
 :results:
+Warning messages:
+1: Problem with `mutate()` input `Primary Outcome`.
+[34mℹ[39m NAs introduzidos por coerção
+[34mℹ[39m Input `Primary Outcome` is `as.numeric(`Primary Outcome`)`.
+2: Problem with `mutate()` input `Primary Outcome/GDP`.
+[34mℹ[39m NAs introduzidos por coerção
+[34mℹ[39m Input `Primary Outcome/GDP` is `as.numeric(`Primary Outcome/GDP`)`.
 :end:
 
 
-:results:
 
-R version 4.0.4 (2021-02-15) -- "Lost Library Book"
-Copyright (C) 2021 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
-
-R é um software livre e vem sem GARANTIA ALGUMA.
-Você pode redistribuí-lo sob certas circunstâncias.
-Digite 'license()' ou 'licence()' para detalhes de distribuição.
-
-R é um projeto colaborativo com muitos contribuidores.
-Digite 'contributors()' para obter mais informações e
-'citation()' para saber como citar o R ou pacotes do R em publicações.
-
-Digite 'demo()' para demonstrações, 'help()' para o sistema on-line de ajuda,
-ou 'help.start()' para abrir o sistema de ajuda em HTML no seu navegador.
-Digite 'q()' para sair do R.
-
-[Área de trabalho anterior carregada]
-setwd('/HDD/PhD/Articles/ratings_QCA/')
-library(tidyverse)
-library(tidygeocoder)
-library(data.table)
-library(FactoMineR)
-library(factoextra)
-
-emacs <- TRUE
-'org_babel_R_eoe'
-── Attaching packages ────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
-✔ ggplot2 3.3.3     ✔ purrr   0.3.4
-✔ tibble  3.0.6     ✔ dplyr   1.0.4
-✔ tidyr   1.1.2     ✔ stringr 1.4.0
-✔ readr   1.4.0     ✔ forcats 0.5.1
-── Conflicts ───────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-data.table 1.13.6 using 2 threads (see ?getDTthreads).  Latest news: r-datatable.com
-
-Attaching package: ‘data.table’
-
-The following objects are masked from ‘package:dplyr’:
-
-    between, first, last
-
-The following object is masked from ‘package:purrr’:
-
-    transpose
-Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
-[1] "org_babel_R_eoe"
-data.table::fread('./data/ief_full.csv') -
-ief
-data.table::fread('./data/IFS_Derivated_Series.csv') -
-imf
-data.table::fread('./data/rating_fulldataset_numeric.csv') -
-rating
-'org_babel_R_eoe'
-
-R version 4.0.4 (2021-02-15) -- "Lost Library Book"
-Copyright (C) 2021 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
-
-R é um software livre e vem sem GARANTIA ALGUMA.
-Você pode redistribuí-lo sob certas circunstâncias.
-Digite 'license()' ou 'licence()' para detalhes de distribuição.
-
-R é um projeto colaborativo com muitos contribuidores.
-Digite 'contributors()' para obter mais informações e
-'citation()' para saber como citar o R ou pacotes do R em publicações.
-
-Digite 'demo()' para demonstrações, 'help()' para o sistema on-line de ajuda,
-ou 'help.start()' para abrir o sistema de ajuda em HTML no seu navegador.
-Digite 'q()' para sair do R.
-
-[Área de trabalho anterior carregada]
-Error in data.table::fread("./data/rating_fulldataset_numeric.csv") : 
-  File './data/rating_fulldataset_numeric.csv' does not exist or is non-readable. getwd()=='/HDD/PhD/Articles/ratings_QCA'
-:end:
 
 ** Creating yearly min, max and mean
 
 #+begin_src R
-
-
 df <- data.table::fread("./data/ief_imf_rating.csv")
 
 means <- df %>%
@@ -845,6 +769,7 @@ stats %>% data.table::fwrite('./data/ief_imf_rating_stats.csv')
 #+RESULTS:
 :results:
 :end:
+
 
 
 ** Filtering prime rates
@@ -941,19 +866,37 @@ df %>% data.table::fwrite('./data/dataset_relative_macro_aggregates.csv')
 
 
 
-** Correct
-
-- Primary Outcome
-
 * Calibrating variables
 
 ** Importing, subseting and adapting variables names for readability
 
 
 #+begin_src R
+data(PAYF) # from setsmethods
+regions <- PAYF %>%
+  rownames_to_column("ISO") %>%
+  select(ISO, REGION) %>%
+  arrange(ISO)
+
+regions[,c(1995:2021) %>% as.character()] <- NA
+
+regions <- regions %>%
+  pivot_longer(
+    cols = c(1995:2021) %>% as.character(),
+    names_to = "Year",
+    values_to = "value"
+  ) %>%
+  mutate(Year = as.numeric(Year)) %>%
+  select(-c("value")) %>%
+  rename(Region = REGION) %>%
+  mutate(Region = factor(Region))
+
 df <- data.table::fread('./data/dataset_relative_macro_aggregates.csv') %>%
+  left_join(regions)
+
+df <- df  %>%
   select(
-    ISO, Case, OECD,
+    ISO, Case, OECD, Region,
     `Government Size`, `Regulatory Efficiency`, `Open Markets`, `Rule of Law`,
     relative_growth, relative_debt_gdp, relative_primary_gdp, relative_ca_gdp, relative_capitalacc_gdp,
     Rating
@@ -970,14 +913,39 @@ df <- data.table::fread('./data/dataset_relative_macro_aggregates.csv') %>%
     ISO != "Median", ISO != "Mean", ISO != "Min", ISO != "Max"
     ) %>%
   select(-c(ISO)) %>%
-  drop_na(Rating)
+  drop_na()
+
 
 df %>% data.table::fwrite('./data/df_pre_calibration.csv')
 #+end_src
 
 #+RESULTS:
 :results:
+Joining, by = c("ISO", "Year")
 :end:
+
+
+** Calibration dictionary (temporary)
+
+#+CAPTION: Calibration qualitative anchors
+#+NAME:cal_dict
+|------------------------+-------+--------+--------+-------------+------------|
+| Variable               | Lower | Middle | Higher | Increasing? | References |
+|------------------------+-------+--------+--------+-------------+------------|
+| Rule of Law            |  0.33 |    0.5 |   0.66 | Yes         |            |
+| Government size        |  0.33 |    0.5 |   0.66 | No          |            |
+| Open markets           |  0.33 |    0.5 |   0.66 | Yes         |            |
+| Regulatory Efficiency  |  0.33 |    0.5 |   0.66 | Yes         |            |
+|------------------------+-------+--------+--------+-------------+------------|
+| Government Debt/GDP    |   0.0 |    0.5 |    0.9 | No          |            |
+| Growth                 |   -3% |     0% |     3% | Yes         |            |
+| Primary Outcome/GDP    |   -3% |     0% |     3% | Yes         |            |
+| CA Balance/GDP         |   -4% |     0% |     4% | Yes         |            |
+| Capital Account/GDP    |   -4% |     0% |     4% | Yes         |            |
+| =Liquidez Internacional= |     ? |      ? |      ? | ?           |            |
+|------------------------+-------+--------+--------+-------------+------------|
+| Rating                 |  0.33 |   0.55 |    0.8 | Yes         |            |
+|------------------------+-------+--------+--------+-------------+------------|
 
 * Truth Tables
 

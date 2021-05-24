@@ -1,0 +1,72 @@
+#+TITLE: Parecer
+#+AUTHOR: Brazilian Keynesian Review (AKB) - 244_1367
+#+DATE:
+#+OPTIONS: toc:nil num:nil
+#+LATEX_HEADER: \renewcommand{\abstractname}{Visão geral e recomendação}
+#+LATEX_HEADER: \bibliography{./refs.bib}
+
+#+BEGIN_SRC bib :tangle ./refs.bib :exports none
+#+END_SRC
+
+\noindent *Documento:* Uma análise Da Evolução Teórica Dos Modelos De Crescimento Pós-Keynesianos De Inspiração Minskyana A Partir Da Segunda Metade Dos Anos 1980
+
+#+BEGIN_abstract
+O artigo apresenta uma revisão da literatura de crescimento que parte das contribuições de Minsky no pós-85.
+De modo geral, os autores resenham diferentes modelos e tal discussão é o norteador da estrutura do artigo.
+Os principais problemas em relação a artigo em questão dizem respeito a esta estrutura e ao pouco domínio da literatura canônica sobre o tema e em especial no que diz respeito ao próprio Minsky.
+Tendo em vista estas considerações, a recomendação é para a *rejeição* do artigo.
+
+O artigo possui quatro seções principais para além da introdução e da conclusão.
+A primeira resenha o trabalho de Taylor e O’Connell (1985).
+A seção seguinte analisa o modelo de Lima e Meirelles (2003).
+Adiante, o modelo de Heron e Mouakil (2008) é resenhado.
+O último modelo discutido é o de Nishi (2012).
+O artigo se encerra com alguns levantamentos dos avanços em relação aos trabalhos de Minsky.
+#+END_abstract
+
+* Comentários gerais
+
+1. Os modelos são analisados de forma independente entre si de modo que o diálogo entre os trabalhos, e entre as seções por consequência, é quase inexistente (presente somente na seção 5).
+   Este problema de estrutura tem implicações para a qualidade do artigo analisado.
+2. A resenha da literatura não é estruturada de modo a evidenciar os elementos em comum e distoantes entre cada contribuição.
+   Como consequência, as hipóteses de cada artigo resenhado são reapresentadas apesar de suas semelhanças.
+   Este é o caso, por exemplo, do modelo de Lima e Meirelles (2003, resenhado na seção 3) e Nishi (2012, resenhado na seção 5).
+   Sugere-se iniciar a discussão estabelecendo um lugar comum entre os modelos e então discutir as diferenças e avanços na seção indicada.
+3. Também em relação a estrutura do texto, a escolha da sequência dos artigos resenhados (cronologia de publicação) só fica evidente nas conclusões. Sugere-se agrupar os artigos de acordo com grau de similaridade para melhorar a fluidez do texto.
+4. Em relação aos elementos discutidos em cada modelo, nota-se que não foi feita uma adequação ao objeto de interesse.
+   Isso fica mais evidente na seção 4 em que é resenhado o modelo de Heron e Mouakil (2008) em que são apresentadas algumas equações que não dizem respeito ao objeto do artigo enquanto outras são apenas descritas (como é o caso do comportamento dos bancos comerciais e do banco central). No caso da seção que descreve o modelo de Nishi (2012), não explicita-se, por exemplo, o índice de fragilidade financeira.
+5. Outro ponto a se destacar é a pouca atenção aos trabalhos do próprio Minsky. A título de exemplo, são atribuídas aos autores resenhados algumas das contribuições propósta pelo autor norteador do debate. Um caso notório é a teoria dos dois preços discutida na seção 2.
+6. Função do ponto anterior, fica pouco explícita a contribuição dos autores resenhados em relação ao Minsky. Sugere-se uma seção em que são apontadas algumas de suas contribuições no que dizem respeito às teorias de crescimento.
+7. Como consequência da pouca atenção dos elementos centrais de Minsky, não são explicitadas algumas hipóteses e corolários para que suas conclusões sejam válidas. Exemplo disso é a necessidade da correlação positiva entre investimento das firmas e endividamento a nível agregado para que o risco ao nível da unidade financeira possa ser sistêmico.
+8. Ao longo do artigo nota-se pouco domínio da literatura relevante e canônica sobre Minsky bem como sobre suas críticas. O ponto anterior reflete isso em que a literatura discute não só as condições necessárias como também as hipóteses associadas para que a instabilidade financeira ocorra como é o caso de Lavoie e Seccareccia (2001) e Toporowski (2008) para citar alguns artigos mais conhecidos.
+   Outro exemplo é atribuir aos autores resenhados a equação de lucros de Kalecki (página 5)
+9. Também observa-se que os mecanismos de transmissão de cada modelo são pouco discutidos ou explicitados. De modo geral os resultados são descrições dos resultados dos próprios modelos discutidos e não uma análise da dinâmica para que tais resultados ocorram. Um exemplo é a seção 4 em que são discutidos os resultados do modelo de Heron e Mouakil (2008) como se estivessem descrevendo um gráfico de trajetória inexistente no texto, mas apenas no original.
+10. Também há casos de falta de rigor teórico e formal ao longo do texto.
+    Exemplo de falta de rigor teórico, também resultado do problema de estrutura, é alternar entre taxas de juros endógenas e exógenas.
+    Este exemplo é mais frequente na seção 2.
+    Em relação a falta de rigor formal, destaca-se a apresentação de equações que não são utilizadas na análise como a equação 19.
+    Também ocorrem variáveis que estão nomeadas de forma distinta no texto e na equação 22.
+    Esta, no entanto, é uma questão menor que poderia ser corrigida em versões futuras após uma melhor revisão do texto.
+    Os problemas maiores estão nos itens anteriores.
+
+* Comentários específicos
+
+1. Em algumas passagens do texto condiciona-se a existência de preferência pela liquidez ao estado de expectativas. Em situações de maior incerteza os agentes podem demandar mais liquidez em função das características da moeda, mas a preferência pela liquidez sempre existirá.
+2. Dada a alternação entre taxa de juros endógena e exógena ao longo do texto, fica pouco claro o que os autores querem dizer com "choque monetário"
+3. Em alguns momentos fica pouco claro se esta discutindo o investimento em nível ou em termos de taxa de crescimento. Caberia uma melhor distinção destes efeitos
+4. O parágrafo sobre a abordagem SFC na página 9 não é necessário
+5. Ná página 11, onde lê-se $DF$ deveria ser $\Delta F$ tal como na equação 22
+6. Imediatamente após a equação 28 na seção que se discute o modelo de Nish (2012) afirma-se na página 15: "Seguindo Lima e Meirelles (*2003*), o *modelo* assume que as empresas podem tomar empréstimos financiados por acionistas (ou bancos comerciais) sob uma determinada taxa de juros, i". Fica pouco claro a que "modelo" se refe. Infere-se alguma referência a Minky que esta oculta uma vez que Lima e Meirelles (2003) não podem ter feito uma afirmação sobre um modelo posterior.
+7. O penúltimo parágrafo da conclusão tem pouca conexão com o que foi discutido ao longo do artigo apesar de tocar tópicos comuns
+
+* Decisão
+
+
+Considerando os itens discutidos anteriormente, recomendo a *rejeição* do artigo para publicação.
+
+* Referências
+  :PROPERTIES:
+  :UNNUMBERED: t
+  :END:
+
+#+LATEX: \printbibliography[heading=none]
