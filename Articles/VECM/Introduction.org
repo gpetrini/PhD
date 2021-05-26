@@ -1,5 +1,5 @@
 * Introduction Configs                                               :ignore:noexport:
-
+#+BIBLIOGRAPHY: ref.bib
 bibliography:ref.bib
 
 * Fora :noexport:
@@ -20,19 +20,24 @@ Despite the late interest in those expenditures cites:freitas_pattern_2013,girar
 
 * Introduction                                                       :ignore:
 
-The importance of non-residential investment for economic growth is a commonplace among heterodox economists.
-As a consequence, the relevance of others expenditures on macroeconomic dynamics has been underestimated cite:brochier_macroeconomics_2017.
-After the subprime crisis (2008) and the Great Recession (2008-2009) this landscape has changed.
+The importance of non-residential investment for economic growth is a commonplace among economists.
+An unintended consequence is the underestimation of the relevance of other expenditures on macroeconomic dynamics cite:brochier_macroeconomics_2017.
+The subprime crisis (2008) and the Great Recession (2008-2009) changed this landscape.
+More policymakers have started to pay attention on housing market.
+Most of the new recommended macroprudential policies focus on household indebtedness, banking regulation and LTV rules as in textcite:arena_2020_Macroprudential.
+While house prices bubbles and credit grant play a major role on those analysis, residential investment is only indirectly considered using housing starts as a proxy or housing unit acquisition such as textcite:baptista_2016_Macroprudential.
+In this paper, we argue that the scarce attention that residential investment receives is not compatible with its macroeconomic relevance.
+
 The Sraffian supermultiplier (SSM) model presented by textcite:serrano_long_1995 establishes a prominent role for non-capacity creating autonomous expenditures in the theoretical ground.
 More recently, those expenditures have been scrutinized under the demand-led growth agenda cites:freitas_pattern_2013,girardi_long-run_2016,girardi_autonomous_2018,braga_investment_2018.
-However, few studies focus on financial determinants of the autonomous expenditures or on the role of residential investment in particular cites:petrini_2021_TD,brochier_supermultiplier_2018.
-This paper aims to contribute to this gap.
-
-We argue that the scarce attention that residential investment receives is not compatible with its macroeconomic relevance.
+However, few studies focus on financial determinants of the autonomous expenditures  cite:brochier_supermultiplier_2018.
 Besides the recent interest in the macroeconomic consequences of residential investment to the business cycle and long-run economic growth cite:fiebiger_trend_2017,fiebiger_semi-autonomous_2018,perez_Montiel_2021, there is not a consensus about its determinants.
+This paper aims to contribute to this intersection.
+
 
 Our main objective is to present and evaluate a parsimonious way of explaining the behavior of the residential investment growth rate, focusing on the US case (1992-2019).
 We will base this explanation on a single index that combines two relevant variables of the housing market: mortgage rate of interest and house price inflation.
+The time range was selected because it captures the effects of changes in depository institutions in the mid-80s and house price bubble.
 In Section ref:sec:Stylized_Facts, we present some stylezed facts and discuss the macroeconomic relevance of residential investment regarding the US case.
 Next, in Section ref:sec:empirical_review, we review empirical works that estimate the determinants of residential investment.
 In Section ref:sec:VECM, we estimate a bi-variate vector error-correction model (VECM) using time-series data for the US economy from 1992 to 2019 and present the results.

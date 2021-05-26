@@ -1,4 +1,4 @@
-% Created 2021-05-21 sex 17:19
+% Created 2021-05-26 qua 17:47
 % Intended LaTeX compiler: pdflatex
 \documentclass[12pt, a4paper]{article}
 \usepackage[utf8]{inputenc}
@@ -67,21 +67,26 @@ Estimation results are not sensible to lag order specification and residuals do 
 
 
 \section{Introduction}
-\label{sec:orgf55e3ac}
+\label{sec:orge730e07}
 \label{sec:Introduction}
-The importance of non-residential investment for economic growth is a commonplace among heterodox economists.
-As a consequence, the relevance of others expenditures on macroeconomic dynamics has been underestimated \cite{brochier_macroeconomics_2017}.
-After the subprime crisis (2008) and the Great Recession (2008-2009) this landscape has changed.
+The importance of non-residential investment for economic growth is a commonplace among economists.
+An unintended consequence is the underestimation of the relevance of other expenditures on macroeconomic dynamics \cite{brochier_macroeconomics_2017}.
+The subprime crisis (2008) and the Great Recession (2008-2009) changed this landscape.
+More policymakers have started to pay attention on housing market.
+Most of the new recommended macroprudential policies focus on household indebtedness, banking regulation and LTV rules as in \textcite{arena_2020_Macroprudential}.
+While house prices bubbles and credit grant play a major role on those analysis, residential investment is only indirectly considered using housing starts as a proxy or housing unit acquisition such as \textcite{baptista_2016_Macroprudential}.
+In this paper, we argue that the scarce attention that residential investment receives is not compatible with its macroeconomic relevance.
+
 The Sraffian supermultiplier (SSM) model presented by \textcite{serrano_long_1995} establishes a prominent role for non-capacity creating autonomous expenditures in the theoretical ground.
 More recently, those expenditures have been scrutinized under the demand-led growth agenda \cites{freitas_pattern_2013}{girardi_long-run_2016}{girardi_autonomous_2018}{braga_investment_2018}.
-However, few studies focus on financial determinants of the autonomous expenditures or on the role of residential investment in particular \cites{petrini_2021_TD}{brochier_supermultiplier_2018}.
-This paper aims to contribute to this gap.
-
-We argue that the scarce attention that residential investment receives is not compatible with its macroeconomic relevance.
+However, few studies focus on financial determinants of the autonomous expenditures  \cite{brochier_supermultiplier_2018}.
 Besides the recent interest in the macroeconomic consequences of residential investment to the business cycle and long-run economic growth \cite{fiebiger_trend_2017,fiebiger_semi-autonomous_2018,perez_Montiel_2021}, there is not a consensus about its determinants.
+This paper aims to contribute to this intersection.
+
 
 Our main objective is to present and evaluate a parsimonious way of explaining the behavior of the residential investment growth rate, focusing on the US case (1992-2019).
 We will base this explanation on a single index that combines two relevant variables of the housing market: mortgage rate of interest and house price inflation.
+The time range was selected because it captures the effects of changes in depository institutions in the mid-80s and house price bubble.
 In Section \ref{sec:Stylized_Facts}, we present some stylezed facts and discuss the macroeconomic relevance of residential investment regarding the US case.
 Next, in Section \ref{sec:empirical_review}, we review empirical works that estimate the determinants of residential investment.
 In Section \ref{sec:VECM}, we estimate a bi-variate vector error-correction model (VECM) using time-series data for the US economy from 1992 to 2019 and present the results.
@@ -92,7 +97,7 @@ Appendix \ref{appen:A} provides results for all statistical tests and for the ro
 
 
 \section{Residential investment, economic growth and business cycle in the US economy}
-\label{sec:org8b69c00}
+\label{sec:org52ee9cb}
 \label{sec:Stylized_Facts}
 Usually, economists did not pay a systematic attention to the role of residential investment to macroeconomic dynamics.
 One possible explanation for this could be the small share of residential investment on aggregate demand (see Figure \ref{fig:share}).
@@ -173,7 +178,7 @@ Other studies have shown that house price inflation is one of the main determina
 In summary, what we intended to show was the macroeconomic relevance of residential investment.
 On the following section, we analyze how econometric literature has dealt with its determinants.
 \section{Determinants of residential investment: review of empirical literature}
-\label{sec:org8a92d27}
+\label{sec:orgf154815}
 \label{sec:empirical_review}
 In this section, we review papers that analyze the determinants of residential investment (or some proxy) focusing on the US case, as well on some panel analysis of multiple countries which includes the US.
 It is worth noting that empirical literature on housing is vast.
@@ -229,10 +234,10 @@ In the next section, we propose and estimate an alternative explanation of the r
 \input{tabs/EmpiricalMotivation}
 
 \section{Econometric analysis}
-\label{sec:orgc625214}
+\label{sec:org09daded}
 \label{sec:VECM}
 \subsection{Houses own-rate of interest and residential investment growth rate in the US Economy}
-\label{sec:org7f32194}
+\label{sec:org2521005}
 \label{sec:own}
 
 From the previous section, we conclude that house prices (nominal or deflated by some general price index) and some rate of interest (mortgage or long term, as proxy) may be the only consensus about residential investment determinants.
@@ -250,8 +255,14 @@ own =  \left(\frac{1+r_{mo}}{1+\pi} - 1\right)
 Equation \ref{txpropria} represents this particular real interest rate which is the combination of the relevant nominal rate of interest with the relevant price index for the one acquiring a new house.
 It is the real cost in houses from buying houses  \cite[p.~53]{teixeira_crescimento_2015}.
 The lower the houses own-rate of interest, the greater the rate of growth of residential investment (\(g_{I_{h}}\), see Figure \ref{propria_investo}).
+
 We do not assume that houses own-rate of interest is the only determinant of residential investment.
 While they share a negative correlation in the short run, there are long term determinants of residential investment such as demographic factors, urbanization, credit policy, among others.
+Besides the sensitivity on housing bubbles, we do not argue that this index is only relevant for those who build a house expecting capital gain\footnote{During a housing bubble period (\emph{e.g.} 2002-5 in the US), it is house price inflation that govern houses own rate of interest movements. So, the lowe this rate is, the greater the capital gains (in house) for speculating with houses will be.}.
+The relevance of this variable is household-wide since most of them benefits from a house price increase\footnote{There may are some splillover effects that will influence other housing related-variables (such as rents). However, those consequences go beyond the definition of residential investment and, thus, are out of the scope of this paper.}.
+For example, house appreciation has a positive effect on house owners' creditworthness since their collateral increase as well.
+Thus, houses own-rate of interest relevanc is not restricted to speculative-led demand for new houses.
+
 
 \begin{figure}[htb]
 	\centering
@@ -268,7 +279,7 @@ In this sense, our work aims at empirically evaluating the relation between hous
 
 
 \subsection{Data and estimation strategy}
-\label{sec:org3ce188c}
+\label{sec:org2af8d22}
 \label{sec:estimation}
 
 In this subsection we present the estimation estrategy and the data used to assess whether houses own-rate of interest explains the behavior of residential investment rate of growth.
@@ -339,7 +350,7 @@ On the following subsection, we analyze the results and compare with the theoret
 
 
 \subsection{Estimation results}
-\label{sec:orgb9e8535}
+\label{sec:orgd34df58}
 \label{sec:results}
 
 According to parameters presented in Table \ref{Estimacao}, we find statistically significant co-integration  coefficients for both equations. 
@@ -394,7 +405,7 @@ Thus, we conclude that our estimation depicts the determinants of residential in
 On the following section we present some concluding remarks.
 
 \section{Concluding Remarks}
-\label{sec:orgca7e585}
+\label{sec:orga15e9e9}
 \label{sec:Conclusion}
 In this article, we present a parsimonious specification for residential investment growth rate based on houses own-rate of interest proposed by \textcite{teixeira_crescimento_2015}.
 Considering this index, we estimate a bi-variate VEC model for the US economy from 1992 to 2019.
@@ -406,28 +417,33 @@ Our results are:
 Our estimations does not show residuals serial autocorrelation nor heteroscedasticity.
 Additionally, the results are not sensible to lag order specification and most expected results remain valid in a economically relevant time horizon.
 
+In summary, our results contributes to a better understanding on the financial determinants of residential investment.
+The proposed index clarify the connection between asset price inflation (in this case house prices) and aggregate demand through residential investment, extending \textcite{petrini_2021_TD} and \textcite{teixeira_crescimento_2015} works to an empirical direction.
+From a policy making perspective, our findings highlight the relevance to go beyond LTV cap recommendations and analyse how house prices, credit grant, residential investment e economic performance are related.
+In other words, macroeconomic models that does not explicitly include residential investment and its determinants may capture just one part of the story.
+
 This paper is just a step towards an broad and emerging macroeconomic housing agenda.
-A better comprehension of the connection between housing financial system and mortgage market institutional particularities could enlighten this discussion.
-Further studies could also evaluate whether or not houses own-rate of interest validity is restricted to the US.
+Further studies could evaluate whether or not houses own-rate of interest validity is restricted to the US economy.
+A better comprehension of the connection between housing financial system and mortgage market institutional particularities could also enlighten this discussion.
 
 
 \section*{Acknowledgments}
-\label{sec:orgf044823}
+\label{sec:org080ff0b}
 \noindent The authors wish to acknowledge the financial support from the Brazilian National Research Council (CNPq; grant 130777/2018-8). We are grateful to Rosângela Ballini, Carolina Baltar, Júlia Braga, Ítalo Pedrosa, Cecon/Unicamp and UFRJ Political Economy groups for useful comments and suggestions on earlier drafts of this article. All remaining errors are, of course, our own.
 
 
 \section*{Disclosure statement}
-\label{sec:orgfdce4b8}
+\label{sec:org89b49e3}
 No potential conflict of interest was reported by the authors.
 
 \section*{References}
-\label{sec:org0b3a092}
+\label{sec:orgdb05a31}
 \printbibliography[heading=none]
 
 
 \appendix
 \section{Statistical Appendix}
-\label{sec:orgf2d042c}
+\label{sec:orgd68d5af}
 \label{appen:A}
 
 In this appendix we report some hypothesis tests: unit root tests on our variables of interest, Structural break test, Johansen procedure and hypothesis tests on residuals.

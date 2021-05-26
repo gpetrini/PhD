@@ -1,0 +1,105 @@
+\section[Contexto]{Contexto}
+
+\subsection{Da dissertação $\ldots$}
+
+\begin{frame}{Tx. própria de juros dos imóveis VS. Investimento residencial}
+\framesubtitle{EUA (1989 - 2019, MA4Q)}
+    \begin{figure}
+        \centering
+        \includegraphics[width=.6\paperwidth, height=.58\paperheight]{figs/TxPropria_Investo.png}
+        \caption*{\textbf{Fonte:} \textcite{petrini_demanda_2019}}
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}{Modelo Econométrico de Séries temporais}
+    
+    
+\begin{equation}
+    \tag{Tx. Própria}
+    g_{I_h} = \phi_0 - \phi_1\cdot \left(\frac{1+\overline r_{mo}}{1+\pi} - 1\right)
+\end{equation}
+
+\begin{itemize}
+    \item Séries são cointegradas
+    \item Taxa própria Granger-causa $g_{I_h}$
+    \item Efeito de $g_{I_h}$ sobre o preço dos imóveis é desprezível
+\end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Função Resposta ao Impulso}
+\framesubtitle{EUA (1992 - 2019)}
+    \begin{figure}
+        \centering
+        \includegraphics[width=.6\paperwidth, height=.58\paperheight]{figs/Impulso_VECM.png}
+        \caption*{\textbf{Fonte:} \textcite{petrini_demanda_2019}}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Modelo Super-SFC de simulação}
+\framesubtitle{Principais equações}
+
+$$
+Y = 
+\begin{cases}
+C_k = R \cdot Z \hspace{5cm} \Delta L_k = C_k\\
+I_f = h\cdot Y \hspace{5cm} \Delta h = h_{t-1}\cdot\gamma_u (u-u_N)\\
+I_h =  (1+g_{I_h})\cdot I_{h_{t-1}} \hspace{3cm} \Delta MO = I_h
+\end{cases}
+$$
+$$
+g_{I_h} = \phi_0 - \phi_1\cdot \left(\frac{1+\overline r_{mo}}{1+\pi} - 1\right)
+$$
+
+$$
+K = K_f + K_h
+$$
+
+$$
+\frac{K_f}{K} = \frac{h^*}{(1 - \omega)}
+$$
+    
+\end{frame}
+
+\begin{frame}{Resultados das simulações}
+\framesubtitle{Choques}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.75\paperwidth, height=.65\paperheight]{figs/Defesa.png}
+\end{figure}
+    
+\end{frame}
+
+\begin{frame}{Resultados das simulações}
+\framesubtitle{Inclusão de dados reais}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.75\paperwidth, height=.65\paperheight]{figs/Shock_Real.png}
+\end{figure}
+    
+\end{frame}
+
+
+\subsection{$\ldots$ para a tese}
+
+\begin{frame}{Importância do investimento residencial para a dinâmica macroeconômica}
+\framesubtitle{How I Learned to Stop Worrying and Love Housing}
+    
+\begin{itemize}
+    \item Relevância do investimento residencial vai além da Grande Recessão e dos EUA
+    \item Testar capacidade explicativa da taxa própria para além dos EUA
+\end{itemize}
+
+\begin{alert}{Dissertação ampliada? Parecia que sim, até que $\ldots$}
+    \begin{itemize}
+        \item Hipotecarização
+        \item QCA
+        \item Nova Narrativa
+    \end{itemize}
+\end{alert}
+    
+\end{frame}

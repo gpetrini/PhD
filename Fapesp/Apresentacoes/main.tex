@@ -1,0 +1,59 @@
+\documentclass[11pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[portuguese]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx, tabularx, multirow, multicol}
+\usepackage{caption}
+\usepackage{svg}
+\usepackage{booktabs} % For prettier tables [new]
+\usepackage{ragged2e} % justifying [new]
+
+
+\usetheme{Berlin}
+\usecolortheme{beaver}
+
+\makeatletter
+\newlength\beamerleftmargin
+\setlength\beamerleftmargin{\Gm@lmargin}
+\makeatother
+
+
+\usepackage[style=abnt]{biblatex}
+\addbibresource{./refs.bib}
+
+
+	\author{Gabriel Petrini}
+	\title{Três Ensaios em Macroeconomia Imobiliária}
+	\subtitle{Instituições, Inflação de Ativos e Instabilidade Financeira}
+	\institute{IE/Unicamp}
+	\date{15 de Julho de 2020}
+    \setbeamercovered{transparent}
+	\setbeamertemplate{navigation symbols}{}
+	\apptocmd{\frame}{}{\justifying}{} % Allow optional arguments after frame.
+
+\begin{document}
+
+\begin{frame}[plain]
+	\maketitle
+\end{frame}
+
+\begin{frame}
+\frametitle{Estrutura}
+    \tableofcontents
+\end{frame}
+
+\input{1_Contexto}
+\input{2_IntroJust}
+\input{3_EnsaioQCA}
+\input{4_EnsaioPainel}
+\input{5_EnsaioAB-SFC}
+\input{6_Contribuicoes}
+
+\begin{frame}[allowframebreaks]{Referências}
+\printbibliography
+\end{frame}
+
+\end{document}

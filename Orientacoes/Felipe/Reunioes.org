@@ -223,3 +223,22 @@ Reunião com professor Mariano Laplane
   + Histórico da financeirização brasileira desde hiperinflação
 - Leitura Bruno e Caffe
 - Miranda e Mattos
+
+* Sugestões das variáveis filtradas
+
+- CAPEX :: Mede o quanto a firma esta investindo em bens de capital dividido pelo ativo total
+- Taxa de lucro líquida ($r_{l}$) :: Lucro líquido dividido pelo ativo total
+- Capital de giro ($giro$) :: Divido pelo ativo total. Captaria o financiamento de operações rotineiras
+- Receitas financeiras ($R_{f}$) :: Dividido pelo ativo total
+- Dividendos pagos ($Div$) :: Divido pelo ativo total
+- Financiamento obtido líquido ($Fin$) :: Dividido pelo ativo total. Captaria restrições financeiras
+- Tamanho ($tamanho$) :: Dummy para captar diferença entre empresas pequenas e grandes
+- Ano :: Capta efeito do ano
+
+  A ideia seria ver:
+
+  #+BEGIN_latex
+\begin{equation}
+Capex = f\left(r_{l}, giro, R_{f}, Div, Fin, tamanho\right)_{Ano}
+\end{equation}
+  #+END_latex
