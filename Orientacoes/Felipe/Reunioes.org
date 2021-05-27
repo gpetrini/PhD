@@ -242,3 +242,65 @@ Reunião com professor Mariano Laplane
 Capex = f\left(r_{l}, giro, R_{f}, Div, Fin, tamanho\right)_{Ano}
 \end{equation}
   #+END_latex
+
+
+
+#+BEGIN_SRC dot :file modelo.png
+digraph {
+node [shape=record fontname=Arial];
+a  [label="Acesso à credito\ne financiamento"]
+b  [label="Pequenas"]
+c  [label="Grandes"]
+d  [label="Financeira"]
+e  [label="Real"]
+f  [label="Capex"]
+g  [label="Aplic. Fin."]
+h  [label="Dividendos"]
+
+    subgraph cluster_0 {
+        label="Tamanho das firmas";
+        a -> b;
+        a -> c;
+    }
+
+    subgraph cluster_1 {
+        label="Alocação de patrimonial";
+        b -> e;
+        b -> d;
+        c -> d;
+        c -> e;
+        e -> "?";
+        "?" -> f;
+        e -> g [color="red"];
+        e -> h [color="red"];
+    subgraph cluster_2 {
+        label="Financeirização";
+         d -> g [color="blue"];
+         d -> h [color="blue"];
+    }
+    }
+    subgraph cluster_3 {
+        label="Microeconômico";
+         f -> "Inovação";
+         f -> "Crescimento\n da Firma";
+        "Crescimento\n da Firma" -> "Sobrevivência\na longo prazo";
+         "Inovação" -> "Sobrevivência\na longo prazo";
+    }
+    subgraph cluster_4 {
+        label="Macroeconômico";
+         f -> "Investimento\nAgregado";
+         node [style="filled",fillcolor="green"]"Demanda\nEsperada" -> "?"
+         node [style="filled",fillcolor="green"] "Outras Dimensões\nFinanceirização"  -> "Demanda\nEsperada";
+    }
+    subgraph cluster_5 {
+        label="Buracos Negros";
+        "Feedback?" -> "Outras Dimensões\nFinanceirização"
+        g -> "Feedback?";
+        h -> "Feedback?";
+
+    }
+}
+#+END_SRC
+
+#+RESULTS:
+[[file:modelo.png]]
