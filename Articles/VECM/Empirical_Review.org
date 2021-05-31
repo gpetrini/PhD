@@ -132,7 +132,7 @@ bibliography:ref.bib
 * Review of the Econometric Literature                          :ignore:
 
 
-In this section, we review papers that analyze the determinants of residential investment (or some proxy) focusing on the US case, as well on some panel analysis of multiple countries which includes the US.
+In this section, we review papers that analyze the determinants of residential investment (or some proxy) focusing on the US case, as well on some panel data analysis of multiple countries which includes the US.
 It is worth noting that empirical literature on housing is vast.
 However, it is mainly focused on urban and regional economics or microeconomic issues.
 As a consequence, few econometric papers analyze housing in macroeconomic terms.
@@ -149,28 +149,28 @@ Their functional form for residential investment includes hedonic prices and som
 In summary, they found that residential investment is highly sensitive to house prices movements while interest rate is a relevant cost shifter.
 
 Recently,  textcite:arestis_residential_2015 update \citeauthor*{poterba_tax_1984}'s citeyear:poterba_tax_1984 framework by estimating an autoregressive distributed lag (ARDL) model for 17 OECD countries (including the US).
-In their model, they specify residential investment as a positive function of house prices, real disposable income and bank credit while long-term real interest rate and unemployment rate are expected to have negative effects.
-They report that disposable income is the major determinant of residential investment for most OECD countries, with US being one of the exceptions.
+In their model, they specify residential investment as a positive function of house prices, real disposable income and bank credit while long-term real interest rate (deflated by consumer price index) and unemployment rate are expected to have negative effects.
+They report that disposable income is the major determinant of residential investment for most OECD countries, while the US is an exception.
 For this country banking credit and house prices are the most relevant variables.
 
 Some scholars estimated residential investment determinants based on a Tobin's Q for residential investment[fn::This adapted Tobin's Q is defined as the ratio between the market price of new houses and construction cost to build a new one.].
-textcite:kohlscheen_2018_Residential, for instance, estimate residential investment as a function of this particular Tobin's Q with an unbalanced panel data for the US and other 14 OECD countries from 1970 ownwards[fn::More precisely, textcite:kohlscheen_2018_Residential include Tobin's Q for residential investment numerator and denominator as separate variables.].
+Based on this, textcite:kohlscheen_2018_Residential, estimate an unbalanced panel data for the US and other 14 OECD countries from 1970 ownwards.
 Beyond this adapted Tobin's Q they also include real house prices, GDP level, population density, net migration rates and house stock share on GDP.
 They conclude that real house prices growth, nominal interest rate, net migration rates and existing house stock are the main determinants of residential investment.
 
 A common ground in the housing literature is the relevance of interest rate for residential investment.
 The interest rate choice, however, varies.
 In a OLS model for 7 OECD countries (including the US), textcite:egebo_1990_MODEL conclude that real disposable income and long-term interest rate deflated by consumer price index are relevant for explaining residential investment.
-For the US in particular, they report that mortgage interest rate coefficients are robust.
+For the US in particular, they report robust coefficients  for mortgage interest rate.
 
 More recently, textcite:fair_macroeconometric_2018 estimates an residential investment function for the US (1954-2017) using both FIML and 3SOLS methods.
-The residential investment equation has some demographic variables (percent of population with an specific age), depreciation rate of housing stock, real disposable income deflated by house market prices, real net housing wealth also deflated by house prices and alternates between real -- deflated by GDP deflator -- and nominal long-term after tax mortgage interest rate.
-It is worth noting that textcite:fair_macroeconometric_2018 discuss the absence of statistical significance of real interest rates compared to nominal ones.
+The residential investment equation has some demographic variables (percent of population with an specific age), depreciation rate of housing stock, real disposable income deflated by house market prices, real net housing wealth also deflated by house prices and alternates between real (deflated by GDP deflator) and nominal long-term after tax mortgage interest rate.
+It is worth noting that textcite:fair_macroeconometric_2018 discuss the absence of statistical significance of real interest rate compared to nominal one.
 As a consequence, he opts to use nominal mortgage rate instead.
 The model report jointly significant variables in which nominal after tax mortgage interest rate affects residential investment negatively.
 
-Other scholars have reported that the residential investment sensitivity to interest rate is still valid after institutional changes after the mid-1980s[fn::The savings and loans crisis of the 1980s was followed by a set of institutional changes which affected the housing financial system. Just to name two of them: Depository Institutions Deregulation and Monetary Control Act (1980); Financial Institutions Reform, Recovery, and Enforcement Act (FIRREA, 1989). For a detailed chronology, see  \textcite[Appendix B]{mccarthyMonetaryPolicyTransmission2002} and textcite:green_american_2005; for a discussion on the consequences for households access to consumption and mortgage credit see textcite:federal_deposit_insurance_corporation_savings_1997,wall_too_2010. @@latex:\label{nota_instituicoes}@@].
-textcite:mccarthyMonetaryPolicyTransmission2002, for instance, evaluate the responsiveness of residential investment to interest rates considering these changes in the housing financial system.
+Other scholars have reported that the residential investment sensitivity to interest rate is still valid after the institutional changes that followed the saving and loans crisis of the 1980s[fn::The savings and loans crisis of the 1980s was followed by a set of institutional changes which affected the housing financial system. For a detailed chronology, see  \textcite[Appendix B]{mccarthyMonetaryPolicyTransmission2002} and textcite:green_american_2005; for a discussion on the consequences for households access to consumption and mortgage credit see textcite:federal_deposit_insurance_corporation_savings_1997,wall_too_2010. @@latex:\label{nota_instituicoes}@@].
+textcite:mccarthyMonetaryPolicyTransmission2002, for instance, evaluate the responsiveness of residential investment to interest rates considering those changes in the housing financial system.
 In order to isolate these effects, they estimate  a model for the US in two sub-samples (1975-1985 and 1986-2000) using GMM method.
 They conclude that the residential investment response magnitude to a monetary shock before and after these institutional changes are similar.
 textcite:gauger_residential_2003 also evaluate the consequences of deregulation of depository institutions throughout the 1980s.
@@ -178,9 +178,9 @@ In order to do so, they estimate a VECM between a monetary aggregate (M2), GDP, 
 They report an increasing contribution of long-term mortgages interest rate in order to explain residential investment variance after those institutional changes mentioned above.
 
 
-Finally, Table ref:tab:summary_models shows an overview of the discussed papers.
-Each table entry contains the paper sample, estimation method and covariates.
-In the next section, we propose and estimate an alternative explanation of the residential investment in the US.
+In order to summarize the discussion, Table ref:tab:summary_models shows an overview of the presented papers.
+Each table entry contains the paper authors, sample used, estimation method and covariates.
+In the next section, we propose and estimate an alternative explanation for the residential investment in the US.
 
 
 #+BEGIN_EXPORT latex

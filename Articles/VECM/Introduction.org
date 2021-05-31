@@ -20,27 +20,33 @@ Despite the late interest in those expenditures cites:freitas_pattern_2013,girar
 
 * Introduction                                                       :ignore:
 
-The importance of non-residential investment for economic growth is a commonplace among economists.
+The importance of non-residential investment to macroeconomics is a commonplace among economists.
 An unintended consequence is the underestimation of the relevance of other expenditures on macroeconomic dynamics cite:brochier_macroeconomics_2017.
 The subprime crisis (2008) and the Great Recession (2008-2009) changed this landscape.
-More policymakers have started to pay attention on housing market.
-Most of the new recommended macroprudential policies focus on household indebtedness, banking regulation and LTV rules as in textcite:arena_2020_Macroprudential.
-While house prices bubbles and credit grant play a major role on those analysis, residential investment is only indirectly considered using housing starts as a proxy or housing unit acquisition such as textcite:baptista_2016_Macroprudential.
+Policymakers have payed more attention on housing market.
+Most of the new recommended housing macroprudential policies have started to focus on household indebtedness, banking regulation and Loan-To-Value (LTV) rules as in textcite:arena_2020_Macroprudential[fn::In the literature there are several examples of the limitations of those polices. For instance, textcite:galan_2019_LTV discuss those restrictions for the Spanish economy.].
+While concerns about house price bubbles and credit grant play a major role on those recommendations, residential investment is only indirectly considered as in textcite:baptista_2016_Macroprudential and textcite:Ozel2019.
 In this paper, we argue that the scarce attention that residential investment receives is not compatible with its macroeconomic relevance.
 
-The Sraffian supermultiplier (SSM) model presented by textcite:serrano_long_1995 establishes a prominent role for non-capacity creating autonomous expenditures in the theoretical ground.
-More recently, those expenditures have been scrutinized under the demand-led growth agenda cites:freitas_pattern_2013,girardi_long-run_2016,girardi_autonomous_2018,braga_investment_2018.
-However, few studies focus on financial determinants of the autonomous expenditures  cite:brochier_supermultiplier_2018.
-Besides the recent interest in the macroeconomic consequences of residential investment to the business cycle and long-run economic growth cite:fiebiger_trend_2017,fiebiger_semi-autonomous_2018,perez_Montiel_2021, there is not a consensus about its determinants.
-This paper aims to contribute to this intersection.
-
+The Sraffian supermultiplier (SSM) model presented by textcite:serrano_long_1995 and textcite:bortis_institutions_1997 establishes a prominent role for non-capacity creating autonomous expenditures in the theoretical ground.
+This model inaugurated a research agenda on autonomous demand-led growth following two directions.
+The first concerns empirical applications of the model cites:freitas_pattern_2013,girardi_long-run_2016,girardi_autonomous_2018,Braga2020,Haluska2020.
+The other is about the financial determinants of the autonomous expenditures and its consequences to economic growth cites:Pariboni2016,brochier_supermultiplier_2018,Mandarino2020,petrini_2021_TD.
+Residential investment is one kind of autonomous expenditure.
+Some authors have analyzed its macroeconomic consequences focusing on business cycle and long-run economic growth  cite:fiebiger_trend_2017,fiebiger_semi-autonomous_2018,perez_Montiel_2021,petrini_2021_TD.
+But few works have examined its determinants in a macroeconomic level and still there is not a consensus about it.
 
 Our main objective is to present and evaluate a parsimonious way of explaining the behavior of the residential investment growth rate, focusing on the US case (1992-2019).
-We will base this explanation on a single index that combines two relevant variables of the housing market: mortgage rate of interest and house price inflation.
-The time range was selected because it captures the effects of changes in depository institutions in the mid-80s and house price bubble.
-In Section ref:sec:Stylized_Facts, we present some stylezed facts and discuss the macroeconomic relevance of residential investment regarding the US case.
+The time range was selected because it captures the effects of changes in depository institutions in the 1980s and  begining of the 1990s, the rise of house prices, the bubble of the 2000s, and the aftermath of the 2008 crisis.
+We base this explanation on a single index that combines two relevant variables of the housing market: mortgage interest rate and house price inflation.
+The results of our investigation indicate its relevance in explaining the dynamics of residential investment growth rate.
+We find a common long-run trend between the proposed index and residential investment.
+The former accounts for more than a half of the variance of the latter.
+We also report unidirectional Granger-causality from the proposed index to residential investment growth rate.
+
+The article is organized as follows.
+In Section ref:sec:Stylized_Facts, we present some stylized facts and discuss the macroeconomic relevance of residential investment regarding the US case.
 Next, in Section ref:sec:empirical_review, we review empirical works that estimate the determinants of residential investment.
 In Section ref:sec:VECM, we estimate a bi-variate vector error-correction model (VECM) using time-series data for the US economy from 1992 to 2019 and present the results.
 Section ref:sec:Conclusion concludes the paper.
-The results of our investigation indicate the relevance of the proposed index in explaining the dynamics of the growth rate of residential investment.
-Appendix ref:appen:A provides results for all statistical tests and for the robustness check.
+Appendix ref:appen:A provides results for all statistical tests employed and for the robustness check.
