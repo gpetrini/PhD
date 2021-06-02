@@ -4,7 +4,6 @@
 #+LATEX_CLASS_OPTIONS: [12pt, a4paper]
 * Configs :ignore:
 ** Packages :ignore:
-#+LATEX_HEADER: \addbibresource{ref.bib}
 #+LATEX_HEADER: \usepackage{svg, caption, multirow, booktabs, tabularx, subfigure, subcaption, lscape, tablefootnote, threeparttable, makecell}
 #+LATEX_HEADER: \newcolumntype{b}{>{\hsize=2.3\hsize}X}
 #+LATEX_HEADER: \newcolumntype{s}{>{\hsize=.45\hsize}X}
@@ -44,8 +43,26 @@
        \printlabeldateextra}}}
 #+end_export
 
-** Submission specifications :ignore:
-#+LATEX_HEADER: %\usepackage{endfloat}
+
+** Taylor and Francis configurations :ignore:
+
+#+LATEX_HEADER: \addbibresource{./ref.bib}
+#+LATEX_HEADER: %\usepackage{epstopdf}% To incorporate .eps illustrations using PDFLaTeX, etc.
+#+LATEX_HEADER:%\usepackage[caption=false]{subfig}% Support for small, `sub' figures and tables
+#+LATEX_HEADER:%\usepackage[nolists,tablesfirst]{endfloat}% To `separate' figures and tables from text if required
+#+LATEX_HEADER:%\usepackage[doublespacing]{setspace}% To produce a `double spaced' document if required
+#+LATEX_HEADER:%\setlength\parindent{24pt}% To increase paragraph indentation when line spacing is doubled
+#+LATEX_HEADER: \AtEveryBibitem{\clearlist{language, month}}
+
+#+LATEX_HEADER: \renewbibmacro*{volume+number+eid}{%
+#+LATEX_HEADER:  \printfield{volume}%
+#+LATEX_HEADER: %  \setunit*{\adddot}% DELETED
+#+LATEX_HEADER:  \setunit*{\addnbspace}% NEW (optional); there's also \addnbthinspace
+#+LATEX_HEADER:  \printfield{number}%
+#+LATEX_HEADER:  \setunit{\addcomma\space}%
+#+LATEX_HEADER:  \printfield{eid}}
+#+LATEX_HEADER: \DeclareFieldFormat[article]{number}{\mkbibparens{#1}}
+
 
 ** Authors infos :ignore:
 #+LATEX_HEADER: \usepackage{authblk}
@@ -83,7 +100,7 @@ Estimation results are not sensible to lag order specification and residuals do 
 
 
 
-* Residential investment, economic growth and business cycle in the US economy
+* Residential investment, business cycle and economic growth in the US economy
 #+LATEX: \label{sec:Stylized_Facts}
 #+INCLUDE: "Stylized_Facts.org"
 * Determinants of residential investment: review of empirical literature
@@ -104,7 +121,7 @@ Estimation results are not sensible to lag order specification and residuals do 
   :UNNUMBERED: t
   :END:
 
-#+LATEX: \noindent The authors wish to acknowledge the financial support from the Brazilian National Research Council (CNPq; grant 130777/2018-8). We are grateful to Franklin Serrano, Fabrício Pitombo Leite, Rosângela Ballini, Carolina Baltar, Júlia Braga, Ítalo Pedrosa, participants Cecon/Unicamp and UFRJ Political Economy Group seminars for useful comments and suggestions on earlier drafts of this article. All remaining errors are, of course, our own.
+#+LATEX: \noindent The authors wish to acknowledge the financial support from the Brazilian National Research Council (CNPq; grant 130777/2018-8). We are grateful to Franklin Serrano, Fabrício Pitombo Leite, Rosângela Ballini, Carolina Baltar, Júlia Braga, Ítalo Pedrosa, participants of Cecon/Unicamp and UFRJ Political Economy Group seminars for useful comments and suggestions on earlier drafts of this article. All remaining errors are, of course, our own.
 
 
 * Disclosure statement
@@ -125,12 +142,13 @@ No potential conflict of interest was reported by the authors.
 * Statistical Appendix
 #+LATEX: \label{appen:A}
 
-In this appendix we report some hypothesis tests we have applied: unit root tests on our variables of interest, structural break test, Johansen procedure and hypothesis tests on residuals.
-The time-series of residential investment growth rate, mortgage interest rate and real estate inflation are all taken using textcite:yeo_new_2000 transformation (see Figure ref:YeoJhonson).
-As shown in Table ref:unitroot, the null hypothesis of a unit root in the first differences of the series is overwhelmingly rejected.
-As mentioned, we found structural breaks related to institutional changes and our series are co-integrated (see Tables ref:structbreak and ref:Johansen).
-Our estimation order selection was based both on statistical and theoretical reasoning with homoscedasticity residuals (see Tables ref:criterios and ref:testes_resduos).
-All expected results are statistically significant and most of them are not restrict to model specification.
+In this appendix we report some hypothesis tests we have applied: unit root tests, structural break test, Johansen procedure and hypothesis tests on residuals.
+We implemented the textcite:yeo_new_2000 transformation to all time-series of residential investment growth rate, mortgage interest
+rate and real estate inflation (Figure ref:YeoJhonson).
+The null hypothesis of a unit root in the first differences of the series is rejected (Table ref:unitroot).
+We found structural breaks related to institutional changes and our series are co-integrated (Tables ref:structbreak and ref:Johansen).
+Our estimation order selection was based both on statistical and theoretical reasoning with homoscedasticity residuals (Tables ref:criterios and ref:testes_resduos).
+All expected results are statistically significant and most of them are not restrict to time lag specification.
 Table ref:tab:robust provides a robustness check.
 In the last column of this tables we show which expected result listed in Table ref:resultados_esperados holds for different time lags.
 

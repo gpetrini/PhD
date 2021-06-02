@@ -251,3 +251,24 @@ CLOSED: [2021-05-03 seg 15:04]
 ***** Especificidades institucional do mercado de crédito imobiliário $\Rightarrow$ bolhas alavancadas a partir do investimento residencial
 
 ***** Instabilidade financeira e heterogeneidade
+
+* Grupo de teses
+
+** Comentários ao projeto Fapesp <2021-06-01 ter>
+
+- Talvez modelo ABM seja suficiente
+- Começar pela versão mais simples do modelo
+- Fundamentar ABM com resultados do painel
+- Numero de famílias precisa ser fixo para conter número de objetos nas simulações
+  + Talvez seja necessário fazer com que a produtividade mude para não bater na restrição de oferta
+- Explicitar mecanismos de como o preço dos imóveis afetam a economia
+- Fazer a dimensão espacial depois
+  + A limitação do grid pode ser um problema
+- É preciso modelar tanto o investmento desejado, esperado e efetivo (por exemplo)
+  + Setor de bens de capital pode não conseguir atender a demanda, por exemplo
+- Um começo pode ser via preços das casas exógeno (colado em algum ciclo financeiro)
+- Não simular com heterogeneidade inicialmente. Ela precisa emergir e não ser levada adiante
+  + As clases já são heterogêneas por definição
+- Pensar na função consumo e como as famílias irão demandar crédito
+  + Exogenamente?
+  + Via efeito riqueza?

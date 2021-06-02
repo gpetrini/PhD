@@ -22,7 +22,7 @@ As the above excerpt suggests, the relevance of housing is not restricted to the
 
 We also report an indirect relation between housing and aggregate demand.
 Real estate constitutes a significant portion of household wealth so houses serves as collateral to borrowing cite:teixeira_uma_2011.
-As a consequence of US institutional arrangement, households --- especially the poorest ones --- could increase their indebtedness as houses prices went up (see Figure ref:FigDividaPreco) as a way to ``make'' capital gains without
+As a consequence of US institutional arrangement, households --- especially the poorest ones --- could increase their indebtedness as houses prices went up (Figure ref:FigDividaPreco) as a way to ``make'' capital gains without
 selling their homes during house bubble of the 2000s cite:teixeira_crescimento_2015.
 Therefore, real estate inflation and durable goods consumption are connected and has relevant consequences for business cycle.
 textcites:zezza_u.s._2008,barba_rising_2009, for example, report that credit-financed consumption was one of the main drivers of economic growth before the Great Recession.
@@ -32,7 +32,7 @@ In this paper, we argue that this relation between households indebtedness and r
 The first one is the increasing gap between assets and liabilities in the course of the Great Recession.
 This dynamic is due both to the housing prices burst (post-2005) and to the insensitivity of households' financial commitments.
 In other words, real estate (assets) has a market value while debt (liabilities) has a contractual one, thus, households net worth decreases onset of the subprime crisis.
-Therefore, the second implication is the sharp reduction in the net worth of the poorest households in absolute and relative terms (see Figure ref:FigDistPassivos).
+Therefore, the second implication is the sharp reduction in the net worth of the poorest households in absolute and relative terms (Figure ref:FigDistPassivos).
 
 #+begin_export latex
 \begin{figure}[H]
@@ -373,10 +373,6 @@ plt.tight_layout()
 plt.close()
 salvar_grafico(file_name="Share_AD")
 #+END_SRC
-
-#+RESULTS:
-:results:
-:end:
 
 ** Volatilidade e participação
 
@@ -887,14 +883,14 @@ Specifically, we argue however small its share on GDP is, it does have a fundame
 * Housing Dynamics and Business Cycle in the US Economy :ignore:
 
 Usually, economists had not payed a systematic attention to the role of residential investment to macroeconomic dynamics.
-One possible explanation for this could be the small share of residential investment on aggregate demand (see Figure ref:fig:share).
+One possible explanation for this could be the small share of residential investment on aggregate demand (Figure ref:fig:share).
 Recently, this lack of attention has been replaced by a better understanding of its macroeconomic relevance.
 In this Section, we will present some stylized facts regarding the relevance of residential investment for the US economy.
 
 There are, nevertheless, two notable exceptions to this inattention.
 In a letter to President Franklin D. Roosevelt, in the mid of the Great Depression, \textcite[p.~436]{keynes_collected_1978} presented the case of housing as the best aid to fight the crisis and to foster economic recovery.
 The other exception is textcite:duesenberry_investment_1958 who criticizes ordinary theories of aggregate investment because they put firms’ investment in equipments and structures together with residential investment.
-In this sense, he proposes a theoretical model dedicated for the latter type of investment, emphasizing the role of house prices.
+Thus, he proposes a model dedicated for the latter type of investment, emphasizing the role of house prices.
 
 
 #+begin_export latex
@@ -908,16 +904,15 @@ In this sense, he proposes a theoretical model dedicated for the latter type of 
 	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' Elaboration}
 \end{figure}
 #+end_export
-After this period of negligence, some authors started to draw attention to the relevance of residential investment in explaining the business cycle, as in textcite:green_follow_1997.
-Based on Granger causality tests for the US from 1952 to 1992, he concludes that residential investment leads the business cycle, while non-residential investment lags it.
-textcite:green_follow_1997 relates this result to a forward-looking behavior of households.
-Thus, he restricts the relevance of residential investment as a temporal precedence indicator.
+After this period of negligence, some authors started to draw attention to the relevance of residential investment in explaining the business cycle, as textcite:green_follow_1997.
+Based on Granger-causality tests for the US (1952-1992), he concludes that residential investment leads the business cycle, while non-residential investment lags it.
+textcite:green_follow_1997 relates this result to a forward-looking behavior of households restricting the relevance of residential investment as a temporal precedence indicator.
 
 textcite:leamer_housing_2007 is more incisive and states that housing is the business cycle.
 In analyzing the US economy for the post-war period, he concludes that residential investment is the best predictor of economic recession.
 In a subsequent work, textcite:leamer_housing_2015 declares that nine out of eleven US post-war economic recessions were preceded by a severe downturn of residential investment.
 # Thus, according to textcite:leamer_housing_2007, residential investment anticipates and causes the business cycle[fn::However, textcite:leamer_housing_2007 him self did not evaluate this statements econometrically.].
-textcite:kydland_2016_housing expand \citeauthor*{leamer_housing_2007}'s \citeyear{leamer_housing_2007} proposition to other countries to evaluate how unique the US case is.
+textcite:kydland_2016_housing expand \citeauthor*{leamer_housing_2007}'s (\citeyear{leamer_housing_2007}) proposition to other countries to evaluate how unique the US case is.
 Similarly to textcite:green_follow_1997, they also conclude that residential investment leads the business cycle -- while non-residential investment lags it -- for the US and Canada.
 The results, however, are more robust when they include housing starts instead of residential investment.
 Briefly, they find that housing starts precedes GDP the shorter the time to build is[fn::For the other countries in the sample, textcite:kydland_2016_housing find that residential investment is coincident (and not lagging) with GDP. Additionally, they conclude that long-term nominal mortgage rate is a relevant transmission channel from interest rates to housing costs.].
@@ -947,12 +942,12 @@ Talvez discutir preço aqui
 
 
 In a heterodox perspective, textcites:fiebiger_semi-autonomous_2018,fiebiger_trend_2017 present residential investment as a Luxemburg-type external market providing a source of autonomous demand to absorb economic surplus.
-textcite:teixeira_crescimento_2015 includes both residential investment  and durables goods consumption in the Sraffian supermultiplier framework to explain the recent US housing bubble episode.
+textcite:teixeira_crescimento_2015 includes both residential investment  and durables goods consumption in the Sraffian supermultiplier framework to explain the 2000s US housing bubble episode.
 Additionally, in his work houses price and mortgages interest rate are the main determinant of residential investment.
-Those works state its role (together with debt-financed consumption) in inducing non-residential investment and driving output growth, during the business cycle as well as in the long-run.
+Those works state its role (together with debt-financed consumption) in inducing non-residential investment and driving business cycle and economic growth.
 Figure ref:fig:trend presents the trend of GDP and residential investment growth rate by estimating a HP filter[fn::It worth noting that Figure ref:fig:trend is just a visualization procedure. We are aware of the econometric problems regarding this type of filter. For details see textcite:NBER_HP.].
 Both series share a correlational relation in which residential investment growth rate is more volatile than GDP growth rate.
-Recently, textcite:perez_Montiel_2021 find that residential investment leads both the business cycles and the long-run economic growth for the US economy.
+Recently, textcite:perez_Montiel_2021 find that residential investment leads both the business cycles and the economic growth for the US economy.
 Similar to textcite:girardi_long-run_2016, they do not report any relevant feedback from output to residential investment, categorizing this expenditure as autonomous.
 
 #+begin_export latex
@@ -966,11 +961,11 @@ Similar to textcite:girardi_long-run_2016, they do not report any relevant feedb
 #+end_export
 
 
-Before we move forward, it is worth mentioning that the relevance of housing is not restricted to its implications to growth and business cycles neither limited to residential investment related variables.
-For example, textcite:jorda_great_2016 report that credit and financial sector growth has been led mainly by mortgages. 
+Before we move forward, it is worth mentioning the relevance of housing is not restricted to its implications to economic growth and business cycles neither limited to residential investment related variables.
+For example, textcite:jorda_great_2016 report that mortgages led credit and financial sector recent growth.
 textcite:kohl_more_2018 presents a historical perspective in which banking activities were majorly redirected to households and housing.
-Other studies have shown that house price inflation is one of the main determinants of household indebtedness, wealth distribution and that it has implications for macroeconomic stability cites:stockhammer_debt-driven_2016,johnston_global_2017,mian_household_2017,fuller_housing_2020.
-In summary, what we intended to show was the macroeconomic relevance of residential investment.
-On the following section, we analyze how econometric literature has dealt with its determinants.
+Other studies have shown that house price inflation is one of the main determinants of household indebtedness, wealth distribution, and that it has implications for macroeconomic stability (cites:stockhammer_debt-driven_2016,johnston_global_2017,mian_household_2017,fuller_housing_2020).
+In summary, residential investment has an overall macroeconomic relevance.
+The following section shows how econometric literature has handled its determinants.
 
 *** TODO Falar sobre bolha no parágrafo anterior? :noexport:
