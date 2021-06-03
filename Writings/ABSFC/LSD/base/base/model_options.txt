@@ -1,0 +1,6 @@
+TARGET=lsd
+FUN=fun_base
+FUN_EXTRA= firms_consumption.h government.h
+SWITCH_CC=-O3 -ggdb3
+SWITCH_CC_LNK=
+

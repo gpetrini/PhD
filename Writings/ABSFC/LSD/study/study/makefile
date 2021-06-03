@@ -1,6 +1,6 @@
 # Model compilation options
 TARGET=lsd
-FUN=fun_base
+FUN=fun_study
 FUN_EXTRA=
 SWITCH_CC=-O3 -ggdb3
 SWITCH_CC_LNK=

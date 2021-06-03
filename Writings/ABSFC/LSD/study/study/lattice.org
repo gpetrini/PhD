@@ -1,0 +1,183 @@
+#+OPTIONS: num:nil
+#+TITLE:  Lattice notes for simulating AB macro models in LSD
+#+AUTHOR: Gabriel Petrini
+#+LANG: en
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup
+#+PROPERTY:header-args cpp :results output drawer :eval never-export :session lattice :exports both
+
+* Schelling lattice
+
+* Island model
+
+** Migration dictionary
+
+| Island model | Housing model |
+| knownIsland  | ownHouse      |
+| UNKNOWN      | GREEN         |
+| KNOWN        | AVAILABLE     |
+| COLONIZED    | RENTED        |
+| SEA          | TOWN          |
+| Miner        | Speculator    |
+| Agent        | Household     |
+
+** Defining colors of lattice makers
+
+
+#+CAPTION: Colors dictionary
+|------------+--------------+----------------------------------|
+| Object     | Color RGB    | Description                      |
+|------------+--------------+----------------------------------|
+| Speculator | Black (0)    | Speculators households           |
+| Homeowner  | Yellow (3)   | Non-speculators homeowners       |
+| Green      | Green (2)    | Non occuppied areas (green)      |
+| Rented     | Red (1)      | Rented houses                    |
+| Available  | White (1000) | Houses available to sale or rent |
+| Town       | Gray (8)     | Town lattice (all grid)          |
+|------------+--------------+----------------------------------|
+
+
+
+
+** Town object equations
+
+#+begin_src cpp :tangle init.h
+EQUATION( "Init" )
+/*
+Technical variable to create the sea lattice and initialize
+it with the houses and agents.
+It is computed only once in the beginning of the simulation.
+Must be the first variable in the list.
+,*/
+
+FAST;											// comment to show log/debug messages
+
+v[0] = v[1] = 0;								// house/available house counters
+v[2] = V( "pi" );								// house probability
+v[3] = VL( "l", 1 );							// initial number of available houses
+v[4] = V( "l0radius" );							// radius for search for initial houses
+v[5] = V( "rho" );								// degree of locality of interactions
+v[6] = V( "minSgnPrb" );						// minimum signal probability to consider
+v[7] = V( "sizeLattice" );						// size of the lattice window
+
+// check if there are enough houses on the defined radius for setting available houses
+if ( v[3] > v[4] * v[4] && ! ( v[3] == 1 && v[4] == 0 ) )
+{
+	PLOG( "\n\nError: invalid l0=%.0lf for l0radius=%.0lf\n", v[3], v[4] );
+	ABORT;
+	END_EQUATION( 0 );
+}
+
+// create the visual lattice (blue ocean)
+if ( v[7] > 0 && ! V( "latticeOpen" ) )
+{
+	i = min( v[7], 2 * LAST_T ) + 1;			// effective size of the lattice window
+	INIT_LAT( TOWN, i, i );						// create lattice window using TOWN color
+	WRITES( p->up, "latticeOpen", 1 );			// avoid more than one lattice instance
+	WRITE( "townShown", 1 );						// signal this Sea instance has the lattice
+
+	k = 1;										// lattice open
+}
+else
+	k = 0;										// lattice not open
+
+// set the OwnHouse object instances to be nodes of a network
+INIT_NET( "OwnHouse", "DISCONNECTED", 1 );
+
+// handle bounded economies (pi=0)
+if ( v[2] == 0 && v[3] == 2 )
+{
+	add_house( p, 1, 1, &v[0], k, v[7] );		// house at (1, 1)
+	add_house( p, 1, v[4], &v[0], k, v[7] );	// house at (1, l0radius)
+}
+else
+{
+	// make sure there is an house at (0, 0)
+	add_house( p, 0, 0, &v[0], k, v[7] );
+
+	// create random houses to fill the initial radius plus one
+	for ( i = - v[4] - 1; i <= v[4] + 1; ++i )
+		for ( j = - v[4] - 1; j <= v[4] + 1; ++j )
+			// draw the existence of an house (except in (0, 0))
+			if ( RND < v[2] && ! ( i == 0 && j == 0 ) )
+				// create house and add to the graphical lattice if required
+				add_house( p, i, j, &v[0], k, v[7] );
+}
+
+// draw the required number of available houses ((0, 0) is always available)
+while( v[1] < v[3] )
+{
+	if ( v[1] == 0 )
+		cur = SEARCH( "House" );				// first is house at (0, 0) or (1, 1)
+	else
+		cur = RNDDRAW_FAIR( "House" );			// drawn existing house
+
+	int x = VS( cur, "_xHouse" );				// house (0, 0)-centered coordinates
+	int y = VS( cur, "_yHouse" );
+
+	// avoid the houses just over the radius or already set as available
+	if ( VS( cur, "_available" ) || ( x < - v[4] || x > v[4] || y < - v[4] || y > v[4] ) )
+		continue;
+
+	// translate from (0, 0)-centered to absolute coordinates
+	i = x + LAST_T;
+	j = y + LAST_T;
+
+	if ( v[1] == 0 )							// first available house?
+		cur1 = SEARCH( "OwnHouse" );			// pick existing object
+	else
+		cur1 = ADDOBJ( "OwnHouse" );			// add new object instance
+
+	WRITE_SHOOKS( cur, cur1 );					// save pointer to OwnHouse object
+	WRITE_SHOOKS( cur1, cur );					// save pointer to House object
+
+	++v[1];							// count the available houses
+	WRITES( cur, "_available", 1 );		// flag house as available
+	WRITES( cur1, "_s", abs( x ) + abs( y ) );// house prod. coeff.
+	WRITES( cur1, "_idAvailable", v[1] );	// save available house id
+
+	neighborhood( cur1, v[5], v[6] );	// create neighborhood network
+	set_marker( k, x, y, AVAILABLE, v[7] ); // change house marker
+
+	LOG( "\nOwnHouse=%.0lf at x=%d y=%d", v[1], x, y );
+}
+
+WRITE( "J", v[0] );								// number of existing houses in t=1
+WRITE( "northFrontier", v[4] + 1 );				// register the initial sea borders
+WRITE( "southFrontier", - v[4] - 1 );
+WRITE( "eastFrontier", v[4] + 1 );
+WRITE( "westFrontier", - v[4] - 1 );
+
+// create agents objects
+j = V( "N" );									// the total number of agents
+INIT_TSEARCHT( "OwnHouse", v[1] );			// prepare turbo search
+
+for ( i = 0; i < j; ++i )
+{
+	k = uniform_int( 1, v[1] );					// house where the agent starts
+	cur = TSEARCH( "OwnHouse", k );			// pointer to OwnHouse object
+
+	if ( i == 0 )								// first agent?
+		cur1 = SEARCH( "Household" );				// pick existing agent object
+	else
+		cur1 = ADDOBJ( "Household" );				// add new agent object instance
+
+	cur2 = SEARCHS( cur, "Speculator" );				// pick existing speculator object in house
+	if ( ! ( SHOOKS( cur2 ) == NULL ) )			// existing object instance already used?
+		cur2 = ADDOBJS( cur, "Speculator" );			// add new speculator object instance
+
+	WRITE_SHOOKS( cur1, cur2 );					// save pointer to agent as speculator
+	WRITE_SHOOKS( cur2, cur1 );					// save pointer to Household object
+	cur3 = SHOOKS( cur );						// pointer to house
+
+	WRITES( cur1, "_idHousehold", i + 1 );			// save agent id number
+	WRITES( cur1, "_xHousehold", VS( cur3, "_xHouse" ) );	// agent x coordinate
+	WRITES( cur1, "_yHousehold", VS( cur3, "_yHouse" ) );	// agent y coordinate
+	WRITELS( cur1, "_a", 1, -1 );				// agent initial state (speculator)
+	WRITES( cur2, "_active", 1 );				// flag active Speculator
+}
+
+PARAMETER;										// turn variable into parameter
+
+RESULT( 1 )
+#+end_src
+

@@ -1,0 +1,392 @@
+#+OPTIONS: num:nil
+#+TITLE:  Equations notebook
+#+AUTHOR: Gabriel Petrini
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup
+#+PROPERTY:header-args cpp :results output drawer :exports code
+#+COLUMNS: %25ITEM(Variable) %TODO(Status) %IMPLEMENTED(LSD?){X} %RUNNED(Run?){X}
+
+* Variables dictionary
+
+
+|---------+---------------------------+------------------------------------------------------------+-----------+------------+--------------+--------------------------------------------------------------------------------------|
+|  Latex  |            LSD            | Description                                                |   Type    |   Level    | Inital Value | Notes                                                                                |
+|---------+---------------------------+------------------------------------------------------------+-----------+------------+--------------+--------------------------------------------------------------------------------------|
+|  <c5>   |           <c20>           | <l30>                                                      |   <c10>   |   <c15>    |    <c10>     | <l10>                                                                                |
+|   $G$   |      Gov_Consumption      | Government consumption goods consumption                   | Variable  | Government |              |                                                                                      |
+|    -    |          Gov_exp          | Government total expenditures (includes subsistence wages) | Variable  | Government |              | Do not include in GDP calculation (subsistence wage already in households equations) |
+|   $\sigma$   |     Gov_expend_ratio      | Government marginal propensity to expend                   | Parameter | Government |              |                                                                                      |
+|   $T$   |         Tax_Total         | Government taxes collection                                | Variable  | Government |              |                                                                                      |
+|   $\tau$   |         Tax_ratio         | Government tax ratio                                       | Parameter | Government |              |                                                                                      |
+|    -    |      Gov_Net_Balance      | Government net balance ($G-T$)                             | Variable  | Government |              |                                                                                      |
+|    -    |    Gov_Primary_Balance    | Government Primary net Balance ($G - T - r_{g}\cdot B_{t-1}$)  | Variable  | Government |              |                                                                                      |
+|   $B$   |         Gov_Bonds         | Government Bonds                                           | Variable  | Government |              | How to assure bonds repurchase?                                                      |
+| $r_{G}$ |        policy_rate        | Interest policy rate                                       | Variable  | Government |              |                                                                                      |
+|    -    | flag_variable_policy_rate | Rule of how to updates policy rate                         | Variable  | Government |              | Not implemented                                                                      |
+
+* Households
+
+** Wages
+
+** Consumption
+
+** Residential investment
+
+* Firms
+
+** Consumption goods
+:PROPERTIES:
+:header-args: cpp :tangle firms_consumption.h
+  :END:
+*** STRT Decision of production
+
+**** Production plan ($Y_{fc}$, Prodf_consu)
+Similar to ABM literature, each firm $f$ sets the production plan ($Y_{fc}$, Prodf_consu) based on expected sales ($S^{e}_{fc}$, Sale_exp_consu) and to desired inventories to sale ratio ($\iota^{T} \in [01,]$, invent_ratio) exogenous and equal for all firms
+
+#+BEGIN_latex
+\begin{equation}
+Y_{fc} = (1+\iota^{T})S^{e}_{fc} - INV_{fc, t-1}
+\end{equation}
+#+END_latex
+
+
+#+begin_src cpp
+EQUATION("Prodf_consu")
+
+v[0] = VS(PARENT, "invent_ratio"); // desired invetories to sale ratio
+v[1] = V("Sale_exp_consu"); // expected sales
+v[2] = VL("INVENT_consu",1); // consumption firms past inventories
+v[3] = (1+v[0])*v[1] - v[2];
+v[4] = max( 0, v[3] ); // Ensure non-negative values
+RESULT(v[4])
+#+end_src
+
+**** Expected sales ($Y_{fc,t-1}^{D}$, Demandf_consu)
+Expected sales are based on lagged total demand value ($Y_{fc,t-1}^{D}$, Demandf_consu).
+
+#+BEGIN_latex
+\begin{equation}
+S^{e}_{fc} = Y_{fc,t-1}^{D}
+\end{equation}
+#+END_latex
+
+#+begin_src cpp
+EQUATION("Sale_exp_consu")
+
+RESULT(VL("Demandf_consu",1))
+#+end_src
+
+
+**** Desired capacity utilization ratio ($u^{d}_{fc}$, capacity_desired_consu)
+
+Given the production plan and the exogenous capital-to-output ratio ($\nu$, Capital_Output_ratio_consu), the desired capacity utilization ratio for consumption goods firms ($u^{d}_{fc}$, capacity_desired_consu) will be:
+
+#+BEGIN_latex
+\begin{equation}
+u^{d}_{fc} = \max\left[0, \min(\nu\cdot \frac{Y_{fc}}{K_{fc,t-1}},1)\right]
+\end{equation}
+#+END_latex
+in which $K_{fc}$ is consumption goods firms capital stock (Kapitalf_consu).
+
+
+#+begin_src cpp
+EQUATION("capacity_desired_consu")
+
+v[0] = VS(PARENT, "Capital_Output_ratio_consu");
+v[1] = V("Prodf_consu");
+v[2] = VL("Kapitalf_consu",1);
+v[3] = v[0]*(v[1]/v[2]);
+v[4] = min(v[3],1);
+v[5] = max(v[4],0);
+
+
+RESULT(v[5])
+#+end_src
+
+
+*** HOLD Capital stock, technology, and labor productivity
+
+Capital stock is composed of several vintages each one with potentially different labor productivities, firms compute the average productivity ($\overbrace{A}_{fc}$) as the weighted mean of all vintages:
+#+BEGIN_latex
+\begin{equation}
+\overbrace{A}_{fc} = \sum_{j=1}^{k}\frac{k_{fc,t-j}\cdot A_{fc,t-j}}{K_{fc,t-1}}
+\end{equation}
+#+END_latex
+
+#+begin_src cpp
+
+#+end_src
+
+*** HOLD Dynamics of technology
+
+**** R&D ($RD_{fc}$, RD_consu)
+
+Real R&D ($RD_{fc}$, RD_consu) is a fraction ($\gamma_{rdc}$, RD_sale_share) of previous nominal sales.
+In this version there is no technical progress ($\gamma_{rdc} = 0$):
+
+#+BEGIN_latex
+\begin{equation}
+RD_{fc} = \gamma_{rdc}\cdot S_{fc, t-1} = 0
+\end{equation}
+#+END_latex
+
+
+#+begin_src cpp
+EQUATION("RD_consu")
+
+v[0] = VS(PARENT, "RD_sale_share");
+v[1] = VL("Prodf_consu",1);
+
+    if (v[0] > 0)
+    {
+        v[2] = v[0]*v[1];
+        } else {
+        v[2] = 0;
+    }
+
+RESULT(v[2])
+#+end_src
+
+
+*** Investment decisions
+
+**** Replacement
+
+**** STRT Expansion ($EI_{fc}$, Expanf_consu)
+
+
+At odds with conventional ABM literature, expansion investment will be sraffian supermultplier type since there is other autonomous expenditures which does not create capacity (housing).
+Thus, expansion investment function will be:
+
+#+BEGIN_latex
+\begin{equation}
+EI_{fc} = h_{fc}\cdot Y_{fc,t-1}^{D}
+\end{equation}
+#+END_latex
+in which $h_{fc}$ is the marginal propensity to invest (mg_invest_consu),
+Its adjustment process is:
+
+#+BEGIN_latex
+\begin{equation}
+\Delta h_{fc} = \gamma_{u}\cdot (u^{d} - u_{n})
+\end{equation}
+#+END_latex
+where $\gamma_{u}$ is an exogenous and constant adjustment parameter (adjust_mg_invest_consu) and $u_{n}$ (un_consu) is the normal capacity utilization rate.
+Both are equal across consumption firms.
+
+#+begin_src cpp
+EQUATION("Expanf_consu")
+
+v[0] = V("mg_invest_consu");
+v[1] = VL("Demandf_consu",1);
+v[2] = v[0]*v[1];
+
+RESULT(v[2])
+
+EQUATION("mg_invest_consu")
+
+v[0] = VS(PARENT, "adjust_mg_invest_consu");
+v[1] = V("capacity_desired_consu");
+v[2] = VS(PARENT, "un_consu");
+v[3] = VL("mg_invest_consu",1);
+v[4] = v[0]*(v[1] - v[2]) + v[3];
+
+RESULT(v[4])
+#+end_src
+
+** WAIT Capital goods
+
+** WAIT Constructors
+
+* Government
+:PROPERTIES:
+:header-args: cpp :tangle government.h
+  :END:
+
+
+- Collects taxes ($T$, Tax_Total) as a share ($\tau$, Tax_ratio) of previous household income ($Y_{H}$, Y_H)
+- Expenditures (Gov_exp): consumption goods ($G$, Gov_Consumption) and subsistence wage ($WSub$)
+- Defines policy rate ($r_{G}$, policy_rate)
+
+
+** STRT Expenditures ($G$, Gov_exp)
+:PROPERTIES:
+:RUNNED:   [ ]
+:IMPLEMENTED: [X]
+:END:
+
+#+BEGIN_latex
+\begin{equation}
+G = \sigma\cdot Y_{t-1} + UN\cdot wSub_{t-1}
+\end{equation}
+#+END_latex
+
+
+#+begin_src cpp
+EQUATION("Gov_exp")
+/*
+Government total expenditure (Consumption and subsistence wages).
+Warning: DO NOT include Gov_Total in GDP calculation (only consumption goods consumption).
+Using SUM instead of UN * WSub
+Reason: subsistence wage already included in households disposable income
+,*/
+
+RESULT( V("Gov_Consumption") + SUML("WSub",1))
+
+
+EQUATION("Gov_Consumption")
+/*
+  Government consumption goods based on previous GDP and a fixed expenditure ratio ($sigma$)
+,*/
+
+
+
+RESULT( V("Gov_expend_ratio")*VL("GDP",1) )
+
+#+end_src
+
+*** Subsistence wage update
+
+
+It is assumed that susbsitance wage ($W_{sub,t}$, WSub) is updated according to rent ($\pi^{R}$, Rent_inflation) and consumption goods inflation ($\pi^{C}$, Consumption_inflation).
+
+#+BEGIN_latex
+\begin{equation}
+w_{sub, t} = (1+\pi^{R} + \pi^{C})\cdot (w_{sub, t-1})
+\end{equation}
+#+END_latex
+
+
+#+begin_src cpp
+EQUATION("WSub")
+
+v[0] = VL("WSub", 1); // Previous subsistence wage. Needs to define a initial value.
+v[1] = VL("Rent_inflation",1); // Rent inflation rate. Needs to define a initial value
+v[2] = VL("Consumption_inflation",1); // Consumption inflation rate. Needs to define a initial value. Exogenous
+
+
+RESULT((1+v[1]+v[2])*v[0])
+#+end_src
+
+** STRT Taxation ($T$, Tax_Total)
+:PROPERTIES:
+:RUNNED:   [ ]
+:IMPLEMENTED: [X]
+:END:
+
+#+BEGIN_latex
+\begin{equation}
+T = \tau\cdot \sum_{i}^{N}Y_{H}
+\end{equation}
+#+END_latex
+
+
+#+begin_src cpp
+EQUATION("Tax_Total")
+
+v[0] = V("Tax_ratio"); // Exogenous government tax ratio
+v[1] = SUML("Y_H",1); // Households total income (previous period)
+
+RESULT(v[0]*v[1])
+#+end_src
+
+** STRT Government net balance (Gov_Net_Balance)
+:PROPERTIES:
+:RUNNED:   [ ]
+:IMPLEMENTED: [X]
+:END:
+#+BEGIN_latex
+\begin{equation}
+GovNetBalance = G - T
+\end{equation}
+#+END_latex
+
+
+#+begin_src cpp
+EQUATION("Gov_Net_Balance")
+
+RESULT(V("Gov_Total") - V("Tax_Total"))
+#+end_src
+
+*** Primary balance (Gov_Primary_Balance)
+
+#+BEGIN_latex
+\begin{equation}
+Primary = (G - T) - r_{G}\cdot B_{t-1}
+\end{equation}
+#+END_latex
+
+
+#+begin_src cpp
+EQUATION("Gov_Primary_Balance")
+/*
+Government net Balance (+) if surplus, (-) otherwise
+,*/
+
+RESULT(V("Gov_Net_Balance") - V("policy_rate")*VL("Gov_Bonds",1))
+#+end_src
+
+** STRT Government Debt ($B$, Gov_Bonds)
+:PROPERTIES:
+:RUNNED:   [ ]
+:IMPLEMENTED: [X]
+:END:
+
+#+BEGIN_latex
+\begin{equation}
+\Delta B = (G - T) + i\cdot B_{t-1}
+\end{equation}
+#+END_latex
+
+
+#+begin_src cpp
+EQUATION("Gov_Bonds")
+
+RESULT(V("Gov_Primary_Balance") + VL("Gov_Bonds",1))
+#+end_src
+
+
+** STRT Policy rate ($r_{G}$, policy_rate)
+:PROPERTIES:
+:RUNNED:   [ ]
+:IMPLEMENTED: [X]
+:END:
+
+#+begin_src cpp
+EQUATION("policy_rate")
+/*
+If flag_variable_policy_rate == 1, policy rate will vary according to a specific rule (NOT IMPLEMENTED).
+Otherwise (0, default), policy rate will be fixed.
+,*/
+
+
+v[0] = VL("policy_rate",1); // Needs a initial value
+
+if(VS(root, "flag_variable_policy_rate"))
+    {
+    v[1] = v[0] + V("policy_update_rule");
+    } else{
+    v[1] = v[0];
+}
+
+RESULT(v[1])
+#+end_src
+
+
+** TODOs and Questions
+
+- What if government has a superavit?
+- How to simulate a interest rate shock?
+
+* Bank
+
+** Credit demand
+
+
+** Credit supply
+
+* Houses (pseud agents)
+
+* General variables (Aggregates) and model structure
+
+
+* Spatial dimension
