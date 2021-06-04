@@ -146,6 +146,61 @@ CLOSED: [2021-05-03 seg 15:04]
 
 **** Adicionar mais variáveis
 
+** <2021-06-04 sex> Simplificações ABM e capítulos
+
+*** Estrutura da tese
+
+- Dois ABMs de housing e um painel?
+- Dois ABMs de housing, painel e capítulo teórico?
+- ABM de housing, ABM de investimento autônomo com bolha-ponto com e painel?
+- Formato original?
+
+
+
+*** Questões prévias
+
+- Assumir que somente trabalhadores pagam alguel?
+- Como incluir produtividade do trabalho?
+- Discutir a inclusão do investimento residencial nos modelos ABM canônico?
+- Discussão espacial para outro capítulo/modelo?
+- Preço dos imóveis inicialmente exógenos e estocásticos?
+  + Seguindo algum ciclo financeiro
+  + L: Pró ciclico
+- Como as famílias alocam a riqueza entre casas e ativos financeiros?
+- Mais de um setor?
+  + Bens de consumo
+  + Bens de capital
+  + Construtoras
+- Como famílias decidem se mudar?
+  + Valor do aluguel acima de determinada porção da renda?
+- Função consumo...
+  + Igual entre classes, alterando fonte de renda e parâmetros comportamentais?
+    - Consumo relativo
+    - Renda disponível
+    - Riqueza
+- Fonte de renda...
+  + Somente trabalhadores recebem salários?
+  + Donos da terra só recebem alugueis?
+- Compra de casas...
+  + Somente via hipotecas ou famílias ricas podem comprar a partir da riqueza acumulada?
+- Acesso a crédito...
+  + Firmas possuirão restrição?
+    Famílias ricas sem restrição por hipótese?
+- Sem inflação de outros bens que não casas?
+
+*** Dificuldades já encontradas
+
+- Crescimento populacional dificulta simulação
+  + Número de objetos
+  + Por isso incluir produtividade do trabalho
+- Cada casa deve ser associada a algum agente
+- Começar com aleatorização não é bem visto
+- Taxa própria: resultado macro ou hipótese micro?
+- Tamanho do grid pode ser um problema
+  + Mas há modelos que isso se expande
+  + Compromete hipótese de que bolha de imóveis decorre da especulação com terra
+
+
 * Artigos
 
 ** VECM

@@ -2,45 +2,304 @@
 #+TITLE:  Equations notebook
 #+AUTHOR: Gabriel Petrini
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup
-#+PROPERTY:header-args cpp :results output drawer :exports code
 #+COLUMNS: %25ITEM(Variable) %TODO(Status) %IMPLEMENTED(LSD?){X} %RUNNED(Run?){X}
 
 * Variables dictionary
 
-
-|---------+---------------------------+------------------------------------------------------------+-----------+------------+--------------+--------------------------------------------------------------------------------------|
-|  Latex  |            LSD            | Description                                                |   Type    |   Level    | Inital Value | Notes                                                                                |
-|---------+---------------------------+------------------------------------------------------------+-----------+------------+--------------+--------------------------------------------------------------------------------------|
-|  <c5>   |           <c20>           | <l30>                                                      |   <c10>   |   <c15>    |    <c10>     | <l10>                                                                                |
-|   $G$   |      Gov_Consumption      | Government consumption goods consumption                   | Variable  | Government |              |                                                                                      |
-|    -    |          Gov_exp          | Government total expenditures (includes subsistence wages) | Variable  | Government |              | Do not include in GDP calculation (subsistence wage already in households equations) |
-|   $\sigma$   |     Gov_expend_ratio      | Government marginal propensity to expend                   | Parameter | Government |              |                                                                                      |
-|   $T$   |         Tax_Total         | Government taxes collection                                | Variable  | Government |              |                                                                                      |
-|   $\tau$   |         Tax_ratio         | Government tax ratio                                       | Parameter | Government |              |                                                                                      |
-|    -    |      Gov_Net_Balance      | Government net balance ($G-T$)                             | Variable  | Government |              |                                                                                      |
-|    -    |    Gov_Primary_Balance    | Government Primary net Balance ($G - T - r_{g}\cdot B_{t-1}$)  | Variable  | Government |              |                                                                                      |
-|   $B$   |         Gov_Bonds         | Government Bonds                                           | Variable  | Government |              | How to assure bonds repurchase?                                                      |
-| $r_{G}$ |        policy_rate        | Interest policy rate                                       | Variable  | Government |              |                                                                                      |
-|    -    | flag_variable_policy_rate | Rule of how to updates policy rate                         | Variable  | Government |              | Not implemented                                                                      |
+#+CAPTION: Latex and LSD variable dictionary
+|----------------+-------------------------------+------------------------------------------------------------------------------------------------------------------------------------+-----------+------------------+--------------+--------------------------------------------------------------------------------------+------------|
+|     Latex      |              LSD              | Description                                                                                                                        |   Type    |      Level       | Inital Value | Notes                                                                                | Eq. number |
+|----------------+-------------------------------+------------------------------------------------------------------------------------------------------------------------------------+-----------+------------------+--------------+--------------------------------------------------------------------------------------+------------|
+|      <c5>      |             <c20>             | <l30>                                                                                                                              |   <c10>   |      <c15>       |    <c10>     | <l10>                                                                                |    <c5>    |
+|----------------+-------------------------------+------------------------------------------------------------------------------------------------------------------------------------+-----------+------------------+--------------+--------------------------------------------------------------------------------------+------------|
+|      $\sigma$       |       Gov_expend_ratio        | Government marginal propensity to expend                                                                                           | Parameter |    Government    |              |                                                                                      |            |
+|      $\tau$       |           Tax_ratio           | Government tax ratio                                                                                                               | Parameter |    Government    |              |                                                                                      |            |
+|      $G$       |        Gov_Consumption        | Government consumption goods consumption                                                                                           | Variable  |    Government    |              |                                                                                      |            |
+|       -        |            Gov_exp            | Government total expenditures (includes subsistence wages)                                                                         | Variable  |    Government    |              | Do not include in GDP calculation (subsistence wage already in households equations) |            |
+|      $T$       |           Tax_Total           | Government taxes collection                                                                                                        | Variable  |    Government    |              |                                                                                      |            |
+|       -        |        Gov_Net_Balance        | Government net balance ($G-T$)                                                                                                     | Variable  |    Government    |              |                                                                                      |            |
+|       -        |      Gov_Primary_Balance      | Government Primary net Balance ($G - T - r_{g}\cdot B_{t-1}$)                                                                          | Variable  |    Government    |              |                                                                                      |            |
+|      $B$       |           Gov_Bonds           | Government Bonds                                                                                                                   | Variable  |    Government    |              | How to assure bonds repurchase?                                                      |            |
+|    $r_{G}$     |          policy_rate          | Interest policy rate                                                                                                               | Variable  |    Government    |              |                                                                                      |            |
+|       -        |   flag_variable_policy_rate   | Rule of how to updates policy rate                                                                                                 | Variable  |    Government    |              | Not implemented                                                                      |            |
+|   $W_{min}$    |             W_min             | Minimal wage                                                                                                                       | Variable  |    Government    |              | Not implemented                                                                      |            |
+|----------------+-------------------------------+------------------------------------------------------------------------------------------------------------------------------------+-----------+------------------+--------------+--------------------------------------------------------------------------------------+------------|
+| $\overline{W}$ |           Wage_mean           | Mean wage                                                                                                                          | Variable  |    Households    |              | Should be calculated among employed workers only                                     |            |
+|    $s_{w}$     |   mg_prop_save_wages_worker   | Worker's marginal propensity to save out of wages                                                                                  | Parameter |     Workers      |              | Should be constant across workers?                                                   |            |
+|    $s_{v}$     |  mg_prop_save_wealth_worker   | Worker's marginal propensity to save out of wealth                                                                                 | Parameter |     Workers      |              | Should be the same across workers households?                                        |            |
+|      $\eta$       |    mg_prop_relative_income    | Worker's sensitivity to relative income                                                                                            | Parameter |     Workers      |              | Should be the same across workers households?                                        |            |
+|       -        |         W_min_worker          | Number of minimal wages that a worker receives                                                                                     | Parameter |     Workers      |              |                                                                                      |            |
+|    $YD_{w}$    |      Income_Disp_Worker       | Worker's disposable income                                                                                                         | Variable  |     Workers      |              |                                                                                      |            |
+|      $W$       |             Wage              | Workers' Wage                                                                                                                      | Variable  |     Workers      |              |                                                                                      |            |
+|    $D_{w}$     |        Deposits_Worker        | Worker's deposits                                                                                                                  | Variable  |     Workers      |              |                                                                                      |            |
+|    $L_{cw}$    |    Loan_consumption_worker    | Worker's credit loans for consumption                                                                                              | Variable  |     Workers      |              |                                                                                      |            |
+|    $MO_{w}$    |        Mortgage_worker        | Worker's mortgage credit                                                                                                           | Variable  |     Workers      |              |                                                                                      |            |
+|    $C_{w}$     |      Consumption_worker       | Worker's consumption                                                                                                               | Variable  |     Workers      |              |                                                                                      |            |
+|    $V_{w}$     |         Wealth_worker         | Worker's wealth                                                                                                                    | Variable  |     Workers      |              |                                                                                      |            |
+|    $S_{w}$     |         Saving_worker         | Worker's savings                                                                                                                   | Variable  |     Workers      |              |                                                                                      |            |
+|    $RI_{w}$    | Residential_Investment_Worker | Worker's residential investment                                                                                                    | Variable  |     Workers      |              |                                                                                      |            |
+|----------------+-------------------------------+------------------------------------------------------------------------------------------------------------------------------------+-----------+------------------+--------------+--------------------------------------------------------------------------------------+------------|
+|   $r_{mow}$    |   mortgage_interest_worker    | Mortgage interest rate accorded to worker                                                                                          | Variable  |       Bank       |              |                                                                                      |            |
+|    $r_{lw}$    |     loan_interest_worker      | Credit loans interest rate accorded to worker                                                                                      | Variable  |       Bank       |              |                                                                                      |            |
+|----------------+-------------------------------+------------------------------------------------------------------------------------------------------------------------------------+-----------+------------------+--------------+--------------------------------------------------------------------------------------+------------|
+|       -        |       flag_consu_super        | Flag = 1 -> Sraffian supermultplier investment function for consumption goods sector. Otherwise, neo-Kaleckian investment function. |   Flag    |      Firms       |      1       |                                                                                      |            |
+|    $\iota^{T}$     |      invent_ratio_consu       | Inventories ratio                                                                                                                  | Parameter |      Firms       |              |                                                                                      |            |
+|      $\nu$       |  Capital_Output_ratio_consu   | Capital-output-ratio of consumption goods firms                                                                                    | Parameter |      Firms       |              |                                                                                      |            |
+|    $\gamma_{0}$     |    Autonomous_invest_consu    | Autonomous investment parameter                                                                                                    | Parameter |      Firms       |              |                                                                                      |            |
+|    $\gamma_{1}$     |     Induced_invest_consu      | Induced investment parameter                                                                                                       | Parameter |      Firms       |              |                                                                                      |            |
+|    $u_{n}$     |           un_consu            | Normal capacity utilization ratio for the consumption goods sector                                                                 | Parameter |      Firms       |              |                                                                                      |            |
+|    $\gamma_{u}$     |    adjust_mg_invest_consu     | Marginal propensity to investment adjustment parameter                                                                             | Parameter |      Firms       |              |                                                                                      |            |
+|       -        |    maxGrowthcapacity_consu    | maximum growth of physical capital                                                                                                 | Parameter |      Firms       |              | Check if it is needed in the sraffian supermultplier model                           |            |
+|    $\delta_{fc}$    |        depreciation_fc        | CG depreciation ratio                                                                                                              | Parameter |      Firms       |              |                                                                                      |            |
+|   $\gamma_{rdc}$    |      RD_sale_share_consu      | Share of previous sales to RD (consumption goods)                                                                                  | Parameter | ConsumptionGoods |              | Should be equal across Consumption goods firms?                                      |            |
+|    $Y_{fc}$    |          Prodf_consu          | Consumption goods firms production plan                                                                                            | Variable  | ConsumptionGoods |              |                                                                                      |            |
+|  $Y^{D}_{fc}$  |         Demandf_consu         | Consumption goods firms actual demand                                                                                              | Variable  | ConsumptionGoods |              |                                                                                      |            |
+|    $S_{fc}$    |                               | Consumption goods current sales                                                                                                    | Variable  | ConsumptionGoods |              |                                                                                      |            |
+|  $S^{e}_{fc}$  |        Sale_exp_consu         | Consumption goods firms expected sales                                                                                             | Variable  | ConsumptionGoods |              |                                                                                      |            |
+| $INVENT_{fc}$  |         INVENT_consu          | Consumption goods inventories                                                                                                      | Variable  | ConsumptionGoods |              |                                                                                      |            |
+|  $u^{d}_{fc}$  |    capacity_desired_consu     | Desired capacity utilization of consumption goods firms                                                                            | Variable  | ConsumptionGoods |              |                                                                                      |            |
+|    $K_{fc}$    |        Kapitalf_consu         | Consumption goods firms capital stock                                                                                              | Variable  | ConsumptionGoods |              |                                                                                      |            |
+|   $RD_{fc}$    |           RD_consu            | Consumption goods R&D expenditures                                                                                                 | Variable  | ConsumptionGoods |              | Not implemented                                                                      |            |
+|   $EI_{fc}$    |         Expanf_consu          | Expansion investment of consumption goods firms                                                                                    | Variable  | ConsumptionGoods |              |                                                                                      |            |
+|    $h_{fc}$    |        mg_invest_consu        | Marginal propensity to investment (CG)                                                                                             | Variable  | ConsumptionGoods |              |                                                                                      |            |
+|       -        |     ShrinkCapacity_consu      | Shrink capacity in CG sector (negative investment growth rate)                                                                     | Variable  | ConsumptionGoods |              |                                                                                      |            |
+|----------------+-------------------------------+------------------------------------------------------------------------------------------------------------------------------------+-----------+------------------+--------------+--------------------------------------------------------------------------------------+------------|
+|      $\alpha$       |             shape             | Pareto's distribution shape                                                                                                        | Parameter |     Country      |      1       |                                                                                      |            |
+|      $\beta$       |          pareto_mean          | Pareto's distribution mean                                                                                                         | Parameter |     Country      |      1       |                                                                                      |            |
+|      $C$       |     Consumption_aggregate     | Aggregate consumption                                                                                                              | Variable  |     Country      |              |                                                                                      |            |
+|       -        |   Consumption_worker_total    | Workers' total consumption                                                                                                         | Variable  |    Households    |              |                                                                                      |            |
+|       -        | Consumption_speculator_total  | Speculators' total consumption                                                                                                     | Variable  |    Households    |              |                                                                                      |            |
+|       -        |  Consumption_landowner_total  | Landowners' total consumption                                                                                                      | Variable  |    Households    |              |                                                                                      |            |
+|----------------+-------------------------------+------------------------------------------------------------------------------------------------------------------------------------+-----------+------------------+--------------+--------------------------------------------------------------------------------------+------------|
 
 * Households
 
-** Wages
+** Income
+:PROPERTIES:
+:header-args: cpp :tangle householdincome.h :exports code
+  :END:
+
+*** Worker
+
+**** Wages ($W$, Wage)
+
+Wages will be initially drawn from a pareto function (Pareto($\alpha,\beta$)) wich indicates how much each worker will receive in terms of minimal wages (W_min_worker):
+
+#+begin_src cpp
+EQUATION("W_min_worker")
+/*
+*/
+v[0] = VS(root, "shape");
+v[1] = VS(root, "pareto_mean");
+v[2] = pareto(v[1], v[0]);
+PARAMETER
+RESULT(v[2])
+
+#+end_src
+
+Thus, the actual worker's wage ($W$,Wage) is the number of minimal wages multiplied by the currente minimal wage value ($W_{min}$, W_min).
+
+#+begin_src cpp
+EQUATION("Wage")
+
+v[0] = V("W_min");
+v[1] = V("V_min_worker");
+v[2] = v[0]*v[1];
+
+RESULT( v[2] )
+#+end_src
+
+**** Disposable income ($YD_{w}$, Income_Disp_Worker)
+
+Workers disposable income is defined as the sum of wage ($W$, Wage), benefits (if applies, $W_{sub}$, WSub), interest rate (policy_rate, $r_{G}$) on deposits ($D_{w}$, Deposits_Worker), net of tax ($\tau$, Tax_ratio), loans interest rate ($r_{lw}$, loan_interest_worker) and mortgages interest rate ($r_{mow}$, mortgage_interest_worker).
+
+#+BEGIN_latex
+\begin{equation}
+YD_{w} = (1-\tau)\cdot W + r_{G}\cdot D_{w, t-1} - r_{lw}\cdot L_{cw, t-1} - r_{mow}\cdot MO_{w, t-1}
+\end{equation}
+#+END_latex
+
+#+begin_src cpp
+EQUATION("Income_Disp_Worker")
+
+v[0] = V("Wage");
+v[1] = V("WSub");
+v[2] = VS(PARENT, "policy_rate");
+v[3] = VL("Deposits_Worker", 1);
+v[4] = VS(PARENT, "Tax_ratio");
+v[5] = VL("Loan_consumption_worker", 1);
+v[6] = VL("Mortgage_worker", 1);
+v[7] = V("loan_interest_worker");
+v[8] = V("mortgage_interest_worker");
+
+v[9] = (1-v[4])*v[0]; // Wage net of taxes (ATTENTION: Should be zero if unemployed)
+v[10] = v[9] + v[1]; // Adding benefits (ATTENTION: Shoud be zero if employed)
+v[11] = v[10] + v[2]*v[3] - v[7]*v[5] - v[8]*v[6];
+
+RESULT( v[11] )
+#+end_src
+
+
+**** Wealth ($V_{h}$, Wealth_worker)
 
 ** Consumption
+:PROPERTIES:
+:header-args: cpp :tangle household_consumption.h :exports code
+  :END:
+
+The main difference will be on income type (wages, profits, rent), credit access, parameters and wealth value.
+
+
+*** Workers ($C_{w}$, Consumption_worker)
+
+#+BEGIN_latex
+\begin{equation}
+C_{w} = (1-s_{w})\cdot YD_{w,t} + \eta\cdot (\overline{W}_{t-1} - W_{w,t-1}) + (1-s_{v})\cdot V_{w,t-1}
+\end{equation}
+#+END_latex
+in which $s_{w}$ is the marginal propensity to save out of wages (mg_prop_save_wages_worker), $YD_{w}$ is the worker's disposable income (Income_Disp_Worker),  $\eta$ is the sensitivity to worker's relative income (mg_prop_relative_income), $\overline{W}$ is the mean wage in the previous period (Wage_mean), $W_{w,t-1}$ is the previous period wage (Wage),  $s_{v}$ is the marginal propensity to save (mg_prop_save_wealth_worker) out wealth ($V_{w,t-1}$, Wealth_worker).
+
+
+#+begin_src cpp
+EQUATION("Consumption_worker")
+
+v[0] = V("mgprop_save_wages_worker");
+v[1] = V("mg_prop_relative_income");
+v[2] = V("mg_prop_save_wealth_worker");
+v[3] = V("Income_Disp_Worker");
+v[4] = VL("Wage_mean", 1);
+v[5] = VL("Wage", 1);
+v[6] = VL("Wealth_worker", 1);
+
+v[7] = (1-v[0])*v[3];
+v[8] = v[1]*(v[4] - v[5]);
+v[9] = (1-v[2])*v[6];
+v[10] = v[7] + v[8] + v[10];
+
+
+if(v[10] < 0)				// Evaluates if workers' consumption is negative
+		v[10] = 0;				// If it is true, set as 0
+	else
+		v[10] = v[10];
+
+RESULT(v[10])
+#+end_src
+
+*** Speculators ($C_{s}$, Consumption_speculator)
+
+*** Landowners ($C_{l}$, Consumption_landowner)
+
+** Savings
+:PROPERTIES:
+:header-args: cpp :tangle household_saving.h :exports code
+  :END:
+
+Saving equation is the same for all classes.
+
+#+BEGIN_latex
+\begin{equation}
+S_{i} = YD_{i} - C_{i}
+\end{equation}
+#+END_latex
+
+#+begin_src cpp
+
+EQUATION("Saving_worker")
+
+v[0] = V("Income_Disp_worker");
+v[1] = V("Consumption_worker");
+v[2] = v[0] - v[1];
+
+RESULT(v[2])
+
+
+EQUATION("Saving_speculator")
+
+v[0] = V("Income_Disp_speculator");
+v[1] = V("Consumption_speculator");
+v[2] = v[0] - v[1];
+
+RESULT(v[2])
+
+EQUATION("Saving_landowner")
+
+v[0] = V("Income_Disp_landowner");
+v[1] = V("Consumption_landowner");
+v[2] = v[0] - v[1];
+
+RESULT(v[2])
+    
+#+end_src
+
+** Credit loans demand
+
+*** Worker ($L_{wc}$, Loan_consumption_worker)
+
+
 
 ** Residential investment
+:PROPERTIES:
+:header-args: cpp :tangle residential_investment.h :exports code
+  :END:
+
+** Mortgage demand
+
+** Net financial wealth and wealth accumulation
+:PROPERTIES:
+:header-args: cpp :tangle household_wealth.h :exports code
+  :END:
+
+Net position and wealth accumulation follow the same dynamic rules across classes.
+
+#+BEGIN_latex
+\begin{equation}
+NFW_{i} = S_{i} - RI_{i}
+\end{equation}
+#+END_latex
+
+
+#+begin_src cpp
+EQUATION("Net_Financial_Wealth_Worker")
+
+v[0] = V("Saving_worker");
+v[1] = V("Residential_Investment_Worker");
+v[2] = v[0] - v[1];
+
+RESULT(v[2])
+
+
+EQUATION("Net_Financial_Wealth_Speculator")
+
+v[0] = V("Saving_speculator");
+v[1] = V("Residential_Investment_Speculator");
+v[2] = v[0] - v[1];
+
+RESULT(v[2])
+
+EQUATION("Net_Financial_Wealth_Landowner")
+
+v[0] = V("Saving_landowner");
+v[1] = V("Residential_Investment_Landowner");
+v[2] = v[0] - v[1];
+
+RESULT(v[2])
+    
+#+end_src
+
+Thus, the wealth accumulation is the aggregation of net financial wealth positions.
+
+
 
 * Firms
 
-** Consumption goods
+** STRT Consumption goods
 :PROPERTIES:
-:header-args: cpp :tangle firms_consumption.h
+:header-args: cpp :tangle firms_consumption.h :exports code
   :END:
 *** STRT Decision of production
 
 **** Production plan ($Y_{fc}$, Prodf_consu)
-Similar to ABM literature, each firm $f$ sets the production plan ($Y_{fc}$, Prodf_consu) based on expected sales ($S^{e}_{fc}$, Sale_exp_consu) and to desired inventories to sale ratio ($\iota^{T} \in [01,]$, invent_ratio) exogenous and equal for all firms
+Similar to ABM literature, each firm $f$ sets the production plan ($Y_{fc}$, Prodf_consu) based on expected sales ($S^{e}_{fc}$, Sale_exp_consu) and to desired inventories to sale ratio ($\iota^{T} \in [0,1]$, invent_ratio_consu) exogenous and equal for all firms
 
 #+BEGIN_latex
 \begin{equation}
@@ -52,7 +311,7 @@ Y_{fc} = (1+\iota^{T})S^{e}_{fc} - INV_{fc, t-1}
 #+begin_src cpp
 EQUATION("Prodf_consu")
 
-v[0] = VS(PARENT, "invent_ratio"); // desired invetories to sale ratio
+v[0] = VS(PARENT, "invent_ratio_consu"); // desired invetories to sale ratio
 v[1] = V("Sale_exp_consu"); // expected sales
 v[2] = VL("INVENT_consu",1); // consumption firms past inventories
 v[3] = (1+v[0])*v[1] - v[2];
@@ -103,12 +362,17 @@ RESULT(v[5])
 #+end_src
 
 
-*** HOLD Capital stock, technology, and labor productivity
 
-Capital stock is composed of several vintages each one with potentially different labor productivities, firms compute the average productivity ($\overbrace{A}_{fc}$) as the weighted mean of all vintages:
+*** HOLD Capital stock, technology, and labor productivity
+:PROPERTIES:
+:RUNNED:   [ ]
+:IMPLEMENTED: [ ]
+:END:
+
+Capital stock is composed of several vintages each one with potentially different labor productivities, firms compute the average productivity ($\overline{A}_{fc}$) as the weighted mean of all vintages:
 #+BEGIN_latex
 \begin{equation}
-\overbrace{A}_{fc} = \sum_{j=1}^{k}\frac{k_{fc,t-j}\cdot A_{fc,t-j}}{K_{fc,t-1}}
+\overline{A}_{fc} = \sum_{j=1}^{k}\frac{k_{fc,t-j}\cdot A_{fc,t-j}}{K_{fc,t-1}}
 \end{equation}
 #+END_latex
 
@@ -119,8 +383,12 @@ Capital stock is composed of several vintages each one with potentially differen
 *** HOLD Dynamics of technology
 
 **** R&D ($RD_{fc}$, RD_consu)
+:PROPERTIES:
+:RUNNED:   [ ]
+:IMPLEMENTED: [ ]
+:END:
 
-Real R&D ($RD_{fc}$, RD_consu) is a fraction ($\gamma_{rdc}$, RD_sale_share) of previous nominal sales.
+Real R&D ($RD_{fc}$, RD_consu) is a fraction ($\gamma_{rdc}$, RD_sale_share_consu) of previous nominal sales.
 In this version there is no technical progress ($\gamma_{rdc} = 0$):
 
 #+BEGIN_latex
@@ -133,7 +401,7 @@ RD_{fc} = \gamma_{rdc}\cdot S_{fc, t-1} = 0
 #+begin_src cpp
 EQUATION("RD_consu")
 
-v[0] = VS(PARENT, "RD_sale_share");
+v[0] = VS(PARENT, "RD_sale_share_consu");
 v[1] = VL("Prodf_consu",1);
 
     if (v[0] > 0)
@@ -147,11 +415,19 @@ RESULT(v[2])
 #+end_src
 
 
-*** Investment decisions
+*** STRT Investment decisions
 
 **** Replacement
+:PROPERTIES:
+:RUNNED:   [ ]
+:IMPLEMENTED: [ ]
+:END:
 
 **** STRT Expansion ($EI_{fc}$, Expanf_consu)
+:PROPERTIES:
+:RUNNED:   [ ]
+:IMPLEMENTED: [X]
+:END:
 
 
 At odds with conventional ABM literature, expansion investment will be sraffian supermultplier type since there is other autonomous expenditures which does not create capacity (housing).
@@ -167,20 +443,50 @@ Its adjustment process is:
 
 #+BEGIN_latex
 \begin{equation}
-\Delta h_{fc} = \gamma_{u}\cdot (u^{d} - u_{n})
+\Delta h_{fc} = \gamma_{u}\cdot (u^{d} - u_{n})\cdot h_{fc,t-1}
 \end{equation}
 #+END_latex
 where $\gamma_{u}$ is an exogenous and constant adjustment parameter (adjust_mg_invest_consu) and $u_{n}$ (un_consu) is the normal capacity utilization rate.
 Both are equal across consumption firms.
 
+Additionally, when flag_consu_super == 0 activates the Kaleckian investment function.
+
 #+begin_src cpp
 EQUATION("Expanf_consu")
+if (V("flag_consu_super")){
+    v[0] = V("mg_invest_consu");
+    v[1] = VL("Demandf_consu",1);
+    v[2] = v[0]*v[1]; // desired investment
+    v[4] = v[2];
+} else {
+    v[0] = VS(PARENT, "Autonomous_invest_consu");
+    v[1] = VS(PARENT, "Induced_invest_consu");
+    v[2] = V("capacity_desired_consu");
+    v[3] = VS(PARENT, "un_consu");
+    v[4] = (v[0] + v[1]*(v[2] - v[3]))*v[4]; // (I/K)*K = I
+}
 
-v[0] = V("mg_invest_consu");
-v[1] = VL("Demandf_consu",1);
-v[2] = v[0]*v[1];
+if(v[4] < 0){
+    WRITE( "ShrinkCapacity_consu", v[4] ); // Write the amount that firms want to shrink capacity
+    v[4] = 0;
+} else {
+    WRITE( "ShrinkCapacity_consu", 0 );
+}
 
-RESULT(v[2])
+v[5] = VL("Kapitalf_consu",1);
+v[6] = v[4]/v[5]; // gI_consu
+v[7] = VS( PARENT, "maxGrowthCapacity_consu" );
+
+if (v[6] > v[7]){ // Check if the desired growth of capital stock exceed the maximum growth of physical capital
+    v[6] = v[7];
+} else {
+
+}
+
+v[8] = v[6]*v[5]; // Return from gI_consu to investment level
+
+
+RESULT(v[8])
 
 EQUATION("mg_invest_consu")
 
@@ -188,9 +494,29 @@ v[0] = VS(PARENT, "adjust_mg_invest_consu");
 v[1] = V("capacity_desired_consu");
 v[2] = VS(PARENT, "un_consu");
 v[3] = VL("mg_invest_consu",1);
-v[4] = v[0]*(v[1] - v[2]) + v[3];
+v[4] = (1 + v[0]*(v[1] - v[2]))*v[3];
 
 RESULT(v[4])
+#+end_src
+
+
+Finally, the law of motion of capital stock is the usual in the growth literature:
+#+BEGIN_latex
+\begin{equation}
+\Delta K_{fc} = EI_{fc} - \delta_{fc} \cdot K_{fc,t-1}
+\end{equation}
+#+END_latex
+in which $\delta_{fc}$ (depreciation_fc) is the depreciation rate constant accross consumption goods firms.
+
+#+begin_src cpp
+EQUATION("Kapitalf_consu")
+
+v[0] = VL("Kapitalf_consu", 1);
+v[1] = V("Expanf_consu");
+v[2] = VS(PARENT, "depreciation_fc");
+v[3] = v[1] + (1-v[2])*v[0];
+
+RESULT( v[3] )
 #+end_src
 
 ** WAIT Capital goods
@@ -199,95 +525,15 @@ RESULT(v[4])
 
 * Government
 :PROPERTIES:
-:header-args: cpp :tangle government.h
+:header-args: cpp :tangle government.h :exports code
   :END:
 
 
 - Collects taxes ($T$, Tax_Total) as a share ($\tau$, Tax_ratio) of previous household income ($Y_{H}$, Y_H)
 - Expenditures (Gov_exp): consumption goods ($G$, Gov_Consumption) and subsistence wage ($WSub$)
 - Defines policy rate ($r_{G}$, policy_rate)
+- Updates minimal wage
 
-
-** STRT Expenditures ($G$, Gov_exp)
-:PROPERTIES:
-:RUNNED:   [ ]
-:IMPLEMENTED: [X]
-:END:
-
-#+BEGIN_latex
-\begin{equation}
-G = \sigma\cdot Y_{t-1} + UN\cdot wSub_{t-1}
-\end{equation}
-#+END_latex
-
-
-#+begin_src cpp
-EQUATION("Gov_exp")
-/*
-Government total expenditure (Consumption and subsistence wages).
-Warning: DO NOT include Gov_Total in GDP calculation (only consumption goods consumption).
-Using SUM instead of UN * WSub
-Reason: subsistence wage already included in households disposable income
-,*/
-
-RESULT( V("Gov_Consumption") + SUML("WSub",1))
-
-
-EQUATION("Gov_Consumption")
-/*
-  Government consumption goods based on previous GDP and a fixed expenditure ratio ($sigma$)
-,*/
-
-
-
-RESULT( V("Gov_expend_ratio")*VL("GDP",1) )
-
-#+end_src
-
-*** Subsistence wage update
-
-
-It is assumed that susbsitance wage ($W_{sub,t}$, WSub) is updated according to rent ($\pi^{R}$, Rent_inflation) and consumption goods inflation ($\pi^{C}$, Consumption_inflation).
-
-#+BEGIN_latex
-\begin{equation}
-w_{sub, t} = (1+\pi^{R} + \pi^{C})\cdot (w_{sub, t-1})
-\end{equation}
-#+END_latex
-
-
-#+begin_src cpp
-EQUATION("WSub")
-
-v[0] = VL("WSub", 1); // Previous subsistence wage. Needs to define a initial value.
-v[1] = VL("Rent_inflation",1); // Rent inflation rate. Needs to define a initial value
-v[2] = VL("Consumption_inflation",1); // Consumption inflation rate. Needs to define a initial value. Exogenous
-
-
-RESULT((1+v[1]+v[2])*v[0])
-#+end_src
-
-** STRT Taxation ($T$, Tax_Total)
-:PROPERTIES:
-:RUNNED:   [ ]
-:IMPLEMENTED: [X]
-:END:
-
-#+BEGIN_latex
-\begin{equation}
-T = \tau\cdot \sum_{i}^{N}Y_{H}
-\end{equation}
-#+END_latex
-
-
-#+begin_src cpp
-EQUATION("Tax_Total")
-
-v[0] = V("Tax_ratio"); // Exogenous government tax ratio
-v[1] = SUML("Y_H",1); // Households total income (previous period)
-
-RESULT(v[0]*v[1])
-#+end_src
 
 ** STRT Government net balance (Gov_Net_Balance)
 :PROPERTIES:
@@ -372,6 +618,30 @@ RESULT(v[1])
 #+end_src
 
 
+** STRT Subsistence wage update
+
+
+It is assumed that susbsitance wage ($W_{sub,t}$, WSub) is updated according to rent ($\pi^{R}$, Rent_inflation) and consumption goods inflation ($\pi^{C}$, Consumption_inflation).
+
+#+BEGIN_latex
+\begin{equation}
+w_{sub, t} = (1+\pi^{R} + \pi^{C})\cdot (w_{sub, t-1})
+\end{equation}
+#+END_latex
+
+
+#+begin_src cpp
+EQUATION("WSub")
+
+v[0] = VL("WSub", 1); // Previous subsistence wage. Needs to define a initial value.
+v[1] = VL("Rent_inflation",1); // Rent inflation rate. Needs to define a initial value
+v[2] = VL("Consumption_inflation",1); // Consumption inflation rate. Needs to define a initial value. Exogenous
+
+
+RESULT((1+v[1]+v[2])*v[0])
+#+end_src
+
+** Minimum wage update
 ** TODOs and Questions
 
 - What if government has a superavit?
@@ -379,14 +649,142 @@ RESULT(v[1])
 
 * Bank
 
-** Credit demand
+** Firms loan supply
 
+** Consumption loan supply
 
-** Credit supply
+** Mortgage supply
 
-* Houses (pseud agents)
+* Houses (pseudo agents)
 
 * General variables (Aggregates) and model structure
+:PROPERTIES:
+:header-args: cpp :tangle aggregates.h :exports code
+  :END:
+
+** Firms
+
+** Households
+
+*** Consumption ($C$, Consumption_aggregate)
+
+#+begin_src cpp
+EQUATION( "Consumption_worker_total" )
+
+	/*
+	Workers' Total Consumption.
+	,*/
+
+	v[0] = 0;
+
+	CYCLE(cur, "Workers")
+		{
+		v[1] = VS(cur, "Consumption_worker");
+		v[0] = v[0] + v[1];
+		}
+
+RESULT( v[0] )
+
+EQUATION( "Consumption_speculator_total" )
+	/*
+	Speculators' Total Consumption.
+	,*/
+
+	v[0] = 0;
+
+	CYCLE(cur, "Speculators")
+		{
+		v[1] = VS(cur, "Consumption_speculator");
+		v[0] = v[0] + v[1];
+		}
+
+RESULT( v[0] )
+
+EQUATION( "Consumption_landowner_total" )
+	/*
+	Landowners' Total Consumption.
+	,*/
+
+	v[0] = 0;
+
+	CYCLE(cur, "Landowners")
+		{
+		v[1] = VS(cur, "Consumption_landowner");
+		v[0] = v[0] + v[1];
+		}
+
+RESULT( v[0] )
+
+EQUATION("Consumption_aggregate")
+    
+RESULT( V("Consumption_worker_total") + V("Consumption_speculator_total") + V("Consumption_landowner_total") )
+
+#+end_src
+
+** Banks
+
+** Government
 
 
+*** STRT Expenditures ($G$, Gov_exp)
+:PROPERTIES:
+:RUNNED:   [ ]
+:IMPLEMENTED: [X]
+:END:
+
+#+BEGIN_latex
+\begin{equation}
+G = \sigma\cdot Y_{t-1} + UN\cdot wSub_{t-1}
+\end{equation}
+#+END_latex
+
+
+#+begin_src cpp
+EQUATION("Gov_exp")
+/*
+Government total expenditure (Consumption and subsistence wages).
+Warning: DO NOT include Gov_Total in GDP calculation (only consumption goods consumption).
+Using SUM instead of UN * WSub
+Reason: subsistence wage already included in households disposable income
+,*/
+
+RESULT( V("Gov_Consumption") + SUML("WSub",1))
+
+
+EQUATION("Gov_Consumption")
+/*
+  Government consumption goods based on previous GDP and a fixed expenditure ratio ($sigma$)
+,*/
+
+
+
+RESULT( V("Gov_expend_ratio")*VL("GDP",1) )
+
+#+end_src
+
+*** STRT Taxation ($T$, Tax_Total)
+:PROPERTIES:
+:RUNNED:   [ ]
+:IMPLEMENTED: [X]
+:END:
+
+#+BEGIN_latex
+\begin{equation}
+T = \tau\cdot \sum_{i}^{N}Y_{H}
+\end{equation}
+#+END_latex
+
+
+#+begin_src cpp
+EQUATION("Tax_Total")
+
+v[0] = V("Tax_ratio"); // Exogenous government tax ratio
+v[1] = SUML("Y_H",1); // Households total income (previous period)
+
+RESULT(v[0]*v[1])
+#+end_src
+
+
+
+*** Subsistence wage
 * Spatial dimension
