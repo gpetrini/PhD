@@ -1,0 +1,416 @@
+#+OPTIONS: num:nil
+#+TITLE: Concrete toy model
+#+AUTHOR: Gabriel Petrini
+#+LANG: en
+#+DESCRIPTION: Simplest model for housing ABM module
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup
+
+* Introduction
+
+** Description
+
+This model aims do represent a simple economy with a housing sector.
+The ideia is to define the minimal assumptions in order to reproduce the housing market and production dynamics between agents.
+There will be four types of agents: Households (subscript $h$), Firms (subscript $f$), Government (subscript $g$) and Bank (subscript $b$).
+Households will be divided into three classes: Landowners ($hl$), Capitalists ($hc$) and Workers ($hw$).
+In order to produce houses, there is the constructor sector ($fc$) and the concrete producer sector ($fk$).
+Banks provides credit only for production while government collects taxes and pays unemployment benefits.
+For simplicity, there is no speculation yet.
+
+
+** Variables dictionary
+
+#+CAPTION: Variables correspondence table between LaTeX and LSD
+|-------+-----+-------------+------+--------+--------+----------------+-------|
+| LaTeX | LSD | Description | Type | Object | Status | Initialization | Notes |
+|-------+-----+-------------+------+--------+--------+----------------+-------|
+
+* Model structure
+
+** Balance sheet matrix
+
+#+CAPTION: Toy model balance sheet
+|----------+-------------------------+-------------------------+-------------------------+-------------+-------------------+---------+---------+---------------|
+|          | Workers                 | Capitalists             | Landowners              | Concrete    | Construc.         | Gov     | Bank    | Total         |
+| <l10>    | <l10>                   | <l10>                   | <l10>                   | <l10>       | <l10>             | <l10>   | <l10>   | <l10>         |
+|----------+-------------------------+-------------------------+-------------------------+-------------+-------------------+---------+---------+---------------|
+| Houses   | $\sum^{hw} p_{hw}\cdot H_{hw}$ | $\sum^{hc} p_{hc}\cdot H_{hc}$ | $\sum^{hl} p_{hl}\cdot H_{hl}$ |             | $\sum p_{H}\cdot H_{fc}$ |         |         | $\sum p_{H}\cdot H$  |
+| Concrete |                         |                         |                         | $Conc_{fk}$ | $Conc_{fc}$       |         |         | $Conc$        |
+| Land     |                         |                         | $\sum Land_{hl}$           | $Land_{fc}$ |                   |         |         | $Land$        |
+|----------+-------------------------+-------------------------+-------------------------+-------------+-------------------+---------+---------+---------------|
+| Deposits | $M_{hw}$                | $M_{hc}$                | $M_{hl}$                |             |                   |         | $-M$    | 0             |
+| Loans    |                         |                         |                         | $-L_{fk}$   | $-L_{fc}$         |         | $+L$    | 0             |
+|----------+-------------------------+-------------------------+-------------------------+-------------+-------------------+---------+---------+---------------|
+| [Total]  | $V_{h}$                 | $V_{hc}$                | $V_{hl}$                | $V_{kc}$    | $V_{fc}$          | $V_{g}$ | $V_{b}$ | $Real assets$ |
+|----------+-------------------------+-------------------------+-------------------------+-------------+-------------------+---------+---------+---------------|
+
+** Flow of Funds
+
+#+CAPTION: Toy model flow of funds and revaluation matrix
+|--------------+-------------------------+-------------------------+-------------------------+----------+---------------+-------------+-------------------+------+---------+--------------|
+|              | Workers                 | Capitalists             | Landowners              | Concrete | Concrete CA   | Constructor | Constructor CA    | Gov  | Bank    | Total        |
+| <l10>        | <l5>                    | <l5>                    | <l5>                    | <l5>     | <l5>          | <l5>        | <l5>              | <l5> | <l5>    | <l5>         |
+|--------------+-------------------------+-------------------------+-------------------------+----------+---------------+-------------+-------------------+------+---------+--------------|
+| $p_{H}\cdot \Delta H$ |                         |                         |                         |          |               |             |                   |      |         |              |
+| $\Delta M$        |                         |                         |                         |          |               |             |                   |      |         |              |
+| $\Delta L$        |                         |                         |                         |          |               |             |                   |      |         |              |
+|--------------+-------------------------+-------------------------+-------------------------+----------+---------------+-------------+-------------------+------+---------+--------------|
+| Total        |                         |                         |                         |          |               |             |                   |      |         |              |
+|--------------+-------------------------+-------------------------+-------------------------+----------+---------------+-------------+-------------------+------+---------+--------------|
+
+
+
+
+* Households
+
+Since there is only a constructor and a concrete producer sector, households do not buy consumption goods for simplicity[fn::The consumption goods sector will be employed in other versions of the model as well as capital goods sector.].
+In this sense, households wages are similar to renevue net of consumption.
+Thus, households demand corresponds only to housing related expenditures.
+As a consequence, households can rent or buy a house unit.
+
+In order to evaluate if heterogeneity persists or emerges in the model, all wages are equal across workers.
+Capitalists households receives a equally share of distributed profits of both firms.
+Landowners income is based on rents.
+The share of each type of households is fixed.
+
+Since there is no assumption about full-employment of production factors, we assume that persistent unemployment exists.
+In this sense, government expenditures are destinated to unemployment workers only.
+
+
+** Main source of income ($Y_{hi}$)
+
+Workers receives wages ($W$) that are equal by construction. Thus, the income for worker household ($Y_{hw}$) is:
+#+BEGIN_latex
+\begin{equation}
+Y_{hw} = W_{hw}
+\end{equation}
+#+END_latex
+
+Capitalists, on the other hand, receives profits ($FD_{fi}$) so its income ($Y_{hc}$) is:
+#+BEGIN_latex
+\begin{equation}
+Y_{hc} = FD_{fi}
+\end{equation}
+#+END_latex
+in which $i$ indicates the firm that pays dividends.
+
+Finally, landowners receives land's rent while the house unit  is not sold ($R_{house}$) nor produced ($R_{land}$).
+If the house unit is bought by a household, receives its value.
+
+#+BEGIN_latex
+\begin{equation}
+Y_{hl} = R_{house} + R_{land} + p_{h}\cdot H
+\end{equation}
+#+END_latex
+in which $p_{H}$ stands for the house price if a house unit ($H$) is sold.
+
+
+** Disposable income ($YD_{hi}$)
+
+
+Disposable income is similar across households.
+The only divergence is that only workers are allowed to receive unemployment benefits ($Unem$).
+Based on textcite:zezza_2008_Growtha, disposable income is defined as the main source of income ($Y_{hi}$) net of taxes ($\tau$) added with interest rate ($r_{g}$) on money deposits ($M$).
+
+#+BEGIN_latex
+\begin{equation}
+YD_{hi} = (1-\tau)\cdot Y_{hi} + r_{g}\cdot M_{t-1}
+\end{equation}
+#+END_latex
+
+
+** "Consumption" (Rents)
+
+In this toy model, households consumption is equivalent to house's rent.
+Thus, only workers consume while capitalists and landowners expenditures are houses acquisitions.
+
+
+#+BEGIN_latex
+\begin{equation}
+C_{hi} = Rent
+\end{equation}
+#+END_latex
+
+
+** Savings ($S_{hi}$)
+#+BEGIN_latex
+\begin{equation}
+S_{hi} = YD_{hi} - C_{hi}
+\end{equation}
+#+END_latex
+
+** Demand for residential investment ($RI_{hi}$)
+
+In this simplest version without mortgages or banking credit, desired real residential investment demand is equal to:
+
+#+BEGIN_latex
+\begin{equation}
+RI^{d}_{hi} = \eta V_{hi}
+\end{equation}
+#+END_latex
+in which $\eta$ is a share of desired level of housing expenditures.
+As a consequence, money deposits are residual:
+
+#+BEGIN_latex
+\begin{equation}
+\Delta V_{hi} = \Delta M_{hi} + p_{H}\cdot \Delta H
+\end{equation}
+#+END_latex
+#+BEGIN_latex
+\begin{equation}
+\Delta M_{hi} = V_{hi,t} - V_{hi,t-1} - \eta\cdot V_{hi,t}\cdot p_{H} = (1-\eta\cdot p_{H})\cdot V_{hi} - V_{hi,t-1}
+\end{equation}
+#+END_latex
+
+
+Actual residential investment ($RI$) will depend on both asks and bids on housing market as well as on the price of the searched houses.
+
+** Wealth ($V_{hi}$)
+
+Since there is two types of stocks, households' real wealth is defined as:
+#+BEGIN_latex
+\begin{equation}
+V_{hi} = M_{hi} + p_{H}\cdot H
+\end{equation}
+#+END_latex
+#+BEGIN_latex
+\begin{equation}
+\Delta V_{hi} = S_{hi} + CGH
+\end{equation}
+#+END_latex
+in which $CGH$ is capital gain with houses as in:
+#+BEGIN_latex
+\begin{equation}
+CGH = \Delta p_{H} \cdot H_{t-1}
+\end{equation}
+#+END_latex
+
+* Firms (subscript $fi$)
+
+Both firms produce using a Leontieff production function.
+Employed workers are defined randonly and they receives a fixed and constant wage.
+
+** Concrete producer sector
+
+This sector is similar to a capital goods production sector since it provides inputs for the construction sector.
+In order to produce concrete, this firms use Land ($Land$) and Labor ($Labor$).
+Landowners receives land's rent.
+
+*** Production factors demand
+
+*** Potential output
+
+*** Production decisions
+
+** Constructor sector
+
+This sector is similar to a final goods production sector.
+In order to produce houses, this firms use Land ($Land$), Labor ($Labor$) and Concrete ($Conc$)
+
+*** Potential output
+
+Firms uses a Leontieff technology and uses three production factors:
+#+BEGIN_latex
+\begin{equation}
+Hmax_{fc} = \min (\kappa_{land, fc}\cdot Land, \kappa_{labor, fc}\cdot Labor, \kappa_{conc, fc}\cdot Conc)
+\end{equation}
+#+END_latex
+since land is an unproducible good and there is no population growth, we assume:
+#+BEGIN_latex
+\begin{equation}
+\kappa_{land,fc} < \kappa_{labor, fc} < \kappa_{conc, fc}
+\end{equation}
+#+END_latex
+
+*** Production factors demand
+
+
+#+BEGIN_latex
+\begin{equation}
+N^{d}_{fc} = u_{fc}\cdot Hmax_{fc}
+\end{equation}
+#+END_latex
+
+*** Production decisions
+
+
+Similar textcite:zezza_2008_Growtha, the supply of new houses ($HN$) is a function of expected demand and past capital gains on houses:
+
+#+BEGIN_latex
+\begin{equation}
+HN = \nu_{1}HD^{e} + \nu_{2}\Delta p_{H, t-1}
+\end{equation}
+#+END_latex
+in which $HD^{e}$ is the expected demand for new houses defined as a sum of expected demand for new houses across classes:
+#+BEGIN_latex
+\begin{equation}
+HD^{e} = HD^{e}_{hw} + HD^{e}_{hc} + HD^{e}_{hl}
+\end{equation}
+#+END_latex
+while demand expectations follow an standard adaptative heuristic rule based on a fixed adjustment parameter ($\sigma$):
+#+BEGIN_latex
+\begin{equation}
+HD^{e}_{hi} = HD_{hi, t-1} + \sigma\cdot (HD^{e}_{hi,t-1 } - HD_{hi,t-1})
+\end{equation}
+#+END_latex
+
+House price increase follow unsold houses stock ($HU$):
+#+BEGIN_latex
+\begin{equation}
+\frac{\Delta p_{H}}{p_{H,t-1}} = -\nu_{3}\Delta HU
+\end{equation}
+#+END_latex
+while unsold houses is defined as:
+#+BEGIN_latex
+\begin{equation}
+\Delta HU = HN - \Delta HD_{hw} - \Delta HD_{hc} - \Delta HD_{hl}
+\end{equation}
+#+END_latex
+
+* Housing market
+
+In this version, there is no distinction between houses.
+Future versions of this model will try to introduce some distinctiveness based on land and houses heterogeinity.
+House prices are equal in the begining of the simulation and defined as $\Pi$ times the wage value.
+So, houses are available only for those households that have accumulated wealth or retained profits above that level.
+There is no restriction on the number of houses holden for each household.
+
+** Land
+
+Land is a scarce and not producible good, so:
+
+#+BEGIN_latex
+\begin{equation}
+Land = \overline{Land}
+\end{equation}
+#+END_latex
+
+** Rents
+
+
+House rents ($Rent_{h}$) are defined as a share ($\iota$) on previous house price ($p_{H}$) and is paid by households for landowners.
+#+BEGIN_latex
+\begin{equation}
+Rent_{h} = \iota \cdot p_{H,t-1}
+\end{equation}
+#+END_latex
+
+
+** Asks
+
+Only households with more than one house are allowed to sell it.
+If a household decide to sell a house, will ask a price based on the previous house price:
+#+BEGIN_latex
+\begin{equation}
+ask = (1+\theta_{a})\cdot p_{H,t-1}
+\end{equation}
+#+END_latex
+the house will be sold if bided price is at lest equal to asked ($bid \geq ask$).
+
+
+** Bids
+
+A household decide to buy a house according to a random draw.
+If so, will offer based on the previous house price.
+#+BEGIN_latex
+\begin{equation}
+bid = (1+\theta_{b})\cdot p_{H,t-1}
+\end{equation}
+#+END_latex
+
+** Actions
+
+#+BEGIN_latex
+\begin{equation}
+action  =
+    \begin{cases}
+    sell =
+        \begin{cases}
+           \text{sell} \,\,\, if \,\,bid \geq ask\\
+            \text{exit market   otherwhise}
+        \end{cases}\\
+    buy =
+        \begin{cases}
+            \text{buy} \,\,\, if \,\,ask \leq bid \leq RI^{d}
+            \text{exit market   otherwhise}
+        \end{cases}
+    \end{cases}
+\end{equation}
+#+END_latex
+
+
+
+** Initialization
+
+For simplicity, all capitalists and landowners start with housing units while workers rent it.
+Thus, the share of workers initially with houses ($\phi$) is set to null in the base model.
+Households decides to sell houses based on a random draw if owns more than one house.
+Initially, landowners have more houses than capitalists which owns more houses than workers.
+
+
+
+
+* Bank
+
+In this version, there is no credit restriction.
+Banks supply credit for both firms as demanded, so no mortgages.
+For simplicity, the mark-up on policy rate is null ($r_{lf} = r_{mo} = r_{g}$).
+Thus, there is no bank's net financial wealth ($NW_{b}$).
+
+#+BEGIN_latex
+\begin{equation}
+NW_{b} = r_{g}\cdot L_{fc,t-1} + r_{g}\cdot L_{fk, t-1} - r_{g}\cdot M_{h,t-1} = r_{g}\cdot (L_{fc,t-1} + L_{fc,t-1} - M_{h,t-1})
+\end{equation}
+#+END_latex
+
+* Government
+
+Government collects a fixed tax rate ($\tau$) across households.
+Expenditure ($G$) is restricted to unemployment benefits ($Unem$) defined as a share ($w$) of wages ($W$) for unemployed workers ($unem = 1$) only.
+
+
+#+BEGIN_latex
+\begin{equation}
+T = \tau\sum Y_{hi}
+\end{equation}
+#+END_latex
+
+#+BEGIN_latex
+\begin{equation}
+G = w\cdot W \cdot \sum unem = Unem \cdot \sum unem
+\end{equation}
+#+END_latex
+
+There is no interest payment on government bills ($B$) for simplicity.
+Government net lending necessity is defined as:
+#+BEGIN_latex
+\begin{equation}
+\Delta B = G - T + r_{g}B_{t-1} = G - T
+\end{equation}
+#+END_latex
+
+
+* Aggregate defined variables
+
+* Experiments
+
+** Variable initial house prices
+
+** Variable initial rent (share of house prices)
+
+** Share of worker initially with houses
+
+** Variable wages
+
+* Questions
+
+- How capitalists and landwoners decide in which house to live in?
+- Asks and bids imply demand x supply price adjustment mechanism?
+- How to define lands prices? Constant?
+- Constructor sector buys land from concrete producer sector?
+- Residential investment as a share of household wealth imply Say's law?
+- How firms decide how to split labor demand?
+  + Concrete producer sector demands first?
+- Is necessary to define a demand for land?
+* Next steps
+
