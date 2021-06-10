@@ -3,24 +3,115 @@
 #+DATE:
 #+OPTIONS: toc:nil num:nil
 #+LATEX_HEADER: \renewcommand{\abstractname}{Visão geral e recomendação}
-#+LATEX_HEADER: \bibliography{./refs.bib}
 
 #+BEGIN_SRC bib :tangle ./refs.bib :exports none
+@Article{Le_Heron_2008,
+  author          = {Le Heron, Edwin and Mouakil, Tarik},
+  title           = {A POST-KEYNESIAN STOCK-FLOW CONSISTENT MODEL FOR DYNAMIC
+                  ANALYSIS OF MONETARY POLICY SHOCK ON BANKING BEHAVIOUR},
+  year            = 2008,
+  volume          = 59,
+  number          = 3,
+  month           = {Jul},
+  pages           = {405–440},
+  issn            = {1467-999X},
+  doi             = {10.1111/j.1467-999x.2008.00313.x},
+  url             = {http://dx.doi.org/10.1111/j.1467-999X.2008.00313.x},
+  journal         = {Metroeconomica},
+  publisher       = {Wiley}
+}
+
+@Article{Lima_2006,
+  author          = {Lima, G. T. and Meirelles, A. J. A.},
+  title           = {Macrodynamics of debt regimes, financial instability and
+                  growth},
+  year            = 2006,
+  volume          = 31,
+  number          = 4,
+  month           = {Nov},
+  pages           = {563–580},
+  issn            = {1464-3545},
+  doi             = {10.1093/cje/bel042},
+  url             = {http://dx.doi.org/10.1093/cje/bel042},
+  journal         = {Cambridge Journal of Economics},
+  publisher       = {Oxford University Press (OUP)}
+}
+
+@Article{Nishi_2012,
+  author          = {Nishi, Hiroshi},
+  title           = {A DYNAMIC ANALYSIS OF DEBT-LED AND DEBT-BURDENED GROWTH
+                  REGIMES WITH MINSKIAN FINANCIAL STRUCTURE},
+  year            = 2012,
+  volume          = 63,
+  number          = 4,
+  month           = {Mar},
+  pages           = {634–660},
+  issn            = {0026-1386},
+  doi             = {10.1111/j.1467-999x.2012.04158.x},
+  url             = {http://dx.doi.org/10.1111/j.1467-999X.2012.04158.x},
+  journal         = {Metroeconomica},
+  publisher       = {Wiley}
+}
+
+@Article{Taylor_1985,
+  author          = {Taylor, L. and O'Connell, S. A.},
+  title           = {A Minsky Crisis},
+  year            = 1985,
+  volume          = 100,
+  number          = {Supplement},
+  month           = {Jan},
+  pages           = {871–885},
+  issn            = {1531-4650},
+  doi             = {10.1093/qje/100.supplement.871},
+  url             = {http://dx.doi.org/10.1093/qje/100.Supplement.871},
+  journal         = {The Quarterly Journal of Economics},
+  publisher       = {Oxford University Press (OUP)}
+}
+
+@Article{Toporowski_2008,
+  author          = {Toporowski, J.},
+  title           = {Minsky’s “induced investment and business cycles”},
+  year            = 2008,
+  volume          = 32,
+  number          = 5,
+  month           = {Jan},
+  pages           = {725–737},
+  issn            = {1464-3545},
+  doi             = {10.1093/cje/bem059},
+  url             = {http://dx.doi.org/10.1093/cje/bem059},
+  journal         = {Cambridge Journal of Economics},
+  publisher       = {Oxford University Press (OUP)}
+}
+
+@Incollection{Lavoie,
+  author          = {Lavoie, Marc and Seccareccia, Mario},
+  title           = {Minsky’s financial fragility hypothesis: a missing
+                  macroeconomic link?},
+  doi             = {10.4337/9781781009758.00012},
+  url             = {http://dx.doi.org/10.4337/9781781009758.00012},
+  isbn            = 9781781009758,
+  booktitle         = {Financial Fragility and Investment in the Capitalist
+                  Economy},
+  year            = 2001,
+  publisher       = {Edward Elgar Publishing}
+}
+
+
 #+END_SRC
 
-\noindent *Documento:* Uma análise Da Evolução Teórica Dos Modelos De Crescimento Pós-Keynesianos De Inspiração Minskyana A Partir Da Segunda Metade Dos Anos 1980
+*Documento:* Uma análise Da Evolução Teórica Dos Modelos De Crescimento Pós-Keynesianos De Inspiração Minskyana A Partir Da Segunda Metade Dos Anos 1980
 
 #+BEGIN_abstract
 O artigo apresenta uma revisão da literatura de crescimento que parte das contribuições de Minsky no pós-85.
 De modo geral, os autores resenham diferentes modelos e tal discussão é o norteador da estrutura do artigo.
-Os principais problemas em relação a artigo em questão dizem respeito a esta estrutura e ao pouco domínio da literatura canônica sobre o tema e em especial no que diz respeito ao próprio Minsky.
+Os principais problemas em relação ao artigo em questão dizem respeito a esta estrutura e ao pouco domínio da literatura canônica sobre o tema e em especial no que diz respeito ao próprio Minsky.
 Tendo em vista estas considerações, a recomendação é para a *rejeição* do artigo.
 
 O artigo possui quatro seções principais para além da introdução e da conclusão.
-A primeira resenha o trabalho de Taylor e O’Connell (1985).
-A seção seguinte analisa o modelo de Lima e Meirelles (2003).
-Adiante, o modelo de Heron e Mouakil (2008) é resenhado.
-O último modelo discutido é o de Nishi (2012).
+A primeira resenha o trabalho de textcite:Taylor_1985.
+A seção seguinte analisa o modelo de textcite:Lima_2006.
+Adiante, o modelo de textcite:Le_Heron_2008 é resenhado.
+O último modelo discutido é o de textcite:Nishi_2012.
 O artigo se encerra com alguns levantamentos dos avanços em relação aos trabalhos de Minsky.
 #+END_abstract
 
@@ -28,19 +119,19 @@ O artigo se encerra com alguns levantamentos dos avanços em relação aos traba
 
 1. Os modelos são analisados de forma independente entre si de modo que o diálogo entre os trabalhos, e entre as seções por consequência, é quase inexistente (presente somente na seção 5).
    Este problema de estrutura tem implicações para a qualidade do artigo analisado.
-2. A resenha da literatura não é estruturada de modo a evidenciar os elementos em comum e distoantes entre cada contribuição.
+2. A resenha da literatura não é estruturada de modo a evidenciar os elementos em comum e destoantes entre cada artigo discutido.
    Como consequência, as hipóteses de cada artigo resenhado são reapresentadas apesar de suas semelhanças.
    Este é o caso, por exemplo, do modelo de Lima e Meirelles (2003, resenhado na seção 3) e Nishi (2012, resenhado na seção 5).
    Sugere-se iniciar a discussão estabelecendo um lugar comum entre os modelos e então discutir as diferenças e avanços na seção indicada.
 3. Também em relação a estrutura do texto, a escolha da sequência dos artigos resenhados (cronologia de publicação) só fica evidente nas conclusões. Sugere-se agrupar os artigos de acordo com grau de similaridade para melhorar a fluidez do texto.
 4. Em relação aos elementos discutidos em cada modelo, nota-se que não foi feita uma adequação ao objeto de interesse.
-   Isso fica mais evidente na seção 4 em que é resenhado o modelo de Heron e Mouakil (2008) em que são apresentadas algumas equações que não dizem respeito ao objeto do artigo enquanto outras são apenas descritas (como é o caso do comportamento dos bancos comerciais e do banco central). No caso da seção que descreve o modelo de Nishi (2012), não explicita-se, por exemplo, o índice de fragilidade financeira.
-5. Outro ponto a se destacar é a pouca atenção aos trabalhos do próprio Minsky. A título de exemplo, são atribuídas aos autores resenhados algumas das contribuições propósta pelo autor norteador do debate. Um caso notório é a teoria dos dois preços discutida na seção 2.
+   Isso fica mais evidente na seção 4 em que é resenhado o modelo de textcite:Le_Heron_2008 em que são apresentadas algumas equações que não dizem respeito ao objeto do artigo enquanto outras são apenas descritas (como é o caso do comportamento dos bancos comerciais e do banco central). No caso da seção que descreve o modelo de textcite:Nishi_2012, não explicita-se, por exemplo, o índice de fragilidade financeira.
+5. Outro ponto a se destacar é a pouca atenção aos trabalhos do próprio Minsky. A título de exemplo, são atribuídas aos autores resenhados algumas das contribuições propostas pelo autor norteador do debate. Um caso notório é a teoria dos dois preços discutida na seção 2.
 6. Função do ponto anterior, fica pouco explícita a contribuição dos autores resenhados em relação ao Minsky. Sugere-se uma seção em que são apontadas algumas de suas contribuições no que dizem respeito às teorias de crescimento.
 7. Como consequência da pouca atenção dos elementos centrais de Minsky, não são explicitadas algumas hipóteses e corolários para que suas conclusões sejam válidas. Exemplo disso é a necessidade da correlação positiva entre investimento das firmas e endividamento a nível agregado para que o risco ao nível da unidade financeira possa ser sistêmico.
-8. Ao longo do artigo nota-se pouco domínio da literatura relevante e canônica sobre Minsky bem como sobre suas críticas. O ponto anterior reflete isso em que a literatura discute não só as condições necessárias como também as hipóteses associadas para que a instabilidade financeira ocorra como é o caso de Lavoie e Seccareccia (2001) e Toporowski (2008) para citar alguns artigos mais conhecidos.
+8. Ao longo do artigo nota-se pouco domínio da literatura relevante e canônica sobre Minsky bem como sobre suas críticas. O ponto anterior reflete isso em que a literatura discute não só as condições necessárias como também as hipóteses associadas para que a instabilidade financeira ocorra como é o caso de textcite:Lavoie e textcite:Toporowski_2008 para citar alguns artigos mais conhecidos.
    Outro exemplo é atribuir aos autores resenhados a equação de lucros de Kalecki (página 5)
-9. Também observa-se que os mecanismos de transmissão de cada modelo são pouco discutidos ou explicitados. De modo geral os resultados são descrições dos resultados dos próprios modelos discutidos e não uma análise da dinâmica para que tais resultados ocorram. Um exemplo é a seção 4 em que são discutidos os resultados do modelo de Heron e Mouakil (2008) como se estivessem descrevendo um gráfico de trajetória inexistente no texto, mas apenas no original.
+9. Também observa-se que os mecanismos de transmissão de cada modelo são pouco discutidos ou explicitados. De modo geral os resultados são descrições dos resultados dos próprios modelos discutidos e não uma análise da dinâmica para que tais resultados ocorram. Um exemplo é a seção 4 em que são discutidos os resultados do modelo de textcite:Le_Heron_2008 como se estivessem descrevendo um gráfico de trajetória inexistente no texto, mas apenas no original.
 10. Também há casos de falta de rigor teórico e formal ao longo do texto.
     Exemplo de falta de rigor teórico, também resultado do problema de estrutura, é alternar entre taxas de juros endógenas e exógenas.
     Este exemplo é mais frequente na seção 2.
@@ -55,8 +146,8 @@ O artigo se encerra com alguns levantamentos dos avanços em relação aos traba
 2. Dada a alternação entre taxa de juros endógena e exógena ao longo do texto, fica pouco claro o que os autores querem dizer com "choque monetário"
 3. Em alguns momentos fica pouco claro se esta discutindo o investimento em nível ou em termos de taxa de crescimento. Caberia uma melhor distinção destes efeitos
 4. O parágrafo sobre a abordagem SFC na página 9 não é necessário
-5. Ná página 11, onde lê-se $DF$ deveria ser $\Delta F$ tal como na equação 22
-6. Imediatamente após a equação 28 na seção que se discute o modelo de Nish (2012) afirma-se na página 15: "Seguindo Lima e Meirelles (*2003*), o *modelo* assume que as empresas podem tomar empréstimos financiados por acionistas (ou bancos comerciais) sob uma determinada taxa de juros, i". Fica pouco claro a que "modelo" se refe. Infere-se alguma referência a Minky que esta oculta uma vez que Lima e Meirelles (2003) não podem ter feito uma afirmação sobre um modelo posterior.
+5. Na página 11, onde lê-se $DF$ deveria ser $\Delta F$ tal como na equação 22
+6. Imediatamente após a equação 28 na seção que se discute o modelo de Nish (2012) afirma-se na página 15: "Seguindo Lima e Meirelles (*2003*), o *modelo* assume que as empresas podem tomar empréstimos financiados por acionistas (ou bancos comerciais) sob uma determinada taxa de juros, i". Fica pouco claro a que "modelo" se refere. Infere-se alguma referência a Minsky que esta oculta uma vez que textcite:Lima_2006 não podem ter feito uma afirmação sobre um modelo posterior.
 7. O penúltimo parágrafo da conclusão tem pouca conexão com o que foi discutido ao longo do artigo apesar de tocar tópicos comuns
 
 * Decisão
@@ -69,4 +160,4 @@ Considerando os itens discutidos anteriormente, recomendo a *rejeição* do arti
   :UNNUMBERED: t
   :END:
 
-#+LATEX: \printbibliography[heading=none]
+bibliography:./refs.bib
