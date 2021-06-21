@@ -1,0 +1,45 @@
+#+OPTIONS: num:nil
+#+TITLE: Checagem Codigo
+#+AUTHOR: Gabriel Petrini
+#+PROPERTY:header-args python :results output drawer :eval never-export :session felipe :exports both
+
+* Código Felipe
+
+#+begin_src python
+
+import pandas as pd
+
+pd.set_option("display.max_rows", None, "display.max_columns", None)
+
+cols = ["Ativo", 'Nome', 'Situação|CVM', 'Data do Bal', 'Setor NAICS|ult disponiv', 'Receita| Em moeda orig| em milhares| no exercício| consolid:sim*', 'Lucro Bruto| Em moeda orig| em milhares| no exercício| consolid:sim*', 'EBIT| Em moeda orig| em milhares| no exercício| consolid:sim*', 'Lucro Liquido| Em moeda orig| em milhares| no exercício| consolid:sim*', 'Capex| Em moeda orig| em milhares| de 12 meses| consolid:sim*', 'Invest Cap $| Em moeda orig| em milhares| consolid:sim*', 'Patrim Liq| Em moeda orig| em milhares| consolid:sim*', 'Ativo Tot| Em moeda orig| em milhares| consolid:sim*', 'Div Tt Bruta| Em moeda orig| em milhares| consolid:sim*', 'AlaFin| de 12 meses| consolid:sim*', 'CapGir| Em moeda orig| em milhares| consolid:sim*', 'RecFin| Em moeda orig| em milhares| no exercício| consolid:sim*', 'Estoques| Em moeda orig| em milhares| consolid:sim*', 'Ano'
+]
+
+primeiroPeriodo = ['1995', '1996', '1997', '1998', '1999', '2000', '2001', '2002']
+
+basePrimeiroPeriodo = pd.concat(pd.read_excel(r"./teste_setorEnergiaSeparado.xlsx", na_values='-', sheet_name= primeiroPeriodo, usecols=cols), ignore_index=True).dropna(axis=0)#.fillna(0)
+
+basePrimeiroPeriodo['Ano'] = basePrimeiroPeriodo['Ano'].apply(str)
+
+basePrimeiroPeriodo['Nome_Ano'] = basePrimeiroPeriodo['Nome'] + basePrimeiroPeriodo['Ano']
+
+basePrimeiroPeriodo['Ativo Tot| Em moeda orig| em milhares| consolid:sim*'].quantile([0.25,0.5,0.75])
+
+grande1 = []
+for row in basePrimeiroPeriodo['Ativo Tot| Em moeda orig| em milhares| consolid:sim*']:
+    if row >= 6393536.5: grande1.append('Grande')
+    elif row < 6393536.5: grande1.append('Pequena')
+
+basePrimeiroPeriodo['Tamanho'] = grande1
+
+basePrimeiroPeriodo['Capex%Ativo'] = basePrimeiroPeriodo['Capex| Em moeda orig| em milhares| de 12 meses| consolid:sim*'] / basePrimeiroPeriodo['Ativo Tot| Em moeda orig| em milhares| consolid:sim*']
+basePrimeiroPeriodo['LL%Ativo'] = basePrimeiroPeriodo['Lucro Liquido| Em moeda orig| em milhares| no exercício| consolid:sim*'] / basePrimeiroPeriodo['Ativo Tot| Em moeda orig| em milhares| consolid:sim*']
+basePrimeiroPeriodo['A. Financ.%Ativo'] = basePrimeiroPeriodo['AplFin| Em moeda orig| em milhares| consolid:sim*'] / basePrimeiroPeriodo['Ativo Tot| Em moeda orig| em milhares| consolid:sim*']
+basePrimeiroPeriodo['Fluxo Cx%Ativo'] = basePrimeiroPeriodo['CxGerOp| Em moeda orig| em milhares| no exercício| consolid:sim*'] / basePrimeiroPeriodo['Ativo Tot| Em moeda orig| em milhares| consolid:sim*']
+basePrimeiroPeriodo['Pgto. Div.%Ativo'] = basePrimeiroPeriodo['DivPag| Em moeda orig| em milhares| no exercício| consolid:sim*'] / basePrimeiroPeriodo['Ativo Tot| Em moeda orig| em milhares| consolid:sim*']
+
+basePrimeiroPeriodo.to_csv(r'./1995a2002.csv')
+#+end_src
+
+#+RESULTS:
+:results:
+:end:
