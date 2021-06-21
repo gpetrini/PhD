@@ -24,6 +24,9 @@ For simplicity, there is no speculation yet.
 
 
 ** Variables dictionary
+:PROPERTIES:
+:ID:       98741192-e48d-46ec-a4fd-c68632505a06
+:END:
 
 *** Stocks
 
@@ -596,6 +599,17 @@ Initially, landowners have more houses than capitalists which owns more houses t
 
 * Aggregate defined variables
 
+* Implementation ideas
+
+** IDEA No firms in this simplifying version?
+- [ ] If so, include mortgages?
+- [ ] If so, how to define wages?
+** IDEA Rents has a expiration date, so households decide to move out
+- [ ] Initially equal across houses?
+- [ ] If so, it is needed to implement rental market
+  + Rent bid could be a fixed share o income (which reflects the marginal propensity to rent)
+    - [ ] Heterogeneous across households?
+
 * Experiments
 
 ** Variable initial house prices
@@ -607,6 +621,10 @@ Initially, landowners have more houses than capitalists which owns more houses t
 ** Changes in unemployment benefits
 
 ** Variable wages
+
+** Implemente social housing
+
+Government has house as well
 
 * Questions
 
@@ -625,7 +643,9 @@ Initially, landowners have more houses than capitalists which owns more houses t
 - How houses buffer stock affects price setting in constructor sector?
 - What if a household is not abble to pay rents?
   + Government benefits equal to initial rent?
-- Residential investment funded by accumulated wealth instead of mortgages inplies a black hole?
+- Residential investment funded by accumulated wealth instead of mortgages implies a black hole?
+- If a house is not sold/rented it is necessary to impose a mark-down mechanism? Based on time on market?
+
 
 
 * Next steps
