@@ -1,0 +1,768 @@
+#+OPTIONS: toc:nil email:nil author:nil
+#+TITLE: Long-run effective demand and residential investment: a Sraffian supermultiplier based analysis
+#+LATEX_CLASS: article
+#+LATEX_CLASS_OPTIONS: [12pt]
+#+LATEX_HEADER: \usepackage[document]{ragged2e}
+#+LATEX_HEADER: \usepackage[none]{hyphenat} % Avoid hyphenization
+#+LATEX_HEADER: \usepackage[right=3cm,left=3cm, footskip=0.25in]{geometry}
+#+LATEX_HEADER: \addbibresource{refs.bib}
+#+LATEX_HEADER: \usepackage{svg, caption, multirow, booktabs, setspace, indentfirst}
+# #+LATEX_HEADER: \usepackage{authblk}
+#+LATEX_HEADER: \usepackage[english]{babel}
+#+LATEX_HEADER: \author{} % Anonimous version
+# #+LATEX_HEADER:\author[1]{Lucas Teixeira}
+# #+LATEX_HEADER:\affil[1]{Assistent Professor at University of Campinas (Brazil), Email: \url{lucastei@unicamp.br}} % Author affiliation
+# #+LATEX_HEADER:\author[2]{Gabriel Petrini}
+# #+LATEX_HEADER:\affil[2]{PhD Student at University of Campinas (Brazil), Email: \url{gpetrinidasilveira@gmail.com}} % Author affiliation
+#+PROPERTY: header-args:python :python /usr/bin/python3 :exports none :eval never-export
+
+** Referee marks :ignore:
+#+LATEX_HEADER: \usepackage{etoolbox}
+#+LATEX_HEADER: \usepackage{xcolor}
+#+LATEX_HEADER: \newtoggle{referee}
+#+LATEX_HEADER: \toggletrue{referee}
+# #+LATEX_HEADER: \togglefalse{referee}
+#+LATEX_HEADER: \iftoggle{referee}{\newcommand{\myRed}[1]{\textcolor{red}{#1}}}{\newcommand{\myRed}[1]{\textcolor{black}{#1}}}
+** Abstract :ignore:
+
+#+BEGIN_abstract
+In this paper, we build a fully specified parsimonious Sraffian supermultiplier stock-flow consistent model (SSM-SFC) with two non-capacity creating autonomous expenditures: residential investment and debt-financed consumption.
+Our model represents a closed economy without government with workers and capitalists households and only the latter are not credit constrained.
+The introduction of residential investment implies that our SSM-SFC model has two real assets: firms' productive capital and households' real estate.
+In our model, residential investment growth rate responds to changes of house price inflation.
+The numerical simulation experiments shows that our model keeps the main standard Sraffian supermultiplier growth models results.
+As a particular result, an increase of residential investment growth rate implies a decrease of real estate share in total real assets.
+Inspired by the recent U.S. bubble episode, we plug house price inflation data (1992-2019) into our model.
+Although simple, our numerical simulations are capable to reproduce some stylized facts such as residential investment leading the business cycle and capital accumulation and a clockwise pattern between non-capacity creating autonomous expenditures and capacity utilization rate.\\
+#+LATEX: \noindent \textbf{Keywords:} Residential Investment; Sraffian supermultiplier; Asset bubble; Stock-Flow Consistent approach.\\
+#+LATEX: \noindent \textbf{JEL:} B51, E11, E12, E17, G51, O41, O51
+#+END_abstract
+
+
+#+LATEX: \doublespacing
+#+LATEX: \setlength{\parindent}{4em}
+#+LATEX: \setlength{\parskip}{1em}
+
+
+* Introduction
+#+LATEX: \label{sec:introduction}
+#+INCLUDE: "Introduction_referee.org"
+
+
+* Empirical motivation
+#+LATEX: \label{sec:empirical}
+#+INCLUDE: "Empirical_referee.org"
+
+
+* The absence of residential investment in demand-led growth models :noexport:
+#+LATEX: \label{sec:Review}
+#+INCLUDE: "Review_referee.org"
+
+
+
+* A Sraffian supermultiplier SFC model with residential investment
+#+LATEX: \label{sec:Model}
+#+INCLUDE: "Model_referee.org"
+
+
+
+* From short- to long-run equilibria
+#+LATEX: \label{sec:runs}
+#+INCLUDE: "Analytical_referee.org"
+
+
+* Numerical simulations
+#+LATEX: \label{sec:Experiments}
+#+INCLUDE: "Simulation_referee.org"
+
+
+
+* Concluding remarks
+#+LATEX: \label{sec:Conclusion}
+#+INCLUDE: "Conclusion_referee.org"
+
+
+* Acknowledgments :noexport:
+  :PROPERTIES:
+  :UNNUMBERED: t
+  :END:
+
+#+LATEX:  The authors wish to acknowledge the financial support from the Brazilian National Research Council (CNPq; grant 130777/2018-8). We  are  grateful  to  Lídia  Brochier,  Carolina  Baltar,  Franklin  Serrano, Stefano Di Bucchianico  and Fabrício Pitombo Leite for  discussions,  as  well  as  comments  by  the participants of Cecon/Unicamp and UFRJ Political Economy research seminars and the participants of XII AKB meeting, 20th FMM forum, 46th EEA Annual Conference and EAEPE 2020 Conference. Any remaining errors are, of course, our own.
+
+* Disclosure statement
+  :PROPERTIES:
+  :UNNUMBERED: t
+  :END:
+No potential conflict of interest was reported by the authors.
+
+
+* References
+  :PROPERTIES:
+  :UNNUMBERED: t
+  :END:
+
+#+LaTeX: \printbibliography[heading=none]
+
+
+#+Latex: \appendix
+
+* Analytical TODOs :noexport:
+
+** Residuals
+
+In this appendix, we present both analytical solution of our model and some relations between variables and parameters.
+To do so, some equations will be turned into their continuous time equivalent to express it in terms of partial derivatives[fn:Script_Sol].
+In our no-government closed economic system, real output growth rate is defined by:
+
+[fn:Script_Sol] Script is available under request. The experiments in Section \ref{sec:Experiments} are simulated in discrete time.
+
+
+\begin{equation}
+\label{gLP}
+    g = g\cdot \omega + \dot h + g\cdot h + g_Z\cdot \frac{Z}{Y}
+\end{equation}
+and (endogenous) fully-adjusted position marginal propensity to invest will be:
+\begin{equation}
+\label{hLP}
+h^{\star} = g_Z\frac{\overline v}{u_N}
+\end{equation}
+
+Next, replacing equation \ref{gLP} in \ref{hLP} and \ref{_u} in order to build a bi-dimensional system of equation
+
+
+\begin{cases}
+\dot u = \left(\frac{\dot h}{1 - \omega - h} + g_z - \frac{h_t u_t}{v}\right) u_t\\
+\dot h = \gamma_{u} \left(- u_N + u_t\right) h_t
+\end{cases}
+
+and assess its stability condition (evaluated at the equilibrium point):
+
+$$
+J = 
+\left[\begin{matrix}
+\frac{\partial \dot h}{\partial h} & \frac{\partial \dot h}{\partial u}\\
+\frac{\partial \dot u}{\partial h} & \frac{\partial \dot u}{\partial u}
+\end{matrix}\right]
+$$
+
+\begin{equation}
+J = 
+\label{Jacobiano}
+\left[\begin{matrix}0 & \frac{g_Z \gamma_{u} v}{u_N}\\- \frac{u_N^{2}}{v} & - g_Z\end{matrix}\right]
+\end{equation}
+
+As \textcite{gandolfo_economic_2010} demonstrates, a positive determinant and a negative trace are both necessary and sufficient stability condition for a bi-dimensional system of differential equation:
+
+$$
+Det(J) = g_Z \gamma_{u} u_N > 0
+$$
+
+$$
+Tr(J) = -g_Z < 0
+$$
+As both $\gamma_u$ and $u_N$ are strictly positive values, we just need to check positive trace condition.
+Differently from \textcite{freitas_growth_2015}, we do not assume this condition initially.
+Thus, our system is stable (near the fully-adjusted position) only if houses own interest rate (Equation ref:g_Z_own) meets the following inequality:
+$$
+g_{I_h} = g_Z = \phi_0 - \phi_1\cdot own > 0
+$$
+\begin{equation}
+own < \frac{\phi_0}{\phi_1}
+\end{equation}
+
+** Codes
+
+#+BEGIN_SRC ipython :session derivatives :exports none
+import sympy as sp
+k, h, R, w = sp.symbols('k h R omega')
+lf, g, v, gamma_f, u, rm = sp.symbols('l_f g v gamma_F u r_m')
+phi_0, phi_1, infla = sp.symbols('phi_0 phi_1 infla')
+own = ((1+rm)/(1+infla)-1)
+gIh = phi_0 - phi_1*own
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [25]: 
+# output
+        ⎛       rₘ + 1 ⎞
+φ₀ - φ₁⋅⎜-1 + ─────────⎟
+        ⎝     infla + 1⎠
+
+:end:
+
+#+BEGIN_SRC ipython :session derivatives :exports none
+from sympy.simplify.radsimp import collect_const
+dicts = {
+g: "g^\star",
+    k: "k^\star",
+    u : "u^{\star}",
+    infla: '\pi'
+               }
+
+
+
+def printer(symbol, equation, var, replace_g = True):
+
+    num = '\\frac{\partial ' + symbol + '^{\star}}'
+    
+    if replace_g == True:
+        express = equation.subs(g, gIh)
+    else:
+        express = equation.factor().cancel()
+
+    result = sp.Derivative(express,  var).doit()    
+    result = result.cancel().expand().cancel().factor()
+    result = sp.factor(result.simplify())
+    result = collect_const(result)
+    result = result.collect(R).collect(h + w - 1).collect(infla).collect(infla + 1).collect(1+infla).collect(gIh)
+    
+    print(
+            sp.latex(
+                num + '{\partial ' + f"{sp.latex(var, symbol_names = dicts)}" + '} = ' + f"{sp.latex(result, symbol_names = dicts)}",
+                mul_symbol = 'dot',
+                symbol_names = dicts,
+                mode = 'equation'
+            )
+        )
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [38]: 
+:end:
+
+
+
+*** Houses share
+
+#+BEGIN_SRC ipython :session derivatives :exports none
+expression = 1 - (h/(h + (1-R)*(1-h-w)))
+sp.pprint(sp.Eq(k, expression))
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [27]: 
+# output
+                 h                
+k = - ──────────────────────── + 1
+      h + (1 - R)⋅(-h - ω + 1)    
+                                     ⎛       rₘ + 1 ⎞                         
+                             φ₀ - φ₁⋅⎜-1 + ─────────⎟                         
+                                     ⎝     infla + 1⎠                         
+k = - ────────────────────────────────────────────────────────────────────── +
+              ⎛       rₘ + 1 ⎞           ⎛             ⎛       rₘ + 1 ⎞    ⎞  
+      φ₀ - φ₁⋅⎜-1 + ─────────⎟ + (1 - R)⋅⎜-ω - φ₀ + φ₁⋅⎜-1 + ─────────⎟ + 1⎟  
+              ⎝     infla + 1⎠           ⎝             ⎝     infla + 1⎠    ⎠  
+
+  
+  
+  
+ 1
+  
+  
+  
+
+:end:
+
+
+#+BEGIN_SRC ipython :session derivatives :exports none
+printer(symbol =  'k', equation = expression, var = w, replace_g = False)
+expression = expression.subs(h, g*v/v).subs(g, gIh)
+printer(symbol =  'k', equation = expression, var = rm)
+printer(symbol =  'k', equation = expression, var = phi_0)
+printer(symbol =  'k', equation = expression, var = infla)
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [37]: 
+# output
+\begin{equation}\frac{\partial k^{\star}}{\partial \omega} = \frac{\left(R - 1\right) \left(\pi + 1\right) \left(\pi \phi_{0} + \pi \phi_{1} + \phi_{0} - \phi_{1} r_{m}\right)}{\left(R \left(\pi \omega + \pi \phi_{0} + \pi \phi_{1} - \pi + \omega + \phi_{0} - \phi_{1} r_{m} - 1\right) - \pi \omega + \pi - \omega + 1\right)^{2}}\end{equation}
+\begin{equation}\frac{\partial k^{\star}}{\partial r_{m}} = \frac{\phi_{1} \left(R - 1\right) \left(\pi + 1\right) \left(\omega - 1\right)}{\left(R \left(\pi \omega + \pi \phi_{0} + \pi \phi_{1} - \pi + \omega + \phi_{0} - \phi_{1} r_{m} - 1\right) - \pi \omega + \pi - \omega + 1\right)^{2}}\end{equation}
+\begin{equation}\frac{\partial k^{\star}}{\partial \phi_{0}} = - \frac{\left(R - 1\right) \left(\pi + 1\right)^{2} \left(\omega - 1\right)}{\left(R \left(\pi \omega + \pi \phi_{0} + \pi \phi_{1} - \pi + \omega + \phi_{0} - \phi_{1} r_{m} - 1\right) - \pi \omega + \pi - \omega + 1\right)^{2}}\end{equation}
+\begin{equation}\frac{\partial k^{\star}}{\partial \pi} = - \frac{\phi_{1} \left(R - 1\right) \left(\omega - 1\right) \left(r_{m} + 1\right)}{\left(R \left(\pi \omega + \pi \phi_{0} + \pi \phi_{1} - \pi + \omega + \phi_{0} - \phi_{1} r_{m} - 1\right) - \pi \omega + \pi - \omega + 1\right)^{2}}\end{equation}
+
+:end:
+
+
+*** Firms ratio
+
+#+BEGIN_SRC ipython :session derivatives :exports none
+expression = (g*v - gamma_f*u*(1-w))/(v*(g-gamma_f*rm))
+sp.pprint(sp.Eq(lf, expression))
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [40]: 
+# output
+      g⋅v - γ_F⋅u⋅(1 - ω)
+l_f = ───────────────────
+         v⋅(g - γ_F⋅rₘ)  
+
+:end:
+
+#+BEGIN_SRC ipython :session derivatives :exports none
+printer(symbol =  '\\ell_f', equation = expression, var = w, replace_g = False)
+expression = expression.subs(h, g*v/v).subs(g, gIh)
+printer(symbol =  '\\ell_f', equation = expression, var = rm)
+printer(symbol =  '\\ell_f', equation = expression, var = phi_0)
+printer(symbol =  '\\ell_f', equation = expression, var = infla)
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [41]: 
+# output
+\begin{equation}\frac{\partial \ell_f^{\star}}{\partial \omega} = \frac{\gamma_{F} u^{\star}}{v \left(g^\star - \gamma_{F} r_{m}\right)}\end{equation}
+\begin{equation}\frac{\partial \ell_f^{\star}}{\partial r_{m}} = \frac{\gamma_{F} \left(\pi + 1\right) \left(\gamma_{F} \omega u^{\star} - \gamma_{F} u^{\star} + \pi \left(\gamma_{F} \omega u^{\star} - \gamma_{F} u^{\star} + \phi_{0} v + \phi_{1} v\right) + \omega \phi_{1} u^{\star} + \phi_{0} v - \phi_{1} u^{\star}\right)}{v \left(\gamma_{F} r_{m} + \pi \left(\gamma_{F} r_{m} - \phi_{0} - \phi_{1}\right) - \phi_{0} + \phi_{1} r_{m}\right)^{2}}\end{equation}
+\begin{equation}\frac{\partial \ell_f^{\star}}{\partial \phi_{0}} = - \frac{\gamma_{F} \left(\pi + 1\right)^{2} \left(\omega u^{\star} + r_{m} v - u^{\star}\right)}{v \left(\gamma_{F} r_{m} + \pi \left(\gamma_{F} r_{m} - \phi_{0} - \phi_{1}\right) - \phi_{0} + \phi_{1} r_{m}\right)^{2}}\end{equation}
+\begin{equation}\frac{\partial \ell_f^{\star}}{\partial \pi} = - \frac{\gamma_{F} \phi_{1} \left(r_{m} + 1\right) \left(\omega u^{\star} + r_{m} v - u^{\star}\right)}{v \left(\gamma_{F} r_{m} + \pi \left(\gamma_{F} r_{m} - \phi_{0} - \phi_{1}\right) - \phi_{0} + \phi_{1} r_{m}\right)^{2}}\end{equation}
+
+:end:
+
+and mortgage to total capital stock ratio ($m^{\star}$):
+
+#+BEGIN_SRC ipython :session derivatives :exports none :eval no
+printer(symbol =  'm', equation = m, var = rm)
+printer(symbol =  'm', equation = m, var = phi_0)
+printer(symbol =  'm', equation = m, var = infla)
+printer(symbol =  'm', equation = m, var = omega, replace_g = False)
+#+END_SRC
+
+#+RESULTS:
+:results:
+2 - e16d543e-36f7-48e9-b5d9-32a986ee534c <output> <interrupt>
+:end:
+
+
+
+* Analytical solution :noexport:
+#+LATEX: \label{append:Solution}
+
+In this appendix, we present the partial derivatives of somes stock/flow ratios.
+First, we show that houses share on total capital stock depends positively on deposits interest rate (Eq. \ref{partial_rm}) and negatively both on autonomous component of residential investment growth rate (equation \ref{partial_phi0}), real estate inflation (equation \ref{partial_pi}) and wage-share (equation \ref{partial_omega}):
+#+BEGIN_COMMENT
+*Nota:* Resultado anterior. Não alterado para comparação e no aguardo da conferência do arquivo sobre endividamentos.
+
+\begin{equation}
+\label{partial_rm}
+\frac{\partial k}{\partial rm} = - \frac{\phi_{1} v \left(\sigma_{mo} + 1\right)}{u_N \left(\pi + 1\right) \left(\omega - 1\right)} > 0
+\end{equation}
+\begin{equation}
+\label{partial_phi0}
+\frac{\partial k}{\partial \phi_0} = \frac{v}{u_N \left(\omega - 1\right)} < 0
+\end{equation}
+\begin{equation}
+\label{partial_pi}
+\frac{\partial k}{\partial \pi} = \frac{\phi_{1} v \left(rm\cdot(1+\sigma_{mo}) + 1\right)}{u_N \left(\pi + 1\right)^{2} \left(\omega - 1\right)} < 0
+\end{equation}
+\begin{equation}
+\label{partial_omega}
+\frac{\partial k}{\partial \omega} = - \frac{v \left(\phi_{0} \left(\pi + 1\right) - \phi_{1} \left(- \pi + rm\cdot(1 + \sigma_{mo})\right)\right)}{u_N \left(\pi + 1\right) \left(\omega - 1\right)^{2}} < 0
+\end{equation}
+
+
+*Nota:* Output python
+
+\begin{equation}\frac{\partial k^{\star}}{\partial \omega} = \frac{\left(R - 1\right) \left(\pi + 1\right) \left(\pi \phi_{0} + \pi \phi_{1} + \phi_{0} - \phi_{1} r_{m}\right)}{\left(R \left(\pi \omega + \pi \phi_{0} + \pi \phi_{1} - \pi + \omega + \phi_{0} - \phi_{1} r_{m} - 1\right) - \pi \omega + \pi - \omega + 1\right)^{2}}\end{equation}
+\begin{equation}\frac{\partial k^{\star}}{\partial r_{m}} = \frac{\phi_{1} \left(R - 1\right) \left(\pi + 1\right) \left(\omega - 1\right)}{\left(R \left(\pi \omega + \pi \phi_{0} + \pi \phi_{1} - \pi + \omega + \phi_{0} - \phi_{1} r_{m} - 1\right) - \pi \omega + \pi - \omega + 1\right)^{2}}\end{equation}
+\begin{equation}\frac{\partial k^{\star}}{\partial \phi_{0}} = - \frac{\left(R - 1\right) \left(\pi + 1\right)^{2} \left(\omega - 1\right)}{\left(R \left(\pi \omega + \pi \phi_{0} + \pi \phi_{1} - \pi + \omega + \phi_{0} - \phi_{1} r_{m} - 1\right) - \pi \omega + \pi - \omega + 1\right)^{2}}\end{equation}
+\begin{equation}\frac{\partial k^{\star}}{\partial \pi} = - \frac{\phi_{1} \left(R - 1\right) \left(\omega - 1\right) \left(r_{m} + 1\right)}{\left(R \left(\pi \omega + \pi \phi_{0} + \pi \phi_{1} - \pi + \omega + \phi_{0} - \phi_{1} r_{m} - 1\right) - \pi \omega + \pi - \omega + 1\right)^{2}}\end{equation}
+
+
+*Nota:* Output python rearranjado
+#+END_COMMENT
+
+\begin{equation}
+\frac{\partial k^{\star}}{\partial \omega} = \frac{-(1-R)(\phi_0 - \phi_1\cdot r_m)}{(R(\phi_0 - \phi_1\cdot r_m) + (1-R)(1-\omega))^2} < 0
+\end{equation}
+
+\begin{equation}
+\frac{\partial k^{\star}}{\partial r_{m}} = \frac{\phi_1\cdot(1-R)\cdot(1-\omega)}{(R\cdot (\phi_0 - \phi_1\cdot r_m) + (1-R)\cdot (1-\omega))^2} > 0
+\end{equation}
+
+\begin{equation}
+\frac{\partial k^{\star}}{\partial \phi_0} = 
+ \frac{R\cdot(\phi_0 - \phi_1\cdot r_m)}{(R(\phi_0 - \phi_1\cdot r_m) + (1-R)(1-\omega))^2} - \frac{1}{(R(\phi_0 - \phi_1\cdot r_m) + (1-R)(1-\omega))^2} < 0
+\end{equation}
+
+
+\begin{equation}
+\frac{\partial k^{\star}}{\partial \pi} = -\frac{\phi_1\cdot(1-R)\cdot(1-\omega)\cdot(1+r_m)}{(R\cdot((1+\pi)\cdot(\phi_0 + \phi_1\cdot r_m + \omega - 1) + \phi_1\cdot \pi \cdot(1-r_m)) + (1-\omega)\cdot(1+\pi))^2} < 0
+\end{equation}
+
+Since capitalists' loans and mortgage to house ratios ($\ell^{\star}_{k}$ and $mo^{\star}$, respectively) depend only on parameters not analyzed on our experiments, we repeat this  procedure to firms' loans to capacity generating capital stock ($\ell^{\star}_f$):
+
+#+BEGIN_COMMENT
+*Nota:* Output python. Ainda irei reorganizar
+
+\begin{equation}\frac{\partial \ell_f^{\star}}{\partial \omega} = \frac{\gamma_{F} u^{\star}}{v \left(g^\star - \gamma_{F} r_{m}\right)}\end{equation}
+\begin{equation}\frac{\partial \ell_f^{\star}}{\partial r_{m}} = \frac{\gamma_{F} \left(\pi + 1\right) \left(\gamma_{F} \omega u^{\star} - \gamma_{F} u^{\star} + \pi \left(\gamma_{F} \omega u^{\star} - \gamma_{F} u^{\star} + \phi_{0} v + \phi_{1} v\right) + \omega \phi_{1} u^{\star} + \phi_{0} v - \phi_{1} u^{\star}\right)}{v \left(\gamma_{F} r_{m} + \pi \left(\gamma_{F} r_{m} - \phi_{0} - \phi_{1}\right) - \phi_{0} + \phi_{1} r_{m}\right)^{2}}\end{equation}
+\begin{equation}\frac{\partial \ell_f^{\star}}{\partial \phi_{0}} = - \frac{\gamma_{F} \left(\pi + 1\right)^{2} \left(\omega u^{\star} + r_{m} v - u^{\star}\right)}{v \left(\gamma_{F} r_{m} + \pi \left(\gamma_{F} r_{m} - \phi_{0} - \phi_{1}\right) - \phi_{0} + \phi_{1} r_{m}\right)^{2}}\end{equation}
+\begin{equation}\frac{\partial \ell_f^{\star}}{\partial \pi} = - \frac{\gamma_{F} \phi_{1} \left(r_{m} + 1\right) \left(\omega u^{\star} + r_{m} v - u^{\star}\right)}{v \left(\gamma_{F} r_{m} + \pi \left(\gamma_{F} r_{m} - \phi_{0} - \phi_{1}\right) - \phi_{0} + \phi_{1} r_{m}\right)^{2}}\end{equation}
+
+
+*Nota:* Output python rearranjado
+#+END_COMMENT
+
+\begin{equation}
+\frac{\partial \ell_f^{\star}}{\partial \omega} = \frac{\gamma_{F} u^{\star}}{v \left(g^\star - \gamma_{F} r_{m}\right)}
+\end{equation}
+
+\begin{equation}
+\frac{\partial \ell_f^{\star}}{\partial r_{m}} = 
+\frac{\gamma_F}{v\cdot((1+\pi)\cdot(\gamma_F\cdot r_m - \phi_0) + \phi_1\cdot (r_m -\pi))^2}
+\end{equation}
+
+\begin{equation}
+\frac{\partial \ell_f^{\star}}{\partial \phi_0} = 
+\frac{-\gamma_F\cdot (1+\pi)\cdot(r_g^\star + r_m)}{((1+\pi)\cdot (\gamma_F\cdot r_m - \phi_0) + \phi_1\cdot (r_m -\pi))^2} <0
+\end{equation}
+
+\begin{equation}
+\frac{\partial \ell_f^{\star}}{\partial \pi} = 
+\frac{-\gamma_F\cdot \phi_1\cdot (1+\pi)\cdot(r_g^\star + r_m)}{((1+\pi)\cdot (\gamma_F\cdot r_m - \phi_0) + \phi_1\cdot (r_m -\pi))^2} < 0
+\end{equation}
+
+* Numerical appendix
+ #+LATEX: \label{append:Data}
+
+
+
+#+begin_export latex
+\begin{table}[H]
+\caption{Parameters of variables}
+\centering
+\label{tab:param}
+\input{./tabs/parameters_referee.tex}
+\caption*{\textbf{Source:} Authors' elaboration}
+\end{table}
+#+end_export
+
+* Sensibility analysis
+#+LATEX: \label{append:Sensib}
+
+*** Config                                                           :ignore:
+
+#+BEGIN_SRC python :tangle ./codes/Sobol.py :session Sobol :exports none :eval never-export
+
+import sys
+
+sys.path.insert(1, './codes/')
+from SFC_Setup import *
+import pandas as pd
+base = model()
+df = SolveSFC(base, time=1000)
+
+parameters = [
+    'gamma_u',
+    'omega',
+    'alpha_k',
+    'gamma_F',
+#    'alpha',
+    'rm',
+    'phi_0',
+    'phi_1',
+    'infla',
+    # 'R',
+]
+#+END_SRC
+
+
+#+BEGIN_SRC python  :tangle ./codes/Sobol.py :session Sobol :exports none :eval never-export
+def sensibility(
+    parameters,
+    bound = np.linspace(0,1,101),
+    time = 10,
+    skip = 10,
+    var = "u"
+):
+    bound = bound
+    df = pd.DataFrame()
+    empty_list = [i for i in range(len(bound))]  
+    report_dict = {}
+    
+    for param in parameters:
+        for i in range(len(bound)):
+            base = model()
+            base.set_values({param:bound[i]})
+            try:
+                empty_list[i] = np.log(SolveSFC(base,time=time+skip)[var][skip:].std())
+            except Exception as e:
+                empty_list[i] = np.nan
+                pass
+        df[param] = empty_list ################### Replace here
+############################### End #####################################################
+    df.index = bound
+    
+    return df
+#+END_SRC
+
+#+RESULTS:
+
+*** Simulation                                                       :ignore:
+
+#+BEGIN_SRC python  :tangle ./codes/Sobol.py :session Sobol :exports none :cache no :eval never-export
+df = sensibility(time=400, parameters=parameters)
+
+report = pd.DataFrame(
+    {parameter : df[parameter].dropna().index[-1] for parameter in df.columns},
+    index=[0]
+    )
+#report.columns = [sp.Symbol(i) for i in report.columns] # Turn into latex
+print(df)
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+       gamma_u     omega   gamma_F        rm     phi_0     phi_1     infla         R
+0.00 -2.530464 -2.087674 -2.698257 -2.691684 -3.018613 -2.691682 -2.698247 -1.092702
+0.01 -2.711678 -2.095959 -2.698256 -2.698247 -1.967421 -2.692559 -2.691682 -1.100112
+0.02 -2.694301 -2.104348 -2.698260 -2.699360 -2.635810 -2.693389 -2.680788 -1.107645
+0.03 -2.709234 -2.112844 -2.698255 -2.694363 -2.627593 -2.694172 -2.666582 -1.115304
+0.04 -2.718127 -2.121447 -2.698251 -2.682466 -2.389913 -2.694906 -2.649931 -1.123094
+...        ...       ...       ...       ...       ...       ...       ...       ...
+0.96       NaN -3.816070 -2.698230 -3.467853       NaN -2.470601 -1.831873       NaN
+0.97       NaN -3.785307 -2.698232 -3.484124       NaN -2.464600 -1.829003       NaN
+0.98       NaN -3.749482 -2.698234 -3.500338       NaN -2.458528 -1.826174       NaN
+0.99       NaN -3.709475 -2.698236 -3.516496       NaN -2.452386 -1.823388       NaN
+1.00       NaN -3.666369 -2.698235 -3.532599       NaN -2.446172 -1.820641       NaN
+
+[101 rows x 8 columns]
+#+end_example
+
+
+*** Table                                                            :ignore:
+
+
+#+BEGIN_SRC python  :tangle ./codes/Sobol.py :session Sobol :exports none :eval never-export
+results = report.copy(deep=True)
+df_ = df.copy(deep=True)
+long_string = "Instability inducing value"
+results["Value"] = [long_string]
+results.set_index("Value", inplace=True)
+results.index.name = "Parameter"
+results = results.transpose().copy(deep=True)
+results["Effect of increase"] = df.diff().median() >= 0
+translate = {True: "Destabilizing", False: "Stabilizing"}
+results["Effect of increase"] = (
+    results["Effect of increase"].map(translate).copy(deep=True)
+)
+
+for i in range(len(results[long_string])):
+    val = results.loc[results.index[i], long_string]
+    if val >= 1.0:
+        results.loc[results.index[i], long_string] = np.nan
+
+latex = {
+    "gamma_u": "$\gamma_u$",
+    "omega": "$\omega$",
+    "alpha_k" : "$\alpha_{k}$",
+    "gamma_F": "$\gamma_F$",
+    "phi_0": "$\phi_0$",
+    "phi_1": "$\phi_1$",
+    "infla": "$\pi$",
+    "rm": "$rm$",
+    "alpha": "$\\alpha$",
+    "R": "$R$",
+}
+results["Description"] = [i for i in results.index]
+desc = {
+    "gamma_u": "Adjustment speed",
+    "omega": "wage-share",
+    "alpha_k" : "Mg. prop. consume out of $YD_{k}$",
+    "gamma_F": "Profit distribution policy",
+    "phi_0": "$g_{I_h}$ autonomous component",
+    "phi_1": "own interest rate parameter",
+    "infla": "real estate inflation",
+    "rm": "Deposits interest rate",
+    #    "alpha" : "Marginal propensity to consume",
+    # "R": "$C_k$ share on $Z$",
+}
+results["Description"] = results["Description"].map(desc)
+results["Parameter"] = results.index.map(latex)
+results.set_index("Parameter", inplace=True)
+results.index.name = ""
+results = results[["Description", long_string, "Effect of increase"]]  # Reorder columns
+results.to_latex(
+    "./tabs/sobol.tex",
+    label="tab:sensibility",
+    escape=False,
+    na_rep="-",
+    # position="H"
+)
+#+END_SRC
+
+
+#+begin_export latex
+\begin{table}[H]
+\caption{Effect of individual parameters\\on model stability}
+\label{tab:sensibility}
+\centering
+\input{./tabs/sobol.tex}
+\caption*{\textbf{Source:} Authors' elaboration}
+\end{table}
+#+end_export
+
+
+
+
+
+* Particular experiments results                                   :noexport:
+#+LATEX: \label{append:Single}
+
+
+#+RESULTS:
+#+begin_export latex
+\begin{figure}[H]
+    \centering
+    \caption{Wage-share decrease}
+    \label{fig:shock_2}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_2}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Wage-share decrease}
+    \label{fig:shock_2norm}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_2Norms}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Real estate inflation increase}
+    \label{fig:shock_4}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_4}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Real estate inflation increase}
+    \label{fig:shock_4norm}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_4Norms}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Interest rate increase}
+    \label{fig:shock_3}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_3}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Interest rate increase}
+    \label{fig:shock_3norm}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_3Norms}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+#+end_export
+
+#+BEGIN_SRC latex
+\begin{figure}[H]
+    \centering
+    \caption{Wage-share decrease}
+    \label{fig:shock_2}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_2}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Wage-share decrease}
+    \label{fig:shock_2norm}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_2Norms}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Real estate inflation increase}
+    \label{fig:shock_4}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_4}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Real estate inflation increase}
+    \label{fig:shock_4norm}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_4Norms}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Interest rate increase}
+    \label{fig:shock_3}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_3}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Interest rate increase}
+    \label{fig:shock_3norm}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_3Norms}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{figure}[H]
+    \centering
+    \caption{Wage-share decrease}
+    \label{fig:shock_2}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_2}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Wage-share decrease}
+    \label{fig:shock_2norm}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_2Norms}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Real estate inflation increase}
+    \label{fig:shock_4}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_4}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Real estate inflation increase}
+    \label{fig:shock_4norm}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_4Norms}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Interest rate increase}
+    \label{fig:shock_3}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_3}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Interest rate increase}
+    \label{fig:shock_3norm}
+    \includegraphics[width=\textwidth, height=.4\textheight]{./figs/Shock_3Norms}
+    \caption*{\textbf{Source:} Authors Elaboration}
+\end{figure}
+#+end_export

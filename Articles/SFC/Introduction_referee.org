@@ -1,0 +1,40 @@
+* Configs                                                            :noexport:
+bibliography:refs.bib
+
+* Introduction                                                       :ignore:
+
+Non-residential investment is the most scrutinized variable in demand-led growth models so that others expenditures are given a secondary role cite:brochier_macroeconomics_2017.
+More than a decade after the Great Recession (2008-9), this is still the case for residential investment which continues to receive sparse and unsystematic attention by the literature cites:caverzasi_stock-flow_2013,nikolaidi_minsky_2017.
+Despite its absence in theoretical models, there is a growing empirical literature highlighting its macrodynamic relevance cites:leamer_housing_2007,jorda_great_2016,fiebiger_semi-autonomous_2018,fiebiger_trend_2017.
+
+
+Sraffian supermultiplier growth model (SSM) establishes an important role to non-capacity creating (NCC) autonomous expenditures such
+as residential investment.
+textcite:serrano_long_1995,serrano_sraffian_2017 present a simple version of the SSM model to highlight it as an alternative closure for heterodox growth theory.
+More recently, departing from neo-Kaleckian framework, textcites:allain_tackling_2015,lavoie_post-keynesian_2015,lavoie_convergence_2016 have reached similar results to SSM model. 
+
+Different NCC autonomous expenditures have been included in this framework. 
+For instance, some scholars have investigated the macroeconomic implications of both debt-financed cites:pariboni_autonomous_2015,fagundes_role_2017,mandarino-2020-worker-debt and financial wealth-financed consumption cite:brochier_supermultiplier_2018.
+The same applies to government expenditures cites:allain_tackling_2015,bougrine_autonomous_2020 and exports cite:nah_long-run_2017.
+
+Even though these works emphasize the relevance of some NCC autonomous expenditures, residential investment has received little attention.
+textcites:zezza_u.s._2008,nikolaidi_securitisation_2015 include residential investment in a SFC model with others objectives than its implications to economic growth and business cycles.
+In a recent contribution, textcite:dejuan_supermultiplier-cum-finance_2018 present an SSM model with residential investment.
+They build a model in order to analyze the destabilizing effects of household over-indebtedness without exploring the determinants of residential investment.
+
+This paper is a first step in building the connection between house price inflation and residential investment whitin a demand-led growth model.
+In order to do so, we build a fully specified parsimonious Sraffian supermultiplier stock-flow consistent model (SSM-SFC) with residential investment.
+
+The remainder of this paper is organized as follows.
+Section ref:sec:empirical discuss some residential investment related stylized facts for the US economy and its macroeconomic implications.
+Section ref:sec:Model presents a SSM-SFC model  with asset bubbles and two real assets: firms' capital and household' real estate. 
+Section ref:sec:runs evaluates short- and long-run equilibria as well as \myRed{the trajectory towards the long-run} in order to assess the consequences  of the inclusion of residential investment to the output level, growth rate and to stock-flow ratios.
+Next, Section ref:sec:Experiments evaluates this relations through numerical simulations.
+Inspired by the U.S. 2000s housing bubble episode, the experiments are: decrease in wage-share (Section ref:sec:Exp1); increase in real estate inflation (Section ref:sec:Exp2); and an increase in interest rate (Section ref:sec:Exp3).
+Section ref:sec:Conclusion offers some concluding remarks while Appendix ref:append:Data provides simulation's parameters and baseline values and Appendix ref:append:Sensib presents a preliminary sensibility analysis.
+
+#+BEGIN_COMMENT
+The analytical solution is presented in Section ref:sec:Solution in order to assess stability condition since residential investment growth rate is now described by houses' own interest rate.
+#+END_COMMENT
+
+

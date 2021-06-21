@@ -1,0 +1,1025 @@
+
+#+PROPERTY:header-args python :results output drawer :eval never-export :session Solution_referee :exports none :tangle ./codes/Solution_referee.py
+
+* Analytical Solution setup :noexport:
+bibliography:refs.bib
+** Initialization
+
+*** Importing SFC model
+
+#+BEGIN_SRC python
+import sys
+sys.path.insert(0, './codes/')
+from SFC_initial_referee import *
+#+END_SRC
+
+#+RESULTS:
+:results:
+:end:
+
+*** Generating required variables
+
+#+BEGIN_SRC python
+base = model()
+df = SolveSFC(base, time=1000)
+base_eq = model()
+SolveSFC(base_eq, time=1, table = False)
+t = sp.Symbol('t')
+initials = {
+    key: base_eq.evaluate(key) for key in base_eq.parameters
+}
+initials.update({key: base_eq.evaluate(key) for key in base_eq.variables})
+
+for i in base_eq.variables:
+  globals()["_" + i] = sp.Function(i)
+  
+for i in base_eq.parameters:
+  globals()[i] = sp.symbols(i, positive=True)
+  globals()['infla'] = sp.symbols('infla')
+#+END_SRC
+
+#+RESULTS:
+:results:
+:end:
+
+** General Equations
+
+#+BEGIN_SRC python
+Y = _C(t) + _I_t(t)
+pprint(sp.Eq(_Y(t), Y))
+C = _Cw(t) + _Ck(t)
+pprint(sp.Eq(_C(t), C))
+I = _I_f(t) + _I_h(t)
+pprint(sp.Eq(_I_t(t), I))
+Yk = _K_f(t)/v
+pprint(sp.Eq(_Yk(t), Yk))
+u = _Y(t)/_Yk(t)
+pprint(sp.Eq(_u(t), u))
+W = omega*_Y(t)
+pprint(sp.Eq(_W(t), W))
+K = _K_HD(t) + _K_f(t)
+pprint(sp.Eq(_K(t), K))
+Z = + _I_h(t)
+pprint(sp.Eq(_Z(t), Z))
+#+END_SRC
+
+#+RESULTS:
+:results:
+Y(t) = C(t) + Iₜ(t)
+C(t) = Ck(t) + Cw(t)
+Iₜ(t) = I_f(t) + Iₕ(t)
+        K_f(t)
+Yk(t) = ──────
+          v
+        Y(t)
+u(t) = ─────
+       Yk(t)
+W(t) = ω⋅Y(t)
+K(t) = K_HD(t) + K_f(t)
+Z(t) = Iₕ(t)
+:end:
+
+** Workers
+
+#+BEGIN_SRC python
+Cw = alpha*_W(t)
+pprint(sp.Eq(_Cw(t), Cw))
+YDw = _W(t)
+pprint(sp.Eq(_YDw(t), YDw))
+S_hw = _YDk(t) - _Cw(t)
+pprint(sp.Eq(_S_hw(t), S_hw))
+NFW_hw = _S_hw(t)
+pprint(sp.Eq(_NFW_hw(t), NFW_hw))
+#+END_SRC
+
+#+RESULTS:
+:results:
+Cw(t) = α⋅W(t)
+YDw(t) = W(t)
+S_hw(t) = -Cw(t) + YDk(t)
+NFW_hw(t) = S_hw(t)
+:end:
+
+
+
+** Capitalists
+#+BEGIN_SRC python
+alternativa = "Alt1"
+
+# Ck = R*_Z(t)
+# pprint(sp.Eq(_Ck(t), Ck))
+# dLk = _Ck(t)
+# pprint(sp.Eq(_Lk(t) - _Lk(t-1), dLk))
+# YDk = _FD(t) + rm*_M_h(t-1) - _rmo(t)*_MO(t-1) - _rl(t)*_Lk(t-1)
+YDk = _FD(t) + rm*_M_h(t-1) - _rmo(t)*_MO(t-1) # Removing Lk
+pprint(sp.Eq(_YDk(t), YDk))
+dLk = 0 # Attention
+
+if alternativa == "Alt1":
+    Ck = alpha_k*_YDk(t)
+elif alternativa == "Alt2":
+    Ck = alpha_k*_FD(t) + alpha_kv*(_M_h(t-1) - _MO(t-1))
+else:
+    pass
+
+
+pprint(sp.Eq(_Ck(t), Ck))
+S_hk = _YDk(t) - _Ck(t)
+pprint(sp.Eq(_S_hk(t), S_hk))
+dMO = _I_h(t)
+pprint(sp.Eq(_MO(t) - _MO(t-1), dMO))
+# dM_h = _S_hk(t) + (_Lk(t) - _Lk(t-1))
+dM_h = _S_hk(t) # Removing Lk
+pprint(sp.Eq((_M_h(t) - _M_h(t-1)), _M_h(t)))
+# V_h = _M_h(t) + _K_HD(t)*_ph(t) - _MO(t) - _Lk(t)
+V_h = _M_h(t) + _K_HD(t)*_ph(t) - _MO(t) # Removing Lk
+pprint(sp.Eq(_V_h(t), V_h))
+# V_hr = _M_h(t) + _K_HD(t) - _MO(t) - _Lk(t)
+V_hr = _M_h(t) + _K_HD(t) - _MO(t) # Removing Lk
+pprint(sp.Eq(_V_hr(t), V_hr))
+NFW_h = _S_hk(t) - _I_h(t)
+pprint(sp.Eq(_NFW_h(t), NFW_h))
+# M_h = _S_hk(t) + (_Lk(t) - _Lk(t-1))
+M_h = _S_hk(t) + _M_h(t-1) # Removing Lk
+pprint(sp.Eq(_M_h(t), M_h))
+#+END_SRC
+
+#+RESULTS:
+:results:
+YDk(t) = rm⋅Mₕ(t - 1) + FD(t) - MO(t - 1)⋅rmo(t)
+Ck(t) = αₖ⋅YDk(t)
+Sₕₖ(t) = -Ck(t) + YDk(t)
+MO(t) - MO(t - 1) = Iₕ(t)
+Mₕ(t) - Mₕ(t - 1) = Mₕ(t)
+Vₕ(t) = K_HD(t)⋅ph(t) - MO(t) + Mₕ(t)
+Vₕᵣ(t) = K_HD(t) - MO(t) + Mₕ(t)
+NFWₕ(t) = -Iₕ(t) + Sₕₖ(t)
+Mₕ(t) = Mₕ(t - 1) + Sₕₖ(t)
+:end:
+
+** Firms
+
+
+#+BEGIN_SRC python
+I_f = _h(t)*_Y(t)
+pprint(sp.Eq(_I_f(t), I_f))
+dK_f = _I_f(t)
+pprint(sp.Eq(_K_f(t) - _K_f(t-1), dK_f))
+Lf = _I_f(t) - _FU(t) + _Lf(t-1)
+pprint(sp.Eq(_Lf(t), Lf))
+FT = _Y(t) + _W(t)
+pprint(sp.Eq(_FT(t), FT))
+FU = gamma_F*(_FT(t) - _rl(t)*_Lf(t-1))
+pprint(sp.Eq(_FU(t), FU))
+FD = (1 - gamma_F)*(_FT(t) - _rl(t)*_Lf(t-1))
+pprint(sp.Eq(_FD(t), FD))
+h = _h(t-1)*gamma_u*(_u(t)-un) + _h(t-1)
+pprint(sp.Eq(_h(t), h))
+NFW_f = _FU(t) - _I_f(t)
+pprint(sp.Eq(_NFW_f(t), NFW_f))
+V_f = _K_f(t) - _Lf(t)
+pprint(sp.Eq(_V_f(t), V_f))
+#+END_SRC
+
+#+RESULTS:
+:results:
+I_f(t) = Y(t)⋅h(t)
+K_f(t) - K_f(t - 1) = I_f(t)
+Lf(t) = -FU(t) + I_f(t) + Lf(t - 1)
+FT(t) = W(t) + Y(t)
+FU(t) = γ_F⋅(FT(t) - Lf(t - 1)⋅rl(t))
+FD(t) = (1 - γ_F)⋅(FT(t) - Lf(t - 1)⋅rl(t))
+h(t) = γᵤ⋅(-un + u(t))⋅h(t - 1) + h(t - 1)
+NFW_f(t) = FU(t) - I_f(t)
+V_f(t) = K_f(t) - Lf(t)
+:end:
+
+
+** Banks
+
+#+BEGIN_SRC python
+# L = _Lf(t) + _Lk(t)
+L = _Lf(t) # Removing Lk
+pprint(sp.Eq(_L(t), L))
+M = (_L(t) - _L(t-1)) + (_MO(t) - _MO(t-1)) + _M(t-1)
+pprint(sp.Eq(_M(t), M))
+rmo = (1+ spread_mo)*rm
+pprint(sp.Eq(_rmo(t), rmo))
+rl = (1+ spread_l)*rm
+pprint(sp.Eq(_rl(t), rl))
+V_b = _L(t) + _MO(t) - _M(t)
+pprint(sp.Eq(_V_b(t), V_b))
+NFW_b = _rl(t)*_L(t-1) + _rmo(t)*_MO(t-1) - rm*_M(t-1)
+pprint(sp.Eq(_NFW_b(t), NFW_b))
+#+END_SRC
+
+#+RESULTS:
+:results:
+L(t) = Lf(t)
+M(t) = L(t) - L(t - 1) + M(t - 1) + MO(t) - MO(t - 1)
+rmo(t) = rm⋅(spreadₘₒ + 1)
+rl(t) = rm⋅(spreadₗ + 1)
+V_b(t) = L(t) - M(t) + MO(t)
+NFW_b(t) = -rm⋅M(t - 1) + L(t - 1)⋅rl(t) + MO(t - 1)⋅rmo(t)
+:end:
+
+** Residential Investment
+   
+#+BEGIN_SRC python
+_own = sp.Function('own')
+
+K_HS = _K_HD(t)
+pprint(sp.Eq(_K_HS(t), K_HS))
+Is = _I_h(t)
+pprint(sp.Eq(_Is(t), Is))
+dK_HD = _I_h(t)
+pprint(sp.Eq(_K_HD(t) - _K_HD(t-1), dK_HD))
+I_h = (1+_g_Z(t))*_I_h(t-1)
+pprint(sp.Eq(_I_h(t), I_h))
+K_k = _K_HD(t)/(_K(t))
+pprint(sp.Eq(_K_k(t), K_k))
+ph = (1+infla)*_ph(t-1)
+pprint(sp.Eq(_ph(t), ph))
+own = ((1+_rmo(t))/(1+infla))-1
+pprint(sp.Eq(_own(t), own))
+g_Z = phi_0 - phi_1*_own(t)
+pprint(sp.Eq(_g_Z(t), g_Z))
+#+END_SRC
+
+#+RESULTS:
+:results:
+K_HS(t) = K_HD(t)
+Is(t) = Iₕ(t)
+K_HD(t) - K_HD(t - 1) = Iₕ(t)
+Iₕ(t) = (g_Z(t) + 1)⋅Iₕ(t - 1)
+        K_HD(t)
+Kₖ(t) = ───────
+          K(t)
+ph(t) = (infla + 1)⋅ph(t - 1)
+              rmo(t) + 1
+own(t) = -1 + ──────────
+              infla + 1
+g_Z(t) = φ₀ - φ₁⋅own(t)
+:end:
+
+** Short-run
+
+*** Requirements
+
+#+BEGIN_SRC python
+g = sp.Function('g')
+gK = sp.Function('g_K')
+g_ = sp.Symbol('g^*')
+
+def replacer(express):
+    #print("\nReplacing the initial values.....")
+    df = SolveSFC(model(), time=1)
+    df = df.iloc[1, :]
+
+    express = express.subs(alpha, df['alpha']).subs(
+        omega, df['omega'])
+    express = express.subs(un, df['un']).subs(
+        gamma_u, df['gamma_u'])
+    express = express.subs(
+        infla, df['infla'])
+    express = express.subs(phi_0, df['phi_0']).subs(
+        phi_1,
+        df['phi_1']).subs(rm, df['rm']).subs(
+            spread_mo, df['spread_mo'])
+    express = express.subs(rm, df['rm']).subs(
+            spread_mo, df['spread_mo']).subs(v, df['v']).subs(R, df['R'])
+    express = express.subs(gamma_F, df["gamma_F"]).subs(rm, df['rm']).subs(g_, df['g_Z'])
+    return express
+#+END_SRC
+
+#+RESULTS:
+:results:
+:end:
+
+*** GDP level
+
+#+NAME:YNivel
+#+BEGIN_SRC python :results latex
+k = sp.Symbol('k')
+Zt = sp.Symbol('Z') # For aesthetical reasons only
+ht = sp.Symbol('h') # For aesthetical reasons only
+Kt = sp.Symbol('K') # For aesthetical reasons only
+
+EqY = (Y - _Y(t))
+EqY = EqY.subs(_C(t), C).subs(_Ck(t), Ck).subs(_Cw(t), Cw)
+EqY = EqY.subs(_YDk(t), YDk).subs(_FD(t), FD).subs(_FT(t), _Y(t)-_W(t))
+EqY = EqY.subs(_rl(t), rm).subs(_rmo(t), rm)
+EqY = EqY.subs(_Lf(t-1), (_M_h(t-1) - _MO(t-1)))
+EqY = EqY.subs(_I_t(t), I).subs(_I_f(t), I_f)
+EqY = EqY.subs(_W(t), W)
+# EqY = EqY.subs(_I_h(t), (1-R)*_Z(t))
+EqY = EqY.subs(_I_h(t), _Z(t)) # Removing R
+EqY = EqY.subs(_Z(t), Zt).subs(_h(t), ht)
+EqY = EqY.collect(_M_h(t-1) - _MO(t-1))
+EqY = sp.solve(EqY, _Y(t))[0].collect(alpha*omega).collect(alpha_k*gamma_F).collect(rm).collect(alpha_k).collect(1-omega)
+EqY = EqY.subs((_M_h(t-1) - _MO(t-1)), _Lf(t-1)).collect(_Lf(t-1))
+solY = EqY.simplify()
+solY = ((-1)*solY.as_numer_denom()[0])/((-1)*solY.as_numer_denom()[1])
+#print(sp.latex(cse(solY, optimizations='basic')[1][0], order='none'))
+print(sp.latex(sp.Eq(sp.Symbol('Y_t'), solY),
+               symbol_names = {
+                   Zt: "Z_t",
+                   ht: "h_t",
+                   Kt: "K_t",
+                   k: "k_t"
+               },
+               order='none',
+               mul_symbol='dot'))
+
+#+END_SRC
+
+#+RESULTS: YNivel
+#+begin_export latex
+Y_{t} = \frac{Z_t + \alpha_{k} \cdot \gamma_{F} \cdot rm \cdot \operatorname{Lf}{\left(-1 + t \right)}}{1 - h_t - \alpha \cdot \omega - \alpha_{k} \cdot \left(-1 + \gamma_{F}\right) \cdot \left(-1 + \omega\right)}
+#+end_export
+
+*** Short-run capacity utilization ratio
+
+
+#+NAME: ushort
+#+BEGIN_SRC python
+solu = solY/Yk
+solu = solu.subs(_K_f(t), (1-k)*_K(t)).subs(_Z(t), Zt).subs(_h(t), ht).subs(_K(t), Kt)
+solu = solu.simplify()
+print(sp.latex(sp.Eq(sp.Symbol("u_t"), solu),
+               mul_symbol = 'dot',
+               symbol_names = {
+                   Zt: "Z_t",
+                   ht: "h_t",
+                   Kt: "K_t",
+                   k: "k_t"
+               },
+               order = 'none'
+))
+#+END_SRC
+
+#+RESULTS: ushort
+:results:
+u_{t} = \frac{v \cdot \left(Z_t + \alpha_{k} \cdot \gamma_{F} \cdot rm \cdot \operatorname{Lf}{\left(-1 + t \right)}\right)}{K_t \cdot \left(-1 + k_t\right) \cdot \left(-1 + h_t + \alpha \cdot \omega + \alpha_{k} \cdot \left(-1 + \gamma_{F}\right) \cdot \left(-1 + \omega\right)\right)}
+:end:
+
+
+** Long-run
+
+#+begin_src python :results latex
+lfy_ = sp.Symbol('l^\star_Y')
+
+longY = solY - _Y(t)
+longY = longY.subs(_Lf(t-1), lfy_ * _Y(t))
+
+longY = sp.solve(longY, _Y(t))[0].collect(alpha_k*gamma_F).collect(rm).collect(alpha_k).collect(1-omega)
+longY = longY.simplify()
+longY = ((-1)*longY.as_numer_denom()[0])/((-1)*longY.as_numer_denom()[1])
+
+print(sp.latex(sp.Eq(sp.Symbol('Y^\star'), longY),
+               symbol_names = {
+                   Zt: "Z_t",
+                   ht: "h^\star_t",
+                   Kt: "K_t",
+                   k: "k^\star_t",
+                   lfy_: "\ell^\star_Y"
+               },
+               order='none',
+               mul_symbol='dot'))
+#+end_src
+
+** Stock-flow ratios
+
+#+BEGIN_SRC python
+g_ = sp.Symbol('g^*')
+lf_ = sp.Symbol('lf^*')
+# lk_ = sp.Symbol('lk^*')
+m_ = sp.Symbol('m^*')
+mo_ = sp.Symbol('mo^*')
+k_ = sp.Symbol('k^*')
+h_ = sp.Symbol('h^*')
+#+END_SRC
+
+#+RESULTS:
+:results:
+:end:
+
+
+*** Firms
+
+**** In terms of capital
+#+BEGIN_SRC python
+Kf_1 = _K_f(t-1)
+pprint(Kf_1)
+Lf_1 = _Lf(t-1)
+pprint(Lf_1)
+dLf = _Lf(t) - _Lf(t-1)
+LHS = '\Delta \frac{L_f}{K_f}'
+_Fn = sp.Function('Fn')
+_rg = sp.Function('rg'); _rn = sp.Function('rn');
+rg = (1-omega)*un/v
+rn = rg - _rl(t)*lf_
+
+dLf_dKf = dLf - (Lf_1/_K_f(t))*g_
+dLf_dKf = dLf_dKf.subs(dLf, (_I_f(t) - _FU(t))/_K_f(t)).expand()
+pprint(dLf_dKf)
+dLf_dKf = dLf_dKf.subs(_FU(t), FU).subs(_FT(t) - _Lf(t-1)*_rl(t), _Fn(t))
+pprint(dLf_dKf)
+dLf_dKf = dLf_dKf.subs(_Fn(t)/_K_f(t), _rn(t)).subs(_I_f(t)/_K_f(t), g_)
+pprint(dLf_dKf)
+dLf_dKf = dLf_dKf.subs(_Lf(t-1)/_K_f(t), lf_)
+pprint(dLf_dKf)
+dLf_dKf = dLf_dKf.subs(_rn(t), rn).subs(_rl(t), rl).subs(spread_l,0)
+pprint(dLf_dKf)
+dLf_dKf = dLf_dKf.collect(g_).collect(lf_)
+pprint(dLf_dKf)
+lfstar = sp.solve(dLf_dKf, lf_)[0].collect(gamma_F).simplify()
+pprint(sp.Eq(lf_,lfstar))
+print('\nNext, replace lf by lf*(1-k) in equation m')
+#+END_SRC
+
+#+RESULTS:
+:results:
+K_f(t - 1)
+Lf(t - 1)
+  g__*⋅Lf(t - 1)   FU(t)    I_f(t)
+- ────────────── - ────── + ──────
+      K_f(t)       K_f(t)   K_f(t)
+  g__*⋅Lf(t - 1)   γ_F⋅Fn(t)   I_f(t)
+- ────────────── - ───────── + ──────
+      K_f(t)         K_f(t)    K_f(t)
+       g__*⋅Lf(t - 1)
+g__* - ────────────── - γ_F⋅rn(t)
+           K_f(t)
+-g__*⋅lf__* + g__* - γ_F⋅rn(t)
+                         ⎛            un⋅(1 - ω)⎞
+-g__*⋅lf__* + g__* - γ_F⋅⎜-lf__*⋅rm + ──────────⎟
+                         ⎝                v     ⎠
+                       ⎛            un⋅(1 - ω)⎞
+g__*⋅(1 - lf__*) - γ_F⋅⎜-lf__*⋅rm + ──────────⎟
+                       ⎝                v     ⎠
+        g__*⋅v + γ_F⋅un⋅(ω - 1)
+lf__* = ───────────────────────
+           v⋅(g__* - γ_F⋅rm)
+
+Next, replace lf by lf*(1-k) in equation m
+:end:
+
+#+NAME: firmstar
+#+BEGIN_SRC python :results latex  :var label="test"
+latex_label = '\label{' + label + '}'
+print(
+    sp.latex(
+        sp.Eq(sp.Symbol(latex_label + '\ell^{\star}_{f}') , lfstar),
+             mul_symbol = 'dot',
+             symbol_names = {
+                 g_: "g^\star",
+                 k_: "k^\star",
+                 un : "u_{N}"
+               },
+             mode = 'equation'
+    )
+)
+#+END_SRC
+
+#+RESULTS: firmstar
+#+begin_export latex
+\begin{equation}\label{test}\ell^{\star}_{f} = \frac{g^\star \cdot v + \gamma_{F} \cdot u_{N} \cdot \left(\omega - 1\right)}{v \cdot \left(g^\star - \gamma_{F} \cdot rm\right)}\end{equation}
+#+end_export
+
+
+**** Rewriting the norm in terms of income
+
+#+BEGIN_SRC python :results latex
+ly = lfstar*(h_/g_)
+ly = ly.subs(h_,g_*v/un)
+
+print(
+    sp.latex(
+        sp.Eq(sp.Symbol('\ell^{\star}_{Y}') , ly),
+             mul_symbol = 'dot',
+             symbol_names = {
+                 g_: "g^\star",
+                 k_: "k^\star",
+                 un : "u^\star"
+               },
+             mode = 'equation'
+    )
+)
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{equation}\ell^{\star}_{Y} = \frac{g^\star \cdot v + \gamma_{F} \cdot u^\star \cdot \left(\omega - 1\right)}{u^\star \cdot \left(g^\star - \gamma_{F} \cdot rm\right)}\end{equation}
+#+end_export
+which allows us to rewrite long run output
+#+BEGIN_SRC python :results latex
+Y_norm = longY.subs(lfy_, ly).subs(ht,g_*v/un)
+# Y_norm = Y_norm.collect(un).collect(1-omega).expand().simplify().factor()
+Y_norm = Y_norm.subs(ht, g_*v/un).collect(g_*v)
+Y_norm = Y_norm.collect(gamma_F).collect(g_ - gamma_F*rm).collect(un*omega).collect(un*(omega-1))
+
+
+print(
+    sp.latex(
+        sp.Eq(sp.Symbol('Y^\star') , Y_norm),
+             mul_symbol = 'dot',
+             symbol_names = {
+                 g_: "g^\star",
+                 k_: "k^\star",
+                 un : "u^\star"
+               },
+             mode = 'equation'
+    )
+)
+
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{equation}Y^{\star} = \frac{Z}{- \alpha \cdot \omega - \alpha_{k} \cdot \left(\gamma_{F} \cdot \left(\omega + \frac{rm \cdot \left(g^\star \cdot v + \gamma_{F} \cdot u^\star \cdot \left(\omega - 1\right)\right)}{u^\star \cdot \left(g^\star - \gamma_{F} \cdot rm\right)} - 1\right) - \omega + 1\right) - \frac{g^\star \cdot v}{u^\star} + 1}\end{equation}
+#+end_export
+
+
+*** Capitalists
+*** Loans ($L_k$)
+
+#+BEGIN_SRC python
+Kh_1 = _K_HD(t-1)
+pprint(Kh_1)
+# Lk_1 = _Lk(t-1)
+Lk_1 = 0
+pprint(Lk_1)
+# dLk = _Lk(t) - _Lk(t-1)
+dLk = 0
+LHS = '\Delta \frac{L_k}{K_H}'
+
+dLk_dKh = dLk/(_K_HD(t)) - (Lk_1/_K_HD(t))*g_
+pprint(dLk_dKh)
+dLk_dKh = dLk_dKh.subs(dLk, _Ck(t)).subs(_Ck(t), R*_Z(t))
+pprint(dLk_dKh)
+dLk_dKh = dLk_dKh.subs(_Z(t),_I_h(t)/(1-R))
+pprint(dLk_dKh)
+dLk_dKh = dLk_dKh.subs(_I_h(t)/_K_HD(t), g_).subs(Lk_1/_K_HD(t), lk_)
+pprint(dLk_dKh)
+lkstar = sp.solve(dLk_dKh, lk_)[0].simplify()
+pprint(sp.Eq(lk_,lkstar))
+print('\nNext, replace lk by lk*k in equation m')
+#+END_SRC
+
+#+RESULTS:
+:results:
+K_HD(t - 1)
+0
+0
+R⋅Z(t)
+R⋅Iₕ(t)
+───────
+ 1 - R
+:end:
+
+#+NAME: loanstar
+#+BEGIN_SRC python :results latex :var label="test"
+latex_label = '\label{' + label + '}'
+print(
+    sp.latex(
+        sp.Eq(sp.Symbol(latex_label + '\ell^{\star}_{k}') , lkstar),
+             mul_symbol = 'dot',
+             symbol_names = {
+                 g_: "g^\star",
+                 k_: "k^\star",
+                 un : "u^\star"
+               },
+             mode = 'equation'
+    )
+)
+#+END_SRC
+
+#+RESULTS: loanstar
+#+begin_export latex
+#+end_export
+
+
+*** Mortgages ($MO$)
+
+#+BEGIN_SRC python
+MO_1 = _MO(t-1)
+dMO = _I_h(t)
+
+dMO_dKh = dMO/(_K_HD(t)) - (MO_1/_K_HD(t))*g_
+pprint(dMO_dKh)
+dMO_dKh = dMO_dKh.subs(MO_1/_K_HD(t), mo_).subs(_I_h(t)/_K_HD(t), g_).simplify()
+pprint(dMO_dKh)
+mostar = sp.solve(dMO_dKh, mo_)[0].simplify()
+pprint(sp.Eq(mo_,mostar))
+#+END_SRC
+
+#+RESULTS:
+:results:
+  g__*⋅MO(t - 1)    Iₕ(t)
+- ────────────── + ───────
+     K_HD(t)       K_HD(t)
+g__*⋅(1 - mo__*)
+mo__* = 1
+:end:
+
+
+#+NAME: mortgagestar
+#+BEGIN_SRC python :results latex :var label="test"
+latex_label = '\label{' + label + '}'
+print(
+    sp.latex(
+        sp.Eq(sp.Symbol(latex_label + 'mo^{\star}') , mostar),
+             mul_symbol = 'dot',
+             symbol_names = {
+                 g_: "g^\star",
+                 k_: "k^\star",
+                 un : "u^\star"
+               },
+             mode = 'equation'
+    )
+)
+#+END_SRC
+
+#+RESULTS: mortgagestar
+#+begin_export latex
+\begin{equation}\label{test}mo^{\star} = 1\end{equation}
+#+end_export
+
+
+*** Bank deposits (RHS)
+
+#+BEGIN_SRC python
+K_1 = _K(t-1)
+h_ = sp.Symbol('h^*')
+
+
+# m = (_MO(t) + _Lk(t) + _Lf(t))/_K(t)
+m = (_MO(t) +  _Lf(t))/_K(t) # Removing Lk
+m = m.expand()
+pprint(sp.Eq(m_,m))
+# m = m.subs(_MO(t)/_K(t), _MO(t)/(_K_HD(t)/k_)).subs(_Lk(t)/_K(t), _Lk(t)/(_K_HD(t)/k_)).subs(_Lf(t)/_K(t), _Lf(t)/(_K_f(t)/(1-k_)))
+m = m.subs(_MO(t)/_K(t), _MO(t)/(_K_HD(t)/k_)).subs(_Lf(t)/_K(t), _Lf(t)/(_K_f(t)/(1-k_))) # Removing Lk
+pprint(sp.Eq(m_,m))
+# m = m.subs(_Lk(t)/_K_HD(t), lk_).subs(_Lf(t)/_K_f(t), lf_).subs(_MO(t)/_K_HD(t), mo_)
+m = m.subs(_Lf(t)/_K_f(t), lf_).subs(_MO(t)/_K_HD(t), mo_) # Removing Lk
+pprint(sp.Eq(m_,m))
+# m = m.subs(lk_, lkstar).subs(lf_, lfstar).subs(mo_, mostar).simplify()
+m = m.subs(lf_, lfstar).subs(mo_, mostar).simplify() # Removing Lk
+pprint(sp.Eq(m_,m))
+m = m.collect(g_ - gamma_F*rm).collect(1-k_).collect(R).simplify()
+pprint(sp.Eq(m_,m))
+m = m.subs(k_, 1 - (h_)/(1-omega)).subs(h_,g_*un/v) ############ TODO Check latter
+pprint(sp.Eq(m_,m))
+m = m.factor().simplify().collect(R).collect(1-omega).collect(gamma_F).collect(g_).collect(rm).collect(un).simplify()
+pprint(sp.Eq(m_,m))
+#+END_SRC
+
+#+RESULTS:
+:results:
+       Lf(t)   MO(t)
+m__* = ───── + ─────
+        K(t)    K(t)
+       k__*⋅MO(t)   (1 - k__*)⋅Lf(t)
+m__* = ────────── + ────────────────
+        K_HD(t)          K_f(t)
+m__* = k__*⋅mo__* + lf__*⋅(1 - k__*)
+       k__*⋅v⋅(g__* - γ_F⋅rm) - (k__* - 1)⋅(g__*⋅v + γ_F⋅un⋅(ω - 1))
+m__* = ─────────────────────────────────────────────────────────────
+                             v⋅(g__* - γ_F⋅rm)
+       k__*⋅v⋅(g__* - γ_F⋅rm) - (k__* - 1)⋅(g__*⋅v + γ_F⋅un⋅(ω - 1))
+m__* = ─────────────────────────────────────────────────────────────
+                             v⋅(g__* - γ_F⋅rm)
+       g__*⋅un⋅(g__*⋅v + γ_F⋅un⋅(ω - 1))                     ⎛   g__*⋅un     ⎞
+       ───────────────────────────────── + v⋅(g__* - γ_F⋅rm)⋅⎜- ───────── + 1⎟
+                   v⋅(1 - ω)                                 ⎝  v⋅(1 - ω)    ⎠
+m__* = ───────────────────────────────────────────────────────────────────────
+                                  v⋅(g__* - γ_F⋅rm)
+             2               ⎛                                  2        ⎞
+       g__*⋅v ⋅(ω - 1) - γ_F⋅⎝g__*⋅un⋅(rm⋅v + un⋅(ω - 1)) + rm⋅v ⋅(ω - 1)⎠
+m__* = ───────────────────────────────────────────────────────────────────
+                             2
+                            v ⋅(g__* - γ_F⋅rm)⋅(ω - 1)
+:end:
+
+#+NAME: mrhsstar
+#+BEGIN_SRC python :results latex :var label="test"
+latex_label = '\label{' + label + '}'
+print(
+    sp.latex(
+        sp.Eq(sp.Symbol(latex_label + 'm^{\star}') , m),
+             mul_symbol = 'dot',
+             symbol_names = {
+                 g_: "g^\star",
+                 k_: "k^\star",
+                 un : "u^\star"
+               },
+             mode = 'equation',
+#        long_frac_ratio = 2.0
+    )
+)
+#+END_SRC
+
+#+RESULTS: mrhsstar
+#+begin_export latex
+\begin{equation}\label{test}m^{\star} = \frac{g^\star \cdot v^{2} \cdot \left(\omega - 1\right) - \gamma_{F} \cdot \left(g^\star \cdot u^\star \cdot \left(rm \cdot v + u^\star \cdot \left(\omega - 1\right)\right) + rm \cdot v^{2} \cdot \left(\omega - 1\right)\right)}{v^{2} \cdot \left(g^\star - \gamma_{F} \cdot rm\right) \cdot \left(\omega - 1\right)}\end{equation}
+#+end_export
+
+
+*** Bank deposits (LHS)
+   
+#+BEGIN_SRC python :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results
+left_m = (_S_hk(t) - _M(t)*g_)/_K(t)
+pprint(left_m)
+left_m = left_m.subs(_S_hk(t), S_hk).expand().subs(_Ck(t), Ck).subs(_M(t)/_K(t), m_)
+pprint(left_m)
+left_m = left_m.subs(_Z(t), _I_h(t)/(1-R)).subs(_K(t), _K_HD(t)/k_)
+pprint(left_m)
+left_m = left_m.subs(_I_h(t)/_K_HD(t), g_)
+pprint(left_m)
+left_m = left_m.subs(_YDk(t), YDk)
+pprint(left_m)
+left_m = left_m.subs(_rl(t), rm).subs(_rmo(t), rm).collect(rm)
+pprint(left_m)
+left_m = left_m.subs(_M_h(t-1) - _Lk(t-1) - _MO(t-1), _Lf(t)).expand().subs(_K_HD(t), k_*_K(t))
+pprint(left_m)
+left_m = left_m.subs(_Lf(t)/_K(t), lf_*(1-k_)) # Check
+pprint(left_m)
+left_m = left_m.subs(_K(t), (1-k_)*_K_f(t)).subs(_FD(t), FD).subs(_FT(t) - _Lf(t-1)*_rl(t), _Fn(t)).subs(_Fn(t)/_K_f(t), rn).subs(_rl(t), rm)
+pprint(left_m)
+left_m = sp.solve(left_m, m_)[0].subs(k_, 1 - h_/(1-omega)).subs(h_, g_*un/v).simplify().collect(g_)
+pprint(sp.Eq(m_, left_m))
+left_m = left_m.subs(lf_, lfstar).simplify().collect(g_).collect(omega).collect(rm).collect(R)
+pprint(sp.Eq(m_, left_m))
+
+#+END_SRC
+
+#+RESULTS:
+:results:
+23 - 05768cab-62fd-4b6d-bd04-8c1b3c6138bb <output> <interrupt>
+:end:
+
+#+NAME: mlhsstar
+#+BEGIN_SRC python :tangle ./codes/Solution.py :async t :session Solution :results verbatim drawer :exports results :var label="test"
+latex_label = '\label{' + label + '}'
+print(
+    sp.latex(
+        sp.Eq(sp.Symbol(latex_label + 'm^{\star}') , left_m),
+             mul_symbol = 'dot',
+             symbol_names = {
+                 g_: "g^\star",
+                 k_: "k^\star",
+                 un : "u_{N}"
+               },
+             mode = 'equation'
+    )
+)
+#+END_SRC
+
+#+RESULTS: mlhsstar
+:results:
+24 - 4f356ba9-5de9-467b-bf26-b01dd1a80e58 <output> <interrupt>
+:end:
+
+#+RESULTS: mlhsgagestar
+:results:
+# Out [246]: 
+# output
+\begin{equation}\label{test}m^{\star} = \frac{R \cdot g^\star \cdot v \cdot \left(g^\star - \gamma_{F} \cdot rm\right) \cdot \left(g^\star \cdot u_{N} - v \cdot \left(1 - \omega\right)\right) \cdot \left(v \cdot \left(\omega - 1\right)^{4} + \left(1 - \omega\right)^{3} \cdot \left(g^\star \cdot u_{N} - v \cdot \left(1 - \omega\right)\right)\right) + \left(g^\star\right)^{2} \cdot rm \cdot u_{N}^{2} \cdot \left(R - 1\right) \cdot \left(\omega - 1\right)^{3} \cdot \left(g^\star \cdot v + \gamma_{F} \cdot u_{N} \cdot \left(\omega - 1\right)\right) + v^{2} \cdot \left(\omega - 1\right)^{5} \cdot \left(rm \cdot \left(R \cdot \left(- g^\star \cdot v - \gamma_{F} \cdot u_{N} \cdot \left(\omega - 1\right) + \gamma_{F} \cdot \left(g^\star \cdot v + \gamma_{F} \cdot u_{N} \cdot \left(\omega - 1\right)\right)\right) + g^\star \cdot v + \gamma_{F} \cdot u_{N} \cdot \left(\omega - 1\right) - \gamma_{F} \cdot \left(g^\star \cdot v + \gamma_{F} \cdot u_{N} \cdot \left(\omega - 1\right)\right)\right) + u_{N} \cdot \left(g^\star - \gamma_{F} \cdot rm\right) \cdot \left(R \cdot \left(1 - \gamma_{F}\right) + \gamma_{F} + \omega \cdot \left(R \cdot \left(\gamma_{F} - 1\right) - \gamma_{F} + 1\right) - 1\right)\right)}{g^\star \cdot v^{2} \cdot \left(g^\star - \gamma_{F} \cdot rm\right) \cdot \left(\omega - 1\right)^{4} \cdot \left(- R \cdot g^\star \cdot u_{N} + g^\star \cdot u_{N}\right)}\end{equation}
+
+:end:
+
+
+* From short- to long-run equilibria :ignore:
+
+In this Section, we show the implications of residential investment inclusion into a SSM-SFC model. First, we present the short-run dynamics and \myRed{the trajctory towards the} the long-run equilibrium (denoted by $\star$).
+
+** Short-run good market equilibrium
+#+LATEX: \label{short}
+
+In this model, real output (equation \ref{_Y}) is the sum of household consumption (equation ref:_Ct) and both types of investment (equation ref:_It). 
+If we replace equations ref:_W and  ref:_If into ref:_Y and considering equation ref:_Z we get the short-run GDP level which is determined both by NCC expenditures ($Z_t$) and the supermultiplier (inverse of Equation ref:Y_nivel denominator)
+
+\begin{equation}
+\label{Y_nivel}
+Y_t = \frac{Z_t}{1 - h_t - \omega}
+\end{equation}
+and replacing Equation ref:Z_Ih in the previous one
+\begin{equation}
+\label{Y_Ih}
+Y_t = \frac{I_h}{(1-R)(1 - h_t - \omega)}
+\end{equation}
+since $R$ is non-negative and lower than one, the Keynesian stability condition is $h_{t} + \omega < 1$.
+
+Next, dividing equation ref:Y_Ih by ref:_YFC,  replacing residential investment growth rate by Equation ref:g_Z_own  and rearranging, we get the short-run equilibrium utilization rate (Equation ref:short_u).
+In this model, residential investment growth rate determines GDP growth rate.
+When the latter accelerates, rate of capacity utilization increases as shown by Equation ref:short_u:
+\begin{equation}
+\label{short_u}
+u_t = \frac{v}{(1-R)(1-h_t - \omega)}\frac{I_{h_{t-1}}}{K_{f_{t-2}}}\frac{(1 + g_{I_h})}{(1+g_{K_{t-1}})}
+\end{equation}
+Replacing equation ref:g_Z_own in Equation ref:short_u we make explicit the functional form of residential investment growth rate as one of the determinants of rate of capacity utilization as shown in Equation ref:short_u_own:
+\begin{equation}
+\label{short_u_own}
+u_t = \frac{v}{(1-R)(1-h_t - \omega)}\frac{I_{h_{t-1}}}{K_{f_{t-2}}}\frac{(1 + \phi_0 - \phi_1\cdot own_t)}{(1+g_{K_{t-1}})}
+\end{equation}
+
+Next, we revisit Equation ref:short_u in order to present houses share on total capital stock ($k$).
+To do so, we express firms' capital in terms of houses. 
+Then, dividing both sides of equation ref:short_u by houses and after some algebraic manipulations, we get houses-to-capital ratio (Equation ref:k_short)
+#+BEGIN_SRC python :exports none :session k
+import sympy as sp
+k, v, g, w, h, u, R = sp.symbols('k v g omega h u R')
+lhs = (1-k)/k
+rhs = (v*g)/((1-R)*(1-h-w)*u)
+sp.pprint(sp.Eq(lhs, rhs))
+result = sp.solve(rhs - lhs, k)[0]
+result = result.simplify().collect(R).collect(u).collect(h + w - 1)
+sp.pprint(sp.Eq(k, result))
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [16]: 
+# output
+1 - k            g⋅v          
+───── = ──────────────────────
+  k     u⋅(1 - R)⋅(-h - ω + 1)
+       u⋅(R - 1)⋅(h + ω - 1)   
+k = ───────────────────────────
+    g⋅v + u⋅(R - 1)⋅(h + ω - 1)
+
+:end:
+
+
+\begin{equation}
+\label{k_short}
+k = \frac{(1-R)\cdot (1-h_t - \omega)}{h_t + (1-R)\cdot (1-h_t - \omega)}
+\end{equation}
+
+#+BEGIN_COMMENT
+It worth noting that --- besides its counterintuitivity --- the decrease of $k$ as a result of the increase of residential investment growth rate (reported in equations \ref{partial_phi0} and \ref{partial_pi} in Appendix ref:append:Solution) is in line with the SSM.
+Since firms' investment grows (temporally) at a higher pace than NCC autonomous expenditures, it has only a level effect on capital stock.
+As usual, changes in income distribution affects GDP temporally.
+However, it has permanent effects over capital stock composition as a result of this level effect reported before (equation \ref{partial_omega}).
+#+END_COMMENT
+
+** \myRed{Transition} and long-run equilibrium
+#+LATEX: \label{long}
+
+In this subsection, we present \myRed{the equations from a out of equilibrium position to the} long-run equilibrium.
+According to equation ref:short_u, when aggregate demand and capacity output grow at different rates, capacity utilization will change. 
+The discrepancy between actual and normal rate of capacity utilization triggers marginal propensity to invest adjustment mechanism (see Equation ref:_h). 
+During the adjustment process, both supermultiplier and NCC autonomous expenditure share on GDP changes.
+Equation ref:g_medium presents aggregate demand during \myRed{this transition}:
+
+\begin{equation}
+\label{g_medium}
+g_t = g_{Z} + \frac{\Delta h}{1 - \omega - h_{t}}
+\end{equation}
+This process continues as long as GDP growth rate moves towards NCC autonomous expenditure growth rate (in this case, residential investment and capitalist consumption). 
+
+As mentioned before, firms’ marginal propensity to invest reacts to discrepancies between the rate of capacity utilization and the normal one.  This adjustment process continues until actual and normal rate of capacity utilization are equal:
+
+$$
+u \to u^{\star}  = u_N \Leftrightarrow g \to g^{\star} = g_Z = g_{I_{h}}
+$$
+and long-run marginal propensity to invest will be:
+
+
+\begin{equation}
+\label{h_long}
+h^{\star} = g^{\star}\cdot \frac{v}{u^{\star}}
+\end{equation}
+Finally, replacing Equation ref:h_long into Equation ref:Y_nivel we obtain long-run GDP level as shown in Equation ref:Y_lr
+
+\begin{equation}
+\label{Y_lr}
+Y^{\star} = \frac{Z}{\left(1 - \omega - g^{\star}\cdot \frac{v}{u^{\star}}\right)}
+\end{equation}
+Once again, we can show the long-run position making the residential investment growth rate explicit as in Equation ref:Y_gIh
+\begin{equation}
+\label{Y_gIh}
+Y^{\star} = \frac{I_h}{\left(1-R\right)\left(1 - \omega - g_{I_h}^{\star}\cdot \frac{v}{u^{\star}\right)}}
+\end{equation}
+
+Next, we move towards the analysis of the particularities of our model.
+To do so, we replace Equation ref:h_long in ref:k_short, we obtain long-run ratio between houses and total capital stock (denoted by $k^\star$):
+
+#+BEGIN_comment
+It worth noting that the second term of RHS of equation ref:k_long is equal to the ``fraction'' ($f$) introduced by textcite:serrano_long_1995:
+$$
+k^{\star} = 1 - f \hspace{3cm} f = 1 - k^{\star}
+$$
+
+$$
+k^{\star} = \frac{(1-R)(1-h^\star - \omega)}{h^\star + (1-R)(1-h^\star - \omega)}
+$$
+#+END_comment
+
+#+BEGIN_SRC python :exports none :session k
+long = result
+n,d = sp.fraction(long)
+n = n/u
+d = (d/u).expand().collect(R).collect(h+w-1)
+long = n/d
+long = long.subs(g*v/u,h)
+sp.pprint(long)
+#+END_SRC
+
+#+RESULTS:
+:results:
+# Out [45]: 
+# output
+  (R - 1)⋅(h + ω - 1)  
+───────────────────────
+h + (R - 1)⋅(h + ω - 1)
+
+:end:
+\begin{equation}
+\label{k_long}
+k^{\star} = 1 - \frac{h^{\star}}{h^\star + (1-R)(1-h^\star - \omega)}
+\end{equation}
+
+
+
+Before moving to the numerical simulations, we present some steady growth stock ratios in order to shed some lights in the dynamic process of the model.
+At odds with literature, we do not normalize the stocks by the total capital stock, but by the economically relevant capital (firms' capital stock or houses) type.
+Thus, dividing Equation ref:_Lf by firms' capital stock and making some algebraic manipulation, we obtain steady growth loans' ratio to firms' capital stock ($\ell^{\star}$, Equation ref:firm_ratio):
+
+$$
+\Delta \left(\frac{L_{f}}{K_{f}}\right) = \frac{I_{f} - FU}{K_{f}} - \ell^{\star}_{f}\cdot g^{\star}  = 0
+$$
+
+\begin{equation}
+\label{firm_ratio}
+\ell_f^\star = 1 - \gamma_F\left(\frac{r_g^\star - r_m}{g^\star - \gamma_F\cdot r_m}\right)
+\end{equation}
+Thus, replacing equation ref:firm_ratio into ref:_rn to obtain net profit rate in the long-run (see Equation ref:Long_netprofit_ratio)
+\begin{equation}
+\label{Long_netprofit_ratio}
+r_n^\star = r_g^\star - r_m\cdot \left(1 - \gamma_F\left(\frac{r_g^\star - r_m}{g^\star - \gamma_F\cdot r_m}\right)\right)
+\end{equation}
+
+
+
+Next, we rewrite capitalists autonomous expenditure in terms of residential investment (see Equation ref:C_kZ). 
+Then, we  present capitalists' loans to houses stock ratio (Equation ref:capitalist_ratio):
+
+$$
+\Delta \left(\frac{L_k}{K_{HD}}\right) = \frac{C_k}{K_{HD}} - \ell^{\star}_{k}\cdot g^{\star} = 0
+$$
+
+\begin{equation}
+\label{capitalist_ratio}
+\ell^\star = \frac{R}{1-R}
+\end{equation}
+
+The same procedure is also applied to find mortgage to house stock ratio ($mo^{\star}$, Equation ref:mortgage_ratio):
+$$
+\Delta \left(\frac{MO}{K_{HD}}\right) = \frac{\Delta MO}{K_{HD}} - mo^{\star}\cdot g^{\star} = 0
+$$
+
+\begin{equation}
+\label{mortgage_ratio}
+mo^\star = 1
+\end{equation}
+Thus, adding Equations ref:capitalist_ratio and ref:mortgage_ratio and, we get households capitalists' total debt in terms of houses ($d^\star$, Equation ref:debt_ratio)
+
+$$
+d^\star = 1 + \frac{R}{1-R}
+$$
+
+\begin{equation}
+\label{debt_ratio}
+d^\star = \frac{1}{1-R}
+\end{equation}
+
+Finaly, we can express deposits share on total capital stock ($m^{\star}$, Equation ref:M_long_intermediate) in terms of previous stock ratios:
+
+$$
+\frac{M}{K} = \frac{MO + L_k + L_f}{K}
+$$
+$$
+\frac{M}{K} = \frac{MO}{K_{HD}}\cdot \frac{K_{HD}}{K} +  \frac{L_k}{K_{HD}}\cdot \frac{K_{HD}}{K} +  \frac{L_f}{K_{f}}\cdot \frac{K_{f}}{K}
+$$
+
+#+BEGIN_equation
+#+LATEX: \label{M_long_intermediate}
+m^{\star} = mo^{\star}\cdot k^{\star} + \ell^{\star}_{k}\cdot k^{\star} + \ell^{\star}_{f}\cdot (1-k^{\star})
+#+END_equation
+
+#+BEGIN_comment
+[fn:lhs] Additionally, replacing Equations ref:h_long, ref:k_long, ref:firm_ratio, ref:capitalist_ratio and ref:mortgage_ratio in to ref:M_long_intermediate, we obtain steady growth deposits to total capital stock ratio (Equation ref:deposits_rhs):
+#+CALL:mrhsstar(label="deposits_rhs")
+#+RESULTS:
+:results:
+41 - f69b211b-c651-4b65-ae63-a266a5e381c9 <output> <interrupt>
+:end:
+
+Since banks deposits are a residuum, we could express Equation ref:deposits_rhs in terms of Equations ref:EqYD, ref:EqSh and --- assuming null spread on mortgage and on loans interest rate --- we can rewrite net interest rate income as follows 
+$$rm\cdot (M - L_k - MO) = rm\cdot (L_f)$$
+So, we achieve the same result of Equation ref:deposits_rhs as expected.
+#+END_comment
+
+

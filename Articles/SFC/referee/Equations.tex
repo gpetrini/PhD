@@ -1,0 +1,456 @@
+% Created 2021-06-18 sex 12:22
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[top=3cm, bottom=2cm, left=3cm, right=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[theorems, skins]{tcolorbox}
+\usepackage[style=abnt,noslsn,extrayear,uniquename=init,giveninits,justify,sccite,
+        scbib,repeattitles,doi=false,isbn=false,url=false,maxcitenames=2,
+        natbib=true,backend=biber]{biblatex}
+\usepackage{url}
+\usepackage[cache=false]{minted}
+\usepackage[linktocpage,pdfstartview=FitH,colorlinks,
+linkcolor=blue,anchorcolor=blue,
+citecolor=blue,filecolor=blue,menucolor=blue,urlcolor=blue]{hyperref}
+\usepackage{attachfile}
+\usepackage{setspace}
+\usepackage{tikz}
+\author{Gabriel Petrini}
+\date{\today}
+\title{Equations}
+\begin{document}
+
+\maketitle
+
+\section*{Descrição}
+\label{sec:orgf7496c1}
+
+Neste documento vou comparar as novas equações após os pareceres com a versão submetida do artigo.
+As demais equações não serão apresentadas.
+Vou indicar qual equação foi gerada pelo \emph{sympy} e qual rearrumei.
+
+\section*{Mudanças comuns (atendem A apenas)}
+\label{sec:org52c19fc}
+
+\subsection*{Equações dos bancos}
+\label{sec:org8e6509c}
+
+\begin{latex}
+\begin{equation}
+L = L_{f} + L_{k} \Rightarrow L = L_{f}
+\end{equation}
+\end{latex}
+
+\subsection*{Equações dos capitalistas}
+\label{sec:org272ee5c}
+
+\begin{latex}
+\begin{equation}
+\Delta L_{k} = C_{k} \Rightarrow \Delta L_{k} = 0
+\end{equation}
+\end{latex}
+\begin{latex}
+\begin{equation}
+D = MO + L_{k} \Rightarrow D = MO
+\end{equation}
+\end{latex}
+\begin{latex}
+\begin{equation}
+V_{k} = K_{hd} + M - L_{k} - MO \Rightarrow V_{k} = K_{hd} + M - MO
+\end{equation}
+\end{latex}
+\begin{latex}
+\begin{equation}
+Z = C_{k} + I_{h} \Rightarrow Z = I_{h}
+\end{equation}
+\end{latex}
+\begin{latex}
+\begin{equation}
+R = \frac{C_{k}}{Z} \Rightarrow R = \nexists
+\end{equation}
+\end{latex}
+
+\subsection*{Corrigindo Lucros}
+\label{sec:org7fc0343}
+
+\begin{latex}
+\begin{equation}
+FT = Y - W = FD + FU + r_{l}\cdot L_{f-1}
+\end{equation}
+\end{latex}
+\section*{Alternativa 1: \(C_{k} = c_{k}\cdot YD_{k}\)}
+\label{sec:org5b84fae}
+
+\subsection*{Equações dos capitalistas}
+\label{sec:org0a8ce68}
+
+\begin{latex}
+\begin{equation}
+C_{k} = (1+g_{Ck})\cdot C_{k, t-1} \equiv I_{h}\frac{R}{1-R} \Rightarrow C_{k} = c_{k}\cdot YD_{hk}
+\end{equation}
+\end{latex}
+
+A renda disponível dos capitalistas pode ser reescrita da seguinte forma:
+\begin{latex}
+\begin{equation}
+YD_{hk} = FD + r_{m}(M_{t-1} - MO_{t-1})
+\end{equation}
+\end{latex}
+Dado que:
+$$
+M = MO + L \Rightarrow L_{f} = M - MO
+$$
+
+Temos:
+\begin{latex}
+\begin{equation}
+YD_{hk} = FD + r_{m}L_{f-1}
+\end{equation}
+\end{latex}
+Substituindo \(FD\) pela equação corrigida dos lucros:
+\begin{latex}
+$$
+YD_{hk} = (1-\gamma_{F})\cdot(FT - r_{m}L_{f-1}) + r_{m}\cdot L_{f-1}
+$$
+
+$$
+YD_{hk} = (1-\gamma_{F})\cdot FT -  (1-\gamma_{F})\cdot (r_{m}\cdot L_{f-1}) + r_{m}\cdot L_{f-1}
+$$
+
+$$
+YD_{hk} = FT - \gamma_{F}(FT - r_{m}\cdot L_{f-1})
+$$
+
+\begin{equation}
+YD_{hk} = FT - FU = FD + r_{m}\cdot L_{f-1}
+\end{equation}
+\end{latex}
+
+\subsection*{Equilíbrio de curto prazo}
+\label{sec:orged3f1f8}
+
+\subsubsection*{Nível do produto python}
+\label{sec:org9433704}
+
+\begin{latex}
+\begin{equation}
+Y_{t} = \frac{Z_t - ck \cdot \gamma_{F} \cdot rm \cdot \left(- \operatorname{M_{h}}{\left(-1 + t \right)} + \operatorname{MO}{\left(-1 + t \right)}\right)}{1 - h_t - \alpha \cdot \omega - ck \cdot \left(-1 + \gamma_{F}\right) \cdot \left(-1 + \omega\right)}
+\end{equation}
+\end{latex}
+
+\subsubsection*{Nível do produto rearrumado}
+\label{sec:org42197ad}
+
+\begin{latex}
+\begin{equation}
+Y_{t} = \frac{Z_t + ck \cdot \gamma_{F} \cdot rm \cdot \left(M_{t-1} - MO_{t-1}\right)}{1 - h_t - \alpha \cdot \omega - ck \cdot \left(1- \gamma_{F}\right) \cdot \left(1 - \omega\right)} \equiv \frac{Z_t + ck \cdot \gamma_{F} \cdot rm \cdot \left(L_{f,t-1}\right)}{1 - h_t - \alpha \cdot \omega - ck \cdot \left(1- \gamma_{F}\right) \cdot \left(1 - \omega\right)}
+\end{equation}
+\end{latex}
+\subsubsection*{Grau de utilização python}
+\label{sec:orgeb5b9a4}
+
+\begin{latex}
+\begin{equation}
+u_{t} = \frac{v \cdot \left(Z_t - ck \cdot \gamma_{F} \cdot rm \cdot \left(- \operatorname{M_{h}}{\left(-1 + t \right)} + \operatorname{MO}{\left(-1 + t \right)}\right)\right)}{K_t \cdot \left(-1 + k_t\right) \cdot \left(-1 + h_t + \alpha \cdot \omega + ck \cdot \left(-1 + \gamma_{F}\right) \cdot \left(-1 + \omega\right)\right)}
+\end{equation}
+\end{latex}
+
+
+\subsubsection*{Grau de utilização rearrumado}
+\label{sec:orgbd9e21d}
+
+\begin{latex}
+\begin{equation}
+u_{t} = \frac{v \cdot \left(Z_t + ck \cdot \gamma_{F} \cdot rm \cdot \left(M_{t-1} - MO_{t-1}\right)\right)}{K_t \cdot \left(1-k_{t}\right) \cdot \left(1 - h_t - \alpha \cdot \omega - ck \cdot \left(1 - \gamma_{F}\right) \cdot \left(1 - \omega\right)\right)} \equiv \frac{Y}{K_{t}}\cdot\frac{v}{(1-k_{t})}
+\end{equation}
+\end{latex}
+como nosso numerador não é apenas \(I_{h}\), não podemos usar o artifício do artigo para deixar em termos das diferenças das taxas de crescimento dos gastos autônomos e estoque de capital de um jeito elegante.
+Seja \(\lambda\) o grau de alavancagem das firmas definido como:
+\begin{latex}
+\begin{equation}
+\lambda = \frac{L_{f}}{K_{f}} = \frac{L_{f}}{(1-k)\cdot K_{t}}
+\end{equation}
+\end{latex}
+
+Sendo assim, seja \(\mu\) o novo multiplicador para facilitar, podemos decompor da seguinte maneira:
+\begin{latex}
+\begin{equation}
+u_{t} = \frac{v}{(1-k_{t})K_{t}}\frac{Y}{\mu} = \frac{v}{(1-k_{t})K_{t}}\frac{I_{h} + c_{k}\gamma_{F}\cdot rm (L_{f})}{\mu}
+\end{equation}
+\end{latex}
+continuando:
+\begin{latex}
+\begin{equation}
+u_{t} = \frac{v}{\mu}\frac{I_{h} + c_{k}\gamma_{F}(L_{f})}{(1-k_{t})K_{t}} = \frac{v}{\mu}\left(\frac{I_{h}}{K_{t}(1-k)} + \frac{c_{k}\gamma_{F}\cdot rm \cdot L_{f}}{K_{t}(1-k)}\right)
+\end{equation}
+\end{latex}
+
+Se não errei em alguma passagem, temos que o grau de utilização é (usando \(g_{I_{h}}\) por questões de espaço apenas):
+\begin{latex}
+\begin{equation}
+u_{t} =  \frac{v}{\mu}\left(\frac{I_{h_{t-1}}}{K_{f_{t-1}}}\frac{(1+g_{I_{h}})}{(1+g_{K_{t-1}})} + c_{k}\gamma_{F}\cdot rm \lambda\right)
+\end{equation}
+\end{latex}
+
+\subsubsection*{Razão entre estoques de capital (k)}
+\label{sec:orgf4982d1}
+
+\begin{latex}
+\begin{equation}
+k = \frac{(1-R)\cdot (1-h_t - \omega)}{h_t + (1-R)\cdot (1-h_t - \omega)} \Rightarrow \frac{(1-h_t - \omega -c_k(1-\gamma_F)(1-\omega))}{h_t + (1-h_t - \omega -c_k(1-\gamma_F)(1-\omega))}
+\end{equation}
+\end{latex}
+logo, o novo \(k\) é:
+
+\begin{latex}
+\begin{equation}
+k = \frac{(1-h_t - \omega -c_k(1-\gamma_F)(1-\omega))}{1 - \omega -c_k(1-\gamma_F)(1-\omega))} = 1 - \frac{h_t}{1 - \omega - c_k(1-\gamma_F)(1- \omega)}
+\end{equation}
+\end{latex}
+
+\subsection*{Equilíbrio de longo prazo}
+\label{sec:orgdcb9a03}
+
+\subsubsection*{Taxa de crescimento}
+\label{sec:org37a557a}
+
+Não tenho certeza quanto a essa equação, mas me parece razoavel:
+
+\begin{latex}
+\begin{equation}
+g_t = g_{Z} + \frac{\Delta h}{1 - \omega - h_{t}} \Rightarrow g_{I_{h}} + \frac{\Delta h}{1 - \omega - h_{t} - c_{k}(1-\gamma_{F})(1-\omega)}
+
+\end{equation}
+\end{latex}
+
+\subsubsection*{Nível do produto}
+\label{sec:org24c2271}
+
+\begin{latex}
+\begin{equation}
+Y^{\star} = \frac{I_h}{\left(1-R\right)\left(1 - \omega - g_{I_h}^{\star}\cdot \frac{v}{u^{\star}\right)}} \Rightarrow Y^{\star} = \frac{I_h + c_{k}\cdot\gamma_{F}\cdot rm(M + MO)}{\left(1 - \omega - g_{I_h}^{\star}\cdot \frac{v}{u^{\star}} - c_{k}(1-\gamma_{F})(1-\omega)\right)}
+\end{equation}
+\end{latex}
+
+Para explicitar que o consumo a partir da riqueza não é autônomo, é preciso incluir a norma dívida das firmas-renda (\(\ell^{\star}_{Y}\)):
+\begin{latex}
+$$
+\ell^{\star} = \frac{L_{f}^{\star}}{K_{f}^{\star}}\frac{K_{f}^{\star}}{K_{f}^{\star}}\frac{Y^{\star}}{Y^{\star}} = \ell^{\star}_{Y}\cdot\frac{Y^{\star}}{K_{f}\star}
+$$
+\end{latex}
+\begin{latex}
+\begin{equation}
+\ell^{\star} = \ell_{Y}^{\star}\frac{u^{\star}}{v} \Rightarrow \ell^{\star}_{Y} = \ell^{\star}\frac{v}{u^{\star}}
+\end{equation}
+\end{latex}
+
+Supondo que este norma é calculável e denominando o multiplicador como \(\mu\):
+\begin{latex}
+$$
+Y^{\star} = \frac{I_{h}}{\mu} + \frac{c_{k}\gamma_{F}\cdot rm \cdot L_{f}\frac{Y^{\star}}{Y^{\star}}}{\mu}
+$$
+\begin{equation}
+Y^{\star} = \frac{I_{h}}{\mu} + \frac{c_{k}\gamma_{F}\cdot rm \cdot \ell^{\star}_{Y}\cdot Y^{\star}}{\mu}
+\end{equation}
+\end{latex}
+
+Com isso, é possível prosseguir isolando \(Y^{\star}\).
+O resultado do \textbf{python} é:
+
+\begin{latex}
+\begin{equation}
+Y^{\star} = \frac{Z_t}{1 - h^\star_t - \alpha \cdot \omega - ck \cdot \left(1 - \omega + \gamma_{F} \cdot \left(-1 + \omega + \ell^\star_Y \cdot rm\right)\right)}
+\end{equation}
+\end{latex}
+rearranjando:
+\begin{latex}
+\begin{equation}
+Y^{\star} = \frac{Z_t}{1 - h^\star_t - \alpha \cdot \omega - ck \cdot \left(1 - \omega - \gamma_{F} \cdot \left(1 - \omega - \ell^\star_Y \cdot rm\right)\right)}
+\end{equation}
+\end{latex}
+
+
+\subsection*{Normas}
+\label{sec:orga5f21c0}
+
+\subsubsection*{Dívida das firmas-estoque de capital (\(\ell^{\star}\))}
+\label{sec:org56ee333}
+
+Como não alteramos nada das firmas, imagino que se mantem igual.
+De todo modo, segue como saiu no \textbf{python}:
+
+\begin{latex}
+\begin{equation}
+\ell^{\star}_{f} = \frac{g^\star \cdot v + \gamma_{F} \cdot u_{N} \cdot \left(\omega - 1\right)}{v \cdot \left(g^\star - \gamma_{F} \cdot rm\right)}
+\end{equation}
+\end{latex}
+
+A partir disso, podemos calcular \(\ell^{\star}_{Y}\) e deixar somente o investmento residencial autônomo na equação do nível do produto.
+Reescrevendo a equaçoã gerada no \emph{python}:
+\begin{latex}
+\begin{equation}
+\ell^{\star}_{f} = \frac{g^\star \cdot v}{v \cdot \left(g^\star - \gamma_{F} \cdot rm\right)} - \frac{\gamma_{F} \cdot u^{\star} \cdot \left(1- \omega\right)}{v \cdot \left(g^\star - \gamma_{F} \cdot rm\right)}
+\end{equation}
+\end{latex}
+Partindo da equação \(\ell^{\star}_{Y}\), e lembrando que multiplicar por \(v/u^{\star}\) equivale, no \emph{steady state} a \(h^{\star}/g^{\star}\)
+\begin{latex}
+\begin{equation}
+\ell_{Y}\star = \left(\frac{g^{\star}}{g^{\star} - \gamma_{F}\cdot rm} - \frac{\gamma_{F}(1-\omega)}{g^{\star} - \gamma_{F}\cdot rm}\frac{u^{\star}}{v}\right)\cdot\frac{h^{\star}}{g^{\star}}
+\end{equation}
+\end{latex}
+Temos:
+\begin{latex}
+\begin{equation}
+\ell^{\star}_{Y} = \frac{h^{\star} - \gamma_{F}(1-\omega)}{g^{\star} - \gamma_{F}\cdot rm}
+\end{equation}
+\end{latex}
+
+Substituindo essa equação no nível do produto, temos (\textbf{python}):
+\begin{latex}
+\begin{equation}
+Y^{\star} = \frac{Z}{- \alpha \cdot \omega - ck \cdot \left(\gamma_{F} \cdot \left(\omega + \frac{rm \cdot \left(g^\star \cdot v + \gamma_{F} \cdot u^\star \cdot \left(\omega - 1\right)\right)}{u^\star \cdot \left(g^\star - \gamma_{F} \cdot rm\right)} - 1\right) - \omega + 1\right) - h + 1}
+\end{equation}
+\end{latex}
+rearranjando:
+\begin{latex}
+\begin{equation}
+Y^{\star} =
+\end{equation}
+\end{latex}
+
+\subsubsection*{Dívida de consumo dos capitalistas-estoque de casas}
+\label{sec:org54c5760}
+
+\begin{latex}
+\begin{equation}
+\ell_{k} = \frac{R}{1 - R} \Rightarrow 0
+\end{equation}
+\end{latex}
+
+\subsubsection*{Hipotecas-estoque de casas}
+\label{sec:org2e11ab0}
+
+Não se altera (\(mo^{\star} = 1\), como esperado).
+
+\subsubsection*{Depósitos sobre estoque de capital total}
+\label{sec:org0c7b6ec}
+
+$$
+\frac{M}{K} = \frac{MO}{K_{HD}}\cdot \frac{K_{HD}}{K} +  \frac{L_k}{K_{HD}}\cdot \frac{K_{HD}}{K} +  \frac{L_f}{K_{f}}\cdot \frac{K_{f}}{K} \Rightarrow
+\frac{MO}{K_{HD}}\cdot \frac{K_{HD}}{K} +  \frac{L}{K_{f}}\cdot \frac{K_{f}}{K}
+$$
+
+\begin{latex}
+\begin{equation}
+m^{\star} = mo^{\star}\cdot k^{\star} + \ell^{\star}_{k}\cdot k^{\star} + \ell^{\star}_{f}\cdot (1-k^{\star}) \Rightarrow  mo^{\star}\cdot k^{\star} + \ell^{\star}_{f}\cdot (1-k^{\star})
+\end{equation}
+\end{latex}
+
+\section*{Alternativa 2: \(C_{k} = c_{k}\cdot FD + c_{kw}\cdot NFW_{k}\)}
+\label{sec:orgb408259}
+
+Acho que reescrever as equações do artigo submetido não ajudam muito agora.
+Se entendi bem, a segunda tentativa parte de uma função de consumo capitalista a partir dos lucros recebidos e da riqueza financeira líquida.
+
+\subsection*{Equações dos capitalistas}
+\label{sec:orgc9d5539}
+
+\begin{latex}
+\begin{equation}
+C_{k} = c_{k} \cdot FD + c_{kw}(M_{t-1} - MO_{t-1})
+\end{equation}
+\end{latex}
+em que (por falta de uma variável melhor), \(c_{kw}\) é a propensão marginal a consumir a partir da riqueza financeira líquida.
+Sendo assim, se \(c_{kw} = 0\) retornamos a alternativa anterior.
+
+\subsection*{Equilíbrio de curto prazo}
+\label{sec:orga45bb4c}
+
+\subsubsection*{Nível do produto python}
+\label{sec:org2d68541}
+
+
+\begin{latex}
+\begin{equation}
+Y_{t} = \frac{Z_t + \left(ckv + ck \cdot rm \cdot \left(-1 + \gamma_{F}\right)\right) \cdot \operatorname{Lf}{\left(-1 + t \right)}}{1 - h_t - \alpha \cdot \omega - ck \cdot \left(-1 + \gamma_{F}\right) \cdot \left(-1 + \omega\right)}
+\end{equation}
+\end{latex}
+
+\subsubsection*{Nível do produto rearrumado}
+\label{sec:org9c79c97}
+
+
+\begin{latex}
+\begin{equation}
+Y_{t} = \frac{Z_t + \left(ckv - ck \cdot rm \cdot \left(1 - \gamma_{F}\right)\right) \cdot L_{f_{t-1}}}{1 - h_t - \alpha \cdot \omega - ck \cdot \left(1 - \gamma_{F}\right) \cdot \left(1 - \omega\right)}
+\end{equation}
+\end{latex}
+
+\subsubsection*{Grau de utilização python}
+\label{sec:org58af10d}
+
+
+\begin{latex}
+\begin{equation}
+u_{t} = \frac{v \cdot \left(Z_t + \left(ckv + ck \cdot rm \cdot \left(-1 + \gamma_{F}\right)\right) \cdot \operatorname{Lf}{\left(-1 + t \right)}\right)}{K_t \cdot \left(-1 + k_t\right) \cdot \left(-1 + h_t + \alpha \cdot \omega + ck \cdot \left(-1 + \gamma_{F}\right) \cdot \left(-1 + \omega\right)\right)}
+\end{equation}
+\end{latex}
+
+\subsubsection*{Grau de utilização rearrumado}
+\label{sec:orga4503c5}
+
+
+\subsubsection*{Razão entre estoques de capital (k)}
+\label{sec:orgf8a18df}
+
+
+
+\subsection*{Equilíbrio de longo prazo}
+\label{sec:orgd6353e9}
+
+\subsubsection*{Taxa de crescimento}
+\label{sec:org85a27a1}
+
+\subsubsection*{Nível do produto}
+\label{sec:org78ea85f}
+
+\subsection*{Normas}
+\label{sec:org4738523}
+
+Neste novo caso, as normas não devem mudar.
+A principal diferença é na utilização dessas normas para eliminar os gastos que não são autônomos no numerador do nível de produto no longo prazo.
+
+
+
+\section*{Alternativa 3: Ratchet effect}
+\label{sec:org43ae053}
+
+\subsection*{Equações dos bancos}
+\label{sec:org0fc496d}
+
+\subsection*{Equações dos capitalistas}
+\label{sec:orgd5abf47}
+
+\subsection*{Equilíbrio de curto prazo}
+\label{sec:org9217664}
+
+\subsection*{Equilíbrio de longo prazo}
+\label{sec:org316c271}
+
+\subsection*{Normas}
+\label{sec:orgadad719}
+\end{document}

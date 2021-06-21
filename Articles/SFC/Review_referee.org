@@ -1,0 +1,60 @@
+
+
+* Literature Review TODOs                                          :noexport:
+
+** Residuals
+
+
+textcite:hein_autonomous_2018 argues that textcite:allain_tackling_2015 does not explores the implications for government deficits/debt dynamics.
+Thus, embeds \citeauthor*{allain_tackling_2015}'s citeyear:allain_tackling_2015 contribution in a SFC framework in which government expenditures is now financed by credit creation/high powered money, keeping up with the canonical neo-Kaleckian investment function.
+This model has one result in conflict with SSM: non-convergence of utilization rate to the normal one.
+This is a consequence of traditional neo-Kaleckian investment function, so NCC autonomous expenditures plays a leading role only temporally.
+
+
+
+textcite:teixeira_crescimento_2015 proposes a SSM alternative through the already mentioned houses own interest rate in order to include both asset bubbles and residential investment growth rate.
+
+* The absence of residential investment in demand-led growth models  :ignore:
+
+Recently, there is an effort to include SSM in Post-Keynesian strands cite:lavoie_post-keynesian_2015.
+Some authors have explored the consequences of  different NCC autonomous expenditures through modifications in the canonical Kaleckian model cites:allain_tackling_2015,lavoie_convergence_2016[fn:3].
+It worth noting that both Sraffian and non-canonical Kaleckian models presents the same results on the fully-adjusted position:
+(i) changes in income distribution has level effects while long-run growth rate remains unchanged;
+(ii) capacity utilization smoothly converges to the normal one toward adjustment on the endogenous marginal propensity to invest;
+(iii) changes in NCC autonomous expenditures growth rate has persistent effects on economy growth rate.
+In this Section, we will analyze which NCC has been included and its consequences.
+
+[fn:3] This modifications in the canonical Kaleckian growth model are related to critiques regarding its non-convergence to normal utilization rate on the long-run cites:dallery_conflicting_2011,skott_theoretical_2012,hein_harrodian_2012.
+
+
+textcite:allain_tackling_2015 considers tax-financed government consumption growing at an exogenous rate as NCC autonomous expenditure. 
+In this precursor model, tax rate adjusts endogenously so  government budget remains balanced while growth and capacity utilization rates converge to the fully adjusted postion values.
+Recently, some scholars have extended \citeauthor*{allain_tackling_2015}'s contributions related regarding other policies implications.
+On the Kaleckian side, textcite:bougrine_autonomous_2020 analyses the consequences of both fiscal and monetary expansionist policies and concludes that only the first one changes the long-run growth rate while the latter has only temporary effects.
+textcite:freitas-2020-basel-super, on the Sraffian side, investigate the relation between autonomous expenditure growth rate, interest rate, and functional income distribution according to two Classical closures and conclude that changes on interest rate have a pure financial effect on both of them  while only one presents a (inverse) relationship with wage share[fn:pivetti].
+
+[fn:pivetti] The latter Classical closure is the monetary theory of distribution proposed by textcite:pivetti_essay_1992 in which DESCREVER TEORIA MONETÁRIA DA DISTRIBUIÇÃO.
+
+
+textcites:dutt_maturity_2006,palley_inside_2010,hein_finance-dominated_2012 present a model in which debt-financed consumption under standard neo-Kaleckian assumptions.
+Thus, stability is reached only if NCC autonomous consumption grows at the same rate of capital accumulation which means that this expenditure is not really autonomous. 
+textcite:pariboni_autonomous_2015 presents an SSM alternative in which this causality is reversed so accumulation gradually converges towards debt-financed growth rate and the same results are reported by textcite:lavoie_convergence_2016.
+textcite:nah_long-run_2017 --- similar to textcite:dejuan_hidden_2017 --- introduce exports as the main driver of growth. 
+Despite reporting standard SSM results as well, their model has different accumulation regimes (profit-led or wage-led) depending on how real exchange rate reacts to changes in income distribution.
+
+textcite:brochier_supermultiplier_2018 was the first effort to introduce SSM model in a fully specified SFC framework. 
+They present a non-parsimonious model in which wealth-financed consumption plays the leading role.
+The results are at odds with the standard SSM model: income distribution affects fully-adjusted position growth rate.
+In other words, paradoxes of thrift and costs are held despite convergence of utilization rate to the normal one.
+Although causal mechanisms may not be clear --- considering the complexity of this model --- it is a  exception to what has been presented so far.
+textcite:mandarino-2020-worker-debt also build a SSM model in a SFC framework in which debt-financed-led consumption is the NCC autonomous expenditure.
+At odds with textcite:brochier_supermultiplier_2018 and according to textcites:pariboni_autonomous_2015,lavoie_convergence_2016, textcite:mandarino-2020-worker-debt report SSM standard results in which changes on income distribution affects growth rate only during the traverse.
+
+
+Even though these works emphasize the relevance of some NCC autonomous expenditures, residential investment has been systematically neglected.
+To be fair, textcites:zezza_u.s._2008,nikolaidi_securitisation_2015 include residential investment in a SFC growth model.
+However, as a result of neo-Kaleckian non-residentialinvestment function specification, residential investment does not lead the business cycle and plays a secondary role.
+From this literature review, we report an absence of residential investment-led growth models. 
+Despite shedding light on some relevant relationships, \citeauthor*{teixeira_crescimento_2015}'s \citeyear{teixeira_crescimento_2015} proposition was not presented in a numerical simulation model.
+The next section will present a fully specified parsimonious SSM-SFC residential investment-led model 
+which its growth rate is described by the already mentioned houses own interest rate.
