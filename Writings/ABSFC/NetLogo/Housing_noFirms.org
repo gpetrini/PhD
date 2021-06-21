@@ -1,0 +1,302 @@
+#+OPTIONS: num:nil
+#+TITLE: Housing model with no firms
+#+DESCRIPTION: Study model to test netlogo implementation of a simple model
+#+AUTHOR: Gabriel Petrini
+#+LANG: en
+#+VERSION: 0.1
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup
+#+PROPERTY:header-args netlogo :results output drawer :eval never-export :session nofirms :exports both
+
+* Description and relevant information
+
+
+** WHAT IS IT?
+
+This is a really simple model for study reasons only.
+The idea of this version is to implement a simple housing market composed by capitalists and workers.
+The mains distinction between them is that capitalists are richer and starts owning one house each while workers households receives wages and all start in rental housing.
+There is no credit, so housing acquisition is based only on accumulated net wealth.
+Since there is no other productive sector, there is no consumption goods for consistency reasons.
+
+
+*** Model conceptual design
+
+- Agents :: Households and houses
+- Environment :: Spatial for houses, social (network) for property relations
+- Resources :: Income
+- Interactions :: agent/agent - bids and asks; environment/agent - disposable information for household decisions; agent/environment - none (future: construction)
+- Attributes :: agent - coordinates, income, property relation; environment - construction density
+
+** HOW IT WORKS
+
+Capitalists households decides whether or not to buy other housing unit.
+By default, capitalists will live in the most expensive house they own.
+The other properties go to housing or rental market.
+If a housing unit is already rent by other households, houseowner must need rent contract expire first.
+
+Workers capitalists pay rents until rent contract is valid.
+After that, they decide whether to rent or to buy a house.
+
+Housing market is activated first.
+So, all the unmatched bids or asks is put in to rental market.
+Unmatched rental bids or asks are deleted and the process starts all over again.
+This market process keeps running until: (i) there is no bids; (ii) there is no asks; (iii) max iteration reached.
+
+
+** HOW TO USE IT
+
+(how to use the model, including a description of each of the items in the Interface tab)
+
+** THINGS TO NOTICE
+
+(suggested things for the user to notice while running the model)
+
+** THINGS TO TRY
+
+(suggested things for the user to try to do (move sliders, switches, etc.) with the model)
+
+** EXTENDING THE MODEL
+
+There are a lot ways to extend this model:
+- Include other sectors
+- Include consumption and capital goods consumption
+- Include credit (loans and mortgages)
+- Include landowner
+- Include house production
+  + Houses and concrete sector
+- Include government
+
+
+** NETLOGO FEATURES
+
+(interesting or unusual features of NetLogo that the model uses, particularly in the Code tab; or where workarounds were needed for missing features)
+
+** RELATED MODELS
+
+- Gilbert, N, Hawksworth, J C, and Sweeney, P (2008) 'An Agent-based Model of the UK Housing Market'.  University of Surrey http://cress.soc.surrey.ac.uk/housingmarket/ukhm.html
+
+
+** CREDITS AND REFERENCES
+
+- [[http://ccl.northwestern.edu/netlogo/models/community/UK%20house%20market%202009%20new%20setting][UK house market 2009 new setting]]
+
+
+* Simplifying assumptions
+
+The simplifying assumptions are relative to [[file:../LSD/study/study/concrete.org][concrete]] model, so all variable names and description will be the same.
+That been said, the *additional* simplifying hypothesis are:
+
+|--------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Hypothesis                     | Consequence                                                                                                                                          |
+| <30>                           | <50>                                                                                                                                                 |
+|--------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------|
+| No landowner                   | Only workers and capitalists. Unoccupied land will play no role in this version                                                                      |
+| No firms                       | No wage determination. Wages will be equal across workers households. All capitalists households will recieve a fixed and constant share of profits. |
+| No government                  | No unemployment benefits                                                                                                                             |
+| Rent contract                  | Households will be in the same house until rent contract exprires. After that, rent price will be increase by a fixed markup randomly.               |
+| Decision to become houseowner. | If rent contract expired, decide wheter to buy a house or to search for a new rent.                                                                  |
+| More than one house            | Workers are not allowed to have more than one house                                                                                                  |
+| Move out decision             | Houseowner will decide to move out randomly                                                                                                          |
+|--------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+
+** Variables dictionary transclusion
+#+transclude: [[file:../LSD/study/study/concrete.org::*Variables dictionary][concrete]] :only-contents
+
+* Environment and general configurations
+
+The environment is torus grid for simplicity in which each coordinates (=patches=) represents a housing or land unit with a fixed grid size ( ).
+
+
+#+NAME: classes
+#+begin_src netlogo
+breed [houses house ]      ; a house, may be occupied and may be for sale
+breed [workers worker ]      ; a household, may be living in a house, or may be seeking one
+breed [capitalists capitalist] ; capitalists households
+breed [records record ]    ; a record of a sale, kept by realtors
+#+end_src
+
+
+#+begin_src netlogo
+
+globals [
+  ;; these could become sliders
+  initialVacancyRate  ; proportion of empty houses at start
+
+  ; globally accessible variables (mainly here as globals so that they can be plotted)
+  moves               ; number of households moving in this step
+  interestPerTick     ; interest rate, after cyclical variation has been applied
+  medianPriceOfHousesForSale ; guess!
+  nForceOut           ;; number of owners whose repayment is greater than income and force to leave
+  nOriginalOwners     ;; original number of owners at beginning
+  nOwnersOffered      ;; number of owners who made an offer on a house (have enough money and have target to buy)
+]
+
+
+
+
+
+
+#+end_src
+
+* Houses
+
+In this simplified model, houses occupies a spatial grid, so it has a x and y coordinates (=my-x-cord=, =my-y-cord=).
+At odds with the literature cites:ge_2017_Endogenous,axtell_2014_AgentBased,baptista_2016_Macroprudential, houses have no distinction in its quality, but this property is kept for compatibility reasons.
+In this sense, houses will differ on sale and rent price (=sale-price=, =rent-price=) if, respectively, this house is for sale (=for-sale?=) or is in put in rental market (=for-rent?=).
+In the matching procedure, a house is offered to another household (=offer-to=) in a specific period (=offer-date=) which is the same for rental market.
+If a house is sold, the new owner must pay the current price ($p_{H}$, =current-price=) and the house object will register its sale date (=date-for-sale=).
+The same procedure is employed for rent, which is, there is a current rent price ($R_{house}$, =rent-price=) defined on a specific date (=date-for-rent=).
+After a transaction occurs, the house will have a new relational link with its new owner (=my-owner=).
+If the house has been rented, this ownership relation will be kept until the rent contract duration (=rent-contract=) is valid.
+For tracking reasons, a house also have a time on market ($TOM$, =time-on-market=) property.
+
+#+NAME: houses-prop
+#+begin_src netlogo
+
+houses-own [
+  my-owner            ; the owner who lives in this house
+  my-x-cord           ; house x coordinate
+  my-y-cord           ; house y coordinate
+  quality             ; index of quality of this house relative to its neighbours. Not used
+  current-price       ; house current price
+  for-sale?           ; whether this house is currently for sale
+  for-rent?           ; whether this house is currently for rent
+  sale-price          ; the price of this house (either now, or when last sold)
+  date-for-sale       ; when the house was put on the market
+  rent-price          ; the rent of this house (either now, or when last sold)
+  date-for-rent       ; when the house was put on the rental market
+  offered-to          ; which owner has already made an offer for this house
+  offer-date          ; date of the offer (in ticks)
+  rent-contract       ; Rent contract duration
+  time-on-market      ; Accounts the time a house was in market
+  ]
+
+#+end_src
+
+* Workers
+
+Workers receives wages and this is its only source of income ($Y_{hw}$, =income=).
+In this version, there is no unemployment and wage distinctiveness.
+The main difference across workers households is its house.
+Since there is no consumption goods, household disposable income ($YD_{hw}$, =disp-income=) is the current income net of rents ($R_{hw}$, =paid-rent=).
+
+For simplicity, all workers start the simulation in rental property (owned by capitalists).
+The decision on a new rental unit or bids for a house is based on desired residential investment expenditures ($RI_{hw}$ =desired-residential-exp=).
+If a household rents a house, moving out from it is not allowed until rent contract expires.
+
+There is no credit in the current version of the model.
+As a consequence, households buy houses that they can afford based on net financial wealth ($NFW_{hw}$, =netfinancial-wealth=).
+Net financial wealth is composed by deposits ($M_{hw}$, =deposits=) and houses ($H_{hw}$, =my-house=) at current price added by houses capital gain ($CG_{hw}$, house-capital-gain).
+Additionally, mortgage ($MO_{hw}$, =mortgage=) and repayment (=repayment=) are null.
+
+
+
+#+NAME: workers-prop
+#+begin_src netlogo
+workers-own [
+  my-house                 ; the house which this owner owns
+  income                   ; current income
+  disp-income              ; disposable income
+  savings                  ; savings
+  deposits                 ; deposits
+  netfinancial-wealth      ; households netfinancial wealth
+  desired-residential-exp  ; Desired residential investment expenditure
+  mortgage                 ; value of mortgage - reduces as it is paid off. Not used yet
+  repayment                ; my mortgage repayment amount, at each tick. Not used yet
+  house-capital-gain       ; capital that I have accumulated from selling my house (capital gain).
+  paid-rent                ; how much a household pays for rent
+  date-of-purchase         ; when my-house was bought
+  date-of-rent             ; when my-house was rented
+  made-offer-on            ; house that this owner wants to buy
+  homeless-time            ; count of the number of periods that this owner has been
+                           ;  without a house. Not used yet
+  unemp-time               ; count of the number of periods that this owner has been
+                           ; unemployed. TODO Not used yet
+  homeless?                ; if household is homeless (bool). TODO Not used yet
+  unemp?                   ; if household is unemployed (bool). TODO Not used yet
+  searching-buy?           ; if household is searching for a house to buy (bool). TODO Not used yet
+  searching-rent?          ; if household is searching for a house for rent (bool) TODO Not used yet
+  ]
+#+end_src
+
+* Capitalists
+
+#+NAME:capitalists-prop
+#+begin_src netlogo
+capitalists-own [
+  my-house                 ; the house which this owner owns
+  income                   ; current income
+  savings                  ; savings
+  netfinancial-wealth      ; households netfinancial wealth
+  desired-residential-exp  ; Desired residential investment expenditure
+  mortgage                 ; value of mortgage - reduces as it is paid off. Not used yet
+  repayment                ; my mortgage repayment amount, at each tick. Not used yet
+  house-capital            ; capital that I have accumulated from selling my house
+  rent-received            ; received rents
+  date-of-purchase         ; when my-house was bought
+  date-of-sell             ; when my-house was selled
+  date-of-rent             ; when my-house was rented
+  made-offer-on            ; house that this owner wants to buy
+  made-ask-on              ; house that this owner wants to sell
+  searching-buy?           ; if household is searching for a house to buy (bool)
+  searching-sell?          ; if household is searching for a house to sell (bool)
+  putting-rent?            ; if household is puting a housing for rent (bool)
+]
+#+end_src
+
+* HOLD Real estate agents (compatibility only)
+
+#+NAME: realtor-prop
+#+begin_src netlogo
+;; For compatibility only
+records-own [         ; object holding a realtor's record of a transaction
+  the-house           ; the house that was sold
+  selling-price       ; the selling price
+  date                ; the date of the transaction (in ticks)
+  ]
+#+end_src
+
+* Market mechanism
+
+** Housing market
+
+*** Bids
+
+*** Asks
+
+*** Clearing
+
+** Rental market
+
+*** Bids
+
+*** Asks
+
+*** Clearing
+
+* GUI related
+
+* Noweb and tangle :noexport:
+
+In this section, all previous code is tangled to =housing_no_firms.nlog= using =noweb= syntax.
+So, all the code here is equal to the previous sections.
+
+#+begin_src netlogo :noweb yes :tangle housing_no_firms.nlogo
+
+extensions [palette]
+
+
+<<houses-prop>>
+<<workers-prop>>
+<<capitalists-prop>>
+<<realtor-prop>>
+#+end_src
+
+* Next steps
+
+* References :ignore:
+bibliography:/HDD/Org/zotero_refs.bib
+* TODO Dúvidas
+
+- A casas precisam ter uma propriedade =offer-to= and =offer-date= diferente para compra/venda de casas e para aluguel ou podem ser o mesmo? Imagino que se forem diferentes é possível trackear para quem a casa foi ofertada para vender/comprar antes de ir para o mercado de aluguéis (se não ouve acordo).

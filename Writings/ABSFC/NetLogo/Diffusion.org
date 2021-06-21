@@ -1,0 +1,407 @@
+#+OPTIONS: num:nil
+#+TITLE: Diffusion model
+#+AUTHOR: Gabriel Petrini
+#+LANG: en
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup
+#+PROPERTY:header-args netlogo :results output drawer :eval never-export :session diffusion :exports both
+
+* Description and relevant information
+
+
+** WHAT IS IT?
+
+This is a really simple model for study reasons only.
+The idea of this toy model is to evaluate how house prices diffusion spread across the grid and affects the house price index.
+
+*** Model conceptual design
+
+- Agents :: Houses and Land
+- Environment :: Spatial for houses
+- Resources :: None
+- Interactions :: agent/agent - none; environment/agent - diffusion of house price; agent/environment - house price index
+- Attributes :: agent - coordinates, price; environment - construction density
+
+** HOW IT WORKS
+
+All houses start at random coordinates and equal price.
+Thus, in the next step, the house price is spread across its neighbours.
+After some time, a random shock is runned in a fixed share of houses.
+
+** HOW TO USE IT
+
+- Setup procedure initializes the model
+- Go employ diffusion mechanism
+- house-price-index monitor calculates general house price index
+- density slider changes construction density
+- n-shock slide changes how much houses will have a random price change
+- steady-state monitor indicates if there is no house price increase
+
+
+** THINGS TO NOTICE
+
+- How construction density affects house price index
+- The divergence between more occupied regions
+- How much time takes for stabilization
+
+** THINGS TO TRY
+
+- Change diffusion rate
+- Change construction density
+- Change initial price
+- Change how much houses will be shocked
+- FUTURE: Change contract time
+
+** EXTENDING THE MODEL
+
+The main way to extend this model is to plug other economic modules (sectors).
+Additionally, it would be interresting to include a rent contract time in order to set if a property price will change in the current period.
+A variable indication whether a house is rented, for sale or unoccupied could be usefull in future versions of the dissertation's model.
+
+
+** NETLOGO FEATURES
+
+- diffusion
+
+** RELATED MODELS
+
+- LSD Island model
+
+** CREDITS AND REFERENCES
+
+
+
+* Simplifying assumptions
+
+- Houses have a initial price
+  + homogeneous-flag indicates whether or not house prices are the same in the initialization
+- Land stars with a null price and do not diffuse its
+- Prices updates each period
+- Diffusion rate is equal across patches
+- For visualization reasons, color indicates the price (if more expensive, darker it will be)
+
+* Environment and general configurations
+
+The environment is torus grid for simplicity in which each coordinates (=patches=) represents a housing or land unit with a fixed grid size.
+The number o land units ($NLand$, number-land) is defined as follows:
+
+#+BEGIN_latex
+\begin{equation}
+NLand = (1-Density)\cdot Area
+\end{equation}
+#+END_latex
+in which $Density$ (density-ratio) indicates the constructed areas and $Area$ represents the number of patches in the grid.
+
+#+NAME: classes
+#+begin_src netlogo
+breed [houses house ]      ; a house, may be occupied and may be for sale
+breed [lands land ]        ; a land unit
+#+end_src
+
+
+#+NAME: globals-var
+#+begin_src netlogo
+globals [
+  ;; these could become sliders
+  ;; density-ratio ; Slider
+  prob-shock
+  shock-size
+  ;; initial-house-price ; Slider
+  edge-patches   ;; border patches where value should remain 0
+  main-patches   ;; patches not on the border
+]
+
+#+end_src
+
+* Houses and land
+
+Houses and land occupy a spatial grid, so it has a x and y coordinates (=my-x-cord=, =my-y-cord=).
+Additionally, both have a price property (=my-price=) which changes during the simulation.
+Houses exclusively will have a random variable indication if will be shocked (=shocked?=) based on a property globally defined (=prob-shock=).
+The shock magnitude is a global variable as well and is a fraction of the previous house price value.
+For simplicity, shock probablity will be calculated first.
+
+#+NAME: classes-prop
+#+begin_src netlogo
+
+houses-own [
+  occupied?
+  price            ; house current price
+  shocked?            ; If a house will be shocked
+  my-owner
+  ]
+
+
+lands-own [
+  occupied?
+  price            ; house current price
+  my-owner
+  ]
+#+end_src
+
+
+First, houses are created in random places
+
+#+NAME: create-houses
+#+begin_src netlogo
+to build-house
+  create-houses 1 [
+    ; set shape "custom-house"
+    set shape "house"
+    set price initial-house-price
+    set color red
+    set occupied? true
+    ; hide-turtle
+    move-to one-of patches
+    if count houses-here > 1 [
+            let empty-sites patches with [not any? houses-here ]
+            if any? empty-sites [ move-to one-of empty-sites ]
+        ]
+    ]
+end
+#+end_src
+
+Then, create land in unoccupied spaces
+#+NAME: generate-land
+#+begin_src netlogo
+to generate-land
+  create-lands 1 [
+    set shape "tree" ;; For aesthetics only
+    set price  0
+    set color green
+    set occupied? false
+    set my-owner nobody
+    move-to one-of patches
+    if count houses-here > 1 or count lands-here > 0 [
+      let empty-space patches with [ not (any? houses-here or any? lands-here) ]
+            if any? empty-space [ move-to one-of empty-space ]
+        ]
+      ]
+end
+#+end_src
+
+* Initialization (=setup=)
+
+#+NAME:setup
+#+begin_src netlogo
+to setup
+  clear-all
+  reset-ticks
+  repeat (round (count patches * density-ratio / 100)) [ build-house ]
+  repeat (round (count patches * (100 - density-ratio ) / 100)) [ generate-land]
+  set edge-patches patches with [count neighbors != 8]
+  set main-patches patches with [count neighbors = 8]
+end
+#+end_src
+
+* Diffusion mechanism
+
+At each step, house price is updated according to the neighbours' price.
+Lands price does not updates.
+
+#+begin_src netlogo
+to update-price
+ let mean-price mean [ house-price ] of houses with [ house-price > 0 ] ;; median sale-prices of all houses with owners
+
+     let local-houses houses with [distance myself < 3 and price > 0]
+     ;; find all local houses of the empty house = locality distance and has owner with sale-price
+
+     ifelse any? local-houses ;; if there exist local houses,
+       [ set price  mean [ price ] of local-houses ]  ;; use local houses median price as the empty house sale-price
+       [ set price  mean-price ]  ;; otherwise, use all occupied houses median price for the empty house sale-price
+end
+#+end_src
+
+* Shock procedure
+
+#+begin_src netlogo
+to shock-house
+
+end
+#+end_src
+
+* Price update mechanism (=go=)
+
+#+NAME: update-house-price
+#+begin_src netlogo
+to update-house-price
+  ask houses [
+  let num-of-occ-houses count (houses-on neighbors)  with [ breed = [ breed ] of myself ]
+  let num-of-land count (houses-on neighbors)  with [ breed != [ breed ] of myself ]
+  ifelse num-of-occ-houses > 1 [
+  set price (mean [price] of (houses-on neighbors))
+  set color scale-color red price -100 100
+    ] [set price price set color blue ]
+  ]
+end
+#+end_src
+
+
+#+NAME: go
+#+begin_src netlogo
+to go
+  update-house-price
+end
+#+end_src
+
+* Report house price index
+
+#+NAME: do-plot
+
+#+begin_src netlogo
+to do-plots
+  set-current-plot "house price mean"
+  set-current-plot-pen "mean"
+  plot mean [price] of houses
+end
+#+end_src
+
+* GUI related
+
+#+NAME: gui
+#+begin_src netlogo
+@#$#@#$#@
+GRAPHICS-WINDOW
+210
+10
+647
+448
+-1
+-1
+13.0
+1
+10
+1
+1
+1
+0
+1
+1
+1
+-16
+16
+-16
+16
+0
+0
+1
+ticks
+30.0
+
+BUTTON
+19
+98
+92
+131
+NIL
+setup
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+128
+107
+191
+140
+NIL
+go
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+SLIDER
+18
+208
+203
+241
+initial-house-price
+initial-house-price
+0
+100
+53.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+22
+263
+194
+296
+density-ratio
+density-ratio
+0
+100
+69.0
+1
+1
+NIL
+HORIZONTAL
+
+PLOT
+805
+166
+1005
+316
+house price mean
+NIL
+NIL
+0.0
+100.0
+0.0
+10.0
+true
+false
+"" ""
+PENS
+"mean" 1.0 0 -7500403 true "set-current-plot-pen \"mean\"" "plot mean [price] of houses"
+
+@#$#@#$#@
+#+end_src
+* Noweb and tangle :noexport:
+
+In this section, all previous code is tangled to =diffusion.nlog= using =noweb= syntax.
+So, all the code here is equal to the previous sections.
+
+#+begin_src netlogo :noweb yes :tangle diffusion.nlogo
+
+extensions [palette]
+
+
+<<classes>>
+
+<<classes-prop>>
+
+<<globals-var>>
+
+<<create-houses>>
+
+<<generate-land>>
+
+<<setup>>
+
+<<go>>
+
+<<update-house-price>>
+
+<<do-plots>>
+
+; <<gui>>
+#+end_src
+
+* Next steps
+
+* TODO Dúvidas
