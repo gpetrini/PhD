@@ -1,0 +1,373 @@
+#+OPTIONS: num:nil
+#+TITLE: Gilbert's UK Housing Market model
+#+AUTHOR: Gabriel Petrini
+#+LANG: en
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup
+#+PROPERTY:header-args netlogo :results output drawer :eval no :session gilbert :exports code
+
+* Introduction
+
+This file provides a documentation of textcite:gilbert__AgentBased model for study reasons only.
+This document does not intend to replace the paper reading.
+Additional, this project was possible because of [[http://modelingcommons.org/browse/one_model/5726#model_tabs_browse_history][UK housing market updated]] code by [[http://modelingcommons.org/?id=3066][Kenny]].
+Thus, this is just a literate programming version of this initial code.
+
+
+#+CAPTION: Version control
+| Item                     |          Version |
+|--------------------------+------------------|
+| NetLogo                  |              6.2 |
+| Code                     |              1.7 |
+| Start Documentation Date | <2021-06-22 ter> |
+|--------------------------+------------------|
+
+** Paper's objective
+
+To replicate some key aspect of the housing market:
+- House prices are "Sticky downards" :: Since house stock is constant in the short-term, increases in demand will generate sharpe increases in house prices. Sharpe decreases will have short-term effects only
+- Sensitive to new-comers :: Without new comers, there is no demand for new houses
+- Sensitive to interest rate :: Interest rate changes the house that agents can affoard.
+
+* Spatial dimension and global variables
+
+This model uses a toroidal space in which is occupied or not by a house.
+Each patch does not have any addtional property and is grey for aesthetical reasons:
+#+NAME: setup-patches
+#+begin_src netlogo
+ask patches [ set pcolor gray + 3 ]
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  if debug? or debug-setup = "1 patches" [
+  inspect patch 1 1
+  user-message (word "1 patches : loop each patch, paint it muddy green. ")
+  stop-inspecting patch 1 1
+  ]
+#+end_src
+
+The geography in this model plays a essential role because it affects houses distribution:
+#+CAPTION: Geography dictionary
+| NetLogo  | Effect |
+|----------+--------|
+| "Random" |        |
+|          |        |
+
+* Model agents (=breeds=)
+
+This model is composed by four agents:
+- Houses :: may be occupied and may be for sale
+- Owners :: a household, may be living in a house, or may be seeking one
+- Realtors :: a real estate agent
+- Records :: a record of a sale, kept by realtors (pseudo-agent)
+
+#+NAME: breeds
+#+begin_src netlogo
+breed [houses house ]      ; a house, may be occupied and may be for sale
+breed [owners owner ]      ; a household, may be living in a house, or may be seeking one
+breed [realtors realtor ]  ; an estate agent
+breed [records record ]    ; a record of a sale, kept by realtors
+#+end_src
+
+* Patches-related procedures
+* Houses-related procedures
+
+In this model, there is no maximization of an agent's utility function.
+Thus, there is no need to include house's quality index (at odds with literature).
+As a consequence, houses will be distinct based on price at which others houses in the locality have been sold.
+
+
+** Houses properties
+
+Each house has a owner who lives in it (=my-owner=).
+Thus, there must be a link between =houses= and =onwers=.
+Since there is real estate agents who provides information for the seeking to buy/sell agents, each house must be linked to =realtors= in the locality radius as well (=local-realtors=).
+If a house is for sale (=for-sale?=), there is both a sale price (=sale-price=) and a real estate agent which is selling it (=my-realtor=), registering the date the house was put on market (=date-for-sale=).
+In the selling procedure, the house agent register who it was offer to (=offered-to=) and its date (=offer-date=).
+Finally, each house has a life-time in which after that (=end-of-life=) is demolished and the patch will be empty.
+This life-time is defined based on a exponential distribution.
+
+#+NAME: houses-prop
+#+begin_src netlogo
+houses-own [
+  my-owner            ; the owner who lives in this house
+  local-realtors      ; the local realtors
+  quality             ; index of quality of this house relative to its neighbours
+  for-sale?           ; whether this house is currently for sale
+  sale-price          ; the price of this house (either now, or when last sold)
+  date-for-sale       ; when the house was put on the market
+  my-realtor          ; if for sale, which realtor is selling it
+  offered-to          ; which owner has already made an offer for this house
+  offer-date          ; date of the offer (in ticks)
+  end-of-life         ; time step when this house will be demolished
+  ]
+
+#+end_src
+
+
+Houses distinctiveness is defined by its quality index (=quality=) defined as the sale price divided by the median price of all houses *for sale*.
+Which is calculated in the =setup= procedure.
+
+#+NAME: setup-quality
+#+begin_src netlogo
+set medianPriceOfHousesForSale median [sale-price] of houses  ;; get median price for all houses
+
+   ask houses [
+
+    set quality sale-price / medianPriceOfHousesForSale  ;; quality is sale-price/median-price
+
+    if quality > 3 [set quality 3] if quality < 0.3 [set quality 0.3]  ;; quality is between 0.3 to 3
+
+
+;    set color scale-color magenta quality 0 5  ;; quality by magenta scale
+
+  ]
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  if debug? or debug-setup = "7 quality" [
+
+    inspect max-one-of houses [ who ]
+    user-message (word "7 quality: initialize quality of house, based on sale-price " )
+    stop-inspecting max-one-of houses [ who ]
+  ]
+#+end_src
+
+During the initialization (=setup=), houses are built according to a =Density= ratio defined globally.
+#+NAME: setup-houses
+#+begin_src netlogo
+  repeat (count patches * Density / 100) [ build-house ]
+  ;; Density=70% is a slider global variable for houses, 70 houses on 100 patches, use this ratio to create enough houses for this world
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  if debug? or debug-setup = "3 houses" [
+    inspect max-one-of houses [who]
+    user-message (word "3 houses : build a number of houses. Check which properties are initialized. " )
+    stop-inspecting max-one-of houses [who]
+  ]
+
+#+end_src
+
+The =build-house= function ensures that if there is a house in a patch (=houses-here > 1=), this agent will be moved to an =empty-site=.
+An empty site is an agentsets in which ask each patch if there is *not* a house in there:
+#+begin_example netlogo
+let empty-sites patches with [ not any? houses-here ]
+#+end_example
+if so, move the house there
+#+begin_example netlogo
+if any? empty-sites [ move-to one-of empty-sites ]
+#+end_example
+
+
+After the creating procedure, real estate agents are assinged to this house based on its locality.
+If there is no real estate agent in this distance, set the nearest one.
+
+
+#+NAME: proc-build-house
+#+begin_src netlogo
+to build-house
+
+  set-default-shape houses "my-house" ;; I changed the design of a house
+
+  create-houses 1 [
+
+
+;   hide-turtle  ;; original code, but I don't like house to be hidden
+    set color 35 ;; set house to be brown
+
+    ;; How to make transparent color ?
+    set color lput house-alpha extract-rgb color
+
+   ; for speed, dump the house anywhere, check if there is already a house there,
+   ;  and if so, move to an empty spot
+    move-to one-of patches
+    if count houses-here > 1 [  ;; if more than 1 houses on the current patch ;;  houses-here == turtles-here, check document
+;      user-message ( word "count houses-here > 1 is true, how many inside houses-here?  " count houses-here )
+
+      let empty-sites patches with [ not any? houses-here ]  ;; ask every patch to see whether it already has a house on it or not, if not consider it an empty-site
+;      user-message ( word "let empty-sites patches with [ not any? houses-here ], length empty-sites" count empty-sites) ;; debug for details
+
+      if any? empty-sites [ move-to one-of empty-sites ]  ;; if empty-sites exist, let current house move to any one of the empty-site
+
+      ]
+
+    ; assign to a realtor or realtors if in their territory
+    set local-realtors realtors with [ distance myself < RealtorTerritory ]  ;; if the realtor to the house distance < radius, make the realtor(s) for the house
+
+    ; if no realtor assigned, then choose nearest
+    if not any? local-realtors [ set local-realtors turtle-set min-one-of realtors [ distance myself ] ]  ;; turtle-set to check
+
+    put-on-market  ; initially empty houses are for sale
+
+    ; note how long this house will last before it falls down and is demolished
+    set end-of-life ticks + int random-exponential ( HouseMeanLifetime * TicksPerYear )
+
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    if debug? or debug-setup = "2.5 build-a-house" [
+       inspect self
+       user-message (
+        word "2.5 build-a-house : create a single house, paint it brown, make it transparent, move it a random patch without house, find local-realtors, "
+        word "or just a nearest realtor, put on market for sale, calc end-of-life with random-exponential" "."
+       )
+       stop-inspecting self
+    ]
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ]
+end
+
+#+end_src
+
+
+Initially, all empty houses are =put-on-market= which basically sets =for-sale?= boolean and a date for sale.
+#+NAME: proc-put-on-market
+#+begin_src netlogo
+to put-on-market        ;; house procedure
+;; show that this house is for sale
+    set for-sale? true
+    set date-for-sale ticks
+end
+#+end_src
+
+All the others properties are defined by other agents.
+Finally, aesthetically, houses are represented by a brown house shape (custom).
+
+* Owners-related procedures
+
+
+
+* Realtors-related procedures
+
+** Realtors
+
+** Records
+
+
+* Macroeconomic variables
+
+* Baseline
+
+Baseline variables are activated if =scenario = 'baseline'=:
+#+CAPTION: Baseline variables
+| NetLogo variable      |                 Value                 | Description                                                                                                                    |                                                 Personal Notes (for Dissertation) |
+| <l20>                 |                 <c5>                  | <l60>                                                                                                                          |                                                                             <r30> |
+|-----------------------+---------------------------------------+--------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------|
+| Inflation             |                   0                   | Inflation rate                                                                                                                 |                                                                                   |
+| InterestRate          |                   7                   | Interest rate (value/100 = %)                                                                                                  |                                                                                   |
+| TicksPerYear          |                   4                   | 4 ticks = 1 year                                                                                                               |                                 Useful to include lag distinction between sectors |
+| CycleStrength         |                   0                   | How much variation is introduced to interest rate                                                                              |                                                                              Drop |
+| Affordability         |                  25                   | % of income can be used to pay for mortgage                                                                                    |                                                                       Endogenize? |
+| Savings               |                  50                   | % fo income will be saved                                                                                                      |                                                    Use mg prop to consume instead |
+| ExitRate              |                   2                   | % of owners will exit city due to death or relocation of job each tick                                                         |                                                                              Drop |
+| EntryRate             |                   5                   | % of owners are new comers enter the city each tick                                                                            |                          Drop. What are the implications of EntryRate > ExitRate? |
+| MeanIncome            |                 30000                 | Mean income of *whole* population                                                                                                |                                                                                   |
+| Shocked               |                  20                   | % of whole population will get an income shock (either up or down)                                                             |                                                   Drop. Permanent Income related. |
+| MaxHomelessPeriod     |                   5                   | maximum duration of homeless any one can stand before exit the city                                                            |                                                                 Review necessity. |
+| BuyerSearchLength     |                  10                   | any buyer will only have patience to shop around maximum 10 houses                                                             |                                             Linear according to household income. |
+| RealtorTerritory      |                   8                   | realtor's territory is a circle with radius equal to 8 units                                                                   |                                                       Drop. No real estate agent. |
+| Locality              |                   3                   | local neighbors to a house is all the houses within x units distance to it                                                     |                                                    Q: x units radius or in total? |
+| RealtorMemory         |                  10                   | any record can only live for x ticks                                                                                           |                                                                              Drop |
+| PriceDropRate         |                   3                   | if not sold at current tick, then drop sale-price by x%                                                                        |                                                                  Review necessity |
+| RealtorOptimism       |                   3                   | when doing a valuation for a house, raise valuation by x% due to realtor's optimism                                            |              Drop. What are the consequences of PriceDropRate == RealtorOptimism? |
+| Density               |                  70                   | % of land are filled with houses                                                                                               |                                                                            Slider |
+| HouseMeanLifetime     |                  100                  | the end of life of a house is determined by a exponential distribution using the mean lifetime of all houses                   |                                                   If no house improvements, drop. |
+| MaxLoanToValue        |                  100                  | maximum mortgage / house sale-price                                                                                            |                                                                           Slider. |
+| StampDuty?            |                 false                 | do not consider StampDuty                                                                                                      |                                                                Policy experiments |
+| MortgageDuration      |                  25                   | mortgage takes 25 years to repay                                                                                               |                                                             Slider or endogenize. |
+| HouseConstructionRate |                 0.33                  | each tick build new houses equal to 0.33% of current total houses                                                              | Equivalent to autonomous investment of houseing sector or buffer-stock procedure. |
+| Income-shock          |                  20                   | income shock is to rise or fall by %                                                                                           |                                                   Drop. Permanent Income related. |
+| InitialGeography      |               "Random"                | houses are located randomly, not by gradient nor cluster                                                                       |                                                                       Interesting |
+| price-difference      |                 5000                  | in cluster mode, consider houses whose price is more than 5000 differ from their neighbor houses, belong to different clusters |                                                               Interesting. Slider |
+| initialVacancyRate    |                 0.05                  | at the very beginning there are % of houses are empty                                                                          |                                         Test only one breed withou house. Slider. |
+| nRealtors             |                   6                   | number of realtors                                                                                                             |                                                                              Drop |
+| min-price-fraction    |                  0.1                  | when the sale-price of a house drop to (x*100)% of median price of all houses, make this house demolished.                     |                                                              Drop. No demolition. |
+| interestPerTick       | InterestRate / ( TicksPerYear * 100 ) | convert interest rate per year to interest rate per tick                                                                       |                                                                 Review necessity. |
+| house-alpha           |                  251                  | no transparency                                                                                                                |                                                                               use |
+| debug-setup           |                "none"                 | For sanity check                                                                                                               |                                                                 Understand better |
+| debug-go              |                "none"                 | For sanity check                                                                                                               |                                                                 Understand better |
+| exp-options           |                "none"                 | Unclear                                                                                                                        |                                                                 Understand better |
+|-----------------------+---------------------------------------+--------------------------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------|
+
+#+NAME: vars-base-line
+#+begin_src netlogo
+
+if scenario = "base-line" [
+    set Inflation 0   ;; inflation rate 0 or 2
+    set InterestRate 7  ;; 7 as 7% per year
+    set TicksPerYear 4  ;; 4 ticks = a year
+    set CycleStrength 0  ;; how much variation (0) is introduced to interest rate
+    set Affordability  25  ;; 25% of income can be used to pay for mortgage
+    set Savings 50   ;; 50% of income will be saved
+    set ExitRate 2   ;; 2% of owners will exit city due to death or relocation of job each tick
+    set EntryRate 5  ;; 5% of owners are new comers enter the city each tick
+    set MeanIncome 30000  ;; mean income of whole population is 30000, used to calc each person's income using a gamma distribution
+    set Shocked 20  ;; 20% of whole population will get an income shock (either up or down)
+    set MaxHomelessPeriod 5  ;; maximum duration of homeless any one can stand before exit the city
+    set BuyerSearchLength  10  ;; any buyer will only have patience to shop around maximum 10 houses
+    set RealtorTerritory  8  ;; realtor's territory is a circle with radius equal to 8 units
+    set Locality 3  ;;  local neighbors to a house is all the houses within 3 units distance to it
+    set RealtorMemory 10  ;; any record can only live for 10 ticks
+    set PriceDropRate  3  ;; if not sold at current tick, then drop sale-price by 3%
+    set RealtorOptimism 3   ;; when doing a valuation for a house, raise valuation by 3% due to realtor's optimism
+    set Density 70  ;; 70% of land are filled with houses
+    set HouseMeanLifetime 100  ;; the end of life of a house is determined by a exponential distribution using the mean lifetime of all houses (100 years)
+    set MaxLoanToValue 100  ;; maximum mortgage / house sale-price = 100% = 1
+    set StampDuty? false  ;; do not consider StampDuty
+    set MortgageDuration 25   ;; mortgage taks 25 years to repay
+    set HouseConstructionRate 0.33  ;; each tick build new houses equal to 0.33% of current total houses
+    set Income-shock 20  ;; income shock is to rise or fall by 20%
+    set InitialGeography "Random"  ;; houses are located randomly, not by gradient nor cluster
+    set price-difference 5000  ;; in cluster mode, consider houses whose price is more than 5000 differ from their neighbor houses, belong to different clusters
+    set scenario "base-line" ;; automatically set all parameters to base line values
+    set initialVacancyRate 0.05  ;; at the very beginning there are 5% of houses are empty
+    set nRealtors 6   ;; there are 6 realtors in the city
+    set min-price-fraction 0.1  ;; when the sale-price of a house drop to 10% of median price of all houses, make this house demolished.
+    set interestPerTick InterestRate / ( TicksPerYear * 100 ) ;; convert interest rate per year to interest rate per tick
+    set house-alpha 251 ;; no transparency
+    set debug-setup "none"
+    set debug-go "none"
+    set exp-options "none"
+]
+#+end_src
+
+* Scenarios
+
+#+CAPTION: Scenarios descriptions
+| Flag            | Experiment                                  |
+|-----------------+---------------------------------------------|
+| "ltv"           | Reduce MaxLoanToValue (100 $\Rightarrow$ 60 )         |
+| "ratefall"      | Reduce InterestRate (7 $\Rightarrow$ 3)               |
+| "influx"        | Increase EntryRate (5 $\Rightarrow$ 10)               |
+| "poorentrantes" | Reduce MeanIncome (30000 $\Rightarrow$ 24000)         |
+| "clusters"      | Change geography and continue for 400 steps |
+|-----------------+---------------------------------------------|
+
+* Experiments
+
+* Tangle and noweb :noexport:
+
+#+begin_src netlogo :noweb yes :tangle ./literate_gilbert.nlogo
+;extensions [profiler]
+extensions [palette]
+
+<<breeds>>
+
+<<houses-prop>>
+
+
+to setup
+  clear-all
+  reset-ticks
+;; 0 initialization variables
+  <<vars-base-line>>
+;; 1 make the world or land light gray from color swatches
+  <<setup-patches>>
+; 3 create and distribute the houses
+  <<setup-houses>>
+
+; 7 quality
+  <<setup-quality>>
+
+end
+
+
+<<proc-build-house>>
+
+<<proc-put-on-market>>
+#+end_src

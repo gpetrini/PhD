@@ -89,12 +89,13 @@ The number o land units ($NLand$, number-land) is defined as follows:
 NLand = (1-Density)\cdot Area
 \end{equation}
 #+END_latex
-in which $Density$ (density-ratio) indicates the constructed areas and $Area$ represents the number of patches in the grid.
+in which $Density$ (=density-ratio=) indicates the constructed areas and $Area$ represents the number of patches in the grid.
 
 #+NAME: classes
 #+begin_src netlogo
 breed [houses house ]      ; a house, may be occupied and may be for sale
 breed [lands land ]        ; a land unit
+breed [owners owner]       ; a house owner. No active role in this version
 #+end_src
 
 
@@ -103,11 +104,14 @@ breed [lands land ]        ; a land unit
 globals [
   ;; these could become sliders
   ;; density-ratio ; Slider
-  prob-shock
-  shock-size
+  ;; prob-shock ; Slider
+  exog-house-price-shock
+  ;; Locality ; Slider
   ;; initial-house-price ; Slider
+  VacancyRate
   edge-patches   ;; border patches where value should remain 0
   main-patches   ;; patches not on the border
+  max-price
 ]
 
 #+end_src
@@ -125,8 +129,8 @@ For simplicity, shock probablity will be calculated first.
 
 houses-own [
   occupied?
+  for-sale?
   price            ; house current price
-  shocked?            ; If a house will be shocked
   my-owner
   ]
 
@@ -148,7 +152,7 @@ to build-house
     ; set shape "custom-house"
     set shape "house"
     set price initial-house-price
-    set color red
+    set color brown
     set occupied? true
     ; hide-turtle
     move-to one-of patches
@@ -179,6 +183,41 @@ to generate-land
 end
 #+end_src
 
+* Owners
+
+In this toy model, owners do not play any active role.
+The relevance of this agent is to associate an owner with a house.
+
+#+NAME: owners-prop
+#+begin_src netlogo
+owners-own [
+  my-house
+  income
+]
+#+end_src
+
+
+Then, based on a fixed vacancy rate (=VacancyRate=), a random share of houses will have an owner indicated by a red dot.
+
+#+NAME: owns-house
+#+begin_src netlogo
+to owns-house
+  set-default-shape owners "dot"
+  let occupied-houses n-of ((1 - VacancyRate) * count houses) houses
+  ask occupied-houses [
+    set for-sale? false
+    set occupied? true
+    hatch-owners 1 [
+      set color red
+      set size 0.7
+      set my-house myself
+      ask my-house [ set my-owner myself ]
+    ]
+  ]
+
+end
+#+end_src
+
 * Initialization (=setup=)
 
 #+NAME:setup
@@ -188,49 +227,34 @@ to setup
   reset-ticks
   repeat (round (count patches * density-ratio / 100)) [ build-house ]
   repeat (round (count patches * (100 - density-ratio ) / 100)) [ generate-land]
+  ask patches [ set pcolor gray + 3 ]
   set edge-patches patches with [count neighbors != 8]
   set main-patches patches with [count neighbors = 8]
-end
-#+end_src
-
-* Diffusion mechanism
-
-At each step, house price is updated according to the neighbours' price.
-Lands price does not updates.
-
-#+begin_src netlogo
-to update-price
- let mean-price mean [ house-price ] of houses with [ house-price > 0 ] ;; median sale-prices of all houses with owners
-
-     let local-houses houses with [distance myself < 3 and price > 0]
-     ;; find all local houses of the empty house = locality distance and has owner with sale-price
-
-     ifelse any? local-houses ;; if there exist local houses,
-       [ set price  mean [ price ] of local-houses ]  ;; use local houses median price as the empty house sale-price
-       [ set price  mean-price ]  ;; otherwise, use all occupied houses median price for the empty house sale-price
-end
-#+end_src
-
-* Shock procedure
-
-#+begin_src netlogo
-to shock-house
-
+  set prob-shock 0.03
+  set exog-house-price-shock 0.01
+  set VacancyRate 0.7
+  set max-price 1000
+  owns-house
 end
 #+end_src
 
 * Price update mechanism (=go=)
 
+In this simple version, a random share of houses =prob-shock= will have an increase in its price by =exog-house-price-shock=.
+Next, all the *remaining* houses will update its prices according to their neighbors' mean in a =Locality= radius which includes non-occupied patches.
+
 #+NAME: update-house-price
 #+begin_src netlogo
 to update-house-price
   ask houses [
-  let num-of-occ-houses count (houses-on neighbors)  with [ breed = [ breed ] of myself ]
-  let num-of-land count (houses-on neighbors)  with [ breed != [ breed ] of myself ]
-  ifelse num-of-occ-houses > 1 [
-  set price (mean [price] of (houses-on neighbors))
-  set color scale-color red price -100 100
-    ] [set price price set color blue ]
+    let shocked? random 100 < prob-shock
+    ifelse not shocked? [
+      let num-of-occ-houses count (houses-on neighbors)  with [ distance myself < Locality ]
+      ifelse num-of-occ-houses > 1 [
+        set price (mean [price] of (houses-on neighbors) with [ distance myself < Locality ])
+        set color scale-color brown price ( max-price + 9 ) (initial-house-price - 9)
+      ] [set price price set color blue ] ; For inspection
+    ] [ set price price * (1 + exog-house-price-shock) set color yellow]
   ]
 end
 #+end_src
@@ -239,19 +263,20 @@ end
 #+NAME: go
 #+begin_src netlogo
 to go
+  if max [price] of houses > max-price [stop]
   update-house-price
+  tick
 end
 #+end_src
 
 * Report house price index
 
-#+NAME: do-plot
-
+#+NAME: do-plots
 #+begin_src netlogo
 to do-plots
-  set-current-plot "house price mean"
-  set-current-plot-pen "mean"
-  plot mean [price] of houses
+  set-current-plot "house price median"
+  set-current-plot-pen "median"
+  plot median [price] of houses
 end
 #+end_src
 
@@ -259,118 +284,8 @@ end
 
 #+NAME: gui
 #+begin_src netlogo
-@#$#@#$#@
-GRAPHICS-WINDOW
-210
-10
-647
-448
--1
--1
-13.0
-1
-10
-1
-1
-1
-0
-1
-1
-1
--16
-16
--16
-16
-0
-0
-1
-ticks
-30.0
-
-BUTTON
-19
-98
-92
-131
-NIL
-setup
-NIL
-1
-T
-OBSERVER
-NIL
-NIL
-NIL
-NIL
-1
-
-BUTTON
-128
-107
-191
-140
-NIL
-go
-NIL
-1
-T
-OBSERVER
-NIL
-NIL
-NIL
-NIL
-1
-
-SLIDER
-18
-208
-203
-241
-initial-house-price
-initial-house-price
-0
-100
-53.0
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-22
-263
-194
-296
-density-ratio
-density-ratio
-0
-100
-69.0
-1
-1
-NIL
-HORIZONTAL
-
-PLOT
-805
-166
-1005
-316
-house price mean
-NIL
-NIL
-0.0
-100.0
-0.0
-10.0
-true
-false
-"" ""
-PENS
-"mean" 1.0 0 -7500403 true "set-current-plot-pen \"mean\"" "plot mean [price] of houses"
-
-@#$#@#$#@
 #+end_src
+
 * Noweb and tangle :noexport:
 
 In this section, all previous code is tangled to =diffusion.nlog= using =noweb= syntax.
@@ -384,12 +299,15 @@ extensions [palette]
 <<classes>>
 
 <<classes-prop>>
+<<owners-prop>>
 
 <<globals-var>>
 
 <<create-houses>>
 
 <<generate-land>>
+
+<<owns-house>>
 
 <<setup>>
 
@@ -404,4 +322,26 @@ extensions [palette]
 
 * Next steps
 
+** DONE Random house price shock
+CLOSED: [2021-06-22 ter 18:10]
+
+** STRT Implement Locality variable
+- What locality means?
+
+
+** DONE Random set if a house is owned with a dot shape
+CLOSED: [2021-06-22 ter 18:51]
+
+** TODO Change owner
+
+*** Delete previous owner
+
+** TODO Improve visualization of house prices in the grid
+
+** TODO How to set interface up without GUI widgets
+
 * TODO Dúvidas
+
+- How to setup interface without widgets?
+- What distance and locality means?
+- Better visualization of house price?
