@@ -1,0 +1,453 @@
+#+OPTIONS: num:nil
+#+TITLE: One house diffusion model
+#+AUTHOR: Gabriel Petrini
+#+LANG: en
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup
+#+PROPERTY:header-args netlogo :results output drawer :eval never-export :session one-diffusion :exports code
+
+* Description and relevant information
+:PROPERTIES:
+:ID:       bd2ac753-c0b4-4231-97e0-cd4e5f8bf21e
+:END:
+
+
+** What is it?
+
+This is a really simple model for study reasons only.
+The idea of this toy model is to evaluate how house prices diffusion spread across the grid and affects the house price index.
+In order to do so, *one* house chosen randomly will have it price increased buy a fixed rate.
+
+*** Model conceptual design
+
+- Agents :: Houses and Land
+- Environment :: Spatial for houses
+- Resources :: None
+- Interactions ::
+  + agent/agent :: none
+  + environment/agent :: house price "diffusion"
+  + agent/environment :: house price index
+
+** How it works
+
+All houses start at random coordinates and equal price.
+Next, land is allocated in empty patches.
+By construction, there is only *one* agent per patch and no empty patch.
+After the initialization, a house is randomly chosen a its price is increased by a fixed rate.
+In the next step, houses updates its prices according to its neighbors.
+For simplicity, =land='s price is set to zero, but it affects the regional house price mean.
+The houses each agent considers depends on a locality variable defined globally.
+
+
+** How to use it
+
+- =setup= procedure initializes the model
+- =go= shocks a random house and employ diffusion mechanism
+- =initial-house-price= sets the initial house prices equally for all agents
+- house-price-shock monitor shows the price of the shocked house
+- density-ratio slider changes construction density
+- pct-change defined the shock size
+
+
+** Things to notice
+
+- How construction density affects house price index
+- The divergence between more occupied regions
+
+** Things to try
+
+- Change construction density
+- Change initial price
+- Change land price
+
+** Extending the model
+
+- More houses will be shocked at each period
+- Houses have random prices
+
+
+** NetLogo Features
+
+- distance
+- move-to
+
+** Related Models
+
+
+** Credits and reference
+
+- [[https://cress.soc.surrey.ac.uk/housingmarket/ukhm.html][UK housing model]]
+
+
+
+* Implementation
+
+** Simplifying assumptions
+
+- Houses have a initial price
+- Land default price is zero
+- Prices updates each period
+- Diffusion rate is equal across patches, but it is sensible to density ratio
+- For visualization reasons, color indicates the price (if more expensive, darker it will be)
+
+** Environment and general configurations
+
+The environment is *torus grid* for simplicity in which each coordinates (=patches=) represents a housing or land unit with a fixed grid size.
+The model is composed by two agents only: houses and lands.
+
+
+#+NAME: classes
+#+begin_src netlogo
+breed [houses house ]      ; a house, may be occupied and may be for sale
+breed [lands land ]        ; a land unit
+#+end_src
+
+Density ratio (=density-ratio=), house price shock (=exog-house-price-shock=), house price update radius (=Locality=) and houses initial price (=initial-house-price=) are defined globally.
+Density ratio indicates the share of patches that are occupied by houses while the remaining is occupied by land.
+Houseprice shock represents the house price growth rate applied to a single house.
+Locality affects the number of houses in its surroundings each specific house considers when updating its price.
+For simplicity, this locality index is equal to across houses.
+Finally, all houses starts with the same price.
+This hypothesis was choosen to verify if the diffusion processes emerges during the simulation.
+
+
+#+NAME: globals-var
+#+begin_src netlogo
+globals [
+  ;; these could become sliders
+  model-version
+  density-ratio
+  exog-house-price-shock
+  shocked-house
+  Locality
+  initial-house-price
+  initial-land-price
+]
+
+#+end_src
+
+** Houses and land
+
+Houses and land occupy a spatial grid and have a price (=price=).
+Houses exclusively will have a random variable indication if will be shocked (=shocked?=).
+The shock magnitude is a global variable as well and is a fraction of the previous house price value.
+
+#+NAME: classes-prop
+#+begin_src netlogo
+
+houses-own [
+  price            ; house current price
+  shocked?
+  ]
+
+
+lands-own [
+  price            ; house current price
+  ]
+#+end_src
+
+
+First, houses are created in random places
+
+#+NAME: create-houses
+#+begin_src netlogo
+to build-house
+  create-houses 1 [
+    ; set shape "custom-house"
+    set shape "house"
+    set price initial-house-price
+    set color brown
+    set shocked? false
+    move-to one-of patches
+    if count houses-here > 0 [
+            let empty-sites patches with [not any? houses-here ]
+            if any? empty-sites [ move-to one-of empty-sites ]
+        ]
+    ]
+end
+#+end_src
+
+Then, create land in unoccupied spaces
+#+NAME: generate-land
+#+begin_src netlogo
+to generate-land
+  create-lands 1 [
+    set shape "tree" ;; For aesthetics only
+    set price  initial-land-price
+    set color green
+    move-to one-of patches
+    if count houses-here > 0 or count lands-here > 0 [
+      let empty-space patches with [ not (any? houses-here or any? lands-here) ]
+            if any? empty-space [ move-to one-of empty-space ]
+        ]
+      ]
+end
+#+end_src
+
+** Initialization (=setup=)
+
+During the initialization process, a house is choosen randomly do be shocked.
+
+#+NAME:setup
+#+begin_src netlogo
+to setup
+  clear-all
+  reset-ticks
+  set model-version "no-diffusion"
+  if density-ratio = 0 [set density-ratio random 100] ;; just to initialize and create at least one house
+  if initial-house-price = 0 [set initial-house-price random 10] ;; just to initialize
+  if Locality = 0 [set Locality random 10] ;; just to initialize
+
+  repeat (round (count patches * density-ratio / 100)) [ build-house ]
+  repeat (round (count patches * (100 - density-ratio ) / 100)) [ generate-land]
+  ask one-of houses [set shocked? true set color yellow]
+  ask patches [ set pcolor gray + 3 ]
+  set exog-house-price-shock 0.01
+  set initial-land-price 0
+end
+#+end_src
+
+** Price update mechanism (=go=)
+
+
+In this simple version, a random share of houses =prob-shock= will have an increase in its price by =exog-house-price-shock=.
+Next, all the *remaining* houses will update its prices according to their neighbors' mean in a =Locality= radius which includes non-occupied patches.
+
+#+NAME: update-house-price
+#+begin_src netlogo
+to update-house-price
+  ask houses [
+    ifelse shocked? = false [
+      ;; Ensure that only houses or lands are select for future compability
+      let agents-around-here other turtles in-radius Locality with [breed = houses or breed = lands]
+      ;; Temporary variable to reduce code size
+      let unshocked-houses houses with [shocked? = false]
+      set price (mean [price] of agents-around-here)
+      set color scale-color brown price (max [price] of unshocked-houses + 1 ) (min [price] of unshocked-houses - 1 )
+        ]
+   [ set price price * (1 + exog-house-price-shock)]
+  ]
+end
+#+end_src
+
+
+#+NAME: go
+#+begin_src netlogo
+to go
+  if ticks > 1000 [stop]
+  update-house-price
+  tick
+end
+#+end_src
+
+** Report house price index
+
+#+NAME: do-plots
+#+begin_src netlogo
+to do-plots
+  set-current-plot "House price statistics"
+  set-current-plot-pen "median"
+  plot median [price] of houses
+  set-current-plot-pen "mean"
+  plot mean [price] of houses
+end
+#+end_src
+
+** GUI related :noexport:
+
+
+#+NAME: gui-pre-exp
+#+begin_src netlogo
+@#$#@#$#@
+GRAPHICS-WINDOW
+210
+10
+812
+613
+-1
+-1
+18.0
+1
+10
+1
+1
+1
+0
+1
+1
+1
+-16
+16
+-16
+16
+0
+0
+1
+ticks
+30.0
+
+BUTTON
+0
+60
+73
+93
+NIL
+setup
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+78
+60
+141
+93
+NIL
+go
+T
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+BUTTON
+39
+99
+102
+132
+NIL
+go
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+@#$#@#$#@
+@#$#@#$#@
+@#$#@#$#@
+NetLogo 6.2.0
+@#$#@#$#@
+@#$#@#$#@
+@#$#@#$#@
+#+end_src
+
+#+NAME: gui-post-exp
+#+begin_src netlogo
+@#$#@#$#@
+@#$#@#$#@
+default
+0.0
+-0.2 0 0.0 1.0
+0.0 1 1.0 0.0
+0.2 0 0.0 1.0
+link direction
+true
+0
+Line -7500403 true 150 150 90 180
+Line -7500403 true 150 150 210 180
+@#$#@#$#@
+0
+@#$#@#$#@
+#+end_src
+
+* Running and analysing
+
+In order to run, the experiment flag should be the =experiment name = 'name'= in the shell script.
+Additionally, the =xml= should be tangled to the other netlogo sections (using noweb).
+
+** Baseline scenario
+*** Defining values
+
+#+NAME: baseline-exp
+#+begin_src xml :exports none :results none
+  <experiment name="baseline-run" repetitions="1" runMetricsEveryStep="true">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="1000"/>
+    <exitCondition>not any? houses</exitCondition>
+    <metric>mean [price] of houses</metric>
+    <!-- <metric>mean [price] of houses with [shocked? = false]</metric> -->
+    <enumeratedValueSet variable="density-ratio">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-house-price">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="Locality">
+      <value value="1"/>
+    </enumeratedValueSet>
+  </experiment>
+#+end_src
+
+*** Running :ignore:
+
+
+#+begin_src sh :exports code :results none
+../../NetLogo/netlogo-headless.sh \
+        --model one-diffusion.nlogo \
+        --experiment baseline-run \
+        --table ./output/baseline.csv \
+        --threads 4
+#+end_src
+
+*** Plots :ignore:
+
+* Noweb and tangle :noexport:
+:PROPERTIES:
+  :header-args: netlogo :results output drawer :eval never-export :session export :exports code :tangle ./one-diffusion.nlogo
+  :END:
+
+** Nlogo file
+
+#+begin_src netlogo :noweb yes :session export
+
+extensions [ palette]
+
+
+<<classes>>
+
+<<classes-prop>>
+<<owners-prop>>
+
+<<globals-var>>
+
+<<create-houses>>
+
+<<generate-land>>
+
+<<owns-house>>
+
+<<setup>>
+
+<<go>>
+
+<<update-house-price>>
+
+<<do-plots>>
+
+<<gui-pre-exp>>
+<<experiments>>
+<<gui-post-exp>>
+#+end_src
+
+** Experiments
+
+#+NAME: experiments
+#+begin_src netlogo :noweb yes :tangle experiments
+<experiments>
+<<baseline-exp>>
+</experiments>
+#+end_src

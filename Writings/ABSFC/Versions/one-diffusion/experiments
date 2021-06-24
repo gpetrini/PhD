@@ -1,0 +1,19 @@
+<experiments>
+  <experiment name="baseline-run" repetitions="1" runMetricsEveryStep="true">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="1000"/>
+    <exitCondition>not any? houses</exitCondition>
+    <metric>mean [price] of houses</metric>
+    <!-- <metric>mean [price] of houses with [shocked? = false]</metric> -->
+    <enumeratedValueSet variable="density-ratio">
+      <value value="20"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-house-price">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="Locality">
+      <value value="1"/>
+    </enumeratedValueSet>
+  </experiment>
+</experiments>

@@ -1,0 +1,315 @@
+#+OPTIONS: num:nil
+#+TITLE: Net Logo Models
+#+AUTHOR: Gabriel Petrini
+#+LANG: en
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup
+
+* Introduction
+
+The purpose of this file is to document all model versions used in my dissertation.
+In order to keep versions maintainable, the main principal across them is *retro compatibility*.
+It means that one user could move between versions just selecting an specific flag.
+In order to do so, some conventions will be employed as described in the next section.
+
+* NetLogo study plans and examples :noexport:
+
+This section is for self control only, thus, not exported.
+
+** TODO Check way emacs shell times more time to run
+** TODO Check if BehaviorSpace overwrites variables set in the setup procedure
+- Experiments defined with behaviour space replaces the define in the =.nlogo= code?
+
+** DONE How to report more than one variable in BehaviourSpace together
+CLOSED: [2021-06-24 qui 18:42]
+
+- Just add anoter =<metric>other-variable<\metric>= line
+
+** KILL Change JAR
+CLOSED: [2021-06-24 qui 18:40]
+
+Not necessary
+
+
+** TODO Check if netlogo included section still work
+** DONE Run model using command line
+CLOSED: [2021-06-24 qui 18:42]
+
+** KILL Install and use [[https://github.com/CRESS-Surrey/eXtraWidgets/tree/master/doc#getting-your-feet-wet][eXtraWidgets]] extension
+CLOSED: [2021-06-24 qui 18:43]
+
+** TODO Input external data on simulations
+
+** TODO Export results without behaviour space
+
+** TODO Create functions to export results to other programming languages
+
+** TODO See nlrx package ([[https://github.com/ropensci/nlrx][link]])
+
+** TODO Necessity to set seed
+* Housekeeping instructions and conventions
+
+All models must use the *literate programming* paradigm to be more non-programmer friendly.
+Since NetLogo code in non-linear (in terms of non-programming writing), this file will base on *noweb* tangle mechanism.
+In order to avoid copy-and-paste and mismatches across files, this document use the *transclusion* procedure.
+Model's last version will be called =current-version.nlogo= while previous versions should be renamed using its activation flag.
+While a model is a current version, its =:tangle= property will be overwriten by the current version section, after that, it will be renamed as =activation-flag.nlogo= using the respective section property.
+To track all versions, each outdated model will be transcluded in the respective section and removed from current version heading.
+Before moving to the next version, some steps must be checked:
+
+#+CAPTION: Before move on
+| Action                            | Status                   |
+|-----------------------------------+--------------------------|
+| Bugs?                             | No (Yes/Debbuging)       |
+| Remaining user messages?          | No (Yes/Solving)         |
+| Remaining TODOs?                  | No (Yes/Refiled)         |
+| Calibrated?                       | Yes/Not needed (Running) |
+| Retro compability achieved?       | Yes (No/Implementing)    |
+| Conflicts with previous versions? | No (Yes/Fixing)          |
+| Deleted related files?            | Yes (No)                 |
+| Transcluded?                      | Yes (No)                 |
+| Current version?                  | Yes (No)                 |
+|-----------------------------------+--------------------------|
+
+
+
+
+
+* Variables and parameter
+
+All versions must be *syntax coherent*, thus this section tracks its NetLogo and $\LaTeX$ labels, description, first implementation date (since), divergent behavior across versions (breaks).
+Each model version will descrebe each variable/parameter in more detail.
+
+| NetLogo | LaTeX | Description | Since | Versions breaks | Notes |
+|---------+-------+-------------+-------+-----------------+-------|
+
+
+
+* Change logs and implementation plans
+
+This section is similar to =info= tab in NetLogo GUI.
+Additionally, each model must describe its contribution related to previous or milestones versions.
+In order to avoid copy-and-paste, the respective section is transcluded.
+Dates in section heading indicates intended implementation deadline.
+
+** STRT One house price diffusion (=one-diffusion=) <2021-06-26 sáb>
+
+*** Model Info :ignore:
+
+#+transclude: [[file:Versions/one-diffusion/one-diffusion.org::*Description and relevant information]] :level 4
+
+*** Changes between versions
+
+None.
+This is the first model.
+
+*** Implementation :ignore:
+
+#+transclude: [[file:Versions/one-diffusion/one-diffusion.org::*Implementation]] :level 4
+
+
+*** Tangle and Noweb :noexport:
+:PROPERTIES:
+  :header-args: netlogo :results output drawer :eval never-export :session export :exports code :tangle ./Versions/one-diffusion.nlogo
+  :END:
+
+#+transclude: [[file:Versions/one-diffusion/one-diffusion.org::*Noweb and tangle]] :level 4 :only-contents
+
+*** Before move on
+
+#+CAPTION: Check status - =one-diffusion= version
+| Action                            | Status             |
+|-----------------------------------+--------------------|
+| Bugs?                             | Implementing model |
+| Remaining user messages?          | Implementing model |
+| Remaining TODOs?                  | Implementing model |
+| Calibrated?                       | Not need           |
+| Retro compability achieved?       | Implementing       |
+| Conflicts with previous versions? | No                 |
+| Deleted related files?            | No                 |
+| Transcluded?                      | No                 |
+| Current version?                  | Yes                |
+
+** WAIT Random houses price diffusion (=random-diffusion=) <2021-07-03 sáb>
+
+*** Model Info
+
+*** Changes between versions
+
+
+*** Before move on
+
+#+CAPTION: Check status - =random-diffusion= version
+| Action                            | Status |
+|-----------------------------------+--------|
+| Bugs?                             |        |
+| Remaining user messages?          |        |
+| Remaining TODOs?                  |        |
+| Calibrated?                       |        |
+| Retro compability achieved?       |        |
+| Conflicts with previous versions? |        |
+| Deleted related files?            |        |
+| Transcluded?                      |        |
+| Current version?                  |        |
+
+** TODO Homogeneous wages and no firms (=homogeneous-wages-nofirms=) <2021-07-15 qui>
+
+*** Model Info
+
+*** Changes between versions
+In addition to the previous version, this model creates homogeneous households in terms of wages.
+A share of them will be house owner while the other will not.
+In this version, there is no rent payment.
+The main issue here is to deal with households that are *homeless*.
+
+** TODO Household entry and exit (=entry-exit=) <2021-07-24 sáb>
+
+*** Model Info
+
+*** Changes between versions
+This version will have a households entry and exit flow.
+The main difficulty in this version is to decide this mobility rules.
+
+** TODO Rent and no internal mobility (=rent-no-internal-mobility=) <2021-08-07 sáb>
+
+*** Model Info
+
+*** Changes between versions
+
+In this version, no house owner households will pay rents to householders.
+This version could incur in stock-flow inconsistency, thus the main ideia is to map them.
+New mechanism must be related to external mobility.
+
+** TODO Internal mobility and random choose (=random-choose=) <2021-08-14 sáb>
+
+*** Model Info
+
+*** Changes between versions
+
+In addition, to the previous version, households are allowed to move-out.
+Thus, this version must have to decision rules which include when to move out.
+For simplicity reasons, the new house is chosen randomly.
+
+** TODO House searching, no transaction and no construction (=house-searching=) <2021-08-21 sáb>
+
+*** Model Info
+
+*** Changes between versions
+Now, households choose where to live according to some rule.
+However, for simplicity, there is no transaction nor house construction, and thus no residential investment.
+In this sense, renters will be always renters in this version.
+
+** TODO Buying and sell without construction or credit (=buy-sell-no-credit=) <2021-08-28 sáb>
+
+*** Model Info
+
+*** Changes between versions
+In this versions, households are allowed to buy houses if they have enough net wealth since is a economy without credit.
+Additionally, households that intend to buy or sell will have asks and bids.
+Other relevant topic is to implement mismatches rules if buy/sell are not succeeded.
+
+** TODO Household credit without construction (=credit-no-construction=) <2021-09-11 sáb>
+
+*** Model Info
+
+*** Changes between versions
+Now on, the model will have a new agent *banks* which evaluate households net balance to grant credit.
+As a consequence, a bunch of new variables must be included such as mortgages, interest rate, loan to value, etc.
+Since there is no construction sector, banks will evaluate only houses.
+
+** TODO Construction model with fixed capital stock (=construction-fixed-capital=) <2021-09-25 sáb>
+
+*** Model Info
+
+*** Changes between versions
+
+This is other milestone model with a new agent type.
+In order to produce, construction sector need to hire workers and use a fixed (but renovabel) capital stock since there is no other sector.
+Since banks are included, firms will have access to credit as well.
+Two of the main modifications is the endogenous employment mechanism as well as a variable house stock.
+This version must deal with environmental limits and landspace geography.
+
+** TODO Construction and capital goods sector (=construction-capital=) <2021-10-09 sáb>
+
+*** Model Info
+
+*** Changes between versions
+
+This economy will have two sectors.
+The additional one provides capital goods to the other.
+Labor demand rules will be in action now on, so firms dispute for households while households must decide where to work.
+Some key simplifying assumptions will be necessary.
+
+** TODO Consumption goods (=consumption-goods=) <2021-10-16 sáb>
+
+*** Model Info
+
+*** Changes between versions
+
+This is a minor change: consumption goods inclusion.
+All necessary modifications could be mirroed from the other sectors.
+
+** TODO Government (=government=) <2021-10-30 sáb>
+
+*** Model Info
+
+*** Changes between versions
+
+In this versions, there is a new agent: government.
+After that, there is an agent that consume other sectors' production, pays unemployment benefits and set some policy variables.
+
+** TODO Moving to Bechmark (=no-callibrated-benchmark=) <2021-11-13 sáb>
+
+*** Model Info
+
+*** Changes between versions
+
+At this stage, the model is close to the dissertation's first model.
+Thus, this step is to ensure the remaining modifications.
+
+** TODO Calibrating benchmark (=calibrated-benchmark=) <2021-11-27 sáb>
+
+*** Model Info
+
+*** Changes between versions
+
+This is the calibrated benchmark model.
+After this step, the baseline model is live!
+
+** TODO Experiments (=baseline-experiments=) <2021-12-11 sáb>
+
+*** Model Info
+
+*** Changes between versions
+
+By definition, this version should only change parameters/global variables.
+
+** TODO Analysis and report results (=baseline-analysis=) <2022-01-15 sáb>
+
+*** Model Info
+
+*** Changes between versions
+
+This is the last stage before moving to the next model.
+
+** TODO Moving to gentrification version
+
+*** Model Info
+
+*** TODO Changes between versions
+
+
+
+* Current version
+
+This section provides current version of the dissertation model always tangled as =current-version.nlogo=.
+Model's information is provided in the respective change log subsection.
+The following text is transcluded, so *read-only*.
+
+#+transclude: [[file:Versions/one-diffusion/one-diffusion.org::*Implementation]] :level 2
+
+* Noweb and tangle
+:PROPERTIES:
+  :header-args: netlogo :results output drawer :eval never-export :session export :exports code :tangle ./Versions/current-version.nlogo
+  :END:
+
+#+transclude: [[file:Versions/one-diffusion/one-diffusion.org::*Noweb and tangle]] :level 2 :only-contents
