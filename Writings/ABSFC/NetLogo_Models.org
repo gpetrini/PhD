@@ -14,10 +14,13 @@ In order to do so, some conventions will be employed as described in the next se
 * NetLogo study plans and examples :noexport:
 
 This section is for self control only, thus, not exported.
-
+** TODO How =in-radius=, =distance= behave on non-torus lattice?
+** TODO Import xml as dataframe
+** TODO How to increase performance
 ** TODO Check way emacs shell times more time to run
 ** TODO Check if BehaviorSpace overwrites variables set in the setup procedure
 - Experiments defined with behaviour space replaces the define in the =.nlogo= code?
+- Apparently, =step = 0= uses setup procedure values.
 
 ** DONE How to report more than one variable in BehaviourSpace together
 CLOSED: [2021-06-24 qui 18:42]

@@ -1,9 +1,22 @@
 #+OPTIONS: num:nil
 #+TITLE: One house diffusion model
 #+AUTHOR: Gabriel Petrini
+
+* Initial setup
 #+LANG: en
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup
 #+PROPERTY:header-args netlogo :results output drawer :eval never-export :session one-diffusion :exports code
+#+PROPERTY: header-args R :results output drawer :eval never-export :session analysis :exports both :tangle ./analysis.R
+#+PROPERTY: header-args python :results output drawer :eval never-export :session xmls :exports both :tangle ./xml_importer.py
+
+#+BEGIN_SRC python
+import pandas as pd
+import xmltodict
+#+END_SRC
+
+#+RESULTS:
+:results:
+:end:
 
 * Description and relevant information
 :PROPERTIES:
@@ -416,10 +429,15 @@ Line -7500403 true 150 150 210 180
 @#$#@#$#@
 #+end_src
 
-* Running and analysing
+* Running and analyzing
 
 In order to run, the experiment flag should be the =experiment name = 'name'= in the shell script.
 Additionally, the =xml= should be tangled to the other netlogo sections (using noweb).
+
+#+CAPTION: Experiments number
+| Label          | Number |
+|----------------+--------|
+| 'baseline-run' |      0 |
 
 ** Baseline scenario
 *** Defining values
@@ -448,7 +466,35 @@ Additionally, the =xml= should be tangled to the other netlogo sections (using n
   </experiment>
 #+end_src
 
-*** Running :ignore:
+#+BEGIN_SRC python :noweb yes
+with open('experiments.xml') as fd:
+    doc = xmltodict.parse(fd.read())
+
+
+experiments = pd.DataFrame.from_dict(doc["experiments"])
+experiment = experiments['experiment']
+
+exps = []
+
+for i in range(len(experiment)):
+    base_var = experiment.iloc[i]
+    exp_names = base_var['@name']
+    base_df = pd.DataFrame.from_dict(base_var['enumeratedValueSet'])
+    variables = base_df['@variable']
+    vals = base_df['value']
+
+    for v in range(len(variables)):
+        tmp = dict(vals[v]['@value'])
+        values = pd.DataFrame(tmp)
+
+
+#+END_SRC
+
+#+RESULTS:
+:results:
+:end:
+
+*** Running :noexport:
 
 #+begin_src sh :exports code :results none
 ../../NetLogo/netlogo-headless.sh \
@@ -458,7 +504,141 @@ Additionally, the =xml= should be tangled to the other netlogo sections (using n
         --threads 6
 #+end_src
 
-*** Plots :ignore:
+
+*** Preparing dataframe
+
+#+begin_src R :results code
+library(tidyverse)
+df <- data.table::fread(
+  "./output/baseline.csv",
+  skip = 6
+) %>%
+  arrange(`[run number]`) %>%
+  rename(
+    time = `[step]`,
+    `House price mean` = `mean [price] of houses`,
+    simulation = `[run number]`
+  ) %>%
+  filter(time > 0) %>%
+  select(time, `House price mean`, simulation) %>%
+  mutate(simulation = factor(simulation))
+#+end_src
+
+#+RESULTS:
+#+begin_src R
+── [1mAttaching packages[22m ────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
+[32m✔[39m [34mggplot2[39m 3.3.3     [32m✔[39m [34mpurrr  [39m 0.3.4
+[32m✔[39m [34mtibble [39m 3.0.6     [32m✔[39m [34mdplyr  [39m 1.0.4
+[32m✔[39m [34mtidyr  [39m 1.1.2     [32m✔[39m [34mstringr[39m 1.4.0
+[32m✔[39m [34mreadr  [39m 1.4.0     [32m✔[39m [34mforcats[39m 0.5.1
+── [1mConflicts[22m ───────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+[31m✖[39m [34mdplyr[39m::[32mfilter()[39m masks [34mstats[39m::filter()
+[31m✖[39m [34mdplyr[39m::[32mlag()[39m    masks [34mstats[39m::lag()
+#+end_src
+
+
+
+*** House price mean
+
+#+begin_src R :results graphics file :file ./figs/baseline_house_price_mean.png
+df %>%
+  ggplot(aes(x = time, y = `House price mean`, group = round(time / 50))) +
+  geom_boxplot() -> plot
+ggsave('./figs/baseline_house_price_mean.png', plot)
+#+end_src
+
+#+RESULTS:
+[[file:./figs/baseline_house_price_mean.png]]
+
+
+
+
+** Experiments
+
+*** Defining values
+
+
+#+NAME: exp-density-locality
+#+begin_src xml :exports none :results none
+  <experiment name="density-locality-run" repetitions="20" runMetricsEveryStep="true">
+    <setup>setup</setup>
+    <go>go</go>
+    <timeLimit steps="1000"/>
+    <exitCondition>not any? houses</exitCondition>
+    <metric>mean [price] of houses</metric>
+    <enumeratedValueSet variable="no-gui?">
+      <value value="true"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="density-ratio">
+      <value value="20"/>
+      <value value="50"/>
+      <value value="70"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-house-price">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="Locality">
+      <value value="1"/>
+      <value value="2"/>
+      <value value="5"/>
+    </enumeratedValueSet>
+  </experiment>
+#+end_src
+
+*** Running :noexport:
+
+#+begin_src sh :exports code :results none
+../../NetLogo/netlogo-headless.sh \
+        --model one-diffusion.nlogo \
+        --experiment density-locality-run \
+        --table ./output/exp-density-locality.csv \
+        --threads 6
+#+end_src
+
+
+*** Preparing dataframe
+
+#+begin_src R :results code
+library(tidyverse)
+df <- data.table::fread(
+  "./output/exp-density-locality.csv",
+  skip = 6
+) %>%
+  arrange(`[run number]`, `density-ratio`, Locality) %>%
+  rename(
+    time = `[step]`,
+    `House price mean` = `mean [price] of houses`,
+    simulation = `[run number]`
+  ) %>%
+  filter(time > 0) %>%
+  mutate(
+    simulation = factor(simulation),
+    density = factor(`density-ratio`),
+    Locality = factor(Locality)
+    )
+#+end_src
+
+#+RESULTS:
+#+begin_src R
+#+end_src
+
+
+
+*** House price mean
+
+#+begin_src R :results graphics file :file ./figs/densityxlocality_house_price_mean.png
+df %>%
+  ggplot(aes(x = time, y = `House price mean`, group = round(time / 50))) +
+  facet_grid(density ~ Locality) +
+  geom_boxplot() -> plot
+ggsave('./figs/densityxlocality_house_price_mean.png', plot)
+#+end_src
+
+#+RESULTS:
+[[file:./figs/densityxlocality_house_price_mean.png]]
+
+
+
 
 * Noweb and tangle :noexport:
 :PROPERTIES:
@@ -503,8 +683,9 @@ extensions [ palette]
 ** Experiments
 
 #+NAME: experiments
-#+begin_src netlogo :noweb yes :tangle experiments
+#+begin_src netlogo :noweb yes :tangle experiments.xml
 <experiments>
 <<baseline-exp>>
+<<exp-density-locality>>
 </experiments>
 #+end_src
