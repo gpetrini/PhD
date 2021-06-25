@@ -89,7 +89,8 @@ The houses each agent considers depends on a locality variable defined globally.
 - Diffusion rate is equal across patches, but it is sensible to density ratio
 - For visualization reasons, color indicates the price (if more expensive, darker it will be)
 
-** Environment and general configurations
+
+** Agents types
 
 The environment is *torus grid* for simplicity in which each coordinates (=patches=) represents a housing or land unit with a fixed grid size.
 The model is composed by two agents only: houses and lands.
@@ -109,11 +110,13 @@ For simplicity, this locality index is equal to across houses.
 Finally, all houses starts with the same price.
 This hypothesis was choosen to verify if the diffusion processes emerges during the simulation.
 
+** Global variables
 
 #+NAME: globals-var
 #+begin_src netlogo
 globals [
   ;; these could become sliders
+  ; no-gui? ;; Slider
   model-version
   density-ratio
   exog-house-price-shock
@@ -121,6 +124,8 @@ globals [
   Locality
   initial-house-price
   initial-land-price
+  num-of-new-houses
+  unshocked-houses
 ]
 
 #+end_src
@@ -137,6 +142,7 @@ The shock magnitude is a global variable as well and is a fraction of the previo
 houses-own [
   price            ; house current price
   shocked?
+  existing-time
   ]
 
 
@@ -152,10 +158,13 @@ First, houses are created in random places
 #+begin_src netlogo
 to build-house
   create-houses 1 [
+    if no-gui? = false [
     ; set shape "custom-house"
-    set shape "house"
-    set price initial-house-price
     set color brown
+    set shape "house"
+    ]
+    set existing-time 0
+    set price initial-house-price
     set shocked? false
     move-to one-of patches
     if count houses-here > 0 [
@@ -171,9 +180,11 @@ Then, create land in unoccupied spaces
 #+begin_src netlogo
 to generate-land
   create-lands 1 [
+    if no-gui? = false [
     set shape "tree" ;; For aesthetics only
-    set price  initial-land-price
     set color green
+    ]
+    set price  initial-land-price
     move-to one-of patches
     if count houses-here > 0 or count lands-here > 0 [
       let empty-space patches with [ not (any? houses-here or any? lands-here) ]
@@ -193,16 +204,30 @@ to setup
   clear-all
   reset-ticks
   set model-version "no-diffusion"
-  if density-ratio = 0 [set density-ratio random 100] ;; just to initialize and create at least one house
-  if initial-house-price = 0 [set initial-house-price random 10] ;; just to initialize
-  if Locality = 0 [set Locality random 10] ;; just to initialize
+  ; set no-gui? true
+  if density-ratio = 0 [set density-ratio random 100 + 1] ;; just to initialize and create at least one house
+  if initial-house-price = 0 [set initial-house-price random 5 + 1] ;; just to initialize
+  if Locality = 0 [set Locality random 5 + 1] ;; just to initialize
 
   repeat (round (count patches * density-ratio / 100)) [ build-house ]
   repeat (round (count patches * (100 - density-ratio ) / 100)) [ generate-land]
   ask one-of houses [set shocked? true set color yellow]
+  set unshocked-houses houses with [shocked? = false]
   ask patches [ set pcolor gray + 3 ]
   set exog-house-price-shock 0.01
   set initial-land-price 0
+end
+#+end_src
+
+** Houses aging mechanism (=update-age=)
+
+In order to increase code efficiency, houses will have an =age= that updates each time.
+This procedure allows to evaluate (globaly) if there is new houses (=houses with [age = 0]=), then updates each houses neighbors only if needed.
+
+#+NAME: update-age
+#+begin_src netlogo
+to update-age
+  set existing-time (1 + existing-time)
 end
 #+end_src
 
@@ -216,14 +241,16 @@ Next, all the *remaining* houses will update its prices according to their neigh
 #+begin_src netlogo
 to update-house-price
   ask houses [
+    update-age
     ifelse shocked? = false [
       ;; Ensure that only houses or lands are select for future compability
       let agents-around-here other turtles in-radius Locality with [breed = houses or breed = lands]
       ;; Temporary variable to reduce code size
-      let unshocked-houses houses with [shocked? = false]
       set price (mean [price] of agents-around-here)
-      set color scale-color brown price (max [price] of unshocked-houses + 1 ) (min [price] of unshocked-houses - 1 )
+      if no-gui? = false [
+        set color scale-color brown ln price (ln max [price] of unshocked-houses + 1 ) (ln min [price] of unshocked-houses - 1 )
         ]
+      ]
    [ set price price * (1 + exog-house-price-shock)]
   ]
 end
@@ -233,7 +260,11 @@ end
 #+NAME: go
 #+begin_src netlogo
 to go
-  if ticks > 1000 [stop]
+  if (ticks > 1000) or (not any? houses) [
+    stop
+    show (word "Execution finished in " timer " seconds")
+]
+  ; set num-of-new-houses houses with [existing-time = 0]
   update-house-price
   tick
 end
@@ -272,8 +303,8 @@ GRAPHICS-WINDOW
 1
 1
 0
-1
-1
+0
+0
 1
 -16
 16
@@ -335,6 +366,28 @@ NIL
 NIL
 NIL
 1
+
+SWITCH
+29
+159
+138
+192
+no-gui?
+no-gui?
+1
+1
+-1000
+
+SWITCH
+27
+201
+161
+234
+debugger?
+debugger?
+1
+1
+-1000
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
@@ -373,13 +426,16 @@ Additionally, the =xml= should be tangled to the other netlogo sections (using n
 
 #+NAME: baseline-exp
 #+begin_src xml :exports none :results none
-  <experiment name="baseline-run" repetitions="1" runMetricsEveryStep="true">
+  <experiment name="baseline-run" repetitions="20" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="1000"/>
     <exitCondition>not any? houses</exitCondition>
     <metric>mean [price] of houses</metric>
     <!-- <metric>mean [price] of houses with [shocked? = false]</metric> -->
+    <enumeratedValueSet variable="no-gui?">
+      <value value="true"/>
+    </enumeratedValueSet>
     <enumeratedValueSet variable="density-ratio">
       <value value="20"/>
     </enumeratedValueSet>
@@ -394,13 +450,12 @@ Additionally, the =xml= should be tangled to the other netlogo sections (using n
 
 *** Running :ignore:
 
-
 #+begin_src sh :exports code :results none
 ../../NetLogo/netlogo-headless.sh \
         --model one-diffusion.nlogo \
         --experiment baseline-run \
         --table ./output/baseline.csv \
-        --threads 4
+        --threads 6
 #+end_src
 
 *** Plots :ignore:
@@ -435,6 +490,8 @@ extensions [ palette]
 <<go>>
 
 <<update-house-price>>
+
+<<update-age>>
 
 <<do-plots>>
 

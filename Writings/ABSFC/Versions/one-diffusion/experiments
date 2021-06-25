@@ -1,11 +1,14 @@
 <experiments>
-  <experiment name="baseline-run" repetitions="1" runMetricsEveryStep="true">
+  <experiment name="baseline-run" repetitions="20" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="1000"/>
     <exitCondition>not any? houses</exitCondition>
     <metric>mean [price] of houses</metric>
     <!-- <metric>mean [price] of houses with [shocked? = false]</metric> -->
+    <enumeratedValueSet variable="no-gui?">
+      <value value="true"/>
+    </enumeratedValueSet>
     <enumeratedValueSet variable="density-ratio">
       <value value="20"/>
     </enumeratedValueSet>
