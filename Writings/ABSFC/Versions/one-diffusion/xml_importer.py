@@ -1,7 +1,189 @@
 import pandas as pd
+import xmltodict
+import xml.etree.ElementTree as ET
 
-experiment = pd.DataFrame.from_dict(
+library(tidyverse)
+library(data.table)
+library(stargazer)
+
+metrics <- c(
+  "mean [price] of houses"
 )
+
+internals <- c(
+  "[run number]",
+  "[step]",
+  "no-gui?"
+)
+
+df <- data.table::fread(
+  "./output/baseline.csv",
+  skip = 6
+) %>%
+  first() %>%
+  select(-c(all_of(metrics), all_of(internals))) %>%
+  rename(
+    `Initial house price` = `initial-house-price`,
+    `Density ratio` = `initial-density-ratio`,
+    `Land/House price (%)` = `land-house-price-share`
+  ) %>%
+  pander::pander(style = "grid")
+
+df <- data.table::fread(
+  "./output/baseline.csv",
+  skip = 6
+) %>%
+  arrange(`[run number]`) %>%
+  rename(
+    time = `[step]`,
+    `House price mean` = `mean [price] of houses`,
+    simulation = `[run number]`
+  ) %>%
+  filter(time > 0) %>%
+  select(time, `House price mean`, simulation) %>%
+  mutate(simulation = factor(simulation))
+
+initial_drop <- 100
+
+df <- data.table::fread(
+  "./output/baseline.csv",
+  skip = 6
+) %>%
+  arrange(`[run number]`, `initial-density-ratio`, Locality) %>%
+  rename(
+    time = `[step]`,
+    `House price mean` = `mean [price] of houses`,
+    simulation = `[run number]`
+  ) %>%
+  filter(time > 0) %>%
+  mutate(
+    simulation = factor(simulation),
+    density = factor(`initial-density-ratio`),
+    Locality = factor(Locality)
+  )
+
+
+
+stats <- df %>%
+  group_by(simulation) %>%
+  filter(time > initial_drop, `House price mean` > `initial-house-price`) %>%
+  mutate(tmp = 1:n()) %>%
+  ungroup() %>%
+  arrange(simulation, time) %>%
+  group_by(density, Locality) %>%
+  summarise(
+    `Mean` = mean(`House price mean`),
+    `Price >= initial price` = mean(time[tmp == 1], na.rm = TRUE),
+    ## `Min` = min(`House price mean`),
+    `Median` = median(`House price mean`),
+    `Max` = max(`House price mean`),
+    `sd` = sd(`House price mean`)
+  ) %>%
+  ungroup() %>%
+  mutate(
+    density = density %>% as.character() %>% as.numeric(),
+    Locality = Locality %>% as.character() %>% as.numeric(Locality)
+    ) %>%
+  arrange(`Mean`) %>%
+  suppressMessages()
+
+stats %>%
+  pander::pandoc.table(style = "grid")
+
+df %>%
+  ggplot(aes(x = time, y = log(`House price mean`), group = round(time / 50))) +
+  geom_boxplot() -> plot
+ggsave('./figs/baseline_house_price_mean.png', plot)
+
+metrics <- c(
+  "mean [price] of houses"
+)
+
+internals <- c(
+  "[run number]",
+  "[step]",
+  "no-gui?"
+)
+
+df <- data.table::fread(
+  "./output/exp-density-locality.csv",
+  skip = 6
+) %>%
+  select(-c(all_of(metrics), all_of(internals))) %>%
+  unique() %>%
+  rename(
+    `Initial house price` = `initial-house-price`,
+    `Density` = `initial-density-ratio`,
+    `Land/House price (%)` = `land-house-price-share`
+  ) %>%
+  mutate(Exp = 1:n()) %>%
+  relocate(Exp, .before = 1) %>%
+  pander::pander(style = "grid")
+
+initial_drop <- 100
+variables <- c(
+  "density",
+  "Locality"
+)
+
+df <- data.table::fread(
+  "./output/exp-density-locality.csv",
+  skip = 6
+) %>%
+  arrange(`[run number]`, `initial-density-ratio`, Locality) %>%
+  rename(
+    time = `[step]`,
+    `House price mean` = `mean [price] of houses`,
+    simulation = `[run number]`
+  ) %>%
+  filter(time > 0) %>%
+  mutate(
+    simulation = factor(simulation),
+    density = factor(`initial-density-ratio`),
+    Locality = factor(Locality)
+  )
+
+experiments <- df %>%
+  select(all_of(variables)) %>%
+  unique() %>%
+  mutate(Exp = 1:n())
+
+
+df <- df %>%
+  left_join(experiments) %>%
+  suppressMessages()
+
+stats <- df %>%
+  group_by(Exp) %>%
+  filter(time > initial_drop, `House price mean` > `initial-house-price`) %>%
+  mutate(tmp = 1:n()) %>%
+  ungroup() %>%
+  arrange(simulation, time) %>%
+  group_by(Exp, density, Locality) %>%
+  summarise(
+    `Mean` = mean(`House price mean`),
+    `Price >= initial price` = mean(time[tmp == 1], na.rm = TRUE),
+    ## `Min` = min(`House price mean`),
+    ## `Median` = median(`House price mean`),
+    `Max` = max(`House price mean`),
+    `sd` = sd(`House price mean`)
+  ) %>%
+  ungroup() %>%
+  mutate(
+    density = density %>% as.character() %>% as.numeric(),
+    Locality = Locality %>% as.character() %>% as.numeric(Locality)
+    ) %>%
+  arrange(`Mean`) %>%
+  suppressMessages() %>%
+  pander::pandoc.table(style = "grid")
+
+df %>%
+  ggplot(aes(x = time, y = log(`House price mean`), group = round(time / 100))) +
+  ## geom_vline(aes(xintercept = vline, group = simulation), df_first) +
+  geom_hline(yintercept = log(1), color = 'red') +
+  facet_grid(density ~ Locality) +
+  geom_boxplot() -> plot
+ggsave('./figs/densityxlocality_house_price_mean.png', plot)
 
 breed [houses house ]      ; a house, may be occupied and may be for sale
 breed [lands land ]        ; a land unit
@@ -10,12 +192,14 @@ globals [
   ;; these could become sliders
   ; no-gui? ;; Slider
   model-version
-  density-ratio
+  initial-density-ratio
   exog-house-price-shock
   shocked-house
   Locality
   initial-house-price
+  land-house-price-share
   initial-land-price
+  min-land-price
   num-of-new-houses
   unshocked-houses
 ]
@@ -24,11 +208,13 @@ houses-own [
   price            ; house current price
   shocked?
   existing-time
+  agents-around-here
   ]
 
 
 lands-own [
   price            ; house current price
+  agents-around-here
   ]
 
 to build-house
@@ -68,18 +254,27 @@ to setup
   clear-all
   reset-ticks
   set model-version "no-diffusion"
+  set min-land-price 0.9
   ; set no-gui? true
-  if density-ratio = 0 [set density-ratio random 100 + 1] ;; just to initialize and create at least one house
-  if initial-house-price = 0 [set initial-house-price random 5 + 1] ;; just to initialize
+  if initial-density-ratio = 0 [set initial-density-ratio random 100 + 1] ;; just to initialize and create at least one house
+  ; if initial-house-price = 0 [set initial-house-price random 5 + 1] ;; just to initialize
+  set initial-house-price 1
   if Locality = 0 [set Locality random 5 + 1] ;; just to initialize
+  if land-house-price-share = 0 [set land-house-price-share (random (100 - (min-land-price * 100)) + (min-land-price * 100))/(100)] ;; just to initialize
 
-  repeat (round (count patches * density-ratio / 100)) [ build-house ]
-  repeat (round (count patches * (100 - density-ratio ) / 100)) [ generate-land]
+  repeat (round (count patches * initial-density-ratio / 100)) [ build-house ]
+  repeat (round (count patches * (100 - initial-density-ratio ) / 100)) [ generate-land]
+  ;; Find neighbors globaly to increase performance
+  ;; Attention: this procedure assumes that other agents position is not relevant for this.
+  find-neighbors houses
   ask one-of houses [set shocked? true set color yellow]
   set unshocked-houses houses with [shocked? = false]
   ask patches [ set pcolor gray + 3 ]
   set exog-house-price-shock 0.01
-  set initial-land-price 0
+  set initial-land-price land-house-price-share * initial-house-price
+  ask lands [
+    set price initial-land-price
+  ]
 end
 
 to update-age
@@ -91,11 +286,10 @@ to update-house-price
     update-age
     ifelse shocked? = false [
       ;; Ensure that only houses or lands are select for future compability
-      let agents-around-here other turtles in-radius Locality with [breed = houses or breed = lands]
       ;; Temporary variable to reduce code size
       set price (mean [price] of agents-around-here)
       if no-gui? = false [
-        set color scale-color brown ln price (ln max [price] of unshocked-houses + 1 ) (ln min [price] of unshocked-houses - 1 )
+        set color scale-color brown ln (price + 0.001) (ln max [price] of unshocked-houses + 1 ) (ln (min [price] of unshocked-houses + 1) )
         ]
       ]
    [ set price price * (1 + exog-house-price-shock)]
@@ -107,9 +301,14 @@ to go
     stop
     show (word "Execution finished in " timer " seconds")
 ]
-  ; set num-of-new-houses houses with [existing-time = 0]
   update-house-price
   tick
+end
+
+to find-neighbors [agent]
+  ask agent [
+    set agents-around-here other turtles in-radius Locality with [breed = houses or breed = lands]
+  ]
 end
 
 to do-plots
@@ -255,19 +454,25 @@ Line -7500403 true 150 150 210 180
     <enumeratedValueSet variable="no-gui?">
       <value value="true"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="density-ratio">
-      <value value="20"/>
+    <enumeratedValueSet variable="initial-density-ratio">
+      <value value="70"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-house-price">
       <value value="1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Locality">
-      <value value="1"/>
+      <value value="2"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="land-house-price-share">
+      <value value="70"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="min-land-price">
+      <value value="0.9"/>
     </enumeratedValueSet>
   </experiment>
 
 <?xml version="1.0" encoding="utf-8"?>
-  <experiment name="density-locality-run" repetitions="20" runMetricsEveryStep="true">
+  <experiment name="density-locality-run" repetitions="50" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="1000"/>
@@ -276,18 +481,26 @@ Line -7500403 true 150 150 210 180
     <enumeratedValueSet variable="no-gui?">
       <value value="true"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="density-ratio">
+    <enumeratedValueSet variable="initial-density-ratio">
       <value value="20"/>
       <value value="50"/>
       <value value="70"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="initial-house-price">
-      <value value="1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="Locality">
       <value value="1"/>
       <value value="2"/>
       <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="land-house-price-share">
+      <value value="100"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="initial-house-price">
+      <value value="1"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="min-land-price">
+      <value value="0.2"/>
+      <value value="0.5"/>
+      <value value="0.99"/>
     </enumeratedValueSet>
   </experiment>
 
@@ -302,58 +515,3 @@ Line -7500403 true 150 150 210 180
         --experiment density-locality-run \
         --table ./output/exp-density-locality.csv \
         --threads 6
-
-library(tidyverse)
-df <- data.table::fread(
-  "./output/baseline.csv",
-  skip = 6
-) %>%
-  arrange(`[run number]`) %>%
-  rename(
-    time = `[step]`,
-    `House price mean` = `mean [price] of houses`,
-    simulation = `[run number]`
-  ) %>%
-  filter(time > 0) %>%
-  select(time, `House price mean`, simulation) %>%
-  mutate(simulation = factor(simulation))
-
-── [1mAttaching packages[22m ────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
-[32m✔[39m [34mggplot2[39m 3.3.3     [32m✔[39m [34mpurrr  [39m 0.3.4
-[32m✔[39m [34mtibble [39m 3.0.6     [32m✔[39m [34mdplyr  [39m 1.0.4
-[32m✔[39m [34mtidyr  [39m 1.1.2     [32m✔[39m [34mstringr[39m 1.4.0
-[32m✔[39m [34mreadr  [39m 1.4.0     [32m✔[39m [34mforcats[39m 0.5.1
-── [1mConflicts[22m ───────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-[31m✖[39m [34mdplyr[39m::[32mfilter()[39m masks [34mstats[39m::filter()
-[31m✖[39m [34mdplyr[39m::[32mlag()[39m    masks [34mstats[39m::lag()
-
-df %>%
-  ggplot(aes(x = time, y = `House price mean`, group = round(time / 50))) +
-  geom_boxplot() -> plot
-ggsave('./figs/baseline_house_price_mean.png', plot)
-
-library(tidyverse)
-df <- data.table::fread(
-  "./output/exp-density-locality.csv",
-  skip = 6
-) %>%
-  arrange(`[run number]`, `density-ratio`, Locality) %>%
-  rename(
-    time = `[step]`,
-    `House price mean` = `mean [price] of houses`,
-    simulation = `[run number]`
-  ) %>%
-  filter(time > 0) %>%
-  mutate(
-    simulation = factor(simulation),
-    density = factor(`density-ratio`),
-    Locality = factor(Locality)
-    )
-
-
-
-df %>%
-  ggplot(aes(x = time, y = `House price mean`, group = round(time / 50))) +
-  facet_grid(density ~ Locality) +
-  geom_boxplot() -> plot
-ggsave('./figs/densityxlocality_house_price_mean.png', plot)
