@@ -11,11 +11,31 @@ In order to keep versions maintainable, the main principal across them is *retro
 It means that one user could move between versions just selecting an specific flag.
 In order to do so, some conventions will be employed as described in the next section.
 
+* Overall TODOs
+
+** TODO Create variables dictionary
+- [ ] Transclude to =one-diffusion= and =cluster-geo= model
+** TODO Fix org-transclusion export to hmtl
+- Warning: text-only
+
+** TODO Check how to avoid column line break using =pander=
+
+** TODO Fix netlogo =yasnippets=
+
+** TODO Make a pull-request of =netlogo-mode=
+
+- Commit new escaped characters
+- Check if =cl-lib= suppress warnings
+
 * NetLogo study plans and examples :noexport:
 
 This section is for self control only, thus, not exported.
 ** TODO How =in-radius=, =distance= behave on non-torus lattice?
-** TODO Import xml as dataframe
+** KILL Import xml as dataframe
+CLOSED: [2021-06-29 ter 14:45]
+
+It is easier to import model parameters after simulation run.
+
 ** TODO How to increase performance
 ** TODO Check way emacs shell times more time to run
 ** TODO Check if BehaviorSpace overwrites variables set in the setup procedure
@@ -33,7 +53,6 @@ CLOSED: [2021-06-24 qui 18:40]
 Not necessary
 
 
-** TODO Check if netlogo included section still work
 ** DONE Run model using command line
 CLOSED: [2021-06-24 qui 18:42]
 
@@ -94,7 +113,7 @@ Additionally, each model must describe its contribution related to previous or m
 In order to avoid copy-and-paste, the respective section is transcluded.
 Dates in section heading indicates intended implementation deadline.
 
-** STRT One house price diffusion (=one-diffusion=) <2021-06-26 sáb>
+** HOLD One house price diffusion (=one-diffusion=) <2021-06-26 sáb>
 
 *** Model Info :ignore:
 
@@ -120,49 +139,60 @@ This is the first model.
 *** Before move on
 
 #+CAPTION: Check status - =one-diffusion= version
-| Action                            | Status             |
-|-----------------------------------+--------------------|
-| Bugs?                             | Implementing model |
-| Remaining user messages?          | Implementing model |
-| Remaining TODOs?                  | Implementing model |
-| Calibrated?                       | Not need           |
-| Retro compability achieved?       | Implementing       |
-| Conflicts with previous versions? | No                 |
-| Deleted related files?            | No                 |
-| Transcluded?                      | No                 |
-| Current version?                  | Yes                |
+| Action                            | Status               |
+|-----------------------------------+----------------------|
+| Bugs?                             | No                   |
+| Remaining user messages?          | No                   |
+| Remaining TODOs?                  | Review documentation |
+| Calibrated?                       | Not need             |
+| Retro compability achieved?       | Not needed           |
+| Conflicts with previous versions? | No                   |
+| Deleted related files?            | No                   |
+| Transcluded?                      | No                   |
+| Current version?                  | No                   |
 
-** WAIT Random houses price diffusion (=random-diffusion=) <2021-07-03 sáb>
-
-*** Model Info
-
-*** Changes between versions
+** TODO Cluster geography (=cluster-geo=) <2021-07-03 sáb>
 
 
-*** Before move on
 
-#+CAPTION: Check status - =random-diffusion= version
-| Action                            | Status |
-|-----------------------------------+--------|
-| Bugs?                             |        |
-| Remaining user messages?          |        |
-| Remaining TODOs?                  |        |
-| Calibrated?                       |        |
-| Retro compability achieved?       |        |
-| Conflicts with previous versions? |        |
-| Deleted related files?            |        |
-| Transcluded?                      |        |
-| Current version?                  |        |
+*** Model Info :ignore:
 
-** TODO Cluster geography (=cluster-geo=) <2021-07-10 sáb>
-
-*** Model Info
+#+transclude: [[file:Versions/cluster-geo/cluster-geo.org::*Description and relevant information]] :level 4
 
 *** Changes between versions
 
+- This version provides an flag that affects how model allocates houses accross patches
+  + Random: Houses are distributed randomly
+  + Cluster: Houses are distributed according to its neighborhood similarity
+
+*** Implementation :ignore:
+
+#+transclude: [[file:Versions/cluster-geo/cluster-geo.org::*Implementation]] :level 4
+
+
+*** Tangle and Noweb :noexport:
+:PROPERTIES:
+  :header-args: netlogo :results output drawer :eval never-export :session export :exports code :tangle ./Versions/one-diffusion.nlogo
+  :END:
+
+#+transclude: [[file:Versions/cluster-geo/cluster-geo.org::*Noweb and tangle]] :level 4 :only-contents
 
 *** Before move on
 
+#+CAPTION: Check status - =cluster-geo= version
+| Action                            | Status          |
+|-----------------------------------+-----------------|
+| Bugs?                             | Implementing    |
+| Remaining user messages?          | Implementing    |
+| Remaining TODOs?                  | Implementing    |
+| Calibrated?                       | Check necessity |
+| Retro compability achieved?       | Implementing    |
+| Conflicts with previous versions? | Implementing    |
+| Deleted related files?            | Yes             |
+| Transcluded?                      | Yes             |
+| Current version?                  | Yes             |
+
+** WAIT Random houses price diffusion (=random-diffusion=) <2021-07-10 sáb>
 
 ** TODO Homogeneous wages and no firms (=homogeneous-wages-nofirms=) <2021-07-15 qui>
 
@@ -318,11 +348,11 @@ This section provides current version of the dissertation model always tangled a
 Model's information is provided in the respective change log subsection.
 The following text is transcluded, so *read-only*.
 
-#+transclude: [[file:Versions/one-diffusion/one-diffusion.org::*Implementation]] :level 2
+#+transclude: [[file:Versions/cluster-geo/cluster-geo.org::*Implementation]] :level 2
 
 * Noweb and tangle
 :PROPERTIES:
   :header-args: netlogo :results output drawer :eval never-export :session export :exports code :tangle ./Versions/current-version.nlogo
   :END:
 
-#+transclude: [[file:Versions/one-diffusion/one-diffusion.org::*Noweb and tangle]] :level 2 :only-contents
+#+transclude: [[file:Versions/cluster-geo/cluster-geo.org::*Noweb and tangle]] :level 2 :only-contents

@@ -60,7 +60,7 @@ Next, land is allocated in empty patches.
 By construction, there is only *one* agent per patch and no empty patch.
 After the initialization, a house is randomly chosen a its price is increased by a fixed rate.
 In the next step, houses updates its prices according to its neighbors.
-For simplicity, =land='s price is set to zero, but it affects the regional house price mean.
+For simplicity, =land='s price has a minimum value and is a share of initial house price.
 The houses each agent considers depends on a locality variable defined globally.
 
 
