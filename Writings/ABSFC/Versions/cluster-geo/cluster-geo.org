@@ -235,8 +235,8 @@ to setup
   reset-ticks
 
   set model-version "cluster-geo"
-  set price-difference 5000  ;; in cluster mode, consider houses whose price is more than 5000 differ from their neighbor houses, belong to different clusters. Since: cluster-geo <2021-06-29 ter>
-  set max-initial-house-price 2 * price-difference
+  set price-difference 500  ;; in cluster mode, consider houses whose price is more than 5000 differ from their neighbor houses, belong to different clusters. Since: cluster-geo <2021-06-29 ter>
+  set max-initial-house-price 20 * price-difference
 
   set min-land-price 0.9
   ; set no-gui? true
@@ -247,7 +247,7 @@ to setup
   if land-house-price-share = 0 [set land-house-price-share (random (100 - (min-land-price * 100)) + (min-land-price * 100))/(100)] ;; just to initialize
 
   repeat (round (count patches * initial-density-ratio / 100)) [ build-house ]
-
+   if InitialGeography = "Clustered" [ cluster ]   ;; move houses to the neighbors with similar prices
 
   repeat (round (count patches * (100 - initial-density-ratio ) / 100)) [ generate-land]
   ;; Find neighbors globaly to increase performance
@@ -262,7 +262,6 @@ to setup
   set debug-setup "none" ;; For sanity check. Since: cluster-geo <2021-06-29 ter>
 
 
-   if InitialGeography = "Clustered" [ cluster ]   ;; move houses to the neighbors with similar prices
 
   ask one-of houses [set shocked? true set color yellow]
   set unshocked-houses houses with [shocked? = false]
