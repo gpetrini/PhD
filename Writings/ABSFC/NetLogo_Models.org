@@ -99,10 +99,13 @@ Before moving to the next version, some steps must be checked:
 * Variables and parameter
 
 All versions must be *syntax coherent*, thus this section tracks its NetLogo and $\LaTeX$ labels, description, first implementation date (since), divergent behavior across versions (breaks).
-Each model version will descrebe each variable/parameter in more detail.
+Each model version will describe each variable/parameter in more detail.
 
-| NetLogo | LaTeX | Description | Since | Versions breaks | Notes |
-|---------+-------+-------------+-------+-----------------+-------|
+| NetLogo | LaTeX | Description          | Since         | Versions breaks | Notes |
+|---------+-------+----------------------+---------------+-----------------+-------|
+| Houses  | ?     | Houses agents        | =one-diffusion= |                 |       |
+| Lands   | ?     | Non-occupied patches | =one-diffusion= |                 |       |
+|         |       |                      |                 |                 |       |
 
 
 
