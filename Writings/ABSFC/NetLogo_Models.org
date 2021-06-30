@@ -157,7 +157,7 @@ This is the first model.
 
 *** Model Info :ignore:
 
-#+transclude: [[file:Versions/cluster-geo/cluster-geo.org::*Description and relevant information]] :level 4
+#+include: "Versions/cluster-geo/cluster-geo.org::*Description and relevant information"
 
 *** Changes between versions
 
@@ -167,15 +167,23 @@ This is the first model.
 
 *** Implementation :ignore:
 
-#+transclude: [[file:Versions/cluster-geo/cluster-geo.org::*Implementation]] :level 4
+#+include: "Versions/cluster-geo/cluster-geo.org::*Implementation"
+
+*** Baseline :ignore:
+
+#+include: "Versions/cluster-geo/cluster-geo.org::*Baseline scenario"
+
+*** Experiments :ignore:
+
+#+include: "Versions/cluster-geo/cluster-geo.org::*Experiments"
 
 
 *** Tangle and Noweb :noexport:
 :PROPERTIES:
-  :header-args: netlogo :results output drawer :eval never-export :session export :exports code :tangle ./Versions/one-diffusion.nlogo
+  :header-args: netlogo :results output drawer :eval never-export :session export :exports code :tangle ./Versions/cluster-geo.nlogo
   :END:
 
-#+transclude: [[file:Versions/cluster-geo/cluster-geo.org::*Noweb and tangle]] :level 4 :only-contents
+#+include: "Versions/cluster-geo/cluster-geo.org::*Noweb and tangle"
 
 *** Before move on
 
@@ -343,16 +351,19 @@ This is the last stage before moving to the next model.
 
 
 * Current version
+:PROPERTIES:
+  :header-args: netlogo :results code :eval never-export :session export :exports code
+  :END:
 
 This section provides current version of the dissertation model always tangled as =current-version.nlogo=.
 Model's information is provided in the respective change log subsection.
 The following text is transcluded, so *read-only*.
 
-#+transclude: [[file:Versions/cluster-geo/cluster-geo.org::*Implementation]] :level 2
+#+include: "Versions/cluster-geo/cluster-geo.org::*Implementation"
 
-* Noweb and tangle
+* Noweb and tangle :ignore:
 :PROPERTIES:
   :header-args: netlogo :results output drawer :eval never-export :session export :exports code :tangle ./Versions/current-version.nlogo
   :END:
 
-#+transclude: [[file:Versions/cluster-geo/cluster-geo.org::*Noweb and tangle]] :level 2 :only-contents
+#+include: "Versions/cluster-geo/cluster-geo.org::*Noweb and tangle"

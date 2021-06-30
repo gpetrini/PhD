@@ -5,18 +5,6 @@ breed [houses house ]      ; a house, may be occupied and may be for sale
 breed [lands land ]        ; a land unit
 
 
-houses-own [
-  price            ; house current price
-  shocked?
-  existing-time
-  agents-around-here
-  ]
-
-
-lands-own [
-  price            ; house current price
-  agents-around-here
-  ]
 
 
 globals [
@@ -30,7 +18,7 @@ globals [
   initial-house-price
   land-house-price-share
   initial-land-price
-  min-land-price
+  min-land-price-share
   num-of-new-houses
   unshocked-houses
   max-initial-house-price
@@ -39,6 +27,19 @@ globals [
 ]
 
 
+
+houses-own [
+  price            ; house current price
+  shocked?
+  existing-time
+  agents-around-here
+  ]
+
+
+lands-own [
+  price            ; house current price
+  agents-around-here
+  ]
 to build-house
   create-houses 1 [
     set existing-time 0
@@ -65,7 +66,6 @@ to build-house
 
     ]
 end
-
 to generate-land
   create-lands 1 [
     if no-gui? = false [
@@ -81,26 +81,25 @@ to generate-land
       ]
 end
 
-
-
 to setup
   clear-all
   reset-ticks
 
   set model-version "cluster-geo"
-  set price-difference 5000  ;; in cluster mode, consider houses whose price is more than 5000 differ from their neighbor houses, belong to different clusters. Since: cluster-geo <2021-06-29 ter>
-  set max-initial-house-price 2 * price-difference
+  ; set InitialGeography "Random"
+  set price-difference 500  ;; in cluster mode, consider houses whose price is more than 5000 differ from their neighbor houses, belong to different clusters. Since: cluster-geo <2021-06-29 ter>
+  set max-initial-house-price 20 * price-difference
 
-  set min-land-price 0.9
+  set min-land-price-share 0.9
   ; set no-gui? true
   if initial-density-ratio = 0 [set initial-density-ratio random 100 + 1] ;; just to initialize and create at least one house
   if initial-house-price = 0 [set initial-house-price random 5 + 1] ;; just to initialize
 
   if Locality = 0 [set Locality random 5 + 1] ;; just to initialize
-  if land-house-price-share = 0 [set land-house-price-share (random (100 - (min-land-price * 100)) + (min-land-price * 100))/(100)] ;; just to initialize
+  if land-house-price-share = 0 [set land-house-price-share (random (100 - (min-land-price-share * 100)) + (min-land-price-share * 100))/(100)] ;; just to initialize
 
   repeat (round (count patches * initial-density-ratio / 100)) [ build-house ]
-
+   if InitialGeography = "Clustered" [ cluster ]   ;; move houses to the neighbors with similar prices
 
   repeat (round (count patches * (100 - initial-density-ratio ) / 100)) [ generate-land]
   ;; Find neighbors globaly to increase performance
@@ -115,7 +114,6 @@ to setup
   set debug-setup "none" ;; For sanity check. Since: cluster-geo <2021-06-29 ter>
 
 
-   if InitialGeography = "Clustered" [ cluster ]   ;; move houses to the neighbors with similar prices
 
   ask one-of houses [set shocked? true set color yellow]
   set unshocked-houses houses with [shocked? = false]
@@ -145,11 +143,9 @@ to update-house-price
    [ set price price * (1 + exog-house-price-shock)]
   ]
 end
-
 to update-age
   set existing-time (1 + existing-time)
 end
-
 to find-neighbors [agent]
   ask agent [
     set agents-around-here other turtles in-radius Locality with [breed = houses or breed = lands]
@@ -266,6 +262,9 @@ to-report price-diff [ a-house ]
 
 end
 
+to-report geral-house-price-mean
+ report mean [price] of houses
+end
 to-report local-house-price-mean
 
   let local-agents other turtles in-radius Locality with [breed = houses or breed = lands]
@@ -406,38 +405,39 @@ NetLogo 6.2.0
 @#$#@#$#@
 @#$#@#$#@
 <experiments>
-  <experiment name="baseline-run" repetitions="20" runMetricsEveryStep="true">
+  <experiment name="baseline-run" repetitions="5" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="1000"/>
     <exitCondition>not any? houses</exitCondition>
-    <metric>mean [price] of houses</metric>
-    <!-- <metric>mean [price] of houses with [shocked? = false]</metric> -->
+    <metric>geral-house-price-mean</metric>
     <enumeratedValueSet variable="no-gui?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-density-ratio">
       <value value="70"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="initial-house-price">
-      <value value="1"/>
-    </enumeratedValueSet>
     <enumeratedValueSet variable="Locality">
       <value value="2"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="land-house-price-share">
-      <value value="70"/>
+    <enumeratedValueSet variable="InitialGeography">
+      <value value="&quot;Random&quot;"/>
+      <value value="&quot;Gradient&quot;"/>
+      <value value="&quot;Clustered&quot;"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="min-land-price">
-      <value value="0.9"/>
+    <enumeratedValueSet variable="debug-setup">
+      <value value="&quot;none&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="debug?">
+      <value value="false"/>
     </enumeratedValueSet>
   </experiment>
-  <experiment name="density-locality-run" repetitions="50" runMetricsEveryStep="true">
+  <experiment name="density-locality-run" repetitions="5" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="1000"/>
     <exitCondition>not any? houses</exitCondition>
-    <metric>mean [price] of houses</metric>
+    <metric>geral-house-price-mean</metric>
     <enumeratedValueSet variable="no-gui?">
       <value value="true"/>
     </enumeratedValueSet>
@@ -451,16 +451,16 @@ NetLogo 6.2.0
       <value value="2"/>
       <value value="5"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="land-house-price-share">
-      <value value="100"/>
+    <enumeratedValueSet variable="InitialGeography">
+      <value value="&quot;Random&quot;"/>
+      <value value="&quot;Gradient&quot;"/>
+      <value value="&quot;Clustered&quot;"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="initial-house-price">
-      <value value="1"/>
+    <enumeratedValueSet variable="debug-setup">
+      <value value="&quot;none&quot;"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="min-land-price">
-      <value value="0.2"/>
-      <value value="0.5"/>
-      <value value="0.99"/>
+    <enumeratedValueSet variable="debug?">
+      <value value="false"/>
     </enumeratedValueSet>
   </experiment>
 </experiments>

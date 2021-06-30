@@ -3,25 +3,25 @@ library(data.table)
 library(stargazer)
 
 metrics <- c(
-  "mean [price] of houses"
+  "geral-house-price-mean"
 )
 
 internals <- c(
   "[run number]",
   "[step]",
-  "no-gui?"
+  "no-gui?",
+  "debug-setup",
+  "debug?"
 )
 
 df <- data.table::fread(
   "./output/baseline.csv",
   skip = 6
 ) %>%
-  first() %>%
   select(-c(all_of(metrics), all_of(internals))) %>%
+  unique() %>%
   rename(
-    `Initial house price` = `initial-house-price`,
-    `Density ratio` = `initial-density-ratio`,
-    `Land/House price (%)` = `land-house-price-share`
+    `Density ratio` = `initial-density-ratio`
   ) %>%
   pander::pander(style = "grid")
 
@@ -32,12 +32,15 @@ df <- data.table::fread(
   arrange(`[run number]`) %>%
   rename(
     time = `[step]`,
-    `House price mean` = `mean [price] of houses`,
+    `House price mean` = `geral-house-price-mean`,
     simulation = `[run number]`
   ) %>%
   filter(time > 0) %>%
-  select(time, `House price mean`, simulation) %>%
-  mutate(simulation = factor(simulation))
+  select(time, `House price mean`, simulation, InitialGeography) %>%
+  mutate(
+    simulation = factor(simulation),
+    InitialGeography = factor(InitialGeography)
+  )
 
 initial_drop <- 100
 
@@ -48,25 +51,26 @@ df <- data.table::fread(
   arrange(`[run number]`, `initial-density-ratio`, Locality) %>%
   rename(
     time = `[step]`,
-    `House price mean` = `mean [price] of houses`,
+    `House price mean` = `geral-house-price-mean`,
     simulation = `[run number]`
   ) %>%
   filter(time > 0) %>%
   mutate(
     simulation = factor(simulation),
     density = factor(`initial-density-ratio`),
-    Locality = factor(Locality)
+    Locality = factor(Locality),
+    InitialGeography = factor(InitialGeography)
   )
 
 
 
 stats <- df %>%
   group_by(simulation) %>%
-  filter(time > initial_drop, `House price mean` > `initial-house-price`) %>%
+  filter(time > initial_drop, `House price mean` > `House price mean`[time == 1]) %>%
   mutate(tmp = 1:n()) %>%
   ungroup() %>%
   arrange(simulation, time) %>%
-  group_by(density, Locality) %>%
+  group_by(InitialGeography, density, Locality) %>%
   summarise(
     `Mean` = mean(`House price mean`),
     `Price >= initial price` = mean(time[tmp == 1], na.rm = TRUE),
@@ -78,7 +82,8 @@ stats <- df %>%
   ungroup() %>%
   mutate(
     density = density %>% as.character() %>% as.numeric(),
-    Locality = Locality %>% as.character() %>% as.numeric(Locality)
+    Locality = Locality %>% as.character() %>% as.numeric(),
+    InitialGeography = InitialGeography %>% as.character()
     ) %>%
   arrange(`Mean`) %>%
   suppressMessages()
@@ -88,17 +93,20 @@ stats %>%
 
 df %>%
   ggplot(aes(x = time, y = log(`House price mean`), group = round(time / 50))) +
+  facet_wrap(. ~ InitialGeography) +
   geom_boxplot() -> plot
 ggsave('./figs/baseline_house_price_mean.png', plot)
 
 metrics <- c(
-  "mean [price] of houses"
+  "geral-house-price-mean"
 )
 
 internals <- c(
   "[run number]",
   "[step]",
-  "no-gui?"
+  "no-gui?",
+  "debug?",
+  "debug-setup"
 )
 
 df <- data.table::fread(
@@ -108,9 +116,7 @@ df <- data.table::fread(
   select(-c(all_of(metrics), all_of(internals))) %>%
   unique() %>%
   rename(
-    `Initial house price` = `initial-house-price`,
     `Density` = `initial-density-ratio`,
-    `Land/House price (%)` = `land-house-price-share`
   ) %>%
   mutate(Exp = 1:n()) %>%
   relocate(Exp, .before = 1) %>%
@@ -118,9 +124,9 @@ df <- data.table::fread(
 
 initial_drop <- 100
 variables <- c(
-  "density",
+  "initial-density-ratio",
   "Locality",
-  "min-land-price"
+  "min-land-price-share"
 )
 
 df <- data.table::fread(
@@ -130,7 +136,7 @@ df <- data.table::fread(
   arrange(`[run number]`, `initial-density-ratio`, Locality) %>%
   rename(
     time = `[step]`,
-    `House price mean` = `mean [price] of houses`,
+    `House price mean` = `geral-house-price-mean`,
     simulation = `[run number]`
   ) %>%
   filter(time > 0) %>%
@@ -138,7 +144,7 @@ df <- data.table::fread(
     simulation = factor(simulation),
     density = factor(`initial-density-ratio`),
     Locality = factor(Locality),
-    min_land_price = factor(`min-land-price`)
+    InitialGeography = factor(InitialGeography)
   )
 
 experiments <- df %>%
@@ -153,7 +159,7 @@ df <- df %>%
 
 stats <- df %>%
   group_by(Exp) %>%
-  filter(time > initial_drop, `House price mean` > `initial-house-price`) %>%
+  filter(time > initial_drop, `House price mean` > `geral-house-price`[time == 1]) %>%
   mutate(tmp = 1:n()) %>%
   ungroup() %>%
   arrange(simulation, time) %>%
@@ -169,8 +175,9 @@ stats <- df %>%
   ungroup() %>%
   mutate(
     density = density %>% as.character() %>% as.numeric(),
-    Locality = Locality %>% as.character() %>% as.numeric(Locality)
-    ) %>%
+    Locality = Locality %>% as.character() %>% as.numeric(),
+    InitialGeography = InitialGeography %>% as.character()
+  ) %>%
   arrange(`Mean`) %>%
   suppressMessages() %>%
   pander::pandoc.table(style = "grid")
@@ -206,167 +213,6 @@ df %>%
   facet_wrap(~ Exp, ncol=5) +
   geom_boxplot() -> plot
 ggsave('./figs/all_experiments.png', plot)
-
-breed [houses house ]      ; a house, may be occupied and may be for sale
-breed [lands land ]        ; a land unit
-
-globals [
-  ;; these could become sliders
-  ; no-gui? ;; Slider
-  model-version
-  initial-density-ratio
-  exog-house-price-shock
-  shocked-house
-  Locality
-  initial-house-price
-  land-house-price-share
-  initial-land-price
-  min-land-price
-  num-of-new-houses
-  unshocked-houses
-  max-initial-house-price
-  min-initial-house-price
-  price-difference
-]
-
-houses-own [
-  price            ; house current price
-  shocked?
-  existing-time
-  agents-around-here
-  ]
-
-
-lands-own [
-  price            ; house current price
-  agents-around-here
-  ]
-
-to build-house
-  create-houses 1 [
-    set existing-time 0
-    set shocked? false
-    move-to one-of patches
-    if count houses-here > 0 [
-            let empty-sites patches with [not any? houses-here ]
-            if any? empty-sites [ move-to one-of empty-sites ]
-        ]
-
-  if InitialGeography = "Random" or InitialGeography = "Clustered" [
-    set price random (max-initial-house-price) + min-initial-house-price
-  ]
-  if InitialGeography = "Gradient" [  ;; price increase from bottom-left to top-right
-   set price initial-house-price * ( xcor + ycor + 50) / 50
-  ]
-    if no-gui? = false [
-    ; set shape "custom-house"
-
-    paint-houses   ;; scale-paint houses based on log price
-    ; set color brown
-    set shape "house"
-    ]
-
-    ]
-end
-
-to generate-land
-  create-lands 1 [
-    if no-gui? = false [
-    set shape "tree" ;; For aesthetics only
-    set color green
-    ]
-    set price  initial-land-price
-    move-to one-of patches
-    if count houses-here > 0 or count lands-here > 0 [
-      let empty-space patches with [ not (any? houses-here or any? lands-here) ]
-            if any? empty-space [ move-to one-of empty-space ]
-        ]
-      ]
-end
-
-to setup
-  clear-all
-  reset-ticks
-
-  set model-version "cluster-geo"
-  set price-difference 5000  ;; in cluster mode, consider houses whose price is more than 5000 differ from their neighbor houses, belong to different clusters. Since: cluster-geo <2021-06-29 ter>
-  set max-initial-house-price 2 * price-difference
-
-  set min-land-price 0.9
-  ; set no-gui? true
-  if initial-density-ratio = 0 [set initial-density-ratio random 100 + 1] ;; just to initialize and create at least one house
-  if initial-house-price = 0 [set initial-house-price random 5 + 1] ;; just to initialize
-
-  if Locality = 0 [set Locality random 5 + 1] ;; just to initialize
-  if land-house-price-share = 0 [set land-house-price-share (random (100 - (min-land-price * 100)) + (min-land-price * 100))/(100)] ;; just to initialize
-
-  repeat (round (count patches * initial-density-ratio / 100)) [ build-house ]
-
-
-  repeat (round (count patches * (100 - initial-density-ratio ) / 100)) [ generate-land]
-  ;; Find neighbors globaly to increase performance
-  ;; Attention: this procedure assumes that other agents position is not relevant for this.
-  find-neighbors houses
-  ask patches [ set pcolor gray + 3 ]
-  set exog-house-price-shock 0.01
-  set initial-land-price land-house-price-share * (mean [price] of houses) ;; Since cluster-geo: <2021-06-29 ter> as initial house price varies.
-  ask lands [
-    set price initial-land-price
-  ]
-  set debug-setup "none" ;; For sanity check. Since: cluster-geo <2021-06-29 ter>
-
-
-   if InitialGeography = "Clustered" [ cluster ]   ;; move houses to the neighbors with similar prices
-
-  ask one-of houses [set shocked? true set color yellow]
-  set unshocked-houses houses with [shocked? = false]
-
-end
-
-to update-age
-  set existing-time (1 + existing-time)
-end
-
-to update-house-price
-  ask houses [
-    update-age
-    ifelse shocked? = false [
-      ;; Ensure that only houses or lands are select for future compability
-      ;; Temporary variable to reduce code size
-      set price local-house-price-mean ;; This is now a procedure
-      if no-gui? = false [
-        paint-houses
-        ]
-      ]
-   [ set price price * (1 + exog-house-price-shock)]
-  ]
-end
-
-to go
-  if (ticks > 1000) or (not any? houses) [
-    stop
-    show (word "Execution finished in " timer " seconds")
-]
-  update-house-price
-  tick
-end
-
-to find-neighbors [agent]
-  ask agent [
-    set agents-around-here other turtles in-radius Locality with [breed = houses or breed = lands]
-  ]
-end
-
-to-report local-house-price-mean
-
-  let local-agents other turtles in-radius Locality with [breed = houses or breed = lands]
-
-  ifelse any? local-agents
-
-    [ report mean [price] of local-agents ]
-
-    [ report 0 ] ;; if no neighbor houses, report 0 to be `local-price`
-end
 
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -514,40 +360,41 @@ Line -7500403 true 150 150 210 180
 @#$#@#$#@
 
 <?xml version="1.0" encoding="utf-8"?>
-  <experiment name="baseline-run" repetitions="20" runMetricsEveryStep="true">
+  <experiment name="baseline-run" repetitions="5" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="1000"/>
     <exitCondition>not any? houses</exitCondition>
-    <metric>mean [price] of houses</metric>
-    <!-- <metric>mean [price] of houses with [shocked? = false]</metric> -->
+    <metric>geral-house-price-mean</metric>
     <enumeratedValueSet variable="no-gui?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-density-ratio">
       <value value="70"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="initial-house-price">
-      <value value="1"/>
-    </enumeratedValueSet>
     <enumeratedValueSet variable="Locality">
       <value value="2"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="land-house-price-share">
-      <value value="70"/>
+    <enumeratedValueSet variable="InitialGeography">
+      <value value="&quot;Random&quot;"/>
+      <value value="&quot;Gradient&quot;"/>
+      <value value="&quot;Clustered&quot;"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="min-land-price">
-      <value value="0.9"/>
+    <enumeratedValueSet variable="debug-setup">
+      <value value="&quot;none&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="debug?">
+      <value value="false"/>
     </enumeratedValueSet>
   </experiment>
 
 <?xml version="1.0" encoding="utf-8"?>
-  <experiment name="density-locality-run" repetitions="50" runMetricsEveryStep="true">
+  <experiment name="density-locality-run" repetitions="5" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="1000"/>
     <exitCondition>not any? houses</exitCondition>
-    <metric>mean [price] of houses</metric>
+    <metric>geral-house-price-mean</metric>
     <enumeratedValueSet variable="no-gui?">
       <value value="true"/>
     </enumeratedValueSet>
@@ -561,22 +408,22 @@ Line -7500403 true 150 150 210 180
       <value value="2"/>
       <value value="5"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="land-house-price-share">
-      <value value="100"/>
+    <enumeratedValueSet variable="InitialGeography">
+      <value value="&quot;Random&quot;"/>
+      <value value="&quot;Gradient&quot;"/>
+      <value value="&quot;Clustered&quot;"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="initial-house-price">
-      <value value="1"/>
+    <enumeratedValueSet variable="debug-setup">
+      <value value="&quot;none&quot;"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="min-land-price">
-      <value value="0.2"/>
-      <value value="0.5"/>
-      <value value="0.99"/>
+    <enumeratedValueSet variable="debug?">
+      <value value="false"/>
     </enumeratedValueSet>
   </experiment>
 
 ../../NetLogo/netlogo-headless.sh \
         --model cluster-geo.nlogo \
-        --experiment baseline-run \
+        --experiment random-baseline-run \
         --table ./output/baseline.csv \
         --threads 6
 

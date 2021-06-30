@@ -1,19 +1,47 @@
 #+OPTIONS: num:nil
 #+TITLE: One house clustered-diffusion model
 #+AUTHOR: Gabriel Petrini
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup
+#+PROPERTY:header-args netlogo :eval no :exports code
+#+LANG: en
+#+PROPERTY: header-args R :results code drawer :eval never-export :session analysis :exports both :tangle ./analysis.R
 
 * Initial setup
-#+LANG: en
-#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup
-#+PROPERTY:header-args netlogo :results output drawer :eval never-export :session cluster-geo :exports code
-#+PROPERTY: header-args R :results output drawer :eval never-export :session analysis :exports both :tangle ./analysis.R
 
-#+begin_src R :exports code :results none
+#+begin_src R :exports code :results output
 library(tidyverse)
 library(data.table)
-library(stargazer)
+library(pander)
+library(ascii)
+library(knitr)
 #+end_src
 
+#+RESULTS:
+:results:
+
+Attaching package: ‘ascii’
+
+The following object is masked from ‘package:pander’:
+
+    Pandoc
+
+The following object is masked from ‘package:tidyr’:
+
+    expand
+:end:
+
+#+NAME: rmd-to-org
+#+begin_src elisp :var pttrn1="--" pttrn2=":-"
+(while (re-search-forward pttrn1 nil t)
+  (replace-match "--"))
+
+(while (re-search-forward pttrn2 nil t)
+  (replace-match "--"))
+#+end_src
+
+#+RESULTS:
+:results:
+:end:
 
 
 * Description and relevant information
@@ -25,7 +53,7 @@ library(stargazer)
 ** What is it?
 
 This is a really simple model for study reasons only.
-The idea of this toy model is to evaluate how house prices diffusion spread across a *clusted grid* and affects the house price index.
+The idea of this toy model is to evaluate how house prices diffusion spread across a *clusted rmarkdown* and affects the house price index.
 In order to do so, *one* house chosen randomly will have it price increased buy a fixed rate.
 
 *** Model conceptual design
@@ -105,12 +133,14 @@ The houses each agent considers depends on a locality variable defined globally.
 
 
 ** Agents types
+:PROPERTIES:
+  :header-args: :noweb-ref src-classes :exports code
+  :END:
 
-The environment is *torus grid* for simplicity in which each coordinates (=patches=) represents a housing or land unit with a fixed grid size.
+The environment is *torus rmarkdown* for simplicity in which each coordinates (=patches=) represents a housing or land unit with a fixed rmarkdown size.
 The model is composed by two agents only: houses and lands.
 
 
-#+NAME: classes
 #+begin_src netlogo
 breed [houses house ]      ; a house, may be occupied and may be for sale
 breed [lands land ]        ; a land unit
@@ -125,8 +155,10 @@ Finally, all houses starts with the same price.
 This hypothesis was choosen to verify if the diffusion processes emerges during the simulation.
 
 ** Global variables
+:PROPERTIES:
+  :header-args: :noweb-ref src-globals :exports code
+  :END:
 
-#+NAME: globals-var
 #+begin_src netlogo
 globals [
   ;; these could become sliders
@@ -139,7 +171,7 @@ globals [
   initial-house-price
   land-house-price-share
   initial-land-price
-  min-land-price
+  min-land-price-share
   num-of-new-houses
   unshocked-houses
   max-initial-house-price
@@ -150,12 +182,14 @@ globals [
 #+end_src
 
 ** Houses and land
+:PROPERTIES:
+:header-args: :noweb-ref src-houses-lands :exports code
+  :END:
 
-Houses and land occupy a spatial grid and have a price (=price=).
+Houses and land occupy a spatial rmarkdown and have a price (=price=).
 Houses exclusively will have a random variable indication if will be shocked (=shocked?=).
 The shock magnitude is a global variable as well and is a fraction of the previous house price value.
 
-#+NAME: classes-prop
 #+begin_src netlogo
 
 houses-own [
@@ -175,7 +209,6 @@ lands-own [
 
 First, houses are created in random places
 
-#+NAME: create-houses
 #+begin_src netlogo
 to build-house
   create-houses 1 [
@@ -206,7 +239,6 @@ end
 #+end_src
 
 Then, create land in unoccupied spaces
-#+NAME: generate-land
 #+begin_src netlogo
 to generate-land
   create-lands 1 [
@@ -225,6 +257,9 @@ end
 #+end_src
 
 ** Initialization (=setup=)
+:PROPERTIES:
+  :header-args: :noweb-ref src-setup :exports code
+  :END:
 
 During the initialization process, a house is choosen randomly do be shocked.
 
@@ -235,16 +270,17 @@ to setup
   reset-ticks
 
   set model-version "cluster-geo"
+  ; set InitialGeography "Random"
   set price-difference 500  ;; in cluster mode, consider houses whose price is more than 5000 differ from their neighbor houses, belong to different clusters. Since: cluster-geo <2021-06-29 ter>
   set max-initial-house-price 20 * price-difference
 
-  set min-land-price 0.9
+  set min-land-price-share 0.9
   ; set no-gui? true
   if initial-density-ratio = 0 [set initial-density-ratio random 100 + 1] ;; just to initialize and create at least one house
   if initial-house-price = 0 [set initial-house-price random 5 + 1] ;; just to initialize
 
   if Locality = 0 [set Locality random 5 + 1] ;; just to initialize
-  if land-house-price-share = 0 [set land-house-price-share (random (100 - (min-land-price * 100)) + (min-land-price * 100))/(100)] ;; just to initialize
+  if land-house-price-share = 0 [set land-house-price-share (random (100 - (min-land-price-share * 100)) + (min-land-price-share * 100))/(100)] ;; just to initialize
 
   repeat (round (count patches * initial-density-ratio / 100)) [ build-house ]
    if InitialGeography = "Clustered" [ cluster ]   ;; move houses to the neighbors with similar prices
@@ -269,25 +305,17 @@ to setup
 end
 #+end_src
 
-** Houses aging mechanism (=update-age=)
+** Housing steps
+:PROPERTIES:
+  :header-args: :noweb-ref src-housing-steps :exports code
+  :END:
 
-In order to increase code efficiency, houses will have an =age= that updates each time.
-This procedure allows to evaluate (globaly) if there is new houses (=houses with [age = 0]=), then updates each houses neighbors only if needed.
-
-#+NAME: update-age
-#+begin_src netlogo
-to update-age
-  set existing-time (1 + existing-time)
-end
-#+end_src
-
-** Price update mechanism (=go=)
+*** Price update mechanism
 
 
 In this simple version, a random share of houses =prob-shock= will have an increase in its price by =exog-house-price-shock=.
 Next, all the *remaining* houses will update its prices according to their neighbors' mean in a =Locality= radius which includes non-occupied patches.
 
-#+NAME: update-house-price
 #+begin_src netlogo
 to update-house-price
   ask houses [
@@ -304,9 +332,33 @@ to update-house-price
   ]
 end
 #+end_src
+*** Houses aging mechanism (=update-age=)
+
+In order to increase code efficiency, houses will have an =age= that updates each time.
+This procedure allows to evaluate (globaly) if there is new houses (=houses with [age = 0]=), then updates each houses neighbors only if needed.
+
+#+begin_src netlogo
+to update-age
+  set existing-time (1 + existing-time)
+end
+#+end_src
+
+*** Recognize neighbors
+
+#+begin_src netlogo
+to find-neighbors [agent]
+  ask agent [
+    set agents-around-here other turtles in-radius Locality with [breed = houses or breed = lands]
+  ]
+end
+#+end_src
 
 
-#+NAME: go
+** Go procedure
+:PROPERTIES:
+  :header-args: :noweb-ref src-go :exports code
+  :END:
+
 #+begin_src netlogo
 to go
   if (ticks > 1000) or (not any? houses) [
@@ -318,20 +370,9 @@ to go
 end
 #+end_src
 
-** Recognize neighbors
-
-#+NAME: find-neighbors
-#+begin_src netlogo
-to find-neighbors [agent]
-  ask agent [
-    set agents-around-here other turtles in-radius Locality with [breed = houses or breed = lands]
-  ]
-end
-#+end_src
-
 ** Clusterization
 :PROPERTIES:
-  :header-args: :noweb-ref src-geo-cluster
+  :header-args: :noweb-ref src-geo-cluster :exports code
   :END:
 
 The implementation of cluster mechanism is identical to  the reference paper cite:gilbert__AgentBased.
@@ -478,9 +519,22 @@ to-report price-diff [ a-house ]
 end
 #+end_src
 
-** Report house price index
+** Reporters
+:PROPERTIES:
+  :header-args: :noweb-ref src-reporters :exports code
+  :END:
 
-#+NAME: local-house-price-mean
+*** Geral house price mean
+
+#+begin_src netlogo
+to-report geral-house-price-mean
+ report mean [price] of houses
+end
+#+end_src
+
+
+*** Local house price mean
+
 #+begin_src netlogo
 to-report local-house-price-mean
 
@@ -657,30 +711,31 @@ Line -7500403 true 150 150 210 180
 
 #+NAME: baseline-exp
 #+begin_src xml :exports none :results none
-  <experiment name="baseline-run" repetitions="20" runMetricsEveryStep="true">
+  <experiment name="baseline-run" repetitions="5" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="1000"/>
     <exitCondition>not any? houses</exitCondition>
-    <metric>mean [price] of houses</metric>
-    <!-- <metric>mean [price] of houses with [shocked? = false]</metric> -->
+    <metric>geral-house-price-mean</metric>
     <enumeratedValueSet variable="no-gui?">
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="initial-density-ratio">
       <value value="70"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="initial-house-price">
-      <value value="1"/>
-    </enumeratedValueSet>
     <enumeratedValueSet variable="Locality">
       <value value="2"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="land-house-price-share">
-      <value value="70"/>
+    <enumeratedValueSet variable="InitialGeography">
+      <value value="&quot;Random&quot;"/>
+      <value value="&quot;Gradient&quot;"/>
+      <value value="&quot;Clustered&quot;"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="min-land-price">
-      <value value="0.9"/>
+    <enumeratedValueSet variable="debug-setup">
+      <value value="&quot;none&quot;"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="debug?">
+      <value value="false"/>
     </enumeratedValueSet>
   </experiment>
 #+end_src
@@ -691,58 +746,55 @@ Line -7500403 true 150 150 210 180
 #+begin_src sh :exports none :results none
 ../../NetLogo/netlogo-headless.sh \
         --model cluster-geo.nlogo \
-        --experiment baseline-run \
+        --experiment random-baseline-run \
         --table ./output/baseline.csv \
         --threads 6
 #+end_src
 
-*** Summary :ignore:
+** Summary :ignore:
 
 #+begin_src R :exports results :results output table
 metrics <- c(
-  "mean [price] of houses"
+  "geral-house-price-mean"
 )
 
 internals <- c(
   "[run number]",
   "[step]",
-  "no-gui?"
+  "no-gui?",
+  "debug-setup",
+  "debug?"
 )
 
 df <- data.table::fread(
   "./output/baseline.csv",
   skip = 6
 ) %>%
-  first() %>%
   select(-c(all_of(metrics), all_of(internals))) %>%
+  unique() %>%
   rename(
-    `Initial house price` = `initial-house-price`,
-    `Density ratio` = `initial-density-ratio`,
-    `Land/House price (%)` = `land-house-price-share`
+    `Density ratio` = `initial-density-ratio`
   ) %>%
-  pander::pander(style = "grid")
+  mutate_if(is.numeric, round, digits = 3) %>%
+  data.frame(check.names=FALSE) %>% orgutils::toOrg() %>%
+  print()
+  ## pander::pander.return(style = "rmarkdown", digits = 2, split.table = Inf) %>%
+  ## ascii(type = "org")
 #+end_src
 
 #+RESULTS:
 :results:
-
-
-+---------------+---------------------+----------+----------------------+
-| Density ratio | Initial house price | Locality | Land/House price (%) |
-+===============+=====================+==========+======================+
-|      70       |          1          |    2     |          70          |
-+---------------+---------------------+----------+----------------------+
-
-Table: Table continues below
-
-
-
-+----------------+
-| min-land-price |
-+================+
-|      0.9       |
-+----------------+
+| Density ratio | Locality | InitialGeography |
+|---------------+----------+------------------|
+|            70 |        2 | Gradient         |
+|            70 |        2 | Random           |
+|            70 |        2 | Clustered        |
 :end:
+
+
+
+
+
 
 
 ** Preparing dataframe :ignore:
@@ -755,12 +807,15 @@ df <- data.table::fread(
   arrange(`[run number]`) %>%
   rename(
     time = `[step]`,
-    `House price mean` = `mean [price] of houses`,
+    `House price mean` = `geral-house-price-mean`,
     simulation = `[run number]`
   ) %>%
   filter(time > 0) %>%
-  select(time, `House price mean`, simulation) %>%
-  mutate(simulation = factor(simulation))
+  select(time, `House price mean`, simulation, InitialGeography) %>%
+  mutate(
+    simulation = factor(simulation),
+    InitialGeography = factor(InitialGeography)
+  )
 #+end_src
 
 #+RESULTS:
@@ -781,25 +836,26 @@ df <- data.table::fread(
   arrange(`[run number]`, `initial-density-ratio`, Locality) %>%
   rename(
     time = `[step]`,
-    `House price mean` = `mean [price] of houses`,
+    `House price mean` = `geral-house-price-mean`,
     simulation = `[run number]`
   ) %>%
   filter(time > 0) %>%
   mutate(
     simulation = factor(simulation),
     density = factor(`initial-density-ratio`),
-    Locality = factor(Locality)
+    Locality = factor(Locality),
+    InitialGeography = factor(InitialGeography)
   )
 
 
 
-stats <- df %>%
+tab <- df %>%
   group_by(simulation) %>%
-  filter(time > initial_drop, `House price mean` > `initial-house-price`) %>%
+  filter(time > initial_drop, `House price mean` > `House price mean`[time == 1]) %>%
   mutate(tmp = 1:n()) %>%
   ungroup() %>%
   arrange(simulation, time) %>%
-  group_by(density, Locality) %>%
+  group_by(InitialGeography, density, Locality) %>%
   summarise(
     `Mean` = mean(`House price mean`),
     `Price >= initial price` = mean(time[tmp == 1], na.rm = TRUE),
@@ -811,29 +867,31 @@ stats <- df %>%
   ungroup() %>%
   mutate(
     density = density %>% as.character() %>% as.numeric(),
-    Locality = Locality %>% as.character() %>% as.numeric(Locality)
+    Locality = Locality %>% as.character() %>% as.numeric(),
+    InitialGeography = InitialGeography %>% as.character()
     ) %>%
   arrange(`Mean`) %>%
   suppressMessages()
 
-stats %>%
-  pander::pandoc.table(style = "grid")
+tab %>%
+  mutate_if(is.numeric, round, digits = 3) %>%
+  data.frame(check.names=FALSE) %>% orgutils::toOrg() %>%
+  print()
 #+end_src
 
 #+RESULTS:
 :results:
-
-
-+---------+----------+------+------------------------+--------+-------+-------+
-| density | Locality | Mean | Price >= initial price | Median |  Max  |  sd   |
-+=========+==========+======+========================+========+=======+=======+
-|   70    |    2     |  17  |         222.9          | 3.187  | 426.5 | 35.25 |
-+---------+----------+------+------------------------+--------+-------+-------+
+| InitialGeography | density | Locality |       Mean | Price >= initial price |    Median |         Max |         sd |
+|------------------+---------+----------+------------+------------------------+-----------+-------------+------------|
+| Gradient         |      70 |        2 |    146.339 |                    107 |    12.287 |    2877.219 |    349.612 |
+| Random           |      70 |        2 | 111964.066 |                  196.2 |  11977.21 |  2827088.35 | 316077.506 |
+| Clustered        |      70 |        2 | 134503.821 |                  180.8 | 12450.093 | 3830306.867 | 418132.675 |
 :end:
 
 #+begin_src R :results graphics file :file ./figs/baseline_house_price_mean.png :exports results
 df %>%
   ggplot(aes(x = time, y = log(`House price mean`), group = round(time / 50))) +
+  facet_wrap(. ~ InitialGeography) +
   geom_boxplot() -> plot
 ggsave('./figs/baseline_house_price_mean.png', plot)
 #+end_src
@@ -850,16 +908,17 @@ ggsave('./figs/baseline_house_price_mean.png', plot)
 * Experiments
 
 ** Defining values and running :ignore:
-*** XML code :ignore:noexport:
 
-#+NAME: exp-density-locality
+*** XML code :noexport:
+
+#+NAME: density-locality-exp
 #+begin_src xml :exports none :results none
-  <experiment name="density-locality-run" repetitions="50" runMetricsEveryStep="true">
+  <experiment name="density-locality-run" repetitions="5" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
     <timeLimit steps="1000"/>
     <exitCondition>not any? houses</exitCondition>
-    <metric>mean [price] of houses</metric>
+    <metric>geral-house-price-mean</metric>
     <enumeratedValueSet variable="no-gui?">
       <value value="true"/>
     </enumeratedValueSet>
@@ -873,23 +932,24 @@ ggsave('./figs/baseline_house_price_mean.png', plot)
       <value value="2"/>
       <value value="5"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="land-house-price-share">
-      <value value="100"/>
+    <enumeratedValueSet variable="InitialGeography">
+      <value value="&quot;Random&quot;"/>
+      <value value="&quot;Gradient&quot;"/>
+      <value value="&quot;Clustered&quot;"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="initial-house-price">
-      <value value="1"/>
+    <enumeratedValueSet variable="debug-setup">
+      <value value="&quot;none&quot;"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="min-land-price">
-      <value value="0.2"/>
-      <value value="0.5"/>
-      <value value="0.99"/>
+    <enumeratedValueSet variable="debug?">
+      <value value="false"/>
     </enumeratedValueSet>
   </experiment>
 #+end_src
 
-*** shell script :noexport:
+*** Sh code :noexport:
 
-#+begin_src sh :exports code :results none
+
+#+begin_src sh :exports none :results none
 ../../NetLogo/netlogo-headless.sh \
         --model cluster-geo.nlogo \
         --experiment density-locality-run \
@@ -902,13 +962,15 @@ ggsave('./figs/baseline_house_price_mean.png', plot)
 
 #+begin_src R :exports results :results output table
 metrics <- c(
-  "mean [price] of houses"
+  "geral-house-price-mean"
 )
 
 internals <- c(
   "[run number]",
   "[step]",
-  "no-gui?"
+  "no-gui?",
+  "debug?",
+  "debug-setup"
 )
 
 df <- data.table::fread(
@@ -918,138 +980,46 @@ df <- data.table::fread(
   select(-c(all_of(metrics), all_of(internals))) %>%
   unique() %>%
   rename(
-    `Initial house price` = `initial-house-price`,
     `Density` = `initial-density-ratio`,
-    `Land/House price (%)` = `land-house-price-share`
   ) %>%
   mutate(Exp = 1:n()) %>%
   relocate(Exp, .before = 1) %>%
-  pander::pander(style = "grid")
+  mutate_if(is.numeric, round, digits = 3) %>%
+  data.frame(check.names=FALSE) %>% orgutils::toOrg() %>%
+  print()
 #+end_src
 
 #+RESULTS:
 :results:
-
-
-+-----+---------+----------+----------------------+---------------------+
-| Exp | Density | Locality | Land/House price (%) | Initial house price |
-+=====+=========+==========+======================+=====================+
-|  1  |   20    |    1     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-|  2  |   20    |    1     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-|  3  |   20    |    1     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-|  4  |   20    |    2     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-|  5  |   20    |    2     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-|  6  |   20    |    2     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-|  7  |   20    |    5     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-|  8  |   20    |    5     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-|  9  |   20    |    5     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-| 10  |   50    |    1     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-| 11  |   50    |    1     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-| 12  |   50    |    1     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-| 13  |   50    |    2     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-| 14  |   50    |    2     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-| 15  |   50    |    2     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-| 16  |   50    |    5     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-| 17  |   50    |    5     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-| 18  |   50    |    5     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-| 19  |   70    |    1     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-| 20  |   70    |    1     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-| 21  |   70    |    1     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-| 22  |   70    |    2     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-| 23  |   70    |    2     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-| 24  |   70    |    2     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-| 25  |   70    |    5     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-| 26  |   70    |    5     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-| 27  |   70    |    5     |         100          |          1          |
-+-----+---------+----------+----------------------+---------------------+
-
-Table: Table continues below
-
-
-
-+----------------+
-| min-land-price |
-+================+
-|      0.2       |
-+----------------+
-|      0.5       |
-+----------------+
-|      0.99      |
-+----------------+
-|      0.2       |
-+----------------+
-|      0.5       |
-+----------------+
-|      0.99      |
-+----------------+
-|      0.2       |
-+----------------+
-|      0.5       |
-+----------------+
-|      0.99      |
-+----------------+
-|      0.2       |
-+----------------+
-|      0.5       |
-+----------------+
-|      0.99      |
-+----------------+
-|      0.2       |
-+----------------+
-|      0.5       |
-+----------------+
-|      0.99      |
-+----------------+
-|      0.2       |
-+----------------+
-|      0.5       |
-+----------------+
-|      0.99      |
-+----------------+
-|      0.2       |
-+----------------+
-|      0.5       |
-+----------------+
-|      0.99      |
-+----------------+
-|      0.2       |
-+----------------+
-|      0.5       |
-+----------------+
-|      0.99      |
-+----------------+
-|      0.2       |
-+----------------+
-|      0.5       |
-+----------------+
-|      0.99      |
-+----------------+
+| Exp | Density | Locality | InitialGeography |
+|-----+---------+----------+------------------|
+|   1 |      20 |        1 | Gradient         |
+|   2 |      20 |        1 | Random           |
+|   3 |      20 |        1 | Clustered        |
+|   4 |      20 |        2 | Random           |
+|   5 |      20 |        2 | Gradient         |
+|   6 |      20 |        2 | Clustered        |
+|   7 |      20 |        5 | Random           |
+|   8 |      20 |        5 | Gradient         |
+|   9 |      20 |        5 | Clustered        |
+|  10 |      50 |        1 | Random           |
+|  11 |      50 |        1 | Gradient         |
+|  12 |      50 |        1 | Clustered        |
+|  13 |      50 |        2 | Random           |
+|  14 |      50 |        2 | Gradient         |
+|  15 |      50 |        2 | Clustered        |
+|  16 |      50 |        5 | Random           |
+|  17 |      50 |        5 | Gradient         |
+|  18 |      50 |        5 | Clustered        |
+|  19 |      70 |        1 | Random           |
+|  20 |      70 |        1 | Gradient         |
+|  21 |      70 |        1 | Clustered        |
+|  22 |      70 |        2 | Random           |
+|  23 |      70 |        2 | Gradient         |
+|  24 |      70 |        2 | Clustered        |
+|  25 |      70 |        5 | Random           |
+|  26 |      70 |        5 | Gradient         |
+|  27 |      70 |        5 | Clustered        |
 :end:
 
 
@@ -1065,9 +1035,9 @@ Table: Table continues below
 #+begin_src R :exports results :results output table
 initial_drop <- 100
 variables <- c(
-  "density",
+  "initial-density-ratio",
   "Locality",
-  "min-land-price"
+  "InitialGeography"
 )
 
 df <- data.table::fread(
@@ -1077,7 +1047,7 @@ df <- data.table::fread(
   arrange(`[run number]`, `initial-density-ratio`, Locality) %>%
   rename(
     time = `[step]`,
-    `House price mean` = `mean [price] of houses`,
+    `House price mean` = `geral-house-price-mean`,
     simulation = `[run number]`
   ) %>%
   filter(time > 0) %>%
@@ -1085,7 +1055,7 @@ df <- data.table::fread(
     simulation = factor(simulation),
     density = factor(`initial-density-ratio`),
     Locality = factor(Locality),
-    min_land_price = factor(`min-land-price`)
+    InitialGeography = factor(InitialGeography)
   )
 
 experiments <- df %>%
@@ -1098,155 +1068,68 @@ df <- df %>%
   left_join(experiments) %>%
   suppressMessages()
 
-stats <- df %>%
+tab <- df %>%
   group_by(Exp) %>%
-  filter(time > initial_drop, `House price mean` > `initial-house-price`) %>%
+  filter(time > initial_drop, `House price mean` > `House price mean`[time == 1]) %>%
   mutate(tmp = 1:n()) %>%
   ungroup() %>%
   arrange(simulation, time) %>%
-  group_by(Exp, density, Locality, min_land_price) %>%
+  group_by(Exp, density, Locality, InitialGeography) %>%
   summarise(
     `Mean` = mean(`House price mean`, na.rm = TRUE),
     `Price >= initial price` = mean(time[tmp == 1], na.rm = TRUE),
-    ## `Min` = min(`House price mean`),
-    ## `Median` = median(`House price mean`),
+    `Min` = min(`House price mean`),
+    `Median` = median(`House price mean`),
     `Max` = max(`House price mean`),
     `sd` = sd(`House price mean`)
   ) %>%
   ungroup() %>%
   mutate(
     density = density %>% as.character() %>% as.numeric(),
-    Locality = Locality %>% as.character() %>% as.numeric(Locality)
-    ) %>%
+    Locality = Locality %>% as.character() %>% as.numeric(),
+    InitialGeography = InitialGeography %>% as.character()
+  ) %>%
   arrange(`Mean`) %>%
   suppressMessages() %>%
-  pander::pandoc.table(style = "grid")
+  mutate_if(is.numeric, round, digits = 3) %>%
+  data.frame(check.names=FALSE) %>% orgutils::toOrg() %>%
+  print()
 #+end_src
 
 #+RESULTS:
 :results:
-
-
-+-----+---------+----------+----------------+-------+
-| Exp | density | Locality | min_land_price | Mean  |
-+=====+=========+==========+================+=======+
-| 15  |   50    |    2     |      0.99      | 15.52 |
-+-----+---------+----------+----------------+-------+
-| 25  |   70    |    5     |      0.2       | 16.53 |
-+-----+---------+----------+----------------+-------+
-| 22  |   70    |    2     |      0.2       | 19.14 |
-+-----+---------+----------+----------------+-------+
-|  6  |   20    |    2     |      0.99      | 20.13 |
-+-----+---------+----------+----------------+-------+
-|  5  |   20    |    2     |      0.5       | 20.5  |
-+-----+---------+----------+----------------+-------+
-| 27  |   70    |    5     |      0.99      | 20.85 |
-+-----+---------+----------+----------------+-------+
-| 14  |   50    |    2     |      0.5       | 21.15 |
-+-----+---------+----------+----------------+-------+
-|  9  |   20    |    5     |      0.99      | 21.26 |
-+-----+---------+----------+----------------+-------+
-| 21  |   70    |    1     |      0.99      | 22.54 |
-+-----+---------+----------+----------------+-------+
-|  7  |   20    |    5     |      0.2       | 22.67 |
-+-----+---------+----------+----------------+-------+
-| 23  |   70    |    2     |      0.5       | 24.16 |
-+-----+---------+----------+----------------+-------+
-| 13  |   50    |    2     |      0.2       | 25.87 |
-+-----+---------+----------+----------------+-------+
-|  4  |   20    |    2     |      0.2       | 26.13 |
-+-----+---------+----------+----------------+-------+
-| 20  |   70    |    1     |      0.5       | 26.61 |
-+-----+---------+----------+----------------+-------+
-| 24  |   70    |    2     |      0.99      | 27.01 |
-+-----+---------+----------+----------------+-------+
-|  8  |   20    |    5     |      0.5       | 27.05 |
-+-----+---------+----------+----------------+-------+
-| 19  |   70    |    1     |      0.2       | 27.75 |
-+-----+---------+----------+----------------+-------+
-| 17  |   50    |    5     |      0.5       | 28.26 |
-+-----+---------+----------+----------------+-------+
-|  1  |   20    |    1     |      0.2       | 28.49 |
-+-----+---------+----------+----------------+-------+
-|  2  |   20    |    1     |      0.5       | 29.53 |
-+-----+---------+----------+----------------+-------+
-|  3  |   20    |    1     |      0.99      | 31.68 |
-+-----+---------+----------+----------------+-------+
-| 10  |   50    |    1     |      0.2       | 35.97 |
-+-----+---------+----------+----------------+-------+
-| 12  |   50    |    1     |      0.99      | 36.51 |
-+-----+---------+----------+----------------+-------+
-| 26  |   70    |    5     |      0.5       | 37.88 |
-+-----+---------+----------+----------------+-------+
-| 11  |   50    |    1     |      0.5       | 38.04 |
-+-----+---------+----------+----------------+-------+
-| 18  |   50    |    5     |      0.99      | 40.9  |
-+-----+---------+----------+----------------+-------+
-| 16  |   50    |    5     |      0.2       | 41.9  |
-+-----+---------+----------+----------------+-------+
-
-Table: Table continues below
-
-
-
-+------------------------+-------+-------+
-| Price >= initial price |  Max  |  sd   |
-+========================+=======+=======+
-|          303           | 477.3 | 31.49 |
-+------------------------+-------+-------+
-|          195           | 468.2 | 33.74 |
-+------------------------+-------+-------+
-|          322           | 953.6 | 46.37 |
-+------------------------+-------+-------+
-|          319           | 623.9 | 45.23 |
-+------------------------+-------+-------+
-|          189           | 973.9 | 50.64 |
-+------------------------+-------+-------+
-|          166           | 663.5 |  46   |
-+------------------------+-------+-------+
-|          187           | 1290  | 59.22 |
-+------------------------+-------+-------+
-|          171           | 973.8 | 53.16 |
-+------------------------+-------+-------+
-|          112           | 953.5 | 60.21 |
-+------------------------+-------+-------+
-|          220           | 1986  | 78.38 |
-+------------------------+-------+-------+
-|          225           | 1010  | 66.13 |
-+------------------------+-------+-------+
-|          217           | 2647  | 105.4 |
-+------------------------+-------+-------+
-|          224           | 993.9 | 67.7  |
-+------------------------+-------+-------+
-|          301           | 2606  | 100.6 |
-+------------------------+-------+-------+
-|          270           | 2823  | 108.6 |
-+------------------------+-------+-------+
-|          158           | 1906  | 93.12 |
-+------------------------+-------+-------+
-|          298           | 1332  | 82.73 |
-+------------------------+-------+-------+
-|          323           | 1906  | 97.65 |
-+------------------------+-------+-------+
-|          199           | 2103  | 92.3  |
-+------------------------+-------+-------+
-|          159           | 1906  | 104.2 |
-+------------------------+-------+-------+
-|          101           | 2765  | 120.7 |
-+------------------------+-------+-------+
-|          190           | 1954  |  123  |
-+------------------------+-------+-------+
-|          312           | 1946  | 137.6 |
-+------------------------+-------+-------+
-|          114           | 1906  | 121.8 |
-+------------------------+-------+-------+
-|          293           | 1946  | 130.7 |
-+------------------------+-------+-------+
-|          101           | 2854  | 153.8 |
-+------------------------+-------+-------+
-|          119           | 1993  | 145.9 |
-+------------------------+-------+-------+
+| Exp | density | Locality | InitialGeography |       Mean | Price >= initial price |      Min |    Median |          Max |          sd |
+|-----+---------+----------+------------------+------------+------------------------+----------+-----------+--------------+-------------|
+|  17 |      50 |        5 | Gradient         |     35.779 |                    102 |    0.941 |     8.406 |      372.058 |      60.163 |
+|  23 |      70 |        2 | Gradient         |     36.411 |                    103 |     0.98 |     7.582 |      541.971 |      70.683 |
+|   5 |      20 |        2 | Gradient         |     46.889 |                    101 |    1.017 |    10.302 |      525.628 |      81.147 |
+|   8 |      20 |        5 | Gradient         |     50.167 |                    103 |    0.966 |    10.966 |      551.126 |      85.025 |
+|   2 |      20 |        1 | Gradient         |     70.353 |                    101 |     1.96 |    14.243 |      742.759 |     120.432 |
+|  14 |      50 |        2 | Gradient         |     76.063 |                    103 |     0.97 |     12.99 |     1073.117 |     151.049 |
+|  11 |      50 |        1 | Gradient         |    103.004 |                    101 |     0.99 |    12.209 |     2346.266 |     275.659 |
+|  20 |      70 |        1 | Gradient         |    126.848 |                    101 |    0.958 |    11.271 |     3458.233 |     393.104 |
+|  26 |      70 |        5 | Gradient         |     129.66 |                    101 |    1.935 |    13.308 |      3291.62 |      369.83 |
+|  16 |      50 |        5 | Random           |  46922.294 |                    102 |  4365.53 |  8037.664 |    884648.83 |  109449.783 |
+|   9 |      20 |        5 | Clustered        |  63147.847 |                    196 | 4643.193 | 11448.199 |   856197.831 |  117327.066 |
+|  18 |      50 |        5 | Clustered        |  70979.939 |                    191 | 4566.427 | 13241.018 |   983940.422 |  139913.244 |
+|   6 |      20 |        2 | Clustered        |  75929.175 |                    102 |  4413.45 | 13907.414 |   906207.528 |  137144.267 |
+|  24 |      70 |        2 | Clustered        |  80090.068 |                    102 |  4640.88 |  13113.55 |   1266231.86 |  172648.002 |
+|  25 |      70 |        5 | Random           |  81660.631 |                    101 |  4587.01 | 10687.198 |  1364978.626 |  182984.524 |
+|  19 |      70 |        1 | Random           |   82119.73 |                    101 | 4757.279 | 14694.969 |   954381.854 |  148493.001 |
+|   3 |      20 |        1 | Clustered        |  83647.239 |                    388 | 4817.651 | 13309.343 |  1818961.316 |  210234.682 |
+|  15 |      50 |        2 | Clustered        |  85004.478 |                    136 | 4690.335 | 13434.762 |   974488.205 |  167097.685 |
+|   4 |      20 |        2 | Random           |  95457.136 |                    111 | 4384.034 | 16074.691 |  1179836.416 |  174079.562 |
+|  12 |      50 |        1 | Clustered        | 100949.358 |                    102 | 4783.449 | 15660.267 |  1889837.353 |  225100.728 |
+|  10 |      50 |        1 | Random           | 101683.859 |                    103 | 4641.749 | 15738.394 |  1127583.593 |  183986.733 |
+|  27 |      70 |        5 | Clustered        | 110595.137 |                    236 | 4770.394 | 14815.505 |  2168689.028 |  265942.108 |
+|  13 |      50 |        2 | Random           | 110924.642 |                    101 | 4095.549 | 11373.245 |   2999423.44 |  332957.888 |
+|   7 |      20 |        5 | Random           | 127850.208 |                    102 | 4738.357 | 15428.793 |   3073123.92 |   333720.32 |
+|   1 |      20 |        1 | Random           | 142171.719 |                    101 | 4642.367 | 17669.187 |  1831828.551 |  284982.274 |
+|  21 |      70 |        1 | Clustered        | 151501.972 |                    104 | 4590.711 | 15293.751 |  4350668.692 |  480548.826 |
+|  22 |      70 |        2 | Random           | 500463.474 |                    104 | 4719.235 | 21576.549 | 17427257.361 | 1881813.972 |
 :end:
+
+
 
 *** Plots :ignore:
 
@@ -1256,9 +1139,7 @@ Table: Table continues below
 
 df %>%
   ggplot(aes(x = time, y = log(`House price mean`), group = round(time / 100))) +
-  ## geom_vline(aes(xintercept = vline, group = simulation), df_first) +
-  geom_hline(yintercept = log(1), color = 'red') +
-  facet_grid(density ~ Locality) +
+  facet_rmarkdown(density ~ Locality) +
   geom_boxplot() -> plot
 ggsave('./figs/densityxlocality_house_price_mean.png', plot)
 #+end_src
@@ -1272,46 +1153,42 @@ ggsave('./figs/densityxlocality_house_price_mean.png', plot)
 
 
 
-**** Minimal land price and density
+**** Initial geography price and density
 
-#+begin_src R :results graphics file :file ./figs/min_density_house_price_mean.png :exports results
-
-df %>%
-  ggplot(aes(x = time, y = log(`House price mean`), group = round(time / 100))) +
-  ## geom_vline(aes(xintercept = vline, group = simulation), df_first) +
-  geom_hline(yintercept = log(1), color = 'red') +
-  facet_grid(min_land_price ~ density) +
-  geom_boxplot() -> plot
-ggsave('./figs/min_density_house_price_mean.png', plot)
-#+end_src
-
-#+CAPTION: House price mean over time (Minimal land price and density increase)
-#+attr_html: :width 500px
-#+attr_latex: :width 500px
-#+RESULTS:
-[[file:./figs/min_density_house_price_mean.png]]
-
-
-
-
-**** Minimal land price and Locality
-
-#+begin_src R :results graphics file :file ./figs/min_locality_house_price_mean.png :exports results
+#+begin_src R :results graphics file :file ./figs/geo_density_house_price_mean.png :exports results
 
 df %>%
   ggplot(aes(x = time, y = log(`House price mean`), group = round(time / 100))) +
-  ## geom_vline(aes(xintercept = vline, group = simulation), df_first) +
-  geom_hline(yintercept = log(1), color = 'red') +
-  facet_grid(min_land_price ~ Locality) +
+  facet_rmarkdown(InitialGeography ~ density) +
   geom_boxplot() -> plot
-ggsave('./figs/min_locality_house_price_mean.png', plot)
+ggsave('./figs/geo_density_house_price_mean.png', plot)
 #+end_src
 
-#+CAPTION: House price mean over time (Minimal land price and Locality)
+#+CAPTION: House price mean over time (Initial geography and density increase)
 #+attr_html: :width 500px
 #+attr_latex: :width 500px
 #+RESULTS:
-[[file:./figs/min_locality_house_price_mean.png]]
+[[file:./figs/geo_density_house_price_mean.png]]
+
+
+
+
+**** Initial geography and Locality
+
+#+begin_src R :results graphics file :file ./figs/geo_locality_house_price_mean.png :exports results
+
+df %>%
+  ggplot(aes(x = time, y = log(`House price mean`), group = round(time / 100))) +
+  facet_rmarkdown(InitialGeography ~ Locality) +
+  geom_boxplot() -> plot
+ggsave('./figs/geo_locality_house_price_mean.png', plot)
+#+end_src
+
+#+CAPTION: House price mean over time (Initial geography and Locality)
+#+attr_html: :width 500px
+#+attr_latex: :width 500px
+#+RESULTS:
+[[file:./figs/geo_locality_house_price_mean.png]]
 
 
 
@@ -1322,14 +1199,12 @@ ggsave('./figs/min_locality_house_price_mean.png', plot)
 
 df %>%
   ggplot(aes(x = time, y = log(`House price mean`), group = round(time / 100))) +
-  ## geom_vline(aes(xintercept = vline, group = simulation), df_first) +
-  geom_hline(yintercept = log(1), color = 'red') +
   facet_wrap(~ Exp, ncol=5) +
   geom_boxplot() -> plot
 ggsave('./figs/all_experiments.png', plot)
 #+end_src
 
-#+CAPTION: House price mean over time (Minimal land price and Locality)
+#+CAPTION: House price mean over time (Initial geography and Locality)
 #+attr_html: :width 500px
 #+attr_latex: :width 500px
 #+RESULTS:
@@ -1344,51 +1219,35 @@ ggsave('./figs/all_experiments.png', plot)
   :header-args: netlogo :results output drawer :eval never-export :session export :exports code :tangle ./cluster-geo.nlogo
   :END:
 
-** Nlogo file
 
 #+begin_src netlogo :noweb yes :session export
 
 extensions [ palette]
 
 
-<<classes>>
+<<src-classes>>
 
 <<classes-prop>>
 <<owners-prop>>
 
-<<globals-var>>
+<<src-globals>>
 
-<<create-houses>>
-
-<<generate-land>>
-
-<<owns-house>>
+<<src-houses-lands>>
 
 <<setup>>
 
-<<go>>
+<<src-go>>
 
-<<update-house-price>>
-
-<<update-age>>
-
-<<find-neighbors>>
+<<src-housing-steps>>
 
 <<src-geo-cluster>>
 
-<<local-house-price-mean>>
+<<src-reporters>>
 
 <<gui-pre-exp>>
-<<experiments>>
-<<gui-post-exp>>
-#+end_src
-
-** Experiments
-
-#+NAME: experiments
-#+begin_src netlogo :noweb yes :tangle experiments.xml
 <experiments>
 <<baseline-exp>>
-<<exp-density-locality>>
+<<density-locality-exp>>
 </experiments>
+<<gui-post-exp>>
 #+end_src
