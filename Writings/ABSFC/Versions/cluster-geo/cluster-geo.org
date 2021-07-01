@@ -6,6 +6,11 @@
 #+LANG: en
 #+PROPERTY: header-args R :results code drawer :eval never-export :session analysis :exports both :tangle ./analysis.R
 
+
+#+RESULTS:
+:results:
+:end:
+
 * Initial setup
 
 #+begin_src R :exports code :results output
@@ -30,18 +35,6 @@ The following object is masked from ‘package:tidyr’:
     expand
 :end:
 
-#+NAME: rmd-to-org
-#+begin_src elisp :var pttrn1="--" pttrn2=":-"
-(while (re-search-forward pttrn1 nil t)
-  (replace-match "--"))
-
-(while (re-search-forward pttrn2 nil t)
-  (replace-match "--"))
-#+end_src
-
-#+RESULTS:
-:results:
-:end:
 
 
 * Description and relevant information

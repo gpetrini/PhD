@@ -1,6 +1,8 @@
 library(tidyverse)
 library(data.table)
-library(stargazer)
+library(pander)
+library(ascii)
+library(knitr)
 
 metrics <- c(
   "geral-house-price-mean"
@@ -23,7 +25,11 @@ df <- data.table::fread(
   rename(
     `Density ratio` = `initial-density-ratio`
   ) %>%
-  pander::pander(style = "grid")
+  mutate_if(is.numeric, round, digits = 3) %>%
+  data.frame(check.names=FALSE) %>% orgutils::toOrg() %>%
+  print()
+  ## pander::pander.return(style = "rmarkdown", digits = 2, split.table = Inf) %>%
+  ## ascii(type = "org")
 
 df <- data.table::fread(
   "./output/baseline.csv",
@@ -64,7 +70,7 @@ df <- data.table::fread(
 
 
 
-stats <- df %>%
+tab <- df %>%
   group_by(simulation) %>%
   filter(time > initial_drop, `House price mean` > `House price mean`[time == 1]) %>%
   mutate(tmp = 1:n()) %>%
@@ -88,8 +94,10 @@ stats <- df %>%
   arrange(`Mean`) %>%
   suppressMessages()
 
-stats %>%
-  pander::pandoc.table(style = "grid")
+tab %>%
+  mutate_if(is.numeric, round, digits = 3) %>%
+  data.frame(check.names=FALSE) %>% orgutils::toOrg() %>%
+  print()
 
 df %>%
   ggplot(aes(x = time, y = log(`House price mean`), group = round(time / 50))) +
@@ -120,13 +128,15 @@ df <- data.table::fread(
   ) %>%
   mutate(Exp = 1:n()) %>%
   relocate(Exp, .before = 1) %>%
-  pander::pander(style = "grid")
+  mutate_if(is.numeric, round, digits = 3) %>%
+  data.frame(check.names=FALSE) %>% orgutils::toOrg() %>%
+  print()
 
 initial_drop <- 100
 variables <- c(
   "initial-density-ratio",
   "Locality",
-  "min-land-price-share"
+  "InitialGeography"
 )
 
 df <- data.table::fread(
@@ -157,18 +167,18 @@ df <- df %>%
   left_join(experiments) %>%
   suppressMessages()
 
-stats <- df %>%
+tab <- df %>%
   group_by(Exp) %>%
-  filter(time > initial_drop, `House price mean` > `geral-house-price`[time == 1]) %>%
+  filter(time > initial_drop, `House price mean` > `House price mean`[time == 1]) %>%
   mutate(tmp = 1:n()) %>%
   ungroup() %>%
   arrange(simulation, time) %>%
-  group_by(Exp, density, Locality, min_land_price) %>%
+  group_by(Exp, density, Locality, InitialGeography) %>%
   summarise(
     `Mean` = mean(`House price mean`, na.rm = TRUE),
     `Price >= initial price` = mean(time[tmp == 1], na.rm = TRUE),
-    ## `Min` = min(`House price mean`),
-    ## `Median` = median(`House price mean`),
+    `Min` = min(`House price mean`),
+    `Median` = median(`House price mean`),
     `Max` = max(`House price mean`),
     `sd` = sd(`House price mean`)
   ) %>%
@@ -180,36 +190,30 @@ stats <- df %>%
   ) %>%
   arrange(`Mean`) %>%
   suppressMessages() %>%
-  pander::pandoc.table(style = "grid")
+  mutate_if(is.numeric, round, digits = 3) %>%
+  data.frame(check.names=FALSE) %>% orgutils::toOrg() %>%
+  print()
 
 df %>%
   ggplot(aes(x = time, y = log(`House price mean`), group = round(time / 100))) +
-  ## geom_vline(aes(xintercept = vline, group = simulation), df_first) +
-  geom_hline(yintercept = log(1), color = 'red') +
-  facet_grid(density ~ Locality) +
+  facet_rmarkdown(density ~ Locality) +
   geom_boxplot() -> plot
 ggsave('./figs/densityxlocality_house_price_mean.png', plot)
 
 df %>%
   ggplot(aes(x = time, y = log(`House price mean`), group = round(time / 100))) +
-  ## geom_vline(aes(xintercept = vline, group = simulation), df_first) +
-  geom_hline(yintercept = log(1), color = 'red') +
-  facet_grid(min_land_price ~ density) +
+  facet_rmarkdown(InitialGeography ~ density) +
   geom_boxplot() -> plot
-ggsave('./figs/min_density_house_price_mean.png', plot)
+ggsave('./figs/geo_density_house_price_mean.png', plot)
 
 df %>%
   ggplot(aes(x = time, y = log(`House price mean`), group = round(time / 100))) +
-  ## geom_vline(aes(xintercept = vline, group = simulation), df_first) +
-  geom_hline(yintercept = log(1), color = 'red') +
-  facet_grid(min_land_price ~ Locality) +
+  facet_rmarkdown(InitialGeography ~ Locality) +
   geom_boxplot() -> plot
-ggsave('./figs/min_locality_house_price_mean.png', plot)
+ggsave('./figs/geo_locality_house_price_mean.png', plot)
 
 df %>%
   ggplot(aes(x = time, y = log(`House price mean`), group = round(time / 100))) +
-  ## geom_vline(aes(xintercept = vline, group = simulation), df_first) +
-  geom_hline(yintercept = log(1), color = 'red') +
   facet_wrap(~ Exp, ncol=5) +
   geom_boxplot() -> plot
 ggsave('./figs/all_experiments.png', plot)

@@ -4,6 +4,10 @@
 #+LANG: en
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup
 
+
+#+RESULTS:
+
+
 * Introduction
 
 The purpose of this file is to document all model versions used in my dissertation.
@@ -68,6 +72,7 @@ CLOSED: [2021-06-24 qui 18:43]
 ** TODO See nlrx package ([[https://github.com/ropensci/nlrx][link]])
 
 ** TODO Necessity to set seed
+
 * Housekeeping instructions and conventions
 
 All models must use the *literate programming* paradigm to be more non-programmer friendly.
@@ -120,7 +125,6 @@ Dates in section heading indicates intended implementation deadline.
 
 *** Model Info :ignore:
 
-#+transclude: [[file:Versions/one-diffusion/one-diffusion.org::*Description and relevant information]] :level 4
 
 *** Changes between versions
 
@@ -129,7 +133,6 @@ This is the first model.
 
 *** Implementation :ignore:
 
-#+transclude: [[file:Versions/one-diffusion/one-diffusion.org::*Implementation]] :level 4
 
 
 *** Tangle and Noweb :noexport:
@@ -137,7 +140,6 @@ This is the first model.
   :header-args: netlogo :results output drawer :eval never-export :session export :exports code :tangle ./Versions/one-diffusion.nlogo
   :END:
 
-#+transclude: [[file:Versions/one-diffusion/one-diffusion.org::*Noweb and tangle]] :level 4 :only-contents
 
 *** Before move on
 
@@ -355,18 +357,20 @@ This is the last stage before moving to the next model.
 
 * Current version
 :PROPERTIES:
-  :header-args: netlogo :results code :eval never-export :session export :exports code
+  :header-args: netlogo :results code :eval never-export :session export :exports code :noweb yes
   :END:
 
 This section provides current version of the dissertation model always tangled as =current-version.nlogo=.
 Model's information is provided in the respective change log subsection.
 The following text is transcluded, so *read-only*.
 
-#+include: "Versions/cluster-geo/cluster-geo.org::*Implementation"
+#+transclude: [[file:Versions/cluster-geo/cluster-geo.org::*Implementation]]
+
 
 * Noweb and tangle :ignore:
 :PROPERTIES:
-  :header-args: netlogo :results output drawer :eval never-export :session export :exports code :tangle ./Versions/current-version.nlogo
+  :header-args: netlogo :results output drawer :eval never-export :session export :exports code :tangle ./Versions/current-version/current-version.nlogo :noweb yes
   :END:
 
-#+include: "Versions/cluster-geo/cluster-geo.org::*Noweb and tangle"
+
+#+transclude: [[file:Versions/cluster-geo/cluster-geo.org::*Noweb and tangle]]
