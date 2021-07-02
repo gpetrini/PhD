@@ -1,0 +1,128 @@
+#+OPTIONS: num:nil
+#+TITLE: Sraffian submultiplier model: An agent based braimstorm framework for Sraffian supermultiplier model
+#+AUTHOR: Gabriel Petrini
+#+LANG: en
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup
+
+* Description
+
+
+The objective of this article is to investigate how Sraffian supermultiplier model (SSM) properties emerges in a AB model.
+In order to do this, the model will represent an economy as simple as possible with heterogeneous firms while all the other institutional sectors are aggregated.
+Thus, there is only one sector, no labor supply restriction, government nor external sector.
+All other auxiliary assumption will follow AB literature as long as does not generate incompatibility with SSM.
+
+* Empirical motivation
+
+There is a consensus in the demand-led growth literature in which states that non-residential investment is, at the macroeconomic level, induced by income.
+As a consequence, there is a positive correlational relation between investment share and economic growth.
+Additionally, capacity utilization rate has a non-stationary trend so it does not move persistently away from the normal (theoretical) one.
+Those properties are supported by empirical works based on the Sraffian supermultiplier framework.
+Besides this econometric validation, it is unclear how this proclical behavior of non-residential investment emerges.
+
+There is a long strand of Schumpeterian grounded agent based models that emphasizes other stylized facts regarding non-residential investment.
+Just to name a few of them, there is the relevance of technological progress and innovation, market structure and competition, firms' long-term survival condition among other.
+One of the properties reported by this literature is the emergence of non-residential investment lumpiness.
+In summary, firms expanding at different levels coexist, which implies the persistence of heterogeneity.
+These results suggests that there are non-trivial mesoeconomic level mechanisms that explian how microeconomic behavior of the firm generates aggregate pattern of non-residential investment.
+
+Based on this collection of empirical results, this paper intend to investigate which microeconomic-level assumptions are required to reproduce the macroeconomic properties of fully-induced non-residential investment reported by SSM model.
+Next, each alternative is analyzed based on which stylized fact it reports.
+
+
+
+* Alternatives
+
+This is the first attempt to microfoundament the Sraffian supermultiplier model, so there are still possibilities to consider.
+The first one is the employment of SSM investment function as it is at the firm level.
+This procedure assumes that the aggregate non-residential investment is a scaled mirror of the firms' investment at the micro level.
+Since this alternative is the most simple and parsimonious one, will be reference as the *benchmark* alternative.
+The relevance of this experiment is to evaluate if this simple procedure is enough to generates the macroeconomic properties of the SSM alongside with other stylized effect.
+Thus, this version implies:
+
+#+BEGIN_latex
+\begin{equation}
+EI_{f} = h_{f}\cdot Y^{De}_{f}
+\end{equation}
+#+END_latex
+in which $EI_{f}$ is the expansion investment of firm $f$, $h_{f}$ is its marginal propensity to invest and $Y^{De}$ is its expected demands.
+
+
+Once the firm sector is no longer aggregated, there are some additional variables that does not have a macroeconomic equivalent but could have some relevant microeconomic effects.
+This is the case for mark-share.
+SSM states that firms' expansion investment is fully induced, so it depends on expected demand.
+Translating this mechanism to the microeconomic level, firms' decisions to invest depends on the demand for its products.
+This is where market-share takes place.
+A firm expected demand is not independent of its own actions nor its competitors strategies.
+As a consequence, a firm investment plan must consider its expected level market-share which depends on the expectations of others firms reactions as well.
+In summary, the interaction between the firms' decisions and the expectation of others could have non-trivial consequences.
+This alternative will be referenced as *strategic model*.
+To ensure that there is any other effects, we assume that market share depends on product not on process innovation.
+Formally:
+
+#+BEGIN_latex
+\begin{equation}
+Y^{De}_{f} = MS_{f}^{e}\cdot Y^{D}_{F, t-1}
+\end{equation}
+#+END_latex
+in which, $MS_{f}^{e}$ is the expected market share of firm $f$ and $Y^{D}_{F, t-1}$ is the previous demand for the total market.
+Expected market share, on the other hands, will depend on each firm probability of success and the expected success of other firms:
+#+BEGIN_latex
+\begin{equation}
+MS_{f}^{e} = MS_{f,t-1} \cdot (1 + pr(\Delta MS_{f} > 0)) - (1-MS_{f,t-1})\cdot \left(\sum_{i \neq f}^{F} MS_{i,t-1} \cdot(1+pr (\Delta MS_{i} > 0))\right)
+\end{equation}
+#+END_latex
+
+
+#+BEGIN_info
+FIXME related questions:
+- How to specify market share function?
+#+END_info
+
+Other microeconomic variable that introduces firms heterogeneity is technology and capital vintage.
+A firm capital stock is composed by different technological sets.
+In other words, this versions assumes capital heterogeneity.
+As a consequence, firms attend to its expected demand differently in time, so its investment plans should consider this limitations.
+However, as shown by the capital controversy debate, this alternative could have non-linear consequences.
+In order to isolate the effects of this hypothesis, we assume only technological heterogeneity across firms, but each firm will persist on its initial technological set.
+Based on this strong assumption, this version is called *stubborn capital* model.
+In mathematical terms:
+
+#+BEGIN_latex
+\begin{equation}
+\overline{A_{f}} = \sum_{j}^{\kappa = \infty}\frac{k_{f_{t-j}}\cdot A_{f_{t-1}}}{K_{f}}
+\end{equation}
+#+END_latex
+in which $\overline{A_{f}}$ is firm average capital productivity composed by different capital vintages ($k_{f}$) each of them with maximum lifetime ($\kappa$).
+Since we assume no technological change, capital venture heterogeneity persists which is equivalent to assume an undestructable capital stock ($\kappa = \infty$).
+As a consequence of this, each firm full capacity output ($YFC_{f}$) will be different as well.
+
+#+BEGIN_info
+FIXME related questions:
+- What are the consequences of the heroic assumptions of this alternatives? Firms will expand productivity capacity in order to keep average capital productivity?
+- What if $\kappa < \infty$?
+- What about assets/liabilities mismatch? Firms expansion decisions are based on financial liability duration.
+- Does the simplifying hypothesis of product innovation (instead of process) required?
+#+END_info
+
+The next logical step is to merge the *strategic* and *stubborn capital* model versions to evaluate the interaction of these two effects.
+This is called the *intersectional model*.
+Differently from *strategic model*, this version will have process innovation instead of product innovation.
+Thus, capital lifetime is no longer infinity and each firm productivity and market share evolves together.
+Consequently, firm's expected demand and full capacity output differ from baseline model.
+
+* Model validation
+
+Each model alternative will differ only in expansion investment behavior.
+All other assumption remains the same in order to  be comparable.
+The results will be contrasted with the already mapped stylized facts and in its capacity to replicalite SSM aggregate investment function:
+
+#+BEGIN_latex
+\begin{equation}
+EI_{F}^{hyp.} = h_{F}\cdot Y^{D}_{F} \leftrightarrow EI_{F} = \sum EI_{f}
+\end{equation}
+#+END_latex
+In order to do so, aggregate marginal propensity to invest will be share the same calibrated value across model and the results' sensibility to it will be evaluated.
+Additionally, each alternative will be initialized equally.
+
+* Conceptual model
