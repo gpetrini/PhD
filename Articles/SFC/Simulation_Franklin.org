@@ -27,7 +27,6 @@ def model(
     alpha = 1.0, # Fazzarri Calibration. Talk to lucas
     gamma_F = 0.08,
     gamma_u = 0.09, # Fazzarri Calibration
-    g_Z = 0.025, # Fazzarri Calibration
     omega = 0.5*0.5, # Fazzari alpha*omwga
     alpha_k = 0.3, # Marginal propensity to consume for capitalists
     alpha_kv = 0.03, # Marginal propensity to consume for capitalists out of wealth
@@ -41,9 +40,12 @@ def model(
     infla = 0.0,
     phparam=1.0,
     R = 0.7,  # Previous 0.7 Increased
-    gC = 0.0, #0.025 (Real Data)
-    real = 0.0
+    gC = 0.025, # (Real Data)
+    equal_rates = 1
+
 ):
+
+  calculated_gih = phi_0 - phi_1*((1+rm)/(1+infla) - 1)
   """
   phparam: 1.0 means no inflation
   """
@@ -59,7 +61,8 @@ def model(
   model.var('FT', desc='Total Profits')
   model.var('FU', desc='Retained profits')
   model.var('gk', desc='Capital growth rate')
-  model.var('g_Z', desc='Autonomous grouth rate')
+  model.var('g_Z', desc='Autonomous growth rate', default = calculated_gih)
+  model.var('g_C', desc='Autonomous consumption growth rate', default = calculated_gih)
   model.var('h', desc='Marginal propensity to invest (non-residential)', default=0.03) # previous 0.03
   model.var('I_t', desc='Investment', default = 100)
   model.var('I_f', desc='Non-residential investment')
@@ -90,6 +93,8 @@ def model(
   model.var('S_hk', desc='Capitalist savings')
   model.var('u', desc='Capacity utilization ratio', default=0.7)
   model.var('V_h', desc='Household net nominal wealth')
+  model.var('V_hf', desc='Household net financial wealth', default = 1000)
+  model.var('V_hf_aux', desc='Household net financial wealth (aux)')
   model.var('V_hr', desc='Household net real wealth')
   model.var('V_f', desc='Firms net wealth')
   model.var('V_b', desc='Banks net wealth')
@@ -115,8 +120,10 @@ def model(
   model.param('phi_1', desc='Housing investment sensitivity to own interest rate', default = phi_1)
   model.param('R', desc='Autonomous ratio', default=R)
   model.param('infla', desc='infla value', default = infla)
-  model.param('gC', desc='Autonomous consumption growth rate', default = gC)
-  model.param('real_data', desc='Real data flag. 1 if using observed data, 0 otherwise', default = real)
+
+  model.param('gC', desc='Autonomous consumption growth rate', default = calculated_gih)
+  model.param('equal_rates', desc='Flag', default = equal_rates)
+
 
   # General equations
   model.add('C = Cw + Ck')
@@ -127,8 +134,7 @@ def model(
   model.add('gk = h*u/v') # Eq 7
   model.add('Knom = K_HD*ph + K_f') # Eq 8
   model.add('K = K_HD + K_f') # Eq 8
-  # model.add('Z = I_h + Ck') # Eq 9
-  model.add('Z = I_h') # Eq 9
+  model.add('Z = I_h + Ck') # Eq 9
   model.add('Y = C + I_t') # Eq1
 
   # Workers equations
@@ -139,19 +145,19 @@ def model(
 
   # Capitalist equations
   # model.add('YDk = FD + rm*M_h(-1) - rmo*MO(-1) - rl*Lk(-1)') # Removing Lk
+
+  model.add('g_C = (equal_rates)*g_Z + (1 - equal_rates)*gC')
+
   model.add('YDk = FD + rm*M_h(-1) - rmo*MO(-1)')
-  model.add('Ck = alpha_k*YDk') # New capitalist consumption equation
-  # model.add('Ck = R*Z + real_data*Ck(-1)*(1+gC)') # In real data, gC >0, real_data ==1 and R == 0
+  model.add('Ck = (1+g_C)*Ck(-1)')
   model.add('S_hk = YDk - Ck') # Eq 11
   model.add('d(MO) = I_h') # Eq 12
   # model.add('d(Lk) = Ck')
-  # model.add('d(M_h) = S_hk + d(Lk)') # Removing Lk
   model.add('d(M_h) = S_hk')
-  # model.add('V_h =  M_h  + K_HD*ph - MO - Lk') # Eq 15 # Removing Lk
-  model.add('V_h =  M_h  + K_HD*ph - MO') # Eq 15
-  # model.add('V_hr =  M_h  + K_HD - MO - Lk') # Eq 15 #Removing Lk
-  model.add('V_hr =  M_h  + K_HD - MO') # Eq 15
   model.add('NFW_h = S_hk - I_h') # Eq 16
+  model.add('d(V_hf) = -Ck')
+  model.add('V_h =  V_hf  + K_HD*ph') # Eq 15
+  model.add('V_hr = V_hf  + K_HD') # Eq 15
 
   # Firms
   model.add('d(Lf) = I_f - FU') # Eq 15
@@ -193,7 +199,8 @@ def model(
 
   # model.add('DT = MO + Lk')
   model.add('DT = MO')
-  model.add('DN = DT - M')
+  model.add('DN = DT - M_h')
+  model.add('V_hf_aux = M_h - MO') # Residual
 
   return model
 
@@ -242,7 +249,7 @@ def plot_shock(filename, shock, df):
         title = "Growth rates", ax = ax[0,0],
         ls = ('--'), lw=3,
     )
-    shock[["K"]].pct_change().plot(
+    shock[["K_f"]].pct_change().plot(
         title = "Growth rates", ax = ax[0,0],
         ls = (':'), lw=3
     )
@@ -254,20 +261,25 @@ def plot_shock(filename, shock, df):
         title = "Growth rates", ax = ax[0,0],
         ls = ('-.'), lw=3,
     )
+    shock[["C"]].pct_change().plot(
+        title = "Growth rates", ax = ax[0,0],
+        ls = (':'), lw=3
+    )
     ax[0,0].axhline(y=shock["g_Z"].iloc[-1], color = "black", ls = "--", lw=2.5)
     #ax[0,0].set_yticklabels(['{:,.1%}'.format(x) for x in ax[0,0].get_yticks()])
-    ax[0,0].legend(loc='upper center', bbox_to_anchor=(0.5, -0.06),
-                   labels = ["$Y$", "$K$", "$I_h$", "$I_f$"],
-              fancybox=True, shadow=True, ncol=2)
+    ax[0,0].legend(loc='lower right',
+                   bbox_to_anchor=(0.8, 0.08),
+                   labels = ["$Y$", "$K_f$", "$I_h$", "$I_f$", "C"],
+              fancybox=True, shadow=True, ncol=3)
     ax[0,0].ticklabel_format(useOffset=False)
 
     ((shock["Z"]/shock['Y'])).plot(
         title = "Autonomous expenditures share on GDP", ax = ax[0,1], ls = ('-'), lw=3, color='darkred')
 
     ax[0,1].set_ylim(auto=True)
-    ax[0,1].legend(loc='upper center', bbox_to_anchor=(0.5, -0.08),
-                   labels=['$Z/Y$'],
-              fancybox=True, shadow=True, ncol=2)
+    # ax[0,1].legend(loc='upper center', bbox_to_anchor=(0.5, -0.08),
+    #                labels=['$Z/Y$'],
+    #           fancybox=True, shadow=True, ncol=2)
 
     shock['u'].plot(title = 'Capacity utilization ratio', ax=ax[1,0], legend = False, color = "darkred", lw = 3, )
     ax[1,0].axhline(y = shock['un'].iloc[-1], ls ='--', color = "gray")
@@ -326,7 +338,7 @@ def plot_norms(filename, shock, df):
     ax[1,0].legend(loc='upper center', bbox_to_anchor=(0.5, -0.1),
                    labels = [
                        'Mortgage',
-                       'Loans',
+                       # 'Loans',
                        'Total'
                             ],
               fancybox=True, shadow=True, ncol=2)
@@ -388,16 +400,16 @@ def other_plots(shock, df):
     #plt.show()
     plt.clf()
 
-    fig, ax = plt.subplots(1,1, figsize=(8,5))
+    # fig, ax = plt.subplots(1,1, figsize=(8,5))
 
-    shock[["MO", "L"]].apply(lambda x: x/(shock["MO"] + shock['L'])).plot(kind = "area",stacked = True ,title = "Credit (as % Passives)", ax=ax)
-    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    ax.axhline(y = 1, color = "black", ls = "--")
-    ax.axhline(y = 0, color = "black", ls = "--")
+    # shock[["MO", "L"]].apply(lambda x: x/(shock["MO"] + shock['L'])).plot(kind = "area",stacked = True ,title = "Credit (as % Passives)", ax=ax)
+    # ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    # ax.axhline(y = 1, color = "black", ls = "--")
+    # ax.axhline(y = 0, color = "black", ls = "--")
 
-    sns.despine()
-    plt.tight_layout(rect=[0, 0.03, 1, 0.95])
-    plt.clf()
+    # sns.despine()
+    # plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+    # plt.clf()
 
     plt.close('all')
 
@@ -407,7 +419,270 @@ def other_plots(shock, df):
 #+RESULTS:
 
 
-** Increase in autonomous growth rate ($g_Z$)
+** Comparative growth rates
+
+*** Residential investment growth rate higher than autonomous consumption
+
+
+#+BEGIN_SRC python :results output latex table
+base = model(equal_rates = 0)
+df = SolveSFC(base, time=1000)
+shock = ShockModel(base_model=base, create_function=model(), variable='gC', increase=-0.01, time = 1000)
+df_gih=shock
+clock_plots(shock = shock, filename = 'Clock_higher_gIh_referee.png', variable='g_Z')
+plot_shock(shock = shock, filename = 'Shock_higher_gIh_referee.png', df=df)
+plot_norms(shock = shock, filename = 'Shock_higher_gIh_Norms_referee.png', df=df)
+other_plots(shock, df=df)
+
+shock_Ih_Ck = shock.round(decimals = 5).tail(1).transpose().loc['alpha':,:]
+shock_Ih_Ck.columns = ['$g_{I_h} > g_C$']
+print(shock_Ih_Ck.to_latex())
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{tabular}{lr}
+\toprule
+{} &  \$g\_\{I\_h\} > g\_C\$ \\
+\midrule
+alpha       &     1.000000e+00 \\
+alpha\_k     &     3.000000e-01 \\
+gamma\_F     &     8.000000e-02 \\
+gamma\_u     &     9.000000e-02 \\
+omega       &     2.500000e-01 \\
+rm          &     1.000000e-02 \\
+spread\_l    &     0.000000e+00 \\
+spread\_mo   &     0.000000e+00 \\
+un          &     8.000000e-01 \\
+v           &     1.200000e+00 \\
+phi\_0       &     2.500000e-02 \\
+phi\_1       &     1.000000e-01 \\
+R           &     7.000000e-01 \\
+infla       &     0.000000e+00 \\
+gC          &     1.400000e-02 \\
+equal\_rates &     0.000000e+00 \\
+\_K\_f\_\_1     &     2.737306e+23 \\
+\_M\_h\_\_1     &     5.239961e+24 \\
+\_MO\_\_1      &     5.428750e+24 \\
+\_Ck\_\_1      &     4.779478e+18 \\
+\_V\_hf\_\_1    &    -3.461706e+20 \\
+\_Lf\_\_1      &    -1.887890e+23 \\
+\_h\_\_1       &     3.600000e-02 \\
+\_L\_\_1       &    -1.887890e+23 \\
+\_M\_\_1       &     5.239961e+24 \\
+\_K\_HD\_\_1    &     5.428750e+24 \\
+\_I\_h\_\_1     &     1.272363e+23 \\
+\_ph\_\_1      &     1.000000e+00 \\
+TIME        &     1.051000e+03 \\
+Ih/Y        &     7.139700e-01 \\
+I/Y         &     7.499700e-01 \\
+Z/Y         &     7.140000e-01 \\
+gY          &     2.400000e-02 \\
+\bottomrule
+\end{tabular}
+#+end_export
+
+*** Residential investment growth rate lower than autonomous consumption
+
+#+BEGIN_SRC python :results output latex table
+base = model(equal_rates = 0)
+df = SolveSFC(base, time=1000)
+shock = ShockModel(base_model=base, create_function=model(), variable='gC', increase=0.005, time = 1000)
+df_ck=shock
+clock_plots(shock = shock, filename = 'Clock_higher_gC_referee.png', variable='g_Z')
+plot_shock(shock = shock, filename = 'Shock_higher_gC_referee.png', df=df)
+plot_norms(shock = shock, filename = 'Shock_higher_gC_Norms_referee.png', df=df)
+# other_plots(shock, df=df)
+
+shock_Ck_Ih = shock.round(decimals = 5).tail(1).transpose().loc['alpha':,:]
+shock_Ck_Ih.columns = ['$g_{I_h} < g_C$']
+print(shock_Ck_Ih.to_latex())
+#+END_SRC
+
+#+RESULTS:
+#+begin_export latex
+\begin{tabular}{lr}
+\toprule
+{} &  \$g\_\{I\_h\} < g\_C\$ \\
+\midrule
+alpha       &     1.000000e+00 \\
+alpha\_k     &     3.000000e-01 \\
+gamma\_F     &     8.000000e-02 \\
+gamma\_u     &     9.000000e-02 \\
+omega       &     2.500000e-01 \\
+rm          &     1.000000e-02 \\
+spread\_l    &     0.000000e+00 \\
+spread\_mo   &     0.000000e+00 \\
+un          &     8.000000e-01 \\
+v           &     1.200000e+00 \\
+phi\_0       &     2.500000e-02 \\
+phi\_1       &     1.000000e-01 \\
+R           &     7.000000e-01 \\
+infla       &     0.000000e+00 \\
+gC          &     2.900000e-02 \\
+equal\_rates &     0.000000e+00 \\
+\_K\_f\_\_1     &     2.480699e+25 \\
+\_M\_h\_\_1     &    -4.334418e+24 \\
+\_MO\_\_1      &     5.428750e+24 \\
+\_Ck\_\_1      &     1.123111e+25 \\
+\_V\_hf\_\_1    &    -3.985108e+26 \\
+\_Lf\_\_1      &    -9.763169e+24 \\
+\_h\_\_1       &     4.341000e-02 \\
+\_L\_\_1       &    -9.763169e+24 \\
+\_M\_\_1       &    -4.334418e+24 \\
+\_K\_HD\_\_1    &     5.428750e+24 \\
+\_I\_h\_\_1     &     1.272363e+23 \\
+\_ph\_\_1      &     1.000000e+00 \\
+TIME        &     1.051000e+03 \\
+Ih/Y        &     7.880000e-03 \\
+I/Y         &     5.129000e-02 \\
+Z/Y         &     7.065900e-01 \\
+gY          &     2.894000e-02 \\
+\bottomrule
+\end{tabular}
+#+end_export
+
+
+
+*** Merging tables and results :ignore:
+
+**** Figure 1
+
+#+BEGIN_SRC python :results graphics file :file ./figs/Compared_Shocks_1_Zs.png :cache no
+base = model(equal_rates = 0)
+df = SolveSFC(base, time=1000)
+df["Z/Y"] = df["Z"]/df["Y"]
+df_base = df
+
+fig, ax = plt.subplots(2,2, figsize=(19.20,10.80))
+
+df_gih['Y'].pct_change().plot(ls ='-',lw=3,
+                           #color = "black",
+                           color = "tab:blue",
+                           label = "$g_{I_h} > g_{Ck}$", ax = ax[0,0]
+)
+df_ck['Y'].pct_change().plot(ls ='-', lw=3,
+                           #color = "darkgray",
+                           color = "tab:red",
+                           label = "$g_{I_h} < g_{Ck}$", ax = ax[0,0])
+ax[0,0].axhline(y = df_base['g_Z'].iloc[-1], ls ='--', lw=1,
+                #color = "lightgray",
+                color = "black",
+                label = "Baseline")
+ax[0,0].ticklabel_format(useOffset=False)
+ax[0,0].set_title('A GDP growth rate ($g$)')
+
+df_gih['Z/Y'].plot(ls ='-', lw=3,
+                #color = "black",
+                color = "tab:blue",
+                label = "$g_{I_h} > g_{Ck}$", ax = ax[0,1])
+df_ck['Z/Y'].plot(ls ='-', lw=3,
+                #color = "darkgray",
+                color = "tab:red",
+                label = "$g_{I_h} < g_{Ck}$", ax = ax[0,1])
+ax[0,1].axhline(y = df_base['Z/Y'].iloc[-1], ls ='--', lw=1.5,
+                #color = "lightgray",
+                color = "black",
+                label = "Baseline")
+ax[0,1].ticklabel_format(useOffset=False)
+ax[0,1].set_title('B Autonomous Expenditure\nShare on GDP ($Z/Y$)')
+
+df_gih['u'].plot(ls ='-', lw=3,
+              #color = "black",
+              color = "tab:blue",
+              label = "$g_{I_h} > g_{Ck}$", ax = ax[1,0])
+df_ck['u'].plot(ls ='-', lw=3,
+              #color = "darkgray",
+              color = "tab:red",
+              label = "$g_{I_h} < g_{Ck}$", ax = ax[1,0])
+ax[1,0].axhline(y = df_base['u'].iloc[-1], ls ='--', lw=1.5,
+                #color = "lightgray",
+                color = "black",
+                label = "Baseline")
+ax[1,0].ticklabel_format(useOffset=False)
+ax[1,0].set_title('C Capacity utilization rate ($u$)')
+
+df_gih['h'].plot(ls ='-', lw=3,
+              #color = "black",
+              color = "tab:blue",
+              label = "$g_{I_h} > g_{Ck}$", ax = ax[1,1])
+df_ck['h'].plot(ls ='-', lw=3,
+              #color = "darkgray",
+              color = "tab:red",
+              label = "$g_{I_h} < g_{Ck}$", ax = ax[1,1])
+ax[1,1].axhline(y = df_base['h'].iloc[-1], ls ='--', lw=1.5, color = "lightgray", label = "Baseline")
+ax[1,1].ticklabel_format(useOffset=False)
+ax[1,1].set_title('D Marginal propsenty\nto invest ($h$)')
+
+
+sns.despine()
+plt.tight_layout(rect=[0, 0.03, .85, 0.95])
+ax[1,1].legend(loc='center left', bbox_to_anchor=(1.00, 1.25))
+#plt.show()
+fig.savefig("./figs/Compared_Shocks_1_Zs.png", dpi = 300)
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/Compared_Shocks_1_Zs.png]]
+
+
+
+**** Figure 2
+
+#+BEGIN_SRC python :results graphics file :file ./figs/Compared_Shocks_2_Zs.png :cache no
+base = model()
+df = SolveSFC(base, time=1000)
+df["Z/Y"] = df["Z"]/df["Y"]
+df_base = df
+
+df_gih["TIME"] = [i+1 for i in range(len(df_gih.index))]
+df_ck["TIME"] = [i+1 for i in range(len(df_ck.index))]
+
+fig, ax = plt.subplots(2,2, figsize=(19.20,10.80))
+
+sns.scatterplot(y = 'Z/Y', x='u', data=df_gih, size="TIME", sizes = (1,100), color = 'tab:blue', legend=False, ax=ax[0,0])
+sns.scatterplot(y = 'Z/Y', x='u', data=df_ck, size="TIME", sizes = (1,100), color = 'tab:red', legend=False, ax=ax[0,0])
+
+sns.lineplot(y = 'Z/Y', x='u', data=df_gih, sort=False, color = 'tab:blue', ax=ax[0,0])
+sns.lineplot(y = 'Z/Y', x='u', data=df_ck, sort=False, color = 'tab:red', ax=ax[0,0])
+ax[0,0].set_title('A Share of NCC autonomous expenditures and capacity utilization\n(Dots size grow in time)')
+
+df_gih['K_k'].plot(ls ='-', lw=3, color = "tab:blue", label = "$g_{I_{h}} > g_{Ck}$", ax = ax[0,1])
+df_ck['K_k'].plot(ls ='-', lw=3, color = "tab:red", label = "$g_{I_{h}} < g_{Ck}$", ax = ax[0,1])
+ax[0,1].axhline(y = df_base['K_k'].iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[0,1].ticklabel_format(useOffset=False)
+ax[0,1].set_title('B Houses share on\nReal Assets ($K_k$)')
+
+((df_gih["DN"][1:]*df_gih["rm"][2:])/df_gih['K_HD'][2:]).plot(ls ='-', lw=3, color = "tab:blue", label = "$g_{I_{h}} > g_{Ck}$", ax = ax[1,0])
+((df_ck["DN"][1:]*df_ck["rm"][2:])/df_ck['K_HD'][2:]).plot(ls ='-', lw=3, color = "tab:red", label = "$g_{I_{h}} < g_{Ck}$", ax = ax[1,0])
+ax[1,0].axhline(y = ((df_base["DN"].iloc[-1]*df_base["rm"].iloc[-1])/df_base['K_HD'].iloc[-1]), ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[1,0].ticklabel_format(useOffset=False)
+ax[1,0].set_title('C Capitalist Indebtedness\n(as % $K_{HD}$)')
+
+(df_gih['Fn']/df_gih['K_f']).plot(ls ='-', lw=3, color = "tab:blue", label = "$g_{I_{h}} > g_{Ck}$", ax = ax[1,1])
+(df_ck['Fn']/df_ck['K_f']).plot(ls ='-', lw=3, color = "tab:red", label = "$g_{I_{h}} < g_{Ck}$", ax = ax[1,1])
+ax[1,1].axhline(y = (df_base['Fn']/df_base['K_f']).iloc[-1], ls ='--', lw=1.5, color = "black", label = "Baseline")
+ax[1,1].ticklabel_format(useOffset=False)
+ax[1,1].set_title('D Net profit rate')
+
+sns.despine()
+plt.tight_layout(rect=[0, 0.03, .85, 0.95])
+ax[1,1].legend(loc='center left', bbox_to_anchor=(1.0, 1.25))
+#plt.show()
+fig.savefig("./figs/Compared_Shocks_2_Zs.png", dpi = 600)
+#+END_SRC
+
+#+RESULTS:
+[[file:./figs/Compared_Shocks_2_Zs.png]]
+
+
+
+
+
+
+** Residential investment and autonomous consumption growing at same rate
+
+*** Increase in autonomous growth rate ($g_Z$)
 
 #+BEGIN_SRC python :results raw drawer table
 base = model()
@@ -465,7 +740,7 @@ gY        &     2.900000e-02 \\
 :end:
 
 
-** Wage-share decrease ($\Downarrow \omega$)
+*** Wage-share decrease ($\Downarrow \omega$)
    
 #+BEGIN_SRC python :results raw drawer table latex
 base = model()
@@ -522,7 +797,7 @@ gY        &     2.400000e-02 \\
 \end{tabular}
 #+end_export
 
-** Increase in mortgage interest rate
+*** Increase in mortgage interest rate
    
 #+BEGIN_SRC python :results raw table drawer latex
 base = model()
@@ -574,7 +849,7 @@ real\_data &  0.000000e+00 \\
 \end{tabular}
 #+end_export
 
-** TODO Decrease in mortgage interest rate
+*** TODO Decrease in mortgage interest rate
 
 #+BEGIN_SRC python :results raw drawer table latex :eval no
 base = model()
@@ -627,7 +902,7 @@ real\_data &     0.000000e+00 \\
 \end{tabular}
 #+end_export
 
-** Increase in house inflation
+*** Increase in house inflation
    
 #+BEGIN_SRC python :results raw drawer table latex
 base = model()
@@ -686,9 +961,9 @@ gY        &  2.900000e-02 \\
 #+end_export
 
 
-** Merging tables and results                                        :ignore:
+*** Merging tables and results :ignore:
 
-*** Table
+**** Table
 
 #+ATTR_LATEX: :environment tabularx :placement [h] :center t :width \linewidth
 #+BEGIN_SRC python :results raw table latex
@@ -757,7 +1032,7 @@ $\pi$         &         0.0000 &           0.0000 &           0.0000 &       0.0
 \end{tabular}
 #+end_export
 
-*** Figure 1
+**** Figure 1
 
 #+BEGIN_SRC python :results graphics file :file ./figs/Compared_Shocks_1_referee.png :cache no
 base = model()
@@ -858,7 +1133,7 @@ fig.savefig("./figs/Compared_Shocks_1_referee.png", dpi = 300)
 
 
 
-*** Figure 2
+**** Figure 2
     
 #+BEGIN_SRC python :results graphics file :file ./figs/Compared_Shocks_2_referee.png :cache no
 base = model()
