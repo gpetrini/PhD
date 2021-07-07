@@ -1,0 +1,338 @@
+#+OPTIONS: H:2 toc:nil  ':t
+#+TITLE:  Determinants of residential investment growth rate in the US economy (1992-2019)
+#+AUTHOR: Gabriel Petrini and Lucas Teixeira
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS:  [10pt]
+#+LANG: en
+#+DATE: July 20th, 2021
+#+startup: beamer
+#+beamer_frame_level: 2
+#+LATEX_HEADER: \usepackage{caption, csquotes, appendixnumberbeamer, graphicx}
+#+LATEX_HEADER: \usepackage{svg, caption, multirow, booktabs, tabularx, lscape, tablefootnote, threeparttable, makecell}
+#+LATEX_HEADER: \newcolumntype{b}{>{\hsize=2.3\hsize}X}
+#+LATEX_HEADER: \newcolumntype{s}{>{\hsize=.45\hsize}X}
+#+LATEX_HEADER: \newcolumntype{m}{>{\hsize=.9\hsize}X}
+#+LATEX_HEADER: \usepackage[backend=biber,style=authoryear-comp, uniquename=init, giveninits, doi=false, isbn=false, maxcitenames= 2, natbib=true]{biblatex}
+#+LATEX_HEADER: \usepackage[english]{babel}
+#+LATEX_HEADER: \addbibresource{./ref.bib}
+#+LATEX_HEADER: \setbeamertemplate{navigation symbols}{} %remove navigation symbols
+#+BEAMER_THEME: metropolis
+#+LATEX_HEADER: \institute{Institute of Economics - University of Campinas/Brazil}
+#+LATEX_HEADER: \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
+
+
+
+* Table of contents :ignore:
+#+begin_export latex
+\begin{frame}{Table of contents}
+  \setbeamertemplate{section in toc}[sections numbered]
+  \tableofcontents[hideallsubsections]
+\end{frame}
+#+end_export
+
+* Introduction
+
+** Introduction
+
+After the subprime crisis (2008) and the Great Recession (2008-2009), policymakers have payed more attention on housing market.
+However, residential investment is only *indirectly* considered.
+
+The Sraffian supermultiplier (SSM) model presented by textcite:serrano_long_1995 and textcite:bortis_institutions_1997 establishes a prominent role for non-capacity creating autonomous expenditures such as *residential investment*.
+Few works have examined its determinants and still there is not a consensus about it.
+
+
+#+LATEX: \metroset{block=fill}
+*** Objective
+Present and evaluate a parsimonious way of explaining the behavior of the residential investment growth rate, focusing on the US case (1992-2019).
+# The time range was selected because it captures the effects of changes in depository institutions in the 1980s and begining of the 1990s, the rise of house prices, the bubble of the 2000s, and the aftermath of the 2008 crisis.
+
+* Empirical motivation
+
+** Residential investment, business cycle and economic growth in the US economy
+
+- Macroeconomic relevance of residential investment systematically neglected
+  + Small share on aggregate demand
+  + Some exceptions citep:duesenberry_investment_1958,keynes_collected_1978
+
+From the review of empirical literature, residential investment $\ldots$:
+
+- leads the business cycle citep:green_follow_1997,leamer_housing_2007,leamer_housing_2015,kydland_2016_housing
+- is a source of autonomous demand citep:fiebiger_semi-autonomous_2018,teixeira_crescimento_2015,fiebiger_trend_2017
+- is relevant for long-run economic growth citep:perez_Montiel_2021,girardi_autonomous_2018
+
+
+
+** Residential investment and the business cycle
+
+#+LATEX: \metroset{block=transparent}
+*** Selected expenditures growth rates two years before and two years after recession starts[fn::@@latex:\tiny{Vertical lines indicate the begining of the recession (NBER recession dating procedure)}@@]
+
+#+begin_export latex
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=.65\textheight, width = \textwidth]{./figs/Centered_Begin_pct1.png}
+	\caption*{\scriptsize{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' Elaboration}}
+\end{figure}
+#+end_export
+
+
+
+
+** Residential investment and long-run economic growth[fn::@@latex:\tiny{HP filter, $\lambda = 1600$}@@]
+
+#+begin_export latex
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=.7\textheight, width = \textwidth]{./figs/Trend.png}
+	\caption*{\scriptsize{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' Elaboration}}
+\end{figure}
+#+end_export
+
+
+
+
+
+* Econometric literature review
+
+** Determinants of residential investment
+
+Few econometric papers analyze housing in macroeconomic terms and its determinants.
+
+- textcite:poterba_tax_1984 :: houses as an asset and not only as a durable consumption good
+- House price :: positively related
+- Interest rate :: negatively related, interest rate choice varies
+- 80s-90s Institutional changes :: residential investment responsiveness to interest rate is still valid
+
+#+begin_export latex
+\metroset{block=fill}
+\begin{block}{Main conclusion}
+House prices (nominal or deflated by some general price index) and some interest rate (mortgage or long term, as proxy) may be the only consensus about residential investment determinants.
+\end{block}
+#+end_export
+
+
+
+* Estimation proposition and economic discussion
+
+** Houses own-rate of interest
+
+
+Inspired by \citeauthor*{sraffaDrHayekMoney1932}'s (citeyear:sraffaDrHayekMoney1932) commodity rate, textcite:teixeira_crescimento_2015  proposed the index named houses own-rate of interest ($own$) to analyze the 2000s US housing boom episode.
+
+#+BEGIN_latex
+\begin{equation}
+\label{txpropria}
+own =  \left(\frac{1+r_{mo}}{1+\pi} - 1\right)
+\end{equation}
+#+END_latex
+
+- House price inflation ($\pi$) :: relation between the costs of acquiring the new house measure by its market price and its potential sale price
+- Mortgage interest rate ($r_{mo}$) :: financial cost of this operation
+
+#+LATEX: \metroset{block=fill}
+*** Houses own-rate of interest in a nutshell
+
+It is the combination of the relevant nominal rate of interest with the relevant price index for the one acquiring a new house, representing the *real cost in houses from buying houses* \parencite[p.~53]{teixeira_crescimento_2015}.
+
+
+** Houses own-rate of interest and residential investment growth rate
+#+begin_export latex
+\begin{figure}[htb]
+	\centering
+	\includegraphics[width=\textwidth]{./figs/TxPropria_Investo.png}
+	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' elaboration}
+\end{figure}
+#+end_export
+
+
+
+** Data and inspection
+
+We rely on the following quarterly seasonally adjusted data:
+ - Mortgage interest rate :: 30-year fixed (MORTGAGE30US)
+ - Residential investiment :: Private residential investment (PRFI)
+ - House price inflation :: Case-Shiller house price index (CSUSHPISA)
+
+The time range was selected because it captures the effects of changes in depository institutions (1980s and 1990s), the rise of house prices, the bubble of the 2000s, and the aftermath of the 2008 crisis.
+
+- textcite:yeo_new_2000 transformation
+- Unit root and Structural break tests $\Rightarrow$ non-stationary
+- textcite:johansen_estimation_1991 procedure $\Rightarrow$ Series are cointegrated
+
+** Estimation strategy
+
+Previous results allows us to estimate a error correction model.
+We assume the following long-run relationship:
+
+
+#+BEGIN_latex
+\begin{equation}
+\label{gihLR}
+g_{I_{h_{t}}} = \phi_{0} + \phi_{1}\cdot own_{t}
+\end{equation}
+#+END_latex
+
+and short run adjustment process:
+
+#+begin_export latex
+{\scriptsize
+\begin{equation}
+\label{matrix}
+\begin{bmatrix}
+\Delta own_{t}\\
+\Delta g_{I_{h_{t}}}
+\end{bmatrix} = \begin{bmatrix}\delta_{1}\\ \delta_{2}\end{bmatrix} + \begin{bmatrix}\alpha_{1}\\ \alpha_{2}\end{bmatrix} \begin{bmatrix}g_{I_{h_{t-1}}} - \phi_{0} - \phi_{1,1}\cdot own_{t-1}\\g_{I_{h_{t-1}}} - \phi_{0} - \phi_{1,2}\cdot own_{t-1}\end{bmatrix}^{\prime} + \sum^N_{i=1} \begin{bmatrix}\beta_{1,i} & \gamma_{1,i} \\\beta_{2,i} & \gamma_{2,i} \end{bmatrix} \begin{bmatrix}\Delta g_{I_{h_{t-i}}} \\\Delta own_{t-i}\end{bmatrix} + \begin{bmatrix}\varepsilon_{1,t}\\\varepsilon_{2,t}\end{bmatrix}
+\end{equation}
+}
+#+end_export
+
+where $\delta_{is}$ indicate linear trend (level);
+$\alpha_{is}$ are adjustment parameters;
+$\beta_{is}$ and $\gamma_{is}$ are coefficients associated with lagged $g_{I_h}$ and $own$ respectively and; $\varepsilon_{is}$ are the residuals.
+We estimated a VECM with four lags.
+
+
+** Expected results and economic meaning
+
+#+begin_export latex
+
+\input{./tabs/hypothesis.tex}
+#+end_export
+
+
+* Results
+
+** Orthogonalized Impulse Response Function
+
+#+begin_export latex
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=.85\textheight]{./figs/Impulse_VECMOrth_grey.png}
+\end{figure}
+#+end_export
+** Forecast error variance decomposition
+
+
+
+#+begin_export latex
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{./figs/FEVD_VECMpython_TxPropria.png}
+\end{figure}
+#+end_export
+
+* Conclusions
+** Concluding remarks
+
+
+We presented a simple specification for residential investment growth rate based on houses own-rate of interest proposed by textcite:teixeira_crescimento_2015.
+- houses own-rate of interest ($own$) and residential investment growth rate ($g_{I_h}$) share a common long-run trend;
+- residential investment growth rate effects over $own$ are negligible; and
+- houses own-rate of interest has a negative effect on residential investment growth rate and it explains more than a half of its variance after the second quarter.
+
+#+LATEX: \metroset{block=fill}
+*** 5 Second synthesis
+
+Houses own-rate of interest determines — but is not determined by — residential investment growth rate and these variables
+present a long-term relationship.
+All expected results hold for lags 1 to 7 and most of them hold for the other lags.
+Thus, houses own-rate of interest has a prominent role in explaining residential investment growth rate.
+
+
+* References :ignore:
+
+#+begin_export latex
+
+\appendix
+
+\begin{frame}[allowframebreaks]{References}
+\printbibliography[heading=none]
+
+\end{frame}
+#+end_export
+
+
+
+* Backup slides :ignore:
+
+** Additional plots :ignore:
+
+
+
+#+begin_export latex
+\section{Additional plots}
+
+
+\begin{frame}{Time-series with \textcite{yeo_new_2000} transformation}
+
+\begin{figure}[htb]
+	\centering
+	\label{YeoJhonson}
+	\includegraphics[width=\textwidth]{./figs/YeoJohnson_All.png}
+	\caption*{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' elaboration}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Average construction time (approval to completion) of properties for a family unit by construction purposes except manufactured houses (1976-2018)}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{./figs/Meses_construcao.png}
+	\caption*{\textbf{Source:} Survey of Construction (SOC), Authors' elaboration}
+\end{figure}
+
+\end{frame}
+#+end_export
+
+** Estimation :ignore:
+
+#+begin_export latex
+\section{Estimation}
+
+\begin{frame}{Selection model order}
+\scriptsize{\input{./tabs/VECM_lag_order.tex}}
+\end{frame}
+
+\begin{frame}{Estimation parameters}
+\begin{table}[H]
+	\centering
+    \caption{VECM parameters - four lags}
+    \label{Estimacao}
+    \resizebox*{!}{\dimexpr\textheight-15\lineskip\relax}{%
+	     \input{./tabs/parameters.tex}
+               }
+\end{table}
+\end{frame}
+#+end_export
+
+** Statistical tests :ignore:
+
+#+begin_export latex
+\section{Statistical tests}
+
+
+\begin{frame}{Unit root tests}
+\scriptsize{\input{./tabs/UnitRoot.tex}}
+\end{frame}
+
+
+\begin{frame}{Structural break tests}
+\scriptsize{\input{./tabs/StructBreak.tex}}
+\end{frame}
+
+
+\begin{frame}{Cointegration test}
+\scriptsize{\input{./tabs/Johansen.tex}}
+\end{frame}
+#+end_export
+
+
+
+
+** Robustness check :ignore:
+
+#+begin_export latex
+\section{Robustness check}
+\begin{frame}{Robustness check}
+	     \input{./tabs/robust.tex}
+\end{frame}
+#+end_export

@@ -93,8 +93,8 @@ def model(
   model.var('S_hk', desc='Capitalist savings')
   model.var('u', desc='Capacity utilization ratio', default=0.7)
   model.var('V_h', desc='Household net nominal wealth')
-  model.var('V_hf', desc='Household net financial wealth', default = 1000)
-  model.var('V_hf_aux', desc='Household net financial wealth (aux)')
+  # model.var('V_hf', desc='Household net financial wealth', default = 1000)
+  # model.var('V_hf_aux', desc='Household net financial wealth (aux)')
   model.var('V_hr', desc='Household net real wealth')
   model.var('V_f', desc='Firms net wealth')
   model.var('V_b', desc='Banks net wealth')
@@ -155,9 +155,9 @@ def model(
   # model.add('d(Lk) = Ck')
   model.add('d(M_h) = S_hk')
   model.add('NFW_h = S_hk - I_h') # Eq 16
-  model.add('d(V_hf) = -Ck')
-  model.add('V_h =  V_hf  + K_HD*ph') # Eq 15
-  model.add('V_hr = V_hf  + K_HD') # Eq 15
+  # model.add('d(V_hf) = -Ck')
+  model.add('V_h =  M_h - MO  + K_HD*ph') # Eq 15
+  model.add('V_hr = M_h - MO  + K_HD') # Eq 15
 
   # Firms
   model.add('d(Lf) = I_f - FU') # Eq 15
@@ -200,7 +200,7 @@ def model(
   # model.add('DT = MO + Lk')
   model.add('DT = MO')
   model.add('DN = DT - M_h')
-  model.add('V_hf_aux = M_h - MO') # Residual
+  # model.add('V_hf_aux = M_h - MO') # Residual
 
   return model
 
@@ -333,13 +333,13 @@ def plot_norms(filename, shock, df):
         title="Debt service on\nDisposable income", ax = ax[1,0], ls = ('-'), lw=3)
     # ((shock["Lk"]*shock["rl"][1:])/shock['YDk'][1:]).plot(ax = ax[1,0], ls = ('-'), lw=3)
     # ((shock["MO"]*shock["rmo"][1:] + shock["Lk"]*shock["rl"][1:])/shock['YDk'][1:]).plot( ax = ax[1,0], ls = ('-'), lw=3)
-    ((shock["MO"]*shock["rmo"][1:])/shock['YDk'][1:]).plot( ax = ax[1,0], ls = ('-'), lw=3)
+    # ((shock["MO"]*shock["rmo"][1:])/shock['YDk'][1:]).plot( ax = ax[1,0], ls = ('-'), lw=3)
     ax[1,0].set_yticklabels(['{:,.1%}'.format(x) for x in ax[1,0].get_yticks()])
     ax[1,0].legend(loc='upper center', bbox_to_anchor=(0.5, -0.1),
                    labels = [
                        'Mortgage',
                        # 'Loans',
-                       'Total'
+                       # 'Total'
                             ],
               fancybox=True, shadow=True, ncol=2)
 
@@ -465,7 +465,6 @@ equal\_rates &     0.000000e+00 \\
 \_M\_h\_\_1     &     5.239961e+24 \\
 \_MO\_\_1      &     5.428750e+24 \\
 \_Ck\_\_1      &     4.779478e+18 \\
-\_V\_hf\_\_1    &    -3.461706e+20 \\
 \_Lf\_\_1      &    -1.887890e+23 \\
 \_h\_\_1       &     3.600000e-02 \\
 \_L\_\_1       &    -1.887890e+23 \\
@@ -525,7 +524,6 @@ equal\_rates &     0.000000e+00 \\
 \_M\_h\_\_1     &    -4.334418e+24 \\
 \_MO\_\_1      &     5.428750e+24 \\
 \_Ck\_\_1      &     1.123111e+25 \\
-\_V\_hf\_\_1    &    -3.985108e+26 \\
 \_Lf\_\_1      &    -9.763169e+24 \\
 \_h\_\_1       &     4.341000e-02 \\
 \_L\_\_1       &    -9.763169e+24 \\
@@ -653,11 +651,11 @@ ax[0,1].axhline(y = df_base['K_k'].iloc[-1], ls ='--', lw=1.5, color = "black", 
 ax[0,1].ticklabel_format(useOffset=False)
 ax[0,1].set_title('B Houses share on\nReal Assets ($K_k$)')
 
-((df_gih["DN"][1:]*df_gih["rm"][2:])/df_gih['K_HD'][2:]).plot(ls ='-', lw=3, color = "tab:blue", label = "$g_{I_{h}} > g_{Ck}$", ax = ax[1,0])
-((df_ck["DN"][1:]*df_ck["rm"][2:])/df_ck['K_HD'][2:]).plot(ls ='-', lw=3, color = "tab:red", label = "$g_{I_{h}} < g_{Ck}$", ax = ax[1,0])
-ax[1,0].axhline(y = ((df_base["DN"].iloc[-1]*df_base["rm"].iloc[-1])/df_base['K_HD'].iloc[-1]), ls ='--', lw=1.5, color = "black", label = "Baseline")
+((df_gih["MO"][1:]*df_gih["rm"][2:])/df_gih['YDk'][2:]).plot(ls ='-', lw=3, color = "tab:blue", label = "$g_{I_{h}} > g_{Ck}$", ax = ax[1,0])
+((df_ck["MO"][1:]*df_ck["rm"][2:])/df_ck['YDk'][2:]).plot(ls ='-', lw=3, color = "tab:red", label = "$g_{I_{h}} < g_{Ck}$", ax = ax[1,0])
+ax[1,0].axhline(y = ((df_base["MO"].iloc[-1]*df_base["rm"].iloc[-1])/df_base['YDk'].iloc[-1]), ls ='--', lw=1.5, color = "black", label = "Baseline")
 ax[1,0].ticklabel_format(useOffset=False)
-ax[1,0].set_title('C Capitalist Indebtedness\n(as % $K_{HD}$)')
+ax[1,0].set_title('C Capitalist Indebtedness\n(as % Capitalist disposable income)')
 
 (df_gih['Fn']/df_gih['K_f']).plot(ls ='-', lw=3, color = "tab:blue", label = "$g_{I_{h}} > g_{Ck}$", ax = ax[1,1])
 (df_ck['Fn']/df_ck['K_f']).plot(ls ='-', lw=3, color = "tab:red", label = "$g_{I_{h}} < g_{Ck}$", ax = ax[1,1])
