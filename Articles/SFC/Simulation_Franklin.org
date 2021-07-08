@@ -25,11 +25,11 @@ from sympy import pprint, cse
 
 def model(
     alpha = 1.0, # Fazzarri Calibration. Talk to lucas
-    gamma_F = 0.08,
+    gamma_F = 0.05, # was 0.08
     gamma_u = 0.09, # Fazzarri Calibration
     omega = 0.5*0.5, # Fazzari alpha*omwga
-    alpha_k = 0.3, # Marginal propensity to consume for capitalists
-    alpha_kv = 0.03, # Marginal propensity to consume for capitalists out of wealth
+    # alpha_k = 0.3, # Marginal propensity to consume for capitalists
+    # alpha_kv = 0.03, # Marginal propensity to consume for capitalists out of wealth
     rm = 0.01,
     spread_l = 0,
     spread_mo = 0,
@@ -92,12 +92,12 @@ def model(
   model.var('S_hw', desc='Workers savings')
   model.var('S_hk', desc='Capitalist savings')
   model.var('u', desc='Capacity utilization ratio', default=0.7)
-  model.var('V_h', desc='Household net nominal wealth')
+  model.var('V_h', desc='Household net nominal wealth', default = 1000)
   # model.var('V_hf', desc='Household net financial wealth', default = 1000)
   # model.var('V_hf_aux', desc='Household net financial wealth (aux)')
-  model.var('V_hr', desc='Household net real wealth')
-  model.var('V_f', desc='Firms net wealth')
-  model.var('V_b', desc='Banks net wealth')
+  model.var('V_hr', desc='Household net real wealth', default = 1000)
+  model.var('V_f', desc='Firms net wealth', default = 500)
+  model.var('V_b', desc='Banks net wealth', default = 0)
   model.var('W', desc='Wages')
   model.var('Y', desc='GDP', default=280)
   model.var('Yk', desc='Capacity', default=1100)
@@ -106,7 +106,7 @@ def model(
   model.var('Z', desc='Autonomous expenditures')
 
   model.param('alpha', desc='Propensity to consume out of wages', default=alpha)
-  model.param('alpha_k', desc='Capitalists marginal propensity to consume', default=alpha_k)
+  # model.param('alpha_k', desc='Capitalists marginal propensity to consume', default=alpha_k)
   # model.param('alpha_kv', desc='Capitalists marginal propensity to consume out of Fin. Wealth', default=alpha_kv)
   model.param('gamma_F', desc='% of undistributed profits', default=gamma_F)
   model.param('gamma_u', desc='Adjustment parameter for the marginal propensity to invest', default=gamma_u)
@@ -427,7 +427,7 @@ def other_plots(shock, df):
 #+BEGIN_SRC python :results output latex table
 base = model(equal_rates = 0)
 df = SolveSFC(base, time=1000)
-shock = ShockModel(base_model=base, create_function=model(), variable='gC', increase=-0.01, time = 1000)
+shock = ShockModel(base_model=base, create_function=model(), variable='phi_0', increase=0.01, time = 1000)
 df_gih=shock
 clock_plots(shock = shock, filename = 'Clock_higher_gIh_referee.png', variable='g_Z')
 plot_shock(shock = shock, filename = 'Shock_higher_gIh_referee.png', df=df)
@@ -447,7 +447,7 @@ print(shock_Ih_Ck.to_latex())
 \midrule
 alpha       &     1.000000e+00 \\
 alpha\_k     &     3.000000e-01 \\
-gamma\_F     &     8.000000e-02 \\
+gamma\_F     &     5.000000e-02 \\
 gamma\_u     &     9.000000e-02 \\
 omega       &     2.500000e-01 \\
 rm          &     1.000000e-02 \\
@@ -455,28 +455,28 @@ spread\_l    &     0.000000e+00 \\
 spread\_mo   &     0.000000e+00 \\
 un          &     8.000000e-01 \\
 v           &     1.200000e+00 \\
-phi\_0       &     2.500000e-02 \\
+phi\_0       &     3.500000e-02 \\
 phi\_1       &     1.000000e-01 \\
 R           &     7.000000e-01 \\
 infla       &     0.000000e+00 \\
-gC          &     1.400000e-02 \\
+gC          &     2.400000e-02 \\
 equal\_rates &     0.000000e+00 \\
-\_K\_f\_\_1     &     2.737306e+23 \\
-\_M\_h\_\_1     &     5.239961e+24 \\
-\_MO\_\_1      &     5.428750e+24 \\
-\_Ck\_\_1      &     4.779478e+18 \\
-\_Lf\_\_1      &    -1.887890e+23 \\
-\_h\_\_1       &     3.600000e-02 \\
-\_L\_\_1       &    -1.887890e+23 \\
-\_M\_\_1       &     5.239961e+24 \\
-\_K\_HD\_\_1    &     5.428750e+24 \\
-\_I\_h\_\_1     &     1.272363e+23 \\
+\_K\_f\_\_1     &     4.646478e+27 \\
+\_M\_h\_\_1     &     6.492989e+28 \\
+\_MO\_\_1      &     6.368165e+28 \\
+\_Ck\_\_1      &     8.652071e+22 \\
+\_Lf\_\_1      &     1.248243e+27 \\
+\_h\_\_1       &     5.100000e-02 \\
+\_L\_\_1       &     1.248243e+27 \\
+\_M\_\_1       &     6.492989e+28 \\
+\_K\_HD\_\_1    &     6.368165e+28 \\
+\_I\_h\_\_1     &     2.093981e+27 \\
 \_ph\_\_1      &     1.000000e+00 \\
 TIME        &     1.051000e+03 \\
-Ih/Y        &     7.139700e-01 \\
+Ih/Y        &     6.989700e-01 \\
 I/Y         &     7.499700e-01 \\
-Z/Y         &     7.140000e-01 \\
-gY          &     2.400000e-02 \\
+Z/Y         &     6.990000e-01 \\
+gY          &     3.400000e-02 \\
 \bottomrule
 \end{tabular}
 #+end_export
@@ -486,7 +486,7 @@ gY          &     2.400000e-02 \\
 #+BEGIN_SRC python :results output latex table
 base = model(equal_rates = 0)
 df = SolveSFC(base, time=1000)
-shock = ShockModel(base_model=base, create_function=model(), variable='gC', increase=0.005, time = 1000)
+shock = ShockModel(base_model=base, create_function=model(), variable='gC', increase=0.01, time = 1000)
 df_ck=shock
 clock_plots(shock = shock, filename = 'Clock_higher_gC_referee.png', variable='g_Z')
 plot_shock(shock = shock, filename = 'Shock_higher_gC_referee.png', df=df)
@@ -506,7 +506,7 @@ print(shock_Ck_Ih.to_latex())
 \midrule
 alpha       &     1.000000e+00 \\
 alpha\_k     &     3.000000e-01 \\
-gamma\_F     &     8.000000e-02 \\
+gamma\_F     &     5.000000e-02 \\
 gamma\_u     &     9.000000e-02 \\
 omega       &     2.500000e-01 \\
 rm          &     1.000000e-02 \\
@@ -518,24 +518,24 @@ phi\_0       &     2.500000e-02 \\
 phi\_1       &     1.000000e-01 \\
 R           &     7.000000e-01 \\
 infla       &     0.000000e+00 \\
-gC          &     2.900000e-02 \\
+gC          &     3.400000e-02 \\
 equal\_rates &     0.000000e+00 \\
-\_K\_f\_\_1     &     2.480699e+25 \\
-\_M\_h\_\_1     &    -4.334418e+24 \\
+\_K\_f\_\_1     &     3.159745e+27 \\
+\_M\_h\_\_1     &     8.542212e+26 \\
 \_MO\_\_1      &     5.428750e+24 \\
-\_Ck\_\_1      &     1.123111e+25 \\
-\_Lf\_\_1      &    -9.763169e+24 \\
-\_h\_\_1       &     4.341000e-02 \\
-\_L\_\_1       &    -9.763169e+24 \\
-\_M\_\_1       &    -4.334418e+24 \\
+\_Ck\_\_1      &     1.423907e+27 \\
+\_Lf\_\_1      &     8.487924e+26 \\
+\_h\_\_1       &     5.100000e-02 \\
+\_L\_\_1       &     8.487924e+26 \\
+\_M\_\_1       &     8.542212e+26 \\
 \_K\_HD\_\_1    &     5.428750e+24 \\
 \_I\_h\_\_1     &     1.272363e+23 \\
 \_ph\_\_1      &     1.000000e+00 \\
 TIME        &     1.051000e+03 \\
-Ih/Y        &     7.880000e-03 \\
-I/Y         &     5.129000e-02 \\
-Z/Y         &     7.065900e-01 \\
-gY          &     2.894000e-02 \\
+Ih/Y        &     6.000000e-05 \\
+I/Y         &     5.106000e-02 \\
+Z/Y         &     6.990000e-01 \\
+gY          &     3.400000e-02 \\
 \bottomrule
 \end{tabular}
 #+end_export
@@ -563,6 +563,7 @@ df_ck['Y'].pct_change().plot(ls ='-', lw=3,
                            #color = "darkgray",
                            color = "tab:red",
                            label = "$g_{I_h} < g_{Ck}$", ax = ax[0,0])
+
 ax[0,0].axhline(y = df_base['g_Z'].iloc[-1], ls ='--', lw=1,
                 #color = "lightgray",
                 color = "black",
@@ -704,7 +705,7 @@ print(shock1.to_latex())
 \midrule
 alpha       &     1.000000e+00 \\
 alpha\_k     &     3.000000e-01 \\
-gamma\_F     &     8.000000e-02 \\
+gamma\_F     &     5.000000e-02 \\
 gamma\_u     &     9.000000e-02 \\
 omega       &     2.500000e-01 \\
 rm          &     1.000000e-02 \\
@@ -719,13 +720,13 @@ infla       &     0.000000e+00 \\
 gC          &     2.400000e-02 \\
 equal\_rates &     1.000000e+00 \\
 \_K\_f\_\_1     &     6.062022e+25 \\
-\_M\_h\_\_1     &     5.623992e+26 \\
+\_M\_h\_\_1     &     5.945535e+26 \\
 \_MO\_\_1      &     5.860454e+26 \\
 \_Ck\_\_1      &     1.123111e+25 \\
-\_Lf\_\_1      &    -2.364620e+25 \\
+\_Lf\_\_1      &     8.508095e+24 \\
 \_h\_\_1       &     4.350000e-02 \\
-\_L\_\_1       &    -2.364620e+25 \\
-\_M\_\_1       &     5.623992e+26 \\
+\_L\_\_1       &     8.508095e+24 \\
+\_M\_\_1       &     5.945535e+26 \\
 \_K\_HD\_\_1    &     5.860454e+26 \\
 \_I\_h\_\_1     &     1.651634e+25 \\
 \_ph\_\_1      &     1.000000e+00 \\
@@ -763,7 +764,7 @@ print(shock2.to_latex())
 \midrule
 alpha       &     1.000000e+00 \\
 alpha\_k     &     3.000000e-01 \\
-gamma\_F     &     8.000000e-02 \\
+gamma\_F     &     5.000000e-02 \\
 gamma\_u     &     9.000000e-02 \\
 omega       &     2.400000e-01 \\
 rm          &     1.000000e-02 \\
@@ -778,13 +779,13 @@ infla       &     0.000000e+00 \\
 gC          &     2.400000e-02 \\
 equal\_rates &     1.000000e+00 \\
 \_K\_f\_\_1     &     4.534949e+23 \\
-\_M\_h\_\_1     &     5.105569e+24 \\
+\_M\_h\_\_1     &     5.403019e+24 \\
 \_MO\_\_1      &     5.428750e+24 \\
 \_Ck\_\_1      &     8.652071e+22 \\
-\_Lf\_\_1      &    -3.231814e+23 \\
+\_Lf\_\_1      &    -2.573088e+22 \\
 \_h\_\_1       &     3.600000e-02 \\
-\_L\_\_1       &    -3.231814e+23 \\
-\_M\_\_1       &     5.105569e+24 \\
+\_L\_\_1       &    -2.573088e+22 \\
+\_M\_\_1       &     5.403019e+24 \\
 \_K\_HD\_\_1    &     5.428750e+24 \\
 \_I\_h\_\_1     &     1.272363e+23 \\
 \_ph\_\_1      &     1.000000e+00 \\
@@ -821,7 +822,7 @@ print(shock3.to_latex())
 \midrule
 alpha       &  1.000000e+00 \\
 alpha\_k     &  3.000000e-01 \\
-gamma\_F     &  8.000000e-02 \\
+gamma\_F     &  5.000000e-02 \\
 gamma\_u     &  9.000000e-02 \\
 omega       &  2.500000e-01 \\
 rm          &  1.200000e-02 \\
@@ -836,13 +837,13 @@ infla       &  0.000000e+00 \\
 gC          &  2.400000e-02 \\
 equal\_rates &  1.000000e+00 \\
 \_K\_f\_\_1     &  3.600342e+23 \\
-\_M\_h\_\_1     &  4.040231e+24 \\
+\_M\_h\_\_1     &  4.277937e+24 \\
 \_MO\_\_1      &  4.297398e+24 \\
 \_Ck\_\_1      &  6.779290e+22 \\
-\_Lf\_\_1      & -2.571670e+23 \\
+\_Lf\_\_1      & -1.946113e+22 \\
 \_h\_\_1       &  3.600000e-02 \\
-\_L\_\_1       & -2.571670e+23 \\
-\_M\_\_1       &  4.040231e+24 \\
+\_L\_\_1       & -1.946113e+22 \\
+\_M\_\_1       &  4.277937e+24 \\
 \_K\_HD\_\_1    &  4.297398e+24 \\
 \_I\_h\_\_1     &  9.969545e+22 \\
 \_ph\_\_1      &  1.000000e+00 \\
@@ -928,7 +929,7 @@ print(shock4.to_latex())
 \midrule
 alpha       &  1.000000e+00 \\
 alpha\_k     &  3.000000e-01 \\
-gamma\_F     &  8.000000e-02 \\
+gamma\_F     &  5.000000e-02 \\
 gamma\_u     &  9.000000e-02 \\
 omega       &  2.500000e-01 \\
 rm          &  1.000000e-02 \\
@@ -943,13 +944,13 @@ infla       &  5.000000e-02 \\
 gC          &  2.400000e-02 \\
 equal\_rates &  1.000000e+00 \\
 \_K\_f\_\_1     &  5.035507e+25 \\
-\_M\_h\_\_1     &  4.701057e+26 \\
+\_M\_h\_\_1     &  4.969998e+26 \\
 \_MO\_\_1      &  4.902237e+26 \\
 \_Ck\_\_1      &  9.334785e+24 \\
-\_Lf\_\_1      & -2.011805e+25 \\
+\_Lf\_\_1      &  6.776130e+24 \\
 \_h\_\_1       &  4.300000e-02 \\
-\_L\_\_1       & -2.011805e+25 \\
-\_M\_\_1       &  4.701057e+26 \\
+\_L\_\_1       &  6.776130e+24 \\
+\_M\_\_1       &  4.969998e+26 \\
 \_K\_HD\_\_1    &  4.902237e+26 \\
 \_I\_h\_\_1     &  1.372763e+25 \\
 \_ph\_\_1      &  1.472685e+21 \\
@@ -1019,7 +1020,7 @@ print(table.to_latex(
 \midrule
 $\alpha$      &         1.0000 &           1.0000 &           1.0000 &       1.0000 & 1.0000 \\
 $\alpha_{k}$  &         0.3000 &           0.3000 &           0.3000 &       0.3000 & 0.3000 \\
-$\gamma_F$    &         0.0800 &           0.0800 &           0.0800 &       0.0800 & 0.0800 \\
+$\gamma_F$    &         0.0500 &           0.0500 &           0.0500 &       0.0500 & 0.0500 \\
 $\gamma_u$    &         0.0900 &           0.0900 &           0.0900 &       0.0900 & 0.0900 \\
 $\omega$      &         0.2500 &           0.2500 &           0.2400 &       0.2500 & 0.2500 \\
 $rm$          &         0.0100 &           0.0100 &           0.0100 &       0.0120 & 0.0100 \\
