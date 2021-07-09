@@ -1,4 +1,4 @@
-% Created 2021-07-07 qua 18:23
+% Created 2021-07-09 sex 12:02
 % Intended LaTeX compiler: pdflatex
 \documentclass[10pt]{beamer}
   \usepackage{caption, csquotes, appendixnumberbeamer, graphicx}
@@ -6,12 +6,38 @@
 \newcolumntype{b}{>{\hsize=2.3\hsize}X}
 \newcolumntype{s}{>{\hsize=.45\hsize}X}
 \newcolumntype{m}{>{\hsize=.9\hsize}X}
-\usepackage[backend=biber,style=authoryear-comp, uniquename=init, giveninits, doi=false, isbn=false, maxcitenames= 2, natbib=true]{biblatex}
+\usepackage[backend=biber,style=authoryear-comp, uniquename=init, giveninits, doi=false, isbn=false, maxcitenames= 2, natbib=true, sorting=ynt]{biblatex}
 \usepackage[english]{babel}
 \addbibresource{./ref.bib}
 \setbeamertemplate{navigation symbols}{} %remove navigation symbols
 \institute{Institute of Economics - University of Campinas/Brazil}
-\titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
+\DeclareLabeldate{%
+\field{date}
+\field{year}
+\field{eventdate}
+\field{urldate}
+\literal{nodate}
+}
+\renewbibmacro*{date+extradate}{%
+\iffieldundef{labelyear}
+{}
+{\printtext[parens]{%
+\iffieldundef{origyear}
+{}
+{\printtext[brackets]{\printorigdate}%
+\setunit{\addspace}}%
+\iflabeldateisdate
+{\printdateextra}
+{\printlabeldateextra}}}}
+\renewbibmacro*{cite:labeldate+extradate}{%
+\iffieldundef{labelyear}
+{}
+{\printtext[bibhyperref]{%
+\iffieldundef{origyear}
+{}
+{\printtext[brackets]{\printorigdate}%
+\setunit{\addspace}}%
+\printlabeldateextra}}}
 \usetheme{metropolis}
 \author{Gabriel Petrini and Lucas Teixeira}
 \date{July 20th, 2021}
@@ -22,20 +48,22 @@
 
 
 
+
+
 \begin{frame}{Table of contents}
   \setbeamertemplate{section in toc}[sections numbered]
   \tableofcontents[hideallsubsections]
 \end{frame}
 
 \section{Introduction}
-\label{sec:org58b60a0}
+\label{sec:orgac7795d}
 
-\begin{frame}[label={sec:orgf7e76d6}]{Introduction}
+\begin{frame}[label={sec:org0dd9f50}]{Introduction}
 After the subprime crisis (2008) and the Great Recession (2008-2009), policymakers have payed more attention on housing market.
 However, residential investment is only \alert{indirectly} considered.
 
-The Sraffian supermultiplier (SSM) model presented by \textcite{serrano_long_1995} and \textcite{bortis_institutions_1997} establishes a prominent role for non-capacity creating autonomous expenditures such as \alert{residential investment}.
-Few works have examined its determinants and still there is not a consensus about it.
+The growing theoretical and empirical literature based on the Sraffian supermultiplier model (SSM, \cites{serrano_long_1995}{bortis_institutions_1997}) establishes a prominent role for non-capacity creating autonomous expenditures such as \alert{residential investment}.
+Few works have examined its \alert{macroeconomic} determinants and still there is not a consensus about it.
 
 
 \metroset{block=fill}
@@ -45,18 +73,18 @@ Present and evaluate a parsimonious way of explaining the behavior of the reside
 \end{frame}
 
 \section{Empirical motivation}
-\label{sec:org0cd09d9}
+\label{sec:org00dc828}
 
-\begin{frame}[label={sec:org1151b63}]{Residential investment, business cycle and economic growth in the US economy}
+\begin{frame}[label={sec:orgf83302d}]{Residential investment, business cycle and economic growth in the US economy}
 \begin{itemize}
 \item Macroeconomic relevance of residential investment systematically neglected
 \begin{itemize}
 \item Small share on aggregate demand
-\item Some exceptions \citep{duesenberry_investment_1958,keynes_collected_1978}
+\item Some exceptions (\cite{keynes_collected_1978}, \cite{duesenberry_investment_1958})
 \end{itemize}
 \end{itemize}
 
-From the review of empirical literature, residential investment \(\ldots\):
+From the review of empirical literature, residential investment:
 
 \begin{itemize}
 \item leads the business cycle \citep{green_follow_1997,leamer_housing_2007,leamer_housing_2015,kydland_2016_housing}
@@ -67,12 +95,12 @@ From the review of empirical literature, residential investment \(\ldots\):
 
 
 
-\begin{frame}[label={sec:org8f0b6fe}]{Residential investment and the business cycle}
+\begin{frame}[label={sec:org3413215}]{Residential investment and the business cycle \citep{green_follow_1997,leamer_housing_2007}}
 \metroset{block=transparent}
 \begin{block}{Selected expenditures growth rates two years before and two years after recession starts\footnote{\tiny{Vertical lines indicate the begining of the recession (NBER recession dating procedure)}}}
 \begin{figure}[H]
 	\centering
-	\includegraphics[height=.65\textheight, width = \textwidth]{./figs/Centered_Begin_pct1.png}
+	\includegraphics[height=.57\textheight, width = \textwidth]{./figs/Centered_Begin_pct1.png}
 	\caption*{\scriptsize{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' Elaboration}}
 \end{figure}
 \end{block}
@@ -81,10 +109,10 @@ From the review of empirical literature, residential investment \(\ldots\):
 
 
 
-\begin{frame}[label={sec:orgb6692ea}]{Residential investment and long-run economic growth\footnote{\tiny{HP filter, $\lambda = 1600$}}}
+\begin{frame}[label={sec:org9878956}]{Residential investment and long-run economic growth\footnote{\tiny{HP filter, $\lambda = 1600$. We are aware of the econometric problems regarding this type of filter. For details see \textcite{NBER_HP}. This is just a visualization procedure.}} \citep{perez_Montiel_2021}}
 \begin{figure}[H]
 	\centering
-	\includegraphics[height=.7\textheight, width = \textwidth]{./figs/Trend.png}
+	\includegraphics[height=.68\textheight, width = \textwidth]{./figs/Trend.png}
 	\caption*{\scriptsize{\textbf{Source:} U.S. Bureau of Economic Analysis, Authors' Elaboration}}
 \end{figure}
 \end{frame}
@@ -94,9 +122,9 @@ From the review of empirical literature, residential investment \(\ldots\):
 
 
 \section{Econometric literature review}
-\label{sec:org76c2ee2}
+\label{sec:org42c60ef}
 
-\begin{frame}[label={sec:orgc2c50a8}]{Determinants of residential investment}
+\begin{frame}[label={sec:org5edb79b}]{Determinants of residential investment}
 Few econometric papers analyze housing in macroeconomic terms and its determinants.
 
 \begin{description}
@@ -115,9 +143,9 @@ House prices (nominal or deflated by some general price index) and some interest
 
 
 \section{Estimation proposition and economic discussion}
-\label{sec:org3b4bbb5}
+\label{sec:org6703cc3}
 
-\begin{frame}[label={sec:orga850655}]{Houses own-rate of interest}
+\begin{frame}[label={sec:org07af5d1}]{Houses own-rate of interest: definition}
 Inspired by \citeauthor*{sraffaDrHayekMoney1932}'s (\citeyear{sraffaDrHayekMoney1932}) commodity rate, \textcite{teixeira_crescimento_2015}  proposed the index named houses own-rate of interest (\(own\)) to analyze the 2000s US housing boom episode.
 
 \begin{latex}
@@ -128,7 +156,7 @@ own =  \left(\frac{1+r_{mo}}{1+\pi} - 1\right)
 \end{latex}
 
 \begin{description}
-\item[{House price inflation (\(\pi\))}] relation between the costs of acquiring the new house measure by its market price and its potential sale price
+\item[{House price inflation (\(\pi\))}] relation between the costs of acquiring the new house market price and its potential sale price
 \item[{Mortgage interest rate (\(r_{mo}\))}] financial cost of this operation
 \end{description}
 
@@ -138,8 +166,31 @@ It is the combination of the relevant nominal rate of interest with the relevant
 \end{block}
 \end{frame}
 
+\begin{frame}[label={sec:org937ec2b}]{Houses own-rate of interest: clarifications}
+\label{OwnClarification}
+Houses own-rate of interest similarity with \textcite{keynes_general_1936} own-rate of interest is restricted to its name only.
+Thus, here are some clarifications:
 
-\begin{frame}[label={sec:org281f4f1}]{Houses own-rate of interest and residential investment growth rate}
+\begin{itemize}
+\item It is a real cost and not a profit measure index
+\begin{itemize}
+\item It is a \alert{commodity rate} and not a marginal efficiency rate
+\end{itemize}
+\item It is not restricted to speculation episodes (such as housing bubble)
+\item Only \alert{persistent} changes in houses own-rate of interest will influence residential investment growth rate
+\begin{itemize}
+\item What is relevant is the future price in relation to the buying price
+\item Construction takes time (from 7 to 12 months depending on housing unit type) \hyperlink{constructionPlot}{\beamerbutton{Figure}}
+\end{itemize}
+\end{itemize}
+
+\begin{block}{Technical note}
+Data series of expected house inflation do not exist.
+So, we use the lags of this variable as a proxy for the expected one.
+\end{block}
+\end{frame}
+
+\begin{frame}[label={sec:orge0b3f30}]{Houses own-rate of interest and residential investment growth rate}
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=\textwidth]{./figs/TxPropria_Investo.png}
@@ -149,7 +200,8 @@ It is the combination of the relevant nominal rate of interest with the relevant
 
 
 
-\begin{frame}[label={sec:org9cb64b4}]{Data and inspection}
+\begin{frame}[label={sec:orgb477d0a}]{Data and inspection}
+\label{DataInspection}
 We rely on the following quarterly seasonally adjusted data:
 \begin{description}
 \item[{Mortgage interest rate}] 30-year fixed (MORTGAGE30US)
@@ -157,16 +209,16 @@ We rely on the following quarterly seasonally adjusted data:
 \item[{House price inflation}] Case-Shiller house price index (CSUSHPISA)
 \end{description}
 
-The time range was selected because it captures the effects of changes in depository institutions (1980s and 1990s), the rise of house prices, the bubble of the 2000s, and the aftermath of the 2008 crisis.
+The time range was selected because it captures the effects of changes in depository institutions (1980s and 1990s), the rise of house price inflation, the bubble of the 2000s, and the aftermath of the 2008 crisis.
 
 \begin{itemize}
-\item \textcite{yeo_new_2000} transformation
-\item Unit root and Structural break tests \(\Rightarrow\) non-stationary
-\item \textcite{johansen_estimation_1991} procedure \(\Rightarrow\) Series are cointegrated
+\item \textcite{yeo_new_2000} transformation \hyperlink{YeoTransformation}{\beamerbutton{Figure}}
+\item Unit root and Structural break tests \(\Rightarrow\) non-stationary \hyperlink{UnitTest}{\beamerbutton{Tests results}}
+\item \textcite{johansen_estimation_1991} procedure \(\Rightarrow\) Series are cointegrated \hyperlink{CointTest}{\beamerbutton{Tests results}}
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:org762f314}]{Estimation strategy}
+\begin{frame}[label={sec:orgd8c99db}]{Estimation strategy}
 Previous results allows us to estimate a error correction model.
 We assume the following long-run relationship:
 
@@ -197,22 +249,35 @@ We estimated a VECM with four lags.
 \end{frame}
 
 
-\begin{frame}[label={sec:org8798aca}]{Expected results and economic meaning}
+\begin{frame}[label={sec:orgdb1ef59}]{Expected results and economic meaning}
 
 \input{./tabs/hypothesis.tex}
 \end{frame}
 
 
 \section{Results}
-\label{sec:orgfedc2ca}
+\label{sec:org208d253}
 
-\begin{frame}[label={sec:org585341b}]{Orthogonalized Impulse Response Function}
+\begin{frame}[label={sec:orgcac487a}]{Estimation parameters \hyperlink{robust_frame}{\beamerbutton{Robustness check}}}
+\label{back}
+\begin{table}[H]
+	\centering
+    \caption{VECM parameters - four lags}
+    \label{Estimacao}
+    \resizebox*{!}{\dimexpr\textheight-45\lineskip\relax}{%
+	     \input{./tabs/parameters.tex}
+               }
+\end{table}
+\end{frame}
+
+
+\begin{frame}[label={sec:orgf9011f1}]{Orthogonalized Impulse Response Function}
 \begin{figure}[H]
 	\centering
 	\includegraphics[height=.85\textheight]{./figs/Impulse_VECMOrth_grey.png}
 \end{figure}
 \end{frame}
-\begin{frame}[label={sec:orgc40ca72}]{Forecast error variance decomposition}
+\begin{frame}[label={sec:org37899d4}]{Forecast error variance decomposition}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{./figs/FEVD_VECMpython_TxPropria.png}
@@ -220,8 +285,8 @@ We estimated a VECM with four lags.
 \end{frame}
 
 \section{Conclusions}
-\label{sec:org54dc19a}
-\begin{frame}[label={sec:org6f32832}]{Concluding remarks}
+\label{sec:orgc8e9f2f}
+\begin{frame}[label={sec:org588975a}]{Concluding remarks}
 We presented a simple specification for residential investment growth rate based on houses own-rate of interest proposed by \textcite{teixeira_crescimento_2015}.
 \begin{itemize}
 \item houses own-rate of interest (\(own\)) and residential investment growth rate (\(g_{I_h}\)) share a common long-run trend;
@@ -243,7 +308,7 @@ Thus, houses own-rate of interest has a prominent role in explaining residential
 \appendix
 
 \begin{frame}[allowframebreaks]{References}
-\printbibliography[heading=none]
+\printbibliography[heading=none, sorting=nyt]
 
 \end{frame}
 
@@ -252,8 +317,8 @@ Thus, houses own-rate of interest has a prominent role in explaining residential
 \section{Additional plots}
 
 
-\begin{frame}{Time-series with \textcite{yeo_new_2000} transformation}
-
+\begin{frame}{Time-series with \textcite{yeo_new_2000} transformation \hyperlink{DataInspection}{\beamerbutton{Back to presentation}}}
+\label{YeoTransformation}
 \begin{figure}[htb]
 	\centering
 	\label{YeoJhonson}
@@ -262,7 +327,8 @@ Thus, houses own-rate of interest has a prominent role in explaining residential
 \end{figure}
 \end{frame}
 
-\begin{frame}{Average construction time (approval to completion) of properties for a family unit by construction purposes except manufactured houses (1976-2018)}
+\begin{frame}{Average construction time (approval to completion) of properties for a family unit by construction purposes except manufactured houses (1976-2018) \hyperlink{OwnClarification}{\beamerbutton{Back to presentation}}}
+\label{constructionPlot}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{./figs/Meses_construcao.png}
@@ -277,31 +343,23 @@ Thus, houses own-rate of interest has a prominent role in explaining residential
 \scriptsize{\input{./tabs/VECM_lag_order.tex}}
 \end{frame}
 
-\begin{frame}{Estimation parameters}
-\begin{table}[H]
-	\centering
-    \caption{VECM parameters - four lags}
-    \label{Estimacao}
-    \resizebox*{!}{\dimexpr\textheight-15\lineskip\relax}{%
-	     \input{./tabs/parameters.tex}
-               }
-\end{table}
-\end{frame}
-
 \section{Statistical tests}
 
 
-\begin{frame}{Unit root tests}
+\begin{frame}{Unit root tests \hyperlink{DataInspection}{\beamerbutton{Back to presentation}}}
+\label{UnitTest}
 \scriptsize{\input{./tabs/UnitRoot.tex}}
 \end{frame}
 
 
-\begin{frame}{Structural break tests}
+\begin{frame}{Structural break tests \hyperlink{DataInspection}{\beamerbutton{Back to presentation}}}
+\label{StructTest}
 \scriptsize{\input{./tabs/StructBreak.tex}}
 \end{frame}
 
 
-\begin{frame}{Cointegration test}
+\begin{frame}{Cointegration test \hyperlink{DataInspection}{\beamerbutton{Back to presentation}}}
+\label{CointTest}
 \scriptsize{\input{./tabs/Johansen.tex}}
 \end{frame}
 
@@ -309,7 +367,8 @@ Thus, houses own-rate of interest has a prominent role in explaining residential
 
 
 \section{Robustness check}
-\begin{frame}{Robustness check}
+\begin{frame}{Robustness check \hyperlink{back}{\beamerbutton{Back}}}
+\label{robust_frame}
 	     \input{./tabs/robust.tex}
 \end{frame}
 \end{document}

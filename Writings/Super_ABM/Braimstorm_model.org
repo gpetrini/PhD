@@ -4,14 +4,6 @@
 #+LANG: en
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup
 
-* Description
-
-
-The objective of this article is to investigate how Sraffian supermultiplier model (SSM) properties emerges in a AB model.
-In order to do this, the model will represent an economy as simple as possible with heterogeneous firms while all the other institutional sectors are aggregated.
-Thus, there is only one sector, no labor supply restriction, government nor external sector.
-All other auxiliary assumption will follow AB literature as long as does not generate incompatibility with SSM.
-
 * Empirical motivation
 
 There is a consensus in the demand-led growth literature in which states that non-residential investment is, at the macroeconomic level, induced by income.
@@ -30,8 +22,18 @@ Based on this collection of empirical results, this paper intend to investigate 
 Next, each alternative is analyzed based on which stylized fact it reports.
 
 
+* Version <2021-07-02 sex>
 
-* Alternatives
+** Description
+
+
+The objective of this article is to investigate how Sraffian supermultiplier model (SSM) properties emerges in a AB model.
+In order to do this, the model will represent an economy as simple as possible with heterogeneous firms while all the other institutional sectors are aggregated.
+Thus, there is only one sector, no labor supply restriction, government nor external sector.
+All other auxiliary assumption will follow AB literature as long as does not generate incompatibility with SSM closure.
+
+
+** Alternatives
 
 This is the first attempt to microfoundament the Sraffian supermultiplier model, so there are still possibilities to consider.
 The first one is the employment of SSM investment function as it is at the firm level.
@@ -111,7 +113,7 @@ Differently from *strategic model*, this version will have process innovation in
 Thus, capital lifetime is no longer infinity and each firm productivity and market share evolves together.
 Consequently, firm's expected demand and full capacity output differ from baseline model.
 
-* Model validation
+** Model validation
 
 Each model alternative will differ only in expansion investment behavior.
 All other assumption remains the same in order to  be comparable.
@@ -125,4 +127,56 @@ EI_{F}^{hyp.} = h_{F}\cdot Y^{D}_{F} \leftrightarrow EI_{F} = \sum EI_{f}
 In order to do so, aggregate marginal propensity to invest will be share the same calibrated value across model and the results' sensibility to it will be evaluated.
 Additionally, each alternative will be initialized equally.
 
-* Conceptual model
+** Conceptual model
+
+* Version <2021-07-09 sex>: Fully induced investment - Bottom up, top down or both of them?
+
+** Description
+
+The objective of this article is to investigate how Sraffian supermultiplier model (SSM) properties emerges in a AB model.
+In order to do this, the model will represent an economy as simple as possible with heterogeneous firms while all the other institutional sectors are aggregated.
+Thus, there is only one sector, no labor supply restriction, government nor external sector.
+All other auxiliary assumption will follow AB literature as long as does not generate incompatibility with SSM closure.
+
+** Empirical validation and contrafactuals
+
+The model will be validated by comparing it with stylized facts already surveyed by the empirical literature.
+Additionally, simulation results will be contrasted with two simulations using the same model structure with only one firm.
+In the first one, expansion investment function will be fully induced in SSM terms; the other will be an neo-Kaleckian function.
+
+** Conceptual model
+
+Non-residential expansion investment function will have two types of switching mechanism.
+In the first one, firms' expectation will change accordingly to its forescasting errors in line with textcite:reissl_2021_Heterogeneousa,dosi_2020_RATIONAL.
+The idea of this experiment is to evaluate if model's stability is a result of heterogeneous expectations at the firm-level.
+It is expected that the most simple heuristic method generates lower volatility at the aggregate level besides the higher forecast error.
+Expectation switching mechanism will follow cite:anufriev_2012_Evolutionary procedure.
+The possible specifications are:
+
+- Adaptive (baseline)
+- Strong trend
+- Weak trend
+- Anchoring and adjustment (moving average)
+
+
+
+The other experiment intend to evaluate if fully-induced investment function dominates the others or emerges as a macroeconomic result.
+In order to do so, a switching mechanism will be implemented similarly to the previous experiment.
+Instead of comparing forecasting errors, firms will change investment function accordingly to deviation between effective and normal capacity utilization rate.
+Thus, firms may choose between a standard neo-Kaleckian, neo-Kaleckian supermultiplier cite:allain_2015_Tacklinga or Sraffian supermultiplier cite:serrano_1995_Long.
+The idea of this experiment is to evaluate if fully-induced investment is observed at the micro, meso or macroeconomic level.
+Investment plan functions are:
+
+- neo-Kaleckian :: $g^{K} = \overline{\gamma_{0}} + \gamma_{1} (u - u_{N})$
+- neo-Kaleckian supermultiplier :: $g^{K} = \gamma_{0} + \gamma_{1}(u - u_{N})$ while $\Delta \gamma_{0} = \gamma_{0}\cdot\gamma_{u} (u - u_{N})$
+- Sraffian supermultiplier :: $g^{K} = \frac{h\cdot u}{v}$ while $\Delta h = h_{t-1}\cdot \gamma_{u} (u - u_{N})$ and $I = h\cdot Y$
+
+
+In summary, the first experiment endogenizes $g^{e}$ of each individual firm while the second endogenizes the decison between different expansion investment plans ($g$).
+In other terms,
+
+- Expectational change mechanism: $\Delta g^{e}: g^{e} \to g^{I} $
+- Investment function change mechanism: $\Delta g^{I}: u \to u_{N}$
+
+Finally, the last experiment will merge both.
+All simulations will start with homogeneous firms (all with the same expectation procedure and investment function) in order to analyze which configuration emerges.
