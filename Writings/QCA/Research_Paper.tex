@@ -1,0 +1,198 @@
+% Created 2021-07-12 seg 12:02
+% Intended LaTeX compiler: pdflatex
+\documentclass{SelfArx}
+  \usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\renewcommand{\arraystretch}{1.1} % Unclear
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{csquotes}
+\setlength{\columnsep}{0.55cm} % Distance between the two columns of text
+\setlength{\fboxrule}{0.75pt} % Width of the border around the abstract
+\definecolor{color1}{RGB}{0,0,90} % Color of the article title and sections
+\definecolor{color2}{RGB}{0,20,20} % Color of the boxes behind the abstract and headings
+\usepackage[english]{babel} % Specify a different language here - english by default
+\usepackage{lipsum} % Required to insert dummy text. To be removed otherwise
+\setlength{\columnsep}{0.55cm} % Distance between the two columns of text
+\setlength{\fboxrule}{0.75pt} % Width of the border around the abstract
+\usepackage[backend=biber,%
+style = abnt,%
+noslsn, %
+isbn = false,
+url = false,
+extrayear, %
+uniquename=init,%
+giveninits, %
+justify, %
+sccite,%
+scbib, %
+sorting=nyt,
+% mergedate=compact,
+% natbib=true,
+repeattitles, %
+maxcitenames=3]{biblatex}
+\AtEveryBibitem{%
+\clearfield{urlyear}
+\clearfield{urlmonth}
+\clearfield{note}
+\clearfield{issn} % Remove issn
+\clearfield{doi} % Remove doi
+\ifentrytype{online}{}{% Remove url except for @online
+\clearfield{url}
+}
+}
+\date{}
+\title{The great mortgaging and the housing financing revolution: enabling each other? An institutional fuzzy-set Qualitative Comparative Analysis (fsQCA) for 17 OECD countries (1989-2016)}
+\begin{document}
+
+\JournalInfo{Draft} % Journal information
+\Archive{Please do not quote} % Additional notes (e.g. copyright, DOI, review/research article)
+
+\Authors{Gabriel Petrini\textsuperscript{1}*, Lucas Teixeira\textsuperscript{2}, Ivette Luna\textsuperscript{2}} % Authors
+\affiliation{\textsuperscript{1}\textit{PhD Student at Unicamp/Brazil}} % Author affiliation
+\affiliation{\textsuperscript{2}\textit{Professor at Unicamp/Brazil}} % Author affiliation
+\affiliation{*\textbf{Corresponding author}: gpetrinidasilveira@gmail.com} % Corresponding author
+
+\Keywords{Keyword1 --- Keyword2 --- Keyword3} % Keywords - if you don't want any simply remove all the text between the curly brackets
+\newcommand{\keywordname}{Keywords} % Defines the keywords heading name
+
+\Abstract{This is an example of an Abstract}
+
+\flushbottom % Makes all text pages the same height
+\maketitle % Print the title and abstract box
+\thispagestyle{empty} % Removes page numbering from the first page
+
+\section*{Títulos}
+\label{sec:org372e3b6}
+
+\begin{itemize}
+\item The great mortgaging and the housing financing revolution: enabling each other? An institutional fuzzy-set Qualitative Comparative Analysis (fsQCA) for 17 OECD countries (1989-2016)
+\item Institutional diversity still matters? Comparing housing financing milestones using fsQCA (1989-2014)
+\item Reassessing the dual convergence debate: a methodological proposal based on the housing finance Great Revolution
+\end{itemize}
+\section*{Introduction}
+\label{sec:org13525b0}
+\subsection*{Importância do mercado imobiliário para compreender características da GFC}
+\label{sec:orgf5394ae}
+\begin{itemize}
+\item Reforçar como o interesse aumentou pós GFC
+\end{itemize}
+\subsection*{Relação entre endividamento das famílias, preço dos imóveis e estabilidade financeira}
+\label{sec:org508faea}
+\begin{itemize}
+\item Misleading?
+\end{itemize}
+\subsection*{Apresentação do conceito de hipotecarização e mudanças de longo prazo}
+\label{sec:org31b7fe9}
+\subsection*{Apresentação da revolução}
+\label{sec:org8790cf9}
+\subsection*{Estrutura do artigo}
+\label{sec:orga0fff0c}
+
+\section*{Empirical motivation}
+\label{sec:org45fb646}
+\subsection*{Background: desregulamentação dos anos 80}
+\label{sec:org5e483de}
+\subsection*{Apresentar conceito da hipotecarização}
+\label{sec:org4ece29e}
+\subsection*{Analisar os dados}
+\label{sec:org5e6f22c}
+\subsection*{Agrupar países e explicitar possíveis hipóteses direcionais e trajetórias}
+\label{sec:org393888c}
+\subsection*{Apresentar a revolução em maiores detalhes}
+\label{sec:orgdd22a94}
+\subsection*{Reagrupar informações institucionais de forma qualitativa}
+\label{sec:org85d9044}
+\subsection*{Gancho para a seção seguinte: relevância de particularidades institucionais para compreender suas implicações}
+\label{sec:orgbfeed74}
+\section*{Review of literature}
+\label{sec:org9213916}
+\subsection*{Crescente atenção ao mercado imobiliário, mas pouca atenção em sua institucionalidade em uma perspectiva macro-financeira}
+\label{sec:org1aa3133}
+\subsection*{Revisão da literatura de financeirização e pouca anteção para o setor imobiliário}
+\label{sec:org8ab0273}
+\begin{itemize}
+\item Por quê? Dá atenção a elementos financeiros, mais pouco à instituição e menos ainda a housing
+\item Misleading?
+\end{itemize}
+\subsection*{Revisão de VoC}
+\label{sec:org57609da}
+\subsubsection*{Discutir convergência e divergência institucional}
+\label{sec:org32d78d2}
+Pontuar também a importância de se levar em consideração se a institucionalidade é formal (legislatória) ou informal (convenção, prática bancária)
+\subsubsection*{Críticas a VoC}
+\label{sec:org2ef062e}
+\begin{itemize}
+\item Firm-centric
+\item Supply-side
+\item Complementarities
+\end{itemize}
+\subsubsection*{Revisão da literature recente VoC macroeconômica}
+\label{sec:org199392c}
+\begin{itemize}
+\item Maior destaque para distribuição
+\end{itemize}
+\subsubsection*{Retomar importância de housing e introduzir a ideia de como instituições tratadas de forma diferente podem esclarecer as questões de convergência, divergência e consequência}
+\label{sec:orgeb73e8f}
+\subsubsection*{Divergência na semelhança e Convergência no diferente}
+\label{sec:org665b150}
+\begin{itemize}
+\item Hipótese da divergência aparente: diferentes trajetórias e configurações institucionais podem estar associadas a um mesmo resultado. Assim, os países podem ser divergentes no sentido de quais características os descrevem, mas geram resultados similares (uma meta-convergência)
+\end{itemize}
+\subsection*{Conclusão da seção: Revisão da literatura empírica e incapacidade de analisar variáveis qualitativas adequadamente}
+\label{sec:org9af346c}
+\section*{Data and Methods}
+\label{sec:org0c99d55}
+\subsection*{Apresentar origens, aplicações e vantagens do QCA}
+\label{sec:org5179d81}
+\subsection*{Explicar etapas do QCA}
+\label{sec:org0b05d98}
+\subsection*{Calibrar dados}
+\label{sec:org0281a0b}
+\begin{itemize}
+\item Mortgaging (Outcome)
+\begin{itemize}
+\item Post 1990 (after deregulation/Germany reunification) to 2006 (prior to the GFC)?
+\begin{itemize}
+\item Não incluir 2014 para evitar mudanças institutionais na europa (ver EMCB, EMF video)
+\item Desvio em relação à média da OCDE
+\end{itemize}
+\end{itemize}
+\item Recortes:
+\begin{itemize}
+\item 1990(?)-2001: Pós Basileia I e pré bolha imobiliária e bolha-ponto-com
+\item 2002(?)-2006: Bolha imobiliária e pré-crise
+\item 2007-2014: Crise, pós-crise e pré EMCB
+\begin{itemize}
+\item Isolar efeito da crise?
+\end{itemize}
+\end{itemize}
+\end{itemize}
+
+
+\subsection*{Elaborar Truth table}
+\label{sec:org319796a}
+\section*{Results and parameters of fit}
+\label{sec:orgd9578b0}
+\subsection*{Minimização da presença do resultado}
+\label{sec:org5239b39}
+\subsection*{Minimização da ausência do resultado}
+\label{sec:orgf68f65d}
+\subsection*{Apresentar parâmetros dos resultados}
+\label{sec:org170d93b}
+\subsubsection*{Testes de reobustez}
+\label{sec:orgd2ea7d2}
+
+\section*{Concluding remarks}
+\label{sec:org642db22}
+
+\section*{Acknowledgements}
+\label{sec:org4eb6e38}
+
+Agradecimentos
+
+
+\printbibliography
+\end{document}

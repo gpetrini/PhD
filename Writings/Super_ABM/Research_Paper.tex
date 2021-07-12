@@ -1,0 +1,297 @@
+% Created 2021-07-12 seg 18:04
+% Intended LaTeX compiler: pdflatex
+\documentclass{SelfArx}
+  \usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\renewcommand{\arraystretch}{1.1} % Unclear
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{csquotes}
+\setlength{\columnsep}{0.55cm} % Distance between the two columns of text
+\setlength{\fboxrule}{0.75pt} % Width of the border around the abstract
+\definecolor{color1}{RGB}{0,0,90} % Color of the article title and sections
+\definecolor{color2}{RGB}{0,20,20} % Color of the boxes behind the abstract and headings
+\usepackage[english]{babel} % Specify a different language here - english by default
+\usepackage{lipsum} % Required to insert dummy text. To be removed otherwise
+\setlength{\columnsep}{0.55cm} % Distance between the two columns of text
+\setlength{\fboxrule}{0.75pt} % Width of the border around the abstract
+\usepackage[backend=biber,%
+style = abnt,%
+noslsn, %
+isbn = false,
+url = false,
+extrayear, %
+uniquename=init,%
+giveninits, %
+justify, %
+sccite,%
+scbib, %
+sorting=nyt,
+% mergedate=compact,
+natbib=true,
+repeattitles, %
+maxcitenames=3]{biblatex}
+\AtEveryBibitem{%
+\clearfield{urlyear}
+\clearfield{urlmonth}
+\clearfield{note}
+\clearfield{issn} % Remove issn
+\clearfield{doi} % Remove doi
+\ifentrytype{online}{}{% Remove url except for @online
+\clearfield{url}
+}
+}
+\date{}
+\title{Sraffian submultiplier model: an Agent Based Sraffian supermultiplier Model Introduction Model}
+\begin{document}
+
+\JournalInfo{Draft - \today} % Journal information
+\Archive{Please do not quote} % Additional notes (e.g. copyright, DOI, review/research article)
+
+\Authors{Gabriel Petrini\textsuperscript{1}*, Lucas Teixeira\textsuperscript{2}, Ivette Luna\textsuperscript{2}, Ítalo Pedrosa\textsuperscript{3}} % Authors
+\affiliation{\textsuperscript{1}\textit{PhD Student at Unicamp/Brazil}} % Author affiliation
+\affiliation{\textsuperscript{2}\textit{Professor at Unicamp/Brazil}} % Author affiliation
+\affiliation{\textsuperscript{3}\textit{Professor at UFRJ/Brazil}} % Author affiliation
+\affiliation{*\textbf{Corresponding author}: gpetrinidasilveira@gmail.com} % Corresponding author
+
+\Keywords{Keyword1 --- Keyword2 --- Keyword3} % Keywords - if you don't want any simply remove all the text between the curly brackets
+\newcommand{\keywordname}{Keywords} % Defines the keywords heading name
+
+\Abstract{This is an example of an Abstract}
+
+\flushbottom % Makes all text pages the same height
+\maketitle % Print the title and abstract box
+\thispagestyle{empty} % Removes page numbering from the first page
+
+\section*{Introduction}
+\label{sec:org21382be}
+
+
+\section*{Empirical motivation}
+\label{sec:org7563e47}
+\section*{Conceptual model}
+\label{sec:org72b8958}
+In this section, we present the conceptual model that will be simulated later in section SEÇÃO.
+This model represent an economy as simple as possible with heterogeneous firms while all the other institutional sectors are aggregated.
+At odds with conventional AB literature, we assume no thecnological progress to keep it simple\footnote{For an detailed description of innovations and thecnological change in AB models, see DOSI whom we refer to as a benchmark model.}.
+All other auxiliary assumption will follow AB literature as long as does not generate incompatibility with SSM closure.
+
+Before moving further to the description of every institutional sectors, we will present the hypothesis of this simplified economy.
+For simplicity, there is only one productive sector, no labor supply restriction, government nor external sector.
+As a consequence of the previous assumptions, the economy is composed by \(N\) homogeneous households and \(F\) heterogeneous firms\footnote{Aggregates variables will be represented by subscript \(N\) for households and \(F\) for firms.}.
+
+\subsection*{Sequence of events}
+\label{sec:org8af3eca}
+
+
+
+\subsection*{Production and distribution}
+\label{sec:orge496b6f}
+
+
+\subsubsection*{Firms production plans}
+\label{sec:org456bbf7}
+
+Each firm (\(f\)) investment plan (\(Y_{f,t}\), Equation \ref{EQ_Yf}) is defined accordingly to its expected real sales level (\(S^{e}_{f,t}\)) and a desired inventories to sales ratio \((\iota^{T} \in [0,1])\) -- exogenous defined and equal across firms -- to attend unexpected demand boosts as usual in \(K+S\) models.
+
+\begin{latex}
+\begin{equation}
+\label{EQ_Yf}
+Y_{f,t} = (1+\iota^{T})\cdot S^{e}_{f,t} - INV_{f,t-1}
+\end{equation}
+\end{latex}
+in which \(INV_{f,t-1}\) is the firm's inventories.
+In baseline scenario, we assume na\{$\backslash$``i\}ve expectational procedure in which expected sales level is equal to its lagged value.
+Alternatives expectational procedures will be discussed in section \ref{sec:switching}.
+After defining an production plan, firms calculates its desired capacitiy utilization rate (\(u^{d}_{f}\), Equation) as follows:
+
+\begin{latex}
+\begin{equation}
+u^{d}_{f} = \max\left[ 0, \min\left[ \frac{Y_{f,t}}{Y_{f,t}^{FC}}, 1 \right] \right]
+\end{equation}
+\end{latex}
+in which \(Y_{f,t}^{FC}\) is the firm's current output at the full capacity.
+Since we assume no labor restriction, full capacity output is define by its existing capital stock (\(K_{f,t-1}\)) given a maximum capital to output ratio (\(\nu\)) constant, exogenous and equal across firms:
+
+\begin{latex}
+\begin{equation}
+Y_{f,t}^{FC} = \frac{K_{f,t-1}}{\nu}
+\end{equation}
+\end{latex}
+Consequently, current firm's capacity utilization ratio is constrained do be equal or less than one since production is limited by physical capital.
+
+
+
+\subsubsection*{Capital stock}
+\label{sec:orgdc32565}
+
+
+Since there is no thecnological progress nor innovation in the current version of this model, firms' capital stock only differs according to it lifetime (\(\kappa\)).
+Consequently, total capital stock is defined as the sum of different capital good vintage (\(k_{f}\)) as follows:
+
+\begin{latex}
+\begin{equation}
+K_{f} = \sum_{j=1}^{\kappa < \infty} k_{f,t-j}
+\end{equation}
+\end{latex}
+For simplicity, we assume no use depreciation, so each capital good will be replaced only if achieve its maximum lifetime.
+
+\subsubsection*{Labor demand and wage bill}
+\label{sec:orge901aab}
+
+In order to produce, firms use a Leontieff-type technology with a fixed combination between labor and physical capital.
+Given no a fixed labor productivity equally defined across workers, labor demand is a function (\(N^{d}_{f,t}\)) of each firm production plan at current capacity utilization level:
+
+\begin{latex}
+\begin{equation}
+N^{d}_{f,t} = u_{f,t}\cdot Y_{f,t}
+\end{equation}
+\end{latex}
+
+Since our main purpose with this model is to evaluate emergence of firm's behavior, we assume single nominal wage for all workers (\(w_{t}\)) exogenously defined.
+Thus, each firm wage bill (\(W_{f}\)) is:
+\begin{latex}
+\begin{equation}
+W_{f,t} = N^{d}\cdot w_{f,t}
+\end{equation}
+\end{latex}
+In order to prevent null consumption levels, we assume that at each time nominal wage is updated accordingly to previous inflation rate (\(\pi_{t-t}\)) which is the market-share weighted market price mean (Equation \ref{EQ_Infla})
+
+\begin{latex}
+\begin{equation}
+w_{t} = w_{t-1}\cdot(1+\pi_{t-1})
+\end{equation}
+\end{latex}
+\begin{latex}
+\begin{equation}
+\label{EQ_Infla}
+\pi_{t} = \sum_{f=1}^{F} ms_{f,t}\cdot p_{f,t}
+\end{equation}
+\end{latex}
+in which \(ms_{f}\) and \(p_{f,t}\) stands for firm's \(f\) market share and price respectively.
+
+
+
+\subsubsection*{Pricing}
+\label{sec:orgda3c0b5}
+
+We assume a simple pricing mechanism as possible which is defined as a mark-up (\(\theta_{f}\)) over direct unit labor costs (in this case, \(w_{t}\)):
+\begin{latex}
+\begin{equation}
+p_{f,t} = (1+\theta_{f})\cdot w_{t}
+\end{equation}
+\end{latex}
+At odds with \(K+S\) model, and a a result of our simplifying assumptions, there is no need to specify a mark-up law of motion equation\footnote{This is the case for \(K+S\) models because unit labor costs are not under firms strict control. Once we assume no technological progress nor innovation, uncertainty regarding labor productivity level is vanished.}.
+As we will further explore in section \ref{sec:switching}, expected market-share levels play a prominent role in investment decision and not in pricing as usual.
+
+
+
+\subsubsection*{Household demand}
+\label{sec:org2133aac}
+
+
+In order to investigate the consequences of heterogeneous investment decisions in a Sraffian supermultiplier friendly framework, we a assume that household's consumption (\(C_{N}\)) is composed both by an induced (\(W_{N,t}\)) and by an autonomous component (\(Z_{t}\))\footnote{As discussed before, there is a multitude of non-capacitiy creating autonomous expenditures. Autonomous households consumption component was selected only to reduce the complexity of this model.}\textsuperscript{,}\,\footnote{Following \textcite{serrano_1995_Long}, we consider \(Z_{t}\) as an non-capacitiy creating autonomous expenditure because it does not depends on firms' production decisions. Additionally, since banking credit is endogenous, consumption loans does not affect credit availability for other sectors.}:
+
+\begin{latex}
+\begin{equation}
+C_{N} = c_{w}\cdot W_{N,t} + Z_{t}
+\end{equation}
+\end{latex}
+in which \(c_{w}\) is households marginal propensity to consume out of wages while autonomous expenditure is given by its exogenously defined growth rate (\(g_{Z}\)):
+\begin{latex}
+\begin{equation}
+Z_{t} = (1+g_{Z})\cdot Z_{t-1}
+\end{equation}
+\end{latex}
+in which is financed either by financial wealth and by banking credit.
+
+Since we assume no households heterogeinity, consumption loans restriction has no economic meaning at the aggregate level.
+Differently from firms, we impose that households are not credit constrained\footnote{We are aware of the simplifications of these assumption, but our main propose here is to elaborate a simple model to discuss heterogeneity in the Sraffian Supermultiplier macroeconomic model.}.
+Implicitly, we assume that banking evaluation of households default probability (\(pr^{D}_{N,t}\)) is null.
+
+\subsubsection*{Distribution of demand}
+\label{sec:orge49c46f}
+
+
+Considering previous assumptions, total demand of this economy (\(Y\)) is the sum of aggregate household consumption (\(C_{N}\)) and total firms' investment (\(I_{F}\)) which is the sum of individual firms investment decisions (\(I_{f}\)).
+\begin{latex}
+\begin{equation}
+\label{EQ_GDP_D}
+Y = C_{N} + \sum_{f}^{F} I_{f}
+\end{equation}
+\end{latex}
+As usual in AB models, distribution of total demand depends on relative competitiveness.
+Since there is no price diversity, we assume that firms relative competitiveness depends only on the level of unfilled demand (\(l_{f,t}\)), normalised to the whole sector’s weighted averages (\(\overline{l}_{f,t-1}\)):
+
+\begin{latex}
+\begin{equation}
+E_{f,t} = -\beta \frac{l_{f}}{\overline{l}_{f,t-1}}
+\end{equation}
+\end{latex}
+Following SILVERBERG E DOSI, effective market-share is defined accordingly to a quasi-replicator mechanism (Equation ) in which firms that were not able to fulfill its demand level will have a lower market-share:
+\begin{latex}
+\begin{equation}
+\label{EQ_Replicator}
+ms_{f,t} = ms_{f,t-1}\cdot (1+\chi \frac{E_{f,t} - \overline{E}_{t}}{\overline{E}_{t}})
+\end{equation}
+\end{latex}
+in which \(\chi\) is a positive exogenous parameter and \(\overline{E}_{t}\) is the average competitiveness of the whole sector:
+\begin{latex}
+\begin{equation}
+\overline{E}_{t} = \sum_{f=1}^{F}E_{f,t}\cdot ms_{f,t-1}
+\end{equation}
+\end{latex}
+
+As will be discussed in section \ref{sec:switching}, effective market-share depends both on expected mark-share and effective investment decision, each one explained separately.
+Thus, investment emergence patterns depends on how firms adapts its expectations and changes (or not) its investment functions.
+
+\subsection*{Banking sector, credit and financial implications}
+\label{sec:org1ad42ab}
+
+\subsubsection*{Firms' credit}
+\label{sec:orgbf7a8ca}
+
+\subsubsection*{Household credit}
+\label{sec:org88a4f98}
+
+\subsubsection*{Profits and dividends}
+\label{sec:orgd5d482e}
+
+\subsubsection*{Interest rate and profit}
+\label{sec:org9d06929}
+
+\subsection*{Switching mechanism}
+\label{sec:switching}
+\subsubsection*{Expectations}
+\label{sec:orgd336c6d}
+
+\subsubsection*{Investment decisions}
+\label{sec:orgb92e62e}
+
+
+
+\subsection*{Aggregating and closing the model}
+\label{sec:org62252b2}
+
+\subsubsection*{Entry and exit of firms}
+\label{sec:orga61a073}
+\subsubsection*{Closing the accounting}
+\label{sec:orgbf000ae}
+
+\section*{Validation}
+\label{sec:orge6e9ec5}
+\section*{Experiments}
+\label{sec:org5dfe25f}
+\section*{Concluding remarks}
+\label{sec:org1e3d8cc}
+
+\section*{Acknowledgements}
+\label{sec:orga36283c}
+
+Agradecimentos
+
+
+\printbibliography
+\end{document}

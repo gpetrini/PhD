@@ -48,7 +48,7 @@ The options are intended to remove default clutter that Org adds automatically t
 #+latex_header:	scbib, %
 #+latex_header:	sorting=nyt,
 #+latex_header:% mergedate=compact,
-#+latex_header:% natbib=true,
+#+latex_header: natbib=true,
 #+latex_header:	repeattitles, %
 #+latex_header:	maxcitenames=3]{biblatex}
 

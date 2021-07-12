@@ -1,0 +1,40 @@
+#+LATEX_CLASS: SelfArx
+#+SETUPFILE: ../manuscript.setup
+#+INCLUDE: Infos.org
+#+TITLE: Sraffian submultiplier model: an Agent Based Sraffian supermultiplier Model
+#+EXCLUDE_TAGS: Thesis
+
+* Journal initial Setup :journal:ignore:
+
+#+LATEX:\flushbottom % Makes all text pages the same height
+#+LATEX:\maketitle % Print the title and abstract box
+#+LATEX:\thispagestyle{empty} % Removes page numbering from the first page
+
+* Capítulo Super ABM :ignore:
+
+** Epígrafe :Thesis:ignore:
+
+#+LATEX: \epigraph{Text}{Author, Date}
+
+** Introduction
+#+INCLUDE: "Introduction.org"
+
+
+** Empirical motivation
+** Conceptual model
+#+INCLUDE: "Model.org"
+
+** Validation
+** Experiments
+** Concluding remarks
+
+** Acknowledgements                                                 :journal:
+
+Agradecimentos
+
+
+** Bibliography                                              :ignore:journal:
+
+  #+BEGIN_EXPORT latex
+  \printbibliography
+  #+END_EXPORT

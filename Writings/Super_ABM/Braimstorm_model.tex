@@ -1,11 +1,19 @@
-#+OPTIONS: num:nil
-#+TITLE: Sraffian submultiplier model: An agent based braimstorm framework for Sraffian supermultiplier model
-#+AUTHOR: Gabriel Petrini
-#+LANG: en
-#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup
+% Created 2021-07-09 sex 16:08
+% Intended LaTeX compiler: pdflatex
+\documentclass[presentation]{beamer}
+\usetheme{default}
+\author{Gabriel Petrini}
+\date{\today}
+\title{Sraffian submultiplier model: An agent based braimstorm framework for Sraffian supermultiplier model}
+\begin{document}
 
-* Empirical motivation
+\maketitle
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
 
+
+\begin{frame}[label={sec:orgcb33816}]{Empirical motivation}
 There is a consensus in the demand-led growth literature in which states that non-residential investment is, at the macroeconomic level, induced by income.
 As a consequence, there is a positive correlational relation between investment share and economic growth.
 Additionally, capacity utilization rate has a non-stationary trend so it does not move persistently away from the normal (theoretical) one.
@@ -20,34 +28,32 @@ These results suggests that there are non-trivial mesoeconomic level mechanisms 
 
 Based on this collection of empirical results, this paper intend to investigate which microeconomic-level assumptions are required to reproduce the macroeconomic properties of fully-induced non-residential investment reported by SSM model.
 Next, each alternative is analyzed based on which stylized fact it reports.
+\end{frame}
 
 
-* Version <2021-07-02 sex>
-
-** Description
-
-
+\begin{frame}[label={sec:org60efa21}]{Version \textit{<2021-07-02 sex>}}
+\begin{block}{Description}
 The objective of this article is to investigate how Sraffian supermultiplier model (SSM) properties emerges in a AB model.
 In order to do this, the model will represent an economy as simple as possible with heterogeneous firms while all the other institutional sectors are aggregated.
 Thus, there is only one sector, no labor supply restriction, government nor external sector.
 All other auxiliary assumption will follow AB literature as long as does not generate incompatibility with SSM closure.
+\end{block}
 
 
-** Alternatives
-
+\begin{block}{Alternatives}
 This is the first attempt to microfoundament the Sraffian supermultiplier model, so there are still possibilities to consider.
 The first one is the employment of SSM investment function as it is at the firm level.
 This procedure assumes that the aggregate non-residential investment is a scaled mirror of the firms' investment at the micro level.
-Since this alternative is the most simple and parsimonious one, will be reference as the *benchmark* alternative.
+Since this alternative is the most simple and parsimonious one, will be reference as the \alert{benchmark} alternative.
 The relevance of this experiment is to evaluate if this simple procedure is enough to generates the macroeconomic properties of the SSM alongside with other stylized effect.
 Thus, this version implies:
 
-#+BEGIN_latex
+\begin{latex}
 \begin{equation}
 EI_{f} = h_{f}\cdot Y^{De}_{f}
 \end{equation}
-#+END_latex
-in which $EI_{f}$ is the expansion investment of firm $f$, $h_{f}$ is its marginal propensity to invest and $Y^{De}$ is its expected demands.
+\end{latex}
+in which \(EI_{f}\) is the expansion investment of firm \(f\), \(h_{f}\) is its marginal propensity to invest and \(Y^{De}\) is its expected demands.
 
 
 Once the firm sector is no longer aggregated, there are some additional variables that does not have a macroeconomic equivalent but could have some relevant microeconomic effects.
@@ -58,28 +64,30 @@ This is where market-share takes place.
 A firm expected demand is not independent of its own actions nor its competitors strategies.
 As a consequence, a firm investment plan must consider its expected level market-share which depends on the expectations of others firms reactions as well.
 In summary, the interaction between the firms' decisions and the expectation of others could have non-trivial consequences.
-This alternative will be referenced as *strategic model*.
+This alternative will be referenced as \alert{strategic model}.
 To ensure that there is any other effects, we assume that market share depends on product not on process innovation.
 Formally:
 
-#+BEGIN_latex
+\begin{latex}
 \begin{equation}
 Y^{De}_{f} = MS_{f}^{e}\cdot Y^{D}_{F, t-1}
 \end{equation}
-#+END_latex
-in which, $MS_{f}^{e}$ is the expected market share of firm $f$ and $Y^{D}_{F, t-1}$ is the previous demand for the total market.
+\end{latex}
+in which, \(MS_{f}^{e}\) is the expected market share of firm \(f\) and \(Y^{D}_{F, t-1}\) is the previous demand for the total market.
 Expected market share, on the other hands, will depend on each firm probability of success and the expected success of other firms:
-#+BEGIN_latex
+\begin{latex}
 \begin{equation}
 MS_{f}^{e} = MS_{f,t-1} \cdot (1 + pr(\Delta MS_{f} > 0)) - (1-MS_{f,t-1})\cdot \left(\sum_{i \neq f}^{F} MS_{i,t-1} \cdot(1+pr (\Delta MS_{i} > 0))\right)
 \end{equation}
-#+END_latex
+\end{latex}
 
 
-#+BEGIN_info
+\begin{info}
 FIXME related questions:
-- How to specify market share function?
-#+END_info
+\begin{itemize}
+\item How to specify market share function?
+\end{itemize}
+\end{info}
 
 Other microeconomic variable that introduces firms heterogeneity is technology and capital vintage.
 A firm capital stock is composed by different technological sets.
@@ -87,106 +95,120 @@ In other words, this versions assumes capital heterogeneity.
 As a consequence, firms attend to its expected demand differently in time, so its investment plans should consider this limitations.
 However, as shown by the capital controversy debate, this alternative could have non-linear consequences.
 In order to isolate the effects of this hypothesis, we assume only technological heterogeneity across firms, but each firm will persist on its initial technological set.
-Based on this strong assumption, this version is called *stubborn capital* model.
+Based on this strong assumption, this version is called \alert{stubborn capital} model.
 In mathematical terms:
 
-#+BEGIN_latex
+\begin{latex}
 \begin{equation}
 \overline{A_{f}} = \sum_{j}^{\kappa = \infty}\frac{k_{f_{t-j}}\cdot A_{f_{t-1}}}{K_{f}}
 \end{equation}
-#+END_latex
-in which $\overline{A_{f}}$ is firm average capital productivity composed by different capital vintages ($k_{f}$) each of them with maximum lifetime ($\kappa$).
-Since we assume no technological change, capital venture heterogeneity persists which is equivalent to assume an undestructable capital stock ($\kappa = \infty$).
-As a consequence of this, each firm full capacity output ($YFC_{f}$) will be different as well.
+\end{latex}
+in which \(\overline{A_{f}}\) is firm average capital productivity composed by different capital vintages (\(k_{f}\)) each of them with maximum lifetime (\(\kappa\)).
+Since we assume no technological change, capital venture heterogeneity persists which is equivalent to assume an undestructable capital stock (\(\kappa = \infty\)).
+As a consequence of this, each firm full capacity output (\(YFC_{f}\)) will be different as well.
 
-#+BEGIN_info
+\begin{info}
 FIXME related questions:
-- What are the consequences of the heroic assumptions of this alternatives? Firms will expand productivity capacity in order to keep average capital productivity?
-- What if $\kappa < \infty$?
-- What about assets/liabilities mismatch? Firms expansion decisions are based on financial liability duration.
-- Does the simplifying hypothesis of product innovation (instead of process) required?
-#+END_info
+\begin{itemize}
+\item What are the consequences of the heroic assumptions of this alternatives? Firms will expand productivity capacity in order to keep average capital productivity?
+\item What if \(\kappa < \infty\)?
+\item What about assets/liabilities mismatch? Firms expansion decisions are based on financial liability duration.
+\item Does the simplifying hypothesis of product innovation (instead of process) required?
+\end{itemize}
+\end{info}
 
-The next logical step is to merge the *strategic* and *stubborn capital* model versions to evaluate the interaction of these two effects.
-This is called the *intersectional model*.
-Differently from *strategic model*, this version will have process innovation instead of product innovation.
+The next logical step is to merge the \alert{strategic} and \alert{stubborn capital} model versions to evaluate the interaction of these two effects.
+This is called the \alert{intersectional model}.
+Differently from \alert{strategic model}, this version will have process innovation instead of product innovation.
 Thus, capital lifetime is no longer infinity and each firm productivity and market share evolves together.
 Consequently, firm's expected demand and full capacity output differ from baseline model.
+\end{block}
 
-** Model validation
-
+\begin{block}{Model validation}
 Each model alternative will differ only in expansion investment behavior.
 All other assumption remains the same in order to  be comparable.
 The results will be contrasted with the already mapped stylized facts and in its capacity to replicalite SSM aggregate investment function:
 
-#+BEGIN_latex
+\begin{latex}
 \begin{equation}
 EI_{F}^{hyp.} = h_{F}\cdot Y^{D}_{F} \leftrightarrow EI_{F} = \sum EI_{f}
 \end{equation}
-#+END_latex
+\end{latex}
 In order to do so, aggregate marginal propensity to invest will be share the same calibrated value across model and the results' sensibility to it will be evaluated.
 Additionally, each alternative will be initialized equally.
+\end{block}
 
-** Conceptual model
+\begin{block}{Conceptual model}
+\end{block}
+\end{frame}
 
-* Version <2021-07-09 sex>: Fully induced investment - Bottom up, top down or both of them?
-
-** Description
-
+\begin{frame}[label={sec:org790494c}]{Version \textit{<2021-07-09 sex>}: Fully induced investment - Bottom up, top down or both of them?}
+\begin{block}{Description}
 The objective of this article is to investigate how Sraffian supermultiplier model (SSM) properties emerges in a AB model.
 In order to do this, the model will represent an economy as simple as possible with heterogeneous firms while all the other institutional sectors are aggregated.
 Thus, there is only one sector, no labor supply restriction, government nor external sector.
 All other auxiliary assumption will follow AB literature as long as does not generate incompatibility with SSM closure.
+\end{block}
 
-** Empirical validation and contrafactuals
-
+\begin{block}{Empirical validation and contrafactuals}
 The model will be validated by comparing it with stylized facts already surveyed by the empirical literature.
 Additionally, simulation results will be contrasted with two simulations using the same model structure with only one firm.
 In the first one, expansion investment function will be fully induced in SSM terms; the other will be an neo-Kaleckian function.
+\end{block}
 
-** Conceptual model
-
+\begin{block}{Conceptual model}
 Non-residential expansion investment function will have two types of switching mechanism.
-In the first one, firms' expectation will change accordingly to its forescasting errors in line with textcite:reissl_2021_Heterogeneousa,dosi_2020_RATIONAL.
+In the first one, firms' expectation will change accordingly to its forescasting errors in line with \textcite{reissl_2021_Heterogeneousa,dosi_2020_RATIONAL}.
 The idea of this experiment is to evaluate if model's stability is a result of heterogeneous expectations at the firm-level.
 It is expected that the most simple heuristic method generates lower volatility at the aggregate level besides the higher forecast error.
-Expectation switching mechanism will follow cite:anufriev_2012_Evolutionary procedure.
+Expectation switching mechanism will follow \cite{anufriev_2012_Evolutionary} procedure.
 The possible specifications are:
 
-- Adaptive (baseline)
-- Strong trend
-- Weak trend
-- Anchoring and adjustment (moving average)
+\begin{itemize}
+\item Adaptive (baseline)
+\item Strong trend
+\item Weak trend
+\item Anchoring and adjustment (moving average)
+\end{itemize}
 
 
 
 The other experiment intend to evaluate if fully-induced investment function dominates the others or emerges as a macroeconomic result.
 In order to do so, a switching mechanism will be implemented similarly to the previous experiment.
 Instead of comparing forecasting errors, firms will change investment function accordingly to deviation between effective and normal capacity utilization rate.
-Thus, firms may choose between a standard neo-Kaleckian, neo-Kaleckian supermultiplier cite:allain_2015_Tacklinga or Sraffian supermultiplier cite:serrano_1995_Long.
+Thus, firms may choose between a standard neo-Kaleckian, neo-Kaleckian supermultiplier \cite{allain_2015_Tacklinga} or Sraffian supermultiplier \cite{serrano_1995_Long}.
 The idea of this experiment is to evaluate if fully-induced investment is observed at the micro, meso or macroeconomic level.
 Investment plan functions are:
 
-- neo-Kaleckian :: $g^{K} = \overline{\gamma_{0}} + \gamma_{1} (u - u_{N})$
-- neo-Kaleckian supermultiplier :: $g^{K} = \gamma_{0} + \gamma_{1}(u - u_{N})$ while $\Delta \gamma_{0} = \gamma_{0,t-1}\cdot\gamma_{u} (u - u_{N})$
-- Sraffian supermultiplier :: $g^{K} = \frac{h\cdot u}{v}$ while $\Delta h = h_{t-1}\cdot \gamma_{u} (u - u_{N})$ and $I = h\cdot Y$
+\begin{description}
+\item[{neo-Kaleckian}] \(g^{K} = \overline{\gamma_{0}} + \gamma_{1} (u - u_{N})\)
+\item[{neo-Kaleckian supermultiplier}] \(g^{K} = \gamma_{0} + \gamma_{1}(u - u_{N})\) while \(\Delta \gamma_{0} = \gamma_{0,t-1}\cdot\gamma_{u} (u - u_{N})\)
+\item[{Sraffian supermultiplier}] \(g^{K} = \frac{h\cdot u}{v}\) while \(\Delta h = h_{t-1}\cdot \gamma_{u} (u - u_{N})\) and \(I = h\cdot Y\)
+\end{description}
 
 
-In summary, the first experiment endogenizes $g^{e}$ of each individual firm while the second endogenizes the decison between different expansion investment plans ($g$).
+In summary, the first experiment endogenizes \(g^{e}\) of each individual firm while the second endogenizes the decison between different expansion investment plans (\(g\)).
 In other terms,
 
-- Expectational change mechanism: $\Delta g^{e}: g^{e} \to g^{K}$
-- Investment function change mechanism: $\Delta g^{I}: u \to u_{N}$
+\begin{itemize}
+\item Expectational change mechanism: \(\Delta g^{e}: g^{e} \to g^{K}\)
+\item Investment function change mechanism: \(\Delta g^{I}: u \to u_{N}\)
+\end{itemize}
 
 Finally, the last experiment will merge both.
 All simulations will start with homogeneous firms (all with the same expectation procedure and investment function) in order to analyze which configuration emerges.
 
-*** Additional simplifications
-
-The proposed model is based on textcite:dosi_2020_RATIONAL with the following additional hypothesis:
-- Only firms are heterogeneous
-- No government
-- No innovation nor technological progress (discuss)
-- Consumption-goods and capital-goods sectors are vertically integrated (discuss)
-- Autonomous consumption
-- No learning expectations (Section VI) for simplicity only
+\begin{block}{Additional simplifications}
+The proposed model is based on \textcite{dosi_2020_RATIONAL} with the following additional hypothesis:
+\begin{itemize}
+\item Only firms are heterogeneous
+\item No government
+\item No innovation nor technological progress (discuss)
+\item Consumption-goods and capital-goods sectors are vertically integrated (discuss)
+\item Autonomous consumption
+\item No learning expectations (Section VI) for simplicity only
+\end{itemize}
+\end{block}
+\end{block}
+\end{frame}
+\end{document}

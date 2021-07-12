@@ -1,8 +1,8 @@
-% Created 2021-07-09 sex 12:02
+% Created 2021-07-12 seg 11:47
 % Intended LaTeX compiler: pdflatex
 \documentclass[10pt]{beamer}
   \usepackage{caption, csquotes, appendixnumberbeamer, graphicx}
-\usepackage{svg, caption, multirow, booktabs, tabularx, lscape, tablefootnote, threeparttable, makecell}
+\usepackage{caption, multirow, booktabs, tabularx, lscape, tablefootnote, threeparttable, makecell}
 \newcolumntype{b}{>{\hsize=2.3\hsize}X}
 \newcolumntype{s}{>{\hsize=.45\hsize}X}
 \newcolumntype{m}{>{\hsize=.9\hsize}X}
@@ -56,9 +56,9 @@
 \end{frame}
 
 \section{Introduction}
-\label{sec:orgac7795d}
+\label{sec:org1d8202a}
 
-\begin{frame}[label={sec:org0dd9f50}]{Introduction}
+\begin{frame}[label={sec:org96d5086}]{Introduction}
 After the subprime crisis (2008) and the Great Recession (2008-2009), policymakers have payed more attention on housing market.
 However, residential investment is only \alert{indirectly} considered.
 
@@ -73,9 +73,9 @@ Present and evaluate a parsimonious way of explaining the behavior of the reside
 \end{frame}
 
 \section{Empirical motivation}
-\label{sec:org00dc828}
+\label{sec:org8872f58}
 
-\begin{frame}[label={sec:orgf83302d}]{Residential investment, business cycle and economic growth in the US economy}
+\begin{frame}[label={sec:orgfe75453}]{Residential investment, business cycle and economic growth in the US economy}
 \begin{itemize}
 \item Macroeconomic relevance of residential investment systematically neglected
 \begin{itemize}
@@ -95,7 +95,7 @@ From the review of empirical literature, residential investment:
 
 
 
-\begin{frame}[label={sec:org3413215}]{Residential investment and the business cycle \citep{green_follow_1997,leamer_housing_2007}}
+\begin{frame}[label={sec:orgd16731c}]{Residential investment and the business cycle \citep{green_follow_1997,leamer_housing_2007}}
 \metroset{block=transparent}
 \begin{block}{Selected expenditures growth rates two years before and two years after recession starts\footnote{\tiny{Vertical lines indicate the begining of the recession (NBER recession dating procedure)}}}
 \begin{figure}[H]
@@ -109,7 +109,7 @@ From the review of empirical literature, residential investment:
 
 
 
-\begin{frame}[label={sec:org9878956}]{Residential investment and long-run economic growth\footnote{\tiny{HP filter, $\lambda = 1600$. We are aware of the econometric problems regarding this type of filter. For details see \textcite{NBER_HP}. This is just a visualization procedure.}} \citep{perez_Montiel_2021}}
+\begin{frame}[label={sec:org0d23be6}]{Residential investment and long-run economic growth\footnote{\tiny{HP filter, $\lambda = 1600$. We are aware of the econometric problems regarding this type of filter. For details see \textcite{NBER_HP}. This is just a visualization procedure.}} \citep{perez_Montiel_2021}}
 \begin{figure}[H]
 	\centering
 	\includegraphics[height=.68\textheight, width = \textwidth]{./figs/Trend.png}
@@ -122,9 +122,9 @@ From the review of empirical literature, residential investment:
 
 
 \section{Econometric literature review}
-\label{sec:org42c60ef}
+\label{sec:orgd2499b8}
 
-\begin{frame}[label={sec:org5edb79b}]{Determinants of residential investment}
+\begin{frame}[label={sec:org865c519}]{Determinants of residential investment}
 Few econometric papers analyze housing in macroeconomic terms and its determinants.
 
 \begin{description}
@@ -143,10 +143,10 @@ House prices (nominal or deflated by some general price index) and some interest
 
 
 \section{Estimation proposition and economic discussion}
-\label{sec:org6703cc3}
+\label{sec:org7a790da}
 
-\begin{frame}[label={sec:org07af5d1}]{Houses own-rate of interest: definition}
-Inspired by \citeauthor*{sraffaDrHayekMoney1932}'s (\citeyear{sraffaDrHayekMoney1932}) commodity rate, \textcite{teixeira_crescimento_2015}  proposed the index named houses own-rate of interest (\(own\)) to analyze the 2000s US housing boom episode.
+\begin{frame}[label={sec:orgdbf343b}]{Houses own-rate of interest: definition}
+\textcite{teixeira_crescimento_2015}  proposed the index named houses own-rate of interest (\(own\)) to analyze the 2000s US housing boom episode.
 
 \begin{latex}
 \begin{equation}
@@ -166,22 +166,19 @@ It is the combination of the relevant nominal rate of interest with the relevant
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:org937ec2b}]{Houses own-rate of interest: clarifications}
+\begin{frame}[label={sec:org0201f94}]{Houses own-rate of interest: clarifications}
 \label{OwnClarification}
-Houses own-rate of interest similarity with \textcite{keynes_general_1936} own-rate of interest is restricted to its name only.
-Thus, here are some clarifications:
+Based on \citeauthor*{sraffaDrHayekMoney1932}'s (\citeyear{sraffaDrHayekMoney1932}) commodity rate, houses own-rate is:
 
 \begin{itemize}
-\item It is a real cost and not a profit measure index
-\begin{itemize}
-\item It is a \alert{commodity rate} and not a marginal efficiency rate
+\item A \alert{real cost} measured in terms of houses (that's why \alert{houses} own-rate of interest)
+\item Not restricted to speculation episodes (such as housing bubble)
 \end{itemize}
-\item It is not restricted to speculation episodes (such as housing bubble)
-\item Only \alert{persistent} changes in houses own-rate of interest will influence residential investment growth rate
+
+Additionally, only \alert{persistent} changes in houses own-rate of interest will influence residential investment growth rate
 \begin{itemize}
-\item What is relevant is the future price in relation to the buying price
+\item What is relevant is the \alert{future} price in relation to the buying price
 \item Construction takes time (from 7 to 12 months depending on housing unit type) \hyperlink{constructionPlot}{\beamerbutton{Figure}}
-\end{itemize}
 \end{itemize}
 
 \begin{block}{Technical note}
@@ -190,7 +187,7 @@ So, we use the lags of this variable as a proxy for the expected one.
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:orge0b3f30}]{Houses own-rate of interest and residential investment growth rate}
+\begin{frame}[label={sec:org3e444bd}]{Houses own-rate of interest and residential investment growth rate}
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=\textwidth]{./figs/TxPropria_Investo.png}
@@ -200,7 +197,7 @@ So, we use the lags of this variable as a proxy for the expected one.
 
 
 
-\begin{frame}[label={sec:orgb477d0a}]{Data and inspection}
+\begin{frame}[label={sec:orgfbc40fe}]{Data and inspection}
 \label{DataInspection}
 We rely on the following quarterly seasonally adjusted data:
 \begin{description}
@@ -218,7 +215,7 @@ The time range was selected because it captures the effects of changes in deposi
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label={sec:orgd8c99db}]{Estimation strategy}
+\begin{frame}[label={sec:orge30213b}]{Estimation strategy}
 Previous results allows us to estimate a error correction model.
 We assume the following long-run relationship:
 
@@ -249,16 +246,16 @@ We estimated a VECM with four lags.
 \end{frame}
 
 
-\begin{frame}[label={sec:orgdb1ef59}]{Expected results and economic meaning}
+\begin{frame}[label={sec:orgd723291}]{Expected results and economic meaning}
 
 \input{./tabs/hypothesis.tex}
 \end{frame}
 
 
 \section{Results}
-\label{sec:org208d253}
+\label{sec:org3774fd4}
 
-\begin{frame}[label={sec:orgcac487a}]{Estimation parameters \hyperlink{robust_frame}{\beamerbutton{Robustness check}}}
+\begin{frame}[label={sec:org63487ba}]{Estimation parameters \hyperlink{robust_frame}{\beamerbutton{Robustness check}}}
 \label{back}
 \begin{table}[H]
 	\centering
@@ -271,13 +268,13 @@ We estimated a VECM with four lags.
 \end{frame}
 
 
-\begin{frame}[label={sec:orgf9011f1}]{Orthogonalized Impulse Response Function}
+\begin{frame}[label={sec:org6ed18ea}]{Orthogonalized Impulse Response Function}
 \begin{figure}[H]
 	\centering
 	\includegraphics[height=.85\textheight]{./figs/Impulse_VECMOrth_grey.png}
 \end{figure}
 \end{frame}
-\begin{frame}[label={sec:org37899d4}]{Forecast error variance decomposition}
+\begin{frame}[label={sec:org1275123}]{Forecast error variance decomposition}
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{./figs/FEVD_VECMpython_TxPropria.png}
@@ -285,8 +282,8 @@ We estimated a VECM with four lags.
 \end{frame}
 
 \section{Conclusions}
-\label{sec:orgc8e9f2f}
-\begin{frame}[label={sec:org588975a}]{Concluding remarks}
+\label{sec:org5663cf1}
+\begin{frame}[label={sec:org5b5b03d}]{Concluding remarks}
 We presented a simple specification for residential investment growth rate based on houses own-rate of interest proposed by \textcite{teixeira_crescimento_2015}.
 \begin{itemize}
 \item houses own-rate of interest (\(own\)) and residential investment growth rate (\(g_{I_h}\)) share a common long-run trend;

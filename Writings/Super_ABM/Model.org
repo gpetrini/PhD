@@ -1,0 +1,214 @@
+#+TITLE: Model
+#+AUTHOR: Gabriel Petrini
+#+LANG: en
+#+EXCLUDE_TAGS: noexport
+
+* Technical setup :noexport:
+
+* Dúvidas :noexport:
+** TODO Qual a necessidade de um mark-up variável?
+** TODO Se o markup variar, é preciso deflacionar o consumo?
+** TODO Dadas as hipóteses até então, qual é o determinante do market-share efetivo?
+*** TODO Concessão de crédito pelos bancos?
+** TODO Incluir investimento de reposição?
+** TODO É preciso discutir fragilidade financeira das firmas?
+** TODO É necessário supor heterogeinidade de vida útil do capital?
+* Main text :ignore:
+:PROPERTIES:
+     :CUSTOM_ID: sec:model:ch_super
+     :END:
+
+
+** Review of theoretical literature :ignore:
+
+In this section, we present the conceptual model that will be simulated later in section SEÇÃO.
+This model represent an economy as simple as possible with heterogeneous firms while all the other institutional sectors are aggregated.
+At odds with conventional AB literature, we assume no thecnological progress to keep it simple[fn::For an detailed description of innovations and thecnological change in AB models, see DOSI whom we refer to as a benchmark model.].
+All other auxiliary assumption will follow AB literature as long as does not generate incompatibility with SSM closure.
+
+Before moving further to the description of every institutional sectors, we will present the hypothesis of this simplified economy.
+For simplicity, there is only one productive sector, no labor supply restriction, government nor external sector.
+As a consequence of the previous assumptions, the economy is composed by $N$ homogeneous households and $F$ heterogeneous firms[fn::Aggregates variables will be represented by subscript $N$ for households and $F$ for firms.].
+
+** Sequence of events
+
+
+
+** Production and distribution
+
+
+*** Firms production plans
+
+Each firm ($f$) investment plan ($Y_{f,t}$, Equation ref:EQ_Yf) is defined accordingly to its expected real sales level ($S^{e}_{f,t}$) and a desired inventories to sales ratio $(\iota^{T} \in [0,1])$ -- exogenous defined and equal across firms -- to attend unexpected demand boosts as usual in $K+S$ models.
+
+#+BEGIN_latex
+\begin{equation}
+\label{EQ_Yf}
+Y_{f,t} = (1+\iota^{T})\cdot S^{e}_{f,t} - INV_{f,t-1}
+\end{equation}
+#+END_latex
+in which $INV_{f,t-1}$ is the firm's inventories.
+In baseline scenario, we assume na{\"i}ve expectational procedure in which expected sales level is equal to its lagged value.
+Alternatives expectational procedures will be discussed in section ref:sec:switching.
+After defining an production plan, firms calculates its desired capacitiy utilization rate ($u^{d}_{f}$, Equation) as follows:
+
+#+BEGIN_latex
+\begin{equation}
+u^{d}_{f} = \max\left[ 0, \min\left[ \frac{Y_{f,t}}{Y_{f,t}^{FC}}, 1 \right] \right]
+\end{equation}
+#+END_latex
+in which $Y_{f,t}^{FC}$ is the firm's current output at the full capacity.
+Since we assume no labor restriction, full capacity output is define by its existing capital stock ($K_{f,t-1}$) given a maximum capital to output ratio ($\nu$) constant, exogenous and equal across firms:
+
+#+BEGIN_latex
+\begin{equation}
+Y_{f,t}^{FC} = \frac{K_{f,t-1}}{\nu}
+\end{equation}
+#+END_latex
+Consequently, current firm's capacity utilization ratio is constrained do be equal or less than one since production is limited by physical capital.
+
+
+
+*** Capital stock
+
+
+Since there is no thecnological progress nor innovation in the current version of this model, firms' capital stock only differs according to it lifetime ($\kappa$).
+Consequently, total capital stock is defined as the sum of different capital good vintage ($k_{f}$) as follows:
+
+#+BEGIN_latex
+\begin{equation}
+K_{f} = \sum_{j=1}^{\kappa < \infty} k_{f,t-j}
+\end{equation}
+#+END_latex
+For simplicity, we assume no use depreciation, so each capital good will be replaced only if achieve its maximum lifetime.
+
+*** Labor demand and wage bill
+
+In order to produce, firms use a Leontieff-type technology with a fixed combination between labor and physical capital.
+Given no a fixed labor productivity equally defined across workers, labor demand is a function ($N^{d}_{f,t}$) of each firm production plan at current capacity utilization level:
+
+#+BEGIN_latex
+\begin{equation}
+N^{d}_{f,t} = u_{f,t}\cdot Y_{f,t}
+\end{equation}
+#+END_latex
+
+Since our main purpose with this model is to evaluate emergence of firm's behavior, we assume single nominal wage for all workers ($w_{t}$) exogenously defined.
+Thus, each firm wage bill ($W_{f}$) is:
+#+BEGIN_latex
+\begin{equation}
+W_{f,t} = N^{d}\cdot w_{f,t}
+\end{equation}
+#+END_latex
+In order to prevent asymptotic null induced consumption levels, we assume that at each time nominal wage is updated accordingly to previous inflation rate ($\pi_{t-t}$) which is the market-share weighted market price mean (Equation ref:EQ_Infla)
+
+#+BEGIN_latex
+\begin{equation}
+w_{t} = w_{t-1}\cdot(1+\pi_{t-1})
+\end{equation}
+#+END_latex
+#+BEGIN_latex
+\begin{equation}
+\label{EQ_Infla}
+\pi_{t} = \sum_{f=1}^{F} ms_{f,t}\cdot p_{f,t}
+\end{equation}
+#+END_latex
+in which $ms_{f}$ and $p_{f,t}$ stands for firm's $f$ market share and price respectively.
+
+
+
+*** Pricing
+
+We assume a simple pricing mechanism as possible which is defined as a mark-up ($\theta_{f}$) over direct unit labor costs (in this case, $w_{t}$):
+#+BEGIN_latex
+\begin{equation}
+p_{f,t} = (1+\theta_{f})\cdot w_{t}
+\end{equation}
+#+END_latex
+At odds with $K+S$ model, and a a result of our simplifying assumptions, there is no need to specify a mark-up law of motion equation[fn::This is the case for $K+S$ models because unit labor costs are not under firms strict control. Once we assume no technological progress nor innovation, uncertainty regarding labor productivity level is vanished.].
+As we will further explore in section ref:sec:switching, expected market-share levels play a prominent role in investment decision and not in pricing as usual.
+
+
+
+*** Household demand
+
+
+In order to investigate the consequences of heterogeneous investment decisions in a Sraffian supermultiplier friendly framework, we a assume that household's consumption ($C_{N}$) is composed both by an induced ($W_{N,t}$) and by an autonomous component ($Z_{t}$)[fn::As discussed before, there is a multitude of non-capacitiy creating autonomous expenditures. Autonomous households consumption component was selected only to reduce the complexity of this model.][fn::Following textcite:serrano_1995_Long, we consider $Z_{t}$ as an non-capacitiy creating autonomous expenditure because it does not depends on firms' production decisions. Additionally, since banking credit is endogenous, consumption loans does not affect credit availability for other sectors.]:
+
+#+BEGIN_latex
+\begin{equation}
+C_{N} = c_{w}\cdot W_{N,t} + Z_{t}
+\end{equation}
+#+END_latex
+in which $c_{w}$ is households marginal propensity to consume out of wages while autonomous expenditure is given by its exogenously defined growth rate ($g_{Z}$):
+#+BEGIN_latex
+\begin{equation}
+Z_{t} = (1+g_{Z})\cdot Z_{t-1}
+\end{equation}
+#+END_latex
+in which is financed either by financial wealth and by banking credit.
+
+Since we assume no households heterogeinity, consumption loans restriction has no economic meaning at the aggregate level.
+Differently from firms, we impose that households are not credit constrained[fn::We are aware of the simplifications of these assumption, but our main propose here is to elaborate a simple model to discuss heterogeneity in the Sraffian Supermultiplier macroeconomic model.].
+Implicitly, we assume that banking evaluation of households default probability ($pr^{D}_{N,t}$) is null.
+
+*** Distribution of demand
+
+
+Considering previous assumptions, total demand of this economy ($Y$) is the sum of aggregate household consumption ($C_{N}$) and total firms' investment ($I_{F}$) which is the sum of individual firms investment decisions ($I_{f}$).
+#+BEGIN_latex
+\begin{equation}
+\label{EQ_GDP_D}
+Y = C_{N} + \sum_{f}^{F} I_{f}
+\end{equation}
+#+END_latex
+As usual in AB models, distribution of total demand depends on relative competitiveness.
+Since there is no price diversity, we assume that firms relative competitiveness depends only on the level of unfilled demand ($l_{f,t}$), normalised to the whole sector’s weighted averages ($\overline{l}_{f,t-1}$):
+
+#+BEGIN_latex
+\begin{equation}
+E_{f,t} = -\beta \frac{l_{f}}{\overline{l}_{f,t-1}}
+\end{equation}
+#+END_latex
+Following SILVERBERG E DOSI, effective market-share is defined accordingly to a quasi-replicator mechanism (Equation ) in which firms that were not able to fulfill its demand level will have a lower market-share:
+#+BEGIN_latex
+\begin{equation}
+\label{EQ_Replicator}
+ms_{f,t} = ms_{f,t-1}\cdot (1+\chi \frac{E_{f,t} - \overline{E}_{t}}{\overline{E}_{t}})
+\end{equation}
+#+END_latex
+in which $\chi$ is a positive exogenous parameter and $\overline{E}_{t}$ is the average competitiveness of the whole sector:
+#+BEGIN_latex
+\begin{equation}
+\overline{E}_{t} = \sum_{f=1}^{F}E_{f,t}\cdot ms_{f,t-1}
+\end{equation}
+#+END_latex
+
+As will be discussed in section ref:sec:switching, effective market-share depends both on expected mark-share and effective investment decision, each one explained separately.
+Thus, investment emergence patterns depends on how firms adapts its expectations and changes (or not) its investment functions.
+
+** Banking sector, credit and financial implications
+
+*** Firms' credit
+
+*** Household credit
+
+*** Profits and dividends
+
+*** Interest rate and profit
+
+** Switching mechanism
+:PROPERTIES:
+     :CUSTOM_ID: sec:switching
+     :END:
+
+*** Expectations
+
+*** Investment decisions
+
+
+
+** Aggregating and closing the model
+
+*** Entry and exit of firms
+*** Closing the accounting

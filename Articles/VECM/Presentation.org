@@ -8,7 +8,7 @@
 #+startup: beamer
 #+beamer_frame_level: 2
 #+LATEX_HEADER: \usepackage{caption, csquotes, appendixnumberbeamer, graphicx}
-#+LATEX_HEADER: \usepackage{svg, caption, multirow, booktabs, tabularx, lscape, tablefootnote, threeparttable, makecell}
+#+LATEX_HEADER: \usepackage{caption, multirow, booktabs, tabularx, lscape, tablefootnote, threeparttable, makecell}
 #+LATEX_HEADER: \newcolumntype{b}{>{\hsize=2.3\hsize}X}
 #+LATEX_HEADER: \newcolumntype{s}{>{\hsize=.45\hsize}X}
 #+LATEX_HEADER: \newcolumntype{m}{>{\hsize=.9\hsize}X}
@@ -149,7 +149,7 @@ House prices (nominal or deflated by some general price index) and some interest
 ** Houses own-rate of interest: definition
 
 
-Inspired by \citeauthor*{sraffaDrHayekMoney1932}'s (citeyear:sraffaDrHayekMoney1932) commodity rate, textcite:teixeira_crescimento_2015  proposed the index named houses own-rate of interest ($own$) to analyze the 2000s US housing boom episode.
+textcite:teixeira_crescimento_2015  proposed the index named houses own-rate of interest ($own$) to analyze the 2000s US housing boom episode.
 
 #+BEGIN_latex
 \begin{equation}
@@ -168,15 +168,14 @@ It is the combination of the relevant nominal rate of interest with the relevant
 
 ** Houses own-rate of interest: clarifications
 #+LATEX: \label{OwnClarification}
-Houses own-rate of interest similarity with textcite:keynes_general_1936 own-rate of interest is restricted to its name only.
-Thus, here are some clarifications:
+Based on \citeauthor*{sraffaDrHayekMoney1932}'s (citeyear:sraffaDrHayekMoney1932) commodity rate, houses own-rate is:
 
-- It is a real cost and not a profit measure index
-  + It is a *commodity rate* and not a marginal efficiency rate
-- It is not restricted to speculation episodes (such as housing bubble)
-- Only *persistent* changes in houses own-rate of interest will influence residential investment growth rate
-  + What is relevant is the future price in relation to the buying price
-  + Construction takes time (from 7 to 12 months depending on housing unit type) @@latex:\hyperlink{constructionPlot}{\beamerbutton{Figure}}@@
+- A *real cost* measured in terms of houses (that's why *houses* own-rate of interest)
+- Not restricted to speculation episodes (such as housing bubble)
+
+Additionally, only *persistent* changes in houses own-rate of interest will influence residential investment growth rate
+- What is relevant is the *future* price in relation to the buying price
+- Construction takes time (from 7 to 12 months depending on housing unit type) @@latex:\hyperlink{constructionPlot}{\beamerbutton{Figure}}@@
 
 *** Technical note
 Data series of expected house inflation do not exist.
