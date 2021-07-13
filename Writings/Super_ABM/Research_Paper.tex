@@ -1,4 +1,4 @@
-% Created 2021-07-12 seg 18:04
+% Created 2021-07-13 ter 18:05
 % Intended LaTeX compiler: pdflatex
 \documentclass{SelfArx}
   \usepackage[T1]{fontenc}
@@ -43,8 +43,9 @@ maxcitenames=3]{biblatex}
 \clearfield{url}
 }
 }
+\addbibresource{/HDD/Org/zotero_refs.bib}
 \date{}
-\title{Sraffian submultiplier model: an Agent Based Sraffian supermultiplier Model Introduction Model}
+\title{Sraffian submultiplier model: an Agent Based Sraffian supermultiplier Model}
 \begin{document}
 
 \JournalInfo{Draft - \today} % Journal information
@@ -65,14 +66,38 @@ maxcitenames=3]{biblatex}
 \maketitle % Print the title and abstract box
 \thispagestyle{empty} % Removes page numbering from the first page
 
-\section*{Introduction}
-\label{sec:org21382be}
+\section{Introduction}
+\label{sec:orgeab491b}
+There is a relative consensus in the demand-led macroeconomic growth literature that non-residential investment is, at the macroeconomic level, partially induced by income.
+Authors inspired by Sraffian supermultiplier model, on the other hand, state that non-residential investment is fully-induced and is described by the capital adjusment principle.
+As a consequence, this model predict a positive correlational relation between investment share and economic growth while capacity utilization rate is trend-stationary in the long-run.
+Recently, there are empirical support for this results () while other are still in debate.
+Besides this econometric validation, it is unclear how this upper-level property of non-residential investment emerge from lower level decisions.
+
+There is a long strand of agent based models that emphasizes other stylized facts regarding non-residential investment.
+Just to name a few of them, there is the relevance of technological progress and innovation, market structure and competition, firms' long-term survival condition among other (Cabalero, Taylor and Woodford).
+One of the properties reported by this literature is the emergence of non-residential investment lumpiness.
+In summary, firms expanding at different levels coexist, which implies the persistence of heterogeneity.
+These results suggests that there are non-trivial mesoeconomic level mechanisms that explain how microeconomic behavior of the firm generates aggregate pattern of non-residential investment.
 
 
-\section*{Empirical motivation}
-\label{sec:org7563e47}
-\section*{Conceptual model}
-\label{sec:org72b8958}
+Based on this collection of empirical results, this paper intend to investigate which microeconomic-level assumptions reproduce the macroeconomic properties of fully-induced non-residential investment reported by SSM model.
+In order to do so, some additional steps are required to moving from a standard macroconomic Sraffian supermultiplier model to a microeconomic founded.
+The main contribution of this paper is to evaluate this microeconomics path towards an agent based SSM model.
+Thus, the article is organized as follows.
+Section \ref{sec:empirical:ch_super} reviews some stylized facts reported by the Sraffian supermultiplier framework, enhancing the list already mapped by AB literature.
+Section \ref{sec:model:ch_super} presents a parsimonious Stock-Flow consistent model with heterogeneous firms.
+The core mechanism are two switching procedures regarding expectations (Section \ref{sec:switching_expec}) and investment decisions (Section \ref{sec:switching_invest}).
+Additional, this section also show the required assumptions to convert the SSM model into a firm-level version.
+Next, on Section \ref{sec:validation:ch_super}, the baseline model is validated using a only-one-firm (oof) version in which investment is equal to the SSM aggregated version with adaptatinve expectations as a contrafactual.
+Section \ref{sec:experiments:ch_super} presents the experiments results in which the two switching mechanisms are triggered.
+Finally, Section \ref{sec:conclusion:ch_super} concludes the paper.
+
+
+\section{Empirical motivation}
+\label{sec:empirical:ch_super}
+\section{The model}
+\label{sec:model:ch_super}
 In this section, we present the conceptual model that will be simulated later in section SEÇÃO.
 This model represent an economy as simple as possible with heterogeneous firms while all the other institutional sectors are aggregated.
 At odds with conventional AB literature, we assume no thecnological progress to keep it simple\footnote{For an detailed description of innovations and thecnological change in AB models, see DOSI whom we refer to as a benchmark model.}.
@@ -82,23 +107,23 @@ Before moving further to the description of every institutional sectors, we will
 For simplicity, there is only one productive sector, no labor supply restriction, government nor external sector.
 As a consequence of the previous assumptions, the economy is composed by \(N\) homogeneous households and \(F\) heterogeneous firms\footnote{Aggregates variables will be represented by subscript \(N\) for households and \(F\) for firms.}.
 
-\subsection*{Sequence of events}
-\label{sec:org8af3eca}
+\subsection{Sequence of events}
+\label{sec:org82707d8}
 
 
 
-\subsection*{Production and distribution}
-\label{sec:orge496b6f}
+\subsection{Production and distribution}
+\label{sec:org9e03382}
 
 
-\subsubsection*{Firms production plans}
-\label{sec:org456bbf7}
+\subsubsection{Firms production plans}
+\label{sec:org55fd20e}
 
 Each firm (\(f\)) investment plan (\(Y_{f,t}\), Equation \ref{EQ_Yf}) is defined accordingly to its expected real sales level (\(S^{e}_{f,t}\)) and a desired inventories to sales ratio \((\iota^{T} \in [0,1])\) -- exogenous defined and equal across firms -- to attend unexpected demand boosts as usual in \(K+S\) models.
 
 \begin{latex}
 \begin{equation}
-\label{EQ_Yf}
+\label{Ch_super_EQ_Yf}
 Y_{f,t} = (1+\iota^{T})\cdot S^{e}_{f,t} - INV_{f,t-1}
 \end{equation}
 \end{latex}
@@ -124,8 +149,8 @@ Consequently, current firm's capacity utilization ratio is constrained do be equ
 
 
 
-\subsubsection*{Capital stock}
-\label{sec:orgdc32565}
+\subsubsection{Capital stock}
+\label{sec:orgfe63efb}
 
 
 Since there is no thecnological progress nor innovation in the current version of this model, firms' capital stock only differs according to it lifetime (\(\kappa\)).
@@ -138,15 +163,15 @@ K_{f} = \sum_{j=1}^{\kappa < \infty} k_{f,t-j}
 \end{latex}
 For simplicity, we assume no use depreciation, so each capital good will be replaced only if achieve its maximum lifetime.
 
-\subsubsection*{Labor demand and wage bill}
-\label{sec:orge901aab}
+\subsubsection{Labor demand and wage bill}
+\label{sec:orgbe02ad4}
 
 In order to produce, firms use a Leontieff-type technology with a fixed combination between labor and physical capital.
 Given no a fixed labor productivity equally defined across workers, labor demand is a function (\(N^{d}_{f,t}\)) of each firm production plan at current capacity utilization level:
 
 \begin{latex}
 \begin{equation}
-N^{d}_{f,t} = u_{f,t}\cdot Y_{f,t}
+N^{d}_{f,t} = u_{f,t}\cdot Y^{FC}_{f,t}
 \end{equation}
 \end{latex}
 
@@ -157,7 +182,7 @@ Thus, each firm wage bill (\(W_{f}\)) is:
 W_{f,t} = N^{d}\cdot w_{f,t}
 \end{equation}
 \end{latex}
-In order to prevent null consumption levels, we assume that at each time nominal wage is updated accordingly to previous inflation rate (\(\pi_{t-t}\)) which is the market-share weighted market price mean (Equation \ref{EQ_Infla})
+In order to prevent asymptotic null induced consumption levels, we assume that at each time nominal wage is updated accordingly to previous inflation rate (\(\pi_{t-t}\)) which is the market-share weighted market price mean (Equation \ref{EQ_Infla})
 
 \begin{latex}
 \begin{equation}
@@ -166,7 +191,7 @@ w_{t} = w_{t-1}\cdot(1+\pi_{t-1})
 \end{latex}
 \begin{latex}
 \begin{equation}
-\label{EQ_Infla}
+\label{Ch_super_EQ_Infla}
 \pi_{t} = \sum_{f=1}^{F} ms_{f,t}\cdot p_{f,t}
 \end{equation}
 \end{latex}
@@ -174,8 +199,8 @@ in which \(ms_{f}\) and \(p_{f,t}\) stands for firm's \(f\) market share and pri
 
 
 
-\subsubsection*{Pricing}
-\label{sec:orgda3c0b5}
+\subsubsection{Pricing}
+\label{sec:orga719404}
 
 We assume a simple pricing mechanism as possible which is defined as a mark-up (\(\theta_{f}\)) over direct unit labor costs (in this case, \(w_{t}\)):
 \begin{latex}
@@ -188,18 +213,18 @@ As we will further explore in section \ref{sec:switching}, expected market-share
 
 
 
-\subsubsection*{Household demand}
-\label{sec:org2133aac}
+\subsubsection{Household demand}
+\label{sec:org4293d5e}
 
 
 In order to investigate the consequences of heterogeneous investment decisions in a Sraffian supermultiplier friendly framework, we a assume that household's consumption (\(C_{N}\)) is composed both by an induced (\(W_{N,t}\)) and by an autonomous component (\(Z_{t}\))\footnote{As discussed before, there is a multitude of non-capacitiy creating autonomous expenditures. Autonomous households consumption component was selected only to reduce the complexity of this model.}\textsuperscript{,}\,\footnote{Following \textcite{serrano_1995_Long}, we consider \(Z_{t}\) as an non-capacitiy creating autonomous expenditure because it does not depends on firms' production decisions. Additionally, since banking credit is endogenous, consumption loans does not affect credit availability for other sectors.}:
 
 \begin{latex}
 \begin{equation}
-C_{N} = c_{w}\cdot W_{N,t} + Z_{t}
+C_{N} = c_{w}\cdot W_{N,t} + c_{p}\cdot FD_{t} + Z_{t}
 \end{equation}
 \end{latex}
-in which \(c_{w}\) is households marginal propensity to consume out of wages while autonomous expenditure is given by its exogenously defined growth rate (\(g_{Z}\)):
+in which \(1 \geq c_{w} > c_{p} > 0\) are households marginal propensity to consume out of wages and out of distributed profits (\(FD\), discussed in Section \ref{sec:banking}) respectively while autonomous expenditure is given by its exogenously defined growth rate (\(g_{Z}\)):
 \begin{latex}
 \begin{equation}
 Z_{t} = (1+g_{Z})\cdot Z_{t-1}
@@ -211,14 +236,14 @@ Since we assume no households heterogeinity, consumption loans restriction has n
 Differently from firms, we impose that households are not credit constrained\footnote{We are aware of the simplifications of these assumption, but our main propose here is to elaborate a simple model to discuss heterogeneity in the Sraffian Supermultiplier macroeconomic model.}.
 Implicitly, we assume that banking evaluation of households default probability (\(pr^{D}_{N,t}\)) is null.
 
-\subsubsection*{Distribution of demand}
-\label{sec:orge49c46f}
+\subsubsection{Distribution of demand}
+\label{sec:org5b02830}
 
 
 Considering previous assumptions, total demand of this economy (\(Y\)) is the sum of aggregate household consumption (\(C_{N}\)) and total firms' investment (\(I_{F}\)) which is the sum of individual firms investment decisions (\(I_{f}\)).
 \begin{latex}
 \begin{equation}
-\label{EQ_GDP_D}
+\label{Ch_super_EQ_GDP_D}
 Y = C_{N} + \sum_{f}^{F} I_{f}
 \end{equation}
 \end{latex}
@@ -233,8 +258,8 @@ E_{f,t} = -\beta \frac{l_{f}}{\overline{l}_{f,t-1}}
 Following SILVERBERG E DOSI, effective market-share is defined accordingly to a quasi-replicator mechanism (Equation ) in which firms that were not able to fulfill its demand level will have a lower market-share:
 \begin{latex}
 \begin{equation}
-\label{EQ_Replicator}
-ms_{f,t} = ms_{f,t-1}\cdot (1+\chi \frac{E_{f,t} - \overline{E}_{t}}{\overline{E}_{t}})
+\label{Ch_super_EQ_Replicator}
+ms_{f,t} = ms_{f,t-1}\cdot \left(1+\chi \frac{E_{f,t} - \overline{E}_{t}}{\overline{E}_{t}}\right)
 \end{equation}
 \end{latex}
 in which \(\chi\) is a positive exogenous parameter and \(\overline{E}_{t}\) is the average competitiveness of the whole sector:
@@ -247,50 +272,151 @@ in which \(\chi\) is a positive exogenous parameter and \(\overline{E}_{t}\) is 
 As will be discussed in section \ref{sec:switching}, effective market-share depends both on expected mark-share and effective investment decision, each one explained separately.
 Thus, investment emergence patterns depends on how firms adapts its expectations and changes (or not) its investment functions.
 
-\subsection*{Banking sector, credit and financial implications}
-\label{sec:org1ad42ab}
+\subsection{Banking sector, credit and financial implications}
+\label{sec:banking}
+\subsubsection{Firms' credit}
+\label{sec:org68922dc}
 
-\subsubsection*{Firms' credit}
-\label{sec:orgbf7a8ca}
+\subsubsection{Household credit}
+\label{sec:orgc591b02}
 
-\subsubsection*{Household credit}
-\label{sec:org88a4f98}
+\subsubsection{Profits and dividends}
+\label{sec:org77aeb8f}
 
-\subsubsection*{Profits and dividends}
-\label{sec:orgd5d482e}
+\subsubsection{Interest rate and profit}
+\label{sec:orged7062f}
 
-\subsubsection*{Interest rate and profit}
-\label{sec:org9d06929}
-
-\subsection*{Switching mechanism}
+\subsection{Switching mechanism}
 \label{sec:switching}
-\subsubsection*{Expectations}
-\label{sec:orgd336c6d}
+This section provides the description for both expectational and investment decisions switching mechanism.
+In order to do so, we implement the same algorithm as \textcite{dosi_2020_RATIONAL,reissl_2021_Heterogeneousa} which is inspired in AUTORES empirical work.
+The idea of this mechanism is to evaluate if a expectational rule or an investment function dominates the others and which pattern emerges at the macroeconomic level.
+Thus, Section \ref{sec:switching_invest} describe the expectational mechanism while Section \ref{sec:switching_invest} applies this same principle to investment decisions.
 
-\subsubsection*{Investment decisions}
-\label{sec:orgb92e62e}
+\subsubsection{Expectations}
+\label{sec:switching_expec}
+The expectational switching mechanism employed in this model is the same as \textcite{dosi_2020_RATIONAL,reissl_2021_Heterogeneousa}.
+Basically, firms alternates between expectational rules based on mean squared forecast errors (\(MSFE\)) values.
+Thus, this ``Ecological Heuristics Expectational Rule'' (EHER) allows us to evaluate how chances at the firm level have macroeconomic consequences in terms of economic stability, long-term growth and survival conditions for each firm.
+Considering the expectation of variable \(X\) (\(X^{e}\)), firms choose among the following alternatives rules:
+
+\begin{description}
+\item[{Naïve (\emph{naïve})}] \(X^{e}_{na\text{\"{i}}ve,t} = X_{t-1}\)
+\item[{Adaptative (\emph{ada})}] \(X^{e}_{ada,t} = X^{e}_{t-1} + \phi_{ada}\cdot (X_{t-1} - X^{e}_{t-1})\)
+\item[{Weak trend expectation (\emph{wtr})}] \(X^{e}_{wtr,t} = X_{t-1} + \phi_{wtr}\cdot (X_{t-1} - X_{t-2})\)
+\item[{Strong trend expectation (\emph{str})}] \(X^{e}_{str,t} = X_{t-1} + \phi_{str}\cdot (X_{t-1} - X_{t-2})\)
+\item[{Anchor and Adjustment (\emph{aa})}] \(X^{e}_{aa,t} = \phi_{aa}\cdot Anch + (1-\phi_{aa})\cdot X_{t-1} + (X_{t-1} - X_{t-2})\)
+\end{description}
+
+in which \(0 < \phi_{ada} < 1\), \(0 < \phi_{wtr} < \phi_{str}\) adjustment are parameters exgonously defined while \(Anch\) is expectational anchor which is the moving average of \(X\) as in \textcite{reissl_2021_Heterogeneousa}.
+
+At each period, firms compute it expectational variables and evaluate whether or not to change it accordingly to the last forecast error of \(X\) (\(U_{rule,t}, rule \in {na\text{\"i}ve}, ada, wtr, str, aa\)):
+\begin{latex}
+\begin{equation}
+\label{Ch_super_EQ_LFE}
+U_{rule,t} = - \left(\frac{X_{t-1} - X^{e}_{rule,t-1}}{X^{e}_{rule,t-1}}\right)^{2} + \eta\cdot U_{rule,t-1}
+\end{equation}
+\end{latex}
+where \(0 \leq \eta \leq 1\) is a memory parameter which measures weight of past errors.
+As in \textcite{dosi_2020_RATIONAL}, firms update the expectation rule with the probability \(n_{rule,t}\) in each period as follows:
+\begin{latex}
+\begin{equation}
+\label{Ch_super_EQ_rule_prob}
+n_{rule,t} = \delta\cdot n_{rule,t-1} + (1-\delta)\cdot \frac{\exp{\gamma\cdot U_{rule,t}}}{\sum_{rule}^{RULE}\exp{\gamma\cdot U_{rule,t}}}
+\end{equation}
+\end{latex}
+with \(\gamma \geq 0, \delta \leq 1\).
+The rationale behind Equation \ref{EQ_rule_prob} is that the probability to change the expecational rule depends on the persistence of the currently employed rule (\(\delta\)) and on the impact of the past performance (\(\gamma\)).
+
+Thus, as discussed before, this expecational switching mechanism allows us to explore the consequences of heterogenoeus firms computing different market-share expectations.
+In terms of the implementation of a microfounded Sraffian supermultiplier model, this rather simple procedure triggers different investment expenditures even though firms decide to invest using the same functional specification.
+Formally,
 
 
+\begin{latex}
+\begin{equation}
+I_{f,t} = h_{f,t} \cdot \left(ms^{e}_{rule,f,t} \sum_{f=1}^{F}Y_{f,t}\right)
+\end{equation}
+\end{latex}
+which is firm-level equivalent to the standard Sraffian supermultiplier model with only one firm (\(ms^{e}_{F} = ms_{F} = 1\)).
+Next, on Section REF, this microeconomic specification will compared with the only-one-firm (oof) contrafactual.
+Before moving to the model's validation, the next subsection will present the switching mechanism regarding investment decions.
 
-\subsection*{Aggregating and closing the model}
-\label{sec:org62252b2}
+\subsubsection{Investment decisions}
+\label{sec:switching_invest}
+Similarly to the previous subsection, firms follow some heuristic rules in order to choose the specification of the investment function.
+The main divergence is that instead of computing the mean squared expectational forecast errors, firms evaluate its decision regarding unfilled demand.
+The rationale behind this rule is that firms investment decision depends on the divergences between effective and normal capacity utilization rate in order to attend unexpected demand STEINDL.
+Additionally, firms intend to achieve normal capacity utilization rate to reduce unnecessary costs as described by CICCONE.
+Before moving further, it is important to note that there is no consensus in the demand-led macroeconomic growth literature if normal capacity utilization is achieved\footnote{For a discussion about this, see REF}.
+However, it is unclear what is the macroeconomic emergence of different firm-level strategies regarding to reduce the discrepancies between effective and normal capacity utilization rate.
 
-\subsubsection*{Entry and exit of firms}
-\label{sec:orga61a073}
-\subsubsection*{Closing the accounting}
-\label{sec:orgbf000ae}
+The switching mechanism present in this subsection is relevant because it allows us to explore some opened questions:
+    (i) the aggregate investment function is a mirror of firm-level behavior or there are any properties that emerges?
+    (ii) is there a dominant investment decision strategy?
+    (iii) what are the consequences regarding desired capacity utilization rate in the presence of heterogeneous firms?
+In order to answer them, we implement the following investment decisions functions inspired by the current demand-led macroeconomic growth literature:
 
-\section*{Validation}
-\label{sec:orge6e9ec5}
-\section*{Experiments}
-\label{sec:org5dfe25f}
-\section*{Concluding remarks}
-\label{sec:org1e3d8cc}
+\begin{description}
+\item[{Standard neo-Kaleckian  (\emph{NK})}] \(I_{NK,t} = \left(\overline{\beta}_{0} + \beta_{1}(u - u_{N})\right)\cdot K_{f,t-1}\)
+\item[{neo-Kaleckian supermultiplier (\emph{KSM})}] \(I_{KSM,t} = \left(\beta'_{0,t} + \beta_{1}(u - u_{N})\right)\cdot K_{f,t-1}\)
+\item[{Sraffian supermultiplier (\emph{SSM})}] \(I_{SSM,t} = h_{f,t}\cdot \left(ms^{e}_{t}\cdot \sum_{f=1}^{F}Y_{f}\right)\)
+\end{description}
+where \(\overline{\beta}_{0}\) is investment autonomous component which represents animals spirits, \(\beta_{1}\) is investment induced component, \(h_{f,t}\) is the marginal propensity to invest which evolves accordingly to discrepancies between effective and normal capacity utilization rate \cite{serrano_1995_Long,serrano_2017_Sraffianc}:
+\begin{latex}
+\begin{equation}
+\Delta h_{f,t} = \beta_{u}(u_{t} - u_{N})\cdot h_{f,t-1}
+\end{equation}
+\end{latex}
+in which \(\beta_{u}\) is an adjustment parameter while \(\beta'_{0}\) is flexible autonomous component proposed by \textcite{allain_2015_Tacklinga}.
+Adapting it in order do express commom elements across alternatives:
+\begin{latex}
+\begin{equation}
+\Delta \beta'_{0,t} = \beta_{u}\cdot\beta_{1}(u - u_{N})\cdot \beta'_{0,t-1}
+\end{equation}
+\end{latex}
 
-\section*{Acknowledgements}
-\label{sec:orga36283c}
+
+At each period, firms revise whether or not to change the current investment function.
+This procedure is based on the level of unfilled demand which is updated similarly to expectational performance (\(U^{D}_{inv,t}, inv \in [NK, KSM, SSM]\)):
+\begin{latex}
+\begin{equation}
+U^{D}_{inv,t} = - (l_{f,t-1})^{2} + \eta_{I}\cdot U^{D}_{inv,t-1}
+\end{equation}
+\end{latex}
+where \(\eta_{I}\) is a memory parameter as in Equation \ref{EQ_LFE}.
+Additionally, an alternative investment function is choosen with the probability \(n_{inv,t}\):
+
+
+\begin{latex}
+\begin{equation}
+\label{Ch_super_EQ_inv_prob}
+n_{inv,t} = \delta_{I}\cdot n_{inv,t-1} + (1-\delta_{I})\cdot \frac{\exp{\gamma_{I}\cdot U_{inv,t}}}{\sum_{inv}^{INV}\exp{\gamma_{I}\cdot U_{inv,t}}}
+\end{equation}
+\end{latex}
+in which parameters \(\delta_{I}, \gamma_{I}\) have the same meaning as in Equation \ref{EQ_rule_prob}.
+
+\subsection{Aggregating and closing the model}
+\label{sec:org44a6e70}
+
+\subsubsection{Entry and exit of firms}
+\label{sec:org53d204c}
+\subsubsection{Closing the accounting}
+\label{sec:org7f56089}
+
+
+\section{Validation}
+\label{sec:validation:ch_super}
+\section{Experiments}
+\label{sec:experiments:ch_super}
+\section{Concluding remarks}
+\label{sec:conclusion:ch_super}
+
+\section{Acknowledgments}
+\label{sec:org380c3c8}
 
 Agradecimentos
+
 
 
 \printbibliography

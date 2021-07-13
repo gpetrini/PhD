@@ -9,6 +9,7 @@
 #+LATEX:\flushbottom % Makes all text pages the same height
 #+LATEX:\maketitle % Print the title and abstract box
 #+LATEX:\thispagestyle{empty} % Removes page numbering from the first page
+#+LATEX_HEADER: \addbibresource{/HDD/Org/zotero_refs.bib}
 
 * Capítulo Super ABM :ignore:
 
@@ -21,14 +22,30 @@
 
 
 ** Empirical motivation
-** Conceptual model
+:PROPERTIES:
+     :CUSTOM_ID: sec:empirical:ch_super
+     :END:
+** The model
+:PROPERTIES:
+     :CUSTOM_ID: sec:model:ch_super
+     :END:
 #+INCLUDE: "Model.org"
 
-** Validation
-** Experiments
-** Concluding remarks
 
-** Acknowledgements                                                 :journal:
+** Validation
+:PROPERTIES:
+     :CUSTOM_ID: sec:validation:ch_super
+     :END:
+** Experiments
+:PROPERTIES:
+     :CUSTOM_ID: sec:experiments:ch_super
+     :END:
+** Concluding remarks
+:PROPERTIES:
+     :CUSTOM_ID: sec:conclusion:ch_super
+     :END:
+
+** Acknowledgments                                                 :journal:
 
 Agradecimentos
 
@@ -36,5 +53,6 @@ Agradecimentos
 ** Bibliography                                              :ignore:journal:
 
   #+BEGIN_EXPORT latex
+
   \printbibliography
   #+END_EXPORT

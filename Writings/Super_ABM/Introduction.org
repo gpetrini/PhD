@@ -1,5 +1,3 @@
-#+TITLE:  Introduction
-#+AUTHOR: Gabriel Petrini
 #+LANG: en
 #+EXCLUDE_TAGS: noexport
 
@@ -7,8 +5,30 @@
 
 * Main text :ignore:
 
-** General discussion :ignore:
 
-** Establishing motivation :ignore:
 
-** Paper structure :ignore:
+
+There is a relative consensus in the demand-led macroeconomic growth literature that non-residential investment is, at the macroeconomic level, partially induced by income.
+Authors inspired by Sraffian supermultiplier model, on the other hand, state that non-residential investment is fully-induced and is described by the capital adjusment principle.
+As a consequence, this model predict a positive correlational relation between investment share and economic growth while capacity utilization rate is trend-stationary in the long-run.
+Recently, there are empirical support for this results () while other are still in debate.
+Besides this econometric validation, it is unclear how this upper-level property of non-residential investment emerge from lower level decisions.
+
+There is a long strand of agent based models that emphasizes other stylized facts regarding non-residential investment.
+Just to name a few of them, there is the relevance of technological progress and innovation, market structure and competition, firms' long-term survival condition among other (Cabalero, Taylor and Woodford).
+One of the properties reported by this literature is the emergence of non-residential investment lumpiness.
+In summary, firms expanding at different levels coexist, which implies the persistence of heterogeneity.
+These results suggests that there are non-trivial mesoeconomic level mechanisms that explain how microeconomic behavior of the firm generates aggregate pattern of non-residential investment.
+
+
+Based on this collection of empirical results, this paper intend to investigate which microeconomic-level assumptions reproduce the macroeconomic properties of fully-induced non-residential investment reported by SSM model.
+In order to do so, some additional steps are required to moving from a standard macroconomic Sraffian supermultiplier model to a microeconomic founded.
+The main contribution of this paper is to evaluate this microeconomics path towards an agent based SSM model.
+Thus, the article is organized as follows.
+Section ref:sec:empirical:ch_super reviews some stylized facts reported by the Sraffian supermultiplier framework, enhancing the list already mapped by AB literature.
+Section ref:sec:model:ch_super presents a parsimonious Stock-Flow consistent model with heterogeneous firms.
+The core mechanism are two switching procedures regarding expectations (Section ref:sec:switching_expec) and investment decisions (Section ref:sec:switching_invest).
+Additional, this section also show the required assumptions to convert the SSM model into a firm-level version.
+Next, on Section ref:sec:validation:ch_super, the baseline model is validated using a only-one-firm (oof) version in which investment is equal to the SSM aggregated version with adaptatinve expectations as a contrafactual.
+Section ref:sec:experiments:ch_super presents the experiments results in which the two switching mechanisms are triggered.
+Finally, Section ref:sec:conclusion:ch_super concludes the paper.
