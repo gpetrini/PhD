@@ -1,4 +1,4 @@
-% Created 2021-07-13 ter 18:05
+% Created 2021-07-14 qua 11:58
 % Intended LaTeX compiler: pdflatex
 \documentclass{SelfArx}
   \usepackage[T1]{fontenc}
@@ -45,7 +45,8 @@ maxcitenames=3]{biblatex}
 }
 \addbibresource{/HDD/Org/zotero_refs.bib}
 \date{}
-\title{Sraffian submultiplier model: an Agent Based Sraffian supermultiplier Model}
+\title{Sraffian submultiplier model\\\medskip
+\large an Stock-Flow consistent Agent Based Sraffian supermultiplier model}
 \begin{document}
 
 \JournalInfo{Draft - \today} % Journal information
@@ -67,7 +68,7 @@ maxcitenames=3]{biblatex}
 \thispagestyle{empty} % Removes page numbering from the first page
 
 \section{Introduction}
-\label{sec:orgeab491b}
+\label{sec:orge2bdf57}
 There is a relative consensus in the demand-led macroeconomic growth literature that non-residential investment is, at the macroeconomic level, partially induced by income.
 Authors inspired by Sraffian supermultiplier model, on the other hand, state that non-residential investment is fully-induced and is described by the capital adjusment principle.
 As a consequence, this model predict a positive correlational relation between investment share and economic growth while capacity utilization rate is trend-stationary in the long-run.
@@ -107,17 +108,67 @@ Before moving further to the description of every institutional sectors, we will
 For simplicity, there is only one productive sector, no labor supply restriction, government nor external sector.
 As a consequence of the previous assumptions, the economy is composed by \(N\) homogeneous households and \(F\) heterogeneous firms\footnote{Aggregates variables will be represented by subscript \(N\) for households and \(F\) for firms.}.
 
+
+
+\begin{table*}\centering
+\caption{Expected results accordingly to Standard Sraffian supermultiplier model: transience compared to baseline}
+\label{Tab_exp_resul_trans:ch_super}
+\resizebox{\textwidth}{!}{%
+\begin{center}
+\begin{tabular}{lcccccc}
+\hline
+\textbf{Shock} & \textbf{Economic growth} & \textbf{Capacity utilization} & \textbf{Investment share} & \textbf{Firms indebtedness} & \textbf{Firms entry and exit} & \textbf{Market share}\\
+\hline
+Autonomous growth rate increase & \(+\) & \(+\) & \(+\) & \(-\) & ? & ?\\
+Wage share increase & \(+\) & \(+\) & \(+\) &  & ? & ?\\
+Higher profit distribution rate &  &  &  & \(+\) & ? & ?\\
+Higher policy rate & \(-\) & \(-\) & \(-\) & \(+\) & ? & \\
+Market price increase &  &  &  &  & ? & ?\\
+Higher expectational persistence (\(\delta\)) & ? & ? & ? & ? & ? & ?\\
+\hline
+\end{tabular}
+\end{center}
+%
+}
+\caption*{\textbf{Source:} Authors' elaboration}
+\end{table*}
+
+
+
+\begin{table*}\centering
+\caption{Expected results accordingly to Standard Sraffian supermultiplier model: fulled adjusted compared to baseline}
+\label{Tab_exp_resul_long:ch_super}
+\resizebox{\textwidth}{!}{%
+\begin{center}
+\begin{tabular}{lcccccc}
+\hline
+\textbf{Shock} & \textbf{Economic growth} & \textbf{Capacity utilization} & \textbf{Investment share} & \textbf{Firms indebtedness} & \textbf{Firms entry and exit} & \textbf{Market share}\\
+\hline
+Autonomous growth rate increase & \(+\) & \(0\) & \(+\) & \(-\) & ? & ?\\
+Wage share increase & \(0\) & \(0\) & \(0\) &  & ? & ?\\
+Higher profit distribution rate & \(0\) & \(0\) & \(0\) & \(+\) & ? & ?\\
+Higher policy rate & \(0\) & \(0\) & \(0\) & \(+\) & ? & \\
+Market price increase &  &  &  &  & ? & ?\\
+Higher expectational persistence (\(\delta\)) & ? & ? & ? & ? & ? & ?\\
+\hline
+\end{tabular}
+\end{center}
+%
+}
+\caption*{\textbf{Source:} Authors' elaboration}
+\end{table*}
+
 \subsection{Sequence of events}
-\label{sec:org82707d8}
+\label{sec:org5af80f9}
 
 
 
 \subsection{Production and distribution}
-\label{sec:org9e03382}
+\label{sec:org4a78229}
 
 
 \subsubsection{Firms production plans}
-\label{sec:org55fd20e}
+\label{sec:orgeb30996}
 
 Each firm (\(f\)) investment plan (\(Y_{f,t}\), Equation \ref{EQ_Yf}) is defined accordingly to its expected real sales level (\(S^{e}_{f,t}\)) and a desired inventories to sales ratio \((\iota^{T} \in [0,1])\) -- exogenous defined and equal across firms -- to attend unexpected demand boosts as usual in \(K+S\) models.
 
@@ -150,7 +201,7 @@ Consequently, current firm's capacity utilization ratio is constrained do be equ
 
 
 \subsubsection{Capital stock}
-\label{sec:orgfe63efb}
+\label{sec:org08233e2}
 
 
 Since there is no thecnological progress nor innovation in the current version of this model, firms' capital stock only differs according to it lifetime (\(\kappa\)).
@@ -164,7 +215,7 @@ K_{f} = \sum_{j=1}^{\kappa < \infty} k_{f,t-j}
 For simplicity, we assume no use depreciation, so each capital good will be replaced only if achieve its maximum lifetime.
 
 \subsubsection{Labor demand and wage bill}
-\label{sec:orgbe02ad4}
+\label{sec:org75ce158}
 
 In order to produce, firms use a Leontieff-type technology with a fixed combination between labor and physical capital.
 Given no a fixed labor productivity equally defined across workers, labor demand is a function (\(N^{d}_{f,t}\)) of each firm production plan at current capacity utilization level:
@@ -200,7 +251,7 @@ in which \(ms_{f}\) and \(p_{f,t}\) stands for firm's \(f\) market share and pri
 
 
 \subsubsection{Pricing}
-\label{sec:orga719404}
+\label{sec:org5613668}
 
 We assume a simple pricing mechanism as possible which is defined as a mark-up (\(\theta_{f}\)) over direct unit labor costs (in this case, \(w_{t}\)):
 \begin{latex}
@@ -214,7 +265,7 @@ As we will further explore in section \ref{sec:switching}, expected market-share
 
 
 \subsubsection{Household demand}
-\label{sec:org4293d5e}
+\label{sec:org5b038d7}
 
 
 In order to investigate the consequences of heterogeneous investment decisions in a Sraffian supermultiplier friendly framework, we a assume that household's consumption (\(C_{N}\)) is composed both by an induced (\(W_{N,t}\)) and by an autonomous component (\(Z_{t}\))\footnote{As discussed before, there is a multitude of non-capacitiy creating autonomous expenditures. Autonomous households consumption component was selected only to reduce the complexity of this model.}\textsuperscript{,}\,\footnote{Following \textcite{serrano_1995_Long}, we consider \(Z_{t}\) as an non-capacitiy creating autonomous expenditure because it does not depends on firms' production decisions. Additionally, since banking credit is endogenous, consumption loans does not affect credit availability for other sectors.}:
@@ -237,7 +288,7 @@ Differently from firms, we impose that households are not credit constrained\foo
 Implicitly, we assume that banking evaluation of households default probability (\(pr^{D}_{N,t}\)) is null.
 
 \subsubsection{Distribution of demand}
-\label{sec:org5b02830}
+\label{sec:org28bdf26}
 
 
 Considering previous assumptions, total demand of this economy (\(Y\)) is the sum of aggregate household consumption (\(C_{N}\)) and total firms' investment (\(I_{F}\)) which is the sum of individual firms investment decisions (\(I_{f}\)).
@@ -275,16 +326,16 @@ Thus, investment emergence patterns depends on how firms adapts its expectations
 \subsection{Banking sector, credit and financial implications}
 \label{sec:banking}
 \subsubsection{Firms' credit}
-\label{sec:org68922dc}
+\label{sec:org97e03e0}
 
 \subsubsection{Household credit}
-\label{sec:orgc591b02}
+\label{sec:org1043186}
 
 \subsubsection{Profits and dividends}
-\label{sec:org77aeb8f}
+\label{sec:org1d2f5aa}
 
 \subsubsection{Interest rate and profit}
-\label{sec:orged7062f}
+\label{sec:orgf06db82}
 
 \subsection{Switching mechanism}
 \label{sec:switching}
@@ -397,23 +448,68 @@ n_{inv,t} = \delta_{I}\cdot n_{inv,t-1} + (1-\delta_{I})\cdot \frac{\exp{\gamma_
 in which parameters \(\delta_{I}, \gamma_{I}\) have the same meaning as in Equation \ref{EQ_rule_prob}.
 
 \subsection{Aggregating and closing the model}
-\label{sec:org44a6e70}
+\label{sec:org55a14df}
 
 \subsubsection{Entry and exit of firms}
-\label{sec:org53d204c}
+\label{sec:org894f467}
 \subsubsection{Closing the accounting}
-\label{sec:org7f56089}
+\label{sec:org80a0359}
 
 
 \section{Validation}
 \label{sec:validation:ch_super}
 \section{Experiments}
 \label{sec:experiments:ch_super}
+In the following subsections, we present the results of the model experiments in which expectational and investment switching mechanisms take place.
+Table \ref{Tab_exp:ch_super} show each experiment design as well as the baseline scenario already simulated in Section \ref{validation:ch_super}.
+Subsection \ref{sec:exp_expec:ch_super} reports the results of the expectational switching model in which only changes regarding expections rules are allowed while investment function is the microeconomic equivalent of Standard Sraffian supermultiplier model.
+Next, on Subsection \ref{sec:exp_inv:ch_super}, investment function will change accordingly to each firm performance regarding unfilled demand levels while expections will follow an adaptative heuristic as in the baseline scenario.
+Finally, the combination both mechanisms is evaluated in Section \ref{sec:exp_full:ch_super}.
+
+Each model setting is simulated for 200 periods after the transience (which takes XXXX periods) while the results are computed using 100 Monte Carlo simulations runs.
+We use baseline scenario in which there is only one firm investing accordingly to standard Sraffian supermultiplier model as a contrafactual in order to inspect the consequences of each modification.
+Before moving further, it is important to note that our calibration procedure mainly intended to be as close as possible to the baseline scenario,
+This approach provides us a sound basis to compare the actual effects of each switching mechanisms.
+All experiments will be examinated accordingly to its capacity to replicate the stylized facts discussed in Section \ref{empirical:ch_super}.
+Additionally, we will use parsimony as a tiebreaker, that is, if two models replicate the same set of stylized facts, the one with the simplest/most usual heuristic rule will be considered the most representative to describe the aggregate investment\footnote{In the case of expectations, we consider naïve and \(ada\) rule as the most usual while the firm-level Sraffian supermultiplier specification as the most parsimonious one considering the objectives of the paper.}.
+
+
+\begin{table*}\centering
+\caption{Experiments dictionaty}
+\label{Tab_exp:ch_super}
+\resizebox{\textwidth}{!}{%
+\begin{center}
+\begin{tabular}{rllc}
+\hline
+\textbf{Scenario} & \textbf{Expectations} & \textbf{Investment function} & \textbf{Number of firms}\\
+\hline
+Baseline & Adaptative (\emph{ada}) & Standard Sraffian supermultiplier & 1\\
+Expectational switching & \(rule \in [\text{naïve}, ada, wrt, srt, aa]\) & Firm-level Sraffian supermultiplier & \(F\)\\
+Investment switching & Adaptative (\emph{ada}) & \(inv \in [NK, KSM, SSM]\) & \(F\)\\
+Full switching & \(rule \in [\text{naïve}, ada, wrt, srt, aa]\) & \(inv \in [NK, KSM, SSM]\) & \(F\)\\
+\hline
+\end{tabular}
+\end{center}
+%
+}
+\caption*{\textbf{Source:} Authors' elaboration}
+\end{table*}
+
+\subsection{Expectational switching}
+\label{sec:exp_expec:ch_super}
+
+
+\subsection{Investment switching}
+\label{sec:exp_inv:ch_super}
+
+\subsection{Full switching}
+\label{sec:exp_full:ch_super}
+
 \section{Concluding remarks}
 \label{sec:conclusion:ch_super}
 
 \section{Acknowledgments}
-\label{sec:org380c3c8}
+\label{sec:org59a2fc3}
 
 Agradecimentos
 

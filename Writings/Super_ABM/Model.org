@@ -12,6 +12,9 @@
 ** TODO Incluir investimento de reposição?
 ** TODO É preciso discutir fragilidade financeira das firmas?
 ** TODO É necessário supor heterogeinidade de vida útil do capital?
+* Ideias :noexport:
+
+
 * Main text :ignore:
 
 
@@ -25,6 +28,50 @@ All other auxiliary assumption will follow AB literature as long as does not gen
 Before moving further to the description of every institutional sectors, we will present the hypothesis of this simplified economy.
 For simplicity, there is only one productive sector, no labor supply restriction, government nor external sector.
 As a consequence of the previous assumptions, the economy is composed by $N$ homogeneous households and $F$ heterogeneous firms[fn::Aggregates variables will be represented by subscript $N$ for households and $F$ for firms.].
+
+
+
+#+LATEX: \begin{table*}\centering
+#+LATEX: \caption{Expected results accordingly to Standard Sraffian supermultiplier model: transience compared to baseline}
+#+LATEX: \label{Tab_exp_resul_trans:ch_super}
+#+latex: \resizebox{\textwidth}{!}{%
+|----------------------------------------+-----------------+----------------------+------------------+--------------------+----------------------+--------------|
+| *Shock*                                  | *Economic growth* | *Capacity utilization* | *Investment share* | *Firms indebtedness* | *Firms entry and exit* | *Market share* |
+| <l>                                    |       <c>       |        <c10>         |      <c10>       |        <c>         |         <c5>         |     <c5>     |
+|----------------------------------------+-----------------+----------------------+------------------+--------------------+----------------------+--------------|
+| Autonomous growth rate increase        |       $+$       |         $+$          |       $+$        |        $-$         |          ?           |      ?       |
+| Wage share increase                    |       $+$       |         $+$          |       $+$        |                    |          ?           |      ?       |
+| Higher profit distribution rate        |                 |                      |                  |        $+$         |          ?           |      ?       |
+| Higher policy rate                     |       $-$       |         $-$          |       $-$        |        $+$         |          ?           |              |
+| Market price increase                  |                 |                      |                  |                    |          ?           |      ?       |
+| Higher expectational persistence ($\delta$) |        ?        |          ?           |        ?         |         ?          |          ?           |      ?       |
+|----------------------------------------+-----------------+----------------------+------------------+--------------------+----------------------+--------------|
+#+latex: %
+#+latex: }
+#+LATEX: \caption*{\textbf{Source:} Authors' elaboration}
+#+LATEX: \end{table*}
+
+
+
+#+LATEX: \begin{table*}\centering
+#+LATEX: \caption{Expected results accordingly to Standard Sraffian supermultiplier model: fulled adjusted compared to baseline}
+#+LATEX: \label{Tab_exp_resul_long:ch_super}
+#+latex: \resizebox{\textwidth}{!}{%
+|----------------------------------------+-----------------+----------------------+------------------+--------------------+----------------------+--------------|
+| *Shock*                                  | *Economic growth* | *Capacity utilization* | *Investment share* | *Firms indebtedness* | *Firms entry and exit* | *Market share* |
+| <l>                                    |       <c>       |        <c10>         |      <c10>       |        <c>         |         <c5>         |     <c5>     |
+|----------------------------------------+-----------------+----------------------+------------------+--------------------+----------------------+--------------|
+| Autonomous growth rate increase        |       $+$       |         $0$          |       $+$        |        $-$         |          ?           |      ?       |
+| Wage share increase                    |       $0$       |         $0$          |       $0$        |                    |          ?           |      ?       |
+| Higher profit distribution rate        |       $0$       |         $0$          |       $0$        |        $+$         |          ?           |      ?       |
+| Higher policy rate                     |       $0$       |         $0$          |       $0$        |        $+$         |          ?           |              |
+| Market price increase                  |                 |                      |                  |                    |          ?           |      ?       |
+| Higher expectational persistence ($\delta$) |        ?        |          ?           |        ?         |         ?          |          ?           |      ?       |
+|----------------------------------------+-----------------+----------------------+------------------+--------------------+----------------------+--------------|
+#+latex: %
+#+latex: }
+#+LATEX: \caption*{\textbf{Source:} Authors' elaboration}
+#+LATEX: \end{table*}
 
 ** Sequence of events
 
@@ -44,7 +91,7 @@ Y_{f,t} = (1+\iota^{T})\cdot S^{e}_{f,t} - INV_{f,t-1}
 \end{equation}
 #+END_latex
 in which $INV_{f,t-1}$ is the firm's inventories.
-In baseline scenario, we assume na{\"i}ve expectational procedure in which expected sales level is equal to its lagged value.
+In baseline scenario, we assume naïve expectational procedure in which expected sales level is equal to its lagged value.
 Alternatives expectational procedures will be discussed in section ref:sec:switching.
 After defining an production plan, firms calculates its desired capacitiy utilization rate ($u^{d}_{f}$, Equation) as follows:
 

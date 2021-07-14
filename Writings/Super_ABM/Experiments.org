@@ -1,0 +1,74 @@
+#+AUTHOR: Gabriel Petrini
+#+LANG: en
+#+EXCLUDE_TAGS: noexport
+
+* Technical setup :noexport:
+
+* Dúvidas :noexport:
+
+* Ideias :noexport:
+
+
+** Possíveis choques
+- Taxa de crescimento dos gastos autônomos
+- Maior investimento autônomo
+- /Wage-share/
+- Parâmetro de persistência de memória nas expectativas e função investimento
+- Âncora das expectativas
+- Parâmetros associados à escolha de alternativas ($\gamma$ e $\gamma_{I}$)
+- Sensibilidade à demanda não atendida
+- Taxa de juros
+- /Mark-up/ variável
+
+
+* Main text :ignore:
+
+In the following subsections, we present the results of the model experiments in which expectational and investment switching mechanisms take place.
+Table ref:Tab_exp:ch_super show each experiment design as well as the baseline scenario already simulated in Section ref:validation:ch_super.
+Subsection ref:sec:exp_expec:ch_super reports the results of the expectational switching model in which only changes regarding expections rules are allowed while investment function is the microeconomic equivalent of Standard Sraffian supermultiplier model.
+Next, on Subsection ref:sec:exp_inv:ch_super, investment function will change accordingly to each firm performance regarding unfilled demand levels while expections will follow an adaptative heuristic as in the baseline scenario.
+Finally, the combination both mechanisms is evaluated in Section ref:sec:exp_full:ch_super.
+
+Each model setting is simulated for 200 periods after the transience (which takes XXXX periods) while the results are computed using 100 Monte Carlo simulations runs.
+We use baseline scenario in which there is only one firm investing accordingly to standard Sraffian supermultiplier model as a contrafactual in order to inspect the consequences of each modification.
+Before moving further, it is important to note that our calibration procedure mainly intended to be as close as possible to the baseline scenario,
+This approach provides us a sound basis to compare the actual effects of each switching mechanisms.
+All experiments will be examinated accordingly to its capacity to replicate the stylized facts discussed in Section ref:empirical:ch_super.
+Additionally, we will use parsimony as a tiebreaker, that is, if two models replicate the same set of stylized facts, the one with the simplest/most usual heuristic rule will be considered the most representative to describe the aggregate investment[fn::In the case of expectations, we consider naïve and $ada$ rule as the most usual while the firm-level Sraffian supermultiplier specification as the most parsimonious one considering the objectives of the paper.].
+
+
+#+LATEX: \begin{table*}\centering
+#+LATEX: \caption{Experiments dictionaty}
+#+LATEX: \label{Tab_exp:ch_super}
+#+latex: \resizebox{\textwidth}{!}{%
+|-------------------------+--------------------------------------------+-------------------------------------+-----------------|
+|                *Scenario* | *Expectations*                               | *Investment function*                 | *Number of firms* |
+|                     <r> | <l>                                        | <l>                                 |       <c>       |
+|-------------------------+--------------------------------------------+-------------------------------------+-----------------|
+|                Baseline | Adaptative (/ada/)                           | Standard Sraffian supermultiplier   |        1        |
+| Expectational switching | $rule \in [\text{naïve}, ada, wrt, srt, aa]$ | Firm-level Sraffian supermultiplier |       $F$       |
+|    Investment switching | Adaptative (/ada/)                           | $inv \in [NK, KSM, SSM]$              |       $F$       |
+|          Full switching | $rule \in [\text{naïve}, ada, wrt, srt, aa]$ | $inv \in [NK, KSM, SSM]$              |       $F$       |
+|-------------------------+--------------------------------------------+-------------------------------------+-----------------|
+#+latex: %
+#+latex: }
+#+LATEX: \caption*{\textbf{Source:} Authors' elaboration}
+#+LATEX: \end{table*}
+
+
+
+** Expectational switching
+:PROPERTIES:
+     :CUSTOM_ID: sec:exp_expec:ch_super
+     :END:
+
+
+** Investment switching
+:PROPERTIES:
+     :CUSTOM_ID: sec:exp_inv:ch_super
+     :END:
+
+** Full switching
+:PROPERTIES:
+     :CUSTOM_ID: sec:exp_full:ch_super
+     :END:

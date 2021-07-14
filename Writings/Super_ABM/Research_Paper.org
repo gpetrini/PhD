@@ -1,7 +1,8 @@
 #+LATEX_CLASS: SelfArx
 #+SETUPFILE: ../manuscript.setup
 #+INCLUDE: Infos.org
-#+TITLE: Sraffian submultiplier model: an Agent Based Sraffian supermultiplier Model
+#+TITLE: Sraffian submultiplier model
+#+SUBTITLE: an Stock-Flow consistent Agent Based Sraffian supermultiplier model
 #+EXCLUDE_TAGS: Thesis
 
 * Journal initial Setup :journal:ignore:
@@ -40,6 +41,9 @@
 :PROPERTIES:
      :CUSTOM_ID: sec:experiments:ch_super
      :END:
+
+#+INCLUDE: "Experiments.org"
+
 ** Concluding remarks
 :PROPERTIES:
      :CUSTOM_ID: sec:conclusion:ch_super
