@@ -20,14 +20,33 @@
 
 ** Review of theoretical literature :ignore:
 
-In this section, we present the conceptual model that will be simulated later in section SEÇÃO.
-This model represent an economy as simple as possible with heterogeneous firms while all the other institutional sectors are aggregated.
-At odds with conventional AB literature, we assume no thecnological progress to keep it simple[fn::For an detailed description of innovations and thecnological change in AB models, see DOSI whom we refer to as a benchmark model.].
-All other auxiliary assumption will follow AB literature as long as does not generate incompatibility with SSM closure.
+The standard Sraffian supermultiplier macroeconomic model (which will refer as SSM) present by textcite:serrano_1995_Long,bortis_1996_Structural attributes a prominent role for non-capacitiy creating autonomous expenditures.
+At odds with most Keynesian demand-led growth models (CITAR), non-residential investment is considered fully induced by income ($Y$), following the capital adjustment principle.
+In other words, firms' investment ($I_{F}$) reacts to discrepancies between effective and normal capacitiy utilization rate ($u$ and $u_{N}$ respectively).
+Formally, we can presents this mechanism following textcite:serrano_2017_Sraffianc:
+#+BEGIN_latex
+\begin{equation}
+\label{Ch_super_EQ_inv_super_macro}
+I_{F} = h_{F}\cdot Y
+\end{equation}
+\begin{equation}
+\Delta h_{F} = \beta_{u}(u - u_{n})\cdot h_{F,t-1}
+\end{equation}
+#+END_latex
+where $h_{F}$ is the marginal propensity to invest (or investment share) while $\beta_{u}$ is an adjustment parameter.
+Since firms' investment is fully induced by income, this is not the driver of economic growth.
+In the long-run[fn::More precisely, in the fully adjusted position as described in cite:freitas_2015_Growthb.], when the adjutsment procedure ceases ($u = u_{N}, \Delta h_{F} = 0$), only changes on autonomous expenditures growth rate ($g_{Z}$) will have persistence effects on GDP growth rate ($g$):
+#+BEGIN_latex
+\begin{equation}
+u = u_{N} \Leftrightarrow \Delta h_{F} = 0 \Leftrightarrow g = g_{Z}
+\end{equation}
+#+END_latex
 
-Before moving further to the description of every institutional sectors, we will present the hypothesis of this simplified economy.
-For simplicity, there is only one productive sector, no labor supply restriction, government nor external sector.
-As a consequence of the previous assumptions, the economy is composed by $N$ homogeneous households and $F$ heterogeneous firms[fn::Aggregates variables will be represented by subscript $N$ for households and $F$ for firms.].
+Tables ref:Tab_exp_resul_trans:ch_super and ref:Tab_exp_resul_long:ch_super compare the effects of some shocks to the baseline level according to the SSM model[fn::More recently, SSM model has been present for the neo-Kaleckian audience after textcite:allain_2015_Tacklinga,lavoie_2016_Convergenceb (hereafter refered as neo-Kaleckian supermultiplier). Besides the divergences in the specification of the investment function, the results as qualitatively the same as those reported in Tables ref:Tab_exp_resul_trans:ch_super and ref:Tab_exp_resul_long:ch_super. For a detailed discussion of the persistence of a autonomous component in the neo-Kaleckian supermultiplier model, see cite:fagundes_2017_Role.].
+For instance, changes on functional income distribution will have only temporarily effects on economic growth.
+Additionally, as already discussed on Section ref:sec:empirical:ch_super, this model predicts a positive relation between investment share and economic growth.
+However, this is a completely aggregated model, so the effect of those shocks on some firm-level variables is unclear.
+For example, an increase on autonomous expenditures growth rate or on wage share could have some persistent consequences for the market structure (/e.g./ firms entry and exit or market-share).
 
 
 
@@ -35,6 +54,7 @@ As a consequence of the previous assumptions, the economy is composed by $N$ hom
 #+LATEX: \caption{Expected results accordingly to Standard Sraffian supermultiplier model: transience compared to baseline}
 #+LATEX: \label{Tab_exp_resul_trans:ch_super}
 #+latex: \resizebox{\textwidth}{!}{%
+|----------------------------------------+-----------------+----------------------+------------------+--------------------+----------------------+--------------|
 |----------------------------------------+-----------------+----------------------+------------------+--------------------+----------------------+--------------|
 | *Shock*                                  | *Economic growth* | *Capacity utilization* | *Investment share* | *Firms indebtedness* | *Firms entry and exit* | *Market share* |
 | <l>                                    |       <c>       |        <c10>         |      <c10>       |        <c>         |         <c5>         |     <c5>     |
@@ -45,6 +65,7 @@ As a consequence of the previous assumptions, the economy is composed by $N$ hom
 | Higher policy rate                     |       $-$       |         $-$          |       $-$        |        $+$         |          ?           |              |
 | Market price increase                  |                 |                      |                  |                    |          ?           |      ?       |
 | Higher expectational persistence ($\delta$) |        ?        |          ?           |        ?         |         ?          |          ?           |      ?       |
+|----------------------------------------+-----------------+----------------------+------------------+--------------------+----------------------+--------------|
 |----------------------------------------+-----------------+----------------------+------------------+--------------------+----------------------+--------------|
 #+latex: %
 #+latex: }
@@ -58,6 +79,7 @@ As a consequence of the previous assumptions, the economy is composed by $N$ hom
 #+LATEX: \label{Tab_exp_resul_long:ch_super}
 #+latex: \resizebox{\textwidth}{!}{%
 |----------------------------------------+-----------------+----------------------+------------------+--------------------+----------------------+--------------|
+|----------------------------------------+-----------------+----------------------+------------------+--------------------+----------------------+--------------|
 | *Shock*                                  | *Economic growth* | *Capacity utilization* | *Investment share* | *Firms indebtedness* | *Firms entry and exit* | *Market share* |
 | <l>                                    |       <c>       |        <c10>         |      <c10>       |        <c>         |         <c5>         |     <c5>     |
 |----------------------------------------+-----------------+----------------------+------------------+--------------------+----------------------+--------------|
@@ -68,10 +90,57 @@ As a consequence of the previous assumptions, the economy is composed by $N$ hom
 | Market price increase                  |                 |                      |                  |                    |          ?           |      ?       |
 | Higher expectational persistence ($\delta$) |        ?        |          ?           |        ?         |         ?          |          ?           |      ?       |
 |----------------------------------------+-----------------+----------------------+------------------+--------------------+----------------------+--------------|
+|----------------------------------------+-----------------+----------------------+------------------+--------------------+----------------------+--------------|
 #+latex: %
 #+latex: }
 #+LATEX: \caption*{\textbf{Source:} Authors' elaboration}
 #+LATEX: \end{table*}
+
+
+
+The previous theoretical gaps exist because the standard SSM has a aggregate nature, so some additional steps are required to answer them.
+For instance, at the firm-level the market-share is more relevant than the aggregate investment share because other firms also dispute for this market.
+In a multi-sectorial model, the sectorial growth and its connections with others may be more significant than the GDP growth rate from a firm perspective.
+Those simple, but necessary, modifications show some issues that arise when dealing with less aggregated models.
+This paper is a first step in this direction.
+
+
+In order to keep the model as simple as possible, we assume an economy composed by only one sector to prevent additional difficulties regarding inter-sectorial dynamics.
+Thus, we can rearrange Equation ref:Ch_super_EQ_inv_super_macro in terms of a firm $f$ market-share ($ms_{f}$):
+#+BEGIN_latex
+\begin{equation}
+\label{Ch_super_EQ_inv_super_micro}
+I_{f} = h_{f}\cdot \left(ms_{f}\cdot\sum_{f=1}^{F}Y_{f}\right)
+\end{equation}
+#+END_latex
+in which $h_{f}$ is the firm-level equivalent marginal propensity to invest and $Y_{f}$ is its production level.
+The economic intuition in Equation ref:Ch_super_EQ_inv_super_micro is to specify each firm's investment in terms of the available share ($ms_{f}$) of the market ($\sum_{f=1}^{F}Y_{f} = Y_{F}$).
+Consequently, firm's investment levels must also change accordingly to its expected market-share ($ms^{e}_{f}$):
+#+BEGIN_latex
+\begin{equation}
+\Delta I_{f} = \Delta h_{f}\cdot(ms^{e}_{f}\cdot Y_{F}) + h_{f}\cdot(\Delta ms^{e}_{f}\cdot Y_{F}) + h_{f}\cdot (ms^{e}_{f}\cdot \Delta Y_{F})
+\end{equation}
+#+END_latex
+
+Besides market-share evolution, other issues regarding firm's heterogeinity emerges.
+For instance, optimistic and pessimist firms may coexist each time.
+Additionally, firms may also follow different investment procedures which could have some non-trivial emergence properties.
+Here is where the advantages of Agent Based (AB) Modeling within the Stock-Flow consistent (SFC) framework (AB-SFC) takes place.
+Based on this methodological approach, it is possible to investigate the emergence of macroeconomic properties from the microeconomic-level interactions while the connections between the financial and real side of the economic is fully specified.
+Thus, we can evaluate which SSM macroeconomic results hold in the presence of heterogeneous firms with different expectational and investment procedures.
+As far as we know, this is the first attempt to extend the SSM model to a firm-level perspective.
+
+In the following subsections, we present the conceptual model that will be simulated later.
+This model represent an economy as simple as possible with heterogeneous firms while all the other institutional sectors are aggregated.
+At odds with conventional AB literature, we assume no thecnological progress to keep it simple[fn::For an detailed description of innovations and thecnological change in AB models, see DOSI whom we refer to as a benchmark model.].
+For simplicity, there is no labor supply restriction, government nor external sector.
+As a consequence of the previous assumptions, the economy is composed by $N$ homogeneous households and $F$ heterogeneous firms[fn::Aggregates variables will be represented by subscript $N$ for households and $F$ for firms.].
+All other auxiliary assumptions -- which will be described latter in this section -- will follow AB literature as long as it do not generate incompatibilities with SSM macroeconomic closure.
+The next subsection presents the model timeline of events.
+
+
+
+
 
 ** Sequence of events
 
@@ -180,7 +249,7 @@ In order to investigate the consequences of heterogeneous investment decisions i
 
 #+BEGIN_latex
 \begin{equation}
-C_{N} = c_{w}\cdot W_{N,t} + c_{p}\cdot FD_{t} + Z_{t}
+C_{N} = \frac{c_{w}\cdot W_{N,t} + c_{p}\cdot FD_{t} + Z_{t}}{p_{f}}
 \end{equation}
 #+END_latex
 in which $1 \geq c_{w} > c_{p} > 0$ are households marginal propensity to consume out of wages and out of distributed profits ($FD$, discussed in Section ref:sec:banking) respectively while autonomous expenditure is given by its exogenously defined growth rate ($g_{Z}$):
@@ -230,18 +299,161 @@ in which $\chi$ is a positive exogenous parameter and $\overline{E}_{t}$ is the 
 As will be discussed in section ref:sec:switching, effective market-share depends both on expected mark-share and effective investment decision, each one explained separately.
 Thus, investment emergence patterns depends on how firms adapts its expectations and changes (or not) its investment functions.
 
-** Banking sector, credit and financial implications
+** Credit and financial positions
 :PROPERTIES:
      :CUSTOM_ID: sec:banking
      :END:
+*** Firms
+**** Credit Demand
 
-*** Firms' credit
+In order to produce, firms demand credit ($L_{f}^{D}$) whenever retained profits -- hold as deposits ($M_{f}$ -- are not enough to match its expenses (investment and wage bill):
 
-*** Household credit
+#+BEGIN_latex
+\begin{equation}
+\Delta L^{D}_{f} = \max [0, p_{f,t}I_{f,t} + W_{f,t} - M_{f,t}]
+\end{equation}
+#+END_latex
+**** Credit Supply
 
-*** Profits and dividends
+Banking credit supply for firms follows the procedures described in REISSL (2020) and textcite:pedrosa_2021_What in which evaluates each firm probability to default ($pr^{D}_{f,t}$) accordingly to a logist function:
 
-*** Interest rate and profit
+#+BEGIN_latex
+\begin{equation}
+\label{Ch_super_EQ_prDefault_firm}
+pr^{D}_{f,t} = \frac{1}{1 + \exp\left( \rho_{1}\frac{\Pi^{e}_{f,t}}{DS_{f,t}} - \rho_{2}\Lambda_{f,t-1} \right)}
+\end{equation}
+#+END_latex
+where $\rho_{1}$ and $\rho_{2}$ are fixed parameters, $\Pi^{e}_{f}$ is the expected operating cash flow, $DS_{f,t}$ is the debt-servicing while $\Lambda_{f,t-1}$ is the firm leverage.
+The economic intuition present in Equation ref:Ch_super_EQ_prDefault_firm it that banks evaluate firms probability to default based on the expected present value of each firm's loan project[fn::In order to keep the model as simple as possible, we assume that banking expectational rule assumes the naïve rule in all scenario. Thus, we ensure that only firms expectational heterogeinity affects the results. Additionally, textcite:reissl_2021_Heterogeneousa -- who we refer for further details --  found that more complex heuristic rules in the banking sector does not change the model results qualitatively.].
+
+Then, considering a non-null probability of default of firms, fixed loans duration and assuming no interest rate change, banks estimate the expected return of each loan project ($L^{r}_{f,t}$) as follows:
+#+BEGIN_latex
+\begin{equation}
+L^{r}_{f,t} = \ldots
+\end{equation}
+#+END_latex
+
+Banks also charges loans in a firm-specific manner by defining spread ($\theta_{B,f_{t}}$) based on firm's debt-servicing to operating cash-flow ratio as in REISSL (2020) and textcite:pedrosa_2021_What,
+#+BEGIN_latex
+\begin{equation}
+\theta_{B,f_{t}} = \mu_{f}\frac{DS_{f,t-1}}{\Pi_{f,t}}
+\end{equation}
+#+END_latex
+in which $\mu_{f}$ is a exogenous parameter set equally across firms and measure banks' sensibility to firms' leverage.
+
+**** Profits and dividends
+
+As usual, firms' gross profit ($\Pi_{f,t}$) -- which we also refer as operating cash flow -- is defined as the total nominal sales ($p_{f}S_{f}$) net of wage bill ($W_{f}$):
+
+#+BEGIN_latex
+\begin{equation}
+\Pi_{f,t} = p_{f,t}\cdot S_{f,t} - W_{f,t}
+\end{equation}
+#+END_latex
+Considering our simplifying assumptions and following the steps described in textcite:pedrosa_2021_What, firms' net profit ($\Pi^{n}_{f}$) is:
+
+#+BEGIN_latex
+\begin{equation}
+\Pi^{n}_{f} = \ldots
+\end{equation}
+#+END_latex
+
+As in textcite:pedrosa_2021_What, we also follow REISSL (2020) to define firms' dividend-payout ratio ($\eta_{f}$) which is a decreasing logistic function of debt-servicing to operating cash-flow ratio:
+#+BEGIN_latex
+\begin{equation}
+\eta_{f,t} = \frac{\eta_{0}}{1+\exp\left(\epsilon\frac{DS_{f,t}}{\Pi_{f,t}}\right)}
+\end{equation}
+#+END_latex
+where $\eta_{0}$ specifies the maximum dividend payout ratio while $\epsilon$ is a fixed parameter equally defined for all firms.
+Thus, firms distribute a $\eta_{f}$ share of its net profit to households in form of dividends ($FD$):
+#+BEGIN_latex
+\begin{equation}
+FD_{t} = \max [0,\eta_{f,t}\Pi_{f,t}^{n}]
+\end{equation}
+#+END_latex
+
+*** Household
+
+**** Credit Demand
+
+In this model, we assume that household consumption has a autonomous component financed by credit or financial wealth -- hold as deposits ($M_{h}$) -- , thus household credit demand ($L^{D}_{h}$) is:
+
+#+BEGIN_latex
+\begin{equation}
+\Delta L^{D}_{h} = \max [0, Z_{t} - M_{h,t-1}]
+\end{equation}
+#+END_latex
+
+**** Credit Supply
+
+For simplicity, we assume no credit restriction to households.
+Thus, autonomous demand is always financed by banks.
+This simplifying hypothesis is equivalent to a null household probability to default ($pr^{D}_{h,t}$) assumed by banks:
+
+#+BEGIN_latex
+\begin{equation}
+pr^{D}_{h,t} = 0
+\end{equation}
+#+END_latex
+Besides the absence of credit restriction to households, we assume that banks charges an spread on intertest rates ($\theta_{B,h_{t}}$) accordingly to debt-servicing ($DS_{h,t-1}$) to disposable income ratio as follows:
+
+#+BEGIN_latex
+\begin{equation}
+\theta_{B_{h_{t}}} = \mu_{h}\frac{DS_{h,t-1}}{YD_{h,t-1}}
+\end{equation}
+#+END_latex
+in which $\mu_{h}$ is an exogenous parameter that captures banks sensibility to households' leverage.
+
+**** Disposable income and net wealth
+
+Households disposable income ($YD$) is defined by the sum of total wages, firms' and banks' distributed profits ($FD_{f}$ and $FD_{b}$ respectively), interest rate on deposits ($r$) net of interest payment on consumption loans ($rl_{h}$):
+
+#+BEGIN_latex
+\begin{equation}
+YD_{t} = \sum_{f=1}^{F}\left(W_{f,t} + FD_{f,t}\right) + FD_{b} + r\cdot M_{h,t-1} - rl_{h}\cdot L_{h,t-1}
+\end{equation}
+\begin{equation}
+rl_{h} = (1+\theta_{B,h_{t}})\cdot r_{t}
+\end{equation}
+#+END_latex
+Thus, households net wealth ($NW_{h}$) is given by:
+#+BEGIN_latex
+\begin{equation}
+\Delta NW_{h} = YD - p_{f,t}\cdot C_{N}
+\end{equation}
+#+END_latex
+Since there is no financial assets other than banking deposits in the model, there is no need to specify how household's allocate its wealth.
+Consequently, households' demand for banking deposits is equal to its total wealth ($V_{h}$):
+
+#+BEGIN_latex
+\begin{equation}
+\Delta M_{h,t} = \Delta V_{h,t} = \max [0, NW_{h,t}]
+\end{equation}
+#+END_latex
+
+*** Banks' profits and dividends
+
+
+Considering a fixed maturity duration, banks' gross profit ($\Pi_{B}$) is equivalent as the interest on loans net of deposits interest rate payment:
+
+#+BEGIN_latex
+\begin{equation}
+\Pi_{B,t} = \sum_{f=1}^{F} \left(\left(1+\theta_{B,f,t}\right)\cdot r_{t}\cdot L_{f,t-1}\right) - (M_{h,t-1} + M_{f,t-1})\cdot r_{t}
+\end{equation}
+#+END_latex
+Next, banks distribute a fixed share ($\eta_{B}$) of its current operational cash-flow net of defaults on loans ($Def$) to households in the form of dividends ($FD_{B}$):
+
+#+BEGIN_latex
+\begin{equation}
+FD_{B,t} = \max [0, \eta_{B}\cdot(\Pi_{B,t} - Def)]
+\end{equation}
+#+END_latex
+Consequently, banks' net worth ($NW_{B}$) is given by:
+#+BEGIN_latex
+\begin{equation}
+\Delta NW_{B,t} = (\Pi_{B,t} - FD_{B,t}) - Def_{t}
+\end{equation}
+#+END_latex
 
 ** Switching mechanism
 :PROPERTIES:

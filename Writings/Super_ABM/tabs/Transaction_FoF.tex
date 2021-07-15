@@ -1,0 +1,27 @@
+\begin{table*}[htb]
+\centering
+\caption{Transactions and Flow of Funds matrix}
+\label{Ch_super_FoF_sheet}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccc}
+  \hline\hline
+                       & \multirow{2}{*}{Households}  & \multicolumn{2}{c}{Firms}    & \multicolumn{2}{c}{Banks}    & \multirow{2}{*}{$\sum$}                 \\\cline{3-6}
+                       &                              & Current                      & Capital                      & Current  & Capital               &   \\\hline
+Wages                  & $+w\sum_{f=1}^{F}N_{f}$         & $-w\sum_{f=1}^{F}N_{f}$         &                              &          &                       & 0 \\
+Consumption            & $-p_{f}C_{N}$                & $+p_{f}C_{N}$                &                              &          &                       & 0 \\
+Investment             &                              & $+\sum_{f=1}^{F}I_{f}$          & $-\sum_{f=1}^{F}I_{f}$          &          &                       & 0 \\
+Inventory accumulation &                              & $+\sum_{f=1}^{F}c_{f}\Delta INV_{f}$ & $-\sum_{f=1}^{F}c_{f}\Delta INV_{f}$ &          &                       & 0 \\
+Interest on loans      & $-rl_{h}\cdot L_{h,t-1}$         & ??                           &                              & ??       &                       & 0 \\
+Interest on deposits   & $r\cdot M_{h,t-1}$               & $r\cdot \sum_{f=1}^{F}M_{f,t-1}$    &                              & $-r\cdot M$  &                       & 0 \\
+Profits                & $\sum_{f=1}^{F}FD_{f} + FD_{B}$ & $-\sum_{f=1}^{F}\Pi_{f}$          & $+\sum_{f=1}^{F}\Pi_{uf}$         & $-\Pi_{B}$ & $+\Pi_{Bu}$             & 0 \\ \hline
+Subtotal               & $+SAV_{h}$                   & $0$                          & $+\sum_{f=1}^{F}SAV_{f}$        & $0$      & $+SAV_{B}$            & 0 \\ \hline
+$\Delta$ Deposits           & $-\Delta M_{h}$                   &                              & $-\sum_{f=1}^{F}M_{f}$          &          & $\Delta M$                 & 0 \\
+$\Delta$ Loans              & $+\Delta L_{h}$                   &                              & $+\sum_{f=1}^{F}L_{f}$          &          & $\Delta L$                 & 0 \\
+Default on loans       &                              &                              & $+\sum_{f=1}^{F}Def_{f}$        &          & $-\sum_{f=1}^{F}Def_{f}$ & 0 \\
+Entry/Exit of firms    & $-\Phi$                         &                              & $+\sum_{f=1}^{F}\Phi_{f}$          &          &                       & 0 \\ \hline
+$\sum$                    & 0                            & 0                            & 0                            & 0        & 0                     & 0 \\
+  \hline\hline
+\end{tabular}%
+}
+\caption*{\textbf{Source:} Authors' Elaboration}
+\end{table*}

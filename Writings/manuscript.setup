@@ -13,7 +13,7 @@ The options are intended to remove default clutter that Org adds automatically t
 #+latex_header: \usepackage[utf8]{inputenc}
 #+latex_header: \usepackage{booktabs}
 #+latex_header: \renewcommand{\arraystretch}{1.1} % Unclear
-#+latex_header: \usepackage{graphicx}
+#+latex_header: \usepackage{graphicx,multirow,lscape,longtable}
 #+latex_header: \usepackage{float}
 #+latex_header: \usepackage{amsmath}
 #+latex_header: \usepackage{csquotes}

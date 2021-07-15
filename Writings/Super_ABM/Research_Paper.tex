@@ -1,11 +1,11 @@
-% Created 2021-07-14 qua 11:58
+% Created 2021-07-15 qui 18:02
 % Intended LaTeX compiler: pdflatex
 \documentclass{SelfArx}
   \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{booktabs}
 \renewcommand{\arraystretch}{1.1} % Unclear
-\usepackage{graphicx}
+\usepackage{graphicx,multirow,lscape,longtable}
 \usepackage{float}
 \usepackage{amsmath}
 \usepackage{csquotes}
@@ -68,7 +68,7 @@ maxcitenames=3]{biblatex}
 \thispagestyle{empty} % Removes page numbering from the first page
 
 \section{Introduction}
-\label{sec:orge2bdf57}
+\label{sec:orge3b4b36}
 There is a relative consensus in the demand-led macroeconomic growth literature that non-residential investment is, at the macroeconomic level, partially induced by income.
 Authors inspired by Sraffian supermultiplier model, on the other hand, state that non-residential investment is fully-induced and is described by the capital adjusment principle.
 As a consequence, this model predict a positive correlational relation between investment share and economic growth while capacity utilization rate is trend-stationary in the long-run.
@@ -97,16 +97,43 @@ Finally, Section \ref{sec:conclusion:ch_super} concludes the paper.
 
 \section{Empirical motivation}
 \label{sec:empirical:ch_super}
+Estrutura de tópicos:
+
+\begin{itemize}
+\item Fatos estilizados sobre investimento induzido
+\item Evidências empíricas da literatura a partir do SSM
+\item Reapresentar tabela de fatos estilizados de DOSI expandida com os do SSM
+\end{itemize}
+
 \section{The model}
 \label{sec:model:ch_super}
-In this section, we present the conceptual model that will be simulated later in section SEÇÃO.
-This model represent an economy as simple as possible with heterogeneous firms while all the other institutional sectors are aggregated.
-At odds with conventional AB literature, we assume no thecnological progress to keep it simple\footnote{For an detailed description of innovations and thecnological change in AB models, see DOSI whom we refer to as a benchmark model.}.
-All other auxiliary assumption will follow AB literature as long as does not generate incompatibility with SSM closure.
+The standard Sraffian supermultiplier macroeconomic model (which will refer as SSM) present by \textcite{serrano_1995_Long,bortis_1996_Structural} attributes a prominent role for non-capacitiy creating autonomous expenditures.
+At odds with most Keynesian demand-led growth models (CITAR), non-residential investment is considered fully induced by income (\(Y\)), following the capital adjustment principle.
+In other words, firms' investment (\(I_{F}\)) reacts to discrepancies between effective and normal capacitiy utilization rate (\(u\) and \(u_{N}\) respectively).
+Formally, we can presents this mechanism following \textcite{serrano_2017_Sraffianc}:
+\begin{latex}
+\begin{equation}
+\label{Ch_super_EQ_inv_super_macro}
+I_{F} = h_{F}\cdot Y
+\end{equation}
+\begin{equation}
+\Delta h_{F} = \beta_{u}(u - u_{n})\cdot h_{F,t-1}
+\end{equation}
+\end{latex}
+where \(h_{F}\) is the marginal propensity to invest (or investment share) while \(\beta_{u}\) is an adjustment parameter.
+Since firms' investment is fully induced by income, this is not the driver of economic growth.
+In the long-run\footnote{More precisely, in the fully adjusted position as described in \cite{freitas_2015_Growthb}.}, when the adjutsment procedure ceases (\(u = u_{N}, \Delta h_{F} = 0\)), only changes on autonomous expenditures growth rate (\(g_{Z}\)) will have persistence effects on GDP growth rate (\(g\)):
+\begin{latex}
+\begin{equation}
+u = u_{N} \Leftrightarrow \Delta h_{F} = 0 \Leftrightarrow g = g_{Z}
+\end{equation}
+\end{latex}
 
-Before moving further to the description of every institutional sectors, we will present the hypothesis of this simplified economy.
-For simplicity, there is only one productive sector, no labor supply restriction, government nor external sector.
-As a consequence of the previous assumptions, the economy is composed by \(N\) homogeneous households and \(F\) heterogeneous firms\footnote{Aggregates variables will be represented by subscript \(N\) for households and \(F\) for firms.}.
+Tables \ref{Tab_exp_resul_trans:ch_super} and \ref{Tab_exp_resul_long:ch_super} compare the effects of some shocks to the baseline level according to the SSM model\footnote{More recently, SSM model has been present for the neo-Kaleckian audience after \textcite{allain_2015_Tacklinga,lavoie_2016_Convergenceb} (hereafter refered as neo-Kaleckian supermultiplier). Besides the divergences in the specification of the investment function, the results as qualitatively the same as those reported in Tables \ref{Tab_exp_resul_trans:ch_super} and \ref{Tab_exp_resul_long:ch_super}. For a detailed discussion of the persistence of a autonomous component in the neo-Kaleckian supermultiplier model, see \cite{fagundes_2017_Role}.}.
+For instance, changes on functional income distribution will have only temporarily effects on economic growth.
+Additionally, as already discussed on Section \ref{sec:empirical:ch_super}, this model predicts a positive relation between investment share and economic growth.
+However, this is a completely aggregated model, so the effect of those shocks on some firm-level variables is unclear.
+For example, an increase on autonomous expenditures growth rate or on wage share could have some persistent consequences for the market structure (\emph{e.g.} firms entry and exit or market-share).
 
 
 
@@ -117,6 +144,7 @@ As a consequence of the previous assumptions, the economy is composed by \(N\) h
 \begin{center}
 \begin{tabular}{lcccccc}
 \hline
+\hline
 \textbf{Shock} & \textbf{Economic growth} & \textbf{Capacity utilization} & \textbf{Investment share} & \textbf{Firms indebtedness} & \textbf{Firms entry and exit} & \textbf{Market share}\\
 \hline
 Autonomous growth rate increase & \(+\) & \(+\) & \(+\) & \(-\) & ? & ?\\
@@ -125,6 +153,7 @@ Higher profit distribution rate &  &  &  & \(+\) & ? & ?\\
 Higher policy rate & \(-\) & \(-\) & \(-\) & \(+\) & ? & \\
 Market price increase &  &  &  &  & ? & ?\\
 Higher expectational persistence (\(\delta\)) & ? & ? & ? & ? & ? & ?\\
+\hline
 \hline
 \end{tabular}
 \end{center}
@@ -142,6 +171,7 @@ Higher expectational persistence (\(\delta\)) & ? & ? & ? & ? & ? & ?\\
 \begin{center}
 \begin{tabular}{lcccccc}
 \hline
+\hline
 \textbf{Shock} & \textbf{Economic growth} & \textbf{Capacity utilization} & \textbf{Investment share} & \textbf{Firms indebtedness} & \textbf{Firms entry and exit} & \textbf{Market share}\\
 \hline
 Autonomous growth rate increase & \(+\) & \(0\) & \(+\) & \(-\) & ? & ?\\
@@ -151,6 +181,7 @@ Higher policy rate & \(0\) & \(0\) & \(0\) & \(+\) & ? & \\
 Market price increase &  &  &  &  & ? & ?\\
 Higher expectational persistence (\(\delta\)) & ? & ? & ? & ? & ? & ?\\
 \hline
+\hline
 \end{tabular}
 \end{center}
 %
@@ -158,17 +189,59 @@ Higher expectational persistence (\(\delta\)) & ? & ? & ? & ? & ? & ?\\
 \caption*{\textbf{Source:} Authors' elaboration}
 \end{table*}
 
+
+
+The previous theoretical gaps exist because the standard SSM has a aggregate nature, so some additional steps are required to answer them.
+For instance, at the firm-level the market-share is more relevant than the aggregate investment share because other firms also dispute for this market.
+In a multi-sectorial model, the sectorial growth and its connections with others may be more significant than the GDP growth rate from a firm perspective.
+Those simple, but necessary, modifications show some issues that arise when dealing with less aggregated models.
+This paper is a first step in this direction.
+
+
+In order to keep the model as simple as possible, we assume an economy composed by only one sector to prevent additional difficulties regarding inter-sectorial dynamics.
+Thus, we can rearrange Equation \ref{Ch_super_EQ_inv_super_macro} in terms of a firm \(f\) market-share (\(ms_{f}\)):
+\begin{latex}
+\begin{equation}
+\label{Ch_super_EQ_inv_super_micro}
+I_{f} = h_{f}\cdot \left(ms_{f}\cdot\sum_{f=1}^{F}Y_{f}\right)
+\end{equation}
+\end{latex}
+in which \(h_{f}\) is the firm-level equivalent marginal propensity to invest and \(Y_{f}\) is its production level.
+The economic intuition in Equation \ref{Ch_super_EQ_inv_super_micro} is to specify each firm's investment in terms of the available share (\(ms_{f}\)) of the market (\(\sum_{f=1}^{F}Y_{f} = Y_{F}\)).
+Consequently, firm's investment levels must also change accordingly to its expected market-share (\(ms^{e}_{f}\)):
+\begin{latex}
+\begin{equation}
+\Delta I_{f} = \Delta h_{f}\cdot(ms^{e}_{f}\cdot Y_{F}) + h_{f}\cdot(\Delta ms^{e}_{f}\cdot Y_{F}) + h_{f}\cdot (ms^{e}_{f}\cdot \Delta Y_{F})
+\end{equation}
+\end{latex}
+
+Besides market-share evolution, other issues regarding firm's heterogeinity emerges.
+For instance, optimistic and pessimist firms may coexist each time.
+Additionally, firms may also follow different investment procedures which could have some non-trivial emergence properties.
+Here is where the advantages of Agent Based (AB) Modeling within the Stock-Flow consistent (SFC) framework (AB-SFC) takes place.
+Based on this methodological approach, it is possible to investigate the emergence of macroeconomic properties from the microeconomic-level interactions while the connections between the financial and real side of the economic is fully specified.
+Thus, we can evaluate which SSM macroeconomic results hold in the presence of heterogeneous firms with different expectational and investment procedures.
+As far as we know, this is the first attempt to extend the SSM model to a firm-level perspective.
+
+In the following subsections, we present the conceptual model that will be simulated later.
+This model represent an economy as simple as possible with heterogeneous firms while all the other institutional sectors are aggregated.
+At odds with conventional AB literature, we assume no thecnological progress to keep it simple\footnote{For an detailed description of innovations and thecnological change in AB models, see DOSI whom we refer to as a benchmark model.}.
+For simplicity, there is no labor supply restriction, government nor external sector.
+As a consequence of the previous assumptions, the economy is composed by \(N\) homogeneous households and \(F\) heterogeneous firms\footnote{Aggregates variables will be represented by subscript \(N\) for households and \(F\) for firms.}.
+All other auxiliary assumptions -- which will be described latter in this section -- will follow AB literature as long as it do not generate incompatibilities with SSM macroeconomic closure.
+The next subsection presents the model timeline of events.
+
 \subsection{Sequence of events}
-\label{sec:org5af80f9}
+\label{sec:org64ba85f}
 
 
 
 \subsection{Production and distribution}
-\label{sec:org4a78229}
+\label{sec:org3325c34}
 
 
 \subsubsection{Firms production plans}
-\label{sec:orgeb30996}
+\label{sec:org94a8402}
 
 Each firm (\(f\)) investment plan (\(Y_{f,t}\), Equation \ref{EQ_Yf}) is defined accordingly to its expected real sales level (\(S^{e}_{f,t}\)) and a desired inventories to sales ratio \((\iota^{T} \in [0,1])\) -- exogenous defined and equal across firms -- to attend unexpected demand boosts as usual in \(K+S\) models.
 
@@ -179,7 +252,7 @@ Y_{f,t} = (1+\iota^{T})\cdot S^{e}_{f,t} - INV_{f,t-1}
 \end{equation}
 \end{latex}
 in which \(INV_{f,t-1}\) is the firm's inventories.
-In baseline scenario, we assume na\{$\backslash$``i\}ve expectational procedure in which expected sales level is equal to its lagged value.
+In baseline scenario, we assume naïve expectational procedure in which expected sales level is equal to its lagged value.
 Alternatives expectational procedures will be discussed in section \ref{sec:switching}.
 After defining an production plan, firms calculates its desired capacitiy utilization rate (\(u^{d}_{f}\), Equation) as follows:
 
@@ -201,7 +274,7 @@ Consequently, current firm's capacity utilization ratio is constrained do be equ
 
 
 \subsubsection{Capital stock}
-\label{sec:org08233e2}
+\label{sec:org2ad24e8}
 
 
 Since there is no thecnological progress nor innovation in the current version of this model, firms' capital stock only differs according to it lifetime (\(\kappa\)).
@@ -215,7 +288,7 @@ K_{f} = \sum_{j=1}^{\kappa < \infty} k_{f,t-j}
 For simplicity, we assume no use depreciation, so each capital good will be replaced only if achieve its maximum lifetime.
 
 \subsubsection{Labor demand and wage bill}
-\label{sec:org75ce158}
+\label{sec:orgfa8a7e6}
 
 In order to produce, firms use a Leontieff-type technology with a fixed combination between labor and physical capital.
 Given no a fixed labor productivity equally defined across workers, labor demand is a function (\(N^{d}_{f,t}\)) of each firm production plan at current capacity utilization level:
@@ -251,7 +324,7 @@ in which \(ms_{f}\) and \(p_{f,t}\) stands for firm's \(f\) market share and pri
 
 
 \subsubsection{Pricing}
-\label{sec:org5613668}
+\label{sec:org90fb905}
 
 We assume a simple pricing mechanism as possible which is defined as a mark-up (\(\theta_{f}\)) over direct unit labor costs (in this case, \(w_{t}\)):
 \begin{latex}
@@ -265,14 +338,14 @@ As we will further explore in section \ref{sec:switching}, expected market-share
 
 
 \subsubsection{Household demand}
-\label{sec:org5b038d7}
+\label{sec:org9ae3517}
 
 
 In order to investigate the consequences of heterogeneous investment decisions in a Sraffian supermultiplier friendly framework, we a assume that household's consumption (\(C_{N}\)) is composed both by an induced (\(W_{N,t}\)) and by an autonomous component (\(Z_{t}\))\footnote{As discussed before, there is a multitude of non-capacitiy creating autonomous expenditures. Autonomous households consumption component was selected only to reduce the complexity of this model.}\textsuperscript{,}\,\footnote{Following \textcite{serrano_1995_Long}, we consider \(Z_{t}\) as an non-capacitiy creating autonomous expenditure because it does not depends on firms' production decisions. Additionally, since banking credit is endogenous, consumption loans does not affect credit availability for other sectors.}:
 
 \begin{latex}
 \begin{equation}
-C_{N} = c_{w}\cdot W_{N,t} + c_{p}\cdot FD_{t} + Z_{t}
+C_{N} = \frac{c_{w}\cdot W_{N,t} + c_{p}\cdot FD_{t} + Z_{t}}{p_{f}}
 \end{equation}
 \end{latex}
 in which \(1 \geq c_{w} > c_{p} > 0\) are households marginal propensity to consume out of wages and out of distributed profits (\(FD\), discussed in Section \ref{sec:banking}) respectively while autonomous expenditure is given by its exogenously defined growth rate (\(g_{Z}\)):
@@ -288,7 +361,7 @@ Differently from firms, we impose that households are not credit constrained\foo
 Implicitly, we assume that banking evaluation of households default probability (\(pr^{D}_{N,t}\)) is null.
 
 \subsubsection{Distribution of demand}
-\label{sec:org28bdf26}
+\label{sec:orga791dd9}
 
 
 Considering previous assumptions, total demand of this economy (\(Y\)) is the sum of aggregate household consumption (\(C_{N}\)) and total firms' investment (\(I_{F}\)) which is the sum of individual firms investment decisions (\(I_{f}\)).
@@ -323,19 +396,168 @@ in which \(\chi\) is a positive exogenous parameter and \(\overline{E}_{t}\) is 
 As will be discussed in section \ref{sec:switching}, effective market-share depends both on expected mark-share and effective investment decision, each one explained separately.
 Thus, investment emergence patterns depends on how firms adapts its expectations and changes (or not) its investment functions.
 
-\subsection{Banking sector, credit and financial implications}
+\subsection{Credit and financial positions}
 \label{sec:banking}
-\subsubsection{Firms' credit}
-\label{sec:org97e03e0}
+\subsubsection{Firms}
+\label{sec:orgf7c0392}
+\paragraph*{Credit Demand}
+\label{sec:orgce4fe4f}
 
-\subsubsection{Household credit}
-\label{sec:org1043186}
+In order to produce, firms demand credit (\(L_{f}^{D}\)) whenever retained profits -- hold as deposits (\(M_{f}\) -- are not enough to match its expenses (investment and wage bill):
 
-\subsubsection{Profits and dividends}
-\label{sec:org1d2f5aa}
+\begin{latex}
+\begin{equation}
+\Delta L^{D}_{f} = \max [0, p_{f,t}I_{f,t} + W_{f,t} - M_{f,t}]
+\end{equation}
+\end{latex}
+\paragraph*{Credit Supply}
+\label{sec:org7915cdc}
 
-\subsubsection{Interest rate and profit}
-\label{sec:orgf06db82}
+Banking credit supply for firms follows the procedures described in REISSL (2020) and \textcite{pedrosa_2021_What} in which evaluates each firm probability to default (\(pr^{D}_{f,t}\)) accordingly to a logist function:
+
+\begin{latex}
+\begin{equation}
+\label{Ch_super_EQ_prDefault_firm}
+pr^{D}_{f,t} = \frac{1}{1 + \exp\left( \rho_{1}\frac{\Pi^{e}_{f,t}}{DS_{f,t}} - \rho_{2}\Lambda_{f,t-1} \right)}
+\end{equation}
+\end{latex}
+where \(\rho_{1}\) and \(\rho_{2}\) are fixed parameters, \(\Pi^{e}_{f}\) is the expected operating cash flow, \(DS_{f,t}\) is the debt-servicing while \(\Lambda_{f,t-1}\) is the firm leverage.
+The economic intuition present in Equation \ref{Ch_super_EQ_prDefault_firm} it that banks evaluate firms probability to default based on the expected present value of each firm's loan project\footnote{In order to keep the model as simple as possible, we assume that banking expectational rule assumes the naïve rule in all scenario. Thus, we ensure that only firms expectational heterogeinity affects the results. Additionally, \textcite{reissl_2021_Heterogeneousa} -- who we refer for further details --  found that more complex heuristic rules in the banking sector does not change the model results qualitatively.}.
+
+Then, considering a non-null probability of default of firms, fixed loans duration and assuming no interest rate change, banks estimate the expected return of each loan project (\(L^{r}_{f,t}\)) as follows:
+\begin{latex}
+\begin{equation}
+L^{r}_{f,t} = \ldots
+\end{equation}
+\end{latex}
+
+Banks also charges loans in a firm-specific manner by defining spread (\(\theta_{B,f_{t}}\)) based on firm's debt-servicing to operating cash-flow ratio as in REISSL (2020) and \textcite{pedrosa_2021_What},
+\begin{latex}
+\begin{equation}
+\theta_{B,f_{t}} = \mu_{f}\frac{DS_{f,t-1}}{\Pi_{f,t}}
+\end{equation}
+\end{latex}
+in which \(\mu_{f}\) is a exogenous parameter set equally across firms and measure banks' sensibility to firms' leverage.
+
+\paragraph*{Profits and dividends}
+\label{sec:orgc569347}
+
+As usual, firms' gross profit (\(\Pi_{f,t}\)) -- which we also refer as operating cash flow -- is defined as the total nominal sales (\(p_{f}S_{f}\)) net of wage bill (\(W_{f}\)):
+
+\begin{latex}
+\begin{equation}
+\Pi_{f,t} = p_{f,t}\cdot S_{f,t} - W_{f,t}
+\end{equation}
+\end{latex}
+Considering our simplifying assumptions and following the steps described in \textcite{pedrosa_2021_What}, firms' net profit (\(\Pi^{n}_{f}\)) is:
+
+\begin{latex}
+\begin{equation}
+\Pi^{n}_{f} = \ldots
+\end{equation}
+\end{latex}
+
+As in \textcite{pedrosa_2021_What}, we also follow REISSL (2020) to define firms' dividend-payout ratio (\(\eta_{f}\)) which is a decreasing logistic function of debt-servicing to operating cash-flow ratio:
+\begin{latex}
+\begin{equation}
+\eta_{f,t} = \frac{\eta_{0}}{1+\exp\left(\epsilon\frac{DS_{f,t}}{\Pi_{f,t}}\right)}
+\end{equation}
+\end{latex}
+where \(\eta_{0}\) specifies the maximum dividend payout ratio while \(\epsilon\) is a fixed parameter equally defined for all firms.
+Thus, firms distribute a \(\eta_{f}\) share of its net profit to households in form of dividends (\(FD\)):
+\begin{latex}
+\begin{equation}
+FD_{t} = \max [0,\eta_{f,t}\Pi_{f,t}^{n}]
+\end{equation}
+\end{latex}
+
+\subsubsection{Household}
+\label{sec:org6850da4}
+
+\paragraph*{Credit Demand}
+\label{sec:org6f142e0}
+
+In this model, we assume that household consumption has a autonomous component financed by credit or financial wealth -- hold as deposits (\(M_{h}\)) -- , thus household credit demand (\(L^{D}_{h}\)) is:
+
+\begin{latex}
+\begin{equation}
+\Delta L^{D}_{h} = \max [0, Z_{t} - M_{h,t-1}]
+\end{equation}
+\end{latex}
+
+\paragraph*{Credit Supply}
+\label{sec:org212d069}
+
+For simplicity, we assume no credit restriction to households.
+Thus, autonomous demand is always financed by banks.
+This simplifying hypothesis is equivalent to a null household probability to default (\(pr^{D}_{h,t}\)) assumed by banks:
+
+\begin{latex}
+\begin{equation}
+pr^{D}_{h,t} = 0
+\end{equation}
+\end{latex}
+Besides the absence of credit restriction to households, we assume that banks charges an spread on intertest rates (\(\theta_{B,h_{t}}\)) accordingly to debt-servicing (\(DS_{h,t-1}\)) to disposable income ratio as follows:
+
+\begin{latex}
+\begin{equation}
+\theta_{B_{h_{t}}} = \mu_{h}\frac{DS_{h,t-1}}{YD_{h,t-1}}
+\end{equation}
+\end{latex}
+in which \(\mu_{h}\) is an exogenous parameter that captures banks sensibility to households' leverage.
+
+\paragraph*{Disposable income and net wealth}
+\label{sec:org0982db3}
+
+Households disposable income (\(YD\)) is defined by the sum of total wages, firms' and banks' distributed profits (\(FD_{f}\) and \(FD_{b}\) respectively), interest rate on deposits (\(r\)) net of interest payment on consumption loans (\(rl_{h}\)):
+
+\begin{latex}
+\begin{equation}
+YD_{t} = \sum_{f=1}^{F}\left(W_{f,t} + FD_{f,t}\right) + FD_{b} + r\cdot M_{h,t-1} - rl_{h}\cdot L_{h,t-1}
+\end{equation}
+\begin{equation}
+rl_{h} = (1+\theta_{B,h_{t}})\cdot r_{t}
+\end{equation}
+\end{latex}
+Thus, households net wealth (\(NW_{h}\)) is given by:
+\begin{latex}
+\begin{equation}
+\Delta NW_{h} = YD - p_{f,t}\cdot C_{N}
+\end{equation}
+\end{latex}
+Since there is no financial assets other than banking deposits in the model, there is no need to specify how household's allocate its wealth.
+Consequently, households' demand for banking deposits is equal to its total wealth (\(V_{h}\)):
+
+\begin{latex}
+\begin{equation}
+\Delta M_{h,t} = \Delta V_{h,t} = \max [0, NW_{h,t}]
+\end{equation}
+\end{latex}
+
+\subsubsection{Banks' profits and dividends}
+\label{sec:org36edc53}
+
+
+Considering a fixed maturity duration, banks' gross profit (\(\Pi_{B}\)) is equivalent as the interest on loans net of deposits interest rate payment:
+
+\begin{latex}
+\begin{equation}
+\Pi_{B,t} = \sum_{f=1}^{F} \left(\left(1+\theta_{B,f,t}\right)\cdot r_{t}\cdot L_{f,t-1}\right) - (M_{h,t-1} + M_{f,t-1})\cdot r_{t}
+\end{equation}
+\end{latex}
+Next, banks distribute a fixed share (\(\eta_{B}\)) of its current operational cash-flow net of defaults on loans (\(Def\)) to households in the form of dividends (\(FD_{B}\)):
+
+\begin{latex}
+\begin{equation}
+FD_{B,t} = \max [0, \eta_{B}\cdot(\Pi_{B,t} - Def)]
+\end{equation}
+\end{latex}
+Consequently, banks' net worth (\(NW_{B}\)) is given by:
+\begin{latex}
+\begin{equation}
+\Delta NW_{B,t} = (\Pi_{B,t} - FD_{B,t}) - Def_{t}
+\end{equation}
+\end{latex}
 
 \subsection{Switching mechanism}
 \label{sec:switching}
@@ -448,12 +670,12 @@ n_{inv,t} = \delta_{I}\cdot n_{inv,t-1} + (1-\delta_{I})\cdot \frac{\exp{\gamma_
 in which parameters \(\delta_{I}, \gamma_{I}\) have the same meaning as in Equation \ref{EQ_rule_prob}.
 
 \subsection{Aggregating and closing the model}
-\label{sec:org55a14df}
+\label{sec:org622e88f}
 
 \subsubsection{Entry and exit of firms}
-\label{sec:org894f467}
+\label{sec:orge92481d}
 \subsubsection{Closing the accounting}
-\label{sec:org80a0359}
+\label{sec:orgfc75198}
 
 
 \section{Validation}
@@ -509,11 +731,30 @@ Full switching & \(rule \in [\text{naïve}, ada, wrt, srt, aa]\) & \(inv \in [NK
 \label{sec:conclusion:ch_super}
 
 \section{Acknowledgments}
-\label{sec:org59a2fc3}
+\label{sec:org5d0275b}
 
 Agradecimentos
 
 
 
 \printbibliography
+
+
+\appendix
+\section{Appendix}
+\label{sec:org12bda4b}
+\label{Ch_super_appen:A}
+
+\subsection{Tables}
+\label{sec:orgae5b5b1}
+
+\include{./tabs/Balance_Sheet.tex}
+\include{./tabs/Transaction_FoF.tex}
+
+
+\subsection{Calibration}
+\label{sec:orgc62df85}
+
+\subsection{Robustness check}
+\label{sec:org4fddbc8}
 \end{document}

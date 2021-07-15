@@ -26,6 +26,9 @@
 :PROPERTIES:
      :CUSTOM_ID: sec:empirical:ch_super
      :END:
+
+#+INCLUDE: "Empirical.org"
+
 ** The model
 :PROPERTIES:
      :CUSTOM_ID: sec:model:ch_super
@@ -60,3 +63,21 @@ Agradecimentos
 
   \printbibliography
   #+END_EXPORT
+
+
+* Tmp appendix :ignore:
+#+Latex: \appendix
+* Appendix
+#+LATEX: \label{Ch_super_appen:A}
+
+** Tables
+
+#+begin_export latex
+\include{./tabs/Balance_Sheet.tex}
+\include{./tabs/Transaction_FoF.tex}
+#+end_export
+
+
+** Calibration
+
+** Robustness check
